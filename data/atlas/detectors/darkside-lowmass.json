@@ -1,0 +1,107 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:darkside-lowmass"
+  ],
+  "id": "detector:darkside-lowmass",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "proposed (conceptual design)",
+      "locator": "arXiv:2209.01177, abstract",
+      "note": "Start = arXiv submission of the conceptual design paper (2 September 2022); published in Phys. Rev. D 107, 112006 (2023). The host site is named only in the 2025 SNOLAB report.",
+      "quote": "A conceptual design for a new detector, DarkSide-LowMass, is presented, based on the DarkSide-50 detector and progress toward DarkSide-20k, optimized for a low-threshold electron-counting measurement.",
+      "sources": [
+        "src:darkside-lowmass-conceptual-design-2023"
+      ],
+      "start": "2022-09",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "DarkSide-LowMass detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "arXiv:2507.11368, Sec. 5.4",
+      "note": "Primary plan: inside the DEAP-3600 water tank in the SNOLAB Cube Hall (arXiv:2507.11368, Sec. 5.4).",
+      "quote": "The primary plan involves placing DSLM’s inner detector inside the DEAP-3600 water tank at SNOLAB",
+      "role": "main",
+      "site_id": "site:snolab-underground-lab",
+      "sources": [
+        "src:damic-2025-snolab-workshop-status"
+      ],
+      "start": "2025-07",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:darkside-lowmass-conceptual-design-2023",
+    "src:damic-2025-snolab-workshop-status",
+    "src:argo-cap2025-global-argon-search-abstract"
+  ],
+  "specs": {
+    "active_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "1.5-tonne",
+      "locator": "arXiv:2507.11368, Sec. 5.4",
+      "note": "",
+      "quote": "a 1.5-tonne (1-tonne fiducial) double-phase TPC optimized for S2-only DM searches",
+      "sources": [
+        "src:damic-2025-snolab-workshop-status"
+      ],
+      "unit": "t",
+      "value": 1.5,
+      "verified_at": "2026-10-26"
+    },
+    "fiducial_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "1-tonne",
+      "locator": "arXiv:2507.11368, Sec. 5.4",
+      "note": "",
+      "quote": "a 1.5-tonne (1-tonne fiducial) double-phase TPC optimized for S2-only DM searches",
+      "sources": [
+        "src:damic-2025-snolab-workshop-status"
+      ],
+      "unit": "t",
+      "value": 1,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "proposed",
+  "subsystems": [],
+  "summary": {
+    "plain": "DarkSide-LowMass is a proposed 1.5-tonne liquid argon detector designed to detect dark matter lighter than about 10 GeV through the faint electric charge it would free in the argon. It is a project of the Global Argon Dark Matter Collaboration; the primary plan is to install it at SNOLAB in Canada.",
+    "technical": "Conceptual design (Phys. Rev. D 107, 112006): dual-phase LAr TPC in an acrylic vessel viewed by two photosensor arrays, inside a bath of underground argon (veto) in a cryostat in a water tank, optimised for an electron-counting (ionisation-only) analysis with 2 or 4 electron thresholds; projected sensitivity to GeV-scale dark matter down to the solar-neutrino floor and to 10 MeV/c^2 with the Migdal effect or electron scattering. The 2025 SNOLAB report gives 1.5 t (1 t fiducial) and a primary plan to place the inner detector in the DEAP-3600 water tank; the 2022 paper left the site open ('LNGS or a lab comparably far from Aria'). No approval or funding decision was found."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2209.01177, abstract",
+    "note": "",
+    "quote": "A conceptual design for a new detector, DarkSide-LowMass, is presented, based on the DarkSide-50 detector and progress toward DarkSide-20k, optimized for a low-threshold electron-counting measurement.",
+    "sources": [
+      "src:darkside-lowmass-conceptual-design-2023"
+    ],
+    "value": "Dual-phase liquid argon TPC optimised for ionisation-only (electron-counting) analyses",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "noble_liquid_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "argon_tpc"
+  ],
+  "type": "detector"
+}

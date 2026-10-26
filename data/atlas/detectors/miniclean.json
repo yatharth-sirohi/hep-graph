@@ -1,0 +1,169 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:miniclean"
+  ],
+  "id": "detector:miniclean",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2014-03",
+      "label": "assembly at SNOLAB",
+      "locator": "snolab.ca/experiment/miniclean",
+      "note": "Start: SNOLAB's page says MiniCLEAN 'began operating at SNOLAB in 2013'; no run before 2017 is documented in the sources read, so 2013 is read as the start of its presence/assembly underground (not verified). End: the first source (March 2014) saying the detector is in final assembly and commissioning ('Assembly of the experiment is underway at SNOLAB').",
+      "quote": "MiniCLEAN began operating at SNOLAB in 2013 and began decommissioning in 2019.",
+      "sources": [
+        "src:snolab-miniclean-page",
+        "src:miniclean-update-2014"
+      ],
+      "start": "2013",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2019",
+      "label": "final assembly, commissioning and cold-gas run",
+      "locator": "arXiv:1403.4842, Sec. 2",
+      "note": "Only a cold argon gas run (February-April 2017, 18.4 live days) is documented; no source read reports a liquid-argon dark matter run. 2014 sources expected cooling and liquefaction from summer 2014 (arXiv:1403.4842, Sec. 3); the 2017 papers still describe the detector as in commissioning. End: SNOLAB says decommissioning began in 2019.",
+      "quote": "The MiniCLEAN detector is undergoing finally assembly and commissioning at the SNOLAB facility in Sudbury, Canada.",
+      "sources": [
+        "src:miniclean-update-2014",
+        "src:miniclean-triplet-lifetime-2019",
+        "src:snolab-miniclean-page"
+      ],
+      "start": "2014-03",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2017-04",
+      "kind": "run",
+      "label": "cold argon gas run",
+      "locator": "arXiv:1903.06706, Sec. 4.1",
+      "note": "39 runs, 18.4 days of live time during the cooling phase (gas below 140 K).",
+      "quote": "Data used in this analysis were taken from February to April 2017",
+      "sources": [
+        "src:miniclean-triplet-lifetime-2019"
+      ],
+      "start": "2017-02",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed (decommissioning began)",
+      "locator": "snolab.ca/experiment/miniclean",
+      "note": "SNOLAB lists the experiment as 'Completed' and says it 'began decommissioning in 2019'; the exact date is not given.",
+      "quote": "MiniCLEAN began operating at SNOLAB in 2013 and began decommissioning in 2019.",
+      "sources": [
+        "src:snolab-miniclean-page"
+      ],
+      "start": "2019",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "MiniCLEAN detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2019",
+      "locator": "snolab.ca/experiment/miniclean",
+      "note": "In the water shield tank in the SNOLAB Cube Hall (arXiv:1403.4842, Fig. 4: 'inside the water shield tank in the SNOLAB Cube Hall'); the SNOLAB site record covers the whole underground laboratory.",
+      "quote": "MiniCLEAN began operating at SNOLAB in 2013 and began decommissioning in 2019.",
+      "role": "main",
+      "site_id": "site:snolab-underground-lab",
+      "sources": [
+        "src:snolab-miniclean-page"
+      ],
+      "start": "2013",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:snolab-miniclean-page",
+    "src:miniclean-dpf-2011",
+    "src:miniclean-update-2014",
+    "src:miniclean-cold-gas-run-proceedings-2017",
+    "src:miniclean-triplet-lifetime-2019"
+  ],
+  "specs": {
+    "fiducial_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "150 kg",
+      "locator": "arXiv:1711.02117, abstract",
+      "note": "",
+      "quote": "a 500 kg (150 kg) target (fiducial) mass",
+      "sources": [
+        "src:miniclean-cold-gas-run-proceedings-2017"
+      ],
+      "unit": "kg",
+      "value": 150,
+      "verified_at": "2026-10-26"
+    },
+    "pmt_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "92 photomultiplier tubes",
+      "locator": "arXiv:1711.02117, abstract",
+      "note": "",
+      "quote": "instrumented with 92 photomultiplier tubes placed in the cryogen temperature",
+      "sources": [
+        "src:miniclean-cold-gas-run-proceedings-2017"
+      ],
+      "unit": "",
+      "value": 92,
+      "verified_at": "2026-10-26"
+    },
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "500 kg",
+      "locator": "arXiv:1711.02117, abstract",
+      "note": "",
+      "quote": "a 500 kg (150 kg) target (fiducial) mass",
+      "sources": [
+        "src:miniclean-cold-gas-run-proceedings-2017"
+      ],
+      "unit": "kg",
+      "value": 500,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "MiniCLEAN was a 500 kg detector of liquid argon (or liquid neon) in the Cube Hall at SNOLAB, Canada, built to test a simple single-phase way of hunting for WIMP dark matter. A cold-gas test run took place in 2017 and SNOLAB reports decommissioning began in 2019. No dark matter result was published.",
+    "technical": "Single-phase liquid argon/neon scintillation detector: 92 cryogenic PMTs with nearly 4pi coverage of a 500 kg (150 kg fiducial) target in a stainless-steel inner vessel, inside a vacuum outer vessel and a water shield tank with a 48-PMT muon veto in the SNOLAB Cube Hall. Pulse-shape discrimination separates nuclear recoils from 39Ar beta events; a 39Ar spike was planned to demonstrate its reach. Prototype for a multi-tonne CLEAN detector. Only a cold-gas run (February-April 2017) is documented; it gave a triplet lifetime of 3.480 us in gaseous argon. No WIMP-search result is published."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:1711.02117, abstract",
+    "note": "",
+    "quote": "The MiniCLEAN dark matter experiment will exploit a single-phase liquid-argon detector instrumented with 92 photomultiplier tubes placed in the cryogen temperature with 4-$\\pi$ coverage of a 500 kg (150 kg) target (fiducial) mass.",
+    "sources": [
+      "src:miniclean-cold-gas-run-proceedings-2017"
+    ],
+    "value": "Single-phase liquid argon (or neon) scintillation detector with PMTs in the cryogen",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

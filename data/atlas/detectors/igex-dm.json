@@ -1,0 +1,137 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:igex-dm"
+  ],
+  "id": "detector:igex-dm",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2002",
+      "kind": "run",
+      "label": "dark matter phase of IGEX at Canfranc (one enriched 76Ge detector)",
+      "locator": "arXiv:hep-ex/0002053, abstract",
+      "note": "Start: bounded by the first IGEX-DM paper (February 2000), which says 'A recent upgrade has made it possible to use them in a search for WIMPs'; the start of the dark matter phase is not dated. End: bounded by the November 2002 status talk that has the experiment 'currently operating'.",
+      "quote": "are currently operating in the Canfranc Underground Laboratory with an overburden of 2450 m.w.e. A recent upgrade has made it possible to use them in a search for WIMPs.",
+      "sources": [
+        "src:igex-dm-new-constraints-2000",
+        "src:igex-dm-status-2002"
+      ],
+      "start": "2000",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed (no end date published)",
+      "locator": "arXiv:astro-ph/0211535, Sec. 1",
+      "note": "Year of the latest source read (November 2002); no source states when the dark matter phase ended. Its proposed extension, GEDEON, is not recorded (no design report or approval).",
+      "quote": "The IGEX dark matter experiment is currently operating one germanium detector with this purpose in the Canfranc Underground Laboratory.",
+      "sources": [
+        "src:igex-dm-status-2002"
+      ],
+      "start": "2002",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "IGEX 76Ge detector (dark matter configuration)",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2002",
+      "locator": "arXiv:hep-ex/0002053, abstract",
+      "note": "Canfranc laboratory at 2450 m.w.e.; the Atlas site record is one approximate point for the laboratory.",
+      "quote": "are currently operating in the Canfranc Underground Laboratory with an overburden of 2450 m.w.e. A recent upgrade has made it possible to use them in a search for WIMPs.",
+      "role": "main",
+      "site_id": "site:lsc-canfranc",
+      "sources": [
+        "src:igex-dm-new-constraints-2000"
+      ],
+      "start": "2000",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:igex-dm-new-constraints-2000",
+    "src:igex-dm-improved-constraints-2002",
+    "src:igex-dm-status-2002"
+  ],
+  "specs": {
+    "overburden": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "depth_mwe",
+      "display": "2450 m.w.e.",
+      "locator": "arXiv:hep-ex/0002053, Sec. 2",
+      "note": "",
+      "quote": "has an overburden of 2450 m.w.e.",
+      "sources": [
+        "src:igex-dm-new-constraints-2000"
+      ],
+      "unit": "m.w.e.",
+      "value": 2450,
+      "verified_at": "2026-10-26"
+    },
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "2.2 kg",
+      "locator": "arXiv:astro-ph/0211535, Sec. 2",
+      "note": "Active mass about 2.0 kg, enriched to 86% in 76Ge (same section).",
+      "quote": "One of the IGEX detectors of 2.2",
+      "sources": [
+        "src:igex-dm-status-2002"
+      ],
+      "unit": "kg",
+      "value": 2.2,
+      "verified_at": "2026-10-26"
+    },
+    "threshold": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "4 keV",
+      "locator": "arXiv:hep-ex/0002053, abstract",
+      "note": "Approximate threshold of the detector used in the 2000 analysis (30 days of data).",
+      "quote": "energy threshold of ~4 keV",
+      "sources": [
+        "src:igex-dm-new-constraints-2000"
+      ],
+      "unit": "keV",
+      "value": 4,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "IGEX-DM was the dark matter search of the International Germanium Experiment. One 2-kilogram germanium crystal, made for a rare-decay study, was used deep under the Pyrenees at Canfranc to look for dark matter particles recoiling off germanium, and set limits on their interaction.",
+    "technical": "The low-energy data acquisition of an IGEX 76Ge (enriched to 86%) double-beta detector (2.2 kg, ~2.0 kg active; called RG-2 in a 2000 proceedings) with ~4 keV threshold, in IGEX's 2.5 t archaeological-lead shield with muon veto and neutron moderator, in the Canfranc laboratory (2450 m.w.e.). Spin-independent WIMP-nucleon exclusion plots from 30 days (2000) and 40 days (2002) of raw data; the 2002 contour enters the DAMA region."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:astro-ph/0211535, Sec. 2",
+    "note": "",
+    "quote": "One of the IGEX detectors of 2.2",
+    "sources": [
+      "src:igex-dm-status-2002"
+    ],
+    "value": "A 2.2 kg p-type high-purity germanium detector, enriched to 86% in 76Ge, read out at low energy in a lead, polyethylene and muon-veto shield",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "germanium",
+  "technology_classes": [
+    "germanium"
+  ],
+  "type": "detector"
+}

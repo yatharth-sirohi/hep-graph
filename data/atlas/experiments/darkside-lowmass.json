@@ -1,0 +1,124 @@
+{
+  "aliases": [
+    "DSLM",
+    "DarkSide-LM"
+  ],
+  "collaboration_ids": [
+    "collaboration:gadmc"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:snolab",
+      "locator": "arXiv:2507.11368, Sec. 5.4",
+      "note": "The 2025 SNOLAB report calls SNOLAB (inside the DEAP-3600 water tank) the 'primary plan'; a 2025 CAP abstract says the ARGOlite cryostat is being designed so that it could hold DarkSide-LowMass. The 2022 conceptual design paper names no site. Start = date of the report (July 2025).",
+      "quote": "The primary plan involves placing DSLM’s inner detector inside the DEAP-3600 water tank at SNOLAB",
+      "role": "host",
+      "sources": [
+        "src:damic-2025-snolab-workshop-status"
+      ],
+      "start": "2025-07",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:darkside-lowmass",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "proposed (conceptual design)",
+      "locator": "arXiv:2209.01177, abstract",
+      "note": "Start = arXiv submission of the conceptual design paper (2 September 2022); published in Phys. Rev. D 107, 112006 (2023). The host site is named only in the 2025 SNOLAB report.",
+      "quote": "A conceptual design for a new detector, DarkSide-LowMass, is presented, based on the DarkSide-50 detector and progress toward DarkSide-20k, optimized for a low-threshold electron-counting measurement.",
+      "sources": [
+        "src:darkside-lowmass-conceptual-design-2023"
+      ],
+      "start": "2022-09",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "TPC target mass (fiducial: 1 t)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "1.5-tonne",
+        "locator": "arXiv:2507.11368, Sec. 5.4",
+        "note": "",
+        "quote": "a 1.5-tonne (1-tonne fiducial) double-phase TPC optimized for S2-only DM searches",
+        "sources": [
+          "src:damic-2025-snolab-workshop-status"
+        ],
+        "unit": "t",
+        "value": 1.5,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [
+    {
+      "confidence": "approximate",
+      "experiment_id": "experiment:darkside-50",
+      "locator": "arXiv:2209.01177, abstract",
+      "note": "Design heritage ('based on the DarkSide-50 detector'), not a statement that DarkSide-50 was renamed or upgraded; DarkSide-20k is the complementary project (relation stored on experiment:darkside-20k).",
+      "quote": "based on the DarkSide-50 detector and progress toward DarkSide-20k",
+      "relation": "predecessor",
+      "sources": [
+        "src:darkside-lowmass-conceptual-design-2023"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "DarkSide-LowMass",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Qualifies through a published conceptual design (Phys. Rev. D 107, 112006) plus the 2025 SNOLAB report naming SNOLAB as the primary plan. The design paper names no site ('If DarkSide-LowMass runs at LNGS or a lab comparably far from Aria'), so the host is approximate and could change; no approval or funding decision was found.",
+    "No result of DarkSide-LowMass exists (it is a sensitivity-projection paper); the DarkSide-50 low-mass and S2-only results are DarkSide-50's."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2209.01177, abstract",
+      "note": "",
+      "quote": "These studies show that DarkSide-LowMass can achieve sensitivity to light dark matter down to the solar neutrino floor for GeV-scale masses",
+      "sources": [
+        "src:darkside-lowmass-conceptual-design-2023"
+      ],
+      "value": "Dark matter lighter than 10 GeV/c^2: sensitivity down to the solar neutrino floor for GeV-scale masses",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:darkside-lowmass-conceptual-design-2023",
+    "src:damic-2025-snolab-workshop-status",
+    "src:argo-cap2025-global-argon-search-abstract"
+  ],
+  "status": "proposed",
+  "summary": {
+    "plain": "DarkSide-LowMass is a proposed 1.5-tonne liquid argon detector designed to detect dark matter lighter than about 10 GeV through the faint electric charge it would free in the argon. It is a project of the Global Argon Dark Matter Collaboration; the primary plan is to install it at SNOLAB in Canada.",
+    "technical": "Conceptual design (Phys. Rev. D 107, 112006): dual-phase LAr TPC in an acrylic vessel viewed by two photosensor arrays, inside a bath of underground argon (veto) in a cryostat in a water tank, optimised for an electron-counting (ionisation-only) analysis with 2 or 4 electron thresholds; projected sensitivity to GeV-scale dark matter down to the solar-neutrino floor and to 10 MeV/c^2 with the Migdal effect or electron scattering. The 2025 SNOLAB report gives 1.5 t (1 t fiducial) and a primary plan to place the inner detector in the DEAP-3600 water tank; the 2022 paper left the site open ('LNGS or a lab comparably far from Aria'). No approval or funding decision was found."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

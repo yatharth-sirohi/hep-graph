@@ -1,0 +1,175 @@
+{
+  "aliases": [
+    "CYGNO/INITIUM",
+    "CYGNus module with Optical readout"
+  ],
+  "collaboration_ids": [
+    "collaboration:cygno"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:lngs",
+      "locator": "arXiv:2306.16856, abstract",
+      "note": "Start = the LIME prototype installed underground in February 2022; the CYGNO-04 demonstrator is under construction in Hall F (arXiv:2510.23229). The hall of LIME at LNGS is not named in the sources read. The proposal naming LNGS as host dates from January 2019.",
+      "quote": "that has been installed in underground Laboratori Nazionali del Gran Sasso in February 2022.",
+      "role": "host",
+      "sources": [
+        "src:cygno-lime-prototype-2023"
+      ],
+      "start": "2022-02",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:cygno",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2025-10",
+      "kind": "lifecycle",
+      "label": "proposal (CDR 2019, TDR 2023) and prototype R&D (LIME)",
+      "locator": "arXiv:1901.04190, abstract",
+      "note": "Start = the arXiv submission of the proposal paper (14 January 2019), which names LNGS as the host; the Conceptual Design Report is dated 20 March 2019 and the CYGNO-04 Technical Design Report 27 February 2023. End = the first source stating that CYGNO-04 is under construction (arXiv:2510.23229, October 2025); the actual start of construction is not published. No approval date is published.",
+      "quote": "CYGNO is a new proposal supported by INFN, the Italian National Institute for Nuclear Physics",
+      "sources": [
+        "src:cygno-1m3-module-proposal-2019",
+        "src:cygno-conceptual-design-report-2019",
+        "src:cygno-04-technical-design-report-2023"
+      ],
+      "start": "2019-01",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "derived",
+      "end": "2024-05",
+      "kind": "run",
+      "label": "LIME 50 L prototype (PHASE 0 R&D): underground data taking at LNGS (five periods)",
+      "locator": "arXiv:2306.16856, abstract",
+      "note": "Start verified (installed underground in February 2022). End is derived: February 2022 plus the 'around 27 months' of the underground campaign (arXiv:2603.22595, Sec. 2: 'The underground data taking campaign lasted around 27 months'); the paper does not state an end date.",
+      "quote": "that has been installed in underground Laboratori Nazionali del Gran Sasso in February 2022.",
+      "sources": [
+        "src:cygno-lime-prototype-2023",
+        "src:cygno-gaseous-tpc-optical-readout-2026"
+      ],
+      "start": "2022-02",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "CYGNO-04 (0.4 m^3) demonstrator under construction in LNGS Hall F",
+      "locator": "arXiv:2510.23229, abstract",
+      "note": "Start = the date of the first source stating 'is constructing' (arXiv:2510.23229 v1, 23 October 2025); the true start is earlier or unpublished. The March 2026 paper says the demonstrator is 'to be completed in 2026'; no source read says it has been completed.",
+      "quote": "Currently, the CYGNO Collaboration is constructing the detector demonstrator, CYGNO-04, in Hall F at Laboratori Nazionali del Gran Sasso (LNGS).",
+      "sources": [
+        "src:cygno-field-cage-cathode-2025",
+        "src:cygno-gaseous-tpc-optical-readout-2026",
+        "src:cygno-04-technical-design-report-2023"
+      ],
+      "start": "2025-10",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "CYGNO-04 demonstrator volume",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "volume",
+        "display": "0.4 m^3",
+        "locator": "arXiv:2603.22595, abstract",
+        "note": "Sensitive volume of the CYGNO-04 demonstrator (back-to-back TPC).",
+        "quote": "the next step is the deployment of a 0.4 m3 demonstrator, CYGNO-04, to be completed in 2026.",
+        "sources": [
+          "src:cygno-gaseous-tpc-optical-readout-2026"
+        ],
+        "unit": "m^3",
+        "value": 0.4,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "LIME prototype active volume",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "volume",
+        "display": "50 L",
+        "locator": "arXiv:2603.22595, Sec. 2",
+        "note": "LIME prototype, the largest prototype built in the R&D phase.",
+        "quote": "LIME is a 50 L active volume TPC",
+        "sources": [
+          "src:cygno-gaseous-tpc-optical-readout-2026"
+        ],
+        "unit": "L",
+        "value": 50,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "CYGNO",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "The CYGNUS proto-collaboration (a proposed multi-site network of directional TPCs) is not recorded as an experiment: it has no fixed host site, no approval and no results (see the log).",
+    "No reachable official CYGNO or INITIUM website was found (web.infn.it/cygno returned 404 on 2026-10-26); links.website stays null.",
+    "CYGNO-04 is in Hall F of LNGS, which has no site record; the LNGS Hall B site (the facility's primary site, the same approximate coordinate as halls A and C) is referenced.",
+    "The CYGNO collaboration has published detector R&D and background studies with the LIME prototype but, in the sources read, no dark matter exclusion limit."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2202.05480, abstract",
+      "note": "",
+      "quote": "The CYGNO experiment (a CYGNus module with Optical readout) aims to exploit the optical readout approach of multiple-GEM structures in large volume TPCs for the study of rare events as interactions of low-mass DM or solar neutrinos.",
+      "sources": [
+        "src:cygno-experiment-instruments-2022"
+      ],
+      "value": "Directional search for low-mass WIMP dark matter with an optically read out gas TPC",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cygno-1m3-module-proposal-2019",
+    "src:cygno-conceptual-design-report-2019",
+    "src:cygno-experiment-instruments-2022",
+    "src:cygno-04-technical-design-report-2023",
+    "src:cygno-lime-prototype-2023",
+    "src:cygno-field-cage-cathode-2025",
+    "src:cygno-gaseous-tpc-optical-readout-2026",
+    "src:cygno-light-yield-enhancement-2024",
+    "src:cygno-bayesian-3d-reconstruction-2025",
+    "src:cygno-negative-ion-drift-2026"
+  ],
+  "status": "construction",
+  "summary": {
+    "plain": "CYGNO is a directional dark matter project at Gran Sasso. A gas chamber of helium and CF4 turns particle tracks into light that cameras photograph, giving 3D tracks and their direction. A 50-litre prototype ran underground; a 0.4 cubic-metre demonstrator is being built.",
+    "technical": "CYGNus module with Optical readout: He:CF4 (60:40) atmospheric-pressure TPC with triple-GEM amplification and optical readout (sCMOS camera for X-Y, PMTs for the drift coordinate). PHASE 0: 50 L LIME prototype, commissioned overground at LNF and installed underground at LNGS in February 2022 (about 27 months of data in five shielding configurations). PHASE 1: CYGNO-04, a 0.4 m^3 back-to-back TPC in LNGS Hall F, under construction; PHASE 2 aims at O(30) m^3. Part of the CYGNUS proto-collaboration; INITIUM ERC grant."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection",
+    "topic:detector-rd"
+  ],
+  "type": "experiment"
+}

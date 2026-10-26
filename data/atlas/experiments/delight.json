@@ -1,0 +1,175 @@
+{
+  "aliases": [
+    "Direct search Experiment for Light dark matter"
+  ],
+  "collaboration_ids": [
+    "collaboration:delight"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:vue-des-alpes-underground-laboratory",
+      "locator": "arXiv:2512.15278, Sec. 3",
+      "note": "Phase-I host named in the TAUP 2025 overview paper (arXiv 17 Dec 2025). Later phases are 'in an underground laboratory' (not named). No DELight source read names Modane. The 2026 KIT release says only that the experiment is set up 'in an underground laboratory'.",
+      "quote": "In phase-I, DELight will be located at the Vue-des-Alpes (VdA) underground laboratory [18], a shallow lab in Switzerland with 230 m of rock overburden (∼630 mwe).",
+      "role": "host",
+      "sources": [
+        "src:delight-taup2025-overview-arxiv"
+      ],
+      "start": "2025-12",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:delight",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2026-03",
+      "label": "proposed experiment (planning phase)",
+      "locator": "arXiv:2209.10950, abstract",
+      "note": "Start is the arXiv submission of the first DELight paper (22 Sep 2022). The 2025 version of that paper still says 'DELight is currently in its planning phase'; the HEiKA STAR demonstrator funding of 2025 is listed on the official news page.",
+      "quote": "The new ``Direct search Experiment for Light dark matter'', DELight, will be using superfluid helium as active target, instrumented with magnetic micro-calorimeters.",
+      "sources": [
+        "src:delight-scipost-proceedings-2022-arxiv"
+      ],
+      "start": "2022-09",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "funded: DFG Research Unit 6006 (design, build and operate phase I)",
+      "locator": "official news page, 'DFG Research Unit Funding - March 2026'",
+      "note": "Funding award to design, build and operate phase I (official page, March 2026; KIT press release of 2 April 2026). Not 'construction': the KIT release says only that a cryogenic platform is being built in Heidelberg and that the experiment 'is being set up in an underground laboratory' (not named there).",
+      "quote": "The Deutsche Forschungsgemeinschaft (DFG) - German Research Foundation has awarded DELight the funding to design, build, and operate Phase-I of the experiment within the framework of the DFG Research Unit 6006",
+      "sources": [
+        "src:delight-official-news-page"
+      ],
+      "start": "2026-03",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Phase-I superfluid helium volume",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "volume",
+        "display": "~1L",
+        "locator": "official experiment page",
+        "note": "The 2022 proceedings (v2) said the first cell would hold 10 L; the TAUP 2025 paper and the official page give ~1 L for phase I and 10 L for phase II.",
+        "quote": "The first phase of the DELight experiment will consist of a ~1L volume of superfluid helium",
+        "sources": [
+          "src:delight-official-experiment-page"
+        ],
+        "unit": "L",
+        "value": 1,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Phase-I energy threshold goal",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "20 eV",
+        "locator": "arXiv:2512.15278, Sec. 3",
+        "note": "",
+        "quote": "The energy threshold goal of DELight is 20 eV for phase-I.",
+        "sources": [
+          "src:delight-taup2025-overview-arxiv"
+        ],
+        "unit": "eV",
+        "value": 20,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Phase-I exposure goal",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "exposure",
+        "display": "1 kg·day",
+        "locator": "IDM 2026 talk abstract",
+        "note": "",
+        "quote": "With an exposure of just 1 kg·day, DELight will probe new regions of the parameter space",
+        "sources": [
+          "src:delight-idm2026-abstract"
+        ],
+        "unit": "kg d",
+        "value": 1,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "home page",
+      "note": "",
+      "quote": "DELight is an upcoming direct detection dark matter experiment using a novel approach to probe the thus far uncharted low mass dark matter parameter space.",
+      "sources": [
+        "src:delight-official-site"
+      ],
+      "value": "https://delight.kit.edu/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "DELight",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Status 'approved' (DFG funding of March 2026 to design, build and operate phase I), not 'construction' or 'active'.",
+    "Conflicts: first-phase helium volume 10 L (2209.10950 v2) vs ~1 L (TAUP 2025 paper and official page); rock overburden of the host 230 m / ~630 mwe (TAUP 2025) vs 235 m / 620 m.w.e. (GeMSE papers).",
+    "No dark matter result exists. The MMC resolution paper is a component test 'towards the DELight experiment'."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2209.10950v2, Sec. 4",
+      "note": "",
+      "quote": "DELight is currently in its planning phase and will be designed to probe LDM down to sub-100 MeV masses.",
+      "sources": [
+        "src:delight-scipost-proceedings-2022-arxiv"
+      ],
+      "value": "Probe light dark matter down to sub-100 MeV/c^2 masses in nuclear scattering with a superfluid helium target",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:delight-scipost-proceedings-2022-arxiv",
+    "src:delight-taup2025-overview-arxiv",
+    "src:delight-official-site",
+    "src:delight-official-experiment-page",
+    "src:delight-official-news-page",
+    "src:delight-kit-news-2026",
+    "src:delight-idm2026-abstract"
+  ],
+  "status": "approved",
+  "summary": {
+    "plain": "DELight is a planned dark matter experiment that will use superfluid helium, cooled to a few thousandths of a degree above absolute zero, and very sensitive magnetic thermometers to look for particles far lighter than a proton. Its first phase is planned for a shallow underground laboratory in Switzerland.",
+    "technical": "Direct search Experiment for Light dark matter: superfluid 4He target instrumented with ~50 large-area magnetic microcalorimeters (LAMCALs, 1 eV resolution, 10-20 eV threshold goal; one fifth above the liquid for quantum-evaporated atoms and UV photons, the rest immersed) read out by SQUIDs in a dilution refrigerator at ~10 mK, with film burners; phase I ~1 L helium (20 eV threshold, 1 kg d, sensitivity below 1e-39 cm^2 at 200 MeV/c^2), phase II ~10 L, long term O(kg yr) with up to 200 L underground. Phase-I site: Vue-des-Alpes underground laboratory (Switzerland, ~235 m rock)."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

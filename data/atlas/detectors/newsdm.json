@@ -1,0 +1,112 @@
+{
+  "aliases": [
+    "NIT emulsion detector"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:newsdm"
+  ],
+  "id": "detector:newsdm",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2021",
+      "kind": "lifecycle",
+      "label": "NEWS letter of intent to LNGS and emulsion-facility construction",
+      "locator": "arXiv:1604.04199, submission history",
+      "note": "Start = the arXiv posting of the letter of intent (LNGS-LOI 48/15, 14 April 2016); the LOI proposes a one-kilogram pilot experiment at LNGS. End = the first demonstration runs (2021). After the LOI a new emulsion-handling facility was constructed in the LNGS underground laboratory (ICHEP 2022 proceedings). No approval date is published in the sources read.",
+      "quote": "Submitted on 14 Apr 2016",
+      "sources": [
+        "src:news-letter-of-intent-2016",
+        "src:newsdm-ichep2022-proceedings"
+      ],
+      "start": "2016-04",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "demonstration and pilot runs at LNGS (equatorial-telescope run in progress in 2024)",
+      "locator": "ICHEP 2022 proceedings (PoS ICHEP2022 253), Sec. 3",
+      "note": "Start verified (2021). Open interval: the ICHEP 2024 contribution (July 2024) says 'a run with equatorial telescope is in progress'; no later source was found. These are proof-of-principle and pilot runs, not the full-scale experiment.",
+      "quote": "Several demonstration runs of the NEWSdm experiment were conducted at LNGS from 2021 to 2022 as a proof-of-principle.",
+      "sources": [
+        "src:newsdm-ichep2022-proceedings",
+        "src:newsdm-ichep2024-abstract"
+      ],
+      "start": "2021",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "NEWSdm emulsion detector",
+  "notes": [
+    "Prototype/demonstration detector; the one-kilogram pilot and 10 kg module are plans, not recorded as separate detectors."
+  ],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "ICHEP 2022 proceedings (PoS ICHEP2022 253), Sec. 3",
+      "note": "The demonstration-run shield was in hall C of LNGS; emulsion was produced and developed in hall F (no site record); the three hall records share one approximate coordinate.",
+      "quote": "In the demonstration run, the shield was placed in hall C.",
+      "role": "main",
+      "site_id": "site:lngs-hall-c",
+      "sources": [
+        "src:newsdm-ichep2022-proceedings"
+      ],
+      "start": "2021",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:newsdm-ichep2022-proceedings",
+    "src:newsdm-surface-directional-search-2023"
+  ],
+  "specs": {
+    "film_sheet_mass": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "2 g",
+      "locator": "ICHEP 2022 proceedings, Sec. 3",
+      "note": "Target mass of one emulsion film unit (sheet).",
+      "quote": "resulting in a film unit with a target mass of approximately 2 g per sheet",
+      "sources": [
+        "src:newsdm-ichep2022-proceedings"
+      ],
+      "unit": "g",
+      "value": 2,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "commissioning",
+  "subsystems": [],
+  "summary": {
+    "plain": "NEWSdm is a directional dark matter project that uses nuclear emulsion, a photographic film with nanometre-sized grains, to record the tiny tracks of recoiling nuclei. The film sits on a telescope mount that follows the sky. Prototype runs are done at Gran Sasso; a first limit from a surface exposure appeared in 2023.",
+    "technical": "NEWSdm (Nuclear Emulsions for WIMP Search with directional measurement): Nano Imaging Tracker (NIT) super-fine-grained emulsion films, ~100 nm track recording, read with optical microscopy and machine-learning selection, exposed inside a shield on an equatorial telescope mount that cancels Earth rotation. Emulsion produced underground in LNGS hall F; demonstration runs 2021-2022 with the shield in hall C. 2023: first direction-sensitive limit from a surface exposure (39 days, 0.59 g d, Nagoya)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "ICHEP 2022 proceedings (PoS ICHEP2022 253), Sec. 2",
+    "note": "",
+    "quote": "In the NEWSdm experiment, the NIT film is placed inside a shield that can sufficiently reduce background events, and an equatorial mount is used so that it is always irradiated at a fixed angle to the WIMP wind.",
+    "sources": [
+      "src:newsdm-ichep2022-proceedings"
+    ],
+    "value": "Super-fine-grained nuclear emulsion films (Nano Imaging Tracker, NIT) inside a shield, on an equatorial mount that keeps a fixed angle to the WIMP wind",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "emulsion",
+  "technology_classes": [
+    "emulsion"
+  ],
+  "type": "detector"
+}

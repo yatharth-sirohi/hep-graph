@@ -1,0 +1,214 @@
+{
+  "aliases": [],
+  "collaboration_ids": [
+    "collaboration:pico"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:snolab",
+      "locator": "PICO-40L page (Internet Archive capture of 14 January 2026)",
+      "note": "The PICO-60 page says the PICO-60 water tank and location are 'now used for the new right-side-up chamber, PICO-40L' (Ladder Labs area of SNOLAB).",
+      "quote": "The detector began construction at SNOLAB in 2019 and was finished in 2020.",
+      "role": "host",
+      "sources": [
+        "src:pico-official-site-pico-40l"
+      ],
+      "start": "2019",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:pico-40l",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2020",
+      "label": "construction at SNOLAB",
+      "locator": "PICO-40L page (Internet Archive capture of 14 January 2026)",
+      "note": "",
+      "quote": "The detector began construction at SNOLAB in 2019 and was finished in 2020.",
+      "sources": [
+        "src:pico-official-site-pico-40l"
+      ],
+      "start": "2019",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2022",
+      "label": "updates after the first phase",
+      "locator": "PICO-40L page",
+      "note": "",
+      "quote": "Based on lessons from that first phase, updates were made to the detector in 2021-2022.",
+      "sources": [
+        "src:pico-official-site-pico-40l"
+      ],
+      "start": "2021",
+      "status": "upgrade",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2023",
+      "label": "commissioning",
+      "locator": "PICO-40L page",
+      "note": "Year precision; the month is not published.",
+      "quote": "The next phase of PICO-40L began commissioning in 2023 and operations later that year.",
+      "sources": [
+        "src:pico-official-site-pico-40l"
+      ],
+      "start": "2023",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operations",
+      "locator": "DPF 2026 slides, slide 8 (20-24 July 2026)",
+      "note": "'Operations later that year' (official page, 2023); the PICO home page (capture of 31 December 2025) says the collaboration is 'operating the PICO-40L instrument' and the DPF 2026 talk (July 2026) says 'running since 2023'. Month not published.",
+      "quote": "Located at SNOLAB, running since 2023",
+      "sources": [
+        "src:pico-dpf2026-talk",
+        "src:pico-official-site-pico-40l",
+        "src:pico-official-site-home"
+      ],
+      "start": "2023",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "C3F8 target",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "approximately 70 kg",
+        "locator": "PICO home page (Internet Archive capture of 31 December 2025)",
+        "note": "",
+        "quote": "Presently, the collaboration is operating the PICO-40L instrument, a bubble chamber filled with approximately 70 kg of C3F8.",
+        "sources": [
+          "src:pico-official-site-home"
+        ],
+        "unit": "kg",
+        "value": 70,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Nominal chamber volume",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "volume",
+        "display": "40-liter",
+        "locator": "arXiv:1905.07367, Sec. 1",
+        "note": "Nominal size in the name and in the 2019 design paper.",
+        "quote": "PICO-40L is a 40-liter bubble chamber at SNOLAB [17] in Sudbury, Canada, which will take WIMP search data starting in 2019, and PICO-500 is a ton-scale bubble chamber currently under design to be constructed at SNOLAB.",
+        "sources": [
+          "src:pico-buffer-free-prototype-2019"
+        ],
+        "unit": "L",
+        "value": 40,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Design thermodynamic threshold",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "2.8 keV",
+        "locator": "arXiv:1905.12522, abstract",
+        "note": "A 2019 design projection, not a measured operating threshold.",
+        "quote": "The PICO-40L detector will exploit this model to achieve thermodynamic thresholds as low as 2.8 keV while being dominated by single-scatter events from coherent elastic neutrino-nucleus scattering of solar neutrinos.",
+        "sources": [
+          "src:pico-electron-recoil-nucleation-2019"
+        ],
+        "unit": "keV",
+        "value": 2.8,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:pico-60",
+      "locator": "PICO-40L page (Internet Archive capture of 14 January 2026)",
+      "note": "Also: the PICO-60 page says its 'water tank and location' are now used for PICO-40L.",
+      "quote": "Following the success of the second run of PICO-60, the PICO collaboration re-designed the bubble chamber technology to improve background suppression.",
+      "relation": "predecessor",
+      "sources": [
+        "src:pico-official-site-pico-40l"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "uncertain",
+      "locator": "PICO-40L page (Internet Archive capture of 14 January 2026)",
+      "note": "The live site returned HTTP 410 (Gone) on 2026-10-26; the page was read through an Internet Archive capture (see the source's archive_url), so the link is recorded as uncertain.",
+      "quote": "PICO-40L",
+      "sources": [
+        "src:pico-official-site-pico-40l"
+      ],
+      "value": "https://www.picoexperiment.com/pico-40l/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "PICO-40L",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "No physics-results paper from PICO-40L was found as of 2026-10-26: the PICO publications page (capture of 16 December 2025) lists none, and the July 2026 DPF talk says a dedicated detector paper is 'coming out soon'. The results attached here are the design-validation and modelling papers that the PICO collaboration ties to PICO-40L."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "DPF 2026 slides, slide 15",
+      "note": "",
+      "quote": "Same right-side-up (RSU) mechanical design validated by PICO-40L, scaled up rather than re-engineered",
+      "sources": [
+        "src:pico-dpf2026-talk"
+      ],
+      "value": "Spin-dependent WIMP-proton scattering with a right-side-up C3F8 bubble chamber (proof of concept for PICO-500)",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:pico-official-site-pico-40l",
+    "src:pico-official-site-home",
+    "src:pico-official-site-publications",
+    "src:pico-dpf2026-talk",
+    "src:pico-buffer-free-prototype-2019",
+    "src:pico-electron-recoil-nucleation-2019",
+    "src:pico-official-site-pico-60"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "PICO-40L is the PICO team's current bubble chamber at SNOLAB: a jar of about 70 kg of superheated C3F8 refrigerant turned 'right-side-up' so no water buffer touches the target. It is running now; no physics-results paper has appeared yet.",
+    "technical": "Right-side-up (RSU) bubble chamber with two concentric nested quartz jars connected by bellows, ~70 kg C3F8, four cameras, 12 piezoelectric transducers and two Dytran pressure transducers, in the water tank formerly used for PICO-60; designed for thermodynamic thresholds as low as 2.8 keV. Construction 2019-2020, updates 2021-2022, commissioning and operations from 2023. As of the July 2026 DPF talk 'a dedicated PICO-40L detector paper is coming out soon'; the official publications list (December 2025) has no PICO-40L physics paper."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

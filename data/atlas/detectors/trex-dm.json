@@ -1,0 +1,196 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:trex-dm"
+  ],
+  "id": "detector:trex-dm",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2017",
+      "label": "approved by the LSC",
+      "locator": "TREX-DM web page, last paragraph",
+      "note": "Year precision ('at the beginning of 2017').",
+      "quote": "The experiment was approved by the LSC at the beginning of 2017.",
+      "sources": [
+        "src:trex-dm-official-page"
+      ],
+      "start": "2017",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2018",
+      "label": "installation in Hall A of the LSC",
+      "locator": "TREX-DM web page, last paragraph",
+      "note": "The J. Instrum. paper (arXiv:2312.12622) says the installation was carried out at the end of 2018 and the Eur. Phys. J. C paper (arXiv:1812.04519) that the whole detector was moved underground in 2018.",
+      "quote": "During 2017 into 2018 the experiment was installed at the hall A of LSC.",
+      "sources": [
+        "src:trex-dm-official-page"
+      ],
+      "start": "2017",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2019",
+      "label": "commissioning and first engineering runs in Hall A",
+      "locator": "TREX-DM web page, last paragraph",
+      "note": "Year precision; the end is the start of the 2019 data-taking campaigns.",
+      "quote": "End of 2018 the experiment has started its first engineering runs at low pressure, and it faces the first physics runs for 2019.",
+      "sources": [
+        "src:trex-dm-official-page"
+      ],
+      "start": "2018",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2022-10",
+      "kind": "run",
+      "label": "data-taking campaigns in Hall A",
+      "locator": "arXiv:2312.12622, Sec. 2",
+      "note": "Neon + 2% isobutane at 4 bar from 2019; argon + 1% isobutane at 1.5 bar at the end of 2018. The end is the dismounting in October 2022.",
+      "quote": "during the 2019-2022 data taking campaigns",
+      "sources": [
+        "src:trex-dm-achievements-2023"
+      ],
+      "start": "2019",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2023-07",
+      "label": "dismounted at the request of the LSC and re-installed in Lab2500",
+      "locator": "arXiv:2312.12622, Sec. 2",
+      "note": "The paper says the experiment was re-installed in the Lab2500 at LSC in spring 2023 and has been taking data from July 2023; the end of this interval is that July 2023 restart.",
+      "quote": "In October 2022, when the parts with surface contamination were going to be replaced, the experiment was completely dismounted after the request of the LSC management",
+      "sources": [
+        "src:trex-dm-achievements-2023"
+      ],
+      "start": "2022-10",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "data taking in Lab2500",
+      "locator": "arXiv:2312.12622, Sec. 2",
+      "note": "Latest evidence of operation: arXiv:2510.05877 (October 2025) reports a 37Ar calibration measurement in the detector at the LSC. No source gives a later date or an end of data taking; status as of 2026-10-26 is inferred, not confirmed.",
+      "quote": "the detector has been taking data, from July 2023",
+      "sources": [
+        "src:trex-dm-achievements-2023"
+      ],
+      "start": "2023-07",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "TREX-DM Micromegas time projection chamber",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "TREX-DM web page, last paragraph",
+      "note": "Hall A of the LSC from the installation (2018) to October 2022, then Lab2500 from spring 2023 (arXiv:2312.12622); the site record covers the whole Canfranc laboratory.",
+      "quote": "During 2017 into 2018 the experiment was installed at the hall A of LSC.",
+      "role": "main",
+      "site_id": "site:lsc-canfranc",
+      "sources": [
+        "src:trex-dm-official-page"
+      ],
+      "start": "2017",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:trex-dm-official-page",
+    "src:trex-official-home",
+    "src:trex-dm-design-epjc-2016",
+    "src:trex-dm-surface-commissioning-2015",
+    "src:trex-dm-background-assessment-2019",
+    "src:trex-dm-achievements-2023",
+    "src:trex-dm-ar37-calibration-2025"
+  ],
+  "specs": {
+    "active_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "0.30 kg of Ar (0.16 kg of Ne)",
+      "locator": "arXiv:1812.04519, abstract",
+      "note": "At up to 10 bar; operated at 1.5 to 4 bar so far.",
+      "quote": "20 l of pressurized gas up to 10 bar, corresponding to 0.30 kg of Ar or 0.16 kg of Ne",
+      "sources": [
+        "src:trex-dm-background-assessment-2019"
+      ],
+      "unit": "kg",
+      "value": 0.3,
+      "verified_at": "2026-10-26"
+    },
+    "depth": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "depth_mwe",
+      "display": "2450 m.w.e.",
+      "locator": "arXiv:1812.04519, Sec. 3",
+      "note": "",
+      "quote": "The present TREX-DM set-up installed at the hall A of the Canfranc laboratory, placed at a depth of 2450 m.w.e.",
+      "sources": [
+        "src:trex-dm-background-assessment-2019"
+      ],
+      "unit": "m.w.e.",
+      "value": 2450,
+      "verified_at": "2026-10-26"
+    },
+    "instrumented_volume": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "volume",
+      "display": "20 l",
+      "locator": "arXiv:1812.04519, abstract",
+      "note": "",
+      "quote": "20 l of pressurized gas up to 10 bar",
+      "sources": [
+        "src:trex-dm-background-assessment-2019"
+      ],
+      "unit": "L",
+      "value": 20,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A cylindrical copper vessel of gas (neon or argon with a little isobutane) with two Micromegas readout planes that image the tracks of tiny nuclear recoils, inside lead and copper shielding.",
+    "technical": "Two side-by-side common-cathode TPC modules, a 0.5 m diameter, 0.5 m long copper vessel 6 cm thick, Teflon field cage with Kapton copper-strip shaping rings, aluminised Mylar cathode, X-Y strips of 1 mm pitch on 25x25 cm^2 microbulk Micromegas (official TREX-DM page)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2312.12622, Sec. 1",
+    "note": "",
+    "quote": "TREX-DM (TPC for Rare Event eXperiments - Dark Matter) [2] is a Micromegas-read High Pressure TPC",
+    "sources": [
+      "src:trex-dm-achievements-2023"
+    ],
+    "value": "High-pressure gas time projection chamber with microbulk Micromegas readout",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "gaseous_tpc",
+  "technology_classes": [
+    "gaseous_tpc"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,132 @@
+{
+  "aliases": [
+    "NEWS",
+    "Nuclear Emulsions for WIMP Search with directional measurement"
+  ],
+  "collaboration_ids": [
+    "collaboration:newsdm"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:lngs",
+      "locator": "ICHEP 2022 proceedings, Sec. 3",
+      "note": "Start = the first demonstration runs at LNGS; the underground emulsion-handling facility (hall F) was built after the 2016 letter of intent. Open: see the interval note.",
+      "quote": "Several demonstration runs of the NEWSdm experiment were conducted at LNGS from 2021 to 2022 as a proof-of-principle.",
+      "role": "host",
+      "sources": [
+        "src:newsdm-ichep2022-proceedings"
+      ],
+      "start": "2021",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:newsdm",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2021",
+      "kind": "lifecycle",
+      "label": "NEWS letter of intent to LNGS and emulsion-facility construction",
+      "locator": "arXiv:1604.04199, submission history",
+      "note": "Start = the arXiv posting of the letter of intent (LNGS-LOI 48/15, 14 April 2016); the LOI proposes a one-kilogram pilot experiment at LNGS. End = the first demonstration runs (2021). After the LOI a new emulsion-handling facility was constructed in the LNGS underground laboratory (ICHEP 2022 proceedings). No approval date is published in the sources read.",
+      "quote": "Submitted on 14 Apr 2016",
+      "sources": [
+        "src:news-letter-of-intent-2016",
+        "src:newsdm-ichep2022-proceedings"
+      ],
+      "start": "2016-04",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "demonstration and pilot runs at LNGS (equatorial-telescope run in progress in 2024)",
+      "locator": "ICHEP 2022 proceedings (PoS ICHEP2022 253), Sec. 3",
+      "note": "Start verified (2021). Open interval: the ICHEP 2024 contribution (July 2024) says 'a run with equatorial telescope is in progress'; no later source was found. These are proof-of-principle and pilot runs, not the full-scale experiment.",
+      "quote": "Several demonstration runs of the NEWSdm experiment were conducted at LNGS from 2021 to 2022 as a proof-of-principle.",
+      "sources": [
+        "src:newsdm-ichep2022-proceedings",
+        "src:newsdm-ichep2024-abstract"
+      ],
+      "start": "2021",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Target mass per emulsion film sheet",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "2 g",
+        "locator": "ICHEP 2022 proceedings, Sec. 3",
+        "note": "Target mass of one emulsion film unit (sheet).",
+        "quote": "resulting in a film unit with a target mass of approximately 2 g per sheet",
+        "sources": [
+          "src:newsdm-ichep2022-proceedings"
+        ],
+        "unit": "g",
+        "value": 2,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "NEWSdm",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Added as a comparable directional experiment: the bar is met by the published 2023 limit and by the LNGS location (demonstration runs and a facility in the underground laboratory).",
+    "The 2023 directional limit came from an exposure at the ground floor of a building at Nagoya University (sea level), not at LNGS; facility_ids is empty on that result. No facility record for Nagoya exists.",
+    "Official website news-dm.lngs.infn.it (named on conference slides) did not respond; links.website stays null."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1604.04199, abstract",
+      "note": "",
+      "quote": "We propose here the use of a detector based on nuclear emulsions to measure the direction of WIMP-induced nuclear recoils.",
+      "sources": [
+        "src:news-letter-of-intent-2016"
+      ],
+      "value": "Directional detection of WIMP dark matter with nuclear emulsions",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:news-letter-of-intent-2016",
+    "src:newsdm-ichep2022-proceedings",
+    "src:newsdm-ichep2024-abstract",
+    "src:newsdm-surface-directional-search-2023",
+    "src:newsdm-environmental-neutron-gran-sasso-2023"
+  ],
+  "status": "commissioning",
+  "summary": {
+    "plain": "NEWSdm is a directional dark matter project that uses nuclear emulsion, a photographic film with nanometre-sized grains, to record the tiny tracks of recoiling nuclei. The film sits on a telescope mount that follows the sky. Prototype runs are done at Gran Sasso; a first limit from a surface exposure appeared in 2023.",
+    "technical": "NEWSdm (Nuclear Emulsions for WIMP Search with directional measurement): Nano Imaging Tracker (NIT) super-fine-grained emulsion films, ~100 nm track recording, read with optical microscopy and machine-learning selection, exposed inside a shield on an equatorial telescope mount that cancels Earth rotation. Emulsion produced underground in LNGS hall F; demonstration runs 2021-2022 with the shield in hall C. 2023: first direction-sensitive limit from a surface exposure (39 days, 0.59 g d, Nagoya)."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

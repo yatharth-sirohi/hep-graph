@@ -1,0 +1,175 @@
+{
+  "aliases": [
+    "MIcro-tpc MAtrix of Chambers"
+  ],
+  "collaboration_ids": [
+    "collaboration:mimac"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:modane-underground-laboratory",
+      "locator": "arXiv:1311.0616, Sec. 3",
+      "note": "Open: see the experiment's interval note. Prototype work and ion-beam calibration were done at LPSC Grenoble (no facility record).",
+      "quote": "The MIMAC bi-chamber prototype was installed at the Laboratoire Souterrain de Modane (LSM) in June 2012",
+      "role": "host",
+      "sources": [
+        "src:mimac-bichamber-modane-2013"
+      ],
+      "start": "2012-06",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:mimac",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2012-06",
+      "kind": "lifecycle",
+      "label": "project initiated at LPSC Grenoble; prototype development",
+      "locator": "arXiv:1504.05865, introduction",
+      "note": "Start verified (2007). End = installation of the bi-chamber prototype at the Laboratoire Souterrain de Modane in June 2012 (arXiv:1311.0616, Sec. 3).",
+      "quote": "The MIMAC experiment is a directional detection project initiated in 2007 at the Laboratoire de Physique Subatomique et de Cosmologie (LPSC Grenoble-France) [22] in collaboration with IRFU-Saclay, CPPM- Marseille, IRSN and recently the Tsinghua University.",
+      "sources": [
+        "src:mimac-radon-progeny-tracks-2015",
+        "src:mimac-bichamber-modane-2013"
+      ],
+      "start": "2007",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "bi-chamber module operating at the Laboratoire Souterrain de Modane",
+      "locator": "arXiv:1311.0616, Sec. 3",
+      "note": "Start verified (June 2012, upgrades June 2013 and June 2014 per arXiv:1607.08765). Open interval: arXiv:2607.23527 (July 2026) analyses a multi-year data set from the two chambers and announces future campaigns with the upgraded MIMAC-35cm detector; no source states whether the Modane run is still taking data.",
+      "quote": "The MIMAC bi-chamber prototype was installed at the Laboratoire Souterrain de Modane (LSM) in June 2012",
+      "sources": [
+        "src:mimac-bichamber-modane-2013",
+        "src:mimac-first-directional-limits-2026"
+      ],
+      "start": "2012-06",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2012-10-12",
+      "kind": "run",
+      "label": "first available bi-chamber data set at Modane",
+      "locator": "arXiv:1311.0616, Sec. 4",
+      "note": "Gas circulation was shut down on 2012-10-03 (same section).",
+      "quote": "The first available data set of the bi-chamber prototype was started on July 5th 2012 and finished on October 12th 2012.",
+      "sources": [
+        "src:mimac-bichamber-modane-2013"
+      ],
+      "start": "2012-07-05",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Active volume",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "volume",
+        "display": "6 L",
+        "locator": "arXiv:2607.23527, abstract",
+        "note": "Active volume as stated in the abstract for the detector with two independent chambers; the text gives 10.8 x 10.8 x 25 cm^3 per chamber.",
+        "quote": "the detector allows the reconstruction of the 3D tracks of nuclear recoils produced in the 6 liter active volume",
+        "sources": [
+          "src:mimac-first-directional-limits-2026"
+        ],
+        "unit": "L",
+        "value": 6,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Angular resolution for keV proton recoils",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "angle",
+        "display": "better than 16 deg",
+        "locator": "arXiv:2312.12842, abstract",
+        "note": "Measured with neutron fields; proton recoils down to 4 keV kinetic energy.",
+        "quote": "We measure an angular resolution better than $16^\\circ$ for proton recoils down to a kinetic energy of $4~\\rm{keV}$",
+        "sources": [
+          "src:mimac-kev-proton-carbon-directionality-2023"
+        ],
+        "unit": "deg",
+        "value": 16,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "approximate",
+      "locator": "LPSC research-group page (MIMAC)",
+      "note": "Institute group page, not a dedicated experiment site; undated and partly outdated.",
+      "quote": "Une collaboration française d’une vingtaine de personnes travaille sur ce projet.",
+      "sources": [
+        "src:mimac-lpsc-group-page"
+      ],
+      "value": "https://lpsc.in2p3.fr/mimac",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "MIMAC",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "An earlier 3He-target concept, MIMAC-He3 (arXiv:astro-ph/0412273, 2004), preceded the CF4/CHF3/isobutane design and is not recorded separately.",
+    "Modane hall of the detector is not named in the papers read; the LSM site record (an OpenStreetMap-georeferenced laboratory point, approximate) is referenced."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1504.05865, introduction",
+      "note": "",
+      "quote": "the aim of the MIMAC project is the measurement of the WIMP-induced NR energy and angular distributions in order to constrain the WIMP properties.",
+      "sources": [
+        "src:mimac-radon-progeny-tracks-2015"
+      ],
+      "value": "Measure the energy and 3D direction of WIMP-induced nuclear recoils with a low-pressure TPC matrix",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:mimac-radon-progeny-tracks-2015",
+    "src:mimac-bichamber-modane-2013",
+    "src:mimac-two-chamber-module-2016",
+    "src:mimac-first-directional-limits-2026",
+    "src:mimac-electron-recoil-discrimination-2016",
+    "src:mimac-kev-proton-carbon-directionality-2023",
+    "src:mimac-lpsc-group-page"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "MIMAC is a French dark matter experiment in the Modane underground laboratory. Its low-pressure gas chambers record the three-dimensional track of the nucleus a particle knocks, aiming to show which direction a dark matter particle came from. In 2026 it published its first directional limit.",
+    "technical": "MIcro-tpc MAtrix of Chambers: low-pressure (30 mbar) micro-TPCs, gas 50% i-C4H10 + 50% CHF3, pixelated Micromegas anode (424 um pitch) read every 20 ns by self-triggered electronics; bi-chamber module (two 10.8 x 10.8 x 25 cm^3 chambers) at the Laboratoire Souterrain de Modane since June 2012, unshielded. 2026: no excess towards Cygnus, sigma_SD-p < 6.65e-36 cm^2 (90% CL) from 495.1 and 354.2 day exposures. Next: MIMAC-35cm (twelve times the active volume, 100 eV threshold)."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

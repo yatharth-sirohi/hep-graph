@@ -1,0 +1,147 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:sbc"
+  ],
+  "id": "detector:sbc-lar10",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2022-07",
+      "label": "construction at Fermilab",
+      "locator": "PoS ICHEP2020 (632), abstract",
+      "note": "Start: earliest dated source (PoS pre-publication 9 February 2021).",
+      "quote": "In this paper, we will present the overall design of the SBC experiment and provide an update on the ongoing construction at the Fermilab site.",
+      "sources": [
+        "src:sbc-ichep2020-proceedings"
+      ],
+      "start": "2021-02",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2025-09",
+      "label": "commissioning at Fermilab, moved underground to the MINOS tunnel in May 2024",
+      "locator": "arXiv:2207.12400, abstract",
+      "note": "'Is now being commissioned at Fermilab' (Snowmass white paper, July 2022). Talk of 17 March 2026: 'Moving to MINOS underground' 2024-05; first cryogenic operation 2024-09 (leak, cracked jar found); a year of repairs underground; first fill with LAr and LCF4 in 2025-09.",
+      "quote": "The first physics-scale demonstrator of this technique, a 10-kg liquid argon bubble chamber dubbed SBC-LAr10, is now being commissioned at Fermilab.",
+      "sources": [
+        "src:sbc-snowmass-2021-white-paper-2022",
+        "src:sbc-aps-global-summit-2026-talk"
+      ],
+      "start": "2022-07",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating (calibration data taking)",
+      "locator": "SBC talk, APS Global Summit 2026-03-17, slide 5",
+      "note": "'First fill with LAr and LCF4' 2025-09, then 'continuous operation and data-taking for ~6 months' as of 17 March 2026. Calibration data; not a dark-matter search.",
+      "quote": "10kg calibration chamber currently operating in MINOS underground tunnel",
+      "sources": [
+        "src:sbc-aps-global-summit-2026-talk"
+      ],
+      "start": "2025-09",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "SBC-LAr10",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "SBC talk, APS Global Summit 2026-03-17, slide 5",
+      "note": "Built at Fermilab and moved to the MINOS underground tunnel in 2024-05 (same talk); Fermilab main-campus (surface) point used. Start is the earliest source describing construction at the Fermilab site.",
+      "quote": "10kg calibration chamber currently operating in MINOS underground tunnel",
+      "role": "prototype",
+      "site_id": "site:fermilab-main-campus",
+      "sources": [
+        "src:sbc-aps-global-summit-2026-talk"
+      ],
+      "start": "2021-02",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:sbc-snowmass-2021-white-paper-2022",
+    "src:sbc-taup2023-proceedings",
+    "src:sbc-aps-global-summit-2026-talk",
+    "src:sbc-ichep2020-proceedings"
+  ],
+  "specs": {
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "10-kg",
+      "locator": "arXiv:2207.12400, abstract",
+      "note": "",
+      "quote": "The first physics-scale demonstrator of this technique, a 10-kg liquid argon bubble chamber dubbed SBC-LAr10, is now being commissioned at Fermilab.",
+      "sources": [
+        "src:sbc-snowmass-2021-white-paper-2022"
+      ],
+      "unit": "kg",
+      "value": 10,
+      "verified_at": "2026-10-26"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "PoS TAUP2023 (441, 337), abstract",
+      "note": "",
+      "quote": "liquid argon doped on the order of 100~ppm of Xe as the scintillator",
+      "sources": [
+        "src:sbc-taup2023-proceedings"
+      ],
+      "value": "Liquid argon doped with xenon (superheated)",
+      "verified_at": "2026-10-26"
+    },
+    "threshold": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "100 eV",
+      "locator": "arXiv:2207.12400, abstract",
+      "note": "A design target, not a measured threshold.",
+      "quote": "This device will calibrate the background discrimination power and sensitivity of superheated argon to nuclear recoils at energies down to 100 eV.",
+      "sources": [
+        "src:sbc-snowmass-2021-white-paper-2022"
+      ],
+      "unit": "eV",
+      "value": 100,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A 10-kg test chamber of superheated liquid argon in the MINOS tunnel at Fermilab, used to measure how argon responds to very small recoils.",
+    "technical": "10-kg liquid-argon bubble chamber (LAr doped with ~100 ppm Xe, 32 Hamamatsu VUV4 SiPMs, quartz jar, liquid CF4 hydraulic fluid, cameras, piezo sensors); calibration detector for the SBC programme, designed for thresholds down to 100 eV."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "PoS TAUP2023 (441, 337), abstract",
+    "note": "",
+    "quote": "This prototype includes the scintillation system using liquid argon doped on the order of 100~ppm of Xe as the scintillator, and the light collection devices are 32 Hamamatsu VUV4 silicon photomultipliers (SiPMs).",
+    "sources": [
+      "src:sbc-taup2023-proceedings"
+    ],
+    "value": "Scintillating liquid-argon bubble chamber (LAr doped with Xe) with SiPM light readout, cameras and piezoelectric sensors",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

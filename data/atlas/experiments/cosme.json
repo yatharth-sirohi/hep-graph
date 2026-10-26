@@ -1,0 +1,196 @@
+{
+  "aliases": [
+    "COSME-1"
+  ],
+  "collaboration_ids": [
+    "collaboration:cosme"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": "2002",
+      "facility_id": "facility:canfranc-underground-laboratory",
+      "locator": "arXiv:hep-ex/0101037, abstract",
+      "note": "Two periods of operation at Canfranc (1990-1992 in the tunnel, 1998-2002 in the deeper shield). The Atlas holds one approximate point for the laboratory.",
+      "quote": "A small, natural abundance, germanium detector (COSME) has been operating recently at the Canfranc Underground Laboratory (Spanish Pyrenees)",
+      "role": "host",
+      "sources": [
+        "src:cosme-dark-matter-axion-searches-2002"
+      ],
+      "start": "1990",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:cosme",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1992",
+      "kind": "phase",
+      "label": "first operation of the COSME detector (Canfranc tunnel)",
+      "locator": "arXiv:hep-ex/0101037, Sec. 3.1",
+      "note": "The 2002 paper compares its data with 'the previous set of data from 1990 to 1992' and says the detector 'was formerly used in the Canfranc tunnel in one of the first dedicated searches for WIMPs'. The tunnel point is not dated further and no depth is given for it.",
+      "quote": "compared to the previous set of data from 1990 to 1992",
+      "sources": [
+        "src:cosme-dark-matter-axion-searches-2002"
+      ],
+      "start": "1990",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2002",
+      "kind": "phase",
+      "label": "second operation in the deeper, IGEX-type shield (2450 m.w.e.)",
+      "locator": "arXiv:hep-ex/0101037, Sec. 3.1",
+      "note": "Data from 1998 and 1999 (72.7 kg d). A proceedings paper of November 2000 still says the detector is 'currently operating'. End: bounded by the November 2002 IGEX status talk, which lists COSME among detectors since removed from the shield.",
+      "quote": "The COSME detector has been running during the years 1998 and 1999 in these new conditions",
+      "sources": [
+        "src:cosme-dark-matter-axion-searches-2002",
+        "src:cosme-canfranc-recent-results-2001"
+      ],
+      "start": "1998",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed (detector removed from the shield; no end date published)",
+      "locator": "arXiv:astro-ph/0211535, Sec. 2",
+      "note": "Latest evidence only: the November 2002 talk says the other detectors (RG-I, RG-III and COSME) have been removed from the shield; no end date is published.",
+      "quote": "removal of the other detectors (RG-I, RG-III and COSME)",
+      "sources": [
+        "src:igex-dm-status-2002"
+      ],
+      "start": "2002",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Crystal mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "234 g",
+        "locator": "arXiv:hep-ex/0101037, Sec. 2",
+        "note": "Natural-abundance p-type coaxial HPGe crystal, 22 mm x 52.5 mm.",
+        "quote": "a mass of 234 g",
+        "sources": [
+          "src:cosme-dark-matter-axion-searches-2002"
+        ],
+        "unit": "g",
+        "value": 234,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Overburden (second run)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "depth_mwe",
+        "display": "2450 m.w.e.",
+        "locator": "arXiv:hep-ex/0101037, Sec. 2",
+        "note": "",
+        "quote": "which has an overburden of 2450 m.w.e.",
+        "sources": [
+          "src:cosme-dark-matter-axion-searches-2002"
+        ],
+        "unit": "m.w.e.",
+        "value": 2450,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Exposure (1998-1999)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "exposure",
+        "display": "72.7 kg d",
+        "locator": "arXiv:hep-ex/0101037, abstract",
+        "note": "Exposure of the 1998-1999 data.",
+        "quote": "An exposure of 72.7 kg day in these conditions",
+        "sources": [
+          "src:cosme-dark-matter-axion-searches-2002"
+        ],
+        "unit": "kg d",
+        "value": 72.7,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [
+    {
+      "confidence": "approximate",
+      "experiment_id": "experiment:igex-dm",
+      "locator": "arXiv:hep-ex/0002053, Sec. 2",
+      "note": "The IGEX dark matter paper says the COSME detector operates in the IGEX shield and COSME data appear in the IGEX-DM comparison plots; neither paper calls them one programme, so the relation is recorded with reduced confidence.",
+      "quote": "The COSME detector described below, is also operating in the same shield at Canfranc.",
+      "relation": "same_program",
+      "sources": [
+        "src:igex-dm-new-constraints-2000"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "COSME",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Named in its papers as 'the COSME Collaboration' and 'COSME detector'; the first operation (1990-1992) was 'one of the first dedicated searches for WIMPs' at Canfranc, but its own papers (Garcia et al., Phys. Rev. D 51, 1995) were not read.",
+    "The gap 1992-1998 is left unrecorded: no source read says the detector ran, or was off, between its two operations.",
+    "The axion-photon coupling limit is recorded as a result under the axions-ALPs topic; the quantity has no Atlas dimension, so no key value is stored.",
+    "No official website was found."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:hep-ex/0101037, abstract",
+      "note": "",
+      "quote": "These new data have been applied to a direct search for WIMPs and solar axions.",
+      "sources": [
+        "src:cosme-dark-matter-axion-searches-2002"
+      ],
+      "value": "Search for WIMP dark matter and solar axions with a small low-threshold germanium detector",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "axion"
+  ],
+  "sources": [
+    "src:cosme-dark-matter-axion-searches-2002",
+    "src:cosme-canfranc-recent-results-2001",
+    "src:igex-dm-status-2002"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "COSME was a small germanium crystal, about a quarter of a kilogram, in the Canfranc underground laboratory in the Spanish Pyrenees. It was used in two runs, in the 1990s, to look for dark matter particles and for axions from the Sun, and set limits on both.",
+    "technical": "234 g natural-abundance p-type coaxial HPGe crystal (0.43 keV FWHM at 10.37 keV; 2.5 keV threshold), in a PNNL electroformed-copper cryostat inside the IGEX archaeological-lead shield with muon veto at 2450 m.w.e. 72.7 kg d (1998-1999) give WIMP exclusion plots for low masses and a 95% C.L. limit g < 2.8e-9 GeV^-1 on the axion-photon coupling (Primakoff conversion with Bragg scattering)."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection",
+    "topic:axions-alps"
+  ],
+  "type": "experiment"
+}

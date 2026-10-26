@@ -1,0 +1,158 @@
+{
+  "aliases": [
+    "Sub-eV Polar Interactions Cryogenic Experiment",
+    "Sub-eV Polar Interaction Cryogenic Experiment"
+  ],
+  "collaboration_ids": [
+    "collaboration:tesseract"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:modane-underground-laboratory",
+      "locator": "Nucl. Phys. B 1003 (2024) 116465, Sec. 4",
+      "note": "First document read that places SPICE in the proposed TESSERACT experiment at LSM (Nucl. Phys. B, received 9 January 2024); the TAUP 2025 slides repeat it ('Commissioning at Laboratoire Souterrain de Modane'). SPICE is otherwise an R&D programme at US institutions.",
+      "quote": "Combined with the US-based SPICE and HeRALD technologies, the TESSERACT at LSM experiment will then allow to probe DM candidates over 12 orders of magnitude in mass",
+      "role": "host",
+      "sources": [
+        "src:tesseract-modane-proposal-nuclphysb-2024"
+      ],
+      "start": "2024-01",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:spice",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "SPICE/HeRALD R&D; proposed for LSM as a TESSERACT module",
+      "locator": "arXiv:2108.02176, author list",
+      "note": "Earliest dated paper read carrying the combined collaboration tag; the proposal to host SPICE at LSM dates from 2022 (Nucl. Phys. B 2024). SPICE itself has no separately dated founding in the sources read.",
+      "quote": "(SPICE/HeRALD Collaboration)",
+      "sources": [
+        "src:herald-scintillation-yield-2021-arxiv"
+      ],
+      "start": "2021-08",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2028",
+        "planned": true
+      },
+      "label": "planned installation of the TESSERACT setups (including SPICE) at LSM",
+      "locator": "TAUP 2025 slide 15",
+      "note": "A schedule.",
+      "quote": "The two setups will be in LSM between 2027 and 2028",
+      "sources": [
+        "src:tesseract-taup2025-slides"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2027",
+        "display": "between 2027 and 2028",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Surface prototype baseline energy resolution",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "258.5 meV",
+        "locator": "arXiv:2505.16092, abstract",
+        "note": "1 mm thick Si detector; the TAUP 2025 slides list this resolution under SPICE.",
+        "quote": "In our final dataset, we report a world-leading energy resolution of 258.5$\\pm$0.4 meV in the 1 mm thick detector.",
+        "sources": [
+          "src:tesseract-phonon-bursts-2025-arxiv"
+        ],
+        "unit": "meV",
+        "value": 258.5,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:tesseract",
+      "locator": "arXiv:2307.11877, Sec. 1",
+      "note": "SPICE is one detector technology of the TESSERACT programme.",
+      "quote": "The SPICE portion of the TESSERACT program uses substrates with strong optical phonon modes",
+      "relation": "same_program",
+      "sources": [
+        "src:herald-first-demonstration-2023-arxiv"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "SPICE page",
+      "note": "",
+      "quote": "SPICE stands for Sub-ev Polar Interactions Cryogenic Experiment.",
+      "sources": [
+        "src:tesseract-spice-page"
+      ],
+      "value": "https://tesseract.lbl.gov/home/sample-page/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "SPICE",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Separate from experiment:tesseract because the collaboration's own site calls SPICE and HeRALD 'two experiments' and a Comm. Phys. 2026 review writes 'the SPICE experiment'; the Nucl. Phys. B paper calls them detector technologies."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "Nucl. Phys. B 1003 (2024) 116465, Sec. 2.3.1",
+      "note": "",
+      "quote": "The primary goal for these polar crystal detectors is to search for single optical phonons produced by electromagnetically interacting DM via scattering (3 keV ≤ 𝑚DM ≤ 1 MeV) and via absorption (100 meV ≤ 𝑚DM ≤ 1 eV).",
+      "sources": [
+        "src:tesseract-modane-proposal-nuclphysb-2024"
+      ],
+      "value": "Search for single optical phonons produced by electromagnetically interacting dark matter (scattering 3 keV to 1 MeV, absorption 100 meV to 1 eV)",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:tesseract-spice-page",
+    "src:tesseract-modane-proposal-nuclphysb-2024",
+    "src:tesseract-taup2025-slides",
+    "src:tesseract-cpad2025-abstract",
+    "src:lowmass-commphys-review-2026"
+  ],
+  "status": "proposed",
+  "summary": {
+    "plain": "SPICE is a dark matter detector that uses small crystals of sapphire, quartz or gallium arsenide, with superconducting sensors that feel the tiniest vibrations a dark matter particle could cause. It is part of TESSERACT and is proposed for the Modane underground laboratory.",
+    "technical": "Sub-eV Polar Interactions Cryogenic Experiment: 1 cm^3 Al2O3 and SiO2 polar crystals (single optical phonons from electromagnetically coupled DM: scattering 3 keV-1 MeV, absorption 100 meV-1 eV) and GaAs scintillator (inelastic electron recoils, scattering above 1 MeV, absorption above 1.5 eV), with two separately read-out athermal-phonon TES arrays per pixel to reject sensor-coupled backgrounds. A Si surface prototype set limits at 44-87 MeV/c^2 in 2025. Proposed host: LSM as a TESSERACT module."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

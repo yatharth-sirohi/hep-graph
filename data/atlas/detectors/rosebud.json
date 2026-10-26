@@ -1,0 +1,138 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:rosebud"
+  ],
+  "id": "detector:rosebud",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2011",
+      "kind": "run",
+      "label": "WIMP search with cryogenic bolometers at the (old) Canfranc laboratory",
+      "locator": "arXiv:astro-ph/0112272, abstract",
+      "note": "Start: 'settled in 1999' (year). The first phase used sapphire and germanium absorbers; the second phase CaWO4, BGO, LiF and sapphire scintillating bolometers. End: bounded by the latest source read, a November 2011 talk reporting the move to the new LSC halls.",
+      "quote": "The ROSEBUD experiment for Direct Dark Matter detection settled in 1999 in the Canfranc Underground Laboratory.",
+      "sources": [
+        "src:rosebud-canfranc-2001-report-2002"
+      ],
+      "start": "1999",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed (no end date published)",
+      "locator": "talk slides (RENATA, 2 November 2011), conclusions",
+      "note": "The 2011 talk says ROSEBUD was moving to Hall B of the new LSC and planned to restart measurements in 2012; no source read reports measurements after 2011 or a formal end, so this is the year of the latest evidence, not a published end date.",
+      "quote": "ROSEBUD is currently moving to the Hall B in the new LSC facilities planning to restart measurements in 2012.",
+      "sources": [
+        "src:rosebud-bolometric-experiments-canfranc-2011"
+      ],
+      "start": "2011",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "ROSEBUD bolometers",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2011",
+      "locator": "arXiv:astro-ph/0112272, abstract",
+      "note": "The Canfranc laboratory at 2450 m.w.e. ('The old Canfranc Underground Laboratory' in the 2011 talk); the Atlas site record is one approximate point for the laboratory.",
+      "quote": "The ROSEBUD experiment for Direct Dark Matter detection settled in 1999 in the Canfranc Underground Laboratory.",
+      "role": "main",
+      "site_id": "site:lsc-canfranc",
+      "sources": [
+        "src:rosebud-canfranc-2001-report-2002"
+      ],
+      "start": "1999",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:rosebud-first-results-2001",
+    "src:rosebud-canfranc-2001-report-2002",
+    "src:rosebud-bolometric-experiments-canfranc-2011",
+    "src:rosebud-official-site"
+  ],
+  "specs": {
+    "overburden": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "depth_mwe",
+      "display": "2450 m.w.e.",
+      "locator": "arXiv:astro-ph/0004292, Sec. 1",
+      "note": "",
+      "quote": "the Canfranc Underground Laboratory (at 2450 m.w.e.)",
+      "sources": [
+        "src:rosebud-first-results-2001"
+      ],
+      "unit": "m.w.e.",
+      "value": 2450,
+      "verified_at": "2026-10-26"
+    },
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "100 g",
+      "locator": "arXiv:astro-ph/0004292, abstract",
+      "note": "Three sapphire (Al2O3) bolometers of the first runs.",
+      "quote": "It consists of three small sapphire bolometers (of a total mass of 100 g) with NTD-Ge sensors in a dilution refrigerator operating at 20 mK in the Canfranc Underground Laboratory",
+      "sources": [
+        "src:rosebud-first-results-2001"
+      ],
+      "unit": "g",
+      "value": 100,
+      "verified_at": "2026-10-26"
+    },
+    "threshold": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "450 eV",
+      "locator": "arXiv:astro-ph/0112272, abstract",
+      "note": "Threshold lower than 450 eV on the germanium bolometer; lower than 1 keV on the sapphire ones.",
+      "quote": "Thresholds respectively lower than 1keV and 450 eV were achieved on these detectors.",
+      "sources": [
+        "src:rosebud-canfranc-2001-report-2002"
+      ],
+      "unit": "eV",
+      "value": 450,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "ROSEBUD was a set of tiny crystals cooled to a few hundredths of a degree above absolute zero, in the Canfranc underground laboratory in the Spanish Pyrenees, built to catch the faint heat from dark matter particles hitting aluminium, oxygen or germanium nuclei. It mainly tested detector materials and cut backgrounds.",
+    "technical": "Cryogenic bolometers (sapphire Al2O3 25-50 g, Ge 67 g, then scintillating CaWO4 54 g, BGO 46 g, LiF) with NTD-Ge thermistors in a mobile dilution refrigerator at 20 mK, in the Canfranc laboratory (2450 m.w.e.); thresholds below 1 keV (sapphire) and 450 eV (Ge); phase two added light read-out for nuclear-recoil discrimination. A move to Hall B of the new LSC was planned for 2012."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:astro-ph/0112272, abstract",
+    "note": "",
+    "quote": "The second phase of the experiment plans to use scintillating bolometers to discriminate between recoiling nuclei and electrons.",
+    "sources": [
+      "src:rosebud-canfranc-2001-report-2002"
+    ],
+    "value": "Low-temperature (20 mK) bolometers with NTD-Ge thermistors: sapphire and germanium absorbers, then scintillating CaWO4, BGO and LiF absorbers with a light channel",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "cryogenic_bolometer",
+  "technology_classes": [
+    "cryogenic_bolometer",
+    "scintillating_crystal"
+  ],
+  "type": "detector"
+}

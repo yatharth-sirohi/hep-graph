@@ -1,0 +1,184 @@
+{
+  "aliases": [
+    "BULLKID",
+    "BULky and Low-threshold Kinetic Inductance Detector"
+  ],
+  "collaboration_ids": [
+    "collaboration:bullkid-dm"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:lngs",
+      "locator": "arXiv:2510.17682, Introduction",
+      "note": "Proposed host (a road-map in the collaboration's proceedings).",
+      "quote": "While the final experiment with the full-scale detector will be located at the Gran Sasso underground laboratory in Italy for a minimized background activity",
+      "role": "host",
+      "sources": [
+        "src:bullkid-dm-readout-2025-arxiv"
+      ],
+      "start": "2025-10",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:bullkid-dm",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "BULLKID-DM experiment planned for LNGS",
+      "locator": "arXiv:2510.17682, Introduction",
+      "note": "Earliest document read that names LNGS as the host (arXiv 20 Oct 2025); BULLKID detector R&D is older (2022). No approval is stated in the sources read.",
+      "quote": "While the final experiment with the full-scale detector will be located at the Gran Sasso underground laboratory in Italy for a minimized background activity",
+      "sources": [
+        "src:bullkid-dm-readout-2025-arxiv"
+      ],
+      "start": "2025-10",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "planned installation of the 3-detector demonstrator at the LNGS cryo-platform",
+      "locator": "arXiv:2601.13766, Sec. 2",
+      "note": "A plan (January 2026), not a report that it happened.",
+      "quote": "Installation of the demonstrator at the cryo-platform of Laboratori Nazionali del Gran Sasso (LNGS), with a background rate around 104 DRU, by the end of 2026.",
+      "sources": [
+        "src:bullkid-dm-projected-sensitivity-2026-arxiv"
+      ],
+      "start": {
+        "date": "2026-12",
+        "display": "by the end of 2026",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "planned installation of the final experiment at the LNGS cryo-platform",
+      "locator": "arXiv:2601.13766, Conclusions",
+      "note": "A plan (January 2026).",
+      "quote": "The plan is to install the final experiment at the cryo-platform of LNGS in 2027, after previous technological steps",
+      "sources": [
+        "src:bullkid-dm-projected-sensitivity-2026-arxiv"
+      ],
+      "start": {
+        "date": "2027",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Target mass (final experiment, design)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "800 g",
+        "locator": "arXiv:2601.13766, abstract",
+        "note": "",
+        "quote": "The target will amount to 800 g subdivided in more than 2000 silicon dice",
+        "sources": [
+          "src:bullkid-dm-projected-sensitivity-2026-arxiv"
+        ],
+        "unit": "g",
+        "value": 800,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Energy threshold goal",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "200 eV",
+        "locator": "arXiv:2601.13766, Sec. 2",
+        "note": "Goal for the final experiment ('better or equal than 200 eV').",
+        "quote": "an energy threshold better or equal than 200 eV, in 2027.",
+        "sources": [
+          "src:bullkid-dm-projected-sensitivity-2026-arxiv"
+        ],
+        "unit": "eV",
+        "value": 200,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Surface prototype energy threshold",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "160 eV",
+        "locator": "arXiv:2308.14399, abstract",
+        "note": "",
+        "quote": "the energy threshold of $160\\pm13$ eV",
+        "sources": [
+          "src:bullkid-surface-spectrum-2024-arxiv"
+        ],
+        "unit": "eV",
+        "value": 160,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "BULLKID-DM",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "The roadmap lists 2300 dice in the table and 'more than 2000' in the abstract; 800 g is stable across the papers.",
+    "No dark matter result exists: the published papers are detector characterisations on the surface."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2601.13766, abstract",
+      "note": "",
+      "quote": "BULLKID-DM is an experiment designed for the direct searches of particle dark matter candidates with mass around 1 GeV, or below, and cross-section with nucleons smaller than $10^{-40}$ cm$^2$.",
+      "sources": [
+        "src:bullkid-dm-projected-sensitivity-2026-arxiv"
+      ],
+      "value": "Direct search for particle dark matter of mass around 1 GeV or below with nucleon cross sections smaller than 1e-40 cm^2",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:bullkid-dm-projected-sensitivity-2026-arxiv",
+    "src:bullkid-dm-readout-2025-arxiv",
+    "src:bullkid-concept-apl-2022-arxiv",
+    "src:bullkid-surface-spectrum-2024-arxiv",
+    "src:bullkid-moderate-shield-2026-arxiv"
+  ],
+  "status": "proposed",
+  "summary": {
+    "plain": "BULLKID-DM is a planned dark matter experiment that would use about 800 grams of silicon, cut into over 2000 tiny blocks that are each read by a superconducting sensor, to look for dark matter near the proton mass or lighter. The final detector is planned for the Gran Sasso underground laboratory in Italy in 2027.",
+    "technical": "Planned phonon-mediated kinetic-inductance-detector (KID) array: ~800 g of silicon in ~2300 dice (16 wafers of 100 mm) acting as a fully active, fiducialisable target for dark matter of mass ~1 GeV or below and nucleon cross sections below 1e-40 cm^2; goals threshold <= 200 eV and background 1 down to 0.01 DRU. Roadmap: prototype (20 g, 160 eV, Sapienza, 2023), demonstrator (60 g, 180 sensors; mid-2026 at Sapienza, by end of 2026 at the LNGS cryo-platform), final experiment at the LNGS cryo-platform in 2027."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

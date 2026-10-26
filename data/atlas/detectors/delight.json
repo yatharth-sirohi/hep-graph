@@ -1,0 +1,105 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:delight"
+  ],
+  "id": "detector:delight",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2026-03",
+      "label": "proposed experiment (planning phase)",
+      "locator": "arXiv:2209.10950, abstract",
+      "note": "Start is the arXiv submission of the first DELight paper (22 Sep 2022). The 2025 version of that paper still says 'DELight is currently in its planning phase'; the HEiKA STAR demonstrator funding of 2025 is listed on the official news page.",
+      "quote": "The new ``Direct search Experiment for Light dark matter'', DELight, will be using superfluid helium as active target, instrumented with magnetic micro-calorimeters.",
+      "sources": [
+        "src:delight-scipost-proceedings-2022-arxiv"
+      ],
+      "start": "2022-09",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "funded: DFG Research Unit 6006 (design, build and operate phase I)",
+      "locator": "official news page, 'DFG Research Unit Funding - March 2026'",
+      "note": "Funding award to design, build and operate phase I (official page, March 2026; KIT press release of 2 April 2026). Not 'construction': the KIT release says only that a cryogenic platform is being built in Heidelberg and that the experiment 'is being set up in an underground laboratory' (not named there).",
+      "quote": "The Deutsche Forschungsgemeinschaft (DFG) - German Research Foundation has awarded DELight the funding to design, build, and operate Phase-I of the experiment within the framework of the DFG Research Unit 6006",
+      "sources": [
+        "src:delight-official-news-page"
+      ],
+      "start": "2026-03",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "DELight superfluid helium detector (phase I)",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "arXiv:2512.15278, Sec. 3",
+      "note": "Phase-I placement at the Vue-des-Alpes underground laboratory (new Atlas facility and site created for it; see the log).",
+      "quote": "In phase-I, DELight will be located at the Vue-des-Alpes (VdA) underground laboratory [18], a shallow lab in Switzerland with 230 m of rock overburden (∼630 mwe).",
+      "role": "main",
+      "site_id": "site:vue-des-alpes-underground-laboratory",
+      "sources": [
+        "src:delight-taup2025-overview-arxiv"
+      ],
+      "start": "2025-12",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:delight-scipost-proceedings-2022-arxiv",
+    "src:delight-taup2025-overview-arxiv",
+    "src:delight-official-site",
+    "src:delight-official-experiment-page",
+    "src:delight-official-news-page",
+    "src:delight-kit-news-2026",
+    "src:delight-idm2026-abstract"
+  ],
+  "specs": {
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "IDM 2026 talk abstract",
+      "note": "",
+      "quote": "DELight employs a superfluid helium-4 target instrumented with Large Area MicroCALorimeters (LAMCALs), based on Magnetic MicroCalorimeter (MMC) technology.",
+      "sources": [
+        "src:delight-idm2026-abstract"
+      ],
+      "value": "Superfluid helium-4",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "approved",
+  "subsystems": [],
+  "summary": {
+    "plain": "A cell of superfluid helium surrounded and topped by wafer-sized magnetic thermometers that register the energy of a possible dark matter collision.",
+    "technical": "~1 L superfluid 4He cell (first cell planned at 10 L in earlier papers) with about 50 sapphire-wafer LAMCALs (40 cm^2 each), SQUID readout, film burner, dilution refrigerator at ~10 mK."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "IDM 2026 talk abstract",
+    "note": "",
+    "quote": "DELight employs a superfluid helium-4 target instrumented with Large Area MicroCALorimeters (LAMCALs), based on Magnetic MicroCalorimeter (MMC) technology.",
+    "sources": [
+      "src:delight-idm2026-abstract"
+    ],
+    "value": "Superfluid helium-4 target instrumented with large-area magnetic microcalorimeters (MMC)",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

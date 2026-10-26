@@ -1,0 +1,127 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:moscab"
+  ],
+  "id": "detector:moscab",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2017-07",
+      "label": "construction and surface commissioning at Milano-Bicocca",
+      "locator": "ICHEP 2014 contribution, abstract",
+      "note": "Start: the year of the ICHEP 2014 contribution (the year is inferred from the conference identifier in the file name, 'ICHEP14'; the text itself gives no date and says the detector 'will be operated at the Gran Sasso National Laboratory in 2015'). End: the July 2017 paper reports 56 surface test runs in May and June 2017 and says the team is 'ready to move underground'.",
+      "quote": "Here, we report as well in the construction and commissioning of the big detector of 40 kg at the Milano-Bicocca University.",
+      "sources": [
+        "src:moscab-ichep2014-article"
+      ],
+      "start": "2014",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": "2021-06",
+      "label": "background and neutron-sensitivity measurements underground at LNGS",
+      "locator": "arXiv:2106.13654, Introduction",
+      "note": "The move to LNGS is reported in the June 2021 paper without a date: it happened after the July 2017 paper ('ready to move underground') and before June 2021. The paper describes two configurations (a 2 L vessel with 1.2 L of C3F8 and an 18 L vessel with 13 L of C3F8) but no dark matter physics run.",
+      "quote": "the apparatus was moved underground to the INFN Gran Sasso National Laboratories (LNGS)",
+      "sources": [
+        "src:moscab-fast-neutron-detector-2021"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2021-06",
+        "display": "between August 2017 and June 2021",
+        "earliest": "2017-08",
+        "latest": "2021-06"
+      },
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed as a dark matter search (equipment repurposed for fast neutrons)",
+      "locator": "arXiv:2106.13654, abstract",
+      "note": "Inferred from the 2021 paper, which says the equipment, 'originally thought for the search of dark matter', is employed for the detection of fast neutrons. No source states that the dark matter search was abandoned or gives a date; no dark matter result was found.",
+      "quote": "MOSCAB equipment, a geyser-concept bubble-chamber originally thought for the search of dark matter in the form of WIMPs",
+      "sources": [
+        "src:moscab-fast-neutron-detector-2021"
+      ],
+      "start": "2021-06",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "MOSCAB geyser bubble chamber",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "uncertain",
+      "end": "2021-06",
+      "locator": "arXiv:2106.13654, Introduction",
+      "note": "No source names the LNGS hall. Placed on the facility's primary site (site:lngs-hall-b) as a placeholder: the hall is unknown.",
+      "quote": "the apparatus was moved underground to the INFN Gran Sasso National Laboratories (LNGS)",
+      "role": "main",
+      "site_id": "site:lngs-hall-b",
+      "sources": [
+        "src:moscab-fast-neutron-detector-2021"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2021-06",
+        "display": "between August 2017 and June 2021",
+        "earliest": "2017-08",
+        "latest": "2021-06"
+      },
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:moscab-geyser-bubble-chamber-2017",
+    "src:moscab-ichep2014-article",
+    "src:moscab-fast-neutron-detector-2021"
+  ],
+  "specs": {
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "arXiv:2106.13654, Introduction",
+      "note": "",
+      "quote": "0.7L of octafluoropropane",
+      "sources": [
+        "src:moscab-fast-neutron-detector-2021"
+      ],
+      "value": "octafluoropropane (C3F8)",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A closed quartz vessel of superheated fluorine-rich liquid (C3F8) under its vapour, in a temperature-controlled water bath; a particle hit makes a bubble that rises and is detected.",
+    "technical": "Geyser technique (a variant of the superheated-liquid technique introduced by Hahn and Reist): the bottom part with the target liquid at Tliq, the vapour above at a lower Tvap, a buffer liquid in between; vessels of 0.7 L (surface), 2 L and 18 L (arXiv:1708.00101, arXiv:2106.13654)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2106.13654, Introduction",
+    "note": "",
+    "quote": "MOSCAB bubble-chamber detector relies on the geyser technique, a variant of the superheated",
+    "sources": [
+      "src:moscab-fast-neutron-detector-2021"
+    ],
+    "value": "Geyser-type superheated-liquid bubble chamber (C3F8)",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

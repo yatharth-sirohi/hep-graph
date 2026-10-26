@@ -1,0 +1,201 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:simple"
+  ],
+  "id": "detector:simple",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2010-07",
+      "label": "operation at the LSBB (prototype 1999-2000, Phase I 2004-2007, Phase II 2009-2010)",
+      "locator": "arXiv:astro-ph/0001511, Sec. on the SIMPLE installation",
+      "note": "Start: installation of the first modules 500 m underground at the LSBB began in July 1999. End: the last dated science measurement (Stage 2) ended on 22 July 2010 (arXiv:1404.4309); arXiv:1504.05475 dates Stage 2 as '2010-2011' and the Phase II analysis papers appeared until 2015, so the end of data taking is not pinned down. No source states when SIMPLE stopped.",
+      "quote": "started in July 1999. A decommissioned nuclear missile control center has been converted into an underground laboratory",
+      "sources": [
+        "src:simple-first-limits-2000"
+      ],
+      "start": "1999-07",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2007",
+      "kind": "phase",
+      "label": "Phase I measurements in the GESA cavern",
+      "locator": "arXiv:1504.05475, Introduction",
+      "note": "Years only. The 2005 paper (arXiv:hep-ex/0505053) reports four modules, 0.42 kg d.",
+      "quote": "A preliminary evaluation of the original SIMPLE set-up in GESA (Phase I, 2004-2007)",
+      "sources": [
+        "src:simple-neutron-background-2015"
+      ],
+      "start": "2004",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2010-02-05",
+      "kind": "run",
+      "label": "Phase II Stage 1 science measurement",
+      "locator": "arXiv:1404.4309, Sec. V",
+      "note": "",
+      "quote": "science measurements conducted between 14 November 2009 - 05 February 2010 (Stage 1) and 01 May - 22 July 2010 (Stage 2)",
+      "sources": [
+        "src:simple-phase-ii-2014"
+      ],
+      "start": "2009-11-14",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2010-07-22",
+      "kind": "run",
+      "label": "Phase II Stage 2 science measurement",
+      "locator": "arXiv:1404.4309, Sec. V",
+      "note": "The 2012 PRL (arXiv:1106.3014) says Stage 2 data were obtained 'between 12 April - 22 July 2010'; arXiv:1504.05475 dates Stage 2 as 2010-2011. The dates here are those of the 2014 paper's science data.",
+      "quote": "science measurements conducted between 14 November 2009 - 05 February 2010 (Stage 1) and 01 May - 22 July 2010 (Stage 2)",
+      "sources": [
+        "src:simple-phase-ii-2014"
+      ],
+      "start": "2010-05-01",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed (last dated science measurement)",
+      "locator": "arXiv:1404.4309, Sec. V",
+      "note": "The date is the end of the last dated science measurement (22 July 2010), not a published shutdown date. No source read shows SIMPLE running after 2011, and the 2014 paper writes of Phase II in the past tense ('searched for'); arXiv:1504.05475 (2015) is a simulation study of the Phase II neutron background.",
+      "quote": "science measurements conducted between 14 November 2009 - 05 February 2010 (Stage 1) and 01 May - 22 July 2010 (Stage 2)",
+      "sources": [
+        "src:simple-phase-ii-2014"
+      ],
+      "start": "2010-07",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "SIMPLE superheated droplet detectors",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2010-07",
+      "locator": "arXiv:1404.4309, Introduction",
+      "note": "The experiment ran in the GESA cavern of the LSBB, 505 m beneath the Grande Montagne of the Plateau d'Albion; the site record covers the whole laboratory. Detectors were also fabricated in a 210 m.w.e. underground clean room about 1 km from GESA (arXiv:1404.4309).",
+      "quote": "GESA site (505 m depth) of the Laboratoire Souterrain à Bas Bruit (LSBB) in southern France",
+      "role": "main",
+      "site_id": "site:lsbb-rustrel",
+      "sources": [
+        "src:simple-phase-ii-2014"
+      ],
+      "start": "1999-07",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:simple-lsbb-project-page",
+    "src:simple-first-limits-2000",
+    "src:simple-results-2005",
+    "src:simple-phase-ii-first-results-2010",
+    "src:simple-phase-ii-final-2012",
+    "src:simple-phase-ii-2014",
+    "src:simple-neutron-background-2015",
+    "src:simple-status-1996",
+    "src:lsbb-ultra-shielded-chamber-1999"
+  ],
+  "specs": {
+    "active_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "0.208 kg",
+      "locator": "arXiv:1404.4309, Sec. IV",
+      "note": "Stage 1; Stage 2 had 0.215 kg.",
+      "quote": "comprising a total active mass of 0.208 kg (Stage 1)",
+      "sources": [
+        "src:simple-phase-ii-2014"
+      ],
+      "unit": "kg",
+      "value": 0.208,
+      "verified_at": "2026-10-26"
+    },
+    "depth": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "505 m",
+      "locator": "arXiv:1404.4309, Sec. IV",
+      "note": "",
+      "quote": "GESA cavern of the LSBB, located 505 m beneath",
+      "sources": [
+        "src:simple-phase-ii-2014"
+      ],
+      "unit": "m",
+      "value": 505,
+      "verified_at": "2026-10-26"
+    },
+    "exposure": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "exposure",
+      "display": "27.77 kgd",
+      "locator": "arXiv:1404.4309, abstract",
+      "note": "Phase II total; 18.24 kg d of it is science exposure after the 2014 correction.",
+      "quote": "a total exposure of 27.77 kgd",
+      "sources": [
+        "src:simple-phase-ii-2014"
+      ],
+      "unit": "kg d",
+      "value": 27.77,
+      "verified_at": "2026-10-26"
+    },
+    "threshold": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "8 keV",
+      "locator": "arXiv:1404.4309, Introduction",
+      "note": "",
+      "quote": "With an 8 keV recoil energy threshold imposed by temperature and pressure control",
+      "sources": [
+        "src:simple-phase-ii-2014"
+      ],
+      "unit": "keV",
+      "value": 8,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "Small bottles of gel holding droplets of a freon liquid (C2ClF5), sunk in a shielded water pool; each bubble that forms is recorded by microphones.",
+    "technical": "Phase II: two arrays of 15 C2ClF5 SDDs (active mass 0.208 kg in Stage 1, 0.215 kg in Stage 2) in a 700 L water pool with water and polyethylene shielding, operated at 2 bar and 8 keV threshold; acoustic recoil/alpha discrimination better than 99% (arXiv:1404.4309)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:1404.4309, abstract",
+    "note": "",
+    "quote": "searched for astroparticle dark matter using superheated liquid C$_{2}$ClF$_{5}$ droplet detectors",
+    "sources": [
+      "src:simple-phase-ii-2014"
+    ],
+    "value": "Superheated C2ClF5 droplet detectors with acoustic readout",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

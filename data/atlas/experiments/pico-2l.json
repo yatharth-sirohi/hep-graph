@@ -1,0 +1,218 @@
+{
+  "aliases": [],
+  "collaboration_ids": [
+    "collaboration:pico"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": "2016",
+      "facility_id": "facility:snolab",
+      "locator": "arXiv:1503.00008, Sec. I",
+      "note": "SNOLAB; the official PICO-2L page captions it as 'located in the ladder labs', while the 2013 slides say it re-used the old COUPP-4 location (the COUPP-4kg paper places that chamber in the J-Drift). The hall is therefore not asserted; the SNOLAB site record is the single underground-lab point.",
+      "quote": "The PICO Collaboration (formed from the merger of PICASSO and COUPP) has now operated a 2.90 kg C3 F8 bubble chamber from October 2013 to May 2014 in the SNOLAB underground laboratory in Canada, at 6010 meters of water equivalent depth.",
+      "role": "host",
+      "sources": [
+        "src:pico-2l-first-results-2015"
+      ],
+      "start": "2013-10-28",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:pico-2l",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2015-11",
+      "label": "data taking (runs 1 and 2)",
+      "locator": "CosPA 2013 slides, PICO-2L installation slide",
+      "note": "End: 'Run 2 ended in November 2015' (official PICO-2L page); the chamber was idle between the end of run 1 (May 2014) and the start of run 2 (February 2015).",
+      "quote": "Dark-matter data taking began Oct 28th, 2013.",
+      "sources": [
+        "src:pico-cospa2013-slides",
+        "src:pico-official-site-pico-2l"
+      ],
+      "start": "2013-10-28",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "decommissioned",
+      "locator": "PICO-2L page (Internet Archive capture of 14 January 2026)",
+      "note": "",
+      "quote": "PICO 2L was decommissioned in 2016.",
+      "sources": [
+        "src:pico-official-site-pico-2l"
+      ],
+      "start": "2016",
+      "status": "decommissioned",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2014-05",
+      "kind": "run",
+      "label": "run 1 (3.2-8.1 keV thresholds)",
+      "locator": "PICO-2L page",
+      "note": "",
+      "quote": "The first run of PICO-2L lasted from October 2013 to May 2014.",
+      "sources": [
+        "src:pico-official-site-pico-2l"
+      ],
+      "start": "2013-10",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2015-11",
+      "kind": "run",
+      "label": "run 2 (3.3 keV threshold)",
+      "locator": "PICO-2L page",
+      "note": "Start from the same page: 'PICO-2L started a second data taking phase in February of 2015 with a new, all synthetic quartz vessel and a new set of piezoelectric sensors.'",
+      "quote": "Run 2 ended in November 2015, and in January 2016 PICO reported the 2L bubble chamber was background free.",
+      "sources": [
+        "src:pico-official-site-pico-2l"
+      ],
+      "start": "2015-02",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "C3F8 target (run 1)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "2.90 kg",
+        "locator": "arXiv:1503.00008, Sec. I",
+        "note": "",
+        "quote": "The PICO Collaboration (formed from the merger of PICASSO and COUPP) has now operated a 2.90 kg C3 F8 bubble chamber from October 2013 to May 2014 in the SNOLAB underground laboratory in Canada, at 6010 meters of water equivalent depth.",
+        "sources": [
+          "src:pico-2l-first-results-2015"
+        ],
+        "unit": "kg",
+        "value": 2.9,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Run 1 exposure",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "exposure",
+        "display": "211.5 kg-days",
+        "locator": "arXiv:1503.00008, abstract",
+        "note": "",
+        "quote": "New data are reported from the operation of a 2-liter C$_3$F$_8$ bubble chamber in the 2100 meter deep SNOLAB underground laboratory, with a total exposure of 211.5 kg-days at four different recoil energy thresholds ranging from 3.2 keV to 8.1 keV.",
+        "sources": [
+          "src:pico-2l-first-results-2015"
+        ],
+        "unit": "kg d",
+        "value": 211.5,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Run 2 exposure",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "exposure",
+        "display": "129 kg-days",
+        "locator": "arXiv:1601.03729, abstract",
+        "note": "",
+        "quote": "New data are reported from a second run of the 2-liter PICO-2L C$_3$F$_8$ bubble chamber with a total exposure of 129$\\,$kg-days at a thermodynamic threshold energy of 3.3$\\,$keV.",
+        "sources": [
+          "src:pico-2l-run2-2016"
+        ],
+        "unit": "kg d",
+        "value": 129,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "SNOLAB overburden",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "depth_mwe",
+        "display": "6010 meters of water equivalent",
+        "locator": "arXiv:1503.00008, Sec. I",
+        "note": "",
+        "quote": "The PICO Collaboration (formed from the merger of PICASSO and COUPP) has now operated a 2.90 kg C3 F8 bubble chamber from October 2013 to May 2014 in the SNOLAB underground laboratory in Canada, at 6010 meters of water equivalent depth.",
+        "sources": [
+          "src:pico-2l-first-results-2015"
+        ],
+        "unit": "m.w.e.",
+        "value": 6010,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [
+    {
+      "confidence": "approximate",
+      "experiment_id": "experiment:coupp-4kg",
+      "locator": "CosPA 2013 slides, PICO-2L slide",
+      "note": "The slides state re-use of COUPP-4's location, neutron shield and (a replica of its) silica jar, with the same two-litre active mass; 'predecessor' is the Atlas label for that lineage.",
+      "quote": "Re-uses COUPP-4 location, neutron shield, other infrastructure.",
+      "relation": "predecessor",
+      "sources": [
+        "src:pico-cospa2013-slides"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "uncertain",
+      "locator": "PICO-2L page (Internet Archive capture of 14 January 2026)",
+      "note": "The live site returned HTTP 410 (Gone) on 2026-10-26; the page was read through an Internet Archive capture (see the source's archive_url), so the link is recorded as uncertain.",
+      "quote": "PICO-2L",
+      "sources": [
+        "src:pico-official-site-pico-2l"
+      ],
+      "value": "https://www.picoexperiment.com/pico-2l/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "PICO-2L",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Result records cover the two published runs (Phys. Rev. Lett. 114, 231302 and Phys. Rev. D 93, 061101); 1905.12522 (electron-recoil nucleation model) also uses PICO-2L calibration data."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:pico-2l-first-results-2015",
+    "src:pico-2l-run2-2016",
+    "src:pico-official-site-pico-2l",
+    "src:pico-cospa2013-slides",
+    "src:pico-cospa2013-abstract"
+  ],
+  "status": "decommissioned",
+  "summary": {
+    "plain": "PICO-2L was the first bubble chamber installed at SNOLAB by the PICO team: two litres of superheated C3F8 refrigerant. It showed that such chambers can reach low energy thresholds and set strong limits on dark matter that couples to nuclear spin.",
+    "technical": "2-litre (2.90 kg) superheated C3F8 chamber at SNOLAB (6010 m.w.e.): run 1 October 2013-May 2014 (211.5 kg-days, 3.2-8.1 keV thresholds; anomalous background events), run 2 February-November 2015 (129 kg-days at 3.3 keV, with particulate contamination controlled: one single-recoil candidate). Reused COUPP-4kg's location, shield and jar design."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

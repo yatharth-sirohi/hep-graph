@@ -1,0 +1,161 @@
+{
+  "aliases": [
+    "COUPP 2 kg bubble chamber"
+  ],
+  "collaboration_ids": [
+    "collaboration:coupp"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:fermilab",
+      "locator": "arXiv:0804.2886, Experimental (Chamber operation)",
+      "note": "The chamber was built at the University of Chicago and tested in its LASR sub-basement (6 m.w.e.), then installed in the NuMI/MINOS tunnel at Fermilab; the site record is the Fermilab surface campus point, not the tunnel.",
+      "quote": "Early in 2005 we installed a chamber containing 1.5 kg of CF3 I, an industrial refrigerant commonly used as a fire extinguisher, at the 350-foot depth of the NuMI (Neutrinos at the Main Injector) tunnel in Fermilab.",
+      "role": "host",
+      "sources": [
+        "src:coupp-first-spin-dependent-limits-2008"
+      ],
+      "start": "2005",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:coupp-2kg",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "operation at Fermilab (NuMI/MINOS tunnel)",
+      "locator": "arXiv:0804.2886, Experimental (Chamber operation)",
+      "note": "Year precision ('early in 2005'). The Science paper reports 'the first period of operation'; no end of operation is published.",
+      "quote": "Early in 2005 we installed a chamber containing 1.5 kg of CF3 I, an industrial refrigerant commonly used as a fire extinguisher, at the 350-foot depth of the NuMI (Neutrinos at the Main Injector) tunnel in Fermilab.",
+      "sources": [
+        "src:coupp-first-spin-dependent-limits-2008"
+      ],
+      "start": "2005",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed (successor chamber took over the pressure vessel)",
+      "locator": "Fustin dissertation (arXiv:2401.07384), Chapter 4",
+      "note": "The end of the 2 kg chamber's own operation is not published. The 4 kg chamber reused its pressure vessel and first ran on 19 August 2009 (arXiv:1008.3518), so it cannot have run later than that; the last source showing the 2 kg chamber operating is the April 2008 Science paper.",
+      "quote": "The COUPP 4 kg bubble chamber was the first such improvement, employing a larger synthetic fused silica bell jar inside the same pressure vessel used for the 2 kg chamber.",
+      "sources": [
+        "src:coupp-4kg-fustin-dissertation-2012",
+        "src:coupp-two-liter-minos-2011"
+      ],
+      "start": "2009-08",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "CF3I target",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "1.5 kg",
+        "locator": "arXiv:0804.2886, abstract",
+        "note": "",
+        "quote": "an ultra-clean, room-temperature bubble chamber containing 1.5 kg of superheated CF$_{3}$I",
+        "sources": [
+          "src:coupp-first-spin-dependent-limits-2008"
+        ],
+        "unit": "kg",
+        "value": 1.5,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Exposure of the first period",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "exposure",
+        "display": "> 250 kg-days",
+        "locator": "arXiv:0804.2886, abstract",
+        "note": "A lower bound: 'in excess of 250 kg-days'.",
+        "quote": "An exposure in excess of 250 kg-days is obtained",
+        "sources": [
+          "src:coupp-first-spin-dependent-limits-2008"
+        ],
+        "unit": "kg d",
+        "value": 250,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Depth of the MINOS near-detector hall",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "depth_mwe",
+        "display": "225 m.w.e.",
+        "locator": "Fustin dissertation, Chapter 4",
+        "note": "",
+        "quote": "it was deployed to the MINOS near detector hall at the Fermi National Accelerator Center (Fermilab), at a depth of 225 m.w.e.",
+        "sources": [
+          "src:coupp-4kg-fustin-dissertation-2012"
+        ],
+        "unit": "m.w.e.",
+        "value": 225,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "COUPP-2kg",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "The name 'COUPP-2kg' follows the dissertation's 'COUPP 2 kg bubble chamber'; the Science paper itself states a 1.5 kg CF3I fill.",
+    "No official website for COUPP was found in the sources read."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:0804.2886, abstract",
+      "note": "",
+      "quote": "a target maximally sensitive to spin-dependent and -independent Weakly Interacting Massive Particle (WIMP) couplings",
+      "sources": [
+        "src:coupp-first-spin-dependent-limits-2008"
+      ],
+      "value": "Spin-dependent and spin-independent WIMP-nucleus scattering with a superheated CF3I target",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:coupp-first-spin-dependent-limits-2008",
+    "src:coupp-4kg-fustin-dissertation-2012",
+    "src:fermilab-pico-60-news-2017"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "COUPP-2kg was the first dark-matter bubble chamber of the COUPP team: a small jar of superheated CF3I run in a Fermilab neutrino tunnel from 2005. It proved the technique and set improved limits on WIMPs that couple to nuclear spin.",
+    "technical": "Room-temperature superheated CF3I bubble chamber (1.5 kg fill, natural-quartz bell jar) installed early in 2005 at the 350-ft level of the NuMI tunnel at Fermilab (the MINOS near-detector hall, 225 m.w.e. per the dissertation). First period: >250 kg-days at up to 80% live fraction and ~1e-10 rejection of photon-induced electrons; improved spin-dependent WIMP-proton limits (Science 319, 933, 2008). Its pressure vessel was reused for COUPP-4kg."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

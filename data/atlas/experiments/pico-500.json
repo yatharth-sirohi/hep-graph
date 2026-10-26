@@ -1,0 +1,169 @@
+{
+  "aliases": [],
+  "collaboration_ids": [
+    "collaboration:pico"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:snolab",
+      "locator": "arXiv:1806.01417, Sec. 1.2",
+      "note": "Cube Hall of SNOLAB (official PICO-500 page); SNOLAB's 26 May 2026 layout slide also lists PICO-500 under Cube Hall. Start is the date of the earliest source naming SNOLAB as host.",
+      "quote": "PICO-500 is a ton-scale bubble chamber to be deployed underground at SNOLAB that is currently in the design",
+      "role": "host",
+      "sources": [
+        "src:pico-500-supernova-sensitivity-2018"
+      ],
+      "start": "2018-06",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:pico-500",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": {
+        "date": "2024-09",
+        "display": "between April 2024 and March 2025",
+        "earliest": "2024-04",
+        "latest": "2025-03"
+      },
+      "label": "funded; in design",
+      "locator": "arXiv:1806.01417, Sec. 1",
+      "note": "Earliest dated source calling PICO-500 'funded' (arXiv:1806.01417, submitted 4 June 2018, which also says it is 'currently in the design phase'); the funding decision date is not published in the sources read. The official page says 'full funding from CFI and the Canadian provinces' and (captures of February 2022 and 15 April 2024) that the collaboration 'is currently working on the final design'.",
+      "quote": "supernova neutrinos via CEνNS using the example of the funded PICO-500 experiment",
+      "sources": [
+        "src:pico-500-supernova-sensitivity-2018",
+        "src:pico-buffer-free-prototype-2019",
+        "src:pico-official-site-pico-500-capture-2024"
+      ],
+      "start": "2018-06",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "date": "2027",
+        "planned": true
+      },
+      "label": "assembly and construction at SNOLAB (Cube Hall)",
+      "locator": "UCLA Dark Matter 2025 abstract (talk of 26 March 2025)",
+      "note": "Start is not published. The PICO-500 page of 15 April 2024 still says the collaboration 'is currently working on the final design'; the 26 March 2025 talk abstract says it 'is in the process of deploying PICO-500'; the official page (16 December 2025) says it 'is in the process of assembling and constructing the detector'; SNOLAB's 26 May 2026 report lists in-situ welding and testing of the pressure vessel as completed and the PICO talk of 20-24 July 2026 says 'Construction is well underway'. The planned end is the start of commissioning: PICO's July 2026 plan is fluid fill in early 2027 and commissioning 'mid-to-late 2027' (slide 16), which supersedes SNOLAB's 26 May 2026 'commissioning toward the end of 2026' and the 2025 abstract's 'late 2026'; see the log's Conflicts.",
+      "quote": "The PICO collaboration is in the process of deploying PICO-500, a large 250 litre chamber filled with C3F8 at SNOLAB",
+      "sources": [
+        "src:pico-500-ucla-dm-2025-abstract",
+        "src:pico-official-site-pico-500",
+        "src:currency2-snolab-report-2026-05-26",
+        "src:pico-dpf2026-talk",
+        "src:pico-official-site-pico-500-capture-2024"
+      ],
+      "start": {
+        "date": "2024-09",
+        "display": "between April 2024 and March 2025",
+        "earliest": "2024-04",
+        "latest": "2025-03"
+      },
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Active volume",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "volume",
+        "display": "about 250 litres",
+        "locator": "PICO-500 page (Internet Archive capture of 16 December 2025)",
+        "note": "The PICO home page says 'a target mass approximately 250 kg'; the 2018 design paper assumed an initial 1 t of C3F8. The 250 L figure is the one repeated by the PICO-500 page, the UCLA 2025 abstract and the July 2026 talk.",
+        "quote": "PICO-500 will have an active volume of about 250 litres and will use a synthetic quartz vessel, just like PICO-2L, PICO-60 and PICO-40L before it.",
+        "sources": [
+          "src:pico-official-site-pico-500"
+        ],
+        "unit": "L",
+        "value": 250,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:pico-40l",
+      "locator": "PICO-500 page (Internet Archive capture of 16 December 2025)",
+      "note": "Also the DPF 2026 slides: 'Same right-side-up (RSU) mechanical design validated by PICO-40L, scaled up rather than re-engineered'.",
+      "quote": "PICO-500 is the next generation detector that builds upon the principle demonstrated by PICO-2L, -60, and -40L.",
+      "relation": "upgrade_of",
+      "sources": [
+        "src:pico-official-site-pico-500"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "uncertain",
+      "locator": "PICO-500 page (Internet Archive capture of 16 December 2025)",
+      "note": "The live site returned HTTP 410 (Gone) on 2026-10-26; the page was read through an Internet Archive capture (see the source's archive_url), so the link is recorded as uncertain.",
+      "quote": "PICO-500",
+      "sources": [
+        "src:pico-official-site-pico-500"
+      ],
+      "value": "https://www.picoexperiment.com/pico-500/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "PICO-500",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Status 'construction' rests on the official PICO-500 page (capture of 16 December 2025), SNOLAB's 26 May 2026 report ('Completed in situ welding and testing of pressure vessel') and the PICO talk of July 2026 ('Construction is well underway').",
+    "Talks from 2013-2014 name a 'PICO-250L' ton-scale concept (CosPA 2013: 'PICO-250L, a ton-scale experiment, is currently in the engineering and design phase'). No source read states that PICO-250L became PICO-500, and no design report names a host site for it, so it has no record of its own and is not an alias.",
+    "No physics results: the detector is not yet running. The 2018 paper on supernova-neutrino sensitivity (arXiv:1806.01417) is a projection, not a result record."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "PICO-500 page (Internet Archive capture of 16 December 2025)",
+      "note": "",
+      "quote": "PICO is planning to operate PICO-500 with C3F8 to achieve a world leading sensitivity for dark matter coupling to ordinary matter though its spin.",
+      "sources": [
+        "src:pico-official-site-pico-500"
+      ],
+      "value": "World-leading sensitivity to dark matter coupling to ordinary matter through its spin, with a C3F8 target",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:pico-official-site-pico-500",
+    "src:pico-official-site-pico-500-capture-2024",
+    "src:pico-500-ucla-dm-2025-abstract",
+    "src:currency2-snolab-report-2026-05-26",
+    "src:pico-dpf2026-talk",
+    "src:pico-500-supernova-sensitivity-2018",
+    "src:pico-buffer-free-prototype-2019"
+  ],
+  "status": "construction",
+  "summary": {
+    "plain": "PICO-500 is the next, much larger PICO bubble chamber: about 250 litres of superheated C3F8 refrigerant, being assembled underground at SNOLAB in Canada. It is fully funded, still under construction, and has no data yet.",
+    "technical": "Scaled-up right-side-up bubble chamber with an active volume of about 250 litres in a synthetic quartz vessel, C3F8 target, the largest silica jar made for a bubble chamber, improved acoustic/pressure/optical instrumentation; assembled underground in SNOLAB's Cube Hall. Funded by CFI and the Canadian provinces. Planned commissioning mid-to-late 2027 (PICO talk, July 2026). A 2018 design paper assumed an initial 1 t C3F8 fill."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}
