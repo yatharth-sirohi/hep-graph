@@ -53,6 +53,8 @@
 //     and its numbers in a table.
 
 import { VIEW_NAME, WORKING_TITLE, beamSearchEntries, parseArg } from './beam-rows.js';
+import * as underground from './underground-rows.js';
+import * as frontier from './frontier-rows.js';
 
 export const VIEWS = {
   [VIEW_NAME]: {
@@ -64,6 +66,16 @@ export const VIEWS = {
       return beamline ? { route: { type: 'beamline', slug: parsed.slug }, label: `Back to ${beamline.name}` } : null;
     },
     searchEntries: beamSearchEntries,
+  },
+  [underground.VIEW_NAME]: {
+    title: underground.WORKING_TITLE,
+    load: () => import('./underground.js'),
+    searchEntries: underground.undergroundSearchEntries,
+  },
+  [frontier.VIEW_NAME]: {
+    title: frontier.WORKING_TITLE,
+    load: () => import('./energy-frontier.js'),
+    searchEntries: frontier.frontierSearchEntries,
   },
 };
 

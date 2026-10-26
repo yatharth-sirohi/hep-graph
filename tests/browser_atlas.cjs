@@ -2995,6 +2995,215 @@ async function openFilters(page) {
     await p.screenshot({ path: path.join(output, "beam-section-mobile.png") });
     await ctx.close();
   });
+
+  // ---- views: "Going underground" and "The energy frontier" (the chart toolkit, views/chart.js) ----
+  // Both need values only the generated bundle carries (A27 muon fluxes; accelerator intervals), so on the
+  // fixture tree the check is that each says so instead of drawing an empty chart. The expected counts below
+  // are worked out here from atlas.json, by rules written out afresh, not by importing the views' own code.
+  const generated = process.env.HEP_ATLAS_DATA === "generated";
+  const loadAtlas = async (p) => (await p.request.get(`${base}/atlas/generated/atlas.json`)).json();
+  const startOf = (iv) => {
+    const d = typeof iv.start === "string" ? iv.start : (iv.start && !iv.start.planned ? iv.start.date : null);
+    return d && /^\d{4}/.test(d) ? Number(d.slice(0, 4)) : null;
+  };
+  const frontierExpected = (atlas) => Object.values(atlas.accelerators).map((a) => {
+    const field = a.is_collider ? "cms_energy" : "beam_energy";
+    const hasEnergy = typeof (a.specs && a.specs[field] && a.specs[field].value) === "number"
+      || (a.intervals || []).some((iv) => iv.status === "active" && iv.specs && iv.specs[field] && typeof iv.specs[field].value === "number");
+    const starts = (a.intervals || []).filter((iv) => iv.status === "active").map(startOf).filter((y) => y != null);
+    return { id: a.id, collider: !!a.is_collider, plotted: hasEnergy && starts.length > 0, start: starts.length ? Math.min(...starts) : null };
+  });
+  // No two labels of a chart may overlap by more than a few pixels, and none may leave the drawing.
+  const labelProblems = (p) => p.evaluate(() => {
+    const svg = document.querySelector("#view-body svg.ch-svg");
+    const box = svg.getBoundingClientRect();
+    const rects = [...svg.querySelectorAll(".ch-label")].map((el) => ({ text: el.textContent, r: el.getBoundingClientRect() }));
+    const problems = [];
+    rects.forEach((a, i) => {
+      if (a.r.left < box.left - 1 || a.r.right > box.right + 1 || a.r.top < box.top - 1 || a.r.bottom > box.bottom + 1) problems.push(`${a.text} leaves the chart`);
+      rects.slice(i + 1).forEach((b) => {
+        const w = Math.min(a.r.right, b.r.right) - Math.max(a.r.left, b.r.left);
+        const hgt = Math.min(a.r.bottom, b.r.bottom) - Math.max(a.r.top, b.r.top);
+        if (w > 3 && hgt > 3) problems.push(`${a.text} overlaps ${b.text}`);
+      });
+    });
+    return problems;
+  });
+
+  await record("Going underground: every site with a depth and a flux is a point, LNGS shows its three halls, hollow marks are explained, a point opens its site", async () => {
+    const { ctx, p } = await viewContext();
+    await p.goto(viewURL("#/view/underground"));
+    if (!generated) {
+      await p.locator(".view-error").waitFor();
+      assert.equal(await p.locator("svg.ch-svg").count(), 0, "no flux in this data tree: an error, not an empty chart");
+      await ctx.close();
+      return;
+    }
+    await p.locator("#ug-chart svg.ch-svg").waitFor();
+    const atlas = await loadAtlas(p);
+    const eligible = Object.values(atlas.sites).filter((s) => s.depth_mwe && typeof s.depth_mwe.value === "number" && s.muon_flux && typeof s.muon_flux.value === "number");
+    const depthOnly = Object.values(atlas.sites).filter((s) => s.depth_mwe && typeof s.depth_mwe.value === "number" && !s.muon_flux);
+    assert.equal(eligible.length, 15);
+    assert.equal(await p.locator("#ug-chart .ch-point").count(), eligible.length, "one point per site with both a depth and a flux");
+    assert.equal(await p.locator("table.ug-table tbody tr").count(), eligible.length, "the table has the same rows");
+    assert.equal(await p.locator(".ug-depth-list li").count(), depthOnly.length, "sites with a depth and no flux are listed under the chart");
+    // The three LNGS halls are three labelled points.
+    const labels = await p.locator("#ug-chart .ch-label").allTextContents(); // SVG text has no innerText
+    for (const hall of ["LNGS Hall A", "LNGS Hall B", "LNGS Hall C"]) assert.ok(labels.includes(hall), `${hall} is labelled`);
+    // Log axis ticks are written with superscripts, and the SVG names and describes itself.
+    const ticks = await p.locator("#ug-chart .ch-tick-label").allTextContents();
+    for (const tick of ["10⁻¹⁰", "10⁻⁸", "10⁻⁶"]) assert.ok(ticks.includes(tick), `the flux axis is ticked ${tick}`);
+    const named = await p.evaluate(() => {
+      const svg = document.querySelector("#ug-chart svg.ch-svg");
+      return { title: !!svg.querySelector("title").textContent, desc: svg.querySelector("desc").textContent.length > 50, labelled: !!svg.getAttribute("aria-labelledby") };
+    });
+    assert.deepEqual(named, { title: true, desc: true, labelled: true });
+    // Hollow: the records marked approximate or simulated (JUNO; LNGS Hall B), and the legend says so.
+    assert.equal(await p.locator("#ug-chart .ch-point .ch-mark.is-hollow").count(), 2);
+    assert.match(await p.locator("#ug-chart .ch-legend").innerText(), /Approximate, or a simulation/);
+    assert.deepEqual(await labelProblems(p), [], "labels neither overlap nor leave the chart");
+    // A point opens its site.
+    await p.locator('#ug-chart .ch-point[data-id="site:juno-jiangmen-underground-lab"]').click();
+    await p.locator("#detail-panel h2").waitFor();
+    assert.match(p.url(), /#\/site\/juno-jiangmen-underground-lab$/);
+    assert.match(await p.locator("#detail-panel h2").innerText(), /JUNO/);
+    // Method: the copied conversion is stated, and every input is listed with its source once opened.
+    await p.goBack();
+    await p.locator("#ug-chart svg.ch-svg").waitFor();
+    await p.locator("#view-method > summary").click();
+    await p.locator('#ug-inputs[data-state="ready"]').waitFor();
+    const method = await p.locator("#view-method").innerText();
+    assert.match(method, /copied from UNIT_SCALE/);
+    assert.match(method, /86 400 s/);
+    assert.equal(await p.locator("#ug-inputs details.ch-input").count(), eligible.length);
+    await p.screenshot({ path: path.join(output, "underground-desktop.png") });
+    await ctx.close();
+  });
+
+  await record("The energy frontier: every accelerator with an energy and a start is a point, colliders filled and the rest hollow, later machines fade with the year, a point opens its accelerator", async () => {
+    const { ctx, p } = await viewContext();
+    await p.goto(viewURL("#/view/energy-frontier"));
+    if (!generated) {
+      await p.locator(".view-error").waitFor();
+      assert.equal(await p.locator("svg.ch-svg").count(), 0, "no intervals in this data tree: an error, not an empty chart");
+      await ctx.close();
+      return;
+    }
+    await p.locator("#ef-chart svg.ch-svg").waitFor();
+    const atlas = await loadAtlas(p);
+    const expected = frontierExpected(atlas);
+    const plotted = expected.filter((e) => e.plotted);
+    assert.equal(plotted.length, 28, "28 of the 31 accelerators are plottable");
+    assert.equal(await p.locator("#ef-chart .ch-point").count(), plotted.length);
+    assert.equal(await p.locator("table.ef-table tbody tr").count(), plotted.length);
+    assert.equal(await p.locator("#ef-chart .ch-point .ch-mark:not(.is-hollow)").count(), plotted.filter((e) => e.collider).length, "colliders are filled");
+    assert.equal(await p.locator("#ef-chart .ch-point .ch-mark.is-hollow").count(), plotted.filter((e) => !e.collider).length, "the rest are hollow");
+    // The ones with no point are listed, with the reason.
+    const unplotted = await p.locator("table.ef-skipped").innerText();
+    for (const name of ["PIP-II", "High-Luminosity LHC", "KEKB"]) assert.match(unplotted, new RegExp(name));
+    assert.equal(await p.locator("table.ef-skipped tbody tr").count(), expected.length - plotted.length);
+    // The LHC is drawn at its Run 3 energy and footnotes the design value.
+    assert.match(await p.locator('#ef-chart .ch-point[data-id="accelerator:lhc"]').getAttribute("aria-label"), /13\.6 TeV/);
+    assert.match(await p.locator(".ef-footnotes").innerText(), /LHC: drawn at 13\.6 TeV.*14 TeV \(design\)/);
+    assert.deepEqual(await labelProblems(p), [], "labels neither overlap nor leave the chart");
+    // The timeline: a year fades the machines that began operating after it.
+    const fadedAt = (year) => plotted.filter((e) => e.start > year).length;
+    await p.goto(viewURL("#/view/energy-frontier", "?y=1985"));
+    await p.locator("#ef-chart svg.ch-svg").waitFor();
+    assert.equal(await p.locator("#ef-chart .ch-point.is-faded").count(), fadedAt(1985));
+    assert.match(await p.locator("#ef-year-note").innerText(), new RegExp(`${plotted.length - fadedAt(1985)} of the ${plotted.length}`));
+    await setRangeValue(p.locator("#timeline-year"), 2000);
+    await p.waitForFunction((n) => document.querySelectorAll("#ef-chart .ch-point.is-faded").length === n, fadedAt(2000));
+    assert.match(p.url(), /y=2000/);
+    // A point opens its accelerator.
+    await p.locator('#ef-chart .ch-point[data-id="accelerator:lhc"]').click();
+    await p.locator("#detail-panel h2").waitFor();
+    assert.match(p.url(), /#\/accelerator\/lhc/);
+    assert.match(await p.locator("#detail-panel h2").innerText(), /Large Hadron Collider/);
+    // Method: which field each point used, and the copied conversion.
+    await p.goBack();
+    await p.locator("#ef-chart svg.ch-svg").waitFor();
+    await p.locator("#view-method > summary").click();
+    const method = await p.locator("#view-method").innerText();
+    assert.match(method, /copied from UNIT_SCALE/);
+    assert.equal(await p.locator("table.ef-field-table tbody tr").count(), plotted.length);
+    assert.match(await p.locator("table.ef-field-table").innerText(), /cms_energy.*\/intervals\/\d+\/specs\/cms_energy/);
+    await p.locator('#ef-inputs[data-state="ready"]').waitFor();
+    assert.equal(await p.locator("#ef-inputs details.ch-input").count(), plotted.length);
+    await p.screenshot({ path: path.join(output, "energy-frontier-desktop.png") });
+    await ctx.close();
+  });
+
+  await record("Going underground and The energy frontier: reached from the facility and accelerator panels and from search, and the site panel shows the muon flux", async () => {
+    if (!generated) return;
+    const { ctx, p } = await viewContext();
+    await p.goto(viewURL("#/facility/lngs"));
+    const link = p.locator("#detail-panel .chart-link").first();
+    await link.waitFor();
+    assert.match(await link.innerText(), /Going underground/);
+    await link.click();
+    await p.locator("#ug-chart svg.ch-svg").waitFor();
+    assert.match(p.url(), /#\/view\/underground$/);
+    await p.locator("#view-back").click();
+    await p.locator("#detail-panel h2").waitFor();
+    assert.match(p.url(), /#\/facility\/lngs$/);
+    await p.goto(viewURL("#/accelerator/lhc"));
+    await p.locator("#detail-panel .chart-link").first().waitFor();
+    assert.match(await p.locator("#detail-panel .chart-link").first().innerText(), /The energy frontier[\s\S]*13\.6 TeV/);
+    await p.locator("#detail-panel .chart-link").first().click();
+    await p.locator("#ef-chart svg.ch-svg").waitFor();
+    assert.match(p.url(), /#\/view\/energy-frontier$/);
+    // A machine the chart cannot place says why on its own panel.
+    await p.goto(viewURL("#/accelerator/kekb"));
+    await p.locator("#detail-panel .chart-link").first().waitFor();
+    assert.match(await p.locator("#detail-panel .chart-cta").first().innerText(), /Not plotted/);
+    // Search.
+    for (const [query, title, route] of [["going underground", "Going underground", "underground"], ["muon flux", "Going underground", "underground"],
+      ["livingston", "The energy frontier", "energy-frontier"]]) {
+      await p.locator("#atlas-search").fill(query);
+      await p.locator(".search-result").first().waitFor();
+      assert.match(await p.locator(".search-result").first().innerText(), new RegExp(title), `"${query}" leads to ${title}`);
+      await p.locator("#atlas-search").press("Enter");
+      await p.locator("#view-host:not(.hidden) svg.ch-svg").first().waitFor();
+      assert.match(p.url(), new RegExp(`#/view/${route}$`));
+    }
+    // The site's own panel carries the flux the chart plots.
+    await p.goto(viewURL("#/site/lngs-hall-c"));
+    await p.locator("#detail-panel summary", { hasText: "Depth and altitude" }).click();
+    assert.match(await p.locator("#detail-panel").innerText(), /Cosmic-ray muon flux[\s\S]*3\.432 × 10⁻⁴ m⁻² s⁻¹/);
+    await ctx.close();
+  });
+
+  await record("Both charts on a phone: no sideways scroll, the chart fits 390 px, labels do not overlap, the table becomes cards", async () => {
+    if (!generated) return;
+    const { ctx, p } = await viewContext({ viewport: { width: 390, height: 844 }, ...MOBILE });
+    for (const [route, chart, shot] of [["underground", "#ug-chart", "underground-mobile.png"], ["energy-frontier", "#ef-chart", "energy-frontier-mobile.png"]]) {
+      await p.goto(viewURL(`#/view/${route}`));
+      await p.locator(`${chart} svg.ch-svg`).waitFor();
+      await p.waitForTimeout(400);
+      const box = await p.evaluate((sel) => {
+        const host = document.getElementById("view-host");
+        const svg = document.querySelector(`${sel} svg.ch-svg`).getBoundingClientRect();
+        const table = document.querySelector("#view-body table.ch-table");
+        return {
+          pageOverflow: document.documentElement.scrollWidth > window.innerWidth,
+          hostOverflow: host.scrollWidth > host.clientWidth + 1,
+          svgRight: svg.right, svgLeft: svg.left, innerWidth: window.innerWidth, svgWidth: svg.width,
+          tableDisplay: getComputedStyle(table).display,
+          back: document.getElementById("view-back").getBoundingClientRect().height,
+        };
+      }, chart);
+      assert.equal(box.pageOverflow, false, `${route}: no sideways scroll on the page`);
+      assert.equal(box.hostOverflow, false, `${route}: no sideways scroll in the view`);
+      assert.ok(box.svgLeft >= 0 && box.svgRight <= box.innerWidth, `${route}: the chart fits the width of the phone`);
+      assert.ok(box.svgWidth >= 280, `${route}: the chart uses the width it has`);
+      assert.equal(box.tableDisplay, "block", `${route}: the table is stacked as cards`);
+      assert.ok(box.back >= 44, `${route}: the back control is a 44 px target`);
+      assert.deepEqual(await labelProblems(p), [], `${route}: labels neither overlap nor leave the chart`);
+      await p.locator(`${chart} .ch-figure`).screenshot({ path: path.join(output, shot) });
+    }
+    await ctx.close();
+  });
   // ---- views -- end ---------------------------------------------------------------
 
   await record("about.html loads with live coverage counts read from the current data tree, and 0 console errors", async () => {

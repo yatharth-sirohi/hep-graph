@@ -12,6 +12,8 @@ import { greatCircleM, initialBearing } from './localmap.js';
 import {
   VIEW_NAME, WORKING_TITLE, rowGeometry, rowsForBeamline, rowsForExperiment,
 } from './views/beam-rows.js';
+import * as underground from './views/underground-rows.js';
+import * as frontier from './views/frontier-rows.js';
 import { quoteView, readableText, readableView } from './tex.js';
 
 let ATLAS = null;
@@ -528,6 +530,10 @@ async function renderFacility(id, timelineState) {
   frag.appendChild(h('h2', {}, facility.name));
   frag.appendChild(h('p', { class: 'panel-subtitle' }, kindLabel(facility.kind)));
   frag.appendChild(experimentBadge(facility, timelineState));
+  if (facility.kind === 'underground_laboratory') {
+    const chartLink = undergroundCta(facility);
+    if (chartLink) frag.appendChild(chartLink);
+  }
 
   const facilitySummary = plainSummaryOf(facility, t);
   sections.add('Overview', [
@@ -620,6 +626,49 @@ function beamSectionLinkLine(rows) {
       linkTo(beamSectionRoute(row), `${WORKING_TITLE}: ${row.label}`),
     ]),
   ]);
+}
+
+// ---- "Going underground" and "The energy frontier" (js/views/underground.js, energy-frontier.js) ----
+// A card like the beam section's, in the chart's tone: the facility panel of an underground laboratory
+// links to the chart of depth against muon flux, an accelerator panel to the chart of energy against
+// year. The hints are the views' own numbers (views/underground-rows.js, frontier-rows.js), read from
+// atlas.json with nothing fetched; a record the chart cannot place says so instead of linking blindly.
+function chartCta(route, title, hint) {
+  const a = h('a', { class: 'chart-link', href: `#/${route.type}/${route.slug}` }, [
+    h('span', { class: 'chart-link-title' }, title),
+    hint ? h('span', { class: 'chart-link-hint' }, hint) : null,
+  ]);
+  a.addEventListener('click', (event) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    CALLBACKS.navigate({ entity: route });
+  });
+  return h('div', { class: 'chart-cta' }, [h('p', { class: 'chart-cta-kicker' }, 'See the physics'), a]);
+}
+
+function undergroundCta(facility) {
+  const rows = underground.rowsForFacility(ATLAS, facility.id);
+  const depthOnly = underground.depthOnlyRows(ATLAS).filter((row) => row.site.facility_id === facility.id);
+  if (!rows.length && !depthOnly.length) return null;
+  let hint;
+  if (rows.length === 1) hint = `${rows[0].depthQuantity.display} \u00b7 muon flux ${underground.fluxText(rows[0].flux)}`;
+  else if (rows.length > 1) hint = `${rows.length} sites on the chart: ${rows.map((row) => row.label).sort().join(', ')}`;
+  else hint = `Depth recorded (${depthOnly[0].depthQuantity.display}); no muon flux, so no marker`;
+  return chartCta({ type: 'view', slug: underground.VIEW_NAME }, underground.WORKING_TITLE, hint);
+}
+
+function frontierCta(accelerator) {
+  if (!frontier.frontierRows(ATLAS).length) return null;
+  const entry = frontier.frontierFor(ATLAS, accelerator.id);
+  if (!entry) return null;
+  let hint;
+  if (entry.plotted) {
+    const row = entry.plotted;
+    hint = `${frontier.energyText(row.energy.gev)} ${row.collider ? '\u221as' : 'beam energy'} \u00b7 began operating ${row.start.year}`;
+  } else {
+    hint = `Not plotted: ${entry.skipped.reason}`;
+  }
+  return chartCta({ type: 'view', slug: frontier.VIEW_NAME }, frontier.WORKING_TITLE, hint);
 }
 
 // ---- distance between an experiment's sites ------------------------------
@@ -1253,6 +1302,8 @@ async function renderSite(id, timelineState) {
   const quantRows = [
     ['Depth', siteQuantity(site.depth != null ? site.depth : site.depth_m, 'm')],
     ['Depth (water equivalent)', siteQuantity(site.depth_mwe, 'm.w.e.')],
+    // A27: the cosmic-ray muon flux, in the unit its source uses (the chart converts).
+    ['Cosmic-ray muon flux', siteQuantity(site.muon_flux, 'cm^-2 s^-1')],
     ['Altitude', siteQuantity(site.altitude != null ? site.altitude : site.altitude_m, 'm')],
   ].filter(([, v]) => v);
   sections.add('Depth and altitude', keyValueList(quantRows), { open: false });
@@ -1384,6 +1435,8 @@ async function renderAccelerator(id, timelineState) {
   // ---- local map view hook (§4): the compact subtitle-area affordance
   const mapChip = await localMapChip(accelerator);
   if (mapChip) frag.appendChild(mapChip);
+  const frontierLink = frontierCta(accelerator);
+  if (frontierLink) frag.appendChild(frontierLink);
 
   const acceleratorSummary = plainSummaryOf(accelerator, t);
   sections.add('Overview', [
