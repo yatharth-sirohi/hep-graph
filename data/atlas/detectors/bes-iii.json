@@ -1,0 +1,132 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:bes-iii"
+  ],
+  "id": "detector:bes-iii",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2009-07",
+      "label": "commissioning with the first BEPCII collisions",
+      "locator": "IHEP history page (timeline); end = BEPCII acceptance test, July 2009",
+      "note": "BESIII observed the first BEPCII collisions in July 2008; the BEPCII National Acceptance Test was passed in July 2009.",
+      "quote": "In July 2008, the first collisions took place at BEPCII, the upgraded BEPC, and were observed by the new BESIII detector.",
+      "sources": [
+        "src:colliders2-ihep-history-page"
+      ],
+      "start": "2008-07",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2024-07-01",
+      "label": "BEPCII data taking",
+      "locator": "IHEP history page (timeline); end from the IPAC'26 paper (BEPCII shut down on 1 July 2024)",
+      "note": "Start is the BEPCII acceptance-test month. The end is the BEPCII shutdown date for the upgrade, not a BESIII-specific statement.",
+      "quote": "In July 2009, the Upgrade Project, BEPCII, successfully passed the National Acceptance Test organized by the National Development and Reform Commission",
+      "sources": [
+        "src:colliders2-ihep-history-page",
+        "src:colliders2-bepcii-upgrade-commissioning-ipac26"
+      ],
+      "start": "2009-07",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "BEPCII upgrade shutdown",
+      "locator": "Geng et al., IPAC'26 WEP1606, abstract",
+      "note": "The collider has been shut down for its upgrade since 1 July 2024 and was in commissioning in 2026 (design luminosity reported achieved 28 April 2026); no fetched source states whether BESIII physics data taking has resumed, so the experiment is recorded as in shutdown. The collaboration remains active (new results and a September 2026 workshop on its website).",
+      "quote": "The upgrade of Beijing Electron and Positron Collider-II (BEPCII) has begun since the shutdown of BEPCII on July 1st in 2024.",
+      "sources": [
+        "src:colliders2-bepcii-upgrade-commissioning-ipac26"
+      ],
+      "start": "2024-07-01",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "collaboration home page title",
+      "note": "",
+      "quote": "Beijing Spectrometer(BESIII) Experiment----Institute of High Energy Physics, Chinese Academy of Sciences",
+      "sources": [
+        "src:colliders2-besiii-home"
+      ],
+      "value": "http://bes3.ihep.ac.cn/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "BES-III detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "IHEP history page (timeline)",
+      "note": "Campus-grade placement: no fetched source locates the BES hall or interaction region; the marker is the IHEP Beijing campus point.",
+      "quote": "In July 2008, the first collisions took place at BEPCII, the upgraded BEPC, and were observed by the new BESIII detector.",
+      "role": "main",
+      "site_id": "site:ihep-beijing-campus",
+      "sources": [
+        "src:colliders2-ihep-history-page"
+      ],
+      "start": "2008-07",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders2-besiii-brief-introduction",
+    "src:colliders2-besiii-detector-nim-arxiv"
+  ],
+  "specs": {
+    "solenoid_field": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "1.0 T (0.9 T in 2012)",
+      "locator": "BESIII website, Brief Introduction",
+      "note": "",
+      "quote": "providing a 1.0 T (0.9 T in 2012) magnetic field",
+      "sources": [
+        "src:colliders2-besiii-brief-introduction"
+      ],
+      "unit": "T",
+      "value": 1.0,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "shutdown",
+  "subsystems": [],
+  "summary": {
+    "plain": "The BESIII detector: a layered cylinder around the collision point with a helium drift chamber, scintillator timing counters, a crystal calorimeter and muon counters inside a 1-tesla superconducting magnet, covering 93% of all directions.",
+    "technical": "BESIII: helium-based multilayer drift chamber (MDC), plastic-scintillator TOF, CsI(Tl) electromagnetic calorimeter, all inside a superconducting solenoid (1.0 T; 0.9 T in 2012), octagonal steel flux-return yoke with resistive plate counter muon modules; 93% acceptance over 4π; momentum resolution 0.5% at 1 GeV/c; end-cap TOF upgraded in 2015 with MRPCs."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "BESIII website, Brief Introduction",
+    "note": "",
+    "quote": "consists of a helium-based multilayer drift chamber (MDC), a plastic scintillator time-of-flight system (TOF), and a CsI(Tl) electromagnetic calorimeter (EMC), which are all enclosed in a superconducting solenoidal magnet",
+    "sources": [
+      "src:colliders2-besiii-brief-introduction"
+    ],
+    "value": "Helium-based multilayer drift chamber, plastic-scintillator TOF and CsI(Tl) electromagnetic calorimeter inside a 1.0 T superconducting solenoid, with resistive-plate-chamber muon identifier",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

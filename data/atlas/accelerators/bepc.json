@@ -1,0 +1,140 @@
+{
+  "aliases": [
+    "BEPC"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:ihep-beijing",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:bepc",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1984-10",
+      "label": "approval",
+      "locator": "IHEP history page (timeline)",
+      "note": "",
+      "quote": "In April 1983, the State Council officially approved the proposal to construct the Beijing Electron Positron Collider (BEPC), submitted by the State Planning Commission.",
+      "sources": [
+        "src:colliders2-ihep-history-page"
+      ],
+      "start": "1983-04",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1988-10-16",
+      "label": "construction",
+      "locator": "IHEP history page (timeline); end = first collisions",
+      "note": "Groundbreaking ceremony in October 1984; the construction interval ends at the first collisions.",
+      "quote": "In October 1984, the groundbreaking ceremony for the BEPC project was held, with Deng Xiaoping and other Party and State leaders participating.",
+      "sources": [
+        "src:colliders2-ihep-history-page"
+      ],
+      "start": "1984-10",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2004",
+      "label": "e+e- collider operation",
+      "locator": "IHEP history page (timeline); end year from Briere, Harris & Mitchell (2016), section 3",
+      "note": "Start is the sourced first-collision date; the end is the year the upgrade to BEPCII started (year precision).",
+      "quote": "On October 16, 1988, the first electron-positron collisions took place at BEPC.",
+      "sources": [
+        "src:colliders2-ihep-history-page",
+        "src:colliders2-bes-annual-review-briere-harris-mitchell"
+      ],
+      "start": "1988-10-16",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1995",
+      "kind": "phase",
+      "label": "original BEPC",
+      "locator": "Briere, Harris & Mitchell (2016), section 3",
+      "note": "Year precision.",
+      "quote": "originally operated from 1988 until 1995; it was then upgraded, increasing the reliability of the machine and approximately doubling its luminosity.",
+      "sources": [
+        "src:colliders2-bes-annual-review-briere-harris-mitchell"
+      ],
+      "start": "1988-10-16",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1998",
+      "kind": "phase",
+      "label": "upgrade of BEPC (reliability and luminosity)",
+      "locator": "Briere, Harris & Mitchell (2016), section 3",
+      "note": "The review says BEPC ran until 1995, was then upgraded, and the upgraded machine ran from 1998; the interval between is taken as the upgrade period.",
+      "quote": "The upgraded BEPC ran from 1998-2004, when a major upgrade to BEPCII was started.",
+      "sources": [
+        "src:colliders2-bes-annual-review-briere-harris-mitchell"
+      ],
+      "start": "1995",
+      "status": "upgrade",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2004",
+      "kind": "phase",
+      "label": "upgraded BEPC",
+      "locator": "Briere, Harris & Mitchell (2016), section 3",
+      "note": "Year precision.",
+      "quote": "The upgraded BEPC ran from 1998-2004, when a major upgrade to BEPCII was started.",
+      "sources": [
+        "src:colliders2-bes-annual-review-briere-harris-mitchell"
+      ],
+      "start": "1998",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "BEPC replaced by BEPCII upgrade",
+      "locator": "IHEP history page (timeline)",
+      "note": "BEPC data taking ended in 2004 when the BEPCII upgrade began; BEPCII (accelerator:bepcii) is the rebuilt two-ring machine on the same site.",
+      "quote": "In January 2004, the BEPC Upgrade Project kicked off.",
+      "sources": [
+        "src:colliders2-ihep-history-page"
+      ],
+      "start": "2004",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": null
+  },
+  "name": "Beijing Electron-Positron Collider",
+  "notes": [],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:ihep-beijing-campus",
+  "sources": [
+    "src:colliders2-ihep-history-page",
+    "src:colliders2-bes-annual-review-briere-harris-mitchell"
+  ],
+  "specs": {},
+  "status": "completed",
+  "summary": {
+    "plain": "The electron-positron collider at the Institute of High Energy Physics in Beijing, which first collided beams on 16 October 1988. Its detector, the Beijing Spectrometer (BES), measured the tau lepton mass and studied charm physics until 2004, when the machine was rebuilt as BEPCII.",
+    "technical": "BEPC e⁺e⁻ storage-ring collider in the tau-charm energy region: State Council approval April 1983, groundbreaking October 1984, first collisions 16 October 1988; ran 1988-1995, was upgraded and ran again 1998-2004; rebuilt as BEPCII from 2004. Detector: BES (BESI 1989-95, BESII 1998-2004)."
+  },
+  "type": "accelerator"
+}
