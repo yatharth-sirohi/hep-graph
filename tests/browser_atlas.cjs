@@ -465,7 +465,9 @@ async function setRangeValue(locator, value) {
       assert.match(text, /Fermi National Accelerator Laboratory → Sanford Underground Research Facility: ≈ 12\d0 km, bearing 28\d° \(WNW\)/);
       assert.ok(await beam.locator('a.local-map-link', { hasText: /Fermilab/ }).count() > 0, "the Fermilab local map is linked");
       assert.ok(await beam.locator('a.local-map-link', { hasText: /SURF/ }).count() > 0, "the SURF local map is linked");
-      await p.goto(`${base}/atlas${dataTree}#/result/cms-higgs-boson-observation-2012`);
+      // A same-document hash change (Playwright's goto waits for a load that
+      // Firefox never fires for one).
+      await p.evaluate(() => { window.location.hash = "#/result/cms-higgs-boson-observation-2012"; });
       await p.locator("#detail-panel .result-where").waitFor();
       assert.match(await p.locator("#detail-panel .result-where").innerText(), /^Where: CERN \(local map\)$/);
       await p.locator("#detail-panel .result-where a", { hasText: "local map" }).click();
@@ -1710,6 +1712,7 @@ async function setRangeValue(locator, value) {
       afterRegion,
       { timeout: 15000 },
     );
+    await page.locator("#filter-region-Europe").waitFor({ state: "attached", timeout: 15000 });
     const restored = await page.evaluate(() => {
       const box = document.getElementById("filter-region-Europe");
       return { exists: !!box, checked: !!(box && box.checked), url: location.href,

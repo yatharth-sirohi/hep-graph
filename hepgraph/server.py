@@ -44,11 +44,15 @@ ATLAS_CONTENT_TYPES = {
 # every request; see docs/HEP_ATLAS_BUNDLES.md for the design writeup.
 _ATLAS_ETAG_CACHE: dict[Path, tuple[int, int, str]] = {}
 _ATLAS_ETAG_LOCK = threading.Lock()
+ATLAS_CACHE_CONTROL = 'public, max-age=0, must-revalidate'
 # Every file under /atlas is static and changes only with a deployment, which
-# starts with an empty edge cache: browsers still revalidate (max-age=0, a cheap
-# 304) while Vercel's CDN answers for everyone, so a page load no longer costs a
-# serverless invocation per file (it was ~40) or spends the per-address budget.
-ATLAS_CACHE_CONTROL = 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800'
+# starts with an empty edge cache. This header is read by Vercel's CDN only and
+# never reaches the browser, so the CDN answers for everyone (a page load was
+# ~40 serverless invocations, each counted against the per-address budget)
+# while browsers keep plain revalidation: a browser-visible
+# stale-while-revalidate made Firefox's background revalidations stall page
+# loads against this server.
+ATLAS_CDN_CACHE_CONTROL = 'max-age=86400, stale-while-revalidate=604800'
 # Static files a single address may fetch per minute. A browser test suite on
 # one machine opens hundreds of pages a minute with no CDN in front, so it may
 # raise this locally (HEPGRAPH_ASSET_RATE_LIMIT); production keeps the default.
@@ -260,7 +264,7 @@ class Handler(BaseHTTPRequestHandler):
             'image/svg+xml', 'model/gltf-binary',
         }
 
-    def respond(self, value, status=200, content_type='application/json; charset=utf-8', *, cache_control=None, etag=None, raw=False):
+    def respond(self, value, status=200, content_type='application/json; charset=utf-8', *, cache_control=None, etag=None, raw=False, cdn_cache_control=None):
         body = json.dumps(value, ensure_ascii=False, allow_nan=False).encode() if content_type.startswith('application/json') and not raw else value
         encoding = None
 
@@ -275,6 +279,8 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header('Vary', 'Accept-Encoding')
         self.send_header('Content-Length', str(len(body)))
         self.send_header('Cache-Control', cache_control or ('no-store' if content_type.startswith('application/json') else 'no-cache'))
+        if cdn_cache_control:
+            self.send_header('Vercel-CDN-Cache-Control', cdn_cache_control)
         if etag:
             self.send_header('ETag', etag)
         self.send_header('X-Content-Type-Options', 'nosniff')
@@ -403,12 +409,13 @@ class Handler(BaseHTTPRequestHandler):
             self.send_response(304)
             self.send_header('ETag', etag)
             self.send_header('Cache-Control', ATLAS_CACHE_CONTROL)
+            self.send_header('Vercel-CDN-Cache-Control', ATLAS_CDN_CACHE_CONTROL)
             self.send_header('X-Content-Type-Options', 'nosniff')
             self.send_header('X-HEP-Instance', PROCESS_INSTANCE)
             self.end_headers()
             return None
         return self.respond(body, content_type=content_type, cache_control=ATLAS_CACHE_CONTROL,
-                            etag=etag, raw=True)
+                            cdn_cache_control=ATLAS_CDN_CACHE_CONTROL, etag=etag, raw=True)
 
     def route(self, state):
         parsed = urllib.parse.urlsplit(self.path)

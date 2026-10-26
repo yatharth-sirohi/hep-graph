@@ -51,13 +51,15 @@ revalidation over content-hashed URLs**:
   SHA-256 of the file's bytes + `"`) for every file it serves, cached
   in-process keyed by `(path, mtime_ns, size)` so an unchanged file is not
   re-hashed on every request.
-* Every response carries `Cache-Control: public, max-age=0, s-maxage=86400,
-  stale-while-revalidate=604800` (since the 2026-10 release). The browser
-  still revalidates on every load (`max-age=0`); the shared cache — Vercel's
-  CDN — may answer for a day. Files under `/atlas` change only with a
-  deployment, and a deployment starts with an empty edge cache, so no reader
-  is served the previous build. Before this, every file of every page load was
-  a serverless invocation and counted against the per-address request budget.
+* Every response carries `Cache-Control: public, max-age=0, must-revalidate`
+  — the browser always revalidates — and, since the 2026-10 release,
+  `Vercel-CDN-Cache-Control: max-age=86400, stale-while-revalidate=604800`,
+  which only Vercel's CDN reads (it never reaches the browser). Files under
+  `/atlas` change only with a deployment, and a deployment starts with an empty
+  edge cache, so no reader is served the previous build; before this, every
+  file of every page load was a serverless invocation counted against the
+  per-address request budget. A browser-visible `stale-while-revalidate` was
+  tried first and made Firefox's background revalidations stall page loads.
 * A request with a matching `If-None-Match` gets a bodyless `304`; a stale
   or absent one gets the normal `200` with the full bytes and a fresh ETag.
 
@@ -79,7 +81,8 @@ live round trip.
 now (default browser cache mode), so the conditional-GET machinery above is
 actually used; `manifest.json` is fetched the same way — "revalidated", per
 the product requirement, means the browser always asks the server whether
-its copy is current, which `max-age=0` guarantees regardless of cache mode.
+its copy is current, which `max-age=0, must-revalidate` guarantees regardless
+of cache mode.
 
 ## Stripping rules
 

@@ -156,7 +156,7 @@ def _assert_security_headers(headers: dict[str, str]) -> None:
     assert "X-HEP-Instance" in headers
 
 
-ATLAS_CACHE_CONTROL = "public, max-age=0, s-maxage=86400, stale-while-revalidate=604800"
+ATLAS_CACHE_CONTROL = "public, max-age=0, must-revalidate"
 
 
 def test_atlas_index_is_served_with_and_without_trailing_slash(service, atlas_dir) -> None:
