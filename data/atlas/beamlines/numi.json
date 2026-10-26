@@ -13,7 +13,7 @@
         "dimension": "length",
         "display": "735.3 km",
         "locator": "MINOS detector paper, §1 Introduction (overview of the experiment)",
-        "note": "Target-to-far-detector distance. The Fermilab end is site:fermilab-main-campus, a campus-grade point (precision 3 km), not the target; the Soudan end is the surveyed MINOS far-detector midpoint (site:soudan-minos-far-detector). The great-circle distance between the two recorded points is 735.4 km (0.01 % from the stated value). The same paper gives the surveyed figure as \"735.3380 km from the upstream end of the first horn of the neutrino beamline\" (§6.5, Far detector location); the NuMI beam paper (NIM A 806) rounds to 734 km: \"encountering the MINOS Far Detector (FD) 734 km away in the Soudan Mine in Minnesota\".",
+        "note": "Target-to-far-detector distance. The Fermilab end is site:fermilab-main-campus, a campus-grade point (precision 3 km), not the target; the Soudan end is the surveyed MINOS far-detector midpoint (site:soudan-minos-far-detector). The great-circle distance between the two recorded points is 735.4 km (0.01 % from the stated value). The same paper gives the surveyed figure as \"735.3380 km from the upstream end of the first horn of the neutrino beamline\" (§6.5, Far detector location); the NuMI beam paper (NIM A 806) gives 734 km, without a stated reference point (not a rounding of 735.3 km): \"encountering the MINOS Far Detector (FD) 734 km away in the Soudan Mine in Minnesota\".",
         "quote": "The far detector, shown in Fig. 1, is located in Soudan, MN (47.8◦ N latitude, and 92.2◦ W longitude), 735.3 km from the NuMI beam production target at Fermilab",
         "sources": [
           "src:minos-detector-paper-2008",
@@ -66,14 +66,15 @@
   },
   "direction": {
     "confidence": "verified",
-    "locator": "§3",
-    "note": "",
+    "locator": "NuMI beam paper section 2.1 (inclination); MINOS detector paper sections 1 (distance) and 6.5 (direction)",
+    "note": "Distance: the MINOS detector paper says the far detector is \"735.3 km from the NuMI beam production target at Fermilab\" (section 1; section 6.5 gives the surveyed 735.3380 km \"from the upstream end of the first horn of the neutrino beamline\"). The NuMI beam paper gives a different figure, \"encountering the MINOS Far Detector (FD) 734 km away in the Soudan Mine in Minnesota\", without stating its reference point; 735.3 km is used here and in the baseline. Direction: the MINOS paper says the beam \"travels approximately NNW\" (section 6.5), and the NuMI paper says it continues \"further north through the Earth’s crust\".",
     "quote": "To point towards the Soudan Laboratory the proton beam had to be inclined downward by 58 mrad.",
     "sources": [
-      "src:fermilab-numi-beam-paper-2016"
+      "src:fermilab-numi-beam-paper-2016",
+      "src:minos-detector-paper-2008"
     ],
-    "value": "north-west from Fermilab, inclined 58 mrad (3.34 degrees) downward to point at the Soudan mine in Minnesota, 734 km away",
-    "verified_at": "2026-09-16"
+    "value": "north-north-west from Fermilab, inclined 58 mrad (3.34 degrees) downward towards the Soudan mine in Minnesota, 735.3 km from the NuMI target",
+    "verified_at": "2026-10-26"
   },
   "facility_id": "facility:fermilab",
   "far_detector_site_ids": [
