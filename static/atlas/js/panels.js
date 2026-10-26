@@ -360,14 +360,44 @@ async function depictionOn(mapId, entityId) {
  * itself, but whose own site is drawn to scale on one, also gets that map (kind
  * `site`): the site is where the detector is, and that is what the map shows.
  */
+/**
+ * Every local map of a facility, the one its record names first. A facility can
+ * have several (JUNO has its campus and its reactor baselines; KM3NeT has ARCA
+ * and ORCA), and `map_id` on the record only names one of them.
+ */
+function mapIdsOfFacility(facilityId) {
+  const maps = (ATLAS && ATLAS.maps) || {};
+  const facility = ATLAS && ATLAS.facilities && ATLAS.facilities[facilityId];
+  const first = facility && facility.map_id;
+  return Object.keys(maps)
+    .filter((mapId) => maps[mapId].facility_id === facilityId || mapId === first)
+    .sort((a, b) => (b === first) - (a === first));
+}
+
+// The facilities an experiment runs at: the ones it names, and those of its sites.
+function facilityIdsOfExperiment(experiment) {
+  const ids = new Set(experiment.facility_ids || []);
+  for (const siteId of experiment.site_ids || []) {
+    const site = ATLAS.sites && ATLAS.sites[siteId];
+    if (site && site.facility_id) ids.add(site.facility_id);
+  }
+  return [...ids];
+}
+
 async function mapDepictions(record) {
   if (!record) return [];
   const maps = (ATLAS && ATLAS.maps) || {};
-  const ids = record.map_id ? [record.map_id] : (record.geometry_map_ids || []);
+  const kind = record.id ? record.id.split(':')[0] : '';
+  // A facility, or an experiment (which has no map of its own), is linked to
+  // every map of its facility; anything else to the map(s) built for it.
+  let ids;
+  if (kind === 'facility') ids = mapIdsOfFacility(record.id);
+  else if (kind === 'experiment') ids = [...new Set(facilityIdsOfExperiment(record).flatMap(mapIdsOfFacility))];
+  else ids = record.map_id ? [record.map_id] : (record.geometry_map_ids || []);
   const rows = [];
   for (const mapId of ids.filter((id) => maps[id])) {
     // A facility is the map's host, not a feature on it.
-    const how = record.id && record.id.startsWith('facility:') ? 'host' : await depictionOn(mapId, record.id);
+    const how = kind === 'facility' || kind === 'experiment' ? 'host' : await depictionOn(mapId, record.id);
     rows.push({ mapId, meta: maps[mapId], how });
   }
   if (record.id && record.id.startsWith('detector:') && !rows.some((row) => row.how === 'drawn')) {
@@ -720,6 +750,10 @@ async function renderExperiment(id, timelineState) {
     ['Related programs', lineageList(others)],
   ], { open: false, optional: ['Related programs'] });
 
+  // The local maps of the facility it runs at (every one of them).
+  const mapSection = await localMapLinks(exp);
+  if (mapSection) frag.appendChild(mapSection);
+
   sections.note();
   frag.appendChild(sourcesDisclosure(id, exp, { approximateSites }));
   CALLBACKS.focusGlobe(id);
@@ -1058,9 +1092,20 @@ async function renderResult(id) {
       ...facilities.flatMap((facility, i) => [
         i ? document.createTextNode(', ') : null,
         linkTo(idRoute(facility.id), facility.name),
-        facility.map_id && maps[facility.map_id]
-          ? h('span', { class: 'result-where-map' }, [' (', linkTo(idRoute(facility.map_id), 'local map', 'local-map-link'), ')'])
-          : null,
+        // One map reads "local map"; a facility with several names each.
+        (() => {
+          const mapIds = mapIdsOfFacility(facility.id).filter((mapId) => maps[mapId]);
+          return mapIds.length
+            ? h('span', { class: 'result-where-map' }, [
+              ' (',
+              ...mapIds.flatMap((mapId, k) => [
+                k ? document.createTextNode(', ') : null,
+                linkTo(idRoute(mapId), mapIds.length === 1 ? 'local map' : maps[mapId].name, 'local-map-link'),
+              ]),
+              ')',
+            ])
+            : null;
+        })(),
       ]),
     ]));
   }
