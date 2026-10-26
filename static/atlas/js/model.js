@@ -20,15 +20,21 @@ export const STATUS_PRIORITY = [
 
 export const DIMMED_STATUSES = new Set(['proposed', 'approved', 'planned']);
 
+// The status palette, as hex for the canvas/SVG code (globe markers, map arcs)
+// that cannot read a CSS custom property. The same values are the --status-*
+// tokens at the top of atlas.css (Okabe-Ito hues lightened for dark surfaces,
+// checked for contrast and for colour-vision deficiency there);
+// tests/test_atlas_static_css.py fails if the two sets drift apart. A status is
+// never colour alone: every use also carries its label, a fade or a dash.
 export const STATUS_COLOR = {
-  active: '#4fd1a5', upgrade: '#7fd1e6', commissioning: '#e6c25c',
-  construction: '#e6a25c', approved: '#8a8fd6', proposed: '#8a8fd6',
-  completed: '#7d8b96', decommissioned: '#5a636b', shutdown: '#5a636b',
-  unrecorded: '#3d444a',
+  active: '#34d3a0', upgrade: '#b4e6ff', commissioning: '#f0a81a',
+  construction: '#f0a81a', approved: '#c47fd0', proposed: '#c47fd0', planned: '#c47fd0',
+  completed: '#b3bec5', decommissioned: '#8a97a2', shutdown: '#8a97a2',
+  unrecorded: '#6e7b86',
 };
 
 export function statusColor(status) {
-  return STATUS_COLOR[status] || '#9aa7b0';
+  return STATUS_COLOR[status] || '#b3bec5';
 }
 
 // Which of three coarse eras a lifecycle status belongs to, used to group

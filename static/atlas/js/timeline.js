@@ -118,10 +118,17 @@ export function createTimeline(container, { minYear, maxYear, defaultYear, onCha
   let timer = null;
 
   function legendHTML() {
+    // The colours are the --status-* tokens (atlas.css), the same palette the
+    // globe markers, the panel badges and the local map draw with. The dot is
+    // never the only carrier: each is followed by its name.
     const shared = [
       ['dot active', 'Active'],
+      ['dot upgrade', 'Upgrade'],
       ['dot construction', 'Construction / commissioning'],
       ['dot dimmed', 'Proposed / approved / planned'],
+      ['dot completed', 'Completed'],
+      ['dot retired', 'Decommissioned / shut down'],
+      ['dot unrecorded', 'No status recorded'],
       ['dot possible', 'Uncertain (possible)'],
     ];
     return shared.map(([cls, label]) => `<span class="legend-item"><i class="${cls}"></i>${label}</span>`).join('');

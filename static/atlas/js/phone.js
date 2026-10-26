@@ -56,7 +56,7 @@ const SHEETS = {
     opener: () => document.getElementById('phone-filters-btn'),
     closeLabel: 'Close views and filters',
     heading: 'Views & filters',
-    dialogLabel: () => 'Views, filters and legend',
+    dialogLabel: () => 'Views, filters and key',
   },
   layers: {
     get: () => $('.map-layers'),
@@ -168,7 +168,7 @@ function decorate(sheet) {
     el.removeAttribute('tabindex');
     el.classList.remove('is-open', 'is-expanded');
     // The aside / section keep the label they were authored with.
-    const authored = { filters: 'Views, filters and legend', layers: 'Map layers, places and legend', mode: null, detail: null, drawer: 'Selected feature' };
+    const authored = { filters: 'Filters', layers: 'Map layers, places and legend', mode: null, detail: null, drawer: 'Selected feature' };
     const key = Object.keys(SHEETS).find((k) => SHEETS[k] === sheet);
     if (authored[key]) el.setAttribute('aria-label', authored[key]); else el.removeAttribute('aria-label');
     for (const node of el.querySelectorAll(':scope > .sheet-bar, :scope > .phone-sheet-heading')) node.remove();
@@ -387,24 +387,41 @@ function moveInto(node, host) {
   undo.push(() => parent.insertBefore(node, next && next.parentNode === parent ? next : null));
 }
 
-function ensureSheetSection(id, title) {
+// A disclosure section of the filters sheet. `first` puts it right under the
+// sheet's heading, `before` in front of another node; the default is the end.
+function ensureSheetSection(id, title, { open = true, first = false, before = null } = {}) {
   const sheet = els.filters;
   let section = document.getElementById(id);
   if (section) return $('.phone-section-body', section);
   section = document.createElement('details');
   section.id = id;
   section.className = 'phone-section';
-  section.open = true;
+  section.open = open;
   section.innerHTML = `<summary>${title}</summary><div class="phone-section-body"></div>`;
-  sheet.appendChild(section);
+  if (first) {
+    const anchor = $(':scope > .phone-sheet-heading', sheet) || $(':scope > .sheet-bar', sheet);
+    if (anchor) anchor.after(section); else sheet.prepend(section);
+  } else if (before && before.parentNode === sheet) {
+    sheet.insertBefore(section, before);
+  } else {
+    sheet.appendChild(section);
+  }
   undo.push(() => section.remove());
   return $('.phone-section-body', section);
 }
 
 function moveLongTexts() {
-  const legend = document.getElementById('timeline-legend');
-  if (legend && legend.parentNode === els.timelineBar) {
-    moveInto(legend, ensureSheetSection('phone-status-section', 'Status colours'));
+  // The laptop header's view switcher and Key popover content live in the sheet
+  // here, as its first section and a collapsed "Key" (markers, dots and the
+  // status colours, which the timeline's legend is part of) before the filters.
+  const views = document.getElementById('mode-buttons');
+  if (views && views.parentNode === els.header) {
+    moveInto(views, ensureSheetSection('phone-views-section', 'View', { first: true }));
+  }
+  const key = document.getElementById('key-body');
+  if (key && key.parentNode !== els.filters && !key.closest('.phone-section')) {
+    const filtersSection = $(':scope > .filters-disclosure', els.filters);
+    moveInto(key, ensureSheetSection('phone-key-section', 'Key', { open: false, before: filtersSection }));
   }
   if (els.versionLabel && els.versionLabel.textContent.trim() && els.versionLabel.parentNode === els.footer) {
     moveInto(els.versionLabel, ensureSheetSection('phone-data-section', 'About this data'));
