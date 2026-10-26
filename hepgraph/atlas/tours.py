@@ -33,6 +33,7 @@ import json
 import math
 import operator
 import re
+from urllib.parse import quote as _urlquote
 from dataclasses import dataclass, field
 from typing import Any, Iterable
 
@@ -69,8 +70,8 @@ _SLUG_RE = re.compile(r'^[a-z0-9]+(?:-[a-z0-9]+)*$')
 _SENTENCE_SPLIT_RE = re.compile(r'(?<=[.!?])\s+')
 #: A number as a reader sees one: thousands commas allowed, never glued to a
 #: preceding letter ("T2K", "ND280", "D2O" contain no number) and not the digits
-#: of a hyphenated name ("DEAP-3600", "PandaX-4T").
-_NUMBER_RE = re.compile(r'(?<![\w.])(?<![A-Za-z]-)(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?')
+#: of a hyphenated name ("DEAP-3600", "PandaX-4T") or of "Run 3" / "Long Shutdown 3".
+_NUMBER_RE = re.compile(r'(?<![\w.])(?<![A-Za-z]-)(?<!Run )(?<!Shutdown )(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?')
 
 #: Row keys a path segment may use to pick one item of a list.
 _ROW_KEYS = ('label', 'id', 'name', 'to_site_id', 'site_id', 'facility_id', 'experiment_id',
@@ -336,11 +337,11 @@ def resolve(atlas: Any, entity_id: Any, field_path: Any) -> Resolved:
 
 _BINARY = {ast.Add: operator.add, ast.Sub: operator.sub, ast.Mult: operator.mul,
            ast.Div: operator.truediv, ast.Pow: operator.pow}
-_FUNCTIONS = {'sqrt': math.sqrt, 'log10': math.log10, 'ln': math.log}
+_FUNCTIONS = {'sqrt': math.sqrt, 'log10': math.log10, 'ln': math.log, 'asin': math.asin}
 
 
 def evaluate(expression: str, names: dict[str, float]) -> float:
-    """Evaluate `+ - * / **`, parentheses, names, `pi` and sqrt/log10/ln; nothing else."""
+    """Evaluate `+ - * / **`, parentheses, names, `pi` and sqrt/asin/log10/ln; nothing else."""
     def walk(node: ast.AST) -> float:
         if isinstance(node, ast.Expression):
             return walk(node.body)
@@ -869,7 +870,7 @@ def step_href(step: dict) -> str:
     """The Atlas URL (relative to the app's own path) that shows this step's view.
 
     A view beats a map beats a selection, because the app has one route at a
-    time; the year rides along as ``?y=``.  `state.js` is the grammar:
+    time; the year rides along as ``?y=`` and, on a map, the selection as ``sel=``.  `state.js` is the grammar:
     ``#/<type>/<slug>``, ``#/map/<slug>``, and the future ``#/view/<name>/<arg>``.
     """
     year = step.get('year')
@@ -878,6 +879,9 @@ def step_href(step: dict) -> str:
     if isinstance(view, dict):
         return f"{query}#/view/{view['name']}/{view['arg']}"
     if local_map:
+        # On a map route the selection is the `sel` parameter (an entity id), as in localmap.js.
+        if select:
+            query += ('&' if query else '?') + 'sel=' + _urlquote(str(select), safe='')
         return f'{query}#/map/{local_map}'
     if select:
         kind, slug = str(select).split(':', 1)
