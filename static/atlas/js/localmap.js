@@ -22,6 +22,7 @@ import {
   titleCase, kindLabel, quantityText, statusForTimeline, timelineAbsenceReason, monthToYear,
 } from './model.js';
 import * as mapstyle from './mapstyle.js';
+import { plainReason, researchNotes } from './unlocated.js';
 
 const LEAFLET_JS = '/atlas/vendor/leaflet/leaflet.js';
 const LEAFLET_CSS = '/atlas/vendor/leaflet/leaflet.css';
@@ -844,6 +845,7 @@ function drawFeatures(L) {
     }
     layersByFeature.set(feature.id, group);
     addLabel(L, feature, shape, { options, ghost, series: seriesOfFeature.get(feature.id) });
+    if (isPoint) addUncertaintyLabel(L, feature, { options, ghost });
   }
   scheduleLabelLayout();
 }
@@ -1192,7 +1194,7 @@ function addLabel(L, feature, shape, { options, ghost, series }) {
   const spec = series
     ? { text: series.text, sub: '' }
     : (labelTexts.get(feature.id) || { text: feature.entity_name || feature.name, sub: '' });
-  const rank = mapstyle.labelRank(feature.feature_type);
+  const rank = mapstyle.labelRank(feature.feature_type, { experimentSite: isExperimentSite(feature) });
   const selected = series ? series.selected : !!view.sel && (view.sel === feature.entity_id || view.sel === feature.id);
   const content = h('span', { class: 'map-label-text' }, [
     h('span', { class: 'map-label-name' }, spec.text),
@@ -1228,6 +1230,96 @@ function addLabel(L, feature, shape, { options, ghost, series }) {
     symbol: symbolFor(L, feature, labelShape, { options, ghost, series }),
     symbolShown: false,
   });
+}
+
+/** Sites that hold a detector placement, by site id (built once per atlas). */
+let detectorSiteIds = null;
+
+function hostsDetector(siteId) {
+  if (!detectorSiteIds) {
+    detectorSiteIds = new Set();
+    for (const detector of Object.values((ATLAS && ATLAS.detectors) || {})) {
+      for (const placement of detector.placements || []) detectorSiteIds.add(placement.site_id);
+    }
+  }
+  return detectorSiteIds.has(siteId);
+}
+
+/** True for a feature that stands for the place an experiment's detector sits
+ *  but is drawn as a surface-site outline — an LHC point's boundary polygon: a
+ *  site underground (a cavern) that has a detector placed in it. A cavern or hall
+ *  drawn as such already ranks with the caverns; it is the outline that was
+ *  ranked with the campus fences. */
+function isExperimentSite(feature) {
+  if (feature.entity_type !== 'site' || feature.feature_type !== 'boundary') return false;
+  const site = INDEX ? INDEX.get(feature.entity_id) : null;
+  return !!site && site.setting === 'underground' && hostsDetector(site.id);
+}
+
+// The label on a position's accuracy circle (mapstyle.uncertaintyLabel). It is
+// shown only while the circle is big enough on screen to read as a shape, and it
+// takes the topmost spot on the ring that is free.
+const UNCERTAINTY_MIN_RADIUS_PX = 24;
+const UNCERTAINTY_RING_SAMPLES = 24;
+const UNCERTAINTY_LABEL_RANK = 4;
+
+function addUncertaintyLabel(L, feature, { options, ghost }) {
+  const parts = mapstyle.uncertaintyParts(feature);
+  const [centre] = pointParts(feature.geometry);
+  if (!parts || !centre) return;
+  const [lon, lat] = centre;
+  const radiusM = pointRadius(feature);
+  // A sample on the ring, with the side of it the label stands on: above the top
+  // of the circle, to the right of its right edge, and so on, so the label never
+  // covers the ring it explains.
+  const anchors = Array.from({ length: UNCERTAINTY_RING_SAMPLES }, (_, i) => {
+    const bearing = (i * 360) / UNCERTAINTY_RING_SAMPLES;
+    const [plat, plon] = destination(lat, lon, bearing, radiusM);
+    const side = bearing >= 315 || bearing < 45 ? 'above' : (bearing < 135 ? 'right' : (bearing < 225 ? 'below' : 'left'));
+    return { ll: L.latLng(plat, plon), places: [side], gap: LABEL_PAD_PX + 2 };
+  });
+  const classes = ['map-label', 'map-label-uncertainty', 'is-hidden'];
+  if (ghost) classes.push('is-ghosted');
+  const tooltip = L.tooltip({
+    permanent: true, direction: 'center', opacity: 1, interactive: false, className: classes.join(' '),
+  }).setLatLng(anchors[0].ll).setContent(h('span', { class: 'map-label-text' }, [
+    h('span', { class: 'map-label-name' }, [
+      `${parts.lead} `, h('span', { class: 'map-label-keep' }, parts.figure), ' ',
+      h('span', { class: 'map-label-keep' }, parts.tail),
+    ]),
+  ]));
+  labelLayer.addLayer(tooltip);
+  const el = tooltip.getElement();
+  if (el) {
+    el.removeAttribute('role');
+    el.setAttribute('aria-hidden', 'true');
+    el.setAttribute('data-label-for', `${feature.id}#uncertainty`);
+    el.style.setProperty('--label-accent', options.color);
+  }
+  const id = `${feature.id}#uncertainty`;
+  labelRecords.set(id, {
+    id,
+    tooltip,
+    plan: { kind: 'outline', anchors },
+    rank: UNCERTAINTY_LABEL_RANK,
+    selected: false,
+    sizeM: 0,
+    // Hovering the feature's list row asks for this label with it.
+    memberIds: new Set([feature.id]),
+    box: { w: 0, h: 0 },
+    lastKey: null,
+    symbol: null,
+    symbolShown: false,
+    circle: { centre: L.latLng(lat, lon), north: anchors[0].ll, text: mapstyle.uncertaintyLabel(feature) },
+  });
+}
+
+/** Whether a record's accuracy circle is drawn big enough, on screen, for its label. */
+function circleReadable(rec) {
+  if (!rec.circle) return true;
+  const a = mapInstance.latLngToContainerPoint(rec.circle.centre);
+  const b = mapInstance.latLngToContainerPoint(rec.circle.north);
+  return Math.hypot(a.x - b.x, a.y - b.y) >= UNCERTAINTY_MIN_RADIUS_PX;
 }
 
 function scheduleLabelLayout() {
@@ -1381,6 +1473,7 @@ function layoutLabels() {
   updateSymbols();
   const blocked = obstacleBoxes();
   const placed = [];
+  const ringTextsShown = new Set();
   const inView = (box) => box.x >= LABEL_EDGE_PX && box.y >= LABEL_EDGE_PX
     && box.x + box.w <= mapSize.x - LABEL_EDGE_PX && box.y + box.h <= mapSize.y - LABEL_EDGE_PX;
   const order = [...labelRecords.values()].sort(labelPriority);
@@ -1390,6 +1483,13 @@ function layoutLabels() {
     if (!rec.box.w || !rec.box.h) rec.box = { w: el.offsetWidth, h: el.offsetHeight };
     if (!rec.box.w || !rec.box.h) continue;
     const forced = isForced(rec);
+    // Four telescopes with the same ±15 m would carry four identical chips: say
+    // it once (the legend and every tooltip say it for the rest), unless the
+    // reader is asking about that one.
+    if (!circleReadable(rec) || (rec.circle && !forced && ringTextsShown.has(rec.circle.text))) {
+      el.classList.add('is-hidden');
+      continue;
+    }
     let chosen = null;
     let fallback = null;
     for (const candidate of labelCandidates(rec)) {
@@ -1416,6 +1516,7 @@ function layoutLabels() {
       h: chosen.box.h + 2 * LABEL_PAD_PX,
     });
     rec.lastKey = chosen.candidate.key;
+    if (rec.circle) ringTextsShown.add(rec.circle.text);
     rec.tooltip.setLatLng(mapInstance.containerPointToLatLng([
       chosen.box.x + chosen.box.w / 2, chosen.box.y + chosen.box.h / 2,
     ]));
@@ -1521,8 +1622,48 @@ function renderLevels() {
   return rows;
 }
 
-function renderUnlocated() {
-  const rows = (bundle.map.unlocated || []).map((row) => h('li', { class: 'map-unlocated-row' }, [
+/** The name a record id stands for on this map, or null when the bundles do not
+ *  say. Used to turn the ids in a recorded reason into words a reader can use. */
+function nameForId(id) {
+  const type = String(id).split(':')[0];
+  if (type === 'src') {
+    const row = (bundle.source_titles || {})[id];
+    // A source's title can carry its own brackets and a talk's date; the part
+    // before them is what it is called.
+    return row && row.title ? row.title.replace(/\s+\(.*$/, '').trim() : null;
+  }
+  if (type === 'geometry') {
+    const feature = (bundle.features || []).find((f) => f.id === id);
+    return feature ? (feature.entity_name || feature.name) : null;
+  }
+  const record = INDEX ? INDEX.get(id) : null;
+  return record && record.name ? record.name : null;
+}
+
+/** One entry of "Unlocated / geometry not verified": what is not drawn, the one
+ *  plain reason, the sources it rests on, and — collapsed — the research notes
+ *  (the full recorded reason, what would settle it, and the record ids). */
+function unlocatedRow(row) {
+  const name = row.entity_name || row.entity_id || 'Unnamed';
+  const notes = researchNotes(row, nameForId);
+  const sources = (row.sources || []).map((sid) => nameForId(sid)).filter(Boolean);
+  const reason = plainReason(row.reason, { resolve: nameForId, name });
+  const noteNodes = [];
+  // Only worth repeating when the reader's sentence is not already all of it.
+  if (notes.reason && notes.reason.replace(/\s+/g, ' ') !== reason) {
+    noteNodes.push(h('p', { class: 'map-research-label' }, 'Full reason as recorded'),
+      h('p', { class: 'map-research-text' }, notes.reason));
+  }
+  if (notes.backlog) {
+    noteNodes.push(h('p', { class: 'map-research-label' }, 'What would let us draw it'),
+      h('p', { class: 'map-research-text' }, notes.backlog));
+  }
+  const ids = [...new Set([row.entity_id, ...(row.sources || []), ...notes.ids].filter(Boolean))];
+  if (ids.length) {
+    noteNodes.push(h('p', { class: 'map-research-label' }, 'Record ids'),
+      h('p', { class: 'map-research-ids' }, ids.join(' · ')));
+  }
+  return h('li', { class: 'map-unlocated-row' }, [
     h('div', { class: 'map-unlocated-name entity-link-with-meta' },
       row.entity_id ? [
         h('a', {
@@ -1531,12 +1672,17 @@ function renderUnlocated() {
           onclick: (event) => { event.preventDefault(); NAVIGATE({ entity: idRoute(row.entity_id) }); },
         }, row.entity_name || row.entity_id),
         row.entity_type ? h('span', { class: 'map-feature-meta' }, ` · ${titleCase(row.entity_type)}`) : null,
-      ] : (row.entity_name || 'Unnamed')),
-    h('p', { class: 'map-unlocated-reason' }, row.reason),
-    row.backlog ? h('p', { class: 'map-unlocated-backlog' }, `To do: ${row.backlog}`) : null,
-    h('p', { class: 'source-meta' },
-      (row.sources || []).map((sid) => sourceTitle(sid)).join('; ') || 'No source recorded.'),
-  ]));
+      ] : name),
+    h('p', { class: 'map-unlocated-reason' }, reason),
+    h('p', { class: 'source-meta' }, sources.length ? `Sources: ${sources.join('; ')}` : 'No source recorded.'),
+    noteNodes.length
+      ? h('details', { class: 'map-research-notes' }, [h('summary', {}, 'Research notes'), ...noteNodes])
+      : null,
+  ]);
+}
+
+function renderUnlocated() {
+  const rows = (bundle.map.unlocated || []).map(unlocatedRow);
   if (!rows.length) {
     return [h('p', { class: 'empty-note' },
       'Every accelerator, beamline and detector-hosting site this map accounts for is drawn.')];
@@ -1734,7 +1880,9 @@ function renderSidebar() {
   layers.appendChild(panelSection('Unlocated / geometry not verified', renderUnlocated()));
   layers.appendChild(panelSection('Linked maps and far sites', renderLinked(), { open: false }));
   layers.appendChild(panelSection('Schematics (not to scale)', renderSchematics(), { open: false }));
-  layers.appendChild(panelSection('Legend', renderLegend(), { open: false }));
+  // A map whose only drawn things are positions (and stand-in shapes) is read
+  // through its legend — it says what the circles are — so it starts open there.
+  layers.appendChild(panelSection('Legend', renderLegend(), { open: mapstyle.isPositionOnlyMap(bundle.features) }));
 
   if ((bundle.attribution || []).length) {
     layers.appendChild(h('p', { class: 'map-attribution' },
@@ -2111,6 +2259,7 @@ function renderMessage(nodes) {
  * and the loader's resolved base path.
  */
 export async function show(current, ctx) {
+  if (ATLAS !== ctx.atlas) detectorSiteIds = null;
   ATLAS = ctx.atlas;
   INDEX = ctx.index;
   NAVIGATE = ctx.navigate;
@@ -2152,7 +2301,7 @@ export async function show(current, ctx) {
     let L;
     try {
       [L, bundle] = await Promise.all([loadLeaflet(), fetchBundle(ctx.loaderBase, meta.bundle)]);
-      labelTexts = mapstyle.labelsFor(bundle.features);
+      labelTexts = mapstyle.labelsFor(bundle.features, { isExperimentSite });
       createMap(L);
     } catch (error) {
       currentMapId = null;

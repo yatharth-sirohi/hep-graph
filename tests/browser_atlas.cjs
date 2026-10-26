@@ -2211,10 +2211,164 @@ async function setRangeValue(locator, value) {
     // should render with content pulled from its own record, not just a
     // title-cased fallback of the pointer path.
     assert.ok(labels.some((l) => /Timeline:|Baseline/.test(l)), `expected a Timeline/Baseline claim label, got ${JSON.stringify(labels)}`);
-    // The exact pointer is still available, just not the headline.
-    const fieldLines = await page.locator("#detail-panel .claim-field").allInnerTexts();
-    assert.ok(fieldLines.some((t) => /^field: \//.test(t.trim())), "expected the raw pointer to remain visible in a 'field: /...' line");
+    // The exact pointer is a maintainer's handle (review F11): never visible text,
+    // still on the label's title attribute.
+    assert.equal(await page.locator("#detail-panel .claim-field").count(), 0, "no 'field: /...' line may be visible");
+    assert.doesNotMatch(await page.locator("#detail-panel").innerText(), /field: \//, "the JSON pointer must not be visible text");
+    const titles = await page.locator("#detail-panel .claim-label").evaluateAll((els) => els.map((el) => el.getAttribute("title")));
+    assert.ok(titles.some((t) => /^field: \//.test(t || "")), "expected the pointer to remain on the claim label's title attribute");
   });
+
+  await record("Sources: the source that holds the quote is listed first, the locator is shown, and a PDF link is offered (review F11)", async () => {
+    await page.goto(`${base}/atlas${dataTree}`);
+    const out = await page.evaluate(async () => {
+      const m = await import("/atlas/js/provenance.js");
+      const quote = "The Booster then accelerates those protons to 8 GeV ... and more.";
+      const a = { id: "a", title: "A", excerpt: "unrelated words about something else entirely" };
+      const b = { id: "b", title: "B", excerpt: "The Booster then accelerates those protons to 8 GeV" };
+      return {
+        order: m.orderSourcesForQuote([a, b], quote).map((x) => x.id),
+        keep: m.orderSourcesForQuote([a, { id: "c", title: "C" }], quote).map((x) => x.id),
+        arxivRef: m.sourcePdfUrl({ url: "https://doi.org/10.1/x", reference: { arxiv: "1507.06690" } }),
+        arxivAbs: m.sourcePdfUrl({ url: "https://arxiv.org/abs/0806.1449" }),
+        pdfUrl: m.sourcePdfUrl({ url: "https://example.org/a/b.pdf" }),
+        none: m.sourcePdfUrl({ url: "https://example.org/page" }),
+        open: m.claimLabel("/intervals/0", { intervals: [{ label: "operating", status: "active", start: "2013-09", end: null }] }).label,
+        closed: m.claimLabel("/intervals/0", { intervals: [{ label: "operating", status: "active", start: "2013-09", end: "2020" }] }).label,
+      };
+    });
+    assert.deepEqual(out.order, ["b", "a"]);
+    assert.deepEqual(out.keep, ["a", "c"], "no excerpt match: authored order is kept");
+    assert.equal(out.arxivRef, "https://arxiv.org/pdf/1507.06690");
+    assert.equal(out.arxivAbs, "https://arxiv.org/pdf/0806.1449");
+    assert.equal(out.pdfUrl, "https://example.org/a/b.pdf");
+    assert.equal(out.none, null);
+    assert.equal(out.open, "Timeline: operating (active, since 2013-09)", "an open interval never ends in a dangling dash");
+    assert.equal(out.closed, "Timeline: operating (active, 2013-09 – 2020)");
+    if (process.env.HEP_ATLAS_DATA === "generated") {
+      await page.goto(`${base}/atlas#/accelerator/fermilab-booster`);
+      await page.locator("#detail-panel h2").waitFor();
+      await openSection(page, "Sources");
+      await page.waitForSelector("#detail-panel .claim-group", { timeout: 10000 });
+      const located = await page.locator("#detail-panel .claim-locator").allInnerTexts();
+      assert.ok(located.some((t) => /In the source: §/.test(t)), `expected a locator beside a quote, got ${JSON.stringify(located)}`);
+      assert.ok(await page.locator("#detail-panel .claim-source a.source-pdf").count() > 0, "expected a PDF link next to an arXiv-backed source");
+    }
+  });
+
+  // Reader-review findings F12 and F15-F17 (rv-maps). These read the real
+  // geometry bundles, so they only run against the generated tree.
+  if (process.env.HEP_ATLAS_DATA === "generated") {
+    const openLocalMap = async (slug, contextOptions = {}) => {
+      const mapContext = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: "reduce", ...contextOptions });
+      mapContext.on("page", (p) => p.on("pageerror", (e) => errors.push(e.message)));
+      const p = await mapContext.newPage();
+      p.setDefaultTimeout(30000);
+      await p.goto(`${base}/atlas#/map/${slug}`, { waitUntil: "domcontentloaded" });
+      await p.locator(".leaflet-container").waitFor({ timeout: 20000 });
+      await p.locator(".map-section").first().waitFor({ timeout: 20000 });
+      await p.waitForTimeout(1500);
+      return { mapContext, p };
+    };
+
+    await record("Local map: an unlocated entry gives one plain reason and keeps the research log under a collapsed 'Research notes' (F12)", async () => {
+      const { mapContext, p } = await openLocalMap("fermilab");
+      const rows = await p.locator(".map-unlocated-row").evaluateAll((els) => els.map((el) => ({
+        visible: el.innerText,
+        reason: el.querySelector(".map-unlocated-reason").innerText,
+        notesOpen: el.querySelector("details.map-research-notes").open,
+        notesText: el.querySelector("details.map-research-notes").textContent,
+      })));
+      assert.ok(rows.length > 5, `expected Fermilab's unlocated entries, got ${rows.length}`);
+      for (const row of rows) {
+        assert.doesNotMatch(row.visible, /\b(?:src|geometry|beamline|site|detector|accelerator|experiment):[a-z0-9]|HTTP\s*\d{3}|this session|Overpass|To do:/i,
+          `research-log wording or a raw id is visible: ${JSON.stringify(row.visible)}`);
+        assert.ok(row.reason.length > 20 && row.reason.length < 400, `one plain sentence, got ${JSON.stringify(row.reason)}`);
+        assert.equal(row.notesOpen, false, "the research notes are collapsed");
+        assert.match(row.notesText, /Record ids/, "the raw ids live in the research notes");
+      }
+      assert.ok(rows.some((r) => /What would let us draw it/.test(r.notesText)), "the backlog is in the research notes");
+      await mapContext.close();
+    });
+
+    await record("Local map: the unlocated-reason helper names ids, drops research-log clauses and falls back plainly (F12)", async () => {
+      const out = await page.evaluate(async () => {
+        const m = await import("/atlas/js/unlocated.js");
+        const names = { "src:paper-a": "The A paper", "detector:det-b": "B detector" };
+        const resolve = (id) => names[id] || null;
+        return {
+          named: m.namedText("Placed (src:paper-a) near detector:det-b, see geometry:gone-x.", resolve),
+          reason: m.plainReason("No OpenStreetMap footprint for the hall was found this session (a targeted OSM name search returned none); the placement cites src:paper-a only.", { resolve, name: "X" }),
+          log: m.plainReason("A web search on 2026-10-25 returned HTTP 403 from Overpass via src:zzz-q.", { resolve, name: "The hall" }),
+          sentences: m.splitSentences("Fig. 2 shows it (Vol. II). A. C. Mezger wrote it. Done."),
+        };
+      });
+      assert.equal(out.named, "Placed (The A paper) near B detector.");
+      assert.doesNotMatch(out.reason, /this session|OSM|src:/);
+      assert.match(out.reason, /No OpenStreetMap footprint for the hall was found/);
+      assert.match(out.log, /^No source we could read gives a verified position or outline for The hall/);
+      assert.equal(out.sentences.length, 3, JSON.stringify(out.sentences));
+    });
+
+    await record("Local map: a position-only map labels its accuracy circle, opens the legend, and draws no tile seam (F15, F16)", async () => {
+      const { mapContext, p } = await openLocalMap("km3net-arca");
+      const label = p.locator(".map-label-uncertainty:not(.is-hidden)");
+      assert.equal(await label.count(), 1, "the big circle is labelled on the map");
+      assert.match((await label.innerText()).replace(/\s+/g, " "), /position uncertainty ±2000 m — not the detector outline/);
+      assert.equal(await p.locator(".map-section", { hasText: "Legend" }).first().evaluate((el) => el.open), true,
+        "the legend starts open on a map that has only positions");
+      // F15: tiles overlap their neighbours, so the fractional-zoom hairline has nothing to show through.
+      await p.waitForSelector(".leaflet-tile-pane img.leaflet-tile", { timeout: 15000 }).catch(() => {});
+      const tile = await p.evaluate(() => {
+        const t = document.querySelector(".leaflet-tile-pane img.leaflet-tile");
+        return t ? { width: parseFloat(getComputedStyle(t).width), blend: getComputedStyle(t).mixBlendMode } : null;
+      });
+      if (tile) {
+        assert.ok(tile.width > 256, `tiles are drawn slightly oversize, got ${tile.width}px`);
+        assert.equal(tile.blend, "normal");
+      }
+      await mapContext.close();
+      // A map with a drawn outline does not open the legend by itself.
+      const other = await openLocalMap("fermilab");
+      assert.equal(await other.p.locator(".map-section", { hasText: "Legend" }).first().evaluate((el) => el.open), false);
+      await other.mapContext.close();
+    });
+
+    await record("Local map: every LHC experiment point is labelled at the default zoom, and a temporary shutdown is not worded as closed (F17)", async () => {
+      const { mapContext, p } = await openLocalMap("cern");
+      for (const id of ["point1-atlas-boundary", "point2-alice-boundary", "point5-cms-cavern", "point8-lhcb-boundary"]) {
+        assert.equal(await p.locator(`[data-label-for="geometry:${id}"]:not(.is-hidden)`).count(), 1, `${id} is labelled`);
+      }
+      const status = await p.evaluate(async () => (await import("/atlas/js/mapstyle.js")).statusStyle("shutdown").label);
+      assert.match(status, /^Temporarily shut down \(long shutdown \/ upgrade\)$/);
+      await mapContext.close();
+    });
+
+  }
+
+  // Phone-width findings F8 and F9 (rv-maps).
+  if (process.env.HEP_ATLAS_DATA === "generated") {
+    await record("Phone: the Results filters wrap instead of scrolling sideways, and about.html fits the screen (F8, F9)", async () => {
+      for (const width of [360, 390]) {
+        const mobile = await browser.newContext({ viewport: { width, height: 844 }, ...MOBILE });
+        mobile.on("page", (p) => p.on("pageerror", (e) => errors.push(e.message)));
+        const p = await mobile.newPage();
+        await p.goto(`${base}/atlas?m=results`);
+        await p.locator("#results-filter-facility").waitFor({ timeout: 20000 });
+        const seen = await p.evaluate(() => [...document.querySelectorAll(".results-filters select, #results-sort, .group-toggle")]
+          .map((el) => { const r = el.getBoundingClientRect(); return { id: el.id, left: r.left, right: r.right }; }));
+        assert.equal(seen.length, 8, "five filters, the sort and two group buttons");
+        for (const c of seen) assert.ok(c.left >= 0 && c.right <= width, `${c.id} is on screen at ${width}px (${c.left}..${c.right})`);
+        const strips = await p.evaluate(() => [...document.querySelectorAll(".results-filters, .mode-toolbar")]
+          .map((el) => el.scrollWidth - el.clientWidth));
+        assert.ok(strips.every((d) => d <= 0), `no control strip scrolls sideways: ${strips}`);
+        await p.goto(`${base}/atlas/about.html`);
+        await p.locator(".about-toc").waitFor();
+        assert.ok(await p.evaluate(() => document.documentElement.scrollWidth) <= width, `about.html is wider than ${width}px`);
+        await mobile.close();
+      }
+    });
+  }
 
   await record("A result whose official_url restates its arXiv link shows one arXiv link and no 'Official page'", async () => {
     const arxivDuplicateResult = process.env.HEP_ATLAS_DATA === "generated"
