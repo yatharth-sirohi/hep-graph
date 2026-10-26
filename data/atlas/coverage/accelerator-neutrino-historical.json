@@ -8,12 +8,12 @@
       "collaboration formation date",
       "collaboration leadership (person records owned elsewhere)",
       "day/month-precision run dates (only 'summer 1997', sourced solely to Wikipedia, was found)",
-      "detector specs beyond emulsion/steel technology and event counts (fnal.gov returned HTTP 403; the primary 2001 PLB paper's PDF could not be parsed in this session)",
+      "detector specs beyond emulsion/steel technology and event counts (fnal.gov returned HTTP 403; the text of the primary 2001 PLB paper could not be extracted)",
       "external.inspire_experiment (no INSPIRE experiment-registry lookup performed; not mandatory at tier D)",
       "dedicated site record (placement reuses site:fermilab-main-campus, owned by the fermilab-dune lead, rather than a DONUT-specific hall coordinate, which is not published)"
     ],
     "name": "DONUT",
-    "notes": "Mandatory-bar record complete: experiment, detector, collaboration, and the required 'Observation of tau neutrino interactions' (Kodama et al., Phys. Lett. B 504 (2001) 218) result, all validator-clean. Several fields carry confidence 'uncertain' because Wikipedia was the only reachable source for the run period and detector description (fnal.gov blocked every fetch with HTTP 403); the primary publication's abstract was fetched directly and used for the harder facts (event counts, background, exact title).",
+    "notes": "Records exist for the experiment, detector, collaboration and the 'Observation of tau neutrino interactions' result (Kodama et al., Phys. Lett. B 504 (2001) 218). Several fields have confidence 'uncertain' because Wikipedia was the only reachable source for the run period and detector description (fnal.gov blocked every request with HTTP 403); the primary publication's abstract was read directly and used for the event counts, the background and the exact title.",
     "owner": "accelerator-neutrino-historical",
     "priority": 3,
     "researched": "full",
@@ -32,7 +32,7 @@
       "detector-hall-specific coordinate (site coordinate is a campus-level OSM/Nominatim centroid for the whole RAL campus, not a surveyed KARMEN-hall position)"
     ],
     "name": "KARMEN",
-    "notes": "Mandatory-bar record complete and validator-clean: created facility:isis-neutron-source and site:isis-rutherford-appleton (sourced coordinates, kind 'detector' per the validator's structural requirement for any site holding a detector placement, confidence 'uncertain' since the number is a geocoder centroid), experiment, detector, and collaboration. Rich dated intervals (KARMEN 1 from 1990, KARMEN 2 upgrade 1996, KARMEN 2 data taking Feb 1997-Mar 2001) and 3 key specs sourced to two primary KARMEN publications (arXiv hep-ex/0203021, hep-ex/9801007).",
+    "notes": "Records exist for facility:isis-neutron-source, site:isis-rutherford-appleton, the experiment, the detector and the collaboration. The site coordinate is a geocoder centroid, so its confidence is 'uncertain'. Dated intervals (KARMEN 1 from 1990, KARMEN 2 upgrade 1996, KARMEN 2 data taking Feb 1997-Mar 2001) and 3 key specs are sourced to two primary KARMEN publications (arXiv hep-ex/0203021, hep-ex/9801007).",
     "owner": "accelerator-neutrino-historical",
     "priority": 3,
     "researched": "full",
@@ -43,7 +43,7 @@
     "category": "accelerator_neutrino",
     "entity_id": "experiment:lsnd",
     "experiment_id": "experiment:lsnd",
-    "facility": "Los Alamos LAMPF/LANSCE (facility:los-alamos-national-laboratory, site:lanl-lansce, accelerator:lansce -- owned by the 'facilities' lead and referenced here; none existed in data/atlas/ at the time this record was written, so these are expected dangling references, not defects in this record)",
+    "facility": "Los Alamos LAMPF/LANSCE (facility:los-alamos-national-laboratory, site:lanl-lansce, accelerator:lansce)",
     "missing_fields": [
       "collaboration formation date",
       "collaboration leadership and membership counts (person records owned elsewhere; no sourced official roster count found)",
@@ -51,7 +51,7 @@
       "a stated sigma significance for the antineutrino-appearance result (the 2001 PRD paper gives an event excess and its uncertainties but not a single sigma figure in the text fetched)"
     ],
     "name": "LSND",
-    "notes": "Mandatory-bar record complete: experiment, detector, collaboration, and the required antineutrino-appearance 'evidence' result (Aguilar et al., Phys. Rev. D 64, 112007 (2001), title contains 'Evidence', never called a discovery), all clean except 6 expected dangling references to facility:los-alamos-national-laboratory/site:lanl-lansce, which belong to the 'facilities' lead and had not landed when this record was written -- re-check once that lead's files exist. Rich intervals (proposed 1989, data taking 1993-1998) and 3 key specs sourced to the LSND NIM detector paper (arXiv nucl-ex/9605002) and the 2001 PRD result paper (arXiv hep-ex/0104049).",
+    "notes": "Records exist for the experiment, detector, collaboration and the antineutrino-appearance 'evidence' result (Aguilar et al., Phys. Rev. D 64, 112007 (2001); the title says 'Evidence' and the result is never called a discovery). Dated intervals (proposed 1989, data taking 1993-1998) and 3 key specs are sourced to the LSND NIM detector paper (arXiv nucl-ex/9605002) and the 2001 PRD result paper (arXiv hep-ex/0104049).",
     "owner": "accelerator-neutrino-historical",
     "priority": 3,
     "researched": "full",
@@ -62,12 +62,11 @@
     "category": "accelerator_neutrino",
     "entity_id": "experiment:opera",
     "experiment_id": "experiment:opera",
-    "facility": "LNGS Hall C (facility:lngs exists, referenced; site:lngs-hall-c owned by the 'facilities' lead and not yet created -- expected dangling reference) / CERN SPS (facility:cern, accelerator:sps exist, referenced)",
+    "facility": "LNGS Hall C (facility:lngs, site:lngs-hall-c) / CERN SPS (facility:cern, accelerator:sps)",
     "missing_fields": [
       "collaboration formation date (only a rank-12 Wikipedia lower bound of 2003 is recorded, flagged uncertain)",
       "collaboration leadership and membership counts (person records owned elsewhere; no sourced official roster count found)",
       "external.inspire_experiment (no INSPIRE experiment-registry lookup performed; not mandatory at tier D)",
-      "A21 great-circle cross-check of the 732 km CNGS baseline against site:cern-meyrin and site:lngs-hall-c cannot run until the latter site (owned by 'facilities') exists with coordinates -- re-verify then",
       "construction-period sourcing is Wikipedia-only (rank 12), flagged uncertain; no official OPERA/LNGS page with construction dates was reachable (operaweb.lngs.infn.it did not resolve; lngs.infn.it/en/opera returned HTTP 500)"
     ],
     "name": "OPERA",
