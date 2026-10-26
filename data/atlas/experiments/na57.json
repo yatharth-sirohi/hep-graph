@@ -1,0 +1,138 @@
+{
+  "accelerator_ids": [
+    "accelerator:sps"
+  ],
+  "aliases": [
+    "WA97/NA57"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:na57"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "arXiv:2603.10835, Section 7.2",
+      "note": "",
+      "quote": "It was proposed to move the Goliath magnet from the West to the North Area and install it along with the WA97 detectors",
+      "role": "host",
+      "sources": [
+        "src:hadron2-sps-first-signals-review-arxiv-2026"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "arXiv:nucl-ex/0507012",
+      "note": "Lead beam from the SPS (accelerator:sps).",
+      "quote": "Pb–Pb runs with beam momentum of 158 A GeV/c",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-na57-central-to-peripheral-arxiv-2005"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:na57",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2000",
+      "label": "data taking (Pb-Pb 1998-2000)",
+      "locator": "arXiv:nucl-ex/0507012, Section 2",
+      "note": "Years are those of the Pb-Pb data sets named in the paper (1998 and 2000); the start follows the move of the programme from the West Area to the North Area after 1996. No fetched source states the NA57 start or end dates.",
+      "quote": "analysis of data collected during the 1998 (about 2.1 · 108 events) and 2000 (about 2.5 · 108 events) Pb–Pb runs with beam momentum of 158 A GeV/c",
+      "sources": [
+        "src:hadron2-na57-central-to-peripheral-arxiv-2005"
+      ],
+      "start": "1998",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:nucl-ex/0507012, Section 2",
+      "note": "Inferred from the last data set named in the paper (2000).",
+      "quote": "analysis of data collected during the 1998 (about 2.1 · 108 events) and 2000 (about 2.5 · 108 events) Pb–Pb runs with beam momentum of 158 A GeV/c",
+      "sources": [
+        "src:hadron2-na57-central-to-peripheral-arxiv-2005"
+      ],
+      "start": "2000",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "heavy_ion",
+  "lineage": [
+    {
+      "experiment_id": "experiment:wa97",
+      "locator": "arXiv:2603.10835, Section 7.2",
+      "quote": "It was proposed to move the Goliath magnet from the West to the North Area and install it along with the WA97 detectors",
+      "relation": "predecessor",
+      "sources": [
+        "src:hadron2-sps-first-signals-review-arxiv-2026"
+      ]
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "NA57",
+  "notes": [
+    "Hall not identified: \"moved to the North Area\" is all the review says; placed at the generic Prévessin North Area site.",
+    "No collaboration website, formation date or membership found.",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2603.10835, Section 7.2",
+      "note": "",
+      "quote": "NA57 extended the physics scope of WA97 by extending centrality range and by also taking data at a lower beam energy (40𝐴 GeV/𝑐) in order to study the energy dependence of the hyperon enhancements.",
+      "sources": [
+        "src:hadron2-sps-first-signals-review-arxiv-2026"
+      ],
+      "value": "Extend the WA97 measurements of hyperon enhancement to a wider centrality range and a lower beam energy (40A GeV/c)",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:hadron2-na57-central-to-peripheral-arxiv-2005",
+    "src:hadron2-sps-first-signals-review-arxiv-2026"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "NA57 continued WA97's study of strange particles in lead-lead collisions at CERN after the programme moved from the West Area to the North Area, extending the centrality range and adding a lower beam energy to study how hyperon enhancement depends on energy.",
+    "technical": "NA57: silicon-pixel telescope (about one million channels) in the Goliath magnet in the SPS North Area measuring strange and multi-strange baryon and K0s production in Pb-Pb at 158A and 40A GeV (data of 1998 and 2000 in the nucleus-nucleus modification-factor paper); successor of WA97."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:heavy-ion-physics-qgp",
+    "topic:qcd",
+    "topic:nuclear-and-heavy-ion"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}
