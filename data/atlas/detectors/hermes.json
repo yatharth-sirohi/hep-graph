@@ -1,0 +1,108 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:hermes"
+  ],
+  "id": "detector:hermes",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "1995",
+      "label": "assembly in the East hall",
+      "locator": "arXiv:hep-ex/9806008, Section 2",
+      "note": "Assembled in the East hall during the 1994 HERA run; the end bound (1995, year precision) is the first year of data taking; no construction start is stated.",
+      "quote": "The experiment was assembled in the East hall outside the shielding during the 1994 HERA run.",
+      "sources": [
+        "src:hadron2-hermes-spectrometer-arxiv-1998"
+      ],
+      "start": "1994",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2007",
+      "label": "data taking",
+      "locator": "arXiv:1209.2803, Section on polarised targets; arXiv:1204.4161: \"Hermes acquired data from 1995 to 2007\"",
+      "note": "Year precision; polarised targets until 2005, recoil detector installed in 2006 (talk, not cited); HERA stopped on 30 June 2007 (see accelerator:hera).",
+      "quote": "HERMES was operating from 1995 to 2007 at the HERA lepton storage ring",
+      "sources": [
+        "src:hadron2-topic-aidala-2013-spin-structure-nucleon",
+        "src:hadron2-hermes-azimuthal-arxiv-2012"
+      ],
+      "start": "1995",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:1209.2803",
+      "note": "End of HERMES data taking coincides with the end of HERA operation in 2007.",
+      "quote": "HERMES was operating from 1995 to 2007 at the HERA lepton storage ring",
+      "sources": [
+        "src:hadron2-topic-aidala-2013-spin-structure-nucleon"
+      ],
+      "start": "2007",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "HERMES spectrometer",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "uncertain",
+      "end": "2007",
+      "locator": "arXiv:hep-ex/9806008",
+      "note": "Placed at the DESY Hamburg campus site (campus-grade): the East and West halls of the HERA ring have no coordinate in any fetched source (OpenStreetMap names only the North hall and a building \"HERA West 50\", whose position does not fit the ring geometry), so no hall point is asserted.",
+      "quote": "The HERMES experiment is located in the East hall of the HERA storage ring complex at DESY.",
+      "role": "main",
+      "site_id": "site:desy-hamburg-campus",
+      "sources": [
+        "src:hadron2-hermes-spectrometer-arxiv-1998",
+        "src:hadron2-topic-aidala-2013-spin-structure-nucleon"
+      ],
+      "start": "1995",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-hermes-spectrometer-arxiv-1998"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A forward-angle particle spectrometer built around a spin-polarised gas target inside the HERA storage ring, with tracking chambers, a magnet, particle-identification detectors and calorimetry.",
+    "technical": "HERMES forward spectrometer: numerous tracking chambers (micro-strip gas chambers, drift and proportional chambers) in front of and behind a 1.3 T m dipole magnet, RICH and calorimetry, internal polarised gas target; a recoil detector was added in 2006."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:hep-ex/9806008, Section 2",
+    "note": "",
+    "quote": "The spectrometer is a forward angle instrument of conventional design.",
+    "sources": [
+      "src:hadron2-hermes-spectrometer-arxiv-1998"
+    ],
+    "value": "Forward-angle spectrometer with tracking chambers on either side of a dipole magnet and an internal polarised gas target",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "forward_spectrometer",
+    "spectrometer"
+  ],
+  "type": "detector"
+}
