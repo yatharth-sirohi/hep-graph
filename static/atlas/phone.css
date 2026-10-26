@@ -82,7 +82,7 @@
     border-radius: var(--radius);
     background: var(--panel);
     color: var(--white);
-    font-size: 14px;
+    font-size: var(--text-md);
     font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
@@ -93,7 +93,7 @@
   .phone-action[aria-expanded='true'] {
     background: var(--teal);
     border-color: var(--teal);
-    color: #06201d;
+    color: var(--on-accent);
   }
   .phone-badge {
     min-width: 20px;
@@ -101,8 +101,8 @@
     padding: 0 6px;
     border-radius: 999px;
     background: var(--amber);
-    color: #1c1204;
-    font-size: 12px;
+    color: var(--on-amber);
+    font-size: var(--text-xs);
     line-height: 20px;
     text-align: center;
   }
@@ -118,7 +118,7 @@
   #atlas-search {
     height: var(--phone-touch);
     padding: 0 12px;
-    font-size: 16px;
+    font-size: var(--text-lg);
   }
   .search-results {
     max-height: min(55vh, 360px);
@@ -128,7 +128,7 @@
     align-items: center;
     min-height: var(--phone-touch);
     padding: 6px 12px;
-    font-size: 15px;
+    font-size: var(--text-md);
   }
   .search-empty {
     padding: 12px;
@@ -140,7 +140,7 @@
   }
   .notice {
     padding: 6px 12px;
-    font-size: 12px;
+    font-size: var(--text-xs);
   }
 
   /* ----------------------------------------------------------------- stage */
@@ -332,7 +332,7 @@
     border: 0;
     background: none;
     color: var(--muted);
-    font-size: 13px;
+    font-size: var(--text-sm);
     cursor: pointer;
   }
   .sheet-grip {
@@ -354,7 +354,7 @@
   }
   .phone-sheet-heading {
     margin: 0 0 6px;
-    font-size: 20px;
+    font-size: var(--text-xl);
   }
   /* The sheet's own bar closes it; the module's × would be a second one. */
   .detail-panel .close-btn,
@@ -370,7 +370,7 @@
   .filters-panel summary,
   .phone-section > summary {
     padding: 12px 0;
-    font-size: 16px;
+    font-size: var(--text-lg);
   }
   .mode-buttons {
     display: grid;
@@ -381,11 +381,11 @@
   .mode-toggle {
     min-height: var(--phone-touch);
     padding: 8px 12px;
-    font-size: 15px;
+    font-size: var(--text-md);
   }
   .option-row {
     min-height: var(--phone-touch);
-    font-size: 15px;
+    font-size: var(--text-md);
     gap: 10px;
   }
   .option-row input,
@@ -400,11 +400,11 @@
   .filter-chip {
     min-height: var(--phone-touch);
     padding: 0 14px;
-    font-size: 14px;
+    font-size: var(--text-md);
   }
   .filter-group summary {
     padding: 12px 0;
-    font-size: 15px;
+    font-size: var(--text-md);
   }
   /* Sticks just under the sheet's own bar rather than behind it. */
   .filter-clear-row {
@@ -412,7 +412,7 @@
   }
   .filter-clear-all {
     min-height: var(--phone-touch);
-    font-size: 15px;
+    font-size: var(--text-md);
   }
   /* One scroll, the sheet's, not a list inside a list. */
   .filter-options,
@@ -423,7 +423,7 @@
   .filter-option {
     align-items: center;
     gap: 12px;
-    font-size: 15px;
+    font-size: var(--text-md);
     min-height: var(--phone-touch);
   }
   .filter-option label {
@@ -431,16 +431,16 @@
     padding: 10px 0;
   }
   .marker-legend {
-    font-size: 14px;
+    font-size: var(--text-md);
   }
   .phone-section-body {
-    font-size: 14px;
+    font-size: var(--text-md);
     color: var(--muted);
     padding-bottom: 8px;
   }
   .phone-section-body .timeline-legend {
     width: auto;
-    font-size: 14px;
+    font-size: var(--text-md);
     gap: 6px 12px;
   }
   .phone-section-body .data-version-label {
@@ -451,18 +451,18 @@
   .detail-panel h2 {
     padding-right: 0;
     margin-top: 6px;
-    font-size: 21px;
+    font-size: var(--text-xl);
     line-height: 1.25;
   }
-  .panel-section {
-    padding: 4px 0;
-  }
-  .panel-section summary {
-    padding: 12px 0;
-    font-size: 16px;
+  /* Section cards (atlas.css): the header row is the touch target. */
+  .panel-section > summary {
+    min-height: var(--phone-touch);
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: var(--text-md);
   }
   .panel-section-body {
-    padding-top: 4px;
+    padding-bottom: var(--space-3);
   }
   .entity-list {
     gap: 0;
@@ -482,7 +482,7 @@
   .role-btn {
     min-height: var(--phone-touch);
     padding: 0 14px;
-    font-size: 14px;
+    font-size: var(--text-md);
   }
   .panel-actions .primary-btn,
   .primary-btn,
@@ -490,7 +490,7 @@
   .jump-year-btn {
     min-height: var(--phone-touch);
     padding: 0 14px;
-    font-size: 14px;
+    font-size: var(--text-md);
   }
   .detail-panel,
   .map-drawer {
@@ -500,7 +500,7 @@
   /* ---------------------------------------- Topics / Results / Documents sheet */
   .mode-panel h2 {
     margin: 4px 0 6px;
-    font-size: 20px;
+    font-size: var(--text-xl);
   }
   .mode-body {
     display: block;
@@ -525,7 +525,7 @@
     border-radius: 6px;
     background: var(--panel-2);
     color: var(--white);
-    font-size: 15px;
+    font-size: var(--text-md);
     font-weight: 600;
     cursor: pointer;
   }
@@ -551,7 +551,7 @@
     min-width: 0;
     min-height: var(--phone-touch);
     padding: 0 10px;
-    font-size: 16px;
+    font-size: var(--text-lg);
     text-overflow: ellipsis;
   }
   .mode-panel input[type='search'] {
@@ -559,7 +559,7 @@
     min-width: 0;
     min-height: var(--phone-touch);
     padding: 0 10px;
-    font-size: 16px;
+    font-size: var(--text-lg);
   }
   #results-sort {
     flex: 1 1 100%;
@@ -567,7 +567,7 @@
     min-width: 0;
     min-height: var(--phone-touch);
     padding: 0 10px;
-    font-size: 16px;
+    font-size: var(--text-lg);
     background: var(--panel-2);
     border: 1px solid var(--line-strong);
     border-radius: 6px;
@@ -592,7 +592,7 @@
   .result-date {
     flex-basis: 100%;
     min-width: 0;
-    font-size: 12px;
+    font-size: var(--text-xs);
   }
   .result-main {
     flex: 1 1 100%;
@@ -600,7 +600,7 @@
   .result-main a {
     display: inline-block;
     padding: 6px 0;
-    font-size: 15px;
+    font-size: var(--text-md);
   }
   .jump-year-btn {
     margin-left: 0;
@@ -655,14 +655,14 @@
   .map-layers .map-back-btn {
     min-height: var(--phone-touch);
     margin-bottom: 8px;
-    font-size: 15px;
+    font-size: var(--text-md);
   }
   .map-title {
-    font-size: 19px;
+    font-size: var(--text-xl);
   }
   .map-section > summary {
     padding: 12px 0;
-    font-size: 16px;
+    font-size: var(--text-lg);
   }
   .map-toggle,
   .map-feature-row {
@@ -672,17 +672,17 @@
   }
   .map-feature-name,
   .map-toggle-name {
-    font-size: 15px;
+    font-size: var(--text-md);
   }
   .map-feature-meta,
   .map-toggle-meta,
   .map-note,
   .map-subtitle {
-    font-size: 13px;
+    font-size: var(--text-sm);
   }
   .map-drawer-title {
     padding-right: 0;
-    font-size: 19px;
+    font-size: var(--text-xl);
   }
   .map-layers a.entity-link,
   .map-linked-list a {
@@ -707,7 +707,7 @@
     min-width: var(--phone-touch);
     min-height: var(--phone-touch);
     padding: 0 8px;
-    font-size: 13px;
+    font-size: var(--text-sm);
   }
   .tl-short[hidden] {
     display: inline;
@@ -722,7 +722,7 @@
     white-space: nowrap;
   }
   .tl-glyph {
-    font-size: 15px;
+    font-size: var(--text-md);
   }
   /* With the speed button the row holds five controls; the slider gives way
      first so the year stays on the same row down to 360 px. */
@@ -745,7 +745,7 @@
   .timeline-readout {
     flex: none;
     min-width: 0;
-    font-size: 15px;
+    font-size: var(--text-md);
     font-weight: 600;
   }
   /* The colour key lives in the filters sheet on a phone. */
@@ -760,7 +760,7 @@
     gap: 0;
     padding: 0 8px;
     min-height: var(--phone-touch);
-    font-size: 13px;
+    font-size: var(--text-sm);
   }
   .atlas-footer .data-version-label {
     display: none;
@@ -782,7 +782,7 @@
     border-radius: 0;
     background: none;
     color: var(--teal);
-    font-size: 13px;
+    font-size: var(--text-sm);
     text-decoration: underline;
   }
   .atlas-footer .footer-link.footer-coverage {
@@ -791,7 +791,7 @@
     flex: 1 1 100%;
     min-height: 32px;
     padding: 0 8px;
-    font-size: 12px;
+    font-size: var(--text-xs);
     white-space: normal;
     text-align: center;
   }
@@ -807,7 +807,7 @@
   .share-url {
     min-height: var(--phone-touch);
     padding: 6px 10px;
-    font-size: 14px;
+    font-size: var(--text-md);
     -webkit-user-select: all;
     user-select: all;
   }
@@ -827,7 +827,7 @@
     border-radius: var(--radius);
     background: var(--panel);
     color: var(--white);
-    font-size: 13px;
+    font-size: var(--text-sm);
     overflow-wrap: anywhere;
     box-shadow: var(--shadow);
   }
@@ -839,11 +839,11 @@
   .phone-action {
     padding: 0 10px;
     gap: 5px;
-    font-size: 13px;
+    font-size: var(--text-sm);
   }
   .atlas-footer .footer-link,
   .atlas-footer .text-btn {
     padding: 0 4px;
-    font-size: 12px;
+    font-size: var(--text-xs);
   }
 }
