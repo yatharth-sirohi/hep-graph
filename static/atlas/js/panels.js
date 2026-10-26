@@ -9,6 +9,7 @@ import {
 } from './model.js';
 import * as provenance from './provenance.js';
 import { greatCircleM, initialBearing } from './localmap.js';
+import { quoteView, readableText, readableView } from './tex.js';
 
 let ATLAS = null;
 let INDEX = null;
@@ -958,6 +959,26 @@ async function renderTopic(id) {
 }
 
 // ------------------------------------------------------------------- result
+// Lower-case letters and digits only, so a quote and a title compare equal
+// despite TeX, typesetting, hyphens or case.
+function plainKey(text) {
+  return readableText(text).normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '');
+}
+
+// What the verbatim claim is called ("From the abstract"), from the claim's
+// `locator` (where in the source it was read). null when the quote should not
+// be shown under the lede: it is the paper's title, which the page already
+// carries. `always` keeps it even then (no plain-language summary to lead with).
+function claimExcerptLabel(result, quote, locator, always) {
+  const where = String(locator || '').toLowerCase();
+  const titleOnly = /\btitle\b/.test(where) && !/\babstract\b/.test(where);
+  const key = plainKey(quote);
+  const isTitle = titleOnly || [result.title, result.name].some((title) => title && plainKey(title) === key);
+  if (isTitle && !always) return null;
+  if (isTitle) return 'From the paper\u2019s title';
+  return /\babstract\b/.test(where) ? 'From the abstract' : 'From the paper';
+}
+
 async function renderResult(id) {
   const { byId } = await loader.getResults();
   const result = byId.get(id);
@@ -972,10 +993,23 @@ async function renderResult(id) {
   frag.appendChild(h('h2', {}, result.name || result.title));
   frag.appendChild(h('p', { class: 'panel-subtitle' }, `${titleCase(result.result_type)} · ${fmtDate(result.date)}`));
   if (result.title && result.name && result.title !== result.name) {
-    frag.appendChild(h('p', { class: 'source-meta' }, `Paper title: ${result.title}`));
+    frag.appendChild(h('p', { class: 'source-meta' }, ['Paper title: ', readableView(result.title)]));
   }
-  const claim = (t.claim && t.claim.quote) || (result.claim && result.claim.quote) || (result.summary && result.summary.plain) || '';
-  if (claim) frag.appendChild(h('p', {}, claim));
+  // The lede is the Atlas's own plain-language summary. The paper's wording of
+  // the claim follows under a label that says where it was taken from, so it
+  // reads as an excerpt and not as the Atlas speaking; a quote that is only the
+  // paper's title is not repeated (the title is already on the page).
+  const lede = plainSummaryOf(result, t);
+  if (lede) frag.appendChild(h('p', { class: 'plain-summary result-lede' }, lede));
+  const claim = (t.claim && t.claim.quote) || (result.claim && result.claim.quote) || '';
+  const locator = (t.claim && t.claim.locator) || (result.claim && result.claim.locator) || '';
+  const excerpt = claim && claimExcerptLabel(result, claim, locator, !lede);
+  if (excerpt) {
+    frag.appendChild(h('p', { class: 'result-excerpt' }, [
+      h('span', { class: 'excerpt-label' }, `${excerpt}: `),
+      quoteView(claim),
+    ]));
+  }
   // The bundle carries one `date` plus a `date_kind` ("announcement" |
   // "preprint" | "publication"), not separate `announced` / `published`
   // fields — those never exist on a real result record, so this used to

@@ -1045,6 +1045,36 @@ input {
 .plain-summary {
   font-size: 15px;
 }
+/* A result's verbatim claim sits under its lede as an excerpt, labelled with
+   where in the paper it was taken from. */
+.result-excerpt {
+  margin: 8px 0 10px;
+  padding-left: 10px;
+  border-left: 2px solid var(--line-strong);
+  font-size: 13px;
+  color: var(--muted);
+}
+.excerpt-label {
+  font-weight: 600;
+}
+.quote-text {
+  font-style: italic;
+}
+.quote-text.is-verbatim {
+  font-style: normal;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.quote-text sup,
+.quote-text sub {
+  font-size: 0.75em;
+  line-height: 0;
+}
+.quote-toggle {
+  font-size: 12px;
+  font-style: normal;
+}
 .source-list {
   list-style: none;
   padding: 0;
@@ -1083,7 +1113,7 @@ input {
 /* provenance.js's grouped-by-claim Sources disclosure (task A4): one claim
    label, its quote, where to find it in the source (locator) and confidence,
    then the sources that back it. The raw JSON pointer is only the label's
-   title attribute (review F11): a reader cannot act on it. */
+   data-field attribute (review F11): a reader cannot act on it. */
 .claim-group {
   border-left: 2px solid var(--line-strong);
   padding-left: 10px;

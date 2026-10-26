@@ -2220,11 +2220,15 @@ async function setRangeValue(locator, value) {
     // title-cased fallback of the pointer path.
     assert.ok(labels.some((l) => /Timeline:|Baseline/.test(l)), `expected a Timeline/Baseline claim label, got ${JSON.stringify(labels)}`);
     // The exact pointer is a maintainer's handle (review F11): never visible text,
-    // still on the label's title attribute.
+    // and (release-candidate review F23) not a hover tooltip either; it stays on
+    // the label's data-field attribute.
     assert.equal(await page.locator("#detail-panel .claim-field").count(), 0, "no 'field: /...' line may be visible");
     assert.doesNotMatch(await page.locator("#detail-panel").innerText(), /field: \//, "the JSON pointer must not be visible text");
-    const titles = await page.locator("#detail-panel .claim-label").evaluateAll((els) => els.map((el) => el.getAttribute("title")));
-    assert.ok(titles.some((t) => /^field: \//.test(t || "")), "expected the pointer to remain on the claim label's title attribute");
+    const pointers = await page.locator("#detail-panel .claim-label").evaluateAll((els) => els.map((el) => ({
+      title: el.getAttribute("title"), field: el.getAttribute("data-field"),
+    })));
+    assert.ok(pointers.every((row) => !row.title), "no claim label may carry the pointer as a hover title");
+    assert.ok(pointers.some((row) => /^\//.test(row.field || "")), "expected the pointer to remain on the claim label's data-field attribute");
   });
 
   await record("Sources: the source that holds the quote is listed first, the locator is shown, and a PDF link is offered (review F11)", async () => {
