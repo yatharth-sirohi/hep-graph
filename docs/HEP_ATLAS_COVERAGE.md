@@ -22,7 +22,7 @@ interface says only "coverage updated" with this date.
 | person | 12 |
 | result | 109 |
 | site | 93 |
-| source | 1868 |
+| source | 1903 |
 | topic | 42 |
 | membership rows | 658 |
 
@@ -81,7 +81,7 @@ exists with sourced content. Gaps are computed per record, not declared.
 
 | Category | Identified | Researched | Fully complete | Missing membership | Missing history | Missing results | Missing documents |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Accelerator neutrinos | 15 | 15 | 1 | 14 | 0 | 2 | 5 |
+| Accelerator neutrinos | 15 | 15 | 1 | 14 | 0 | 3 | 5 |
 | Atmospheric neutrinos | 3 | 3 | 0 | 3 | 0 | 2 | 0 |
 | Axions and ALPs | 7 | 7 | 0 | 7 | 1 | 7 | 7 |
 | Coherent elastic neutrino-nucleus scattering | 4 | 4 | 0 | 4 | 0 | 3 | 3 |
@@ -97,7 +97,7 @@ exists with sourced content. Gaps are computed per record, not declared.
 | Neutrinoless double beta decay | 9 | 9 | 0 | 9 | 1 | 9 | 9 |
 | Reactor and low-energy neutrinos | 5 | 5 | 0 | 5 | 0 | 0 | 4 |
 | Solar and radiochemical neutrinos | 6 | 6 | 0 | 6 | 0 | 2 | 6 |
-| **All** | **131** | **131** | **3** | **128** | **6** | **79** | **96** |
+| **All** | **131** | **131** | **3** | **128** | **6** | **80** | **96** |
 
 ## Per-experiment detail
 
@@ -114,7 +114,7 @@ exists with sourced content. Gaps are computed per record, not declared.
 | LSND | researched | institution membership, technical documents |
 | MINERvA | researched | institution membership |
 | MINOS | researched | institution membership |
-| MINOS+ | researched | institution membership |
+| MINOS+ | researched | institution membership, major results |
 | MicroBooNE | researched | institution membership |
 | MiniBooNE | researched | institution membership |
 | NOvA | researched | institution membership |
