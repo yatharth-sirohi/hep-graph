@@ -32,9 +32,10 @@ release. Plan: `docs/HEP_ATLAS_RELEASE_PLAN.md`. Round-by-round workups:
 | Local maps | 39 | 50 |
 | Geometry records | 174 | 368 (surveyed 42, georeferenced 219, derived 101, inferred direction 6) |
 | Sources | 1,606 | 1,903 |
-| Quotes found verbatim in their source | 2,595 of 3,829 checked | 3,674 + 307 joined segments of 4,186; 1 not found (explained) |
+| Quotes found verbatim in their source | 2,595 of 3,829 checked | 3,682 + 319 joined segments of 4,206; 3 near-misses and 1 not found (each explained), 6 unreachable sources, 195 skipped by rule (INSPIRE, geocoders) |
 | Validator errors | 3 (stale Mu3e status) | 0 |
-| Browser checks (real build) | 76, Chromium only | 93 Chrome / 92 Firefox / 92 WebKit |
+| Results audited against their quotes | — | 109 of 109 |
+| Browser checks (real build) | 76, Chromium only | 96 Chrome / 95 Firefox / 95 WebKit |
 | Accessibility checks | 30 | 35, 0 axe violations |
 
 ## How it was built and checked
