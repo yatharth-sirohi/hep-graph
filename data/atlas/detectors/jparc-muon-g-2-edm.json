@@ -1,0 +1,111 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:jparc-muon-g-2-edm"
+  ],
+  "id": "detector:jparc-muon-g-2-edm",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2019",
+      "label": "proposed to the J-PARC programme advisory committee",
+      "locator": "overview page, 'Overview' section",
+      "note": "",
+      "quote": "The experiment was proposed to the J-PARC program advisory committee in 2009.",
+      "sources": [
+        "src:precision-2-e34-overview-page"
+      ],
+      "start": "2009",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "approved (stage-2) and under construction",
+      "locator": "overview page, 'Overview' section",
+      "note": "Stage-2 approval by KEK in 2019 (conceptual design report 2012, technical design report 2015, review 2016). The J-PARC release of August 2026 reports that the H2 experimental area was completed in FY2024 and in operation since FY2025, and that cooled muons were accelerated to 0.3 MeV there in June 2026 (target: 4 MeV around 2027-28).",
+      "quote": "With positive recommendations from the review committee and PAC, the experiment received the stage-2 status, a final stage of approval, from KEK in 2019.",
+      "sources": [
+        "src:precision-2-e34-overview-page",
+        "src:precision-2-jparc-muon-acceleration-press-2026"
+      ],
+      "start": "2019",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "start of the measurement (planned, late 2020s)",
+      "locator": "overview page, 'Overview' section",
+      "note": "Schedule, not an event; the collaboration's own wording is \"the late 2020s\".",
+      "quote": "The international collaboration has been preparing for the experiment aiming to start the experiment in the late 2020s.",
+      "sources": [
+        "src:precision-2-e34-overview-page"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2028",
+        "display": "late 2020s",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "J-PARC muon g-2/EDM apparatus",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "overview page",
+      "note": "MLF building centroid (campus-grade); the experiment is in the H2 area of the MLF H line, whose own position is not given in a fetched source.",
+      "quote": "the completion of surface muon beamline construction and its first beam delivery in 2022",
+      "role": "main",
+      "site_id": "site:j-parc-mlf",
+      "sources": [
+        "src:precision-2-e34-overview-page",
+        "src:precision-2-jparc-muon-acceleration-press-2026"
+      ],
+      "start": "2022",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:precision-2-e34-overview-page",
+    "src:precision-2-jparc-muon-acceleration-press-2026"
+  ],
+  "specs": {},
+  "status": "construction",
+  "subsystems": [],
+  "summary": {
+    "plain": "A chain of devices that cools muons to almost rest and accelerates them, a small precise magnet in which they circle, and a tracker that follows the positrons from their decays.",
+    "technical": "Cooling muon source (muonium ionised by UV laser), RF acceleration cavities, vertical beam injection into a 3 T storage solenoid, field-measurement system and a positron track detector."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:1901.03047, abstract",
+    "note": "",
+    "quote": "a factor of 1,000 smaller transverse emittance of the muon beam (reaccelerated thermal muon beam), its efficient vertical injection into the solenoid, and tracking each decay positron from muon decay to obtain its momentum vector.",
+    "sources": [
+      "src:precision-2-e34-new-approach-arxiv-1901-03047"
+    ],
+    "value": "Muon cooling and acceleration chain feeding a compact storage-ring solenoid with a silicon positron tracker",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

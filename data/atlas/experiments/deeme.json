@@ -1,0 +1,104 @@
+{
+  "accelerator_ids": [
+    "accelerator:j-parc-rcs"
+  ],
+  "aliases": [],
+  "collaboration_ids": [
+    "collaboration:deeme"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:j-parc",
+      "locator": "arXiv:1911.07143, abstract",
+      "note": "",
+      "quote": "The DeeMe experiment is planned to search for muon-to-electron conversion at J-PARC MLF.",
+      "role": "host",
+      "sources": [
+        "src:precision-2-deeme-status-arxiv-1911-07143"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:deeme",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2022",
+      "label": "detector manufacture and H-line construction",
+      "locator": "arXiv:1911.07143, abstract",
+      "note": "Start is the manufacture of the tracking detectors (2017), a lower bound; the H line was reported complete by March 2022 (arXiv:2203.07089).",
+      "quote": "Four tracking detectors have been manufactured in 2017",
+      "sources": [
+        "src:precision-2-deeme-status-arxiv-1911-07143",
+        "src:precision-2-snowmass-mu-e-conversion-arxiv-2203-07089"
+      ],
+      "start": "2017",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "commissioning (last dated status: March 2022)",
+      "locator": "arXiv:2203.07089, Section III.F",
+      "note": "As of March 2022 DeeMe planned to begin commissioning in April 2022 and initial physics runs in June 2022. No later source was found, so the present status is uncertain; no physics result has been found.",
+      "quote": "The H-line construction has been completed and it will become ready for commissioning in January 2022.",
+      "sources": [
+        "src:precision-2-snowmass-mu-e-conversion-arxiv-2203-07089"
+      ],
+      "start": "2022",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "muon_precision",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "DeeMe",
+  "notes": [
+    "Status caution: the latest dated source found is March 2022 (arXiv:2203.07089). A 2023 proceedings paper (MDPI Physical Sciences Forum 8, 39) reportedly says the detector is ready to take physics data, but the publisher page returned HTTP 403 and was not read."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1911.07143, abstract",
+      "note": "",
+      "quote": "The DeeMe experiment is planned to search for muon-to-electron conversion at J-PARC MLF.",
+      "sources": [
+        "src:precision-2-deeme-status-arxiv-1911-07143"
+      ],
+      "value": "Search for muon-to-electron conversion at J-PARC MLF with a single event sensitivity of about 1e-13 (graphite target)",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:precision-2-deeme-status-arxiv-1911-07143",
+    "src:precision-2-snowmass-mu-e-conversion-arxiv-2203-07089"
+  ],
+  "status": "commissioning",
+  "summary": {
+    "plain": "An experiment at J-PARC in Japan that searches for a muon turning directly into an electron inside a nucleus, a process the Standard Model does not allow at a measurable rate. Its beamline and spectrometer have been built; no result has been published yet.",
+    "technical": "DeeMe at the MLF H line: 3 GeV RCS proton bunches on a graphite target, muonic carbon atoms, 105 MeV/c electron spectrometer of a dipole and four MWPCs; design single-event sensitivity 1e-13 (graphite) or 2e-14 (SiC) for mu-e conversion. Commissioning planned for 2022."
+  },
+  "topic_ids": [
+    "topic:lepton-flavor-violation",
+    "topic:muon-precision-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

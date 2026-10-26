@@ -1,0 +1,91 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:muse"
+  ],
+  "id": "detector:muse",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2022",
+      "label": "design and construction (lower bound: technical design report)",
+      "locator": "arXiv:1709.09753, submission history",
+      "note": "Start is the submission date of the PSI Technical Design Report for experiment R-12-01.1, a lower bound for the construction phase; MUSE's approval and construction-start dates are not stated in a source consulted. End: first beam times in 2022.",
+      "quote": "Submitted on 27 Sep 2017",
+      "sources": [
+        "src:precision-2-muse-tdr-arxiv-1709-09753",
+        "src:precision-2-muse-post-veto-arxiv-2602-10279"
+      ],
+      "start": "2017-09",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "data taking (beam times from 2022)",
+      "locator": "arXiv:2602.10279, Section 2",
+      "note": "A 2026 detector paper refers to MUSE's 2022 and 2023 beam times; no end of data taking is stated, so the interval is open. No physics result has been found in the sources consulted.",
+      "quote": "The initial operation of the TCPV during MUSE’s 2022 and 2023 beam times used only the",
+      "sources": [
+        "src:precision-2-muse-post-veto-arxiv-2602-10279"
+      ],
+      "start": "2022",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "MUSE spectrometer and liquid hydrogen target",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "arXiv:2602.10279, abstract",
+      "note": "PSI campus-grade site; the pi M1 area is not located in a fetched source.",
+      "quote": "using the Paul Scherrer Institute's PiM1 secondary beamline.",
+      "role": "main",
+      "site_id": "site:psi-villigen",
+      "sources": [
+        "src:precision-2-muse-post-veto-arxiv-2602-10279"
+      ],
+      "start": "2022",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:precision-2-muse-post-veto-arxiv-2602-10279",
+    "src:precision-2-muse-tdr-arxiv-1709-09753"
+  ],
+  "specs": {},
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A liquid-hydrogen target in a vacuum chamber with a large set of detectors around it that track the electrons and muons scattered by the protons.",
+    "technical": "Non-magnetic large-acceptance spectrometer with beam-line tracking, a liquid hydrogen target and trigger vetoes such as the Target Chamber Post Veto."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2602.10279, abstract",
+    "note": "",
+    "quote": "MUSE uses a large-solid-angle, non-magnetic spectrometer to detect beam particles scattering from a liquid hydrogen cell contained within a vacuum chamber.",
+    "sources": [
+      "src:precision-2-muse-post-veto-arxiv-2602-10279"
+    ],
+    "value": "Large-solid-angle, non-magnetic spectrometer detecting beam particles scattering from a liquid hydrogen cell in a vacuum chamber",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "spectrometer"
+  ],
+  "type": "detector"
+}

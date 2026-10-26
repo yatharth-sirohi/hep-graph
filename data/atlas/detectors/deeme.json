@@ -1,0 +1,91 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:deeme"
+  ],
+  "id": "detector:deeme",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2022",
+      "label": "detector manufacture and H-line construction",
+      "locator": "arXiv:1911.07143, abstract",
+      "note": "Start is the manufacture of the tracking detectors (2017), a lower bound; the H line was reported complete by March 2022 (arXiv:2203.07089).",
+      "quote": "Four tracking detectors have been manufactured in 2017",
+      "sources": [
+        "src:precision-2-deeme-status-arxiv-1911-07143",
+        "src:precision-2-snowmass-mu-e-conversion-arxiv-2203-07089"
+      ],
+      "start": "2017",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "commissioning (last dated status: March 2022)",
+      "locator": "arXiv:2203.07089, Section III.F",
+      "note": "As of March 2022 DeeMe planned to begin commissioning in April 2022 and initial physics runs in June 2022. No later source was found, so the present status is uncertain; no physics result has been found.",
+      "quote": "The H-line construction has been completed and it will become ready for commissioning in January 2022.",
+      "sources": [
+        "src:precision-2-snowmass-mu-e-conversion-arxiv-2203-07089"
+      ],
+      "start": "2022",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "DeeMe spectrometer",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "arXiv:1911.07143, abstract",
+      "note": "MLF building centroid (campus-grade); the H-line experimental area is not located in a fetched source.",
+      "quote": "The DeeMe experiment is planned to search for muon-to-electron conversion at J-PARC MLF.",
+      "role": "main",
+      "site_id": "site:j-parc-mlf",
+      "sources": [
+        "src:precision-2-deeme-status-arxiv-1911-07143"
+      ],
+      "start": "2017",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:precision-2-deeme-status-arxiv-1911-07143",
+    "src:precision-2-snowmass-mu-e-conversion-arxiv-2203-07089"
+  ],
+  "specs": {},
+  "status": "commissioning",
+  "subsystems": [],
+  "summary": {
+    "plain": "A magnet with four layers of wire chambers that measures the momentum of electrons coming from the muon target, looking for one with the energy expected from muon-to-electron conversion.",
+    "technical": "H-line spectrometer with a 110 msr acceptance, dipole magnet and four high-voltage-switched MWPCs with FADC readout; electrons of 105 MeV/c from a graphite target."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2203.07089, Section III.A",
+    "note": "",
+    "quote": "a compact magnetic spectrometer, consisting of a dipole magnet and four sets of multiwire proportional chambers (MWPCs), are located to detect the electron, and measure its momentum.",
+    "sources": [
+      "src:precision-2-snowmass-mu-e-conversion-arxiv-2203-07089"
+    ],
+    "value": "Compact magnetic spectrometer of a dipole magnet and four sets of multiwire proportional chambers",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "magnetic_spectrometer"
+  ],
+  "type": "detector"
+}
