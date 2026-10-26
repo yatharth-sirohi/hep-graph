@@ -1,0 +1,318 @@
+{
+  "audience": "First-year physics students; no particle physics needed.",
+  "estimated_minutes": 9,
+  "id": "tour:how-a-collider-complex-works",
+  "name": "How a collider complex works",
+  "notes": [
+    "Working title. Energies are the accelerator records' own fields, so they follow whatever the records say; the numbers in the questions are checked against them."
+  ],
+  "order": 6,
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:tours-nist-codata-speed-of-light"
+  ],
+  "steps": [
+    {
+      "camera": {
+        "altitude": 0.05,
+        "lat": 46.272,
+        "lng": 6.066
+      },
+      "claims": [
+        {
+          "covers": "Linac4 is 86 metres long and located 12 metres below ground",
+          "field": "specs.length",
+          "ref": "accelerator:linac4"
+        },
+        {
+          "covers": "it became the source of proton beams for the Large Hadron Collider in 2020",
+          "field": "intervals.CERN's proton source",
+          "ref": "accelerator:linac4"
+        },
+        {
+          "covers": "It accelerates negative hydrogen ions to 160 MeV to prepare them to enter the Proton Synchrotron Booster",
+          "field": "specs.beam_energy",
+          "ref": "accelerator:linac4"
+        }
+      ],
+      "id": "linac4",
+      "map": "cern",
+      "select": "accelerator:linac4",
+      "text": "Linac4 is 86 metres long and located 12 metres below ground, and it became the source of proton beams for the Large Hadron Collider in 2020. It accelerates negative hydrogen ions to 160 MeV to prepare them to enter the Proton Synchrotron Booster.",
+      "title": "Linac4: the start of the chain",
+      "year": 2024
+    },
+    {
+      "camera": {
+        "altitude": 0.05,
+        "lat": 46.272,
+        "lng": 6.066
+      },
+      "claims": [
+        {
+          "covers": "The ions are stripped of their two electrons during injection from Linac4 into the Proton Synchrotron Booster to leave only protons, which are accelerated to 2 GeV for injection into the Proton Synchrotron",
+          "field": "specs.beam_energy",
+          "ref": "accelerator:psb"
+        },
+        {
+          "covers": "The Booster received its first beams on 26 May 1972",
+          "field": "intervals.operating",
+          "ref": "accelerator:psb"
+        }
+      ],
+      "id": "psb",
+      "map": "cern",
+      "select": "accelerator:psb",
+      "text": "The ions are stripped of their two electrons during injection from Linac4 into the Proton Synchrotron Booster to leave only protons, which are accelerated to 2 GeV for injection into the Proton Synchrotron. The Booster received its first beams on 26 May 1972.",
+      "title": "The Booster: ions become protons",
+      "year": 2024
+    },
+    {
+      "camera": {
+        "altitude": 0.05,
+        "lat": 46.272,
+        "lng": 6.066
+      },
+      "claims": [
+        {
+          "covers": "The PS first accelerated protons on 24 November 1959",
+          "field": "intervals.operating",
+          "ref": "accelerator:ps"
+        },
+        {
+          "covers": "With a circumference of 628 metres, it has 277 conventional electromagnets, including 100 dipoles to bend the beams round the ring",
+          "field": "specs.circumference",
+          "ref": "accelerator:ps"
+        },
+        {
+          "covers": "it operates at up to 26 GeV",
+          "field": "specs.beam_energy",
+          "ref": "accelerator:ps"
+        }
+      ],
+      "id": "ps",
+      "map": "cern",
+      "question": {
+        "answer": "The ring is 628 m round and the speed of light is 299,792,458 m/s, so one lap takes 628 ÷ 299,792,458 × 1,000,000 ≈ 2.09 µs.",
+        "calculation": [
+          {
+            "field": "specs.circumference",
+            "name": "C",
+            "ref": "accelerator:ps",
+            "unit": "m"
+          },
+          {
+            "confidence": "verified",
+            "locator": "NIST CODATA value page for c, \"Numerical value\"",
+            "name": "c",
+            "quote": "speed of light in vacuum Numerical value 299 792 458 m s -1",
+            "sources": [
+              "src:tours-nist-codata-speed-of-light"
+            ],
+            "unit": "m/s",
+            "value": 299792458,
+            "verified_at": "2026-10-26"
+          },
+          {
+            "digits": 3,
+            "expression": "C / c * 1000000",
+            "name": "t_us",
+            "unit": "µs",
+            "value": 2.09
+          }
+        ],
+        "claims": [
+          {
+            "covers": "The ring is 628 m round",
+            "field": "specs.circumference",
+            "in": "answer",
+            "ref": "accelerator:ps"
+          },
+          {
+            "confidence": "verified",
+            "covers": "the speed of light is 299,792,458 m/s",
+            "in": "answer",
+            "locator": "NIST CODATA value page for c, \"Numerical value\"",
+            "quote": "speed of light in vacuum Numerical value 299 792 458 m s -1",
+            "sources": [
+              "src:tours-nist-codata-speed-of-light"
+            ],
+            "verified_at": "2026-10-26"
+          }
+        ],
+        "prompt": "Assume the protons in the Proton Synchrotron move at the speed of light. How long does a proton take to go once round the ring?"
+      },
+      "select": "accelerator:ps",
+      "text": "The PS first accelerated protons on 24 November 1959. With a circumference of 628 metres, it has 277 conventional electromagnets, including 100 dipoles to bend the beams round the ring, and it operates at up to 26 GeV.",
+      "title": "The Proton Synchrotron",
+      "year": 2024
+    },
+    {
+      "camera": {
+        "altitude": 0.08,
+        "lat": 46.272,
+        "lng": 6.066
+      },
+      "claims": [
+        {
+          "covers": "Measuring nearly 7 kilometres in circumference, the SPS takes particles from the Proton Synchrotron and accelerates them to provide beams for the Large Hadron Collider",
+          "field": "specs.circumference",
+          "ref": "accelerator:sps"
+        },
+        {
+          "covers": "The SPS operates at up to 450 GeV",
+          "field": "specs.beam_energy",
+          "ref": "accelerator:sps"
+        }
+      ],
+      "id": "sps",
+      "map": "cern",
+      "select": "accelerator:sps",
+      "text": "Measuring nearly 7 kilometres in circumference, the SPS takes particles from the Proton Synchrotron and accelerates them to provide beams for the Large Hadron Collider. The SPS operates at up to 450 GeV.",
+      "title": "The Super Proton Synchrotron",
+      "year": 2024
+    },
+    {
+      "camera": {
+        "altitude": 0.1,
+        "lat": 46.272,
+        "lng": 6.066
+      },
+      "claims": [
+        {
+          "covers": "The LHC has a circumference of 26,659 m",
+          "field": "specs.circumference",
+          "ref": "accelerator:lhc"
+        },
+        {
+          "covers": "In Run 3 it collided protons at 13.6 TeV, with 6.8 TeV per beam",
+          "field": "intervals.Run 3.specs.beam_energy",
+          "ref": "accelerator:lhc"
+        },
+        {
+          "covers": "against a design collision energy of 14 TeV",
+          "field": "specs.cms_energy",
+          "ref": "accelerator:lhc"
+        }
+      ],
+      "id": "lhc",
+      "map": "cern",
+      "question": {
+        "answer": "The Booster multiplies the energy by 2 ÷ 0.16 = 12.5, the PS by 26 ÷ 2 = 13, the SPS by 450 ÷ 26 ≈ 17, and the LHC by 6800 ÷ 450 ≈ 15. Overall, 6800 ÷ 0.16 = 42,500.",
+        "calculation": [
+          {
+            "field": "specs.beam_energy",
+            "name": "E1",
+            "ref": "accelerator:linac4",
+            "unit": "GeV"
+          },
+          {
+            "field": "specs.beam_energy",
+            "name": "E2",
+            "ref": "accelerator:psb",
+            "unit": "GeV"
+          },
+          {
+            "field": "specs.beam_energy",
+            "name": "E3",
+            "ref": "accelerator:ps",
+            "unit": "GeV"
+          },
+          {
+            "field": "specs.beam_energy",
+            "name": "E4",
+            "ref": "accelerator:sps",
+            "unit": "GeV"
+          },
+          {
+            "field": "intervals.Run 3.specs.beam_energy",
+            "name": "E5",
+            "ref": "accelerator:lhc",
+            "unit": "GeV"
+          },
+          {
+            "digits": 3,
+            "expression": "E2 / E1",
+            "name": "f1",
+            "unit": "",
+            "value": 12.5
+          },
+          {
+            "digits": 2,
+            "expression": "E3 / E2",
+            "name": "f2",
+            "unit": "",
+            "value": 13
+          },
+          {
+            "digits": 2,
+            "expression": "E4 / E3",
+            "name": "f3",
+            "unit": "",
+            "value": 17
+          },
+          {
+            "digits": 2,
+            "expression": "E5 / E4",
+            "name": "f4",
+            "unit": "",
+            "value": 15
+          },
+          {
+            "digits": 3,
+            "expression": "E5 / E1",
+            "name": "total",
+            "unit": "",
+            "value": 42500
+          }
+        ],
+        "claims": [
+          {
+            "covers": "Protons leave Linac4 at 160 MeV",
+            "field": "specs.beam_energy",
+            "in": "prompt",
+            "ref": "accelerator:linac4"
+          },
+          {
+            "covers": "reach 6.8 TeV in each LHC beam",
+            "field": "intervals.Run 3.specs.beam_energy",
+            "in": "prompt",
+            "ref": "accelerator:lhc"
+          }
+        ],
+        "prompt": "Protons leave Linac4 at 160 MeV and, in Run 3, reach 6.8 TeV in each LHC beam. Taking each machine at the top of its energy range, by what factor does it multiply the energy, and what is the overall factor from Linac4 to the LHC?"
+      },
+      "select": "accelerator:lhc",
+      "text": "The LHC has a circumference of 26,659 m. In Run 3 it collided protons at 13.6 TeV, with 6.8 TeV per beam, against a design collision energy of 14 TeV.",
+      "title": "The Large Hadron Collider",
+      "year": 2024
+    },
+    {
+      "camera": {
+        "altitude": 0.1,
+        "lat": 46.272,
+        "lng": 6.066
+      },
+      "claims": [
+        {
+          "covers": "CERN's injector complex took its final steps towards Long Shutdown 3, as the last particle beams were extracted and the machines fell silent",
+          "field": "intervals.Long Shutdown 3 (injector complex)",
+          "ref": "accelerator:psb"
+        },
+        {
+          "covers": "On 31 August 2026",
+          "field": "intervals.Long Shutdown 3 (injector complex)",
+          "ref": "accelerator:psb"
+        }
+      ],
+      "id": "long-shutdown-3",
+      "map": "cern",
+      "select": "facility:cern",
+      "text": "On 31 August 2026 CERN's injector complex took its final steps towards Long Shutdown 3, as the last particle beams were extracted and the machines fell silent.",
+      "title": "The chain falls silent",
+      "year": 2026
+    }
+  ],
+  "summary": "Follow a proton through CERN, from Linac4 through the Booster, the PS and the SPS to the LHC, with the energy it has at each stage.",
+  "type": "tour"
+}

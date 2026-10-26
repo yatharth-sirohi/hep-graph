@@ -350,6 +350,72 @@ The validator applies a plausibility range of 1e-11 to 5e-2 cm^-2 s^-1 (the
 deepest laboratory to sea level) to the site field. The chart of depth
 against flux reads `depth_mwe` and `muon_flux` and nothing else.
 
+**A28. Guided tours (2026-10-26).** One entity type is added: `tour`
+(`data/atlas/tours/<slug>.json`, id `tour:<slug>`). A tour is an authored walk
+through the Atlas for a teaching player (docs/HEP_ATLAS_TEACHING_PLAN.md,
+workstream 3). Top level: `name` (a working title), optional `order`,
+`summary` (what the tour is, not a fact), `audience`, `estimated_minutes`
+(1-60), `sources` (the sources its **own** claims cite) and `steps[]` (5-9).
+A step has `id`, `title`, `text` (one or two plain sentences for a first-year
+student), `claims[]`, and optionally `camera` `{lat, lng, altitude}` (globe
+radii, 0.05-4), `year` (the timeline position, 1900 to the build year),
+`select` (an entity id of a routable type: facility, experiment,
+collaboration, institution, topic, result, document, site, detector,
+accelerator, beamline, map), `map` (the slug of a local map), `view`
+`{"name", "arg"}` (name from the fixed list `beam-section`, whose `arg` is a
+beamline slug; otherwise unchecked), and `question`. **Every factual claim in
+`text` is a claim.** A claim names the phrase it supports, `covers` (a
+verbatim substring of the text), and is either an *own claim* (`quote`
+verbatim and non-empty, `locator`, `sources`, `confidence`, `verified_at`;
+the sourced-value rules of §2.1, A15 and A17 apply) or a *reference*
+`{"covers", "ref": "experiment:t2k", "field": "key_specs.Baseline"}` to an
+Atlas field that is already sourced. A path is dotted; a segment into a list
+picks the row by `label`, `id`, `name` or `to_site_id` (or by index); a
+`key_specs` row resolves to its quantity; the value must sit under a node with
+non-empty `sources`, and a reference may not lean on a field whose sources are
+all rank 11 or lower (encyclopaedias, OpenStreetMap). A tour does not cite the
+entities it walks through: it is left out of `provenance.json` and the
+sources' `cited_by`, and its evidence travels in `tours.json`. A question is
+`{prompt, answer, claims[], calculation[]}`; a worked answer uses only numbers
+the Atlas or a sourced constant carries, and `calculation` is a list of lines,
+each an Atlas input (`ref` + `field` + `unit` for a quantity, or `number` for
+a figure a record states in words or in its quote), a sourced constant
+(`value` + quote) or a computed line (`expression` over earlier names with
+`+ - * / **`, `pi`, `sqrt`, `asin`; `digits` significant digits; `value`),
+which the validator evaluates.
+
+Validator rules (`hepgraph/atlas/tours.py`, reported through `validate.py`;
+errors unless marked warn): the entity or field a reference names does not
+exist or is not sourced; a quote or locator is empty; a step has no text or
+more than two sentences; a sentence contains no covered phrase (an answer
+sentence that is arithmetic is covered by its calculation); a number in the
+text, a prompt or an answer lies outside every covered phrase; a number in a
+covered phrase does not agree with the number its reference resolves to
+(unit-converted and rounded: "1.5 km" agrees with 1,478 m) or with its quote;
+a calculation does not evaluate to the stated value at its stated digits, or
+an answer never states the result; `select` is not a routable type or the
+selection does not exist in the step's `year` (the timeline would hide it);
+`map` is not a map slug; `view.name` is not in the list (warn: `beam-section`
+names no beamline); a camera is out of range; a tour has fewer than 5 or more
+than 9 steps or fewer than 2 or more than 3 questions; an own claim cites a
+source the tour's `sources` does not list; warn: a claim covers under half of
+a sentence, a reference rests on a field that is not `verified`, a listed
+source no claim cites. Whether a quote supports its sentence is a reviewer's
+judgement; `python -m hepgraph.atlas.tours review <slug>` prints each sentence
+with its evidence, and `... tours fields <entity-id>` lists the fields a claim
+may reference.
+
+Build: `static/atlas/generated/tours.json` (lazy; one file) =
+`{"schema", "build_date", "order": [tour ids], "tours": {id: {name, summary,
+audience, estimated_minutes, sources (own plus every source a reference
+resolves to), steps[]}}}`. Each step keeps its fields, with every reference
+resolved in place (`value`, `sources`, and the carrying field's `quote`,
+`locator`, `confidence`) and an `href`: the Atlas URL that shows the step,
+`?y=<year>#/<type>/<slug>` for a selection, `?y=<year>&sel=<id>#/map/<slug>`
+for a map, and `?y=<year>#/view/<name>/<arg>` for a view (the route `state.js`
+does not yet read; a view beats a map beats a selection). The counts in the
+manifest gain `tours`.
+
 **A30. Accelerator chains (2026-10-26).** `accelerator.feeds_accelerator_ids[]`
 entries are id strings or A9 objects `{id, start?, end?, sources, quote, locator,
 confidence, verified_at, note}`; a link without dates holds for hull(A) ∩ hull(B).
@@ -407,6 +473,7 @@ Ids are lower-case ASCII slugs with a typed prefix: `<type>:<slug>`.
 | `document:` | `document:dune-fd-tdr-vol-1` | |
 | `topic:` | `topic:neutrino-oscillations` | |
 | `src:` | `src:dune-collaboration-site`, `src:atlas-detector-jinst-2008` | |
+| `tour:` | `tour:higgs-hunt` | A28: a guided tour; never referenced by another entity |
 
 Rules: ids never change once published; renaming means adding an alias and
 keeping the id. Slugs use `-` only. A slug should be recognisable by a

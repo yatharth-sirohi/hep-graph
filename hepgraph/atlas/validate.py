@@ -39,7 +39,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Iterable, Iterator
 
-from . import geo, load, schema
+from . import geo, load, schema, tours
 
 __all__ = [
     'Finding', 'validate_atlas', 'errors', 'warnings', 'infos', 'group_findings',
@@ -2714,6 +2714,21 @@ def check_geometry(ctx: _Context) -> Iterator[Finding]:
 
 
 # ===========================================================================
+# A28 — guided tours (the rules live in tours.py; this only reports them)
+# ===========================================================================
+
+def check_tours(ctx: _Context) -> Iterator[Finding]:
+    """A28: every tour step has text; every sentence and number in it is covered by a
+    sourced claim; references, selections, maps, years and views exist; a tour has
+    5-9 steps and 2-3 questions; a worked answer's arithmetic is right."""
+    for tour_id, record in sorted(ctx.atlas.by_type('tour').items()):
+        path = ctx.path_of(tour_id)
+        for issue in tours.validate_tour(ctx.atlas, record, ctx.build_date):
+            level = ERROR if issue.level == tours.ERROR else WARNING
+            yield Finding(level, issue.rule, path, tour_id, issue.pointer, issue.message)
+
+
+# ===========================================================================
 # Dispatcher and reporting
 # ===========================================================================
 
@@ -2764,6 +2779,7 @@ CHECKS = (
     check_detector_site_distance,
     check_maps,
     check_geometry,
+    check_tours,
 )
 
 

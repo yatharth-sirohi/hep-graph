@@ -1,0 +1,416 @@
+{
+  "audience": "First-year physics students; no particle physics needed.",
+  "estimated_minutes": 11,
+  "id": "tour:neutrino-beams-through-the-earth",
+  "name": "Neutrino beams through the Earth",
+  "notes": [
+    "Working title. Each step carries a beam-section view named after its beamline slug; the view itself is built by another stream."
+  ],
+  "order": 5,
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:tours-dune-fd-tdr-vol-1-pdf",
+    "src:tours-nasa-earth-fact-sheet"
+  ],
+  "steps": [
+    {
+      "camera": {
+        "altitude": 0.5,
+        "lat": 36.292,
+        "lng": 138.693
+      },
+      "claims": [
+        {
+          "covers": "From June 1999 to November 2004",
+          "field": "intervals.operating",
+          "ref": "beamline:kek-neutrino"
+        },
+        {
+          "covers": "a 12 GeV proton synchrotron",
+          "field": "specs.proton_energy",
+          "ref": "beamline:kek-neutrino"
+        },
+        {
+          "covers": "produced a muon neutrino beam with an average energy of 1.5 GeV",
+          "field": "secondary_beam",
+          "ref": "beamline:kek-neutrino"
+        },
+        {
+          "covers": "After passing through the near detectors, the neutrino beam enters the earth and emerges at Super-Kamiokande, 250 km away",
+          "field": "direction",
+          "ref": "beamline:kek-neutrino"
+        }
+      ],
+      "id": "k2k",
+      "select": "beamline:kek-neutrino",
+      "text": "From June 1999 to November 2004, a 12 GeV proton synchrotron at KEK produced a muon neutrino beam with an average energy of 1.5 GeV. After passing through the near detectors, the neutrino beam enters the earth and emerges at Super-Kamiokande, 250 km away.",
+      "title": "K2K: KEK to Kamioka",
+      "view": {
+        "arg": "kek-neutrino",
+        "name": "beam-section"
+      },
+      "year": 2001
+    },
+    {
+      "camera": {
+        "altitude": 0.7,
+        "lat": 44.343,
+        "lng": 9.812
+      },
+      "claims": [
+        {
+          "covers": "From July 2006 to December 2012, the CNGS project sent muon neutrinos from CERN to the Gran Sasso National Laboratory",
+          "field": "intervals.beam operation",
+          "ref": "beamline:cngs"
+        },
+        {
+          "covers": "732 kilometres away in Italy",
+          "field": "baselines.site:lngs-hall-c.distance",
+          "ref": "beamline:cngs"
+        },
+        {
+          "covers": "In July 2015",
+          "field": "date",
+          "ref": "result:opera-tau-neutrino-appearance-discovery-2015"
+        },
+        {
+          "covers": "OPERA reported the discovery of tau neutrino appearance in that beam, with a significance of 5.1σ",
+          "field": "significance",
+          "ref": "result:opera-tau-neutrino-appearance-discovery-2015"
+        }
+      ],
+      "id": "cngs",
+      "select": "beamline:cngs",
+      "text": "From July 2006 to December 2012, the CNGS project sent muon neutrinos from CERN to the Gran Sasso National Laboratory, 732 kilometres away in Italy. In July 2015 OPERA reported the discovery of tau neutrino appearance in that beam, with a significance of 5.1σ.",
+      "title": "CNGS: CERN to Gran Sasso",
+      "view": {
+        "arg": "cngs",
+        "name": "beam-section"
+      },
+      "year": 2011
+    },
+    {
+      "camera": {
+        "altitude": 0.7,
+        "lat": 44.831,
+        "lng": -90.244
+      },
+      "claims": [
+        {
+          "covers": "The NuMI beam facility produces neutrinos by steering a 120 GeV proton beam onto a graphite target",
+          "field": "primary_beam.value.energy",
+          "ref": "beamline:numi"
+        },
+        {
+          "covers": "the beam is inclined downward by 58 mrad to point towards the Soudan Laboratory",
+          "field": "direction",
+          "ref": "beamline:numi"
+        },
+        {
+          "covers": "MINOS's far detector was 735.3 km from the NuMI beam production target",
+          "field": "key_specs.Baseline (far detector)",
+          "ref": "experiment:minos"
+        },
+        {
+          "covers": "NOvA's far detector is about 810 km from it",
+          "field": "baselines.site:ash-river-nova-far-detector.distance",
+          "ref": "beamline:numi"
+        }
+      ],
+      "id": "numi",
+      "question": {
+        "answer": "For a straight chord of length L on a sphere of radius R, the angle below the horizontal at each end is arcsin(L ÷ 2R). Here L ÷ 2R = 735.3 km ÷ (2 × 6371 km) ≈ 0.0577, and arcsin(0.0577) ≈ 0.0577 rad ≈ 57.7 mrad, which agrees with the 58 mrad of the beamline record.",
+        "calculation": [
+          {
+            "field": "baselines.site:soudan-minos-far-detector.distance",
+            "name": "L",
+            "ref": "beamline:numi",
+            "unit": "km"
+          },
+          {
+            "confidence": "verified",
+            "locator": "NASA Earth Fact Sheet, Bulk parameters table",
+            "name": "R",
+            "quote": "Volumetric mean radius (km) 6371.000",
+            "sources": [
+              "src:tours-nasa-earth-fact-sheet"
+            ],
+            "unit": "km",
+            "value": 6371,
+            "verified_at": "2026-10-26"
+          },
+          {
+            "digits": 3,
+            "expression": "L / (2 * R)",
+            "name": "x",
+            "unit": "",
+            "value": 0.0577
+          },
+          {
+            "digits": 3,
+            "expression": "asin(x)",
+            "name": "rad",
+            "unit": "rad",
+            "value": 0.0577
+          },
+          {
+            "digits": 3,
+            "expression": "rad * 1000",
+            "name": "mrad",
+            "unit": "mrad",
+            "value": 57.7
+          },
+          {
+            "field": "direction",
+            "name": "stated",
+            "number": "58",
+            "ref": "beamline:numi",
+            "unit": "mrad"
+          }
+        ],
+        "claims": [
+          {
+            "covers": "735.3 km away",
+            "field": "baselines.site:soudan-minos-far-detector.distance",
+            "in": "prompt",
+            "ref": "beamline:numi"
+          },
+          {
+            "confidence": "verified",
+            "covers": "a sphere of radius 6371 km",
+            "in": "prompt",
+            "locator": "NASA Earth Fact Sheet, Bulk parameters table",
+            "quote": "Volumetric mean radius (km) 6371.000",
+            "sources": [
+              "src:tours-nasa-earth-fact-sheet"
+            ],
+            "verified_at": "2026-10-26"
+          },
+          {
+            "covers": "the beamline's 58 mrad",
+            "field": "direction",
+            "in": "prompt",
+            "ref": "beamline:numi"
+          },
+          {
+            "covers": "the 58 mrad of the beamline record",
+            "field": "direction",
+            "in": "answer",
+            "ref": "beamline:numi"
+          }
+        ],
+        "prompt": "The NuMI beam points at the Soudan mine, 735.3 km away. Treat the Earth as a sphere of radius 6371 km and the beam as a straight chord. At what angle below the horizontal must it start, and how does that compare with the beamline's 58 mrad?"
+      },
+      "select": "beamline:numi",
+      "text": "The NuMI beam facility produces neutrinos by steering a 120 GeV proton beam onto a graphite target, and the beam is inclined downward by 58 mrad to point towards the Soudan Laboratory. MINOS's far detector was 735.3 km from the NuMI beam production target, and NOvA's far detector is about 810 km from it.",
+      "title": "NuMI: Fermilab to Minnesota",
+      "view": {
+        "arg": "numi",
+        "name": "beam-section"
+      },
+      "year": 2010
+    },
+    {
+      "camera": {
+        "altitude": 0.4,
+        "lat": 36.442,
+        "lng": 138.955
+      },
+      "claims": [
+        {
+          "covers": "In the arc section the proton beam is bent toward the direction of Kamioka by 80.7°",
+          "field": "direction",
+          "ref": "beamline:j-parc-neutrino"
+        },
+        {
+          "covers": "the measured distance from the target to the centre of Super-Kamiokande is 295,335.2 ± 0.7 m",
+          "field": "baselines.site:kamioka-mozumi-mine-super-kamiokande.distance",
+          "ref": "beamline:j-parc-neutrino"
+        },
+        {
+          "covers": "The off-axis angle is set at 2.5°, giving a peak energy of about 0.6 GeV, which maximizes the effect of the neutrino oscillation at 295 km",
+          "field": "secondary_beam",
+          "ref": "beamline:j-parc-neutrino"
+        }
+      ],
+      "id": "t2k",
+      "select": "beamline:j-parc-neutrino",
+      "text": "In the arc section the proton beam is bent toward the direction of Kamioka by 80.7°, and the measured distance from the target to the centre of Super-Kamiokande is 295,335.2 ± 0.7 m. The off-axis angle is set at 2.5°, giving a peak energy of about 0.6 GeV, which maximizes the effect of the neutrino oscillation at 295 km.",
+      "title": "T2K: J-PARC to Kamioka",
+      "view": {
+        "arg": "j-parc-neutrino",
+        "name": "beam-section"
+      },
+      "year": 2012
+    },
+    {
+      "camera": {
+        "altitude": 1.0,
+        "lat": 43.094,
+        "lng": -96.001
+      },
+      "claims": [
+        {
+          "covers": "The LBNF beamline will send neutrinos from Fermilab through stone and earth to South Dakota, with no tunnel needed",
+          "field": "direction",
+          "ref": "beamline:lbnf"
+        },
+        {
+          "covers": "Its far detector will be located at the 4850 ft level of the Sanford Underground Research Facility, 1285 km from the neutrino production target",
+          "field": "baselines.site:surf-4850-level-dune-far-detector.distance",
+          "ref": "beamline:lbnf"
+        }
+      ],
+      "id": "lbnf",
+      "question": {
+        "answer": "For a straight chord of length L = 1285 km, half of it is 1285 ÷ 2 = 642.5 km. At the middle of the path the beam is 6371 − √(6371² − 642.5²) ≈ 32 km below the surface, and it leaves Fermilab at an angle arcsin(642.5 ÷ 6371) ≈ 5.8° below the horizontal.",
+        "calculation": [
+          {
+            "field": "key_specs.Baseline",
+            "name": "L",
+            "ref": "experiment:dune",
+            "unit": "km"
+          },
+          {
+            "confidence": "verified",
+            "locator": "NASA Earth Fact Sheet, Bulk parameters table",
+            "name": "R",
+            "quote": "Volumetric mean radius (km) 6371.000",
+            "sources": [
+              "src:tours-nasa-earth-fact-sheet"
+            ],
+            "unit": "km",
+            "value": 6371,
+            "verified_at": "2026-10-26"
+          },
+          {
+            "digits": 4,
+            "expression": "L / 2",
+            "name": "half",
+            "unit": "km",
+            "value": 642.5
+          },
+          {
+            "digits": 2,
+            "expression": "R - sqrt(R**2 - half**2)",
+            "name": "depth",
+            "unit": "km",
+            "value": 32
+          },
+          {
+            "digits": 2,
+            "expression": "asin(half / R) * 180 / pi",
+            "name": "dip",
+            "unit": "deg",
+            "value": 5.8
+          }
+        ],
+        "claims": [
+          {
+            "covers": "DUNE's baseline is 1285 km",
+            "field": "key_specs.Baseline",
+            "in": "prompt",
+            "ref": "experiment:dune"
+          },
+          {
+            "confidence": "verified",
+            "covers": "a sphere of radius 6371 km",
+            "in": "prompt",
+            "locator": "NASA Earth Fact Sheet, Bulk parameters table",
+            "quote": "Volumetric mean radius (km) 6371.000",
+            "sources": [
+              "src:tours-nasa-earth-fact-sheet"
+            ],
+            "verified_at": "2026-10-26"
+          }
+        ],
+        "prompt": "DUNE's baseline is 1285 km. Assume the beam travels in a straight line through the Earth, treated as a sphere of radius 6371 km. How far below the surface is the beam at the middle of its path, and at what angle below the horizontal does it leave Fermilab?"
+      },
+      "select": "beamline:lbnf",
+      "text": "The LBNF beamline will send neutrinos from Fermilab through stone and earth to South Dakota, with no tunnel needed. Its far detector will be located at the 4850 ft level of the Sanford Underground Research Facility, 1285 km from the neutrino production target.",
+      "title": "LBNF: Fermilab to South Dakota",
+      "view": {
+        "arg": "lbnf",
+        "name": "beam-section"
+      },
+      "year": 2026
+    },
+    {
+      "camera": {
+        "altitude": 0.12,
+        "lat": 44.346,
+        "lng": -103.755
+      },
+      "claims": [
+        {
+          "covers": "DUNE's far detector will be a massive detector situated 1.5 km underground at the Sanford Underground Research Facility in South Dakota",
+          "field": "facility_roles.facility:surf",
+          "ref": "experiment:dune"
+        },
+        {
+          "covers": "The excavation of the caverns that will house its detectors was announced complete",
+          "field": "claim",
+          "ref": "result:dune-far-site-excavation-2024"
+        },
+        {
+          "covers": "in February 2024",
+          "field": "date",
+          "ref": "result:dune-far-site-excavation-2024"
+        }
+      ],
+      "id": "dune-far-detector",
+      "question": {
+        "answer": "At the surface the rate of cosmic rays is 165 kHz, so the ratio of neutrino events to cosmic rays would be less than one to a million. Roughly 1500 m underground at SURF this ratio becomes slightly higher than 1, which raises the discovery potential to a very achievable level. The 4850-foot level is 1478 m below the surface, which is 4300 m.w.e.",
+        "claims": [
+          {
+            "covers": "about 1.5 km underground",
+            "field": "facility_roles.facility:surf",
+            "in": "prompt",
+            "ref": "experiment:dune"
+          },
+          {
+            "confidence": "verified",
+            "covers": "At the surface the rate of cosmic rays is 165 kHz, so the ratio of neutrino events to cosmic rays would be less than one to a million",
+            "in": "answer",
+            "locator": "DUNE FD TDR Vol. I, Chapter 1 Executive Summary, \"Situated underground\"",
+            "quote": "Given the rate of cosmic rays at the surface (165kHz) and the neutrino beam parameters, the ratio of neutrino events to cosmic rays would be less than one to a million",
+            "sources": [
+              "src:tours-dune-fd-tdr-vol-1-pdf"
+            ],
+            "verified_at": "2026-10-26"
+          },
+          {
+            "confidence": "verified",
+            "covers": "Roughly 1500 m underground at SURF this ratio becomes slightly higher than 1, which raises the discovery potential to a very achievable level",
+            "in": "answer",
+            "locator": "DUNE FD TDR Vol. I, Chapter 1 Executive Summary, \"Situated underground\"",
+            "quote": "Roughly 1500m underground at the SURF site, this ratio becomes slightly higher than 1, raising the discovery potential to a very achievable level.",
+            "sources": [
+              "src:tours-dune-fd-tdr-vol-1-pdf"
+            ],
+            "verified_at": "2026-10-26"
+          },
+          {
+            "covers": "The 4850-foot level is 1478 m below the surface",
+            "field": "depth",
+            "in": "answer",
+            "ref": "site:surf-4850-level-dune-far-detector"
+          },
+          {
+            "covers": "4300 m.w.e.",
+            "field": "depth_mwe",
+            "in": "answer",
+            "ref": "site:surf-4850-level-dune-far-detector"
+          }
+        ],
+        "prompt": "Why is DUNE's far detector about 1.5 km underground?"
+      },
+      "select": "experiment:dune",
+      "text": "DUNE's far detector will be a massive detector situated 1.5 km underground at the Sanford Underground Research Facility in South Dakota. The excavation of the caverns that will house its detectors was announced complete in February 2024.",
+      "title": "DUNE: the far detector underground",
+      "year": 2026
+    }
+  ],
+  "summary": "Follow five long-baseline neutrino beams, from KEK in 1999 to DUNE in South Dakota, and work out how deep each one cuts through the rock.",
+  "type": "tour"
+}

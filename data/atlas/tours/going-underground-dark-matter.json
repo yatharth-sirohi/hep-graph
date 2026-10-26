@@ -1,0 +1,452 @@
+{
+  "audience": "First-year physics students; no particle physics needed.",
+  "estimated_minutes": 10,
+  "id": "tour:going-underground-dark-matter",
+  "name": "Going underground for dark matter",
+  "notes": [
+    "Working title. Depths are rock thickness as each laboratory or experiment states it (SNOLAB: the 2 km quoted for DEAP-3600); m.w.e. also depends on the rock, which question 3 shows."
+  ],
+  "order": 4,
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:lngs-overview"
+  ],
+  "steps": [
+    {
+      "camera": {
+        "altitude": 0.3,
+        "lat": 47.82,
+        "lng": -92.241
+      },
+      "claims": [
+        {
+          "covers": "The Cryogenic Dark Matter Search (CDMS II) experiment was located at the Soudan Underground Laboratory",
+          "field": "key_specs.Germanium detectors",
+          "ref": "experiment:cdms-ii"
+        },
+        {
+          "covers": "705 m underground (2070 meters-water-equivalent)",
+          "field": "specs.depth",
+          "ref": "facility:soudan-underground-laboratory"
+        },
+        {
+          "covers": "It used 19 germanium and 11 silicon particle detectors",
+          "field": "key_specs.Germanium detectors",
+          "ref": "experiment:cdms-ii"
+        },
+        {
+          "covers": "operated below 50 mK",
+          "field": "key_specs.Operating temperature",
+          "ref": "experiment:cdms-ii"
+        }
+      ],
+      "id": "soudan",
+      "select": "experiment:cdms-ii",
+      "text": "The Cryogenic Dark Matter Search (CDMS II) experiment was located at the Soudan Underground Laboratory, which lies 705 m underground (2070 meters-water-equivalent). It used 19 germanium and 11 silicon particle detectors, operated below 50 mK.",
+      "title": "Soudan: 705 m down",
+      "year": 2008
+    },
+    {
+      "camera": {
+        "altitude": 0.3,
+        "lat": 42.452,
+        "lng": 13.577
+      },
+      "claims": [
+        {
+          "confidence": "verified",
+          "covers": "The 1400 metre-rock thickness above the Gran Sasso Laboratory provides a cosmic ray flux reduction by one million times",
+          "locator": "LNGS Overview page, paragraph on the halls",
+          "quote": "The 1400 metre-rock thickness above the Laboratory represents a natural coverage that provides a cosmic ray flux reduction by one million times",
+          "sources": [
+            "src:lngs-overview"
+          ],
+          "verified_at": "2026-10-26"
+        },
+        {
+          "covers": "XENON1T, in Hall B there",
+          "field": "facility_roles.facility:lngs",
+          "ref": "experiment:xenon1t"
+        },
+        {
+          "covers": "held 3.2 tonnes of liquid xenon, 2.0 tonnes of it the active target",
+          "field": "key_specs.Total xenon inventory",
+          "ref": "experiment:xenon1t"
+        },
+        {
+          "covers": "ran from 2015 until 2018",
+          "field": "intervals.science operations",
+          "ref": "experiment:xenon1t"
+        }
+      ],
+      "id": "gran-sasso",
+      "select": "experiment:xenon1t",
+      "text": "The 1400 metre-rock thickness above the Gran Sasso Laboratory provides a cosmic ray flux reduction by one million times. XENON1T, in Hall B there, held 3.2 tonnes of liquid xenon, 2.0 tonnes of it the active target, and ran from 2015 until 2018.",
+      "title": "Gran Sasso: a million times fewer cosmic rays",
+      "year": 2017
+    },
+    {
+      "camera": {
+        "altitude": 0.3,
+        "lat": 46.475,
+        "lng": -81.201
+      },
+      "claims": [
+        {
+          "covers": "SNOLAB is a deep underground laboratory which uses the 2 km of rock overburden to filter out cosmic-ray muons",
+          "field": "facility_roles.facility:snolab",
+          "ref": "experiment:deap-3600"
+        },
+        {
+          "covers": "DEAP-3600 sits 2 km underground (6000 meters water equivalent overburden)",
+          "field": "key_specs.Depth",
+          "ref": "experiment:deap-3600"
+        },
+        {
+          "covers": "can hold 3600 kg of liquid argon",
+          "field": "key_specs.Total liquid argon (design)",
+          "ref": "experiment:deap-3600"
+        }
+      ],
+      "id": "snolab",
+      "question": {
+        "answer": "The inner radius is 85 cm = 0.85 m, so the volume is 4/3 × π × (0.85 m)³ ≈ 2.57 m³. Dividing, 3600 kg ÷ 2.57 m³ ≈ 1400 kg/m³.",
+        "calculation": [
+          {
+            "field": "key_specs.Total liquid argon (design)",
+            "name": "r_cm",
+            "number": "85",
+            "ref": "experiment:deap-3600",
+            "unit": "cm"
+          },
+          {
+            "field": "key_specs.Total liquid argon (design)",
+            "name": "M",
+            "ref": "experiment:deap-3600",
+            "unit": "kg"
+          },
+          {
+            "digits": 2,
+            "expression": "r_cm / 100",
+            "name": "r",
+            "unit": "m",
+            "value": 0.85
+          },
+          {
+            "digits": 3,
+            "expression": "4 / 3 * pi * r**3",
+            "name": "V",
+            "unit": "m^3",
+            "value": 2.57
+          },
+          {
+            "digits": 2,
+            "expression": "M / V",
+            "name": "rho",
+            "unit": "kg/m^3",
+            "value": 1400
+          }
+        ],
+        "claims": [
+          {
+            "covers": "an inner radius of 85 cm and can contain 3600 kg of liquid argon",
+            "field": "key_specs.Total liquid argon (design)",
+            "in": "prompt",
+            "ref": "experiment:deap-3600"
+          }
+        ],
+        "prompt": "DEAP-3600's spherical acrylic vessel has an inner radius of 85 cm and can contain 3600 kg of liquid argon. What density of liquid argon does that imply?"
+      },
+      "select": "experiment:deap-3600",
+      "text": "SNOLAB is a deep underground laboratory which uses the 2 km of rock overburden to filter out cosmic-ray muons. DEAP-3600 sits 2 km underground (6000 meters water equivalent overburden) and can hold 3600 kg of liquid argon.",
+      "title": "SNOLAB: 2 km of rock",
+      "year": 2018
+    },
+    {
+      "camera": {
+        "altitude": 0.3,
+        "lat": 44.353,
+        "lng": -103.751
+      },
+      "claims": [
+        {
+          "covers": "LZ is located at the 4850-foot level of the Sanford Underground Research Facility in Lead, South Dakota",
+          "field": "facility_roles.facility:surf",
+          "ref": "experiment:lz"
+        },
+        {
+          "covers": "(4300 m.w.e.)",
+          "field": "depth_mwe",
+          "ref": "site:surf-davis-campus-lz"
+        },
+        {
+          "covers": "monitors 7 active tonnes of liquid xenon",
+          "field": "key_specs.Active liquid xenon",
+          "ref": "experiment:lz"
+        },
+        {
+          "covers": "released on 7 July 2022",
+          "field": "date",
+          "ref": "result:lz-first-wimp-search-2022"
+        },
+        {
+          "covers": "were consistent with a background-only hypothesis",
+          "field": "claim",
+          "ref": "result:lz-first-wimp-search-2022"
+        },
+        {
+          "covers": "rejected spin-independent WIMP-nucleon cross sections above 9.2×10⁻⁴⁸ cm² at a WIMP mass of 36 GeV/c² at the 90% confidence level",
+          "field": "key_value_text",
+          "ref": "result:lz-first-wimp-search-2022"
+        }
+      ],
+      "id": "surf-lz",
+      "question": {
+        "answer": "LUX: 85.3 days × 118 kg ≈ 10,100 kg·days. LZ: 1000 days × 5500 kg = 5,500,000 kg·days. The ratio is 5,500,000 ÷ 10,100 ≈ 550, so about 550 times larger.",
+        "calculation": [
+          {
+            "field": "key_specs.Fiducial volume (WS2013)",
+            "name": "luxd",
+            "number": "85.3",
+            "ref": "experiment:lux",
+            "unit": "d"
+          },
+          {
+            "field": "key_specs.Fiducial volume (WS2013)",
+            "name": "luxm",
+            "ref": "experiment:lux",
+            "unit": "kg"
+          },
+          {
+            "field": "key_specs.Planned exposure",
+            "name": "lzd",
+            "ref": "experiment:lz",
+            "unit": "d"
+          },
+          {
+            "field": "key_specs.Fiducial mass (SR1)",
+            "name": "lzm",
+            "ref": "experiment:lz",
+            "unit": "kg"
+          },
+          {
+            "digits": 3,
+            "expression": "luxd * luxm",
+            "name": "luxx",
+            "unit": "kg d",
+            "value": 10100
+          },
+          {
+            "digits": 2,
+            "expression": "lzd * lzm",
+            "name": "lzx",
+            "unit": "kg d",
+            "value": 5500000
+          },
+          {
+            "digits": 2,
+            "expression": "lzx / luxx",
+            "name": "ratio",
+            "unit": "",
+            "value": 550
+          }
+        ],
+        "claims": [
+          {
+            "covers": "85.3 live days with a 118 kg fiducial volume",
+            "field": "key_specs.Fiducial volume (WS2013)",
+            "in": "prompt",
+            "ref": "experiment:lux"
+          },
+          {
+            "covers": "its planned 1000 live days",
+            "field": "key_specs.Planned exposure",
+            "in": "prompt",
+            "ref": "experiment:lz"
+          },
+          {
+            "covers": "a 5.5 t fiducial mass",
+            "field": "key_specs.Fiducial mass (SR1)",
+            "in": "prompt",
+            "ref": "experiment:lz"
+          }
+        ],
+        "prompt": "LUX's first result used 85.3 live days with a 118 kg fiducial volume. Suppose LZ runs its planned 1000 live days with a 5.5 t fiducial mass. How many times larger is LZ's exposure (mass × live days)?"
+      },
+      "select": "experiment:lz",
+      "text": "LZ is located at the 4850-foot level of the Sanford Underground Research Facility in Lead, South Dakota (4300 m.w.e.), and monitors 7 active tonnes of liquid xenon. Its first results, released on 7 July 2022, were consistent with a background-only hypothesis and rejected spin-independent WIMP-nucleon cross sections above 9.2×10⁻⁴⁸ cm² at a WIMP mass of 36 GeV/c² at the 90% confidence level.",
+      "title": "SURF: the LZ experiment",
+      "year": 2022
+    },
+    {
+      "camera": {
+        "altitude": 0.3,
+        "lat": 28.18,
+        "lng": 101.715
+      },
+      "claims": [
+        {
+          "covers": "PandaX-4T was located 2400 m underground at the Jinping site in Sichuan",
+          "field": "facility_roles.facility:cjpl",
+          "ref": "experiment:pandax-4t"
+        },
+        {
+          "covers": "It was commissioned in 2021 and started data taking then",
+          "field": "intervals.commissioning run",
+          "ref": "experiment:pandax-4t"
+        },
+        {
+          "covers": "a design of 6 tonnes of xenon in total and a 4 tonne sensitive target",
+          "field": "key_specs.Total xenon inventory (design)",
+          "ref": "experiment:pandax-4t"
+        }
+      ],
+      "id": "jinping",
+      "select": "experiment:pandax-4t",
+      "text": "PandaX-4T was located 2400 m underground at the Jinping site in Sichuan. It was commissioned in 2021 and started data taking then, with a design of 6 tonnes of xenon in total and a 4 tonne sensitive target.",
+      "title": "Jinping: 2400 m of rock",
+      "year": 2022
+    },
+    {
+      "camera": {
+        "altitude": 3.0,
+        "lat": 38.0,
+        "lng": -10.0
+      },
+      "claims": [
+        {
+          "covers": "Soudan lies 705 m underground",
+          "field": "specs.depth",
+          "ref": "facility:soudan-underground-laboratory"
+        },
+        {
+          "confidence": "verified",
+          "covers": "Gran Sasso has a 1400 metre-rock thickness above it",
+          "locator": "LNGS Overview page, paragraph on the halls",
+          "quote": "The 1400 metre-rock thickness above the Laboratory represents a natural coverage that provides a cosmic ray flux reduction by one million times",
+          "sources": [
+            "src:lngs-overview"
+          ],
+          "verified_at": "2026-10-26"
+        },
+        {
+          "covers": "SURF is 1478 m down",
+          "field": "specs.depth",
+          "ref": "facility:surf"
+        },
+        {
+          "covers": "SNOLAB has 2 km of rock overburden",
+          "field": "facility_roles.facility:snolab",
+          "ref": "experiment:deap-3600"
+        },
+        {
+          "covers": "Jinping 2400 m",
+          "field": "depth",
+          "ref": "site:cjpl-i"
+        }
+      ],
+      "id": "five-labs",
+      "question": {
+        "answer": "Soudan: 2070 ÷ 705 ≈ 2.9. SURF: 4300 ÷ 1478 ≈ 2.9. SNOLAB: 6000 ÷ 2039 ≈ 2.9. At all three sites each metre of depth counts for about 2.9 m.w.e.",
+        "calculation": [
+          {
+            "field": "specs.depth",
+            "name": "dS",
+            "ref": "facility:soudan-underground-laboratory",
+            "unit": "m"
+          },
+          {
+            "field": "specs.overburden",
+            "name": "wS",
+            "ref": "facility:soudan-underground-laboratory",
+            "unit": "m.w.e."
+          },
+          {
+            "field": "specs.depth",
+            "name": "dU",
+            "ref": "facility:surf",
+            "unit": "m"
+          },
+          {
+            "field": "specs.overburden",
+            "name": "wU",
+            "ref": "facility:surf",
+            "unit": "m.w.e."
+          },
+          {
+            "field": "depth",
+            "name": "dN",
+            "ref": "site:snolab-underground-lab",
+            "unit": "m"
+          },
+          {
+            "field": "depth_mwe",
+            "name": "wN",
+            "ref": "site:snolab-underground-lab",
+            "unit": "m.w.e."
+          },
+          {
+            "digits": 2,
+            "expression": "wS / dS",
+            "name": "fS",
+            "unit": "m.w.e. per m",
+            "value": 2.9
+          },
+          {
+            "digits": 2,
+            "expression": "wU / dU",
+            "name": "fU",
+            "unit": "m.w.e. per m",
+            "value": 2.9
+          },
+          {
+            "digits": 2,
+            "expression": "wN / dN",
+            "name": "fN",
+            "unit": "m.w.e. per m",
+            "value": 2.9
+          }
+        ],
+        "claims": [
+          {
+            "covers": "Soudan is 705 m underground, at 2070 m.w.e.",
+            "field": "specs.depth",
+            "in": "prompt",
+            "ref": "facility:soudan-underground-laboratory"
+          },
+          {
+            "covers": "SURF is 1478 m down",
+            "field": "specs.depth",
+            "in": "prompt",
+            "ref": "facility:surf"
+          },
+          {
+            "covers": "4300 m.w.e.",
+            "field": "specs.overburden",
+            "in": "prompt",
+            "ref": "facility:surf"
+          },
+          {
+            "covers": "the SNO detector vessel at SNOLAB is 2039 m below the surface",
+            "field": "depth",
+            "in": "prompt",
+            "ref": "site:snolab-underground-lab"
+          },
+          {
+            "covers": "about 6000 m.w.e.",
+            "field": "depth_mwe",
+            "in": "prompt",
+            "ref": "site:snolab-underground-lab"
+          }
+        ],
+        "prompt": "Soudan is 705 m underground, at 2070 m.w.e.; SURF is 1478 m down, at 4300 m.w.e.; the SNO detector vessel at SNOLAB is 2039 m below the surface, at about 6000 m.w.e. For each, divide the m.w.e. figure by the depth in metres. What do you notice?"
+      },
+      "select": "topic:direct-dark-matter-detection",
+      "text": "Soudan lies 705 m underground, Gran Sasso has a 1400 metre-rock thickness above it, SURF is 1478 m down, SNOLAB has 2 km of rock overburden and Jinping 2400 m.",
+      "title": "Five laboratories, five depths",
+      "year": 2022
+    }
+  ],
+  "summary": "Visit five underground laboratories, from Soudan in Minnesota to Jinping in Sichuan, to see why dark matter searches go deep and what they found.",
+  "type": "tour"
+}

@@ -36,7 +36,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Iterable
 
-from . import geo, load, schema
+from . import geo, load, schema, tours
 
 
 def _bundle_text(value: Any) -> str:
@@ -457,6 +457,11 @@ class _Context:
         # entity id -> [[m0, m1, status, certainty], …]
         self.segments: dict[str, list[list]] = {}
         for entity_type, entity_id, record in atlas.iter_entities():
+            if entity_type == 'tour':
+                # A28: a tour's evidence travels inside `tours.json`; it is not a
+                # citation of the entities it walks through, so it stays out of
+                # provenance.json and the sources' `cited_by`.
+                continue
             self.stripped[entity_id] = self.stripper.strip(record, entity_id)
             long_text = self._extract_text(entity_type, entity_id, record)
             if long_text:
@@ -1733,6 +1738,9 @@ def build(data_dir: Path | str | None = None, out_dir: Path | str | None = None,
     geometry_bundles, geometry_errors = build_geometry_bundles(ctx)   # A25
     files.update(geometry_bundles)
     result.errors.extend(geometry_errors)
+    tours_bundle, tour_errors = tours.build_bundle(atlas, ctx.build_date)   # A28
+    files['tours.json'] = tours_bundle
+    result.errors.extend(tour_errors)
 
     # `atlas.json` repeats the data version, so the version must be computed
     # from the bundle text with the field blanked, then written back.
