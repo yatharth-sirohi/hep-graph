@@ -1,0 +1,147 @@
+{
+  "accelerator_ids": [
+    "accelerator:mami"
+  ],
+  "aliases": [
+    "A2 Collaboration",
+    "A2 at MAMI",
+    "Crystal Ball/TAPS at MAMI"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:a2-mami"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:mainz-mami",
+      "locator": "arXiv:1506.08849 abstract",
+      "note": "",
+      "quote": "measured with the A2 tagged-photon facilities at the Mainz Microtron, MAMI C",
+      "role": "host",
+      "sources": [
+        "src:hadron2-a2-pi0-photoproduction-arxiv-2015"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:mainz-mami",
+      "locator": "A2 Collaboration website",
+      "note": "Tagged photons from the MAMI electron beam (accelerator:mami).",
+      "quote": "We plan, realize, run and analyze high precision experiments with high energetic real photons at MAMI in the photon-energy range between 40 MeV and 1603 MeV.",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-a2-collaboration-website"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:a2-mami",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "operation (Crystal Ball/TAPS photoproduction)",
+      "locator": "arXiv:1506.08849, Section 2 (Run-I first half of 2013, Run-II second half of 2014); A2 website",
+      "note": "The A2 start is not stated in any source fetched; the 2015 paper compares with an earlier A2 measurement (\"A2-2008\") and describes the 2013 and 2014 runs, so 2013 is an upper bound, not the start of the experiment.",
+      "quote": "The data with the 1557-MeV beam were taken in the first half of 2013 (Run-I)",
+      "sources": [
+        "src:hadron2-a2-pi0-photoproduction-arxiv-2015",
+        "src:hadron2-a2-collaboration-website"
+      ],
+      "start": "2013",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Maximum tagged-photon energy",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "up to 1603 MeV (range 40 MeV to 1603 MeV)",
+        "locator": "A2 Collaboration website",
+        "note": "The page gives the photon-energy range as 40 MeV to 1603 MeV; the upper edge is recorded.",
+        "quote": "We plan, realize, run and analyze high precision experiments with high energetic real photons at MAMI in the photon-energy range between 40 MeV and 1603 MeV.",
+        "sources": [
+          "src:hadron2-a2-collaboration-website"
+        ],
+        "unit": "MeV",
+        "value": 1603,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "hadron_structure",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "A2 Collaboration website",
+      "note": "",
+      "quote": "We plan, realize, run and analyze high precision experiments with high energetic real photons at MAMI in the photon-energy range between 40 MeV and 1603 MeV.",
+      "sources": [
+        "src:hadron2-a2-collaboration-website"
+      ],
+      "value": "https://wwwa2.kph.uni-mainz.de/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "A2 (MAMI)",
+  "notes": [
+    "Named \"A2 (MAMI)\" to distinguish it from other experiments called A2.",
+    "The hall coordinate is not published; placed at the institute building (campus-grade).",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "A2 Collaboration website",
+      "note": "",
+      "quote": "We plan, realize, run and analyze high precision experiments with high energetic real photons at MAMI in the photon-energy range between 40 MeV and 1603 MeV.",
+      "sources": [
+        "src:hadron2-a2-collaboration-website"
+      ],
+      "value": "Improve the understanding of the structure of mesons and nucleons by studying photoproduction of mesons off nucleons with polarisation observables",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:hadron2-a2-collaboration-website",
+    "src:hadron2-a2-crystal-ball-page",
+    "src:hadron2-a2-pi0-photoproduction-arxiv-2015"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "A2 uses tagged high-energy photons from the Mainz accelerator on proton and deuteron targets, detected by the Crystal Ball and TAPS calorimeters that cover nearly the full sphere, to study how mesons and nucleons are built by watching mesons being produced.",
+    "technical": "A2 Collaboration at MAMI: tagged photon beam (40 MeV to 1603 MeV) on liquid-hydrogen/deuterium, polarised frozen-spin and nuclear targets, detected with the Crystal Ball (about 4 pi) plus TAPS forward wall and central tracker: meson photoproduction cross sections and polarisation observables, Compton scattering and nucleon polarisabilities."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:hadron-structure",
+    "topic:qcd",
+    "topic:nuclear-and-heavy-ion"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

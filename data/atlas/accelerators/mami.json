@@ -1,0 +1,77 @@
+{
+  "aliases": [
+    "Mainz Microtron"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "facility_id": "facility:mainz-mami",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:mami",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "MAMI operation (MAMI B 855 MeV, MAMI C about 1.5 GeV)",
+      "locator": "Institute home page; MAMI accelerator page",
+      "note": "\"operating and developing since the 1980s\"; the dates of the MAMI A/B/C stages are not given on the pages fetched.",
+      "quote": "The most important tool for our research is the electron accelerator MAMI, which we have been operating and developing since the 1980s.",
+      "sources": [
+        "src:hadron2-mainz-kph-home-page",
+        "src:hadron2-mainz-mami-page"
+      ],
+      "start": {
+        "approx": true,
+        "date": "1980",
+        "display": "since the 1980s",
+        "latest": "1989"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": false,
+  "kind": "linac",
+  "links": {
+    "website": null
+  },
+  "name": "MAMI (Mainz Microtron)",
+  "notes": [
+    "kind linac is a stand-in: MAMI is a cascade of racetrack and harmonic double-sided microtrons (a recirculating linac), as the CEBAF record does."
+  ],
+  "particles": [
+    "electron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:mainz-kph-campus",
+  "sources": [
+    "src:hadron2-mainz-mami-page",
+    "src:hadron2-mainz-kph-home-page"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "1508 MeV (MAMI C)",
+      "locator": "MAMI accelerator page, parameter table",
+      "note": "MAMI B reaches 855.1 MeV.",
+      "quote": "Final energy 855.1 MeV 1508 MeV",
+      "sources": [
+        "src:hadron2-mainz-mami-page"
+      ],
+      "unit": "MeV",
+      "value": 1508,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "MAMI is the electron accelerator of Mainz University: a cascade of racetrack microtrons that produces high-precision electron beams up to 1.5 GeV, used to study the structure of the nucleon and of atomic nuclei.",
+    "technical": "Mainz Microtron: three racetrack microtrons in sequence (MAMI B, 855.1 MeV, 90 circulations) followed by a harmonic double-sided microtron (MAMI C, 1508 MeV, 43 circulations), continuous-wave electron beam at 2.45 GHz; operated since the 1980s; recorded as a linac because ACCELERATOR_KINDS has no microtron."
+  },
+  "superseded_by": null,
+  "type": "accelerator"
+}

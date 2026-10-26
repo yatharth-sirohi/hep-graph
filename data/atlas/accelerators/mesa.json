@@ -1,0 +1,74 @@
+{
+  "aliases": [
+    "Mainz Energy-Recovering Superconducting Accelerator"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "facility_id": "facility:mainz-mami",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:mesa",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "construction (MESA)",
+      "locator": "arXiv:1802.04759 (Feb 2018): \"MESA is under construction\"; MESA page: \"It is currently still under construction\"; PRISMA+ news: electron source beam at its final location on 25 April 2024",
+      "note": "February 2018 is the earliest source fetched that says MESA is under construction; the construction start is not stated. First beam from the MESA electron source at its final location in the LINAC tunnel on 25 April 2024; no source gives a date for first beam through the full machine.",
+      "quote": "the new Mainz Energy Recovery Superconducting Accelerator (MESA) is under construction",
+      "sources": [
+        "src:hadron2-p2-experiment-arxiv-2018",
+        "src:hadron2-mainz-mesa-page",
+        "src:hadron2-mainz-prisma-mesa-source-news-2024"
+      ],
+      "start": "2018-02",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": false,
+  "kind": "linac",
+  "links": {
+    "website": null
+  },
+  "name": "MESA (Mainz Energy-recovering Superconducting Accelerator)",
+  "notes": [
+    "10 mA (6e16 electrons per second) is the design beam current quoted on the MESA page; it is not recorded as a spec because the A8 current dimension is only accepted in A and mA and the page ties it to the sample hit rate."
+  ],
+  "particles": [
+    "electron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:mainz-mesa-experimental-hall",
+  "sources": [
+    "src:hadron2-mainz-mesa-page",
+    "src:hadron2-mainz-prisma-mesa-source-news-2024",
+    "src:hadron2-p2-experiment-arxiv-2018"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "up to 155 MeV",
+      "locator": "MESA accelerator page",
+      "note": "",
+      "quote": "where they are accelerated to up to 155 MeV, depending on the operating mode",
+      "sources": [
+        "src:hadron2-mainz-mesa-page"
+      ],
+      "unit": "MeV",
+      "value": 155,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "construction",
+  "summary": {
+    "plain": "MESA is a new electron accelerator being built at Mainz University that recovers most of the beam energy in superconducting cavities, giving a very intense electron beam of up to 155 MeV for precision experiments such as P2 and MAGIX.",
+    "technical": "Mainz Energy-recovering Superconducting Accelerator: electrons pre-accelerated to 5 MeV by the MAMBO linac enter an energy-recovery linac accelerating them to up to 155 MeV (external-beam mode for P2) with up to 10 mA (6e16 electrons per second); under construction within the PRISMA+ cluster; electron source first beam at the final location on 2024-04-25."
+  },
+  "superseded_by": null,
+  "type": "accelerator"
+}
