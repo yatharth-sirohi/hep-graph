@@ -71,7 +71,7 @@ release. Plan: `docs/HEP_ATLAS_RELEASE_PLAN.md`. Round-by-round workups:
   each with its reason).
 * Coverage of experiments is partial by design (131 researched); the coverage
   report says so.
-* "Report an error" links to the GitHub repository, which is private.
+* "Report an error" (footer and About page) is an e-mail link to yatharth-sirohi@uiowa.edu with a prefilled subject; the About page names the repository's docs without linking them, since the repository is private.
 
 ## Deployment
 

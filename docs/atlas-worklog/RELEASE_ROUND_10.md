@@ -34,7 +34,7 @@ their sources — served from the CDN instead of a serverless call per file.
 
 ## Left for the owner
 
-* "Report an error" points at the private GitHub repository (404 for the public).
+* ~~"Report an error" points at the private GitHub repository~~ — resolved after the release: it is now an e-mail link (owner's choice of address), and the About page no longer links docs in the private repository.
 * Known cosmetic: markers blink out for about 0.4 s while the camera flies to a
   selection (the globe library rebuilds its marker layer).
 * Shapes no public source places stay listed per map as "not drawn", with the

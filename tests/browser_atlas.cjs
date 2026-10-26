@@ -2621,7 +2621,7 @@ async function setRangeValue(locator, value) {
     await noGlContext.close();
   });
 
-  await record("Footer links: Methodology and the coverage-report link resolve to about.html, Report an error points at GitHub issues", async () => {
+  await record("Footer links: Methodology and the coverage-report link resolve to about.html, Report an error is an e-mail link", async () => {
     // The shared top-level `context`/`page` were deliberately closed above
     // (see the comment before "Without WebGL2..."), so this and every
     // remaining check opens its own context.
@@ -2632,7 +2632,7 @@ async function setRangeValue(locator, value) {
     const methodologyHref = await footerPage.locator("a.footer-link", { hasText: "Methodology" }).getAttribute("href");
     assert.equal(methodologyHref, "/atlas/about.html");
     const reportHref = await footerPage.locator("a.footer-link", { hasText: "Report an error" }).getAttribute("href");
-    assert.equal(reportHref, "https://github.com/yatharth-sirohi/hep-graph/issues/new");
+    assert.equal(reportHref, "mailto:yatharth-sirohi@uiowa.edu?subject=HEP%20Atlas%3A%20error%20report");
     const coverageLink = footerPage.locator("#data-version-label a", { hasText: "the coverage report" });
     assert.equal(await coverageLink.getAttribute("href"), "/atlas/about.html#coverage");
     // Both same-origin links must actually resolve, not just look right.
