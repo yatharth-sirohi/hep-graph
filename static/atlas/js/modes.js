@@ -3,6 +3,7 @@
 // library. Each renders into the #mode-panel container.
 
 import { titleCase, fmtDate, buildIndex } from './model.js';
+import { exportBar } from './research/list-export.js';
 
 let ctx = null; // { container, atlas, results, documents, navigate, getState, setTimelineYear }
 // Flat id->record index over atlas.json (same groups buildIndex covers:
@@ -251,6 +252,8 @@ function renderResultsMode() {
 
   const countEl = h('p', { class: 'mode-count', role: 'status', id: 'results-count' }, '');
   const list = h('ul', { class: 'results-list', id: 'results-mode-list' });
+  // The rows on screen, in the order on screen: what "Download CSV" and "Download JSON" export.
+  let visible = [];
 
   // On a phone the controls are a "Filters" disclosure, closed until opened, so
   // the sheet opens on the list and not on seven controls above it; its summary
@@ -322,6 +325,7 @@ function renderResultsMode() {
     countEl.textContent = `Showing ${filtered.length} of ${results.length} results`;
     updateControlsSummary();
     list.innerHTML = '';
+    visible = [];
     if (!filtered.length) {
       list.appendChild(h('li', { class: 'empty-note' }, emptyMessage()));
       return;
@@ -329,8 +333,21 @@ function renderResultsMode() {
     const sorted = sortResults(filtered, sortBy, experimentNames);
     for (const [label, group] of groupResults(sorted, groupBy, experimentNames)) {
       if (label != null) list.appendChild(groupHeaderRow(label, group.length));
-      for (const result of group) list.appendChild(buildResultRow(result));
+      for (const result of group) {
+        list.appendChild(buildResultRow(result));
+        visible.push(result);
+      }
     }
+  }
+
+  // The filters in words, for the header of a downloaded file.
+  function describeFilter() {
+    const chosen = (sel) => sel.options[sel.selectedIndex].textContent;
+    const parts = [
+      [yearSel, 'Year'], [expSel, 'Experiment'], [facSel, 'Facility'], [topicSel, 'Topic'], [typeSel, 'Result type'],
+    ].filter(([sel]) => sel.value).map(([sel, name]) => `${name}: ${chosen(sel)}`);
+    const order = `sorted by ${chosen(sortSel).toLowerCase()}${groupBy !== 'none' ? `, grouped by ${groupBy}` : ''}`;
+    return `${parts.length ? parts.join('; ') : 'none (all results)'}; ${order}`;
   }
 
   function showGroupBy(next) {
@@ -415,6 +432,11 @@ function renderResultsMode() {
     h('h2', {}, 'Results'),
     countEl,
     controls,
+    exportBar({
+      kind: 'results',
+      atlas: ctx.atlas,
+      snapshot: () => ({ records: visible, filter: describeFilter(), total: results.length }),
+    }),
     h('div', { class: 'mode-scroll' }, [list]),
   ]);
 }
@@ -430,6 +452,8 @@ function renderDocsMode() {
     placeholder: 'Filter by title or owner…',
   });
   const list = h('ul', { class: 'entity-list document-library', id: 'docs-mode-list' });
+  // The rows on screen, in the order on screen (see the Results list).
+  let visible = [];
 
   function matchesText(doc, needle) {
     if (!needle) return true;
@@ -462,6 +486,7 @@ function renderDocsMode() {
     const filtered = documents.filter((d) => matchesText(d, needle));
     countEl.textContent = `Showing ${filtered.length} of ${documents.length} documents`;
     list.innerHTML = '';
+    visible = [];
     if (!filtered.length) {
       list.appendChild(h('li', { class: 'empty-note' }, (
         documents.length ? 'No documents match this filter.' : 'No documents curated yet.'
@@ -479,7 +504,10 @@ function renderDocsMode() {
     for (const key of keys) {
       const group = buckets.get(key).slice().sort((a, b) => timeKey(b) - timeKey(a));
       list.appendChild(groupHeaderRow(titleCase(key), group.length));
-      for (const doc of group) list.appendChild(buildDocRow(doc));
+      for (const doc of group) {
+        list.appendChild(buildDocRow(doc));
+        visible.push(doc);
+      }
     }
   }
 
@@ -490,6 +518,18 @@ function renderDocsMode() {
     h('h2', {}, 'Document library'),
     countEl,
     h('div', { class: 'results-filters' }, [filterInput]),
+    exportBar({
+      kind: 'documents',
+      atlas: ctx.atlas,
+      snapshot: () => {
+        const needle = filterInput.value.trim();
+        return {
+          records: visible,
+          total: documents.length,
+          filter: `${needle ? `title or owner contains “${needle}”` : 'none (all documents)'}; grouped by document type, newest first`,
+        };
+      },
+    }),
     h('div', { class: 'mode-scroll' }, [list]),
   ]);
 }

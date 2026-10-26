@@ -13,6 +13,8 @@ import {
   VIEW_NAME, WORKING_TITLE, rowGeometry, rowsForBeamline, rowsForExperiment,
 } from './views/beam-rows.js';
 import { quoteView, readableText, readableView } from './tex.js';
+import { compareControl } from './research/compare-tray.js';
+import { citeBody } from './research/cite-panel.js';
 
 let ATLAS = null;
 let INDEX = null;
@@ -724,6 +726,8 @@ async function renderExperiment(id, timelineState) {
 
   const experimentBeamRows = rowsForExperiment(ATLAS, exp);
   if (experimentBeamRows.length) frag.appendChild(beamSectionLinkLine(experimentBeamRows));
+  // "Add to compare": the tray of research/compare-tray.js, up to four experiments.
+  frag.appendChild(compareControl(exp, CALLBACKS.navigate));
 
   const expPlainSummary = plainSummaryOf(exp, t);
   sections.add('What it studies', [
@@ -1184,6 +1188,8 @@ async function renderResult(id) {
     pubLinks.push(h('li', {}, h('a', { href: result.official_url, target: '_blank', rel: 'noopener' }, 'Collaboration result page')));
   }
   sections.add('Publication', pubLinks.length ? h('ul', { class: 'entity-list' }, pubLinks) : null, { open: false });
+  // BibTeX from the record's own DOI, arXiv id, title and collaboration (research/bibtex.js).
+  sections.add('Cite', citeBody({ record: result, atlas: ATLAS }), { open: false, quiet: true });
 
   sections.note();
   frag.appendChild(sourcesDisclosure(id, result));
@@ -1211,6 +1217,7 @@ async function renderDocument(id) {
   sections.add('Owners', owners.length
     ? h('ul', { class: 'entity-list' }, owners.map((o) => h('li', {}, linkTo(o.route, o.record.name))))
     : null, { open: false });
+  sections.add('Cite', citeBody({ record: document_, atlas: ATLAS }), { open: false, quiet: true });
   sections.note();
   return frag;
 }

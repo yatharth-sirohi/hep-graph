@@ -53,6 +53,9 @@
 //     and its numbers in a table.
 
 import { VIEW_NAME, WORKING_TITLE, beamSearchEntries, parseArg } from './beam-rows.js';
+import {
+  VIEW_NAME as COMPARE_NAME, WORKING_TITLE as COMPARE_TITLE, compareSearchEntries,
+} from './compare-route.js';
 
 export const VIEWS = {
   [VIEW_NAME]: {
@@ -64,6 +67,12 @@ export const VIEWS = {
       return beamline ? { route: { type: 'beamline', slug: parsed.slug }, label: `Back to ${beamline.name}` } : null;
     },
     searchEntries: beamSearchEntries,
+  },
+  // Two to four experiments side by side: #/view/compare/dune,juno (compare-route.js).
+  [COMPARE_NAME]: {
+    title: COMPARE_TITLE,
+    load: () => import('./compare.js'),
+    searchEntries: compareSearchEntries,
   },
 };
 
