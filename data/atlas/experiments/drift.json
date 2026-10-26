@@ -1,0 +1,130 @@
+{
+  "aliases": [
+    "Directional Recoil Identification From Tracks",
+    "DRIFT-II",
+    "DRIFT-IId"
+  ],
+  "collaboration_ids": [
+    "collaboration:drift"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "facility_id": "facility:boulby-underground-laboratory",
+      "locator": "arXiv:1110.0222, Sec. 1",
+      "note": "Open interval; see the experiment's interval note.",
+      "quote": "The DRIFT experiment has been operational at the Boulby Underground Laboratory in the UK since 2001",
+      "role": "host",
+      "sources": [
+        "src:drift-experiments-status-2011"
+      ],
+      "start": "2001",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:drift",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "DRIFT operation at Boulby",
+      "locator": "arXiv:1110.0222, Sec. 1",
+      "note": "Open interval. The latest paper read (arXiv:1701.00171, a 2016-17 analysis) reports data; no source read states that DRIFT-IId has stopped or is still running in 2026.",
+      "quote": "The DRIFT experiment has been operational at the Boulby Underground Laboratory in the UK since 2001",
+      "sources": [
+        "src:drift-experiments-status-2011"
+      ],
+      "start": "2001",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2010",
+      "kind": "run",
+      "label": "DRIFT-IId run (47.4 live days)",
+      "locator": "arXiv:1110.0222, Sec. 1",
+      "note": "Year range from '2009/10'.",
+      "quote": "The current iteration (DRIFT II-d) collected 47.4 days of live-time data in 2009/10",
+      "sources": [
+        "src:drift-experiments-status-2011"
+      ],
+      "start": "2009",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Fiducial volume (DRIFT-IId)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "volume",
+        "display": "0.8 m^3",
+        "locator": "arXiv:1010.3027, abstract",
+        "note": "",
+        "quote": "A 0.8 m^3 fiducial volume, containing partial pressures of 30 Torr CS2 and 10 Torr CF4",
+        "sources": [
+          "src:drift-iid-spin-dependent-2010"
+        ],
+        "unit": "m^3",
+        "value": 0.8,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "DRIFT",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Boulby coordinate: the Atlas site record for the mine is a campus-grade point; the hall/cavern is not located by the papers read, so the facility's site record is referenced.",
+    "Records DRIFT-I and DRIFT-IIa-d as one continuing experiment (the collaboration presents them as iterations of one programme). DRIFT III (a 10 m^3 detector) appears only as an aim in arXiv:1110.0222 and is not recorded."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:astro-ph/9905074, abstract",
+      "note": "",
+      "quote": "A low pressure time projection chamber for the detection of WIMPs is discussed. Discrimination against Compton electron background in such a device should be very good, and directional information about the recoil atoms would be obtainable.",
+      "sources": [
+        "src:drift-project-1999"
+      ],
+      "value": "Detect WIMPs with directional sensitivity in a low-pressure gas TPC",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:drift-experiments-status-2011",
+    "src:drift-iid-spin-dependent-2010",
+    "src:drift-low-threshold-2017",
+    "src:drift-project-1999",
+    "src:drift-iia-first-results-2007",
+    "src:drift-long-term-backgrounds-2014"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "DRIFT is a family of detectors in the Boulby mine that use low-pressure gas to trace the direction of the atom a dark matter particle would knock, which could show whether it comes from the direction our Solar System moves through the Galaxy. It has run since 2001.",
+    "technical": "Directional Recoil Identification From Tracks: low-pressure negative-ion CS2 (with CF4) time projection chambers (DRIFT-I, DRIFT-IIa-d, 0.8 m^3 fiducial) at Boulby, 1100 m rock (2800 m.w.e.). DRIFT-IId spin-dependent WIMP-proton limits: 0.5 pb at 100 GeV/c^2 (47.4 live days, 2010) improved to 0.28 pb (54.7 live days, 2017)."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

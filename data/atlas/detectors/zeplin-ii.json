@@ -1,0 +1,157 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:zeplin-ii"
+  ],
+  "id": "detector:zeplin-ii",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2005",
+      "label": "construction",
+      "locator": "arXiv:astro-ph/0111098, abstract",
+      "note": "Start is the earliest date (November 2001) at which a source read describes the detector as under construction, not a construction start. End: 'operational ... since 2005'.",
+      "quote": "We describe the research and development program carried out by the UCLA - Torino group leading to the ZEPLIN II detector under construction for the Boulby Laboratory.",
+      "sources": [
+        "src:zeplin-iv-concept-2001"
+      ],
+      "start": "2001-11",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2006",
+      "label": "ZEPLIN-II operation",
+      "locator": "arXiv:astro-ph/0703362, Sec. 1",
+      "note": "Start from the data-acquisition paper; end from the shared 'ZEPLIN-II running between 2001 and 2006' statement in arXiv:1112.0080.",
+      "quote": "The ZEPLIN II dark matter detector has been operational at the Boulby Mine underground laboratory since 2005.",
+      "sources": [
+        "src:zeplin-ii-daq-2007"
+      ],
+      "start": "2005",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:1112.0080, Sec. 1",
+      "note": "Year only; from the shared 2001-2006 statement.",
+      "quote": "After 3 kg single phase ZEPLIN-I [1] and 31 kg double phase ZEPLIN-II [2] running between 2001 and 2006, ZEPLIN-III was the third generation of liquid xenon experiments deployed at Boulby.",
+      "sources": [
+        "src:zeplin-iii-second-run-performance-2012"
+      ],
+      "start": "2006",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "ZEPLIN-II detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2006",
+      "locator": "arXiv:astro-ph/0703362, Sec. 1",
+      "note": "Years only.",
+      "quote": "The ZEPLIN II dark matter detector has been operational at the Boulby Mine underground laboratory since 2005.",
+      "role": "main",
+      "site_id": "site:boulby-mine",
+      "sources": [
+        "src:zeplin-ii-daq-2007"
+      ],
+      "start": "2005",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:zeplin-ii-first-limits-2007",
+    "src:zeplin-ii-daq-2007",
+    "src:zeplin-iii-second-run-performance-2012"
+  ],
+  "specs": {
+    "exposure": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "exposure",
+      "display": "225 kgxdays",
+      "locator": "arXiv:astro-ph/0701858, abstract",
+      "note": "First underground run, 31 live days.",
+      "quote": "the total exposure following the application of fiducial and stability cuts was 225 kgxdays",
+      "sources": [
+        "src:zeplin-ii-first-limits-2007"
+      ],
+      "unit": "kg d",
+      "value": 225,
+      "verified_at": "2026-10-26"
+    },
+    "phase": {
+      "confidence": "verified",
+      "locator": "arXiv:astro-ph/0701858, abstract",
+      "note": "",
+      "quote": "two phase xenon detector",
+      "sources": [
+        "src:zeplin-ii-first-limits-2007"
+      ],
+      "value": "dual-phase",
+      "verified_at": "2026-10-26"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "arXiv:astro-ph/0701858, abstract",
+      "note": "",
+      "quote": "two phase xenon detector",
+      "sources": [
+        "src:zeplin-ii-first-limits-2007"
+      ],
+      "value": "liquid xenon",
+      "verified_at": "2026-10-26"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "31 kg",
+      "locator": "arXiv:astro-ph/0701858, abstract",
+      "note": "",
+      "quote": "ZEPLIN-II, a 31 kg two phase xenon detector",
+      "sources": [
+        "src:zeplin-ii-first-limits-2007"
+      ],
+      "unit": "kg",
+      "value": 31,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "ZEPLIN-II was a 31 kg two-phase liquid xenon dark matter detector in the Boulby mine in north-east England, operating from 2005. It measured both light and electric charge to tell dark matter from background, and set limits.",
+    "technical": "Two-phase (liquid/gas) xenon detector with 31 kg of xenon; first underground run of 31 live days (225 kg d after fiducial and stability cuts) gave a spin-independent minimum of 6.6e-7 pb. Successor of ZEPLIN-I, predecessor of ZEPLIN-III."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:astro-ph/0703362, abstract",
+    "note": "",
+    "quote": "ZEPLIN-II is a two-phase (liquid/gas) xenon dark matter detector searching for WIMP-nucleon interactions.",
+    "sources": [
+      "src:zeplin-ii-daq-2007"
+    ],
+    "value": "Two-phase (liquid/gas) xenon detector measuring scintillation and ionisation",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "noble_liquid_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "xenon_tpc"
+  ],
+  "type": "detector"
+}
