@@ -58,8 +58,8 @@ export function createStartHere({ card, reopenButton, searchInput, getGlobe, fir
 
   function frameGlobe() {
     const globe = getGlobe && getGlobe();
-    // The globe stream adds showView(); until it exists the default camera stands.
-    if (globe && typeof globe.showView === 'function') globe.showView({ ...FIRST_VIEW });
+    // `clearOf` frames the view in the part of the stage the card leaves free.
+    if (globe && typeof globe.showView === 'function') globe.showView({ ...FIRST_VIEW }, { clearOf: card });
   }
 
   function open({ trigger = null, frame = false } = {}) {

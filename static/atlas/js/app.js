@@ -15,6 +15,7 @@ import * as localmap from './localmap.js';
 import { createChrome } from './chrome.js';
 import * as startModule from './start.js';
 import { buildIndex, topicMarkerIds } from './model.js';
+import { facilityKeyEntries } from './globeicons.js';
 
 const els = {
   dataNotice: document.getElementById('data-notice'),
@@ -75,15 +76,10 @@ function setNotice(text) {
 }
 
 function renderLegend() {
+  // The facility glyphs are the very SVGs the globe draws, so the Key cannot drift
+  // from the markers it explains.
   els.legend.innerHTML = `
-    <div class="legend-group"><strong>Facility shape</strong>
-      <span class="legend-item"><i class="glyph ring"></i>Accelerator laboratory</span>
-      <span class="legend-item"><i class="glyph triangle-down"></i>Underground laboratory</span>
-      <span class="legend-item"><i class="glyph hexagon"></i>Neutrino observatory</span>
-      <span class="legend-item"><i class="glyph diamond"></i>Astroparticle observatory</span>
-      <span class="legend-item"><i class="glyph snowflake"></i>Polar station</span>
-      <span class="legend-item"><i class="glyph square"></i>Reactor site</span>
-    </div>
+    <div class="legend-group" id="legend-facility-kinds"><strong>Facility shape</strong></div>
     <div class="legend-group"><strong>Institution dot</strong>
       <span class="legend-item"><i class="dot solid"></i>Confirmed / counted</span>
       <span class="legend-item"><i class="dot hollow"></i>Uncounted / historical</span>
@@ -91,6 +87,14 @@ function renderLegend() {
     <div class="legend-group"><strong>Location precision</strong>
       <span class="legend-item"><i class="dot approximate"></i>Approximate location (campus-grade coordinate)</span>
     </div>`;
+  const kinds = els.legend.querySelector('#legend-facility-kinds');
+  for (const entry of facilityKeyEntries()) {
+    const item = document.createElement('span');
+    item.className = 'legend-item';
+    entry.svg.setAttribute('aria-hidden', 'true');
+    item.append(entry.svg, entry.label);
+    kinds.append(item);
+  }
 }
 
 async function main() {
