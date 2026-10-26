@@ -788,7 +788,7 @@ function pointLayers(L, feature, options) {
   const radius = pointRadius(feature);
   return {
     pointToLayer: (_geoJsonPoint, latlng) => L.circle(latlng, {
-      ...options, radius, fill: true, fillColor: options.color, fillOpacity: options.fillOpacity || 0.12,
+      ...mapstyle.uncertaintyRingOptions(options), radius, fillColor: options.color,
     }),
   };
 }
@@ -818,8 +818,10 @@ function drawFeatures(L) {
     if (mapstyle.levelIsSubsurface(level) && !isPoint) {
       parts.push(L.geoJSON(shape, { style: () => mapstyle.casingOptions(feature, { ghost }) }));
     }
+    // Leaflet applies `style` to every layer after `pointToLayer` has made it, so
+    // a Point's ring has to be styled here too or the footprint style wins.
     const main = L.geoJSON(shape, {
-      style: () => options,
+      style: () => (isPoint ? mapstyle.uncertaintyRingOptions(options) : options),
       ...(isPoint ? pointLayers(L, feature, options) : {}),
     });
     parts.push(main);

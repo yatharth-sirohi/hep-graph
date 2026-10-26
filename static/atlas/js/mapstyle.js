@@ -133,6 +133,23 @@ export function pathOptions(feature, { level, status, ghost = false } = {}) {
   };
 }
 
+/**
+ * How the circle of a position-only feature is drawn. It is how well the
+ * position is known, not a structure, so it is a thin dashed ring with no fill:
+ * a footprint is a filled shape, and a filled amber disc 2 km across (Kamioka,
+ * Paranal) read as one and swamped the map. It is still a painted path with an
+ * invisible fill, so hovering or clicking inside it reaches the feature.
+ */
+export function uncertaintyRingOptions(options) {
+  return {
+    ...options,
+    weight: 2,
+    dashArray: '7 6',
+    fill: true,
+    fillOpacity: 0,
+  };
+}
+
 /** The pale casing drawn *behind* a subsurface feature (the level encoding). */
 export function casingOptions(feature, { ghost = false } = {}) {
   const t = typeStyle(feature.feature_type);
@@ -189,9 +206,9 @@ export function legendGroups(levels) {
   ]);
   const representationRows = ['surveyed', 'georeferenced', 'derived', 'inferred_direction']
     .map((key) => [`legend-rep-${key}`, REPRESENTATION_STYLES[key].label, REPRESENTATION_STYLES[key].hint]);
-  representationRows.push(['legend-rep-point', 'Position only (a circle with a centre mark)',
-    'no source gives this feature a footprint, so what is drawn is its position and a circle of '
-    + 'its positional accuracy, labelled “position uncertainty ±N m — not the detector outline”: '
+  representationRows.push(['legend-rep-point', 'Position only (a dashed ring with a centre mark)',
+    'no source gives this feature a footprint, so what is drawn is its position and a hollow dashed '
+    + 'ring of its positional accuracy, labelled “position uncertainty ±N m — not the detector outline”: '
     + 'the circle is how well the position is known, not the size of the thing']);
   return [
     { title: 'Feature type', note: 'What kind of thing the shape is.', rows: typeRows },
