@@ -79,6 +79,29 @@ const url = (spec = "") => {
   return `${base}/atlas${params ? `?${params}` : ""}${hash}`;
 };
 
+// axe-core, when a copy can be found (the a11y suite's lookup), injected through a
+// same-origin route because the page's CSP forbids inline scripts.
+function findAxe() {
+  const candidates = (process.env.NODE_PATH || "").split(path.delimiter).map((dir) => path.join(dir, "axe-core", "axe.min.js"));
+  candidates.push("/Users/yatharthsirohi/Desktop/ourIowaCityWebsite/our-iowa-city/node_modules/axe-core/axe.min.js");
+  try { candidates.push(require.resolve("axe-core/axe.min.js")); } catch (error) { /* not on the module path */ }
+  return candidates.find((candidate) => candidate && fs.existsSync(candidate)) || null;
+}
+const AXE_PATH = findAxe();
+async function axeViolations(page, ruleSet) {
+  if (!page.__axeRouted) {
+    await page.route("**/__axe-core-test-only__.js", (route) => route.fulfill({
+      status: 200, contentType: "application/javascript", body: fs.readFileSync(AXE_PATH, "utf8"),
+    }));
+    page.__axeRouted = true;
+  }
+  if (!(await page.evaluate(() => !!window.axe))) await page.addScriptTag({ url: "/__axe-core-test-only__.js" });
+  const result = await page.evaluate((runOnly) => window.axe.run(document, { runOnly }), ruleSet);
+  return result.violations.map((v) => `${v.id} (${v.impact}): ${v.nodes.slice(0, 4).map((n) => n.target.join(" ")).join(" | ")}`);
+}
+const WCAG_AA = { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"] };
+const WCAG_AAA_CONTRAST = { type: "rule", values: ["color-contrast-enhanced"] };
+
 // WCAG contrast from computed colours, found the way a person sees them: the first
 // ancestor with an opaque background is what the text sits on.
 async function contrastOf(page, selector) {
@@ -199,6 +222,39 @@ async function waitForPanel(page, heading) {
     assert.ok(await contrastOf(page, "#detail-panel .plain-summary") >= 7);
     await context.close();
   });
+
+  if (!AXE_PATH) {
+    skip("Projector mode: axe finds no WCAG A/AA violation and no failing 7:1 text contrast", "axe-core was not found on NODE_PATH");
+  } else {
+    await record("Projector mode: axe finds no WCAG A/AA violation and no failing 7:1 text contrast (globe, record with an open definition, embed)", async () => {
+      const context = await newContext({ viewport: { width: 1440, height: 900 } });
+      const page = await context.newPage();
+      const scan = async (label) => {
+        const aa = await axeViolations(page, WCAG_AA);
+        assert.deepEqual(aa, [], `${label}: WCAG 2.x A/AA violations`);
+        const enhanced = await axeViolations(page, WCAG_AAA_CONTRAST);
+        assert.deepEqual(enhanced, [], `${label}: text under 7:1`);
+      };
+      await page.goto(url("?theme=projector"));
+      await page.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0);
+      await scan("globe");
+      await page.locator("#key-btn").click();
+      await page.locator("#key-popover:not([hidden])").waitFor();
+      await scan("Key popover");
+      await page.keyboard.press("Escape");
+      await page.goto(url("?theme=projector#/experiment/k2k"));
+      await waitForPanel(page, "K2K");
+      if (GENERATED) {
+        await page.locator("#detail-panel .gloss-term").first().click();
+        await page.locator("#gloss-pop").waitFor({ state: "visible" });
+      }
+      await scan("record with a definition open");
+      await page.goto(url("?embed=1&theme=projector#/experiment/t2k"));
+      await waitForPanel(page, "T2K");
+      await scan("embed");
+      await context.close();
+    });
+  }
 
   // ---------------------------------------------------------------- embed mode
   await record("Embed mode: ?embed=1 hides the search, view switcher, filters, footer and timeline, and offers Open in HEP Atlas", async () => {
