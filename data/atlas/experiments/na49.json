@@ -1,0 +1,143 @@
+{
+  "accelerator_ids": [
+    "accelerator:sps"
+  ],
+  "aliases": [],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:na49"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "arXiv:2603.08053 Section 2; NA61/SHINE Beams page: H2 beam transported to Experimental Hall North 1",
+      "note": "",
+      "quote": "NA49 is the second experiment in the family of heavy-ion experiments located at the H2 beamline of the CERN North Area at the SPS.",
+      "role": "host",
+      "sources": [
+        "src:hadron2-sps-h2-review-gazdzicki-arxiv-2026",
+        "src:hadron2-na61-shine-facility-jinst-arxiv-2014",
+        "src:hadron2-na61-shine-beams-page"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "arXiv:2603.08053",
+      "note": "SPS beams on the H2 beam line (accelerator:sps).",
+      "quote": "NA49 is the second experiment in the family of heavy-ion experiments located at the H2 beamline of the CERN North Area at the SPS.",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-sps-h2-review-gazdzicki-arxiv-2026"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:na49",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1997",
+      "label": "data taking, phase 1 (NA49-1)",
+      "locator": "arXiv:2603.08053, Section 2",
+      "note": "Year precision.",
+      "quote": "The first phase (NA49-1: 1994–1997)",
+      "sources": [
+        "src:hadron2-sps-h2-review-gazdzicki-arxiv-2026"
+      ],
+      "start": "1994",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2002",
+      "label": "data taking, phase 2 (NA49-2, energy scan)",
+      "locator": "arXiv:2603.08053, Section 3",
+      "note": "Year precision; the programme was completed in 2002 with runs at 30A and 20A GeV.",
+      "quote": "The second phase of NA49 (NA49-2: 1998–2002)",
+      "sources": [
+        "src:hadron2-sps-h2-review-gazdzicki-arxiv-2026"
+      ],
+      "start": "1998",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:2603.08053, Section 3",
+      "note": "",
+      "quote": "The programme was completed in 2002 with two additional runs: one at 30A GeV (seven days) and another at 20A GeV (seven days).",
+      "sources": [
+        "src:hadron2-sps-h2-review-gazdzicki-arxiv-2026"
+      ],
+      "start": "2002",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "heavy_ion",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "NA49",
+  "notes": [
+    "NA49 is the second experiment of the H2 heavy-ion family (NA35, NA49, NA61/SHINE); NA61/SHINE inherited its detector (recorded on experiment:na61-shine as predecessor).",
+    "Placed in EHN1 inferred from the H2 beam line (NA61/SHINE inherited the apparatus and its Beams page names Experimental Hall North 1); no fetched source states the hall for NA49 directly, so the placement confidence is uncertain.",
+    "No collaboration website was reachable (na49info.web.cern.ch requires a CERN login) and the NA49 detector paper (NIM A430 (1999) 210) is not on arXiv, so no specs are recorded.",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2603.08053, Section 3",
+      "note": "",
+      "quote": "The second phase of NA49 (NA49-2: 1998–2002)",
+      "sources": [
+        "src:hadron2-sps-h2-review-gazdzicki-arxiv-2026"
+      ],
+      "value": "Search for the quark-gluon plasma and its onset in lead-lead collisions as a function of collision energy",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:hadron2-sps-h2-review-gazdzicki-arxiv-2026",
+    "src:hadron2-sps-first-signals-review-arxiv-2026"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "NA49 was a large detector at CERN's SPS that recorded lead-lead and other collisions to look for the transition to quark-gluon plasma. Its energy scan found sudden changes in particle production near 30 GeV per nucleon, evidence for where plasma formation starts.",
+    "technical": "NA49: large-acceptance hadron spectrometer on the H2 beam line of the CERN North Area (four large-volume TPCs, two in superconducting dipole magnets) studying Pb+Pb and other collisions at 20A-158A GeV (event-by-event fluctuations in 1994-1997, energy scan 1998-2002); discovered the onset of deconfinement signatures (the K+/pi+ horn, step and kink); its detector passed to NA61/SHINE."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:heavy-ion-physics-qgp",
+    "topic:qcd",
+    "topic:nuclear-and-heavy-ion"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

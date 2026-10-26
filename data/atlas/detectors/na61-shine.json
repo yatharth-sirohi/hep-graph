@@ -1,0 +1,115 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:na61-shine"
+  ],
+  "id": "detector:na61-shine",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2007",
+      "label": "approved by the CERN Research Board",
+      "locator": "NA61/SHINE website, History of the Collaboration",
+      "note": "The end (2007, year precision) is the year of the first run; the day-level start is the approval date.",
+      "quote": "The new experiment, NA61/SHINE, was approved by the CERN Research Board on February 21, 2007.",
+      "sources": [
+        "src:hadron2-na61-shine-history-page"
+      ],
+      "start": "2007-02-21",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2026-08-31",
+      "label": "data taking",
+      "locator": "arXiv:1102.0983 abstract (first run in 2007); JINST 2014: first physics data with hadron beams 2009 and ion beams 2011; end: CERN news 31 Aug 2026",
+      "note": "Pilot data in the first run of 2007 (year precision); runs continued with long shutdowns until the SPS stopped on 2026-08-31.",
+      "quote": "A set of data collected during the first NA61/SHINE run in 2007",
+      "sources": [
+        "src:hadron2-na61-shine-pc-31gev-arxiv-2011",
+        "src:hadron2-na61-shine-facility-jinst-arxiv-2014",
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2007",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2028",
+        "display": "staged restart from 2028 onwards",
+        "planned": true
+      },
+      "label": "Long Shutdown 3 (no SPS beam)",
+      "locator": "CERN news, 31 August 2026",
+      "note": "Restart is a plan (\"from 2028 onwards\"); NA61/SHINE has proposed a further programme (arXiv:2025 strategy proposal, not read).",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "NA61/SHINE spectrometer",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "NA61/SHINE Beams page",
+      "note": "EHN1 via the H2 beam line.",
+      "quote": "Then the beam is transported to the Experimental Hall North 1 and NA61/SHINE.",
+      "role": "main",
+      "site_id": "site:cern-neutrino-platform-ehn1",
+      "sources": [
+        "src:hadron2-na61-shine-beams-page",
+        "src:hadron2-na61-shine-facility-jinst-arxiv-2014"
+      ],
+      "start": "2007",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-na61-shine-facility-jinst-arxiv-2014",
+    "src:hadron2-na61-shine-home-page"
+  ],
+  "specs": {},
+  "status": "shutdown",
+  "subsystems": [],
+  "summary": {
+    "plain": "A large detector built around four gas-filled tracking chambers, two of them inside superconducting magnets, plus time-of-flight walls and a calorimeter that measures the spectators of each collision, inherited largely from NA49.",
+    "technical": "NA61/SHINE: four Time Projection Chambers (two Vertex TPCs inside superconducting magnets with combined bending power up to 9 Tm, two Main TPCs), time-of-flight walls and the Projectile Spectator Detector calorimeter, with beam position detectors and trigger counters, on the H2 beam line."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:1401.4699 abstract",
+    "note": "",
+    "quote": "Numerous components of the NA61/SHINE set-up were inherited from its predecessors, in particular, the last one, the NA49 experiment.",
+    "sources": [
+      "src:hadron2-na61-shine-facility-jinst-arxiv-2014"
+    ],
+    "value": "Large-acceptance spectrometer of four Time Projection Chambers in superconducting magnets with time-of-flight walls and a projectile spectator calorimeter",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "gaseous_tpc",
+    "spectrometer"
+  ],
+  "type": "detector"
+}
