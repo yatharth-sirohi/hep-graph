@@ -1,0 +1,121 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:spinquest"
+  ],
+  "id": "detector:spinquest",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2024-07",
+      "label": "commissioning, then data taking",
+      "locator": "Fermilab PAC public report, April 2026 meeting, \"Status of the SpinQuest experiment and its dark sector upgrades\"; APS April 2019 abstract: \"Since the beginning of the SpinQuest commissioning in Fall 2018\"; K. Liu talk Aug 2024: \"E1039/SpinQuest: 2018 - now\"",
+      "note": "Start: commissioning began Fall 2018 (APS 2019 abstract). End: the PAC report says the experiment received about 10^15 protons on target in summer 2024 and no beam since; the end is placed at 2024-07, the month the Main Injector stopped operating (see accelerator:fermilab-main-injector). No fetched source dates the start of polarised-target physics data taking.",
+      "quote": "The experiment received ~10^15 POT in the summer of 2024 but has not received a beam since then.",
+      "sources": [
+        "src:hadron2-spinquest-aps-2019-abstract",
+        "src:hadron2-spinquest-liu-hadron-workshop-2024",
+        "src:currency-fnal-pac-report-2026-04"
+      ],
+      "start": {
+        "date": "2018-10",
+        "display": "Fall 2018",
+        "earliest": "2018-09",
+        "latest": "2018-11"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "no beam (switchyard SY120 not operating)",
+      "locator": "Fermilab PAC public report, April 2026 meeting, summary section",
+      "note": "The experiment has had no beam since summer 2024. The April 2026 PAC report says SY120, which feeds SpinQuest, will not be operated before the long shutdown (planned 2028-29) because of budget constraints; the experiment had planned to take data in Q4 2026 if the switchyard run were not cancelled and has a four-year plan for after the long shutdown. A temporary stop, not an end of the experiment.",
+      "quote": "SY120, which will not be operated before the LS due to budget constraints",
+      "sources": [
+        "src:currency-fnal-pac-report-2026-04"
+      ],
+      "start": "2024-07",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "SpinQuest spectrometer and polarized target",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "SpinQuest \"Physics of SpinQuest\" page",
+      "note": "NM4 hall, Fermilab; start = commissioning in Fall 2018.",
+      "quote": "SpinQuest/E1039 is a fixed-target Drell-Yan experiment using the Main Injector beam at Fermilab, in the NM4 hall.",
+      "role": "main",
+      "site_id": "site:fermilab-nm4-hall",
+      "sources": [
+        "src:hadron2-spinquest-physics-page"
+      ],
+      "start": {
+        "date": "2018-10",
+        "display": "Fall 2018",
+        "earliest": "2018-09",
+        "latest": "2018-11"
+      },
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-spinquest-spectrometer-page",
+    "src:hadron2-spinquest-polarized-target-page",
+    "src:currency-fnal-pac-report-2026-04"
+  ],
+  "specs": {
+    "magnetic_field": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "5 T",
+      "locator": "SpinQuest \"polarized target\" page",
+      "note": "Polarised-target magnet.",
+      "quote": "The magnet has a 5-T field with a homogeneous region of 8 cm",
+      "sources": [
+        "src:hadron2-spinquest-polarized-target-page"
+      ],
+      "unit": "T",
+      "value": 5,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "shutdown",
+  "subsystems": [],
+  "summary": {
+    "plain": "The SeaQuest muon spectrometer (absorbers, two magnets, tracking stations) with a new target of spin-polarised protons and neutrons cooled in a 5-tesla magnet, which picks out pairs of muons from Drell-Yan events.",
+    "technical": "Dimuon spectrometer reused from SeaQuest (FMag hadron absorber and beam dump, KMag from KTeV, four tracking/hodoscope stations, iron hadron absorbers) with a new dynamically polarised NH3/ND3 target in a 5 T magnet (8 cm homogeneous region) placed farther upstream."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "SpinQuest \"Spectrometer\" page",
+    "note": "",
+    "quote": "The primary goal of the spectrometer is to identify pairs of positive and negative muons from the leptonic decay of a virtual photon produced via quark–anti-quark annihilation, the so-called Drell-Yan process.",
+    "sources": [
+      "src:hadron2-spinquest-spectrometer-page"
+    ],
+    "value": "Dimuon spectrometer with a polarised target: thick iron absorbers, two bending magnets, hodoscopes and drift chambers to identify Drell-Yan muon pairs",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "spectrometer"
+  ],
+  "type": "detector"
+}

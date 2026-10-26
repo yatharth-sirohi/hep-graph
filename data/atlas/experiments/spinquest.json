@@ -1,0 +1,234 @@
+{
+  "accelerator_ids": [
+    "accelerator:fermilab-main-injector"
+  ],
+  "aliases": [
+    "E1039",
+    "Fermilab E1039",
+    "SpinQuest/E1039"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:spinquest"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": {
+    "confidence": "verified",
+    "locator": "APS April 2019 abstract",
+    "note": "",
+    "quote": "the unpolarized, 120-GeV proton beam split from Fermilab main injector",
+    "sources": [
+      "src:hadron2-spinquest-aps-2019-abstract"
+    ],
+    "value": "120 GeV proton beam on a polarised fixed target",
+    "verified_at": "2026-10-26"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:fermilab",
+      "locator": "SpinQuest \"Physics of SpinQuest\" page",
+      "note": "",
+      "quote": "SpinQuest/E1039 is a fixed-target Drell-Yan experiment using the Main Injector beam at Fermilab, in the NM4 hall.",
+      "role": "host",
+      "sources": [
+        "src:hadron2-spinquest-physics-page"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:fermilab",
+      "locator": "APS April 2019 abstract",
+      "note": "120 GeV proton beam from the Fermilab Main Injector (accelerator:fermilab-main-injector).",
+      "quote": "the unpolarized, 120-GeV proton beam split from Fermilab main injector",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-spinquest-aps-2019-abstract"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:spinquest",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2024-07",
+      "label": "commissioning, then data taking",
+      "locator": "Fermilab PAC public report, April 2026 meeting, \"Status of the SpinQuest experiment and its dark sector upgrades\"; APS April 2019 abstract: \"Since the beginning of the SpinQuest commissioning in Fall 2018\"; K. Liu talk Aug 2024: \"E1039/SpinQuest: 2018 - now\"",
+      "note": "Start: commissioning began Fall 2018 (APS 2019 abstract). End: the PAC report says the experiment received about 10^15 protons on target in summer 2024 and no beam since; the end is placed at 2024-07, the month the Main Injector stopped operating (see accelerator:fermilab-main-injector). No fetched source dates the start of polarised-target physics data taking.",
+      "quote": "The experiment received ~10^15 POT in the summer of 2024 but has not received a beam since then.",
+      "sources": [
+        "src:hadron2-spinquest-aps-2019-abstract",
+        "src:hadron2-spinquest-liu-hadron-workshop-2024",
+        "src:currency-fnal-pac-report-2026-04"
+      ],
+      "start": {
+        "date": "2018-10",
+        "display": "Fall 2018",
+        "earliest": "2018-09",
+        "latest": "2018-11"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "no beam (switchyard SY120 not operating)",
+      "locator": "Fermilab PAC public report, April 2026 meeting, summary section",
+      "note": "The experiment has had no beam since summer 2024. The April 2026 PAC report says SY120, which feeds SpinQuest, will not be operated before the long shutdown (planned 2028-29) because of budget constraints; the experiment had planned to take data in Q4 2026 if the switchyard run were not cancelled and has a four-year plan for after the long shutdown. A temporary stop, not an end of the experiment.",
+      "quote": "SY120, which will not be operated before the LS due to budget constraints",
+      "sources": [
+        "src:currency-fnal-pac-report-2026-04"
+      ],
+      "start": "2024-07",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Proton beam energy",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "120 GeV",
+        "locator": "APS April 2019 abstract",
+        "note": "",
+        "quote": "the unpolarized, 120-GeV proton beam split from Fermilab main injector",
+        "sources": [
+          "src:hadron2-spinquest-aps-2019-abstract"
+        ],
+        "unit": "GeV",
+        "value": 120,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Polarised-target magnet field",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "magnetic_field",
+        "display": "5 T",
+        "locator": "SpinQuest \"polarized target\" page",
+        "note": "",
+        "quote": "The magnet has a 5-T field with a homogeneous region of 8 cm",
+        "sources": [
+          "src:hadron2-spinquest-polarized-target-page"
+        ],
+        "unit": "T",
+        "value": 5,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "hadron_structure",
+  "lineage": [
+    {
+      "experiment_id": "experiment:seaquest",
+      "locator": "SpinQuest \"Physics of SpinQuest\" page; APS April 2019 abstract: successor to the SeaQuest experiments",
+      "quote": "It follows up on the work of the NuSea/E866 and SeaQuest/E906 experiments at Fermilab",
+      "relation": "predecessor",
+      "sources": [
+        "src:hadron2-spinquest-physics-page",
+        "src:hadron2-spinquest-aps-2019-abstract"
+      ]
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "SpinQuest home page",
+      "note": "",
+      "quote": "The SpinQuest experiment is designed to explore a very particular aspect of proton and neutron structure: Are the sea quarks orbiting around the spin axis of the nucleon?",
+      "sources": [
+        "src:hadron2-spinquest-home-page"
+      ],
+      "value": "https://spinquest.fnal.gov/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "SpinQuest",
+  "notes": [
+    "Meets the inclusion bar as an approved, operating experiment with an official page, a published spectrometer description (the SeaQuest spectrometer, arXiv:1706.09990) and a collaboration status talk; no physics result paper was found, so no result records are written.",
+    "The SpinQuest official site says the experiment \"will make use of the same spectrometer used in SeaQuest\" and \"In the NM4 hall\"; it shares site:fermilab-nm4-hall and the detector hardware with experiment:seaquest (separate detector record).",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator.",
+    "Status shutdown per the Fermilab PAC April 2026 public report: about 10^15 protons on target in summer 2024, no beam since; SY120 will not be operated before the long shutdown; four-year data-taking plan for after it. The August 2024 talk (\"E1039/SpinQuest: 2018 - now\") predates that report."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "SpinQuest home page",
+      "note": "",
+      "quote": "The SpinQuest experiment is designed to explore a very particular aspect of proton and neutron structure: Are the sea quarks orbiting around the spin axis of the nucleon?",
+      "sources": [
+        "src:hadron2-spinquest-home-page"
+      ],
+      "value": "Explore whether the sea quarks orbit around the spin axis of the nucleon by measuring Drell-Yan asymmetries with a polarised target",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1901.09994 abstract",
+      "note": "",
+      "quote": "Its successor, the SpinQuest (E1039), will access the $\\bar{u}$ and $\\bar{d}$ Sivers functions using polarized NH$_3$ and ND$_3$ targets.",
+      "sources": [
+        "src:hadron2-spinquest-sivers-arxiv-2019"
+      ],
+      "value": "Access the antiquark (u-bar and d-bar) Sivers functions with polarised NH3 and ND3 targets; a non-zero Sivers asymmetry would indicate non-zero sea-quark orbital angular momentum",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "fixed_target"
+  ],
+  "sources": [
+    "src:hadron2-spinquest-home-page",
+    "src:hadron2-spinquest-physics-page",
+    "src:hadron2-spinquest-aps-2019-abstract",
+    "src:hadron2-spinquest-liu-hadron-workshop-2024",
+    "src:hadron2-spinquest-sivers-arxiv-2019",
+    "src:currency-fnal-pac-report-2026-04"
+  ],
+  "status": "shutdown",
+  "summary": {
+    "plain": "SpinQuest fires Fermilab's 120 GeV proton beam at a target of spin-aligned protons or deuterons and detects muon pairs from the Drell-Yan process. It asks whether the sea of quark-antiquark pairs inside the proton orbits around the proton's spin axis. It reuses the SeaQuest spectrometer.",
+    "technical": "Fermilab E1039: transversely polarised NH3/ND3 target (5 T magnet, dynamic nuclear polarisation) in the 120 GeV Main Injector proton beam, in the NM4 hall with the SeaQuest dimuon spectrometer, measuring the Sivers single-spin asymmetry of Drell-Yan dimuons to probe the sea-quark orbital angular momentum and transversity of the nucleon."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:hadron-structure",
+    "topic:qcd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "SpinQuest \"polarized target\" page",
+      "note": "",
+      "quote": "This system has the longest (along the beam-line) target cell to date for an evaporation refrigerator",
+      "sources": [
+        "src:hadron2-spinquest-polarized-target-page"
+      ],
+      "value": "Polarised proton and neutron (NH3/ND3) targets with the longest target cell of an evaporation-refrigerator system, in a high-intensity 120 GeV proton beam",
+      "verified_at": "2026-10-26"
+    }
+  ]
+}
