@@ -29,7 +29,7 @@
   "geometry": {
     "confidence": "derived",
     "locator": "centroids of OSM way/171900951, way/171900954, way/171900955, way/171900956 as of the 2026-10-25T10:35:43Z OSM API extract; H.E.S.S. Telescopes page 'Arrangement of the telescopes'",
-    "note": "Confidence 'derived' per contract: a derived shape is derived, even with a passing check.",
+    "note": "'Derived' rather than 'verified': the shape is computed from four telescope positions, so it stays derived even though its perimeter check passes.",
     "quote": "The initial four H.E.S.S. telescopes (Phase I) are arranged in form of a square with 120 m side length ... The diagonal of the square is oriented north-south.",
     "sources": [
       "src:geo-arrays2-hess-osm-ct-north",
@@ -79,7 +79,7 @@
     "website": null
   },
   "map_id": "map:hess-khomas-highland",
-  "method": "Quadrilateral whose four vertices are the centroids (hepgraph.atlas.geo.centroid) of the four corner-telescope footprints, OpenStreetMap ways 171900951 (north), 171900954 (east), 171900955 (south), 171900956 (west), joined N-E-S-W. Replaces the previous square, which had been placed on the array's published coordinate and so carried that coordinate's 200 m uncertainty. The perimeter check compares this OSM-derived quadrilateral with the published 120 m side (480 m perimeter): an independent test, because the OSM positions were not fitted to it.",
+  "method": "Quadrilateral whose four vertices are the centroids of the four corner-telescope footprints, OpenStreetMap ways 171900951 (north), 171900954 (east), 171900955 (south), 171900956 (west), joined N-E-S-W. The perimeter check compares this OSM-derived quadrilateral with the published 120 m side (480 m perimeter): an independent test, because the OSM positions were not fitted to it.",
   "name": "H.E.S.S. CT1-CT4 telescope square (120 m side, diagonal north-south)",
   "notes": [
     "The vertices are telescope centres traced by OpenStreetMap mappers; the polygon is the geometric outline of the four telescope positions, not a structure on the ground."

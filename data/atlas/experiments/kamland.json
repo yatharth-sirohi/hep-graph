@@ -23,7 +23,7 @@
       "confidence": "uncertain",
       "end": null,
       "facility_id": "facility:kamioka-observatory",
-      "note": "Host facility inferred from the site being within the Kamioka Observatory's mine complex; not from an explicit 'host' statement on an official KamLAND page (the official site's technical pages returned 404 on every URL guessed this session). Confidence kept uncertain because the only source is Wikipedia (rank 12), below the rank<=10 bar A17 requires for a `verified` value.",
+      "note": "Host facility inferred from the site being within the Kamioka Observatory's mine complex; not from an explicit 'host' statement on an official KamLAND page (the official site's technical pages returned 404 on every URL tried, checked 2026-09-17). Confidence kept uncertain because the only source is Wikipedia (rank 12); a verified value needs a source of rank 10 or better.",
       "role": "host",
       "sources": [
         "src:kamland-wikipedia"
@@ -39,7 +39,7 @@
       "end": "2024-08-27",
       "label": "first results data-taking period",
       "locator": "Wikipedia",
-      "note": "Day-precision start date is sourced only from Wikipedia (rank 12); no official page or paper fetched this session restates this exact date, so confidence is kept approximate rather than verified despite the day precision. END ADDED 2026-10-25: the KamLAND collaboration states \"KamLAND began data taking in March 2002 and ended data taking in August 2024.\" (arXiv:2606.29381, v2 of 21 Oct 2026) and the TAUP 2025 slides give the day: \"Last physics run on August 27th 2024\". Previously open-ended. The January 2002 start day above is still sourced only to Wikipedia; the 2026 collaboration paper says \"March 2002\", which this record does not resolve.",
+      "note": "Day-precision start date is sourced only from Wikipedia (rank 12); no official page or paper consulted restates this exact date, so confidence is kept approximate rather than verified despite the day precision. The end (2024-08-27) comes from the KamLAND collaboration, which states \"KamLAND began data taking in March 2002 and ended data taking in August 2024.\" (arXiv:2606.29381, v2 of 21 Oct 2026); the TAUP 2025 slides give the day: \"Last physics run on August 27th 2024\". The 2002-01-17 start day is still sourced only to Wikipedia; the 2026 collaboration paper says \"March 2002\", which this record does not resolve.",
       "quote": "KamLAND started to collect data on January 17, 2002.",
       "sources": [
         "src:kamland-wikipedia",
@@ -95,7 +95,7 @@
         "confidence": "approximate",
         "dimension": "mass",
         "display": "~1000 t",
-        "note": "Sourced from Wikipedia (rank 12); no official/paper source fetched this session restates this figure independently.",
+        "note": "Sourced from Wikipedia (rank 12); no official or paper source consulted restates this figure independently.",
         "quote": "1,000 metric tons of mineral oil, benzene, and fluorescent chemicals",
         "sources": [
           "src:kamland-wikipedia"
@@ -111,7 +111,7 @@
   "links": {
     "website": {
       "confidence": "verified",
-      "note": "Homepage only; the 'About KamLAND' technical sub-page returned 404 on every URL guessed this session.",
+      "note": "Homepage only; the 'About KamLAND' technical sub-page returned 404 on every URL tried (checked 2026-09-17).",
       "sources": [
         "src:kamland-official-site"
       ],
@@ -121,8 +121,7 @@
   },
   "name": "KamLAND",
   "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not authored (v0.2 A1).",
-    "KamLAND's later physics program (solar neutrinos, geoneutrinos, and the separate KamLAND-Zen double-beta-decay search using the same detector:kamland) is not detailed here beyond the `secondary_kinds` tag; KamLAND-Zen is owned by the neutrino-mass-0vbb workstream, which references detector:kamland."
+    "KamLAND's later physics program (solar neutrinos, geoneutrinos, and the separate KamLAND-Zen double-beta-decay search using the same detector:kamland) is not detailed here beyond the `secondary_kinds` tag; KamLAND-Zen has its own record (experiment:kamland-zen), which references detector:kamland."
   ],
   "physics_goals": [
     {

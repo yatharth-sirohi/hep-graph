@@ -7,12 +7,12 @@
     "tier": "C"
   },
   "depth_m": null,
-  "entity_id": "site:ornl-sns-neutrino-alley",
+  "entity_id": "site:ornl-sns-complex",
   "feature_type": "boundary",
   "geometry": {
     "confidence": "approximate",
     "locator": "OpenStreetMap way/907808191",
-    "note": "OpenStreetMap alone (source type openstreetmap, rank 11) yields at most `approximate` confidence; this is a whole-complex property boundary, not a claim about Neutrino Alley's own position within it.",
+    "note": "OpenStreetMap alone (source type openstreetmap, rank 11) yields at most `approximate` confidence; this is the property outline of the whole SNS complex, not a claim about the position of any structure inside it.",
     "sources": [
       "src:geo-ornl-osm-sns-boundary"
     ],
@@ -312,10 +312,10 @@
     "website": null
   },
   "map_id": "map:oak-ridge-national-laboratory",
-  "method": "OpenStreetMap way 907808191, named 'ORNL Spallation Neutron Source' (amenity=research_institute), fetched via the Nominatim /lookup endpoint with polygon_geojson=1 (Overpass itself refused every connection attempt for most of this session; see the worklog's method note). Nodes kept verbatim, no simplification. This is the outer boundary of the whole SNS linac/ring/target complex, not a trace of Neutrino Alley itself: Neutrino Alley is a basement corridor inside the target building, somewhere within this ~0.7 x 1.4 km footprint, and no more specific public source or OSM element for it was found this session. Used here, honestly widened in `accuracy_m`, as the best available anchor for the detector-hosting site.",
-  "name": "SNS accelerator/target complex boundary",
+  "method": "OpenStreetMap way 907808191, named 'ORNL Spallation Neutron Source' (amenity=research_institute), fetched on 2026-09-18 through the Nominatim /lookup endpoint with polygon_geojson=1. Nodes kept verbatim, no simplification. The outline is the outer boundary of the whole SNS linac, ring and target complex (about 0.7 x 1.4 km). It does not locate any structure inside the complex, including the basement hallway 'Neutrino Alley'; `accuracy_m` is honestly widened to say so.",
+  "name": "SNS accelerator and target complex outline",
   "notes": [
-    "Neutrino Alley itself is officially described as a '164-foot, or 50-meter, long hallway' in the basement of the SNS target building, with its closest point 'about 20 meters from the SNS target' (src:geo-ornl-neutrino-alley-qa), but no coordinate, OSM element or published site plan locating this corridor within the complex was found this session; see the worklog backlog."
+    "The outline stands for the whole SNS complex. Neutrino Alley, the hallway where COHERENT's detectors stand, is officially described as 164 feet (50 m) long with its closest point 'about 20 meters from the SNS target' (src:geo-ornl-neutrino-alley-qa), but no coordinate, OpenStreetMap element or published plan locates it inside the complex, so it is listed as not drawn."
   ],
   "osm": {
     "elements": [
@@ -325,13 +325,13 @@
   },
   "representation": "georeferenced",
   "schema": "hep-atlas/0.2",
-  "site_id": "site:ornl-sns-neutrino-alley",
+  "site_id": "site:ornl-sns-complex",
   "sources": [
     "src:geo-ornl-osm-sns-boundary",
     "src:geo-ornl-neutrino-alley-qa"
   ],
   "summary": {
-    "plain": "The outer property boundary of the whole SNS accelerator, accumulator-ring and target complex at Oak Ridge, used as the best available public anchor for Neutrino Alley, which lies somewhere in the target building's basement inside this footprint."
+    "plain": "The outer boundary of the whole Spallation Neutron Source complex at Oak Ridge (linac, accumulator ring and target), as mapped in OpenStreetMap. It marks the complex only; it is not the position of any building or hall inside it."
   },
   "type": "geometry",
   "valid": null

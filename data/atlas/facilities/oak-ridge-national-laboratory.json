@@ -32,18 +32,19 @@
   "links": {
     "website": {
       "confidence": "verified",
-      "note": "",
+      "locator": "ORNL home page, title \"Oak Ridge National Lab\", heading \"Science Solutions for the World\"",
+      "note": "The previous link, neutrons.ornl.gov/sns, is the page of the neutron user facility, not of the laboratory. The home page was read on 2026-10-25 with an automated fetch (its server refuses scripted requests, so no verbatim quote is checked); its title is \"Oak Ridge National Lab\" and its heading says \"Oak Ridge National Laboratory delivers scientific discoveries and technical breakthroughs\".",
       "sources": [
-        "src:ornl-sns-page"
+        "src:rc-ornl-official-site"
       ],
-      "value": "https://neutrons.ornl.gov/sns",
-      "verified_at": "2026-09-17"
+      "value": "https://www.ornl.gov/",
+      "verified_at": "2026-10-25"
     }
   },
   "name": "Oak Ridge National Laboratory",
   "notes": [
-    "kind is recorded as `research_laboratory` (no better single-value fit in FACILITY_KINDS for a large multiprogram DOE laboratory); the SNS accelerator itself is separately recorded as accelerator:sns.",
-    "primary_site_id points at site:ornl-sns-neutrino-alley because that is the only site this wave creates for ORNL (per the ID registry); it is not meant to imply that hall is ORNL's literal main entrance."
+    "kind is recorded as `research_laboratory` (the facility kinds have no better fit for a large multiprogram DOE laboratory); the SNS accelerator itself is a separate record, accelerator:sns.",
+    "The facility's marker is the Spallation Neutron Source complex (site:ornl-sns-complex), the only ORNL site in the Atlas; it is not ORNL's main entrance, and the laboratory's other campuses are not mapped."
   ],
   "operator_ids": [],
   "operator_text": {
@@ -57,13 +58,14 @@
     "value": "UT-Battelle, LLC (a partnership of the University of Tennessee and Battelle Memorial Institute) for the U.S. Department of Energy",
     "verified_at": "2026-09-17"
   },
-  "primary_site_id": "site:ornl-sns-neutrino-alley",
+  "primary_site_id": "site:ornl-sns-complex",
   "related_facility_ids": [],
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:ornl-sns-page",
     "src:ornl-wikipedia",
-    "src:rf13-ornl-overview"
+    "src:rf13-ornl-overview",
+    "src:rc-ornl-official-site"
   ],
   "specs": {},
   "status": "active",

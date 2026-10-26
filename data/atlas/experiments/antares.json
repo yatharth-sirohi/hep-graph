@@ -1,147 +1,206 @@
 {
-  "id": "experiment:antares",
-  "type": "experiment",
-  "name": "ANTARES",
-  "aliases": ["Astronomy with a Neutrino Telescope and Abyss environmental RESearch"],
-  "kind": "astrophysical_neutrino",
-  "secondary_kinds": [],
-  "collaboration_ids": ["collaboration:antares"],
-  "facility_roles": [],
-  "beamline_ids": [],
   "accelerator_ids": [],
-  "topic_ids": ["topic:high-energy-astrophysical-neutrinos", "topic:multimessenger-astrophysics"],
+  "aliases": [
+    "Astronomy with a Neutrino Telescope and Abyss environmental RESearch"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:antares"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "document_ids": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [],
+  "id": "experiment:antares",
   "intervals": [
     {
-      "label": "collaboration formed",
-      "status": "proposed",
-      "start": "1996",
+      "confidence": "verified",
       "end": "2006-02",
-      "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
+      "label": "collaboration formed",
+      "note": "End of the 'proposed' interval is set at the first-line deployment date; the paper gives no separate approval date.",
       "quote": "The ANTARES collaboration was created in 1996",
-      "note": "End of the 'proposed' interval is set at the first-line deployment date; the paper gives no separate approval date."
+      "sources": [
+        "src:astro-neutrino-antares-two-decades-detector-paper"
+      ],
+      "start": "1996",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "line-by-line construction",
-      "status": "construction",
-      "start": "2006-02-14",
+      "confidence": "verified",
       "end": "2008-05-29",
-      "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
+      "label": "line-by-line construction",
+      "note": "",
       "quote": "the first ANTARES line [21] was deployed on February 14th, 2006 in a site located 40 km offshore from Toulon (France) and anchored at 2475 m depth. The detector was completed on May 29th, 2008 and took data until February 12th, 2022",
-      "note": ""
+      "sources": [
+        "src:astro-neutrino-antares-two-decades-detector-paper"
+      ],
+      "start": "2006-02-14",
+      "status": "construction",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "full 12-line operation",
-      "status": "active",
-      "start": "2008-05-29",
+      "confidence": "verified",
       "end": "2022-02-12",
-      "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
+      "label": "full 12-line operation",
+      "note": "Data taking continued until switch-off on 2022-02-12.",
       "quote": "The detector was completed on May 29th, 2008",
-      "note": "Data taking continued until switch-off on 2022-02-12."
+      "sources": [
+        "src:astro-neutrino-antares-two-decades-detector-paper"
+      ],
+      "start": "2008-05-29",
+      "status": "active",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "end of data taking",
-      "status": "completed",
-      "start": "2022-02-12",
+      "confidence": "verified",
       "end": null,
-      "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
+      "label": "end of data taking",
+      "note": "",
       "quote": "On February 12th, 2022 the detector was definitively switched off",
-      "note": ""
+      "sources": [
+        "src:astro-neutrino-antares-two-decades-detector-paper"
+      ],
+      "start": "2022-02-12",
+      "status": "completed",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "completed",
-  "physics_goals": [
-    {
-      "value": "Detect high-energy cosmic neutrinos and search for their astrophysical sources in the Mediterranean Sea",
-      "sources": ["src:astro-neutrino-antares-two-decades-detector-paper", "src:astro-neutrino-antares-official-detection-principle"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "The ANTARES detector was the first neutrino telescope in seawater, operating successfully in the Mediterranean Sea for more than a decade and a half ... The last ANTARES published results [52] combined both the track and shower channels to search for cosmic neutrino sources.",
-      "note": ""
-    }
-  ],
-  "unique_capabilities": [
-    {
-      "value": "The first neutrino telescope built in seawater, pioneering deep-sea deployment, calibration and long-term operation techniques later used by KM3NeT",
-      "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "The ANTARES detector was the first neutrino telescope in seawater, operating successfully in the Mediterranean Sea for more than a decade and a half.",
-      "note": ""
-    }
-  ],
-  "energy_regime": null,
   "key_specs": [
     {
       "label": "Depth",
       "quantity": {
-        "value": 2475, "unit": "m", "dimension": "length", "approx": false,
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
         "display": "2475 m",
-        "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
-        "verified_at": "2026-09-17", "confidence": "verified",
-        "quote": "in a site located 40 km offshore from Toulon (France) and anchored at 2475 m depth", "note": ""
+        "note": "",
+        "quote": "in a site located 40 km offshore from Toulon (France) and anchored at 2475 m depth",
+        "sources": [
+          "src:astro-neutrino-antares-two-decades-detector-paper"
+        ],
+        "unit": "m",
+        "value": 2475,
+        "verified_at": "2026-09-17"
       }
     },
     {
       "label": "Number of detector lines",
       "quantity": {
-        "value": 12, "unit": "", "dimension": "count", "approx": false,
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
         "display": "12 lines",
-        "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
-        "verified_at": "2026-09-17", "confidence": "verified",
+        "note": "The 2004 final proposal had planned ~1000 PMTs on 13 strings; the as-built detector has 885 OMs on 12 lines.",
         "quote": "The telescope infrastructure consisted of 12 flexible detector lines, holding photomultiplier tubes in glass spheres.",
-        "note": "The 2004 final proposal had planned ~1000 PMTs on 13 strings; the as-built detector has 885 OMs on 12 lines."
+        "sources": [
+          "src:astro-neutrino-antares-two-decades-detector-paper"
+        ],
+        "unit": "",
+        "value": 12,
+        "verified_at": "2026-09-17"
       }
     },
     {
       "label": "Optical modules",
       "quantity": {
-        "value": 885, "unit": "", "dimension": "count", "approx": false,
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
         "display": "885 OMs",
-        "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
-        "verified_at": "2026-09-17", "confidence": "verified",
-        "quote": "In total, 885 OMs were installed.", "note": ""
+        "note": "",
+        "quote": "In total, 885 OMs were installed.",
+        "sources": [
+          "src:astro-neutrino-antares-two-decades-detector-paper"
+        ],
+        "unit": "",
+        "value": 885,
+        "verified_at": "2026-09-17"
       }
     },
     {
       "label": "Instrumented volume",
       "quantity": {
-        "value": 0.02, "unit": "km^3", "dimension": "volume", "approx": true,
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "volume",
         "display": "~0.02 km³",
-        "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
-        "verified_at": "2026-09-17", "confidence": "verified",
+        "note": "",
         "quote": "The construction for the 0.02 km³-scale detector started in 2006 and was completed in 2008.",
-        "note": ""
+        "sources": [
+          "src:astro-neutrino-antares-two-decades-detector-paper"
+        ],
+        "unit": "km^3",
+        "value": 0.02,
+        "verified_at": "2026-09-17"
       }
     }
   ],
+  "kind": "astrophysical_neutrino",
   "lineage": [],
-  "external": {"greybook": null, "inspire_experiment": null, "wikidata": null},
-  "document_ids": [],
-  "result_ids": [],
   "links": {
     "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:astro-neutrino-antares-official-detection-principle"
+      ],
       "value": "https://antares.in2p3.fr/",
-      "sources": ["src:astro-neutrino-antares-official-detection-principle"],
-      "verified_at": "2026-09-17", "confidence": "verified", "note": ""
+      "verified_at": "2026-09-17"
     }
   },
+  "name": "ANTARES",
   "notes": [
-    "No INSPIRE experiment-registry lookup was performed for ANTARES in this session (inspirehep.net requests are rate-limited to one per 10 s and were spent on the sibling KM3NeT/radio workstreams' checks); external.inspire_experiment is left null rather than guessed. Tier B, so a note suffices per A20.",
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1)."
+    "No INSPIRE experiment lookup was performed for ANTARES, so external.inspire_experiment is left empty rather than guessed."
   ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "The ANTARES detector was the first neutrino telescope in seawater, operating successfully in the Mediterranean Sea for more than a decade and a half ... The last ANTARES published results [52] combined both the track and shower channels to search for cosmic neutrino sources.",
+      "sources": [
+        "src:astro-neutrino-antares-two-decades-detector-paper",
+        "src:astro-neutrino-antares-official-detection-principle"
+      ],
+      "value": "Detect high-energy cosmic neutrinos and search for their astrophysical sources in the Mediterranean Sea",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:astro-neutrino-antares-official-detection-principle",
+    "src:astro-neutrino-antares-two-decades-detector-paper"
+  ],
+  "status": "completed",
   "summary": {
     "plain": "The first neutrino telescope built under the sea. For sixteen years, twelve long cables of light sensors hung nearly 2.5 kilometres deep in the Mediterranean off Toulon, France, watching for the faint blue flashes that a neutrino from space can make.",
     "technical": "First-generation undersea Cherenkov neutrino telescope: 885 optical modules on 12 lines, 2475 m depth, 40 km offshore from Toulon, France; ~0.02 km³ instrumented volume. Collaboration formed 1996; first line deployed 2006-02-14; full 12-line detector completed 2008-05-29; switched off 2022-02-12 after nearly 16 years of continuous data taking. Predecessor experience for KM3NeT/ORCA at the same site."
   },
-  "coverage": {"researched": "partial", "tier": "B"},
-  "sources": ["src:astro-neutrino-antares-official-detection-principle", "src:astro-neutrino-antares-two-decades-detector-paper"],
-  "schema": "hep-atlas/0.2"
+  "topic_ids": [
+    "topic:high-energy-astrophysical-neutrinos",
+    "topic:multimessenger-astrophysics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "The ANTARES detector was the first neutrino telescope in seawater, operating successfully in the Mediterranean Sea for more than a decade and a half.",
+      "sources": [
+        "src:astro-neutrino-antares-two-decades-detector-paper"
+      ],
+      "value": "The first neutrino telescope built in seawater, pioneering deep-sea deployment, calibration and long-term operation techniques later used by KM3NeT",
+      "verified_at": "2026-09-17"
+    }
+  ]
 }

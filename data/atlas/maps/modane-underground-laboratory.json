@@ -56,8 +56,8 @@
   },
   "name": "LSM — Laboratoire Souterrain de Modane",
   "notes": [
-    "The pre-existing site:lsm-frejus coordinate (45.1962509, 6.6667021, precision_m 500, src:lsm-osm-nominatim) is an OSM/Nominatim point essentially co-located with the Carré Science surface outreach building (geometry:modane-carre-sciences-point), about 6.4 km from the underground laboratory itself by tunnel. See the facility worklog for a proposed correction using geometry:modane-lsm-underground's own coordinate.",
-    "The Fréjus road tunnel gained a second, parallel tube in July 2025 (src:geo-modane-sftrf-second-tube-pr); geometry:modane-tunnel-frejus's representation is kept 'approximate' because this session could not confirm from OSM tags alone which of the two tubes its traced line follows over its full length (Overpass, which would have let this be resolved by relation membership, was unreachable). Both tubes run closely parallel and are the same length, so the practical effect on the laboratory's derived position is small."
+    "The site coordinate of site:lsm-frejus used to be an OSM/Nominatim point (45.1962509, 6.6667021, precision_m 500, src:lsm-osm-nominatim) essentially co-located with the Carré Science surface outreach building (geometry:modane-carre-sciences-point), about 6.4 km from the underground laboratory itself by tunnel; it has been replaced by the point of geometry:modane-lsm-underground.",
+    "The Fréjus road tunnel gained a second, parallel tube in July 2025 (src:geo-modane-sftrf-second-tube-pr); geometry:modane-tunnel-frejus's representation is kept 'approximate' because OSM tags alone do not confirm which of the two tubes its traced line follows over its full length (a check of relation membership would resolve it). Both tubes run closely parallel and are the same length, so the practical effect on the laboratory's derived position is small."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
@@ -71,7 +71,7 @@
   ],
   "summary": {
     "plain": "The Modane Underground Laboratory in the French Alps: a laboratory dug into the rock beside the Fréjus road tunnel, close to its midpoint between France and Italy, under about 1700 metres of rock.",
-    "technical": "One local map for facility:modane-underground-laboratory. The Fréjus road tunnel (OSM ways 101986702 + 317397424) is drawn as context; the laboratory itself is OSM's own tagged area (way 235115147, addr:housename 'PK 6.5, Tunnel du Fréjus'), independently corroborated by this session's own geometric midpoint of the tunnel line (148 m apart) and by a 2009 CNRS Images caption describing the access point as exactly at the tunnel's centre."
+    "technical": "One local map for facility:modane-underground-laboratory. The Fréjus road tunnel (OSM ways 101986702 + 317397424) is drawn as context; the laboratory itself is OSM's own tagged area (way 235115147, addr:housename 'PK 6.5, Tunnel du Fréjus'), independently corroborated by the geometric midpoint of the tunnel line (148 m apart) and by a 2009 CNRS Images caption describing the access point as exactly at the tunnel's centre."
   },
   "type": "map",
   "unlocated": []

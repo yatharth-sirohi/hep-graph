@@ -22,7 +22,7 @@
     {
       "confidence": "verified",
       "facility_id": "facility:brookhaven-national-laboratory",
-      "note": "facility:brookhaven-national-laboratory and accelerator:rhic are owned by the facilities lead. Both were still missing from data/atlas/facilities/ and data/atlas/accelerators/ when this record was first drafted (2026-09-17); the facilities lead's BNL child has since landed both, and the references here were re-checked against the landed files and resolve cleanly (0 dangling-reference findings).",
+      "note": "",
       "quote": "The sPHENIX detector is about the size of a two-story house and weighs 1,000 tons.",
       "role": "host",
       "sources": [
@@ -33,7 +33,7 @@
     {
       "confidence": "verified",
       "facility_id": "facility:brookhaven-national-laboratory",
-      "note": "RHIC (accelerator:rhic) is the beam source. facility:brookhaven-national-laboratory and accelerator:rhic are owned by the facilities lead. Both were still missing from data/atlas/facilities/ and data/atlas/accelerators/ when this record was first drafted (2026-09-17); the facilities lead's BNL child has since landed both, and the references here were re-checked against the landed files and resolve cleanly (0 dangling-reference findings).",
+      "note": "RHIC (accelerator:rhic) is the beam source.",
       "role": "beam_source",
       "sources": [
         "src:heavy-ions-sphenix-bnl-facility-page"
@@ -61,7 +61,7 @@
       "confidence": "verified",
       "end": "2021",
       "label": "magnet installation",
-      "note": "Fills part of the otherwise-undocumented gap between the 2017 CD-0 milestone and the 2023-04 construction-complete date below; no other sourced milestone in this range was found this session.",
+      "note": "Fills part of the otherwise undocumented gap between the 2017 CD-0 milestone and the 2023-04 construction-complete date below; no other sourced milestone in this range was found.",
       "quote": "the 20-ton solenoid was installed as part of the sPHENIX assembly project in 2021",
       "sources": [
         "src:heavy-ions-sphenix-bnl-facility-page"
@@ -74,7 +74,7 @@
       "confidence": "verified",
       "end": "2023-04",
       "label": "construction",
-      "note": "Start date not recorded: no directly-fetched source in this session states a construction-start date; BNL's own page states the superconducting solenoid magnet was installed in 2021, corroborating construction was well underway by then.",
+      "note": "Start date not recorded: no source consulted (checked 2026-09-17) states a construction-start date; BNL's own page states the superconducting solenoid magnet was installed in 2021, corroborating construction was well underway by then.",
       "quote": "sPHENIX construction was completed in April 2023.",
       "sources": [
         "src:heavy-ions-sphenix-construction-commissioning-2024",
@@ -169,7 +169,7 @@
   "lineage": [
     {
       "experiment_id": "experiment:phenix",
-      "note": "BNL's own description calls sPHENIX 'a radical makeover of the PHENIX experiment' built at the same interaction point (IP8) rather than an incremental upgrade retaining PHENIX subdetectors; 'upgrade_of' is used because the facility page frames it as a successor built on/replacing PHENIX's infrastructure at the same hall, not as an unrelated new experiment. 'successor'/'upgraded_to' on experiment:phenix is a derived inverse and is deliberately not written there (v0.2 A1).",
+      "note": "BNL's own description calls sPHENIX 'a radical makeover of the PHENIX experiment' built at the same interaction point (IP8) rather than an incremental upgrade retaining PHENIX subdetectors; 'upgrade_of' is used because the facility page frames it as a successor built on/replacing PHENIX's infrastructure at the same hall, not as an unrelated new experiment. 'successor'/'upgraded_to' on experiment:phenix is a derived inverse and is deliberately not written there.",
       "quote": "sPHENIX is a radical makeover of the PHENIX experiment, one of the original detectors",
       "relation": "upgrade_of",
       "sources": [
@@ -182,15 +182,13 @@
   },
   "name": "sPHENIX",
   "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
-    "facility:brookhaven-national-laboratory and accelerator:rhic are owned by the facilities lead. Both were still missing from data/atlas/facilities/ and data/atlas/accelerators/ when this record was first drafted (2026-09-17); the facilities lead's BNL child has since landed both, and the references here were re-checked against the landed files and resolve cleanly (0 dangling-reference findings).",
-    "First physics results were released 2025-07-18 (src:heavy-ions-sphenix-first-physics-results-2025) but no results/ record is written this wave (non-flagship, time-boxed); listed as a missing field.",
-    "No document record written for the sPHENIX TDR/design report this wave despite the brief inviting it 'if time permits' -- not reached; listed as a missing field."
+    "First physics results were released 2025-07-18 (src:heavy-ions-sphenix-first-physics-results-2025); the Atlas has no result record for them yet.",
+    "The Atlas has no document record for the sPHENIX technical design report yet."
   ],
   "physics_goals": [
     {
       "confidence": "approximate",
-      "note": "Paraphrased from the BNL facility page's general description; no single verbatim physics-goals sentence was extracted this session.",
+      "note": "Paraphrased from the BNL facility page's general description; no single verbatim physics-goals sentence was extracted.",
       "sources": [
         "src:heavy-ions-sphenix-bnl-facility-page"
       ],

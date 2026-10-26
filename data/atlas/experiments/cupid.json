@@ -38,8 +38,8 @@
       "confidence": "uncertain",
       "end": null,
       "label": "approved / preparation",
-      "locator": "no fetched primary source gives an exact CUPID approval or construction-start date",
-      "note": "No source fetched in this session directly states CUPID's DOE Critical-Decision stage or a construction-start date with a quote this agent saw verbatim; a secondary web summary described CD-0 ('approval of mission need') and a prototype 'in construction' for mid-2025 data, but this agent could not re-verify that specific wording against a directly fetched primary source in this session, so status is recorded conservatively as `proposed` rather than `construction`. The official CUPID site describes the detector only in future tense ('CUPID will profit of ...'). `start` (2025) is the year of the earliest dated CUPID collaboration paper found in this session (a lower bound, not a true approval/construction date), chosen so a null/null interval does not derive to 'no presence'. Later check (arXiv:2503.02894, Conclusions): the paper states 'CUPID construction activities have already started, including preparations for the cryostat upgrade and the setup of the detector assembly infrastructure' and that data taking is expected 'in the very early years of the next decade'; the interval status was left as `proposed` pending an integrator decision on mapping this to the status vocabulary.",
+      "locator": "no primary source consulted gives an exact CUPID approval or construction-start date",
+      "note": "No source consulted (checked 2026-10-25) states CUPID's DOE Critical Decision stage or a construction-start date. A secondary web summary described CD-0 ('approval of mission need') and a prototype 'in construction' for mid-2025 data; that wording was not found in any primary source consulted, so it is not recorded. The collaboration's site (cupidexperiment.org/experiment/, checked 2026-10-25) describes the detector only in the future tense ('CUPID will profit of ...'). `start` (2025) is the year of the earliest dated CUPID collaboration paper found (arXiv:2503.02894, submitted March 2025), a lower bound and not a true approval or construction date, chosen so that an interval with no start does not derive to 'no presence'. That paper's Conclusions state 'CUPID construction activities have already started, including preparations for the cryostat upgrade and the setup of the detector assembly infrastructure' and that data taking is expected 'in the very early years of the next decade'; the status is nonetheless kept at `proposed` because the paper gives no construction-start date and the collaboration's own site still uses the future tense.",
       "quote": "CUPID will profit of the established CUORE cryogenic infrastructure, and deploy ~1500 Li2MoO4 crystals in place of the TeO2 ones.",
       "sources": [
         "src:cupid-experiment-official-page",
@@ -129,11 +129,10 @@
   },
   "name": "CUPID",
   "notes": [
-    "Located in LNGS (reuses the existing CUORE cryostat, itself in Hall A): this record references site:lngs-hall-a, owned by the 'facilities' Wave 3 lead, which does not exist yet in this repository as of 2026-09-17 (dangling reference).",
-    "facility:lngs already exists (owned by the fermilab-neutrino-other lead) and is referenced here, not edited.",
-    "Status is recorded conservatively as 'proposed': the official CUPID site describes the detector only in future tense and no source fetched in this session gives an unambiguous 'under construction' statement with a verifiable quote. A secondary summary described a DOE CD-0 mission-need approval and a prototype under construction for mid-2025 data, which this agent could not re-verify against a directly fetched primary source; reported here for the domain lead's awareness.",
-    "No INSPIRE experiment-registry lookup was performed in this session; external.inspire_experiment is left null with this note rather than guessed.",
-    "Collaboration formation date not sourced in this session."
+    "Located in LNGS in the existing CUORE cryostat, which the atlas places in Hall A (site:lngs-hall-a, via detector:cuore; that placement's source gives only the general LNGS location). The CUPID sources consulted state the general LNGS location, not the Hall A designation.",
+    "Status is recorded conservatively as 'proposed': the collaboration's site describes the detector only in the future tense and no primary source consulted (checked 2026-10-25) gives an unambiguous 'under construction' statement or a construction-start date. The March 2025 paper (arXiv:2503.02894) says construction activities 'have already started' (see the interval note). A secondary summary of a DOE CD-0 mission-need approval and a prototype under construction for mid-2025 data was not found in any primary source consulted.",
+    "No INSPIRE experiment-registry identifier is recorded for CUPID (external.inspire_experiment is empty).",
+    "No source consulted (checked 2026-10-25) gives the collaboration's formation date."
   ],
   "physics_goals": [
     {
@@ -158,7 +157,7 @@
   "status": "proposed",
   "summary": {
     "plain": "The planned successor to CUORE: about 1500 crystals of a different material (lithium molybdate) that both glow and register heat, reusing CUORE's giant refrigerator under an Italian mountain to search for a rare radioactive process even more precisely.",
-    "technical": "CUPID (CUORE Upgrade with Particle IDentification): proposed ton-scale array of ~1500 Li2MoO4 scintillating bolometers targeting 0νββ of 100Mo (Qbb = 3034 keV), reusing the CUORE cryostat at LNGS. Successor to CUORE; no confirmed construction-start date sourced in this session."
+    "technical": "CUPID (CUORE Upgrade with Particle IDentification): proposed ton-scale array of ~1500 Li2MoO4 scintillating bolometers targeting 0νββ of 100Mo (Qbb = 3034 keV), reusing the CUORE cryostat at LNGS. Successor to CUORE; no source consulted (checked 2026-10-25) gives a construction-start date."
   },
   "topic_ids": [
     "topic:neutrinoless-double-beta-decay",

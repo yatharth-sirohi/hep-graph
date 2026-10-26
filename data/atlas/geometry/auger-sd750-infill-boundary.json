@@ -89,11 +89,11 @@
     "website": null
   },
   "map_id": "map:pierre-auger-observatory",
-  "method": "Convex hull of the 71 stations flagged sd750=1 in sdMap.csv (49 sd750-only + 22 dual-flagged sd1500/sd750), same UTM-to-WGS84 conversion and hull algorithm as geometry:auger-sd1500-array-boundary. Computed area is 29.3 km^2, 24.7% above the 23.5 km^2 figure quoted for the '61-detector infilled array' in a 2026 collaboration paper (src:cosmic-gamma-ta-arxiv-2026-recent-findings is the wrong facility -- see notes for the actual infill source used); the 71-station sd750 flag count itself does not match the quoted 61-detector figure, so this is very likely a different (looser) definition of 'infill station' than the one behind the quoted 23.5 km^2 number. No checks[] row is asserted for this reason -- see worklog residual.",
+  "method": "Convex hull of the 71 stations flagged sd750=1 in the Auger open-data station table sdMap.csv (49 sd750-only plus 22 flagged both sd1500 and sd750), using the same UTM-to-WGS84 conversion and hull algorithm as the Auger SD-1500 array boundary. The computed area is 29.3 km^2, 24.7% above the 23.5 km^2 quoted for the '61-detector infilled array' in a collaboration publication. The 71-station sd750 flag count also does not match the quoted 61 detectors, so the flag very likely uses a looser definition of 'infill station' than the one behind the quoted figure. For that reason no check against the quoted area is asserted.",
   "name": "Pierre Auger Observatory infill surface-detector array (750 m spacing), convex hull",
   "notes": [
-    "Area (29.3 km^2) does not match the collaboration's own quoted '23.5 km^2, 61-detector' infill figure closely enough to assert a checks[] row; the sd750 flag likely covers a superset (e.g. including AMIGA/HEAT-related stations) of the specific infill array that figure describes. Flagged as backlog.",
-    "Licence added 2026-10-25: sdMap.csv is released under CC BY-SA 4.0 (opendata.auger.org home page), so the derived geometry carries that licence name and attribution."
+    "The area (29.3 km^2) does not match the collaboration's quoted '23.5 km^2, 61-detector' infill figure closely enough to assert a check; the sd750 flag likely covers a superset (for example including AMIGA/HEAT-related stations) of the specific infill array that figure describes.",
+    "Licence: sdMap.csv is released under CC BY-SA 4.0 (opendata.auger.org home page), so the derived geometry carries that licence name and attribution."
   ],
   "osm": null,
   "representation": "derived",

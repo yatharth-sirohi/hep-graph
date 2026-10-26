@@ -32,7 +32,7 @@
   "geometry": {
     "confidence": "approximate",
     "locator": "OSM way 101986702 (French section) + way 317397424 (Italian section), joined at the border (35 m gap between their nearest endpoints), as of 2026-09-18T22:47:00Z",
-    "note": "Kept 'approximate' rather than pushed to 'verified' even though the length check passes at 0.06%: as of 28 July 2025 the Fréjus road tunnel has TWO parallel tubes (the original 1980 bore and a new one built 2019-2025, each ~12.9 km, one-way in opposite directions per src:geo-modane-sftrf-second-tube-pr), and the two OSM ways used here carry inconsistent tags (the Italian way is tagged opening_date=2023-10, suggesting it may already describe the new tube rather than the 1980 original that the laboratory was actually excavated beside). Since both tubes run closely parallel over their whole length and this session could not fetch Overpass to disambiguate cleanly, the traced line is treated as approximate for either tube. See the facility worklog.",
+    "note": "Kept 'approximate' rather than 'verified' even though the length check passes at 0.06%: as of 28 July 2025 the Fréjus road tunnel has two parallel tubes (the original 1980 bore and a new one built 2019-2025, each ~12.9 km, one-way in opposite directions, per the SFTRF press release on the second tube), and the two OSM ways used here carry inconsistent tags (the Italian way is tagged opening_date=2023-10, suggesting it may already describe the new tube rather than the 1980 original beside which the laboratory was excavated). Since both tubes run closely parallel over their whole length and a bounding-box Overpass query to disambiguate them could not be run, the traced line is treated as approximate for either tube.",
     "quote": null,
     "sources": [
       "src:geo-modane-osm-tunnel",
@@ -360,7 +360,7 @@
     "website": "https://www.sftrf.fr/"
   },
   "map_id": "map:modane-underground-laboratory",
-  "method": "OpenStreetMap way 101986702 (Modane/French portal to the France-Italy border, 48 nodes) concatenated with way 317397424 reversed (border to Bardonecchia/Italian portal, 29 nodes); the two ways' nearest endpoints are 35 m apart at the border and are not otherwise joined by a shared node or relation. Fetched node-by-node via the standard OpenStreetMap read API (api.openstreetmap.org/api/0.6), not Overpass, because Overpass (overpass-api.de, its lz4 mirror, and overpass.kumi.systems) refused every connection attempt this session; see the facility worklog.",
+  "method": "OpenStreetMap way 101986702 (Modane/French portal to the France-Italy border, 48 nodes) concatenated with way 317397424 reversed (border to Bardonecchia/Italian portal, 29 nodes); the two ways' nearest endpoints are 35 m apart at the border and are not otherwise joined by a shared node or relation. Fetched node by node through the standard OpenStreetMap read API (api.openstreetmap.org/api/0.6).",
   "name": "Fréjus Road Tunnel (Tunnel Routier du Fréjus / Traforo Stradale del Frejus)",
   "notes": [
     "This is the public two-way (historically) / now-split-direction road tunnel that LSM is excavated beside, between Modane (France) and Bardonecchia (Italy); the tunnel itself is not an LSM entity (entity_id null, context feature)."

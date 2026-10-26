@@ -49,7 +49,7 @@
       "id": "andyrchi-tunnels",
       "kind": "underground",
       "name": "Mount Andyrchi tunnels and underground halls",
-      "note": "No geometry feature is drawn at this level: no fetched source this session gives the tunnel's own path or bearing into the mountain (Overpass, which might show it as a mapped way, was unreachable throughout), so no sourced walk from the portal to SAGE's stated 3.5 km position was possible. See map.unlocated."
+      "note": "No geometry feature is drawn at this level: no source consulted gives the tunnel's own path or bearing into the mountain, so no sourced walk from the portal to SAGE's stated 3.5 km position is possible. See the list of entities not drawn."
     }
   ],
   "linked_map_ids": [],
@@ -58,9 +58,9 @@
   },
   "name": "BNO — Baksan Neutrino Observatory",
   "notes": [
-    "This map is honestly thin: the surface administrative building and the Neutrino settlement are drawn from OpenStreetMap, but the tunnels themselves and the SAGE underground hall are not, because no fetched source this session gives the tunnel's path/bearing and OpenStreetMap does not appear to trace it (no way was found via Nominatim name search for 'Baksan tunnel' or Cyrillic equivalents, and a bounding-box tag search that Overpass would have allowed was not possible — Overpass was unreachable throughout this session, see the facility worklog).",
-    "SAGE's own 1999 paper (src:sage-1999-capture-rate) states the laboratory is '3.5 km from the entrance of a horizontal adit excavated into the side of Mount Andyrchi' with a 60x10x12 m chamber (src:geo-euro-ug-pandola-2011); this is recorded here and in the facility worklog as backlog for a future pass with Overpass access or a topographic source giving the tunnel's bearing.",
-    "Release geometry (underground): the Main adit entrance (OSM node) was added and the unlocated row now cites the official INR distances (550 m to BUST, 3.5 km to SAGE) and halls; the tunnel path and halls are still not drawn."
+    "This map is thin: the surface administrative building, the Neutrino settlement and the Main adit entrance are drawn from OpenStreetMap, but the tunnel path and the SAGE underground hall are not, because no source consulted gives the tunnel's path or bearing and OpenStreetMap does not appear to trace it (no way was found by a Nominatim name search for 'Baksan tunnel' or Cyrillic equivalents).",
+    "SAGE's own 1999 paper (src:sage-1999-capture-rate) states the laboratory is '3.5 km from the entrance of a horizontal adit excavated into the side of Mount Andyrchi' with a 60x10x12 m chamber (src:geo-euro-ug-pandola-2011). Drawing it would need a topographic source, or an OpenStreetMap trace of the tunnel, giving the tunnel's bearing.",
+    "The Main adit entrance is drawn from an OpenStreetMap node. The unlocated row cites the official INR distances (550 m to BUST, 3.5 km to SAGE) and halls; the tunnel path and halls are not drawn."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
@@ -77,8 +77,8 @@
     "src:sage-1999-capture-rate"
   ],
   "summary": {
-    "plain": "The Baksan Neutrino Observatory in the Russian Caucasus: the surface administrative building and the purpose-built village of Neutrino are drawn to scale; the SAGE gallium detector, 3.5 kilometres inside the mountain, has a sourced distance but no sourced path to draw it by.",
-    "technical": "One local map for facility:baksan-neutrino-observatory. Only surface features (OSM: the BNO administrative building, way 1504181774; the Neutrino settlement, way 206835293) are drawn. site:baksan-sage-underground-lab is left unlocated: SAGE's own 1999 paper gives its distance from the adit entrance (3.5 km) but not the tunnel's bearing, and Overpass, which could have supplied the tunnel's own OSM trace, was unreachable throughout this session."
+    "plain": "The Baksan Neutrino Observatory in the Russian Caucasus: the surface administrative building, the purpose-built village of Neutrino and the Main adit entrance are drawn to scale; the SAGE gallium detector, 3.5 kilometres inside the mountain, has a sourced distance but no sourced path to draw it by.",
+    "technical": "One local map for facility:baksan-neutrino-observatory. Only surface features (OSM: the BNO administrative building, way 1504181774; the Neutrino settlement, way 206835293; the Main adit entrance, node/4244310615) are drawn. site:baksan-sage-underground-lab is not drawn: SAGE's own 1999 paper gives its distance from the adit entrance (3.5 km) but not the tunnel's bearing, and no OpenStreetMap trace of the tunnel was found."
   },
   "type": "map",
   "unlocated": [

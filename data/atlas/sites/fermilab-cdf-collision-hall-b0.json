@@ -7,7 +7,7 @@
     "lat": 41.840683,
     "locator": "OSM way 51755116 \"CDF Hall\" building centroid (extract of 2026-09-18)",
     "lon": -88.250096,
-    "note": "`kind: campus` under A23: the point is an OpenStreetMap building centroid (rank-11 source), which A17 does not admit as a detector-grade point on its own; it is nevertheless within ~40 m of the hall. The CDF collision hall (B0) footprint is mapped in OpenStreetMap as the named building \"CDF Hall\"; the coordinate is its centroid. OpenStreetMap is a rank-11 source, so the point is recorded as approximate rather than verified; precision_m is the half-size of the footprint. Previous record: campus point 41.8422582, -88.245782 at 3000 m precision.",
+    "note": "The CDF collision hall (B0) footprint is mapped in OpenStreetMap as the named building 'CDF Hall'; the coordinate is its centroid, within about 40 m of the hall. It is shown as approximate because OpenStreetMap is a community map and not a survey; the 40 m precision is the half-size of the footprint. It replaces a Fermilab campus point of 3 km precision.",
     "precision_m": 40,
     "sources": [
       "src:fermilab-geo-osm-buildings"
@@ -32,7 +32,7 @@
   },
   "name": "CDF collision hall (Tevatron B0)",
   "notes": [
-    "Coordinates reuse the sourced Fermilab main-campus point from site:fermilab-main-campus (src:fermilab-lbnf-dune-site), per the wave-3 brief's explicit fallback for a detector hall whose own coordinates are not separately published: a sourced campus point marked approximate. No source found this session gives a dedicated lat/lon for this specific interaction hall; the Tevatron ring (about 6.3 km circumference, about 1 km radius) means the true position could be up to roughly 2 km from this point.",
+    "The point is the centroid of the 'CDF Hall' building as mapped in OpenStreetMap (see the coordinate note). No survey or official source consulted gives a dedicated lat/lon for this interaction hall.",
     "The INSPIRE experiment record long_name for CDF is \"Study of Proton Anti-proton Collisions Using a Large Detector at B0 -- the CDF Detector\" (src:colliders-historical-cdf-inspire-experiment-record), confirming the B0 location name, though not coordinates."
   ],
   "place": {
@@ -47,8 +47,8 @@
     "src:fermilab-geo-osm-buildings"
   ],
   "summary": {
-    "plain": "The interaction hall on the Fermilab Tevatron ring where the CDF detector sat, in Batavia, Illinois. Its own precise position is not published in a source found this session, so it is shown at the precision of the wider Fermilab site.",
-    "technical": "CDF collision hall (Tevatron B0): one of the Tevatron ring's interaction regions, at Fermilab, Batavia, Illinois. No dedicated survey coordinate for the hall itself was found; shown at Fermilab campus precision (~3 km) as an approximate marker."
+    "plain": "The interaction hall on the Fermilab Tevatron ring where the CDF detector sat, in Batavia, Illinois. Its position is the centroid of the hall building as traced in OpenStreetMap, not a surveyed point.",
+    "technical": "CDF collision hall (Tevatron B0): one of the Tevatron ring's interaction regions, at Fermilab, Batavia, Illinois. No survey coordinate for the hall itself was found; the marker is the centroid of the hall building as mapped in OpenStreetMap (about 40 m), shown as approximate."
   },
   "type": "site"
 }

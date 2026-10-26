@@ -275,8 +275,8 @@
   "method": "OpenStreetMap way 138322704, name 'KEKB加速器' / 'KEKB (accelerator)' (man_made=particle_accelerator, tunnel=yes, layer=-1, area=no, highway=footway); a closed way (area=no, so read as a ring LineString, not a polygon); nodes kept verbatim, no simplification.",
   "name": "KEKB storage ring, tunnel",
   "notes": [
-    "`valid` left null: the feature inherits accelerator:kekb's own state_segments (1998 to 2010-06-30). The ring tunnel physically predates 1998 (KEKB was built by rebuilding the earlier TRISTAN tunnel) but no source fetched this session gives a construction-start date for that reuse, so no earlier `valid.start` is asserted.",
-    "Same OSM way and coordinates as geometry:superkekb-tunnel-ring (the physically same tunnel, reused across the KEKB-to-SuperKEKB upgrade): intentionally triggers geometry-duplicate-shape, explained here and in the worklog."
+    "The feature follows the KEKB accelerator's own timeline (1998 to 2010-06-30). The ring tunnel physically predates 1998 (KEKB was built by rebuilding the earlier TRISTAN tunnel), but no source consulted (checked 2026-09-18) gives a construction-start date for that reuse, so no earlier start is asserted.",
+    "Same OpenStreetMap way and coordinates as the SuperKEKB tunnel ring (the physically same tunnel, reused across the KEKB-to-SuperKEKB upgrade), so the two features overlap exactly by design."
   ],
   "osm": {
     "elements": [

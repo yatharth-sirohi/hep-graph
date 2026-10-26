@@ -22,7 +22,7 @@
       "confidence": "verified",
       "facility_id": "facility:lngs",
       "locator": "LEGEND official site",
-      "note": "Covers LEGEND-200, the current operating stage. LEGEND-1000's host site is not confirmed by a source fetched in this session (see notes).",
+      "note": "Covers LEGEND-200, the current operating stage. LEGEND-1000's host site is not confirmed by any source consulted (see notes).",
       "quote": "LEGEND-200, operating up to 200 kg of enriched germanium detectors immersed in liquid argon at the INFN Gran Sasso National Laboratory (LNGS), represents the first stage of the LEGEND scientific program.",
       "role": "host",
       "sources": [
@@ -38,7 +38,7 @@
       "end": null,
       "label": "LEGEND-200 data taking",
       "locator": "LEGEND-200 first-results paper (arXiv:2509.21166), abstract",
-      "note": "Month/day precision for the exact start date not found in a fetched source; month precision taken from a secondary summary (\"first data-taking period of LEGEND-200 started in March 2023\") is NOT recorded here because it was not seen verbatim in a source this agent fetched directly — only year precision is recorded, sourced to the paper abstract itself.",
+      "note": "Month/day precision for the exact start date was not found in a primary source; the month taken from a secondary summary (\"first data-taking period of LEGEND-200 started in March 2023\") is NOT recorded here because it was not seen verbatim in a source consulted directly. Only year precision is recorded, sourced to the paper abstract itself.",
       "quote": "LEGEND-200 started taking data in 2023 at Laboratori Nazionali del Gran Sasso (LNGS): in about one year it collected a total physics exposure of 61 kg yr",
       "sources": [
         "src:legend-200-first-results-arxiv-2509"
@@ -52,7 +52,7 @@
       "end": null,
       "label": "LEGEND-1000 preparation",
       "locator": "LEGEND-200 first-results paper (arXiv:2509.21166), abstract",
-      "note": "No fetched source gives a start date for LEGEND-1000 construction or a confirmed host site; recorded as proposed rather than construction. A secondary (non-fetched) summary mentioned a DOE Critical Design-1 review milestone, but that claim is not backed by a source this agent opened directly, so it is omitted per v0.2 A17.",
+      "note": "No source consulted gives a start date for LEGEND-1000 construction or a confirmed host site; recorded as proposed rather than construction. A secondary summary mentioned a DOE Critical Design-1 review milestone, but that claim is not backed by a source consulted directly, so it is omitted.",
       "quote": "The LEGEND project foresees two phases, LEGEND-200 ... and LEGEND-1000, aiming at a final sensitivity beyond 10^28 yr.",
       "sources": [
         "src:legend-200-first-results-arxiv-2509"
@@ -130,11 +130,9 @@
   },
   "name": "LEGEND",
   "notes": [
-    "LEGEND-200 operates at LNGS: this record references site:lngs-hall-a, owned by the 'facilities' Wave 3 lead, which does not exist yet in this repository as of 2026-09-17 (dangling reference, ID_REGISTRY row 54).",
-    "facility:lngs already exists (owned by the fermilab-neutrino-other lead) and is referenced here, not edited.",
-    "LEGEND-1000's host site is discussed in secondary literature as possibly LNGS or SNOLAB, but no source fetched in this session confirms a decision; no site placement is recorded for LEGEND-1000's detector and its facility_roles role/site are left unassigned pending a sourced decision, per the brief's instruction not to guess.",
-    "Collaboration formation date could not be confirmed from an official page or journal source fetched in this session (only a Wikipedia summary describes GERDA+MAJORANA merging into LEGEND, without a year); left null with a note on the collaboration record (v0.2 A17).",
-    "No INSPIRE experiment-registry lookup was performed in this session; external.inspire_experiment is left null with this note rather than guessed."
+    "LEGEND-1000's host site is discussed in secondary literature as possibly LNGS or SNOLAB, but no source consulted confirms a decision; no site placement is recorded for LEGEND-1000's detector, and its facility role is left unassigned pending a sourced decision.",
+    "Collaboration formation date could not be confirmed from an official page or journal source (only a Wikipedia summary describes GERDA+MAJORANA merging into LEGEND, without a year); it is left empty, with a note on the collaboration record.",
+    "No INSPIRE experiment lookup was performed; external.inspire_experiment is left empty rather than guessed."
   ],
   "physics_goals": [
     {

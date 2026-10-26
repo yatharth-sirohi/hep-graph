@@ -17,7 +17,7 @@
       "confidence": "uncertain",
       "end": null,
       "label": "laboratory operating",
-      "note": "A10: an interval with `start: null` and `end: null` covers no date at all (A3: \"start: null covers only [lo(end), hi(end)]\"), so the derived state at the build date was `unrecorded`, not `active`, though the laboratory is clearly operating today (\"Currently 1300 scientists from 30 different Countries are taking part in the experimental activities of LNGS\", src:lngs-overview). No official LNGS or INFN page reached in this session states a foundation, construction or opening date (lngs.infn.it/en/lab-history returned HTTP 404; lngs.infn.it/en gives no date). As a fallback, `start` is set to 1987 on Wikipedia's authority (\"the research center became fully operational in 1987\") — a rank-12 source, flagged for review — rather than left null, which would misrepresent the laboratory as not currently operating.",
+      "note": "No official LNGS or INFN page consulted (checked 2026-09-17) states a foundation, construction or opening date (lngs.infn.it/en/lab-history returned HTTP 404; lngs.infn.it/en gives no date). The start of 1987 rests on Wikipedia ('the research center became fully operational in 1987'), a low-reliability source, and should be re-checked against an official page. An undated interval would wrongly show the laboratory as not operating, although it clearly is ('Currently 1300 scientists from 30 different Countries are taking part in the experimental activities of LNGS', src:lngs-overview).",
       "quote": "the research center became fully operational in 1987",
       "sources": [
         "src:lngs-overview",
@@ -42,9 +42,9 @@
   },
   "name": "Laboratori Nazionali del Gran Sasso",
   "notes": [
-    "LNGS is owned in this wave by the fermilab-neutrino-other lead only because ICARUS ran in Hall B; the record covers the laboratory at the level needed for that placement, not the full LNGS programme.",
-    "The commonly quoted 3800 m.w.e. overburden is NOT recorded: no page fetched in this session states a metres-water-equivalent figure, only the 1400 m rock thickness.",
-    "The foundation/construction dates of LNGS were not found on an official page fetched in this session; the operating interval's start (1987) is sourced to Wikipedia only (src:lngs-wikipedia-history) and is flagged for review."
+    "This record describes LNGS at a basic level (the laboratory and its Hall B, where ICARUS ran), not the full LNGS programme.",
+    "The commonly quoted 3800 m.w.e. overburden is NOT recorded: no page consulted states a metres-water-equivalent figure, only the 1400 m rock thickness.",
+    "The foundation and construction dates of LNGS were not found on an official page; the operating interval's start (1987) is sourced to Wikipedia only (src:lngs-wikipedia-history) and should be re-checked against an official source."
   ],
   "operator": {
     "confidence": "verified",

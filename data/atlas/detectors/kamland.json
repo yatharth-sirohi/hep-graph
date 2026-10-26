@@ -10,7 +10,7 @@
     {
       "end": null,
       "id": "experiment:kamland-zen",
-      "note": "KamLAND-Zen suspends a xenon-loaded inner balloon 'at the center of the KamLAND detector' (arXiv:1211.3863); it does not have its own separate detector: record (owned by the neutrino-mass-0vbb workstream, which references this detector:kamland id directly per ID_REGISTRY).",
+      "note": "KamLAND-Zen suspends a xenon-loaded inner balloon 'at the center of the KamLAND detector' (arXiv:1211.3863); it has no separate detector record in the Atlas, and the KamLAND-Zen experiment references this detector:kamland id directly.",
       "sources": [
         "src:kamland-zen-arxiv-1211-first-phase"
       ],
@@ -23,7 +23,7 @@
       "confidence": "approximate",
       "end": "2024-08-27",
       "label": "reactor-antineutrino data taking",
-      "note": "Start date sourced only from Wikipedia (rank 12); no official page or paper fetched this session restates it. END ADDED 2026-10-25: the KamLAND collaboration states \"KamLAND began data taking in March 2002 and ended data taking in August 2024.\" (arXiv:2606.29381, v2 of 21 Oct 2026) and the TAUP 2025 slides give the day: \"Last physics run on August 27th 2024\". Previously open-ended. The January 2002 start day above is still sourced only to Wikipedia; the 2026 collaboration paper says \"March 2002\", which this record does not resolve.",
+      "note": "Start date sourced only from Wikipedia; no official page or paper consulted (checked 2026-10-25) restates it. The end is sourced to the KamLAND collaboration, which states \"KamLAND began data taking in March 2002 and ended data taking in August 2024.\" (arXiv:2606.29381, v2 of 21 Oct 2026) and the TAUP 2025 slides give the day: \"Last physics run on August 27th 2024\". The January 2002 start day above is still sourced only to Wikipedia; the 2026 collaboration paper says \"March 2002\", which this record does not resolve.",
       "quote": "KamLAND started to collect data on January 17, 2002.",
       "sources": [
         "src:kamland-wikipedia",
@@ -62,8 +62,8 @@
   },
   "name": "KamLAND detector",
   "notes": [
-    "IMPORTANT for downstream reference: `detector:kamland` is the id the neutrino-mass-0vbb workstream references for KamLAND-Zen, which loads a xenon-doped mini-balloon inside this same liquid-scintillator volume. This detector record describes KamLAND's own reactor-antineutrino configuration only; KamLAND-Zen's own specs/intervals are owned and written by that workstream.",
-    "All structural specs here (containment vessel, PMT count, veto mass) come from Wikipedia only; no official KamLAND page (the 'About KamLAND' sub-page returned 404 on every URL guessed) or detector paper was reached this session to independently confirm them. Flagged in coverage `missing_fields`."
+    "`detector:kamland` is the id that KamLAND-Zen references: KamLAND-Zen loads a xenon-doped mini-balloon inside this same liquid-scintillator volume. This detector record describes KamLAND's own reactor-antineutrino configuration only; KamLAND-Zen's own specs and intervals are not recorded here.",
+    "All structural specs here (containment vessel, PMT count, veto mass) come from Wikipedia only; no official KamLAND page (the 'About KamLAND' sub-page returned 404 on every URL tried) or detector paper was reached to independently confirm them. The coverage page lists them as missing."
   ],
   "parent_detector_id": null,
   "placements": [
@@ -92,7 +92,7 @@
       "confidence": "approximate",
       "dimension": "count",
       "display": "1879",
-      "note": "Sourced only from Wikipedia (rank 12) this session.",
+      "note": "Sourced only from Wikipedia.",
       "quote": "1,879 photomultiplier tubes",
       "sources": [
         "src:kamland-wikipedia"
@@ -106,7 +106,7 @@
       "confidence": "approximate",
       "dimension": "mass",
       "display": "~1000 t liquid scintillator",
-      "note": "Sourced only from Wikipedia (rank 12) this session; no official/paper source independently confirmed.",
+      "note": "Sourced only from Wikipedia; no official or paper source independently confirmed it.",
       "quote": "1,000 metric tons of mineral oil, benzene, and fluorescent chemicals",
       "sources": [
         "src:kamland-wikipedia"
@@ -124,7 +124,7 @@
   },
   "technology": {
     "confidence": "verified",
-    "note": "Configuration as described in the KamLAND first-results paper (arXiv:hep-ex/0212021, Phys. Rev. Lett. 90, 021802): 13 m balloon, 18 m containment vessel, 1,879 PMTs, 3.2 kton water-Cherenkov outer detector. CORRECTED: the previous value called the 18 m sphere the scintillator balloon; the balloon is 13 m and the 18 m sphere is the stainless-steel containment vessel. This record is referenced by the neutrino-mass-0vbb workstream for KamLAND-Zen (which reuses this same detector volume with a different central balloon/isotope load); the placement/site below is the load-bearing fact for that reference and is sourced accordingly.",
+    "note": "Configuration as described in the KamLAND first-results paper (arXiv:hep-ex/0212021, Phys. Rev. Lett. 90, 021802): 13 m balloon, 18 m containment vessel, 1,879 PMTs, 3.2 kton water-Cherenkov outer detector. The balloon is 13 m; the 18 m sphere is the stainless-steel containment vessel. KamLAND-Zen reuses this same detector volume with a different central balloon/isotope load.",
     "quote": "1 kton of ultra-pure LS contained in a 13-m-diameter spherical balloon ... between the balloon and an 18-m-diameter spherical stainless-steel containment vessel ... The containment vessel is surrounded by a 3.2 kton water-Cherenkov detector",
     "sources": [
       "src:kamland-first-results-2002"

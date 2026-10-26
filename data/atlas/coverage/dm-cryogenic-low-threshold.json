@@ -11,7 +11,7 @@
       "detector:cdms-ii total mass in kg (only per-detector Ge/Si masses sourced)"
     ],
     "name": "CDMS II",
-    "notes": "Fully sourced from INSPIRE experiment record 1108506 and the final-exposure arXiv paper (0912.3592): 19 Ge + 11 Si ZIP-style detectors, 5 towers, <50 mK, 612 kg-day final exposure. Placed at the existing site:soudan-minos-far-detector (owned by fermilab-neutrino-other); no distinct CDMS-specific cavern coordinate was found, so site:soudan-cdms was NOT created.",
+    "notes": "Fully sourced from INSPIRE experiment record 1108506 and the final-exposure arXiv paper (0912.3592): 19 Ge + 11 Si ZIP-style detectors, 5 towers, <50 mK, 612 kg-day final exposure. Placed at the existing site:soudan-minos-far-detector; no distinct CDMS-specific cavern coordinate was found, so no separate CDMS site record exists.",
     "owner": "dm-cryogenic-low-threshold",
     "priority": 3,
     "researched": "partial",
@@ -49,7 +49,7 @@
       "SNOLAB placement (a 2020 paper describes a ~100 g detector 'planned' for SNOLAB, but the most recent source found, 2026-05, still places the operating detector 'near the MINOS cavern' at Fermilab, so no SNOLAB placement/facility_role is recorded)"
     ],
     "name": "SENSEI",
-    "notes": "Placed at the existing site:fermilab-main-campus (owned by fermilab-dune), which that lead's own record already uses as the campus-precision marker for the Fermilab MINOS near-detector hall specifically; site:fermilab-minos-near-detector-hall was deliberately NOT created to avoid a near-duplicate site with the same fabricated-precision coordinate. This is a documented deviation from the brief's default instruction; see the worklog.",
+    "notes": "Placed at the existing site:fermilab-main-campus, which is already used as the campus-precision marker for the Fermilab MINOS near-detector hall. No separate site:fermilab-minos-near-detector-hall record is made, to avoid a near-duplicate site with the same coordinate at false precision.",
     "owner": "dm-cryogenic-low-threshold",
     "priority": 3,
     "researched": "partial",
@@ -67,7 +67,7 @@
       "collaboration:damic membership"
     ],
     "name": "DAMIC",
-    "notes": "Two INSPIRE experiment records (original Fermilab prototype 1108203, current SNOLAB programme 1401315) folded into one experiment record per the brief's guidance. Detector specs (7 x 16-Mpixel CCDs, 6.0 g each, 11 kg-day exposure) sourced to arXiv:2007.15622. RESOLVED by independent verification (2026-09-17): status corrected from active to completed using a newly fetched source (arXiv:2507.11368, 2025 SNOLAB Future Projects Workshop report) stating the original DAMIC detector at SNOLAB has become a test stand for background studies.",
+    "notes": "Two INSPIRE experiment records (original Fermilab prototype 1108203, current SNOLAB programme 1401315) are combined into one experiment record. Detector specs (7 x 16-Mpixel CCDs, 6.0 g each, 11 kg-day exposure) are sourced to arXiv:2007.15622. Status is 'completed': the 2025 SNOLAB Future Projects Workshop report (arXiv:2507.11368) states that the original DAMIC detector at SNOLAB has become a test stand for background studies.",
     "owner": "dm-cryogenic-low-threshold",
     "priority": 3,
     "researched": "partial",
@@ -83,7 +83,7 @@
       "results (optional for tier B)",
       "documents (optional for tier B)",
       "collaboration:damic-m membership and website",
-      "the full-scale final DAMIC-M detector's status (only the 20 g 'Low Background Chamber' prototype is confirmed operating by sources fetched this session)"
+      "the full-scale final DAMIC-M detector's status (only the 20 g 'Low Background Chamber' prototype is confirmed operating by the sources consulted)"
     ],
     "name": "DAMIC-M",
     "notes": "Sourced to the collaboration's own 2022 status paper (arXiv:2210.12070) and a November 2025 physics result (arXiv:2511.13962, 1.257 kg-day exposure), confirming ongoing operation of the 20 g skipper-CCD prototype at LSM.",
@@ -102,7 +102,7 @@
       "results (optional for tier B)",
       "documents (optional for tier B)",
       "collaboration:news-g membership/institution count",
-      "the exact relationship between the SNOLAB S140 sphere and the 135 cm sphere reported running a 10-day physics run at LSM in 2024 (same unit relocated, or two spheres) -- not resolved by any source fetched this session"
+      "the exact relationship between the SNOLAB S140 sphere and the 135 cm sphere reported running a 10-day physics run at LSM in 2024 (same unit relocated, or two spheres) -- not resolved by any source consulted"
     ],
     "name": "NEWS-G",
     "notes": "Official site (news-g.org / snolab.ca both redirect to queensu.ca/physics/news-g/) and two arXiv papers (2205.15433, 2407.12769) give sphere diameters (60 cm SEDINE, 135 cm S140), gas fills, and installation dates with verbatim quotes.",
@@ -124,7 +124,7 @@
       "current module count in operation and precise operating temperature in mK (only implied, not directly quoted)"
     ],
     "name": "CRESST",
-    "notes": "The best-documented history in this file: the official site's own history page gives a dated timeline from the 1993 proposal through CRESST-I/II/III with verbatim quotes for every transition. Placed at site:lngs-hall-a (created by the facilities workstream).",
+    "notes": "The best-documented history in this file: the official site's own history page gives a dated timeline from the 1993 proposal through CRESST-I/II/III with verbatim quotes for every transition. Placed at site:lngs-hall-a.",
     "owner": "dm-cryogenic-low-threshold",
     "priority": 3,
     "researched": "partial",
@@ -139,8 +139,8 @@
     "missing_fields": [
       "results (optional for tier B)",
       "documents (optional for tier B)",
-      "collaboration:edelweiss membership, formation date and website (DNS resolution failed for edelweiss.in2p3.fr and www.edelweiss.in2p3.fr this session)",
-      "early history: EDELWEISS/EDELWEISS-II/EDELWEISS-III founding and transition dates -- the INSPIRE registry lists three separate experiment records for these but none carries populated dates, and no working official site or history paper was found this session",
+      "collaboration:edelweiss membership, formation date and website (DNS resolution failed for edelweiss.in2p3.fr and www.edelweiss.in2p3.fr)",
+      "early history: EDELWEISS/EDELWEISS-II/EDELWEISS-III founding and transition dates -- INSPIRE lists three separate experiment records for these but none carries populated dates, and no working official site or history paper was found",
       "operating temperature in mK"
     ],
     "name": "EDELWEISS",
@@ -163,7 +163,7 @@
       "energy_regime / physics_goals (no Soudan-specific source distinct from the shared collaboration-level goal already on experiment:supercdms; left unauthored rather than duplicated without its own source)"
     ],
     "name": "SuperCDMS Soudan",
-    "notes": "Split out of experiment:supercdms on 2026-09-18 (independent-verification fix) per A3's own prescription: this experiment code (INSPIRE recid 1298909, FNAL-E-0891) has an explicit terminal `date_completed` (2015-01-01, INSPIRE + Symmetry Magazine agree) and is now represented with an honest terminal interval instead of a mislabelled non-terminal one. Carries a newly-found, sourced predecessor link to experiment:cdms-ii (INSPIRE's own description: the iZIP detector was developed 'resulting in substantially improved rejection of surface event backgrounds that had limited CDMS-II'). collaboration_ids points at the shared collaboration:supercdms.",
+    "notes": "Recorded separately from experiment:supercdms: this experiment code (INSPIRE recid 1298909, FNAL-E-0891) has an explicit completion date of 2015-01-01 (INSPIRE and Symmetry Magazine agree) and so has a terminal interval. Its predecessor is experiment:cdms-ii (INSPIRE's own description: the iZIP detector was developed 'resulting in substantially improved rejection of surface event backgrounds that had limited CDMS-II'). The collaboration is the shared collaboration:supercdms.",
     "owner": "dm-cryogenic-low-threshold",
     "priority": 3,
     "researched": "partial",

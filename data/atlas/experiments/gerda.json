@@ -38,7 +38,7 @@
       "end": "2013-05",
       "label": "Phase I data taking",
       "locator": "GERDA status paper (arXiv:1710.07776), Section 2",
-      "note": "Verification fix (2026-09-17): re-verified directly against the cited paper's full text. The previous `quote` was a paraphrase, not verbatim (it read \"...has started in November 2011 ... finished in May 2013 with 21.6 kg yr of exposure\", which does not appear in the source); replaced with the paper's actual sentence and confidence raised from 'approximate' to 'verified' accordingly.",
+      "note": "Checked against the full text of the cited status paper; the quote is the paper's own sentence.",
       "quote": "The first phase (Phase I), from November 2011 to May 2013, accumulated an exposure of 21.6 kg⋅yr with a background of about 10−2 cts/(keV⋅kg⋅yr) at Qββ",
       "sources": [
         "src:gerda-searching-conf-2017"
@@ -87,7 +87,7 @@
         "dimension": "mass",
         "display": "127.2 kg·yr (76Ge)",
         "locator": "GERDA final-results paper (arXiv:2009.06079), abstract",
-        "note": "Reported as a mass-time exposure (kg·yr); recorded under the `mass` dimension using the kg value only as a locator-qualified figure since kg·yr is not a native dimension in the ontology's quantity table. Verification fix (2026-09-17): the previous `quote` (\"Total Exposure: 127.2 kg\\u00b7yr (combining Phase I and Phase II data)\") was not verbatim text from the source; replaced with the actual abstract sentence.",
+        "note": "Reported as an exposure (mass times time, kg·yr); the kg figure is stored as the value and `display` carries the authoritative exposure. The quote is the abstract sentence of the final-results paper.",
         "quote": "When combined with the result of Phase I, no signal is observed after 127.2 kg·yr of total exposure.",
         "sources": [
           "src:gerda-final-results-prl-2020"
@@ -105,7 +105,7 @@
         "dimension": "time",
         "display": "T₁/₂ > 1.8×10²⁶ yr (90% C.L.)",
         "locator": "GERDA final-results paper (PRL 125, 252502), abstract",
-        "note": "Recorded as a lower limit, not a measured value; unit 'yr' used descriptively (the ontology's `time` dimension units do not include a native way to express 10²⁶ years, so `display` carries the authoritative figure).",
+        "note": "Recorded as a lower limit, not a measured value; the unit 'yr' is used descriptively and `display` carries the authoritative figure (of order 10²⁶ years).",
         "quote": "is set at $T_{1/2}>1.8\\times10^{26}$ yr at 90% C.L.",
         "sources": [
           "src:gerda-final-results-prl-2020"
@@ -139,12 +139,10 @@
   },
   "name": "GERDA",
   "notes": [
-    "Located in LNGS Hall A: this record references site:lngs-hall-a, owned by the 'facilities' Wave 3 lead, which does not exist yet in this repository as of 2026-09-17. This is a dangling reference (ID_REGISTRY row 54) and is expected to resolve once that lead lands.",
-    "facility:lngs already exists (owned by the fermilab-neutrino-other lead) and is referenced here, not edited.",
-    "No INSPIRE experiment-registry lookup was performed in this session; external.inspire_experiment is left null with this note rather than guessed (v0.2 A17).",
-    "Collaboration formation date and precise Phase I/Phase II day-level dates were not found in any source fetched in this session; see the collaboration record and interval notes above for what is and is not sourced.",
+    "No INSPIRE experiment lookup was performed; external.inspire_experiment is left empty rather than guessed.",
+    "Collaboration formation date and precise Phase I/Phase II day-level dates were not found in any source consulted; see the collaboration record and interval notes above for what is and is not sourced.",
     "GERDA is superseded by LEGEND-200, which reuses much of the Hall A infrastructure (lineage: predecessor).",
-    "Verification note (2026-09-17): the validator flags a 30-month gap (2013-06 to 2015-11) between the Phase I and Phase II intervals with no recorded status; this corresponds to GERDA's known upgrade/shutdown period between phases, but no source fetched in this or the prior session gives a sourced interval for it. Left as an honest gap (state `unrecorded`) rather than guessed."
+    "The Phase I and Phase II intervals have a 30-month gap (2013-06 to 2015-11) with no recorded status; this corresponds to GERDA's known upgrade/shutdown period between phases, but no source consulted gives a sourced interval for it. It is left as an unrecorded gap rather than guessed."
   ],
   "physics_goals": [
     {

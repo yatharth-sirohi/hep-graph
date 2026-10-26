@@ -29,7 +29,7 @@
   "geometry": {
     "confidence": "derived",
     "locator": "OSM way/1423112774, extract timestamp 2026-09-18; src:sbn-proposal-2015 'The far detector (the improved ICARUS-T600) will be located in a new building 600 m from the BNB target.'",
-    "note": "A QA pass should double-check this identification; no OSM tag names the building, though the positional match is strong and it is the only plausible candidate found in this area.",
+    "note": "No OpenStreetMap tag names the building; the positional match (603.1 m from the derived BNB target against the sourced 600 m, 0.7 degrees off the beam axis) is strong, and it is the only plausible candidate found in this area.",
     "sources": [
       "src:fermilab-geo-osm-sbn-area",
       "src:sbn-proposal-2015"
@@ -77,7 +77,7 @@
   "method": "OSM way 1423112774 (unnamed building=yes footprint, 62.4 m from the MiniBooNE building at bearing 355.0 degrees -- i.e. on the far side of MiniBooNE from the BNB target) identified as the ICARUS-T600 (SBN far detector) hall by POSITION, not by an OSM name tag: it is 603.1 m from geometry:fermilab-bnb-target at an axis deviation of only 0.7 degrees, matching the sourced 600 m SBN far-detector baseline (src:sbn-proposal-2015) within 0.5%, and it is the only building anywhere near that expected distance/bearing in a wide-area search. Representation is 'derived' rather than 'georeferenced' because the identity attribution, not just the shape, rests on this positional match.",
   "name": "ICARUS-T600 hall (identity derived from position)",
   "notes": [
-    "QA pass (2026-09-21): removed the `valid: {start: '2017-07', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:icarus-t600 genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    "The detector ran at Gran Sasso from 2010 to 2013 and was overhauled at CERN from 2014, so no Fermilab building stood for it in those years; the 2015 short-baseline proposal describes it as \"a new building\". The building is drawn from July 2017, when Fermilab News describes the detector arriving to be placed outside \"the Short-Baseline Neutrino Far Detector building\" until it is installed \"inside the new ICARUS building\"; the detector moved in on 14 August 2018 (\"a recently completed building\"). The building's own completion date is not given in the pages consulted."
   ],
   "osm": {
     "elements": [
@@ -90,11 +90,25 @@
   "site_id": "site:fermilab-main-campus",
   "sources": [
     "src:fermilab-geo-osm-sbn-area",
-    "src:sbn-proposal-2015"
+    "src:sbn-proposal-2015",
+    "src:rc-fnal-news-2017-07-icarus-arrival",
+    "src:rc-fnal-news-2018-08-icarus-installed"
   ],
   "summary": {
-    "plain": "A QA pass should double-check this identification; no OSM tag names the building, though the positional match is strong and it is the only plausible candidate found in this area."
+    "plain": "The building that houses the ICARUS-T600 neutrino detector at Fermilab, identified by its position 600 m from the Booster Neutrino Beam target because no OpenStreetMap tag names it; drawn from July 2017."
   },
   "type": "geometry",
-  "valid": null
+  "valid": {
+    "confidence": "approximate",
+    "end": null,
+    "locator": "Fermilab News, 2017-07-25, 'ICARUS detector scheduled to arrive at Fermilab today'; Fermilab News, 2018-08-16, 'ICARUS neutrino detector installed in new Fermilab home' ('a recently completed building')",
+    "note": "Start is the first date a source describes the building as standing; its completion date is not given in the pages consulted.",
+    "quote": "The 120-ton ICARUS detector will be located outside of the Short-Baseline Neutrino Far Detector building for the next couple of months until it is installed inside the new ICARUS building.",
+    "sources": [
+      "src:rc-fnal-news-2017-07-icarus-arrival",
+      "src:rc-fnal-news-2018-08-icarus-installed"
+    ],
+    "start": "2017-07",
+    "verified_at": "2026-10-25"
+  }
 }

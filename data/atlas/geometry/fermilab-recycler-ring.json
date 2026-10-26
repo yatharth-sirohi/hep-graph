@@ -29,7 +29,7 @@
   "geometry": {
     "confidence": "derived",
     "locator": "Same as geometry:fermilab-main-injector-ring: TDR FERMILAB-DESIGN-1994-01 ch. 1 Table 1-1 and ch. 2 s2.1 (straight sections, symmetry), appendix \"Main Injector Ring Site Coordinates (MI_19)\" (MAD survey table); Beams-doc-1148 section 4.2 (FSCS definition) and Appendix A (MI-60 azimuth)",
-    "note": "Identical coordinates to geometry:fermilab-main-injector-ring on purpose (one tunnel, two rings); the validator's geometry-duplicate-shape warning is expected.",
+    "note": "Identical coordinates to geometry:fermilab-main-injector-ring on purpose: the two rings share one tunnel, so the same path is drawn twice.",
     "sources": [
       "src:fermilab-numi-beam-paper-2016",
       "src:fermilab-geo-nagaitsev-pbar-recycler-mi-2014",
@@ -1165,8 +1165,8 @@
   "method": "Same plan-view path as geometry:fermilab-main-injector-ring (see its method for the derivation and the placement from the TDR site coordinates). The Recycler is 'a fixed energy machine of 8 GeV located on the top of the MI with the same circumference of 3.3 km' (src:fermilab-numi-beam-paper-2016) and the Main Injector and Recycler rings are 'installed in a common tunnel' (src:fermilab-geo-nagaitsev-pbar-recycler-mi-2014, Fig. 5), so one plan-view line stands for both machines. Not sourced and therefore not drawn: the Recycler's height within the enclosure and any local sideways offset of its beamline from the MI beamline. accuracy_m 8 is the MI placement accuracy.",
   "name": "Fermilab Recycler ring (same tunnel and plan-view path as the Main Injector)",
   "notes": [
-    "geometry-duplicate-shape (warning) with geometry:fermilab-main-injector-ring is intentional: the two machines share one enclosure, exactly as geometry:lep-tunnel / geometry:lhc-tunnel-ring on map:cern.",
-    "Release pass (gaps stream): coordinates replaced together with the Main Injector ring (placement from the TDR site coordinates)."
+    "Identical coordinates to geometry:fermilab-main-injector-ring are intentional: the two machines share one enclosure, exactly as geometry:lep-tunnel / geometry:lhc-tunnel-ring on map:cern.",
+    "Coordinates replaced on 2026-10-25 together with the Main Injector ring (placement from the design handbook's site coordinates)."
   ],
   "osm": null,
   "representation": "derived",

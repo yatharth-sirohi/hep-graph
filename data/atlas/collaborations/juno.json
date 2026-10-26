@@ -1,84 +1,102 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "collaboration:juno",
-  "type": "collaboration",
-  "name": "JUNO Collaboration",
   "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
   "formation": {
-    "value": null,
-    "sources": ["src:juno-cdr-arxiv-2015"],
-    "verified_at": "2026-09-17",
     "confidence": "uncertain",
     "locator": "arXiv:1508.07166, submission metadata (28 Aug 2015); no formation date stated in the record fetched",
-    "note": "No fetched source states an explicit collaboration formation date. The 2015 Conceptual Design Report (arXiv:1508.07166) is the earliest dated collaboration document found; it is cited as a lower bound in `intervals` rather than substituted here as a formation date."
+    "note": "No fetched source states an explicit collaboration formation date. The 2015 Conceptual Design Report (arXiv:1508.07166) is the earliest dated collaboration document found; it is cited as a lower bound in `intervals` rather than substituted here as a formation date.",
+    "sources": [
+      "src:juno-cdr-arxiv-2015"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
   },
-  "intervals": [
-    {
-      "label": "collaboration",
-      "status": "active",
-      "start": "2015-08",
-      "end": null,
-      "sources": ["src:juno-cdr-arxiv-2015"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "JUNO Conceptual Design Report",
-      "locator": "arXiv:1508.07166, title/date; earliest dated collaboration document found",
-      "note": "True formation date not sourced; start is a lower bound from the earliest dated collaboration document."
-    }
-  ],
-  "status": "active",
-  "membership": {
-    "as_of": "2025-11",
-    "evidence_class": "official_institution_list",
-    "institution_count": {
-      "value": 75,
-      "sources": ["src:juno-ihep-first-results-en"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "more than 700 scientists\" ... \"75 institutions",
-      "note": "Sourced from IHEP's (JUNO's host institute) official English-language press release, not a page on JUNO's own collaboration domain that itself states an institution count; JUNO's own homepage (juno.ihep.cas.cn) references a '25th International Collaboration Meeting' but does not itself state scientist/institution/country counts in the page fetched this session."
-    },
-    "country_count": {
-      "value": 17,
-      "sources": ["src:juno-ihep-first-results-en"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "17 countries and regions",
-      "note": "Same source-tier caveat as institution_count above."
-    },
-    "member_count": {
-      "value": 700,
-      "sources": ["src:juno-ihep-first-results-en"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "more than 700 scientists",
-      "note": "Reported as 'more than 700'; recorded as 700 (a floor, not an exact count). Same source-tier caveat as institution_count above."
-    },
-    "roster_source_ids": ["src:juno-ihep-first-results-en"]
-  },
-  "leadership": [],
   "host_facility_id": "facility:juno-jiangmen",
   "host_site_id": "site:juno-jiangmen-underground-lab",
+  "id": "collaboration:juno",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "collaboration",
+      "locator": "arXiv:1508.07166, title/date; earliest dated collaboration document found",
+      "note": "True formation date not sourced; start is a lower bound from the earliest dated collaboration document.",
+      "quote": "JUNO Conceptual Design Report",
+      "sources": [
+        "src:juno-cdr-arxiv-2015"
+      ],
+      "start": "2015-08",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
   "links": {
     "website": {
-      "value": "https://juno.ihep.cas.cn/",
-      "sources": ["src:juno-official-site"],
-      "verified_at": "2026-09-17",
       "confidence": "verified",
-      "note": ""
+      "note": "",
+      "sources": [
+        "src:juno-official-site"
+      ],
+      "value": "https://juno.ihep.cas.cn/",
+      "verified_at": "2026-09-17"
     }
   },
+  "membership": {
+    "as_of": "2025-11",
+    "country_count": {
+      "confidence": "verified",
+      "note": "Same source-tier caveat as institution_count above.",
+      "quote": "17 countries and regions",
+      "sources": [
+        "src:juno-ihep-first-results-en"
+      ],
+      "value": 17,
+      "verified_at": "2026-09-17"
+    },
+    "evidence_class": "official_institution_list",
+    "institution_count": {
+      "confidence": "verified",
+      "note": "Sourced from IHEP's (JUNO's host institute) official English-language press release, not a page on JUNO's own collaboration domain that itself states an institution count; JUNO's own homepage (juno.ihep.cas.cn) references a '25th International Collaboration Meeting' but does not itself state scientist/institution/country counts in the page checked (2026-09-17).",
+      "quote": "more than 700 scientists\" ... \"75 institutions",
+      "sources": [
+        "src:juno-ihep-first-results-en"
+      ],
+      "value": 75,
+      "verified_at": "2026-09-17"
+    },
+    "member_count": {
+      "confidence": "verified",
+      "note": "Reported as 'more than 700'; recorded as 700 (a floor, not an exact count). Same source-tier caveat as institution_count above.",
+      "quote": "more than 700 scientists",
+      "sources": [
+        "src:juno-ihep-first-results-en"
+      ],
+      "value": 700,
+      "verified_at": "2026-09-17"
+    },
+    "roster_source_ids": [
+      "src:juno-ihep-first-results-en"
+    ]
+  },
+  "name": "JUNO Collaboration",
   "notes": [
-    "The brief for this workstream specified using membership counts 'only from the collaboration's own page'; the counts recorded here come from IHEP's official press release (IHEP is JUNO's host institute and lead publisher) rather than a dedicated members/institutions page on juno.ihep.cas.cn, because no such page was found in the pages fetched this session. This is noted explicitly per-field above rather than silently treated as the collaboration's own primary listing.",
-    "Institution-level membership rows and leadership/person records are owned by other workstreams (membership-lead) and are not written here."
+    "The counts recorded here come from IHEP's official press release (IHEP is JUNO's host institute and lead publisher) rather than a dedicated members/institutions page on juno.ihep.cas.cn, because no such page was found among the pages checked (2026-09-17). This is noted explicitly per field above rather than silently treated as the collaboration's own primary listing.",
+    "No institution-level member list or leadership list is recorded in the Atlas for this collaboration."
   ],
-  "sources": ["src:juno-official-site", "src:juno-cdr-arxiv-2015", "src:juno-ihep-first-results-en"],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:juno-official-site",
+    "src:juno-cdr-arxiv-2015",
+    "src:juno-ihep-first-results-en"
+  ],
+  "status": "active",
   "summary": {
     "plain": "The international team of more than 700 scientists from 75 institutions in 17 countries and regions who built and run the JUNO neutrino experiment.",
     "technical": "International collaboration operating the JUNO reactor-antineutrino oscillation experiment; per IHEP's November 2025 announcement, more than 700 scientists from 75 institutions in 17 countries and regions."
   },
-  "coverage": {
-    "tier": "A",
-    "researched": "partial"
-  }
+  "type": "collaboration"
 }

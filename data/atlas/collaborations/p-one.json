@@ -1,51 +1,72 @@
 {
-  "id": "collaboration:p-one",
-  "type": "collaboration",
-  "name": "P-ONE Collaboration",
   "aliases": [],
-  "formation": {
-    "value": null,
-    "sources": ["src:astro-neutrino-p-one-nature-astronomy-2020"],
-    "verified_at": "2026-09-17", "confidence": "uncertain",
-    "locator": "P-ONE Nature Astronomy design paper, arXiv:2005.09493 (no formation date stated)",
-    "note": "No fetched source states an explicit collaboration formation date; the 2020 Nature Astronomy design paper is the earliest dated collaboration document found."
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
   },
+  "document_ids": [],
+  "formation": {
+    "confidence": "uncertain",
+    "locator": "P-ONE Nature Astronomy design paper, arXiv:2005.09493 (no formation date stated)",
+    "note": "No fetched source states an explicit collaboration formation date; the 2020 Nature Astronomy design paper is the earliest dated collaboration document found.",
+    "sources": [
+      "src:astro-neutrino-p-one-nature-astronomy-2020"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
+  },
+  "host_facility_id": null,
+  "host_site_id": null,
+  "id": "collaboration:p-one",
   "intervals": [
     {
-      "label": "collaboration",
-      "status": "active",
-      "start": "2020-05",
+      "confidence": "approximate",
       "end": null,
-      "sources": ["src:astro-neutrino-p-one-nature-astronomy-2020"],
-      "verified_at": "2026-09-17", "confidence": "approximate",
+      "label": "collaboration",
+      "note": "Start is a lower bound taken from the earliest dated collaboration publication found.",
       "quote": "Submitted on 19 May 2020 ... The Pacific Ocean Neutrino Experiment (P-ONE) is a new initiative with a vision towards constructing a multi-cubic kilometre neutrino telescope",
-      "note": "Start is a lower bound taken from the earliest dated collaboration publication found."
+      "sources": [
+        "src:astro-neutrino-p-one-nature-astronomy-2020"
+      ],
+      "start": "2020-05",
+      "status": "active",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "active",
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:astro-neutrino-p-one-official-site"
+      ],
+      "value": "https://www.pacific-neutrino.org/",
+      "verified_at": "2026-09-17"
+    }
+  },
   "membership": {
     "as_of": null,
+    "country_count": null,
     "evidence_class": "official_institution_list",
     "institution_count": null,
-    "country_count": null,
     "member_count": null,
     "roster_source_ids": []
   },
-  "leadership": [],
-  "host_facility_id": null,
-  "host_site_id": null,
-  "document_ids": [],
-  "links": {"website": {"value": "https://www.pacific-neutrino.org/", "sources": ["src:astro-neutrino-p-one-official-site"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "name": "P-ONE Collaboration",
   "notes": [
-    "Membership counts not found on the official site's fetched content this session; the page names affiliated institutions (e.g. Technical University of Munich, University of Alberta, Michigan State University per the 2020 design paper) but states no total institution/country/scientist count. Left null per A17 rather than counted from an author list (forbidden by RESEARCH_AGENT_RULES #4).",
-    "Institution-level membership rows and leadership are owned by the membership-lead workstream and are not written here.",
-    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+    "Membership counts were not found on the official site's content (checked 2026-09-17); the page names affiliated institutions (e.g. Technical University of Munich, University of Alberta, Michigan State University per the 2020 design paper) but states no total institution/country/scientist count. Left null rather than counted from an author list.",
+    "No institution-level member list or leadership list is recorded in the Atlas for this collaboration."
   ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:astro-neutrino-p-one-official-site",
+    "src:astro-neutrino-p-one-nature-astronomy-2020"
+  ],
+  "status": "active",
   "summary": {
     "plain": "The international team of scientists, based partly at TRIUMF and partner universities, planning and building the P-ONE neutrino telescope for the deep Pacific Ocean.",
-    "technical": "International collaboration developing the P-ONE deep-sea neutrino telescope on Ocean Networks Canada's NEPTUNE infrastructure; no published total membership count found this session."
+    "technical": "International collaboration developing the P-ONE deep-sea neutrino telescope on Ocean Networks Canada's NEPTUNE infrastructure; no published total membership count was found."
   },
-  "coverage": {"researched": "partial", "tier": "B"},
-  "sources": ["src:astro-neutrino-p-one-official-site", "src:astro-neutrino-p-one-nature-astronomy-2020"],
-  "schema": "hep-atlas/0.2"
+  "type": "collaboration"
 }

@@ -37,7 +37,7 @@
       "end": "2010-01",
       "label": "experiment proposed",
       "locator": "INSPIRE experiment record 1108252, metadata.date_proposed",
-      "note": "'date_proposed' field of the INSPIRE experiment record (already cited on this entity, but not used for intervals in the original research pass). End date capped at this interval's approval so it does not bleed into the later, separately-documented 2014-08..2017-04 gap.",
+      "note": "Start is the 'date_proposed' field of the INSPIRE experiment record. The interval ends in January 2010, where the next interval (approval, from the record's 'date_approved' field) begins.",
       "sources": [
         "src:muons-inspire-experiment-muon-g2"
       ],
@@ -138,7 +138,7 @@
   "links": {
     "website": {
       "confidence": "verified",
-      "note": "muon-g-2.fnal.gov itself returned HTTP 403 to every fetch in this session; the URL is confirmed as the experiment's own domain by Fermilab's own press coverage and the INSPIRE experiment record, both of which were fetched.",
+      "note": "muon-g-2.fnal.gov itself returned HTTP 403 to every fetch attempt on 2026-09-17; the URL is confirmed as the experiment's own domain by Fermilab's own press coverage and the INSPIRE experiment record, both of which were read.",
       "sources": [
         "src:muons-news-fnal-2025-final-result"
       ],
@@ -148,7 +148,7 @@
   },
   "name": "Muon g-2",
   "notes": [
-    "Lineage: Muon g-2 (Fermilab E989) is the direct scientific and instrumental successor to the Brookhaven National Laboratory E821 experiment -- it reuses E821's actual storage ring magnet, moved from BNL to Fermilab in 2013 (src:muons-news-fnal-2025-final-result; src:muons-arxiv-1501-06858, TDR abstract: 'a factor-of-four more precisely than was done in E821 at the Brookhaven National Laboratory AGS ... using the muon storage ring built at BNL and now relocated to Fermilab'). No experiment:bnl-e821 record was created: Brookhaven-owned ids belong to the 'facilities' Wave-3 workstream, not to 'muons', so this lineage is recorded here as a sourced prose note rather than a structured lineage row referencing a nonexistent id.",
+    "Lineage: Muon g-2 (Fermilab E989) is the direct scientific and instrumental successor to the Brookhaven National Laboratory E821 experiment -- it reuses E821's actual storage ring magnet, moved from BNL to Fermilab in 2013 (src:muons-news-fnal-2025-final-result; src:muons-arxiv-1501-06858, TDR abstract: 'a factor-of-four more precisely than was done in E821 at the Brookhaven National Laboratory AGS ... using the muon storage ring built at BNL and now relocated to Fermilab'). The Atlas has no record for E821 yet, so this lineage is stated here in prose rather than as a link to a record.",
     "Collaboration membership counts (nearly 176 scientists, 34 institutions, seven countries) are recorded on collaboration:muon-g-2 from the same 2025 Fermilab press release used for the final-result quotes; they are dated to that release (2025-06), not a live figure.",
     "external.inspire_experiment (1108252) is sourced from the INSPIRE experiments API record (legacy_name FNAL-E-0989), fetched directly at https://inspirehep.net/api/experiments?q=muon%20g-2%20fermilab and confirmed at https://inspirehep.net/api/experiments/1108252."
   ],

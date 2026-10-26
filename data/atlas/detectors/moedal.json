@@ -18,7 +18,7 @@
       },
       "label": "operating",
       "locator": "INSPIRE experiment record 1110581, field date_approved",
-      "note": "Uses the approval date as a lower bound; no explicit installation/first-data date for the detector was found in this session (distinct from the experiment's own approval). End capped at the LHC switch-off for LS3 (2026-06).",
+      "note": "Uses the approval date as a lower bound; no explicit installation or first-data date for the detector was found (distinct from the experiment's own approval). End capped at the LHC switch-off for LS3 (2026-06).",
       "sources": [
         "src:colliders-lhc-moedal-inspire-experiment-record"
       ],
@@ -28,18 +28,22 @@
     },
     {
       "confidence": "derived",
-      "end": null,
+      "end": {
+        "approx": true,
+        "date": "2030",
+        "display": "mid-2030",
+        "note": "CERN schedule: the LHC resumes operation in mid-2030; the rest of the CERN complex restarts in stages from mid-2028.",
+        "planned": true
+      },
       "label": "Long Shutdown 3",
-      "note": "Derived from the LHC-wide shutdown, as for the other LHC experiments in this atlas; no MoEDAL-specific announcement was fetched. Source for the shutdown: \"On Saturday 27 June at 6 am, the LHC’s Page 1 — the accelerator’s dashboard — said “goodbye” to collisions. The LHC operators dumped the last beams before the accelerator’s metamorphosis.\" (home.cern, item dated 29 June 2026).",
-      "quote": "On Saturday 27 June at 6 am, the LHC’s Page 1 — the accelerator’s dashboard — said “goodbye” to collisions. The LHC operators dumped the last beams before the accelerator’s metamorphosis.",
+      "locator": "home.cern/science/long-shutdown-3, item of 5 August 2026 \"The LHC is being warmed up from near absolute zero to room temperature\"",
+      "note": "The detector record carries the same Long Shutdown 3 interval as experiment:moedal, whose interval note gives the evidence and CERN's wording for the bounds; the state is inferred from the LHC being shut down.",
+      "quote": "Following its final physics run, the accelerator has been switched off to begin CERN’s Long Shutdown 3 (LS3) ... The HiLumi LHC, scheduled to begin operation in 2030",
       "sources": [
         "src:cern-long-shutdown-3-page",
         "src:cern-ls3-farewell-2026"
       ],
-      "start": {
-        "approx": true,
-        "date": "2026-06"
-      },
+      "start": "2026-06-29",
       "status": "shutdown",
       "verified_at": "2026-10-25"
     }
@@ -55,7 +59,7 @@
       "confidence": "verified",
       "end": null,
       "locator": "INSPIRE experiment record 1110581, field description",
-      "note": "MoEDAL is deployed inside the LHCb cavern at Point 8, surrounding the intersection region; placed at site:cern-point-8-lhcb (created by the lhcb pass of this same wave), role 'main' since MoEDAL's own detector fully occupies its NTD/trapping-detector footprint there (not a prototype).",
+      "note": "MoEDAL is deployed inside the LHCb cavern at Point 8, surrounding the intersection region; placed at site:cern-point-8-lhcb, role 'main' since MoEDAL's own detector fully occupies its NTD/trapping-detector footprint there (not a prototype).",
       "quote": "The MoEDAL experiment at Point 8 of the LHC ring is the seventh and newest LHC experiment.",
       "role": "main",
       "site_id": "site:cern-point-8-lhcb",

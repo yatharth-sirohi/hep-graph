@@ -1,131 +1,153 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "experiment:homestake",
-  "type": "experiment",
-  "name": "Homestake chlorine experiment",
+  "accelerator_ids": [],
   "aliases": [
     "Davis experiment",
     "Homestake solar neutrino experiment"
   ],
-  "kind": "solar_neutrino",
-  "secondary_kinds": [],
-  "collaboration_ids": ["collaboration:homestake"],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:homestake"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "document_ids": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1110247,
+    "wikidata": null
+  },
   "facility_roles": [
     {
-      "facility_id": "facility:surf",
-      "role": "host",
-      "start": null,
-      "end": null,
-      "sources": ["src:homestake-wikipedia"],
-      "verified_at": "2026-09-18",
       "confidence": "uncertain",
-      "note": "facility:surf already exists (owned by the fermilab-dune workstream) and is referenced here, not edited. The experiment ran in the Homestake Gold Mine, the same mine the later Sanford Underground Research Facility (facility:surf) was built in after the mine's 2001 closure; facility:surf's own record already documents this predecessor relationship. Confidence kept uncertain because the only source cited here is Wikipedia (rank 12), below the rank<=10 bar A17 requires for `verified`."
+      "end": null,
+      "facility_id": "facility:surf",
+      "note": "The experiment ran in the Homestake Gold Mine, the same mine the later Sanford Underground Research Facility (facility:surf) was built in after the mine's 2001 closure; facility:surf's own record documents this predecessor relationship. Confidence kept uncertain because the only source cited here is Wikipedia (rank 12); a verified claim needs a source of rank 10 or better.",
+      "role": "host",
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "start": null,
+      "verified_at": "2026-09-18"
     }
   ],
-  "beamline_ids": [],
-  "accelerator_ids": [],
-  "topic_ids": ["topic:solar-neutrinos"],
+  "id": "experiment:homestake",
   "intervals": [
     {
-      "label": "continuous operation",
-      "status": "active",
-      "start": "1970",
-      "end": "1994",
-      "sources": ["src:homestake-wikipedia"],
-      "verified_at": "2026-09-18",
       "confidence": "approximate",
+      "end": "1994",
+      "label": "continuous operation",
+      "note": "Sourced from Wikipedia (rank 12) only; the 1998 results paper (src:homestake-1998-flux-measurement) confirms the detector 'operated continuously since 1970' without independently restating the 1994 end date in the text consulted.",
       "quote": "The experiment operated continuously from 1970 until 1994.",
-      "note": "Sourced from Wikipedia (rank 12) only this session; the 1998 results paper (src:homestake-1998-flux-measurement) confirms the detector 'operated continuously since 1970' without independently restating the 1994 end date in the text fetched."
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "start": "1970",
+      "status": "active",
+      "verified_at": "2026-09-18"
     },
     {
-      "label": "completed",
-      "status": "completed",
-      "start": "1994",
+      "confidence": "approximate",
       "end": null,
-      "sources": ["src:homestake-wikipedia"],
-      "verified_at": "2026-09-18",
-      "confidence": "approximate",
+      "label": "completed",
+      "note": "Terminal event date sourced from Wikipedia (rank 12) only.",
       "quote": "The experiment operated continuously from 1970 until 1994.",
-      "note": "Terminal event date sourced from Wikipedia (rank 12) only."
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "start": "1994",
+      "status": "completed",
+      "verified_at": "2026-09-18"
     }
   ],
-  "physics_goals": [
-    {
-      "value": "Detect solar neutrinos via the inverse beta-decay reaction on chlorine-37, converting it to argon-37",
-      "sources": ["src:homestake-1998-flux-measurement"],
-      "verified_at": "2026-09-18",
-      "confidence": "verified",
-      "quote": "The Homestake Solar Neutrino Detector, based on the inverse beta-decay reaction νe +37Cl →37Ar + e-, has been measuring the flux of solar neutrinos since 1970.",
-      "locator": "Cleveland et al. 1998, ApJ 496, 505"
-    }
-  ],
-  "unique_capabilities": [
-    {
-      "value": "First experiment to directly detect solar neutrinos, and the first to reveal the 'solar neutrino problem' (a measured rate about one-third of the theoretical prediction)",
-      "sources": ["src:homestake-wikipedia"],
-      "verified_at": "2026-09-18",
-      "confidence": "approximate",
-      "quote": "Davis's experiment turned up only one third of this figure",
-      "locator": "Wikipedia",
-      "note": "Sourced from Wikipedia (rank 12) only this session."
-    }
-  ],
-  "energy_regime": null,
   "key_specs": [
     {
       "label": "Target volume (perchloroethylene)",
       "quantity": {
-        "value": 380,
-        "unit": "m^3",
-        "dimension": "volume",
         "approx": false,
-        "display": "380 m³ (100,000 gallons) perchloroethylene",
-        "sources": ["src:homestake-wikipedia"],
-        "verified_at": "2026-09-18",
         "confidence": "approximate",
+        "dimension": "volume",
+        "display": "380 m³ (100,000 gallons) perchloroethylene",
+        "note": "Sourced from Wikipedia (rank 12) only.",
         "quote": "a 380 cubic meter (100,000 gallon) tank of perchloroethylene",
-        "note": "Sourced from Wikipedia (rank 12) only this session."
+        "sources": [
+          "src:homestake-wikipedia"
+        ],
+        "unit": "m^3",
+        "value": 380,
+        "verified_at": "2026-09-18"
       }
     },
     {
       "label": "Depth",
       "quantity": {
-        "value": 1478,
-        "unit": "m",
-        "dimension": "length",
         "approx": false,
-        "display": "1478 m (4850 ft)",
-        "sources": ["src:rf06-davis-nobel-lecture-2002", "src:homestake-wikipedia"],
-        "verified_at": "2026-10-25",
         "confidence": "approximate",
+        "dimension": "length",
+        "display": "1478 m (4850 ft)",
+        "note": "Depth stated in Raymond Davis Jr.'s Nobel lecture as the 4850-foot (1478 m) level of the Homestake mine (quote) and, as a rank-12 cross-check, on Wikipedia; this is the same 4850-foot level of the Homestake mine that facility:surf's 4850 Level (dedicated 2009, per that facility's own sourced interval) later reused, but the Davis chlorine tank's specific chamber within that level is not separately geolocated by any source consulted -- see the note on site placement.",
         "quote": "A large chamber and a smaller control room were excavated at the 4850-foot (1478 m) level of the mine.",
-        "note": "Depth stated in Raymond Davis Jr.'s Nobel lecture as the 4850-foot (1478 m) level of the Homestake mine (quote) and, as a rank-12 cross-check, on Wikipedia; this is the same 4850-foot level of the Homestake mine that facility:surf's 4850 Level (dedicated 2009, per that facility's own sourced interval) later reused, but the Davis chlorine tank's specific chamber within that level is not separately geolocated by any source fetched this session -- see site note below."
+        "sources": [
+          "src:rf06-davis-nobel-lecture-2002",
+          "src:homestake-wikipedia"
+        ],
+        "unit": "m",
+        "value": 1478,
+        "verified_at": "2026-10-25"
       }
     }
   ],
+  "kind": "solar_neutrino",
   "lineage": [],
-  "external": {
-    "inspire_experiment": 1110247,
-    "greybook": null,
-    "wikidata": null
-  },
-  "document_ids": [],
-  "result_ids": [],
   "links": {
     "website": null
   },
+  "name": "Homestake chlorine experiment",
   "notes": [
-    "Per this workstream's brief: no distinct sourced coordinate for the Davis chlorine-tank chamber (as opposed to the mine/facility generally) was found in this session, so no new `site:` record is created for it. `facility_roles` references the EXISTING `facility:surf` (its own record already carries the pre-SURF 'Homestake gold mine' interval, sourced by the fermilab-dune workstream, and its `site:surf-surface-campus` campus point, `kind: campus`/`confidence: approximate`). This is NOT the same physical location as `site:surf-4850-level-dune-far-detector` (the DUNE far-detector cavern), which this record deliberately does not reference, per the explicit instruction not to conflate the two.",
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not authored (v0.2 A1)."
+    "No distinct sourced coordinate for the Davis chlorine-tank chamber (as opposed to the mine/facility generally) was found, so no site record is created for it. `facility_roles` references the existing facility:surf (its own record carries the pre-SURF 'Homestake gold mine' interval and its site:surf-surface-campus point, a campus-grade point shown as approximate). This is NOT the same physical location as site:surf-4850-level-dune-far-detector (the DUNE far-detector cavern), which is deliberately not referenced here."
   ],
-  "sources": ["src:homestake-inspire-experiment-record", "src:homestake-wikipedia", "src:homestake-1998-flux-measurement"],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "Cleveland et al. 1998, ApJ 496, 505",
+      "quote": "The Homestake Solar Neutrino Detector, based on the inverse beta-decay reaction νe +37Cl →37Ar + e-, has been measuring the flux of solar neutrinos since 1970.",
+      "sources": [
+        "src:homestake-1998-flux-measurement"
+      ],
+      "value": "Detect solar neutrinos via the inverse beta-decay reaction on chlorine-37, converting it to argon-37",
+      "verified_at": "2026-09-18"
+    }
+  ],
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:homestake-inspire-experiment-record",
+    "src:homestake-wikipedia",
+    "src:homestake-1998-flux-measurement"
+  ],
   "status": "completed",
   "summary": {
     "plain": "A tank of dry-cleaning fluid nearly a mile underground in a South Dakota gold mine, run for decades by Ray Davis, that made the first direct detection of solar neutrinos and found far fewer than expected — a puzzle not solved for thirty years.",
     "technical": "Radiochemical chlorine-argon solar-neutrino experiment in the Homestake Gold Mine, Lead, South Dakota, 1478 m (4850 ft) underground; 380 m³ (100,000 gal) perchloroethylene target. Operated continuously 1970-1994, measuring a 37Ar production rate of 2.56±0.16(stat)±0.16(syst) SNU, about one-third of the Standard Solar Model prediction -- the original 'solar neutrino problem', later resolved by neutrino oscillation (SNO, Super-Kamiokande)."
   },
-  "coverage": {
-    "tier": "D",
-    "researched": "partial"
-  }
+  "topic_ids": [
+    "topic:solar-neutrinos"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "approximate",
+      "locator": "Wikipedia",
+      "note": "Sourced from Wikipedia (rank 12) only.",
+      "quote": "Davis's experiment turned up only one third of this figure",
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "value": "First experiment to directly detect solar neutrinos, and the first to reveal the 'solar neutrino problem' (a measured rate about one-third of the theoretical prediction)",
+      "verified_at": "2026-09-18"
+    }
+  ]
 }

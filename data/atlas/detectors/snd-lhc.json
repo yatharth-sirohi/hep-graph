@@ -32,12 +32,12 @@
       "end": {
         "approx": true,
         "date": "2026-06",
-        "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary; mirrors experiment:snd-lhc."
+        "note": "Ends at the LHC-wide start of Long Shutdown 3 (June 2026); mirrors experiment:snd-lhc."
       },
       "kind": "run",
       "label": "operating (LHC Run 3)",
       "locator": "arXiv:2305.09383 / Phys. Rev. Lett. 131, 031802 (2023), abstract",
-      "note": "VERIFIER-ADDED (2026-09-17): matches the corrected interval on experiment:snd-lhc.",
+      "note": "Matches the operating interval on experiment:snd-lhc.",
       "quote": "A data set of proton-proton collisions at sqrt(s) = 13.6 TeV collected by SND@LHC in 2022 is used, corresponding to an integrated luminosity of 36.8 fb-1.",
       "sources": [
         "src:colliders-lhc-snd-lhc-2023-prl-muon-neutrino"
@@ -50,17 +50,25 @@
       "verified_at": "2026-09-17"
     },
     {
-      "confidence": "verified",
-      "end": null,
+      "confidence": "derived",
+      "end": {
+        "approx": true,
+        "date": "2030",
+        "display": "mid-2030",
+        "note": "CERN schedule: the LHC resumes operation in mid-2030; the rest of the CERN complex restarts in stages from mid-2028.",
+        "planned": true
+      },
       "label": "Long Shutdown 3",
-      "locator": "reused from experiment:snd-lhc's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
-      "note": "VERIFIER-ADDED (2026-09-17): mirrors experiment:snd-lhc so the detector-level derived status agrees with the experiment-level one.",
+      "locator": "home.cern/science/long-shutdown-3, item of 5 August 2026 \"The LHC is being warmed up from near absolute zero to room temperature\"",
+      "note": "The detector record carries the same Long Shutdown 3 interval as experiment:snd-lhc, whose interval note gives the evidence and CERN's wording for the bounds; the state is inferred from the LHC being shut down.",
+      "quote": "Following its final physics run, the accelerator has been switched off to begin CERN’s Long Shutdown 3 (LS3) ... The HiLumi LHC, scheduled to begin operation in 2030",
       "sources": [
+        "src:cern-long-shutdown-3-page",
         "src:cern-ls3-farewell-2026"
       ],
-      "start": "2026-06",
+      "start": "2026-06-29",
       "status": "shutdown",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -68,8 +76,8 @@
   },
   "name": "SND@LHC detector",
   "notes": [
-    "VERIFIER FIX (2026-09-17): status corrected 'approved' -> 'shutdown' (via a sourced 'active' interval 2022-2026, then Long Shutdown 3). The prior record's own note already stated 'approved' likely understated SND@LHC's true operating status; this fix resolves that by sourcing the operating interval to the collaboration's own 2023 PRL (arXiv:2305.09383), which states data were collected 'in 2022', and capping it at the LHC-wide Long Shutdown 3 boundary already used for ALICE/LHCb/TOTEM/FASER/LHCf in this partition.",
-    "VERIFIER-ADDED (2026-09-17): technology and the TI18/480 m placement are now independently corroborated by the SND@LHC detector-description paper (arXiv:2210.02784), which states the detector sits '480 m downstream of the ATLAS interaction point, in the TI18 tunnel' -- confirming the placement fact that the prior record could only support with 'general knowledge of the FASER/SND@LHC forward programme' (site:cern-ti18-snd-lhc notes still flag the coordinate itself, only its lat/lon, as unverified)."
+    "Status shutdown: the detector has a sourced 'active' interval from 2022 (the collaboration's 2023 PRL, arXiv:2305.09383, states data were collected 'in 2022'), capped at the LHC-wide start of Long Shutdown 3 as in experiment:snd-lhc.",
+    "Technology and the TI18/480 m placement are corroborated by the SND@LHC detector-description paper (arXiv:2210.02784), which states the detector sits '480 m downstream of the ATLAS interaction point, in the TI18 tunnel'; the notes of site:cern-ti18-snd-lhc still flag the site's lat/lon as unverified."
   ],
   "parent_detector_id": null,
   "placements": [

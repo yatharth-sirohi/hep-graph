@@ -11,42 +11,43 @@
   "id": "accelerator:sns",
   "intervals": [
     {
-      "confidence": "uncertain",
-      "end": {
-        "date": "2006-04",
-        "note": "Month precision ('April 2006') from Wikipedia only; no official page fetched in this session confirms this date."
-      },
-      "label": "construction completed",
-      "note": "Sourced to Wikipedia only; flagged for review.",
-      "quote": "completed in April 2006",
+      "confidence": "verified",
+      "end": "2006-05",
+      "label": "construction",
+      "locator": "Start: ORNL news, 6 May 2005 (quoted); the day is from APS News, 1 May 2000: \"Construction of the Spallation Neutron Source (SNS) facility began on December 15, 1999, with groundbreaking at the Oak Ridge, Tennessee site.\" End: N. Holtkamp, EPAC08 THPPGM03, section \"What is SNS?\": \"finished at the end of May 2006\".",
+      "note": "Construction began in late 1999 (ORNL), with groundbreaking on 15 December 1999 (APS News). The project was finished at the end of May 2006 according to N. Holtkamp (EPAC08); Wikipedia instead says \"completed in April 2006\", and the later, better-sourced date is used here.",
+      "quote": "Construction on the state-of-the-art neutron facility began in late 1999.",
       "sources": [
-        "src:sns-wikipedia"
+        "src:rc-aps-news-2000-sns-construction",
+        "src:rc-ornl-news-2005-sns-partnership",
+        "src:rc-holtkamp-epac08-sns"
       ],
-      "start": null,
+      "start": {
+        "date": "1999-12-15",
+        "display": "15 December 1999 (ORNL: late 1999)"
+      },
       "status": "construction",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     {
-      "confidence": "verified",
-      "end": "2024-07-11",
-      "label": "Proton Power Upgrade (1.4 → 2.8 MW)",
-      "locator": "LINAC2024 THPB045 abstract/introduction: start = outage start; end = 'Neutron production for the user program resumed July 11th as planned at 1.3 GeV and 1.7 MW' (beam commissioning June 7 - early July 2024)",
-      "note": "DATED 2026-10-25 (previously start/end null, status upgrade, open): this interval is the long installation outage of the Proton Power Upgrade project (August 2023 to April 2024), through beam commissioning (from 7 June 2024), to the resumption of user neutron production on 11 July 2024. The project itself is reported complete: ORNL, 18 May 2026, \"The completed proton power upgrade ensures SNS will remain the world's most powerful proton accelerator\"; the same release says the linac is \"well along the path to 2.8 megawatts\", i.e. the capability is installed but the delivered power is still being ramped (1.7 MW in July 2024; the official SNS page showed 1.8 MW on 2026-09-17).",
-      "quote": "The long installation outage began in August 2023 and concluded in April 2024.",
+      "confidence": "approximate",
+      "end": "2007-08",
+      "label": "commissioning (first beam on target, 28 April 2006)",
+      "locator": "ORNL news, 1 May 2006 (\"First neutrons produced by DOE's Spallation Neutron Source\"): the SNS generated its first neutrons on Friday 28 April 2006 (\"Just after 2 p.m. Friday, a pulse of protons from the SNS's accelerator complex ...\"; the site refuses scripted requests, so this wording was read in an automated fetch and is not machine-checked). The end is the August 2007 date from Wikipedia for the first instruments.",
+      "note": "The facility \"has been commissioned in stages\" (ORNL, 1 May 2006); the first beam reached the target on 28 April 2006, before the project's formal finish at the end of May 2006, so this row overlaps the construction row by one month. The end is the August 2007 date from Wikipedia for the first instruments, not a reported end of commissioning.",
       "sources": [
-        "src:ornl-sns-page",
-        "src:currency2-sns-ppu-completion-linac2024",
-        "src:currency2-ornl-sns-upgrade-news-2026-05-18"
+        "src:rc-ornl-news-2006-first-neutrons",
+        "src:sns-wikipedia"
       ],
-      "start": "2023-08",
-      "status": "upgrade",
+      "start": "2006-04-28",
+      "status": "commissioning",
       "verified_at": "2026-10-25"
     },
     {
       "confidence": "uncertain",
       "end": "2023-08",
       "label": "operational (first instruments commissioned)",
-      "note": "Added 2026-09-17 to fix an A10 status/derived-state mismatch (both existing intervals have `start: null`, so neither covers the build date). Sourced to Wikipedia only; the official neutrons.ornl.gov/sns page re-fetched this session gives no commissioning date, only current beam power. END ADDED 2026-10-25: \"The long installation outage began in August 2023 and concluded in April 2024\" (LINAC2024 paper, ORNL); the machine is `upgrade` for that outage and `active` again from 2024-07-11 (next rows). Previously open-ended; the start date is still Wikipedia only.",
+      "note": "Sourced to Wikipedia only for the start; the official neutrons.ornl.gov/sns page (read 2026-09-17) gives no commissioning date, only current beam power. The end is the start of the Proton Power Upgrade outage: \"The long installation outage began in August 2023 and concluded in April 2024\" (LINAC2024 paper, ORNL). The machine is `upgrade` for that outage and `active` again from 2024-07-11 (next row).",
       "quote": "The first three instruments began commissioning and were available to the scientific community in August 2007.",
       "sources": [
         "src:sns-wikipedia",
@@ -58,9 +59,25 @@
     },
     {
       "confidence": "verified",
+      "end": "2024-07-11",
+      "label": "Proton Power Upgrade (1.4 → 2.8 MW)",
+      "locator": "LINAC2024 THPB045 abstract/introduction: start = outage start; end = 'Neutron production for the user program resumed July 11th as planned at 1.3 GeV and 1.7 MW' (beam commissioning June 7 - early July 2024)",
+      "note": "This interval is the long installation outage of the Proton Power Upgrade project (August 2023 to April 2024), through beam commissioning (from 7 June 2024), to the resumption of user neutron production on 11 July 2024. The project itself is reported complete: ORNL, 18 May 2026, \"The completed proton power upgrade ensures SNS will remain the world's most powerful proton accelerator\"; the same release says the linac is \"well along the path to 2.8 megawatts\", i.e. the capability is installed but the delivered power is still being ramped (1.7 MW in July 2024; the official SNS page showed 1.8 MW on 2026-09-17).",
+      "quote": "The long installation outage began in August 2023 and concluded in April 2024.",
+      "sources": [
+        "src:ornl-sns-page",
+        "src:currency2-sns-ppu-completion-linac2024",
+        "src:currency2-ornl-sns-upgrade-news-2026-05-18"
+      ],
+      "start": "2023-08",
+      "status": "upgrade",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "verified",
       "end": null,
       "label": "operating with the upgraded linac (1.3 GeV; power ramping toward 2.8 MW)",
-      "note": "Added 2026-10-25. User neutron production resumed on 11 July 2024 at 1.3 GeV and 1.7 MW after the upgrade outage (LINAC2024 paper); ORNL (18 May 2026) reports the Proton Power Upgrade complete and the linac \"well along the path to 2.8 megawatts\", and users already benefiting from the extra power. Status was `active` before this edit as well; this row only closes the gap that the open-ended old operating row and the undated upgrade row left.",
+      "note": "User neutron production resumed on 11 July 2024 at 1.3 GeV and 1.7 MW after the upgrade outage (LINAC2024 paper); ORNL (18 May 2026) reports the Proton Power Upgrade complete and the linac \"well along the path to 2.8 megawatts\", and users already benefiting from the extra power.",
       "quote": "Neutron production for the user program resumed July 11th as planned at 1.3 GeV and 1.7 MW.",
       "sources": [
         "src:currency2-sns-ppu-completion-linac2024",
@@ -86,16 +103,20 @@
   },
   "name": "Spallation Neutron Source",
   "notes": [
-    "kind is recorded as `linac`; the SNS accelerator complex also includes an accumulator ring (not separately modeled here)."
+    "kind is recorded as `linac`; the SNS accelerator complex also includes an accumulator ring, which this record does not model separately."
   ],
   "particles": [
     "proton"
   ],
   "schema": "hep-atlas/0.2",
-  "site_id": "site:ornl-sns-neutrino-alley",
+  "site_id": "site:ornl-sns-complex",
   "sources": [
     "src:ornl-sns-page",
-    "src:sns-wikipedia"
+    "src:sns-wikipedia",
+    "src:rc-aps-news-2000-sns-construction",
+    "src:rc-ornl-news-2005-sns-partnership",
+    "src:rc-holtkamp-epac08-sns",
+    "src:rc-ornl-news-2006-first-neutrons"
   ],
   "specs": {
     "beam_energy": {
@@ -103,7 +124,7 @@
       "confidence": "uncertain",
       "dimension": "energy",
       "display": "~1 GeV",
-      "note": "Sourced to Wikipedia only; no official page fetched in this session states the proton beam energy directly in GeV.",
+      "note": "Sourced to Wikipedia only; no official page consulted (checked 2026-09-17) states the proton beam energy directly in GeV.",
       "quote": "accelerates them to an energy of about one GeV (or to about 90% the speed of light)",
       "sources": [
         "src:sns-wikipedia"
@@ -116,8 +137,8 @@
       "approx": false,
       "confidence": "verified",
       "dimension": "power",
-      "display": "1.4 MW (original design); upgraded to 2.8 MW; 1.8 MW as of this session",
-      "note": "The official SNS page states current operation 'Beam is on target at 1.8 MW' and that 'The Proton Power Upgrade project doubled the power capability of the SNS linear accelerator, from 1.4 to 2.8 megawatts.' The 1.4 MW value (original design/baseline) is recorded as the primary spec value; see note for the upgrade figures.",
+      "display": "1.4 MW (original design); upgraded to 2.8 MW; 1.8 MW on the official SNS page of 2026-09-17",
+      "note": "The official SNS page (read 2026-09-17) states current operation 'Beam is on target at 1.8 MW' and that 'The Proton Power Upgrade project doubled the power capability of the SNS linear accelerator, from 1.4 to 2.8 megawatts.' The 1.4 MW design value is recorded as the primary spec value; the upgrade figures are in this note and the display.",
       "quote": "The Proton Power Upgrade project doubled the power capability of the SNS linear accelerator, from 1.4 to 2.8 megawatts.",
       "sources": [
         "src:ornl-sns-page"
@@ -130,7 +151,7 @@
   "status": "active",
   "summary": {
     "plain": "A powerful particle accelerator at Oak Ridge National Laboratory that fires pulses of protons into a liquid-mercury target to produce neutrons for research. The same process also produces a very pure, well-timed source of neutrinos used by experiments such as COHERENT.",
-    "technical": "Spallation Neutron Source: a ~1 GeV proton linac and accumulator ring at ORNL delivering pulsed spallation neutrons from a liquid-mercury target; completed April 2006, first instruments commissioned August 2007; beam power upgraded from 1.4 MW design to 2.8 MW (Proton Power Upgrade), operating at 1.8 MW as of this session."
+    "technical": "Spallation Neutron Source: a ~1 GeV proton linac and accumulator ring at ORNL delivering pulsed spallation neutrons from a liquid-mercury target; construction began in late 1999 and the project finished in May 2006, first instruments were commissioned in August 2007; beam power upgraded from the 1.4 MW design to 2.8 MW capability (Proton Power Upgrade), with the official SNS page of 2026-09-17 reporting 1.8 MW on target."
   },
   "type": "accelerator"
 }

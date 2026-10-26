@@ -13,18 +13,33 @@
   "id": "detector:protodune-dp",
   "intervals": [
     {
-      "confidence": "uncertain",
-      "end": null,
-      "label": "construction and operation at the CERN Neutrino Platform",
-      "locator": "Vol. I, §1.3.2",
-      "note": "A10: an interval with `start: null` and `end: null` covers no date at all (A3: \"start: null covers only [lo(end), hi(end)]\"), so the derived state at the build date was `unrecorded` rather than `completed`. The DUNE FD TDR Vol. I (2020-02-07) states, in the past tense, that both ProtoDUNE prototypes had already been constructed and operated at CERN, but gives no explicit start or end date for ProtoDUNE-DP. `start` is set to the TDR's own publication year (2020) as a \"known complete by\" evidence bound, not a claim that this is the true construction date, which is not sourced. The dual-phase line was subsequently discontinued in favour of the vertical-drift design.",
-      "quote": "The DUNE collaboration has constructed and operated two large prototype detectors, ProtoDUNE-SP, and ProtoDUNE-DP, at CERN.",
+      "confidence": "verified",
+      "end": "2020",
+      "label": "operation in the NP02 cryostat at the CERN Neutrino Platform",
+      "locator": "CERN EP department newsletter, article 'DUNE prototype activities at the Neutrino Platform' (undated; tagged March 2022 - May 2022), paragraph beginning \"NP02, the twin cryostat of NP04\"",
+      "note": "The CERN article gives the hosting period as years only (2019-2020). The DUNE FD TDR Vol. I (published 2020-02-07) says in the past tense that the collaboration \"has constructed and operated\" both ProtoDUNE prototypes at CERN.",
+      "quote": "NP02, the twin cryostat of NP04, hosted a prototype of dual phase (liquid-vapor) argon TPC (ProtoDUNE-DP) in 2019-2020.",
       "sources": [
+        "src:rc-cern-ep-news-dune-prototypes",
         "src:dune-fd-tdr-vol-1"
+      ],
+      "start": "2019",
+      "status": "active",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operation completed",
+      "locator": "CERN EP department newsletter, article 'DUNE prototype activities at the Neutrino Platform' (undated; tagged March 2022 - May 2022), paragraph beginning \"NP02, the twin cryostat of NP04\"",
+      "note": "Year precision: the article gives the last year of hosting (2020) and no month.",
+      "quote": "NP02, the twin cryostat of NP04, hosted a prototype of dual phase (liquid-vapor) argon TPC (ProtoDUNE-DP) in 2019-2020.",
+      "sources": [
+        "src:rc-cern-ep-news-dune-prototypes"
       ],
       "start": "2020",
       "status": "completed",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -32,29 +47,32 @@
   },
   "name": "ProtoDUNE-DP",
   "notes": [
-    "True start and end dates and the liquid argon mass are unresolved; only the DUNE FD TDR Vol. I description could be fetched. The interval's `start: 2020` is the TDR's publication year, used as a evidence bound (see intervals[0].note), not a sourced construction date."
+    "The liquid argon mass is not stated in the sources consulted. Start and end are known to the year only (2019 to 2020), from the CERN newsletter.",
+    "The CERN newsletter says that new solutions emerged from the ProtoDUNE-SP and ProtoDUNE-DP work for the second DUNE far detector module, which uses a vertical-drift layout, and that signal amplification in the gas phase was found not to be required."
   ],
   "parent_detector_id": null,
   "placements": [
     {
       "confidence": "verified",
-      "end": null,
-      "locator": "Vol. I, figure caption, §1.3.2",
-      "note": "Installed alongside ProtoDUNE-SP in the CERN Neutrino Platform hall in the CERN North Area; no installation date sourced.",
-      "quote": "ProtoDUNE-SP and ProtoDUNE-DP cryostats in the CERN Neutrino Platform in CERN ’s North Area.",
+      "end": "2020",
+      "locator": "CERN EP department newsletter, article 'DUNE prototype activities at the Neutrino Platform' (undated; tagged March 2022 - May 2022), paragraph beginning \"NP02, the twin cryostat of NP04\"",
+      "note": "Installed in the NP02 cryostat, the twin of the ProtoDUNE-SP cryostat, in the CERN Neutrino Platform hall in the CERN North Area (also shown in a figure caption of DUNE FD TDR Vol. I, §1.3.2). The CERN article gives the hosting period at year precision only.",
+      "quote": "NP02, the twin cryostat of NP04, hosted a prototype of dual phase (liquid-vapor) argon TPC (ProtoDUNE-DP) in 2019-2020.",
       "role": "prototype",
       "site_id": "site:cern-neutrino-platform-ehn1",
       "sources": [
+        "src:rc-cern-ep-news-dune-prototypes",
         "src:dune-fd-tdr-vol-1"
       ],
-      "start": null,
-      "verified_at": "2026-09-16"
+      "start": "2019",
+      "verified_at": "2026-10-25"
     }
   ],
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:dune-fd-tdr-vol-1",
-    "src:dune-cern-neutrino-platform-page"
+    "src:dune-cern-neutrino-platform-page",
+    "src:rc-cern-ep-news-dune-prototypes"
   ],
   "specs": {
     "active_mass": null,

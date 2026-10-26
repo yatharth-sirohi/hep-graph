@@ -19,7 +19,7 @@
       "confidence": "verified",
       "facility_id": "facility:brokdorf-nuclear-power-plant",
       "locator": "abstract",
-      "note": "Historic host, 2018-2023, superseded by facility:leibstadt-nuclear-power-plant in 2023 (experiment referred to simply as 'CONUS' in this phase). Marked 'historic' so the build's principal-facility choice (used in search subtitles and elsewhere) names the current host, not the original one — the same mechanism build.py already uses for DUNE/CERN.",
+      "note": "Historic host, 2018-2023, superseded by facility:leibstadt-nuclear-power-plant in 2023 (experiment referred to simply as 'CONUS' in this phase).",
       "quote": "the CONUS detectors positioned at 17.1m from the 3.9GWth reactor core of the nuclear power plant in Brokdorf, Germany",
       "role": "host",
       "sources": [
@@ -47,7 +47,7 @@
       "end": "2022",
       "label": "operation at Brokdorf (CONUS)",
       "locator": "arXiv:2605.22815 (21 May 2026), CONUS site description",
-      "note": "Corrected 2026-10-25: start was null and end 2024-01 (the submission date of the final-Brokdorf paper, a loose bound). The CONUS collaboration's May 2026 paper states the Brokdorf period as 2018-2022. The 2018 start was previously known only from Wikipedia.",
+      "note": "The CONUS collaboration's May 2026 paper states the Brokdorf period as 2018-2022. The submission date of the final-Brokdorf paper (2024-01) is only a loose upper bound on the end.",
       "quote": "Germany from 2018-2022 and Leibstadt (KKL), Switzerland from 2023",
       "sources": [
         "src:cevns-conus-prl-2024-final-brokdorf",
@@ -118,13 +118,10 @@
   },
   "name": "CONUS / CONUS+",
   "notes": [
-    "One-experiment-record decision (per WAVE3_LEAD_BRIEF.md): the CONUS+ overview paper (arXiv:2407.11912) states CONUS+ is 'continuing on this way the CONUS physics program started at the Brokdorf nuclear power plant' using 'the same four point-contact high-purity germanium (HPGe) detectors produced for the former experiment, however refurbished'. This is the same collaboration, same detector array, relocated to a new reactor site under a new name; recorded as one experiment:conus record, not two lineage-linked records.",
-    "'CONUS+' is not encoded as a formal `aliases` entry: the validator's A20 duplicate-name check strips non-alphanumeric characters before comparing, so 'CONUS+' normalises to the same string as the name 'CONUS' and is rejected as a redundant alias ('alias equal to own name'). The name/alias relationship is documented here in prose instead.",
-    "No INSPIRE experiment-registry record was found for CONUS/CONUS+ (searched inspirehep.net/api/experiments this session; zero results); external.inspire_experiment left null rather than guessed.",
-    "links.website is null: no official CONUS/CONUS+ website was found reachable in this pass (attempts at plausible MPIK URLs returned 404); this is a gap, not a considered absence.",
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
-    "Record name is 'CONUS / CONUS+' (not just 'CONUS') so that the in-app search, which matches only `name`/`aliases` (never `summary`), surfaces this experiment when a user searches 'CONUS+'. 'CONUS+' cannot be a formal alias (A20 rejects it as equal to the name modulo punctuation), and the collaboration/detector records already use this same 'X / X+' convention, so the experiment record is changed to match them for consistency and discoverability. [verifier fix, 2026-09-17]",
-    "facility_roles[0] (Brokdorf)'s note now says 'historic' so build.py's _principal_facility() deprioritises it; without that keyword the search-result subtitle named the closed Brokdorf plant instead of the current Leibstadt host, since both facility_roles carry role:host and the tie broke on list order. [verifier fix, 2026-09-17]"
+    "The CONUS+ overview paper (arXiv:2407.11912) states CONUS+ is 'continuing on this way the CONUS physics program started at the Brokdorf nuclear power plant' using 'the same four point-contact high-purity germanium (HPGe) detectors produced for the former experiment, however refurbished'. This is the same collaboration and the same detector array, relocated to a new reactor site under a new name, so it is recorded as one experiment record (experiment:conus), not two lineage-linked records.",
+    "No INSPIRE experiment record was found for CONUS/CONUS+ (searched inspirehep.net/api/experiments; zero results), so external.inspire_experiment is left empty rather than guessed.",
+    "No official CONUS/CONUS+ website was found reachable (attempts at plausible MPIK URLs returned 404), so no website is recorded. This is a gap, not a considered absence.",
+    "The record name is 'CONUS / CONUS+' so that a search for 'CONUS+' finds this experiment; 'CONUS+' cannot be a separate alias because it matches the name once punctuation is ignored. The collaboration and detector records use the same 'X / X+' naming."
   ],
   "physics_goals": [
     {

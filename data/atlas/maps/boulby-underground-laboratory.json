@@ -46,7 +46,7 @@
       "id": "boulby-underground",
       "kind": "underground",
       "name": "Boulby underground laboratory workings",
-      "note": "No geometry feature is drawn at this level this session: no fetched source gives a shaft-head or underground-workings position more precise than the surface boundary above it."
+      "note": "No geometry feature is drawn at this level: no source consulted gives a shaft-head or underground-workings position more precise than the surface boundary above it."
     }
   ],
   "linked_map_ids": [],
@@ -55,9 +55,8 @@
   },
   "name": "Boulby Underground Laboratory",
   "notes": [
-    "This map is honestly thin: it can draw the mine's surface works site (traced from aerial imagery) and a sourced depth for the underground level, but no fetched source this session locates the specific shaft or the underground laboratory workings within that surface footprint. No detector is placed at site:boulby-mine in this atlas dataset (ZEPLIN and DRIFT, which the laboratory has hosted, are not yet atlas entities), so no entity besides the site itself needs accounting here.",
-    "Overpass (which could plausibly find shaft-head buildings or man_made=mineshaft nodes by a bounding-box tag query) was unreachable throughout this session; see the facility worklog.",
-    "Release geometry (underground): the two primary shaft collars (OSM 'Man Shaft (Downcast)' and 'Rock Shaft (Upcast)') and two shaft-head buildings were added. The mine's surface boundary is the earlier OSM landuse outline. The underground laboratory itself is not drawn."
+    "This map is thin: it can draw the mine's surface works site (traced from aerial imagery) and a sourced depth for the underground level, but no source consulted locates the specific shaft or the underground laboratory workings within that surface footprint. No detector is placed at site:boulby-mine in the Atlas (ZEPLIN and DRIFT, which the laboratory has hosted, are not yet Atlas entities), so no entity besides the site itself needs accounting here.",
+    "The two primary shaft collars (OSM 'Man Shaft (Downcast)' and 'Rock Shaft (Upcast)') and two shaft-head buildings are drawn. The mine's surface boundary is an OSM landuse outline. The underground laboratory itself is not drawn."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],

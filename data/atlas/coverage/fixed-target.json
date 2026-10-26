@@ -10,7 +10,7 @@
       "detector full specs beyond GigaTracker (JINST PDF was bot-blocked)"
     ],
     "name": "NA62",
-    "notes": "Flagship, full depth: detector paper (JINST 12 (2017) P05025), 3 results (2021 measurement 3.4-sigma, 2025 observation >5-sigma, 2026 refined measurement -- now sourced to arXiv:2607.16413 rather than the CERN news press release, per A16), site:cern-ecn3-north-area, lineage to NA48.",
+    "notes": "Full-depth records: detector paper (JINST 12 (2017) P05025), 3 results (2021 measurement 3.4-sigma, 2025 observation >5-sigma, 2026 refined measurement, sourced to arXiv:2607.16413 rather than the CERN news item), site:cern-ecn3-north-area, lineage to NA48.",
     "owner": "fixed-target",
     "priority": 1,
     "researched": "full",
@@ -58,9 +58,9 @@
     "experiment_id": "experiment:ktev",
     "facility": "Fermilab",
     "missing_fields": [
-      "exact run-year breakdown (E799-II/E832 run periods not confirmed by a source fetched this session)",
+      "exact run-year breakdown (E799-II/E832 run periods not confirmed by any source consulted)",
       "collaboration formation/membership",
-      "official website (fnal.gov blocked all session)"
+      "official website (fnal.gov blocked every request)"
     ],
     "name": "KTeV",
     "notes": "site:fermilab-ktev-hall created (campus-precision coordinate, honestly flagged). Design report 1992; 1999 direct-CP-violation observation announced.",
@@ -76,9 +76,9 @@
     "experiment_id": "experiment:seaquest",
     "facility": "Fermilab",
     "missing_fields": [
-      "exact data-taking start/end calendar years (not confirmed by a source fetched this session)",
+      "exact data-taking start/end calendar years (not confirmed by any source consulted)",
       "collaboration formation/membership",
-      "official website (DNS failures all session)"
+      "official website (DNS lookups failed)"
     ],
     "name": "SeaQuest",
     "notes": "site:fermilab-nm4-hall created. 'Final SeaQuest results' paper (Dec 2025) confirms completion; spectrometer paper (2017) gives the 120 GeV Main Injector beam and detector description.",
@@ -97,7 +97,7 @@
       "collaboration (no distinct 'DarkQuest Collaboration' found; none created)",
       "detector record (reuses SeaQuest/SpinQuest apparatus; no separate hardware description sourced)",
       "approval status beyond the 2021/2022 Snowmass proposal",
-      "lineage to a true predecessor/upgrade target (SpinQuest, experiment:spinquest) -- out of this wave's ID_REGISTRY scope, so no lineage row is recorded rather than misattributing it to experiment:seaquest"
+      "lineage to a true predecessor/upgrade target (SpinQuest, experiment:spinquest): the record for experiment:spinquest does not exist in the Atlas yet, so no lineage is recorded rather than misattributing it to experiment:seaquest"
     ],
     "name": "DarkQuest",
     "notes": "Proposed successor at site:fermilab-nm4-hall (referenced, not duplicated); status 'proposed' per a Snowmass 2021 contribution (arXiv:2203.08322). The source positions DarkQuest as an upgrade to 'SpinQuest' (out of scope), not SeaQuest; a prior `upgrade_of experiment:seaquest` lineage row was removed 2026-09-17 verification as unsupported by the cited source (lineage is now empty rather than misattributed).",
@@ -129,11 +129,11 @@
     "experiment_id": "experiment:mathusla",
     "facility": "CERN",
     "missing_fields": [
-      "placement/site (official page names no specific interaction point; no new site created per the brief)",
+      "placement/site (the official page names no specific interaction point, so no site record exists)",
       "collaboration membership"
     ],
     "name": "MATHUSLA",
-    "notes": "2026-09-17 fixed-target verification: status corrected from null to 'proposed'. The sole 'proposed' interval previously had `start: null`, so no interval covered the build date and A3's derived state was `unrecorded`; anchoring the interval on the dated Letter of Intent (arXiv:1811.00927, 2 Nov 2018) makes the derived state -- and `status` -- honestly `proposed` instead.",
+    "notes": "Status is 'proposed', anchored on the dated Letter of Intent (arXiv:1811.00927, 2 Nov 2018).",
     "owner": "fixed-target",
     "priority": 3,
     "researched": "partial",
@@ -146,12 +146,12 @@
     "experiment_id": "experiment:e949",
     "facility": "Brookhaven National Laboratory",
     "missing_fields": [
-      "exact run years (commonly cited elsewhere as centred on 2002, not confirmed by a source fetched this session)",
+      "exact run years (commonly cited elsewhere as centred on 2002, not confirmed by any source consulted)",
       "collaboration formation/membership",
-      "experiment:e787 predecessor record (out of this wave's scope; not created)"
+      "The record for experiment:e787 (the predecessor experiment) does not exist in the Atlas yet."
     ],
     "name": "E949",
-    "notes": "Placed at the existing (facilities-owned) site:bnl-upton-campus and referencing accelerator:ags; both already existed on disk (not dangling). Combined E787+E949 final result (PRD 79, 092004, 2009) recorded as a bonus fact within the experiment record.",
+    "notes": "Placed at site:bnl-upton-campus and linked to accelerator:ags. The combined E787+E949 final result (PRD 79, 092004, 2009) is recorded within the experiment record.",
     "owner": "fixed-target",
     "priority": 3,
     "researched": "partial",
@@ -165,10 +165,10 @@
     "facility": "J-PARC",
     "missing_fields": [
       "collaboration membership",
-      "a written-up major result (2025 PRL from 2021 data exists but its exact result_type/significance was not confirmed by a source fetched this session, so no results/ file was written)"
+      "a written-up major result (a 2025 PRL from 2021 data exists, but its exact result type and significance were not confirmed by any source consulted, so no result record exists)"
     ],
     "name": "KOTO",
-    "notes": "Placed at the existing (muons-owned) site:j-parc-hadron-hall, which had already landed by the time this record was written (not dangling). Rich, directly-quoted run history from the official site (koto.kek.jp): first run May 2013, resumed April 2015, active through 2021 data (published Feb 2025).",
+    "notes": "Placed at site:j-parc-hadron-hall. Run history, quoted directly from the official site (koto.kek.jp): first run May 2013, resumed April 2015, active through 2021 data (published Feb 2025).",
     "owner": "fixed-target",
     "priority": 2,
     "researched": "partial",

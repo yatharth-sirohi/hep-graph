@@ -198,9 +198,7 @@
   "map_id": "map:brookhaven-national-laboratory",
   "method": "OpenStreetMap way 50074088 (tagged highway=corridor, indoor=yes, tunnel=yes, layer=-5, short_name=RHIC, wikidata=Q1076995), a single closed way of 34 nodes, used verbatim (no simplification). The way is tagged as an actual underground corridor/tunnel, not a surface proxy.",
   "name": "Relativistic Heavy Ion Collider ring, full ring",
-  "notes": [
-    "QA pass (2026-09-21): removed the `valid: {start: '1991', end: null}` window a previous pass set (1991 is when BNL received funding to proceed with RHIC's construction, per accelerator:rhic's own sourced interval). hepgraph.atlas.build._feature_segments() treats any `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today, even though RHIC's final run ended 2026-02-06 (accelerator:rhic.status is `completed`, sourced to BNL's own dedication/shutdown reporting). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'), confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments on accelerator:rhic at build day 2026-09-21: now correctly 'completed'. This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
-  ],
+  "notes": [],
   "osm": {
     "elements": [
       "way/50074088"

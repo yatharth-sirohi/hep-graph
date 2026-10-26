@@ -474,11 +474,10 @@
     "website": null
   },
   "map_id": "map:desy",
-  "method": "OpenStreetMap way 24973326 ('Hadron-Elektron-Ring-Anlage', tunnel=yes, man_made=particle_accelerator, layer=-5), a single closed way, used verbatim with no simplification. The way's own tags already state length=6336 (m) and depth=-25 (m), matching the independently fetched DESY facts page and Wikipedia; accuracy_m follows the contract's 10-30 m floor for an OSM tunnel line rather than the tag's own precision, since no 'source' tag on the way documents how it was traced.",
+  "method": "OpenStreetMap way 24973326 ('Hadron-Elektron-Ring-Anlage', tunnel=yes, man_made=particle_accelerator, layer=-5), a single closed way, used verbatim with no simplification. The way's own tags already state length=6336 (m) and depth=-25 (m), matching the independently fetched DESY facts page and Wikipedia. Accuracy is set at 20 m, within the 10-30 m range used for an OpenStreetMap tunnel line, rather than from the tag's own precision, since no 'source' tag on the way documents how it was traced.",
   "name": "HERA tunnel, full ring",
   "notes": [
-    "The OSM way's own start_date tag reads 1990-11-08, predating accelerator:hera's own sourced operation interval (1992) -- the tunnel/ring structure itself predates first physics collisions.",
-    "QA pass (2026-09-21): removed the `valid: {start: '1990-11-08', end: null}` window a previous pass set for the fact above. hepgraph.atlas.build._feature_segments() treats ANY `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today, 19 years after HERA's real 2007-06-30 shutdown (accelerator:hera.status is `completed`). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'), confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments on accelerator:hera at build day 2026-09-21: now correctly 'completed'. The ~1.5-year tunnel-predates-operation nuance is preserved in the note above, just no longer encoded as a `valid` window. This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`, not caught by any validator rule), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    "The OSM way's own start_date tag reads 1990-11-08, predating accelerator:hera's own sourced operation interval (1992) -- the tunnel/ring structure itself predates first physics collisions."
   ],
   "osm": {
     "elements": [

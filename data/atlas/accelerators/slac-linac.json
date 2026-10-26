@@ -15,7 +15,7 @@
       "confidence": "uncertain",
       "end": null,
       "label": "constructed / operating",
-      "note": "Added 2026-09-17 to fix an A10 status/derived-state mismatch (status was 'active' with no interval covering the build date). Sourced to Wikipedia only; the official site fetched in this session (www6.slac.stanford.edu) gives no construction date. The linac has fed SLC, PEP-II and now LCLS; it is treated as continuously active since 1966 for lack of a sourced end/upgrade interval.",
+      "note": "Sourced to Wikipedia only; the official site consulted (www6.slac.stanford.edu, checked 2026-09-17) gives no construction date. The linac has fed SLC, PEP-II and LCLS; it is treated as continuously active since 1966 for lack of a sourced end or upgrade interval.",
       "quote": "a 3.2 km (2 mi) linear accelerator constructed in 1966 ... has been operational since 1966.",
       "sources": [
         "src:slac-wikipedia"
@@ -32,7 +32,7 @@
   },
   "name": "SLAC linear accelerator",
   "notes": [
-    "No sourced construction/commissioning interval was found in this session; `intervals` is left empty rather than guessed. The linac has fed SLC, PEP-II and (currently) LCLS; only SLC and PEP-II are modeled in this wave."
+    "No sourced construction or commissioning interval is recorded; the single interval starts in 1966 (Wikipedia only) and is not split at construction. The linac has fed SLC, PEP-II and LCLS; the Atlas has records for SLC and PEP-II only."
   ],
   "particles": [
     "electron",
@@ -76,7 +76,7 @@
   "status": "active",
   "summary": {
     "plain": "SLAC's two-mile-long linear accelerator, which fires electrons (and, in its early years, positrons) down a straight underground tunnel. It has fed three generations of SLAC's experiments: the original fixed-target program, the SLC and PEP-II colliders, and today the LCLS X-ray laser.",
-    "technical": "The 3.2 km SLAC linear accelerator (operating since 1966), capable of up to 50 GeV for electrons; injector for the Stanford Linear Collider (1989-1998) and the PEP-II B-factory (1999-2008), and today for the LCLS free-electron laser (not modeled in this wave)."
+    "technical": "The 3.2 km SLAC linear accelerator (operating since 1966), capable of up to 50 GeV for electrons; injector for the Stanford Linear Collider (1989-1998) and the PEP-II B-factory (1999-2008), and also feeds the LCLS free-electron laser, which has no accelerator record in the Atlas."
   },
   "type": "accelerator"
 }

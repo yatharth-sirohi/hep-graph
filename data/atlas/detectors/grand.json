@@ -1,67 +1,122 @@
 {
-  "id": "detector:grand",
-  "type": "detector",
-  "name": "GRANDProto300 (GRAND prototype)",
-  "aliases": ["GP300"],
-  "experiment_ids": ["experiment:grand"],
-  "parent_detector_id": null,
-  "placements": [
-    {"site_id": "site:grandproto300-dunhuang", "role": "prototype", "start": "2023-06", "end": null,
-     "sources": ["src:astro-neutrino-grand-prototypes-jinst-2026"], "verified_at": "2026-10-25", "confidence": "uncertain",
-     "quote": "will span an area of about 200 km² in the Gobi Desert near Xiaodushan, in northern Dunhuang, China ... In June 2023, the deployment of the 13-antenna stage, GP300_s13, was completed",
-     "note": "Placed at the nearest named city (Dunhuang) as a coarse regional pointer only; see site:grandproto300-dunhuang for why no precise coordinate exists. Start (2023-06) is the completion of the 13-antenna stage per the 2026 JINST paper (arXiv:2509.21306), which also gives the site description."}
+  "aliases": [
+    "GP300"
   ],
-  "technology": {
-    "value": "Radio antenna array detecting radio-frequency signals from inclined extensive air showers initiated by cosmic rays and neutrinos",
-    "sources": ["src:astro-neutrino-grand-prototypes-jinst-2026"],
-    "verified_at": "2026-10-25", "confidence": "verified",
-    "quote": "large arrays of radio antennas that search for distinctive radio frequency signals emitted by extensive air showers ... radio-frequency signals that reach the array from near-horizontal directions, as expected from inclined air showers initiated by cosmic rays and neutrinos",
-    "note": "Old quote was about the 65-antenna stage and area, not the technology; value rewritten to what the 2026 JINST paper (arXiv:2509.21306) states (the earlier 'Earth-skimming' wording is not in that paper)."
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
   },
-  "technology_class": "radio",
-  "technology_classes": ["radio"],
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:grand"
+  ],
+  "id": "detector:grand",
   "intervals": [
     {
-      "label": "GP300_s13", "status": "commissioning", "start": "2023-06", "end": "2025-04",
-      "sources": ["src:astro-neutrino-grand-prototypes-jinst-2026"],
-      "verified_at": "2026-10-25", "confidence": "verified",
-      "quote": "In June 2023, the deployment of the 13-antenna stage, GP300_s13, was completed ... GP300_s13 was decommissioned in April 2025", "note": "Quote text is from the 2026 JINST paper (arXiv:2509.21306), not the ICRC 2025 proceedings it was previously attributed to. The ICRC 2025 proceedings (arXiv:2507.05915) give different stage dates (GP13 deployed Feb 2023 to Oct 2024; 65 DUs deployed Oct 2024, all in place by June 2025); the 2026 collaboration paper is followed here."
+      "confidence": "verified",
+      "end": "2025-04",
+      "label": "GP300_s13",
+      "note": "Quote text is from the 2026 JINST paper (arXiv:2509.21306), not the ICRC 2025 proceedings it was previously attributed to. The ICRC 2025 proceedings (arXiv:2507.05915) give different stage dates (GP13 deployed Feb 2023 to Oct 2024; 65 DUs deployed Oct 2024, all in place by June 2025); the 2026 collaboration paper is followed here.",
+      "quote": "In June 2023, the deployment of the 13-antenna stage, GP300_s13, was completed ... GP300_s13 was decommissioned in April 2025",
+      "sources": [
+        "src:astro-neutrino-grand-prototypes-jinst-2026"
+      ],
+      "start": "2023-06",
+      "status": "commissioning",
+      "verified_at": "2026-10-25"
     },
     {
-      "label": "GP300_s65", "status": "commissioning", "start": "2025-04", "end": null,
-      "sources": ["src:astro-neutrino-grand-prototypes-jinst-2026"],
-      "verified_at": "2026-10-25", "confidence": "verified",
-      "quote": "By April 2025, the array was extended to its current 65-antenna stage, GP300_s65, which has been operating since", "note": "Quote text is from the 2026 JINST paper (arXiv:2509.21306), not the ICRC 2025 proceedings it was previously attributed to. The ICRC 2025 proceedings (arXiv:2507.05915) give different stage dates (GP13 deployed Feb 2023 to Oct 2024; 65 DUs deployed Oct 2024, all in place by June 2025); the 2026 collaboration paper is followed here."
+      "confidence": "verified",
+      "end": null,
+      "label": "GP300_s65",
+      "note": "Quote text is from the 2026 JINST paper (arXiv:2509.21306), not the ICRC 2025 proceedings it was previously attributed to. The ICRC 2025 proceedings (arXiv:2507.05915) give different stage dates (GP13 deployed Feb 2023 to Oct 2024; 65 DUs deployed Oct 2024, all in place by June 2025); the 2026 collaboration paper is followed here.",
+      "quote": "By April 2025, the array was extended to its current 65-antenna stage, GP300_s65, which has been operating since",
+      "sources": [
+        "src:astro-neutrino-grand-prototypes-jinst-2026"
+      ],
+      "start": "2025-04",
+      "status": "commissioning",
+      "verified_at": "2026-10-25"
     }
   ],
-  "status": "commissioning",
+  "links": {
+    "website": null
+  },
+  "name": "GRANDProto300 (GRAND prototype)",
+  "notes": [
+    "No source consulted gives a numeric coordinate for the precise Gobi Desert / Dunhuang array site (only 'near Xiaodushan, in northern Dunhuang, China'); the placement above points at the nearest named city (Dunhuang) as a coarse regional pointer rather than a surveyed array position."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "note": "Placed at the nearest named city (Dunhuang) as a coarse regional pointer only; see site:grandproto300-dunhuang for why no precise coordinate exists. Start (2023-06) is the completion of the 13-antenna stage per the 2026 JINST paper (arXiv:2509.21306), which also gives the site description.",
+      "quote": "will span an area of about 200 km² in the Gobi Desert near Xiaodushan, in northern Dunhuang, China ... In June 2023, the deployment of the 13-antenna stage, GP300_s13, was completed",
+      "role": "prototype",
+      "site_id": "site:grandproto300-dunhuang",
+      "sources": [
+        "src:astro-neutrino-grand-prototypes-jinst-2026"
+      ],
+      "start": "2023-06",
+      "verified_at": "2026-10-25"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:astro-neutrino-grandproto300-progress-icrc2025",
+    "src:astro-neutrino-grand-prototypes-jinst-2026",
+    "src:astro-neutrino-grand-wikipedia-dunhuang"
+  ],
   "specs": {
-    "station_count": {
-      "value": 65, "unit": "", "dimension": "count", "approx": false,
-      "display": "65 antennas",
-      "sources": ["src:astro-neutrino-grand-prototypes-jinst-2026"],
-      "verified_at": "2026-10-25", "confidence": "verified",
-      "quote": "the array was extended to its current 65-antenna stage, GP300_s65", "note": "The ICRC 2025 proceedings (arXiv:2507.05915) also report 65 detection units deployed by June 2025."
-    },
     "area": {
-      "value": 30, "unit": "km^2", "dimension": "area", "approx": true,
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "area",
       "display": "~30 km²",
-      "sources": ["src:astro-neutrino-grand-prototypes-jinst-2026"],
-      "verified_at": "2026-10-25", "confidence": "verified",
-      "quote": "GP300_s65 was built south of GP13, covering an area of about 30 km²", "note": "Design target for the full GRANDProto300 stage (300 antennas) is about 200 km² (same paper)."
+      "note": "Design target for the full GRANDProto300 stage (300 antennas) is about 200 km² (same paper).",
+      "quote": "GP300_s65 was built south of GP13, covering an area of about 30 km²",
+      "sources": [
+        "src:astro-neutrino-grand-prototypes-jinst-2026"
+      ],
+      "unit": "km^2",
+      "value": 30,
+      "verified_at": "2026-10-25"
+    },
+    "station_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "65 antennas",
+      "note": "The ICRC 2025 proceedings (arXiv:2507.05915) also report 65 detection units deployed by June 2025.",
+      "quote": "the array was extended to its current 65-antenna stage, GP300_s65",
+      "sources": [
+        "src:astro-neutrino-grand-prototypes-jinst-2026"
+      ],
+      "unit": "",
+      "value": 65,
+      "verified_at": "2026-10-25"
     }
   },
+  "status": "commissioning",
   "subsystems": [],
-  "document_ids": [],
-  "links": {"website": null},
-  "notes": [
-    "No source fetched this session gives a numeric coordinate for the precise Gobi Desert / Dunhuang array site (only 'near Xiaodushan, in northern Dunhuang, China'); the placement above points at the nearest named city (Dunhuang) as a coarse regional pointer rather than a surveyed array position, per A17's fallback rule."
-  ],
   "summary": {
     "plain": "A prototype radio antenna array in the Gobi Desert in China, testing the technology for a much bigger planned array to detect cosmic rays and neutrinos.",
     "technical": "GRANDProto300 pathfinder array in the Gobi Desert near Dunhuang, China: grew from a 13-antenna stage (deployed 2023-06) to a 65-antenna stage covering ~30 km² (2025-04), validating the radio-detection approach for the full GRAND design."
   },
-  "coverage": {"researched": "partial", "tier": "B"},
-  "sources": ["src:astro-neutrino-grandproto300-progress-icrc2025", "src:astro-neutrino-grand-prototypes-jinst-2026", "src:astro-neutrino-grand-wikipedia-dunhuang"],
-  "schema": "hep-atlas/0.2"
+  "technology": {
+    "confidence": "verified",
+    "note": "The quote is from the 2026 JINST paper (arXiv:2509.21306) and describes the technology; the 'Earth-skimming' wording found elsewhere is not in that paper.",
+    "quote": "large arrays of radio antennas that search for distinctive radio frequency signals emitted by extensive air showers ... radio-frequency signals that reach the array from near-horizontal directions, as expected from inclined air showers initiated by cosmic rays and neutrinos",
+    "sources": [
+      "src:astro-neutrino-grand-prototypes-jinst-2026"
+    ],
+    "value": "Radio antenna array detecting radio-frequency signals from inclined extensive air showers initiated by cosmic rays and neutrinos",
+    "verified_at": "2026-10-25"
+  },
+  "technology_class": "radio",
+  "technology_classes": [
+    "radio"
+  ],
+  "type": "detector"
 }

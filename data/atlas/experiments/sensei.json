@@ -32,7 +32,7 @@
       "end": null,
       "facility_id": "facility:fermilab",
       "locator": "arXiv:2605.30281 (2026-05)",
-      "note": "A 2026-05 SENSEI paper still places the detector 'near the MINOS cavern' at Fermilab; a 2020 SENSEI paper described a ~100-gram detector 'planned' for SNOLAB, but no source fetched this session confirms that move has happened, so no SNOLAB facility_role/placement is recorded.",
+      "note": "A May 2026 SENSEI paper (arXiv:2605.30281) still places the detector 'near the MINOS cavern' at Fermilab. A SENSEI apparatus also operated at SNOLAB (installed 2021; first science run 2022-09-09 to 2023-04-10, arXiv:2312.13342; see the SNOLAB rows in the interval list), but no SNOLAB facility role or detector placement is recorded in this record.",
       "quote": "Using the SENSEI detector near the MINOS cavern",
       "role": "host",
       "sources": [
@@ -50,7 +50,7 @@
       "end": "2018",
       "label": "proposal",
       "locator": "INSPIRE experiment record 1662255, field date_proposed",
-      "note": "Year-precision date from the INSPIRE experiment registry (rank 3); no independently fetched proposal document.",
+      "note": "Year-precision date from the INSPIRE experiment registry (rank 3); no proposal document was consulted independently.",
       "sources": [
         "src:sensei-inspire-experiment"
       ],
@@ -63,7 +63,7 @@
       "end": "2019-01",
       "label": "protoSENSEI shallow underground run",
       "locator": "arXiv:1901.10478",
-      "note": "End set to the paper's submission date (2019-01-29); the run itself may have started earlier in 2018, not independently pinned down by a fetched source.",
+      "note": "End set to the paper's submission date (2019-01-29); the run itself may have started earlier in 2018, which no source consulted pins down independently.",
       "quote": "We present here results from a prototype Skipper-CCD placed in the MINOS cavern... at the Fermi National Accelerator Laboratory (FNAL).",
       "sources": [
         "src:sensei-shallow-underground-2019-arxiv"
@@ -92,7 +92,7 @@
       "end": "2021",
       "kind": "phase",
       "label": "SNOLAB: SENSEI apparatus installed",
-      "note": "Added 2026-10-25. The first-pass record had no SNOLAB history (its note says no explicit SNOLAB-operations source had been found). arXiv:2312.13342 gives the SNOLAB installation year; a SNOLAB placement for the detector is not added here (see the log: it needs a site placement and a map 'unlocated' entry, and maps/ was out of scope).",
+      "note": "arXiv:2312.13342 gives the year the SENSEI apparatus was installed at SNOLAB. The SNOLAB installation is recorded here as a timeline entry only; no SNOLAB detector placement is recorded.",
       "quote": "The SENSEI apparatus at SNOLAB was installed in 2021.",
       "sources": [
         "src:currency2-sensei-snolab-first-results-arxiv-2312-13342"
@@ -106,7 +106,7 @@
       "end": "2023-04-10",
       "kind": "run",
       "label": "SNOLAB Run 1 (first science run)",
-      "note": "Added 2026-10-25. First SNOLAB science run (arXiv:2312.13342). The same paper says \"The SNOLAB setup has been upgraded with additional detectors for another science run\"; no source fetched dates that later run or says whether it is taking data now. The Fermilab MINOS-cavern operation (next row, open) is still reported as ongoing in an arXiv paper of 15 October 2026 (arXiv:2610.22418, 'a SENSEI sensor placed underground in the MINOS cavern at Fermilab').",
+      "note": "First SNOLAB science run (arXiv:2312.13342). The same paper says \"The SNOLAB setup has been upgraded with additional detectors for another science run\"; no source consulted (checked 2026-10-25) dates that later run or says whether it is taking data now. The Fermilab MINOS-cavern operation (the open Fermilab interval above) is still reported as ongoing in an arXiv paper of 15 October 2026 (arXiv:2610.22418, 'a SENSEI sensor placed underground in the MINOS cavern at Fermilab').",
       "quote": "based on data taken from September 9, 2022 to April 10, 2023",
       "sources": [
         "src:currency2-sensei-snolab-first-results-arxiv-2312-13342"
@@ -161,9 +161,9 @@
   },
   "name": "SENSEI",
   "notes": [
-    "No live official SENSEI website was found: the INSPIRE record's listed homepage (http://home.fnal.gov/~javiert/sensei) returned HTTP 403 when fetched 2026-09-17. links.website is left null rather than guessed.",
-    "A ~100-gram SENSEI detector at SNOLAB is described as 'planned' in a 2020 SENSEI paper, but the most recent SENSEI paper found this session (2026-05) still describes the operating detector as being 'near the MINOS cavern' at Fermilab, so no SNOLAB placement is recorded. This should be revisited if a more recent, explicit SNOLAB-operations source is found.",
-    "site:fermilab-minos-near-detector-hall was not created: the existing site:fermilab-main-campus (owned by fermilab-dune) is already used as the campus-precision placement point for the MINOS near detector hall specifically (see its notes), and no source fetched this session gives a more precise, distinct coordinate for the hall. Reusing the existing site avoids a near-duplicate site with the same fabricated-precision coordinate."
+    "No live official SENSEI website was found: the INSPIRE record's listed homepage (http://home.fnal.gov/~javiert/sensei) returned HTTP 403 when requested on 2026-09-17 and again on 2026-10-25. links.website is left empty rather than guessed.",
+    "A ~100-gram SENSEI detector at SNOLAB was described as 'planned' in a 2020 SENSEI paper. The December 2023 SNOLAB paper (arXiv:2312.13342) reports a SENSEI detector there with six Skipper-CCDs of 2.19 g active mass each, installed in 2021 and run from 9 September 2022 to 10 April 2023; it does not report a ~100 g detector. The most recent SENSEI paper consulted (arXiv:2605.30281, May 2026) still places the operating detector 'near the MINOS cavern' at Fermilab, so no SNOLAB placement is recorded. A more recent, explicit SNOLAB-operations source would settle the SNOLAB status.",
+    "The detector is placed at the existing campus-level site (site:fermilab-main-campus), which is also used for the MINOS near detector hall (see that site's notes); no source consulted (checked 2026-10-25) gives a more precise coordinate for the hall, so no separate hall site exists."
   ],
   "physics_goals": {
     "confidence": "verified",
@@ -187,7 +187,7 @@
   "status": "active",
   "summary": {
     "plain": "SENSEI uses ultra-sensitive silicon chips called skipper CCDs to hunt for very light dark matter particles, so light that they would only knock loose a handful of electrons. It has run in a shielded underground hall at Fermilab near Chicago since 2018.",
-    "technical": "Skipper-CCD dark matter search sensitive to electron recoils from sub-GeV dark matter, operating in the MINOS cavern at Fermilab; began with a ~0.1 g prototype device (2018-2019 shallow-underground run) and progressed to an improved ~2 g Skipper-CCD (2020 results), with operations continuing as of a 2026 backgrounds-characterization paper. A ~100 g detector at SNOLAB was described as planned in 2020 but not confirmed as realized by any source fetched this session."
+    "technical": "Skipper-CCD dark matter search sensitive to electron recoils from sub-GeV dark matter, operating in the MINOS cavern at Fermilab; began with a ~0.1 g prototype device (2018-2019 shallow-underground run) and progressed to an improved ~2 g Skipper-CCD (2020 results), with operations continuing as of the May 2026 spurious-charge paper (arXiv:2605.30281). A ~100 g detector at SNOLAB was described as planned in 2020; the December 2023 paper (arXiv:2312.13342) reports a six-Skipper-CCD detector installed there in 2021 (2.19 g active mass per CCD), with a first science run from September 2022 to April 2023."
   },
   "topic_ids": [
     "topic:dark-matter",

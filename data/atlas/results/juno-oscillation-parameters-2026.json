@@ -1,94 +1,124 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "result:juno-oscillation-parameters-2026",
-  "type": "result",
-  "name": "Measurement of reactor neutrino oscillation with the first JUNO data",
   "aliases": [],
-  "experiment_ids": ["experiment:juno"],
-  "collaboration_ids": ["collaboration:juno"],
-  "facility_ids": ["facility:juno-jiangmen"],
-  "detector_ids": ["detector:juno"],
-  "date": {
-    "value": "2025-11-18",
-    "sources": ["src:rf11-juno-arxiv-first-oscillation-2025"],
-    "verified_at": "2026-10-25",
-    "confidence": "verified",
-    "locator": "arXiv:2511.14593, submission history",
-    "quote": "Submitted on 18 Nov 2025",
-    "note": "First public posting (arXiv v1, 18 November 2025), one day before the IHEP press conference and before the Nature publication of 10 June 2026; the display date is the earliest public date (A9)."
-  },
-  "date_kind": "preprint",
   "announced": {
-    "value": "2025-11-19",
-    "sources": ["src:juno-ihep-first-results-en"],
-    "verified_at": "2026-10-25",
     "confidence": "verified",
     "locator": "IHEP news item \"JUNO Experiment Delivers First Physics Results Two Months After Completion\", 2025-11-19",
+    "note": "IHEP press conference in Jiangmen at which the collaboration presented its first physics results (the news item reports the solar oscillation parameters measured with data from 26 August to 2 November 2025).",
     "quote": "2025-11-19 The Institute of High Energy Physics (IHEP) of the Chinese Academy of Sciences(CAS) today held a press conference in Jiangmen City to announce the successful completion of the Jiangmen Underground Neutrino Observatory (JUNO)",
-    "note": "IHEP press conference in Jiangmen at which the collaboration presented its first physics results (the news item reports the solar oscillation parameters measured with data from 26 August to 2 November 2025)."
+    "sources": [
+      "src:juno-ihep-first-results-en"
+    ],
+    "value": "2025-11-19",
+    "verified_at": "2026-10-25"
   },
-  "published": {
-    "value": "2026-06-10",
-    "sources": ["src:juno-nature-2026-oscillation"],
-    "verified_at": "2026-10-25",
-    "confidence": "verified",
-    "locator": "Nature 654, 343-348 (2026), article page",
-    "quote": "Article Published: 10 June 2026",
-    "note": "Nature publication date."
-  },
-  "topic_ids": ["topic:reactor-neutrinos", "topic:neutrino-oscillations"],
-  "result_type": "measurement",
-  "title": "Measurement of reactor neutrino oscillation with the first JUNO data",
   "claim": {
-    "quote": "Measurement of reactor neutrino oscillation with the first JUNO data",
     "locator": "Nature 654, 343-348 (2026), article title",
-    "sources": ["src:juno-nature-2026-oscillation"]
+    "quote": "Measurement of reactor neutrino oscillation with the first JUNO data",
+    "sources": [
+      "src:juno-nature-2026-oscillation"
+    ]
   },
-  "summary": {
-    "plain": "Using its first two months of data (59.1 days), JUNO measured two key numbers describing how neutrinos change type as they travel; the collaboration says the precision is improved by a factor of 1.6 relative to the combination of all previous measurements.",
-    "technical": "First 59.1 days of data since detector completion in August 2025 (data from 26 August to 2 November 2025 per IHEP): the first simultaneous high-precision determination of sin²θ₁₂ = 0.3092 ± 0.0087 and Δm²₂₁ = (7.50 ± 0.12) × 10⁻⁵ eV² for the normal mass ordering scenario, improving the precision by a factor of 1.6 relative to the combination of all previous measurements."
+  "collaboration_ids": [
+    "collaboration:juno"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
   },
-  "why_it_matters": {
-    "value": "The Nature abstract says the results advance the basic understanding of neutrinos, validate the design of the detector and indicate the readiness of JUNO for resolving the neutrino mass ordering with a larger dataset.",
-    "sources": ["src:juno-nature-2026-oscillation"],
-    "verified_at": "2026-10-25",
+  "date": {
     "confidence": "verified",
-    "quote": "These results advance the basic understanding of neutrinos, validate the design of the detector and indicate the readiness of JUNO for resolving the neutrino mass ordering with a larger dataset.",
-    "note": ""
+    "locator": "arXiv:2511.14593, submission history",
+    "note": "First public posting (arXiv v1, 18 November 2025), one day before the IHEP press conference and before the Nature publication of 10 June 2026; the display date is the earliest public date.",
+    "quote": "Submitted on 18 Nov 2025",
+    "sources": [
+      "src:rf11-juno-arxiv-first-oscillation-2025"
+    ],
+    "value": "2025-11-18",
+    "verified_at": "2026-10-25"
   },
+  "date_kind": "preprint",
+  "detector_ids": [
+    "detector:juno"
+  ],
+  "experiment_ids": [
+    "experiment:juno"
+  ],
+  "facility_ids": [
+    "facility:juno-jiangmen"
+  ],
+  "hepdata": null,
+  "id": "result:juno-oscillation-parameters-2026",
   "key_value": null,
   "key_value_text": {
-    "value": "sin²θ₁₂ = 0.3092 ± 0.0087; Δm²₂₁ = (7.50 ± 0.12) × 10⁻⁵ eV²",
-    "sources": ["src:juno-nature-2026-oscillation", "src:rf11-juno-arxiv-first-oscillation-2025"],
-    "verified_at": "2026-09-17",
     "confidence": "verified",
+    "note": "Quote is the abstract text as shown on the arXiv abstract page (preprint of the Nature paper); the Nature abstract states the same values. Values are for the normal mass ordering scenario.",
     "quote": "$\\sin^2 θ_{12} = 0.3092\\,\\pm\\,0.0087$ and $Δm^2_{21} = (7.50\\,\\pm\\,0.12)\\times10^{-5}\\;{\\rm eV}^2$ for the normal mass ordering scenario, improving the precision by a factor of 1.6 relative to the combination of all previous measurements",
-    "note": "Quote is the abstract text as shown on the arXiv abstract page (preprint of the Nature paper); the Nature abstract states the same values. Values are for the normal mass ordering scenario."
+    "sources": [
+      "src:juno-nature-2026-oscillation",
+      "src:rf11-juno-arxiv-first-oscillation-2025"
+    ],
+    "value": "sin²θ₁₂ = 0.3092 ± 0.0087; Δm²₂₁ = (7.50 ± 0.12) × 10⁻⁵ eV²",
+    "verified_at": "2026-09-17"
   },
-  "significance": {
-    "value": null,
-    "sources": ["src:juno-nature-2026-oscillation"],
-    "verified_at": "2026-09-17",
-    "confidence": "uncertain",
-    "locator": "Nature 654, 343-348 (2026), abstract",
-    "note": "This is a precision parameter measurement, not a discovery/observation/evidence claim with a single reported sigma; no significance figure applies."
+  "links": {
+    "website": null
   },
+  "name": "Measurement of reactor neutrino oscillation with the first JUNO data",
+  "notes": [
+    "IHEP announced these results at a press conference on 2025-11-19 (src:juno-ihep-first-results-en), one day after the arXiv posting of 2025-11-18 and ahead of the 2026-06-10 Nature publication; `date` is the earliest public date (the preprint), `announced` and `published` carry the other two dates."
+  ],
+  "official_url": null,
   "publication": {
     "doi": "10.1038/s41586-026-10538-z",
     "url": "https://www.nature.com/articles/s41586-026-10538-z"
   },
   "publication_source_id": "src:juno-nature-2026-oscillation",
-  "official_url": null,
-  "hepdata": null,
-  "links": {
-    "website": null
+  "published": {
+    "confidence": "verified",
+    "locator": "Nature 654, 343-348 (2026), article page",
+    "note": "Nature publication date.",
+    "quote": "Article Published: 10 June 2026",
+    "sources": [
+      "src:juno-nature-2026-oscillation"
+    ],
+    "value": "2026-06-10",
+    "verified_at": "2026-10-25"
   },
-  "notes": [
-    "IHEP announced these results at a press conference on 2025-11-19 (src:juno-ihep-first-results-en), one day after the arXiv posting of 2025-11-18 and ahead of the 2026-06-10 Nature publication; `date` is the earliest public date (the preprint), `announced` and `published` carry the other two dates."
+  "result_type": "measurement",
+  "schema": "hep-atlas/0.2",
+  "significance": {
+    "confidence": "uncertain",
+    "locator": "Nature 654, 343-348 (2026), abstract",
+    "note": "This is a precision parameter measurement, not a discovery/observation/evidence claim with a single reported sigma; no significance figure applies.",
+    "sources": [
+      "src:juno-nature-2026-oscillation"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
+  },
+  "sources": [
+    "src:juno-nature-2026-oscillation",
+    "src:juno-ihep-first-results-en",
+    "src:juno-nature-publication-announcement-ihep"
   ],
-  "sources": ["src:juno-nature-2026-oscillation", "src:juno-ihep-first-results-en", "src:juno-nature-publication-announcement-ihep"],
-  "coverage": {
-    "tier": "A",
-    "researched": "partial"
+  "summary": {
+    "plain": "Using its first two months of data (59.1 days), JUNO measured two key numbers describing how neutrinos change type as they travel; the collaboration says the precision is improved by a factor of 1.6 relative to the combination of all previous measurements.",
+    "technical": "First 59.1 days of data since detector completion in August 2025 (data from 26 August to 2 November 2025 per IHEP): the first simultaneous high-precision determination of sin²θ₁₂ = 0.3092 ± 0.0087 and Δm²₂₁ = (7.50 ± 0.12) × 10⁻⁵ eV² for the normal mass ordering scenario, improving the precision by a factor of 1.6 relative to the combination of all previous measurements."
+  },
+  "title": "Measurement of reactor neutrino oscillation with the first JUNO data",
+  "topic_ids": [
+    "topic:reactor-neutrinos",
+    "topic:neutrino-oscillations"
+  ],
+  "type": "result",
+  "why_it_matters": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "These results advance the basic understanding of neutrinos, validate the design of the detector and indicate the readiness of JUNO for resolving the neutrino mass ordering with a larger dataset.",
+    "sources": [
+      "src:juno-nature-2026-oscillation"
+    ],
+    "value": "The Nature abstract says the results advance the basic understanding of neutrinos, validate the design of the detector and indicate the readiness of JUNO for resolving the neutrino mass ordering with a larger dataset.",
+    "verified_at": "2026-10-25"
   }
 }

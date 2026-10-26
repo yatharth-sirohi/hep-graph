@@ -35,7 +35,7 @@
       "confidence": "approximate",
       "end": null,
       "facility_id": "facility:snolab",
-      "note": "Start set to the 2018-05 DOE construction approval reported by Symmetry Magazine; facility:snolab was created by the `facilities` workstream after this record was drafted and now resolves.",
+      "note": "Start set to the 2018-05 DOE construction approval reported by Symmetry Magazine.",
       "quote": "The US Department of Energy has approved funding and start of construction for the SuperCDMS SNOLAB experiment, which will begin operations in the early 2020s.",
       "role": "host",
       "sources": [
@@ -110,7 +110,7 @@
       "end": null,
       "label": "SNOLAB: early-science operations",
       "locator": "SLAC news, 2026-08-26",
-      "note": "Open interval. The same source states the early-science phase continues through fall 2026, followed by a warm-up/optimization period, then a full-sensitivity science run planned to start in 2027; those future phases are not separately recorded as they had not begun as of verified_at. Currency check 2026-10-25: no source newer than the 2026-08-26 SLAC article was found. The July 2026 talk anticipated SR1a \"to continue until Sept 2026\", then a full warm-up with maintenance and repairs before SR1b in early 2027; SLAC says early science \"will continue through fall 2026\". The experiment may therefore already be warming up, which no fetched source reports, so it is not recorded as an event.",
+      "note": "Open interval. The same source states the early-science phase continues through fall 2026, followed by a warm-up/optimization period, then a full-sensitivity science run planned to start in 2027; those future phases are not separately recorded as they had not begun as of verified_at. Checked 2026-10-25: no source newer than the 2026-08-26 SLAC article was found. The July 2026 talk anticipated SR1a \"to continue until Sept 2026\", then a full warm-up with maintenance and repairs before SR1b in early 2027; SLAC says early science \"will continue through fall 2026\". The experiment may therefore already be warming up, which no fetched source reports, so it is not recorded as an event.",
       "quote": "has begun collecting its very first scientific data",
       "sources": [
         "src:supercdms-slac-news-2026-08-26-early-science",
@@ -185,7 +185,7 @@
     {
       "confidence": "verified",
       "experiment_id": "experiment:supercdms-soudan",
-      "note": "Split from a single combined record on 2026-09-18: SuperCDMS-Soudan (INSPIRE recid 1298909) has its own terminal `date_completed` (2015) and is now a separate experiment id per A3 ('a revived programme is a new experiment id with lineage'); this (SNOLAB) record carries the canonical predecessor pointer.",
+      "note": "SuperCDMS-Soudan (INSPIRE recid 1298909) completed in 2015 and is recorded as a separate experiment; this (SNOLAB) record is its upgrade.",
       "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
       "relation": "upgrade_of",
       "sources": [
@@ -208,8 +208,8 @@
   },
   "name": "SuperCDMS",
   "notes": [
-    "Split on 2026-09-18: this record now covers only the SNOLAB programme (INSPIRE recid 1357671). The earlier Soudan-era programme (INSPIRE recid 1298909, FNAL-E-0891), which has its own terminal `date_completed` (2015-01-01) confirmed by Symmetry Magazine, is now `experiment:supercdms-soudan`, linked here via `lineage`. A prior draft folded both eras into this one record with the Soudan interval deliberately mislabelled non-terminal (`active`) to dodge the A3 non-terminal-after-terminal check; that was incorrect and has been corrected by the split, per A3's own prescription.",
-    "DOE Critical Decision milestones between the 2014 INSPIRE approval and the 2018 construction start (if any) are not recorded: no source fetched this session gives them."
+    "This record covers only the SNOLAB programme (INSPIRE recid 1357671). The earlier Soudan-era programme (INSPIRE recid 1298909, FNAL-E-0891), which has its own completion date (2015-01-01) confirmed by Symmetry Magazine, is recorded as experiment:supercdms-soudan and linked here as the predecessor.",
+    "DOE Critical Decision milestones between the 2014 INSPIRE approval and the 2018 construction start (if any) are not recorded: no source consulted gives them."
   ],
   "physics_goals": {
     "confidence": "verified",

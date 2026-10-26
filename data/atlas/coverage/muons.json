@@ -12,7 +12,7 @@
       "results (none exist yet; Phase-I is still under construction/commissioning per every source fetched)"
     ],
     "name": "COMET",
-    "notes": "Mandatory-bar depth: experiment, detector, collaboration and Phase-I TDR document written; site:j-parc-hadron-hall created (owned by this workstream per the Wave-3 registry) for the fixed-target lead's KOTO record to reference. Sensitivity goal (3.1x10^-15 design, 7x10^-15 90% C.L. upper limit) sourced from the Phase-I TDR (arXiv:1812.09018).",
+    "notes": "Records exist for the experiment, detector, collaboration and Phase-I TDR document, and for site:j-parc-hadron-hall (also used by the KOTO record). Sensitivity goal (3.1x10^-15 design, 7x10^-15 90% C.L. upper limit) sourced from the Phase-I TDR (arXiv:1812.09018).",
     "owner": "muons",
     "priority": 3,
     "researched": "partial",
@@ -25,10 +25,9 @@
     "facility": "PSI (Paul Scherrer Institut)",
     "missing_fields": [
       "collaboration formation date",
-      "collaboration membership counts (not stated in any source fetched this session)",
+      "collaboration membership counts (not stated in any source consulted)",
       "collaboration leadership (person records owned elsewhere)",
-      "detector specs (LXe mass, chamber dimensions -- not sourced this session)",
-      "facility:psi / site:psi-villigen (owned by the 'facilities' workstream, not yet landed; referenced as expected dangling ids)"
+      "detector specs (LXe mass, chamber dimensions -- not sourced)"
     ],
     "name": "MEG",
     "notes": "Mandatory-bar depth plus the required exception result: experiment, detector, collaboration and the 2016 final branching-ratio upper limit (result:meg-mu-to-e-gamma-limit-2016, BR < 4.2x10^-13, 90% C.L.) all written, sourced from the collaboration's own final-result paper (arXiv:1605.05081).",
@@ -44,10 +43,9 @@
     "facility": "PSI (Paul Scherrer Institut)",
     "missing_fields": [
       "collaboration formation date",
-      "collaboration membership counts (not stated in any source fetched this session)",
+      "collaboration membership counts (not stated in any source consulted)",
       "collaboration leadership (person records owned elsewhere)",
-      "detector specs (upgraded LXe calorimeter volume/granularity, chamber dimensions -- not sourced this session)",
-      "facility:psi / site:psi-villigen / accelerator:psi-hipa (owned by the 'facilities' workstream, not yet landed; referenced as expected dangling ids)"
+      "detector specs (upgraded LXe calorimeter volume/granularity, chamber dimensions -- not sourced)"
     ],
     "name": "MEG II",
     "notes": "Mandatory-bar depth plus the required exception result: experiment, detector, collaboration and the 2024 first-dataset branching-ratio upper limit (result:meg-ii-mu-to-e-gamma-limit-2024, BR < 7.5x10^-13 alone / < 3.1x10^-13 combined with MEG, 90% C.L.) all written, sourced from arXiv:2310.12614. lineage.upgrade_of experiment:meg recorded.",
@@ -68,7 +66,7 @@
       "results (none exist yet; every fetched status source describes Mu2e as under construction, with initial data collection most recently planned for 2027)"
     ],
     "name": "Mu2e",
-    "notes": "FLAGSHIP depth achieved except results (honestly none, per the correctness rule against implying results by omission): site:fermilab-mu2e-hall, experiment, detector (25 m solenoid system, sourced), collaboration and the TDR document (document:mu2e-tdr) all written. Sensitivity-goal conflict recorded and resolved: 2.5x10^-17 (INSPIRE experiment record, rank 3) used as the primary key_specs value, 3x10^-17 (2022 status proceedings) noted as a distinct, later staged-plan figure -- see docs/atlas-worklog/muons.md Conflicts.",
+    "notes": "Full-depth records except results, of which there are none yet: site:fermilab-mu2e-hall, experiment, detector (25 m solenoid system, sourced), collaboration and the TDR document (document:mu2e-tdr). Two sensitivity goals appear in the sources: 2.5x10^-17 (INSPIRE experiment record) is used as the primary key_specs value, and 3x10^-17 (2022 status proceedings) is noted as a distinct, later staged-plan figure.",
     "owner": "muons",
     "priority": 1,
     "researched": "full",
@@ -81,10 +79,9 @@
     "facility": "PSI (Paul Scherrer Institut)",
     "missing_fields": [
       "collaboration formation date",
-      "collaboration membership counts (not stated in any source fetched this session)",
+      "collaboration membership counts (not stated in any source consulted)",
       "collaboration leadership (named on the official site -- Prof. Andre Schoning, Dr. Stefan Ritt -- but not recorded as structured leadership rows, since person records are owned elsewhere)",
-      "detector dimension specs (pixel layer count/geometry beyond 'third layer installed' -- not sourced this session)",
-      "facility:psi / site:psi-villigen / accelerator:psi-hipa (owned by the 'facilities' workstream, not yet landed; referenced as expected dangling ids)",
+      "detector dimension specs (pixel layer count/geometry beyond 'third layer installed' -- not sourced)",
       "results (none exist yet; detector still under construction as of the most recent official update, 2026-09-16)"
     ],
     "name": "Mu3e",
@@ -103,8 +100,8 @@
       "collaboration formation date",
       "collaboration leadership (person records owned elsewhere)",
       "precise MC-1 building coordinate (campus-level geocoder approximation only; fnal.gov and muon.fnal.gov paths returned HTTP 403/404)",
-      "33-month interval gap (2014-08 to 2017-04, ring installation/magnetic-field-mapping era) not covered by a sourced interval -- flagged by the validator as an honest hull gap rather than filled with an invented status",
-      "BNL E821 lineage recorded only as a sourced prose note, not a structured lineage row (experiment:bnl-e821 is not this workstream's id to create)"
+      "33-month interval gap (2014-08 to 2017-04, ring installation and magnetic-field-mapping period) not covered by a sourced interval; it is left open rather than filled with an invented status",
+      "BNL E821 lineage is recorded only as a sourced prose note, not as a link; the record for experiment:bnl-e821 does not exist in the Atlas yet"
     ],
     "name": "Muon g-2",
     "notes": "FLAGSHIP depth achieved: site:fermilab-mc-1-muon-campus, experiment, detector (14.224 m / 1.45 T storage ring, both quoted from the collaboration's own paper), collaboration, 3 results (2021 0.46 ppm, 2023 0.20 ppm, 2025 127 ppb final measurements, all verbatim collaboration titles) and the TDR document (document:muon-g-2-tdr) all written.",

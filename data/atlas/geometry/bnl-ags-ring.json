@@ -37,7 +37,7 @@
   "geometry": {
     "confidence": "approximate",
     "locator": "OSM way/289305285, timestamp_osm_base 2026-09-18T22:24:35Z; BNL Bulletin Board, 1960-08-02, 'AGS Design Specifications' table",
-    "note": "Kept 'approximate' by an honesty call (see method) even though the length check below passes against a rank-2 official source.",
+    "note": "Kept 'approximate' (reasons in the method) even though the length check below passes against a rank-2 official source.",
     "sources": [
       "src:geo-bnl-osm-ags-ring",
       "src:geo-bnl-ags-1960-bulletin"
@@ -140,11 +140,9 @@
     "website": null
   },
   "map_id": "map:brookhaven-national-laboratory",
-  "method": "OpenStreetMap way 289305285 ('913 - ASG Ring' [sic], place=locality, wikidata Q438407 linking to the Alternating Gradient Synchrotron), a single closed way of 20 nodes, used verbatim. Building 913 is independently confirmed as 'AGS Ring' (map coordinate H3) by BNL's own central-campus-map building key (src:geo-bnl-central-campus-map). Kept accuracy_m at the ring-road/imagery-traced tier (≥30 m) and confidence 'approximate' despite a passing length check: the way carries place=locality rather than a tunnel/building/man_made tag, i.e. it reads as a hand-drawn boundary around the visible ring feature in aerial imagery, not an official technical alignment (contrast geometry:bnl-rhic-ring's explicit tunnel=yes/indoor=yes tagging). This mirrors the CERN SPS ring precedent (GEOMETRY_cern.md conflict #1).",
+  "method": "OpenStreetMap way 289305285 ('913 - ASG Ring' [sic], place=locality, wikidata Q438407 linking to the Alternating Gradient Synchrotron), a single closed way of 20 nodes, used verbatim. BNL's own central-campus-map building key independently confirms Building 913 as 'AGS Ring' (map coordinate H3). Accuracy stays at the ring-road/imagery-traced level (30 m or coarser) and confidence 'approximate' despite a passing length check: the way carries place=locality rather than a tunnel, building or man_made tag, so it reads as a hand-drawn boundary around the visible ring in aerial imagery, not an official technical alignment (the RHIC ring way, by contrast, is explicitly tagged tunnel=yes and indoor=yes).",
   "name": "Alternating Gradient Synchrotron ring, full ring",
-  "notes": [
-    "QA pass (2026-09-21): removed the `valid: {start: '1960-07', end: null}` window a previous pass set (1960-07 is AGS's own operational start, already `accelerator:ags`'s sourced interval start -- `valid` here was redundant with the entity's own timeline, not a case of the shape's lifetime differing from it). Removing it is a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless only because AGS genuinely is still active; the same pattern produced a live false-'active' claim on geometry:hera-tunnel-ring and geometry:bnl-rhic-ring (both decommissioned machines), fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md. Confirmed via hepgraph.atlas.build._Context.status_at_build on accelerator:ags at build day 2026-09-21: 'active', matching accelerator:ags.status."
-  ],
+  "notes": [],
   "osm": {
     "elements": [
       "way/289305285"
