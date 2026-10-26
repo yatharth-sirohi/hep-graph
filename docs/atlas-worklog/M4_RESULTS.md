@@ -77,3 +77,29 @@ Table JSON hashes, retrieval date (2026-10-26) and licence (CC0) are recorded in
   `km3net-arca-diffuse-flux-limit-2026`: their claim quotes do not state a limit (the A16 keyword
   check does not cover `limit`). The mark follows the record.
 * `static/atlas/generated/` is rebuilt, not committed.
+
+## Checks (2026-10-26)
+
+* Validator: `0 errors, 1596 warnings, 4 informational` (the warnings predate this stream).
+* Build: 82 files, `--check` up to date; `limits/wimp-si.json` is listed in the manifest.
+* `pytest -q`: 710 passed, 139 skipped. `tests/test_atlas_limits.py` is the one unit check
+  (loader and validator: NaN, zero, string, wrong unit, unsorted, a stale units check, a missing
+  HEPData record, a marker whose quote lacks its value; and the panel-link table against the data).
+* `tests/browser_atlas.cjs`, chromium, `HEP_ATLAS_DATA=generated`: 106 passed, 0 errors (one
+  earlier run stopped at the unrelated "Filters compose" test with a 10 s timeout; the re-run, with
+  no code change, passed). One browser block per view. Firefox and WebKit are left to the integrator.
+* `tests/browser_atlas_a11y.cjs`, chromium: 41 passed, 0 WCAG axe violations in 33 states, including
+  both views (a card open, the table open, the numbers and the method open).
+* Fixture tree (`?data=fixtures`): the story draws the fixtures' results; the plot says the Atlas data
+  has no such plot and draws nothing.
+
+## Hand check of the limit points against HEPData (tables re-fetched 2026-10-26)
+
+| Curve | Row | Mass (GeV/c²) | Cross section (cm²) | HEPData | Page |
+| --- | --- | --- | --- | --- | --- |
+| LZ 2022, `pc_limit` | 13 of 40 (minimum) | 36 | 9.16769e-48 | same | table row and "9.17 × 10⁻⁴⁸ at 36" |
+| LZ 2022, `pc_limit` | 40 of 40 (last) | 10 000 | 2.79882e-45 | same | table row |
+| LZ 2024, `limit` | 13 of 26 (minimum) | 40 | 2.1816833824484827e-48 | same | table row, "2.18 × 10⁻⁴⁸ at 40" and the hover read-out |
+
+The stored files equal the live tables row for row, and the table hashes match the ones recorded.
+The abstracts' numbers agree: 9.2×10⁻⁴⁸ cm² at 36 GeV/c² (LZ 2022) and 2.2×10⁻⁴⁸ cm² at 40 GeV/c² (LZ 2024).

@@ -196,7 +196,7 @@ function drawPlot(model, bundle, width) {
     }
   }
   svg.append(labels);
-  svg.append(s('text', { class: 'lm-region-note', x: margin.left + 10, y: margin.top + 20, text: 'Excluded at 90% CL: the region above each line' }));
+  svg.append(s('text', { class: 'lm-region-note', x: margin.left + 10, y: margin.top + 20, text: compact ? 'Excluded at 90% CL: above each line' : 'Excluded at 90% CL: the region above each line' }));
 
   // ---- the read-out target
   const cross = s('g', { class: 'lm-cross', visibility: 'hidden' }, s('circle', { class: 'lm-cross-ring', r: 10, cx: 0, cy: 0 }));
@@ -219,7 +219,7 @@ export async function mount(ctx) {
     bundle = await loader.getLimits(plot.slug);
   } catch (error) {
     // A missing or failed bundle is an error, never an empty plot: nothing drawn must read as "no limits".
-    host.fail(`The limits could not be loaded: ${error.message}. Check your connection and retry.`, {
+    host.fail(`The limits could not be loaded: ${error.message}.`, {
       retry: () => window.location.reload(),
     });
     return null;
