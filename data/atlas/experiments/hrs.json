@@ -1,0 +1,141 @@
+{
+  "accelerator_ids": [
+    "accelerator:pep"
+  ],
+  "aliases": [
+    "HRS",
+    "High Resolution Spectrometer"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:hrs"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": {
+    "confidence": "verified",
+    "locator": "Phys. Rev. D 42, 2180, title",
+    "note": "29 GeV is the energy in the paper title; the abstract gives sqrt(s) = 29 GeV (TeX markup on the APS page).",
+    "quote": "Test of QED to fourth order by study of four-lepton final states in e+e- interactions at 29 GeV with the HRS detector",
+    "sources": [
+      "src:colliders2-hrs-qed-four-lepton-prd-1990",
+      "src:colliders2-hrs-sbu-record-prd-1990"
+    ],
+    "value": "Electron-positron collisions at 29 GeV centre-of-mass energy at PEP",
+    "verified_at": "2026-10-26"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:slac",
+      "locator": "Argonne report ANL-HEP-CP-83-50 (J. M. Weiss), abstract",
+      "note": "Hosted by SLAC at the PEP storage ring (the PRD paper names \"the SLAC storage ring PEP\").",
+      "quote": "The High Resolution Spectrometer (HRS) has been collecting data at PEP since the end of 1981",
+      "role": "host",
+      "sources": [
+        "src:colliders2-hrs-weiss-results-1983"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:hrs",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": {
+        "approx": true,
+        "date": "1990",
+        "earliest": "1983",
+        "latest": "1990",
+        "note": "Upper bound: the end of PEP operation (1990). The date of the last HRS data was not found."
+      },
+      "label": "PEP data taking",
+      "locator": "Argonne report ANL-HEP-CP-83-50 (J. M. Weiss), abstract",
+      "note": "Start: \"since the end of 1981\". The end of HRS data taking was not found in any source consulted. It is bracketed between 1983 (the Argonne report is written while data taking continues; 120 pb-1 accumulated) and the end of PEP operation in 1990 (\"ran during the years 1980–1990\", CERN Courier). 1990 is an upper bound, not a reported date.",
+      "quote": "The High Resolution Spectrometer (HRS) has been collecting data at PEP since the end of 1981",
+      "sources": [
+        "src:colliders2-hrs-weiss-results-1983",
+        "src:colliders2-cerncourier-slac-at-50"
+      ],
+      "start": {
+        "approx": true,
+        "date": "1981",
+        "display": "end of 1981"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed running (upper bound)",
+      "locator": "CERN Courier, \"SLAC at 50: honouring the past and creating the future\"",
+      "note": "The end of HRS data taking was not found in any source consulted. It is bracketed between 1983 (the Argonne report is written while data taking continues; 120 pb-1 accumulated) and the end of PEP operation in 1990 (\"ran during the years 1980–1990\", CERN Courier). 1990 is an upper bound, not a reported date.",
+      "quote": "The Positron–Electron Project (PEP), a collider ring with a diameter almost 10 times larger than SPEAR, ran during the years 1980–1990.",
+      "sources": [
+        "src:colliders2-cerncourier-slac-at-50"
+      ],
+      "start": {
+        "approx": true,
+        "date": "1990",
+        "earliest": "1983",
+        "latest": "1990",
+        "note": "Upper bound: the end of PEP operation (1990). The date of the last HRS data was not found."
+      },
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "collider",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "High Resolution Spectrometer (HRS) at PEP",
+  "notes": [
+    "HRS here is the High Resolution Spectrometer at SLAC PEP; it is unrelated to the LAMPF and Jefferson Lab spectrometers of the same name.",
+    "No HRS website exists; none is recorded. The last-data date is unresolved (see the interval notes)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "Argonne report ANL-HEP-CP-83-50 (J. M. Weiss), abstract",
+      "note": "",
+      "quote": "The results of analyses are presented in the following areas: (1) QED and electroweak tests, (2) scalar electron search, (3) inclusive hadron production, (4) D/sup 0/, D/sup +/ and D* production, and studies of quark fragmentation.",
+      "sources": [
+        "src:colliders2-hrs-weiss-results-1983"
+      ],
+      "value": "Test QED and the electroweak theory, search for scalar electrons and study hadron and charm production",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:colliders2-hrs-weiss-results-1983",
+    "src:colliders2-hrs-qed-four-lepton-prd-1990",
+    "src:colliders2-hrs-sbu-record-prd-1990"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A general-purpose detector at SLAC's PEP electron-positron ring that took data from the end of 1981. It tested quantum electrodynamics and the electroweak theory, searched for scalar electrons and studied hadron production. Its end date is not documented in the sources found.",
+    "technical": "HRS at PEP: general-purpose solenoidal spectrometer, 29 GeV e⁺e⁻; collecting data since the end of 1981, 120 pb⁻¹ by 1983 and 291 pb⁻¹ in the 1990 four-lepton QED test (Phys. Rev. D 42, 2180). End of data taking not found (bracketed 1983 to 1990)."
+  },
+  "topic_ids": [
+    "topic:collider-physics",
+    "topic:electroweak-physics",
+    "topic:qcd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}
