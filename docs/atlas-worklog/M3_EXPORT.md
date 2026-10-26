@@ -32,6 +32,9 @@ No data was written; there is nothing to source in this stream.
   and beam-label boxes (background, border, radius, shadow, opacity from computed style), text with the
   browser's own line breaks, and leader lines. A change to a stylesheet or to `globeicons.js`
   therefore shows up in the export with no change in `export.js`.
+* A picture is never taken in the middle of a layout: `globe.js` `isSettled()` says whether a marker
+  rebuild or a caption pass is still waiting, and export waits for it and for the markers and captions
+  to stand still for ~12 frames (a capture taken early showed captions in their pre-declutter places).
 * Map: tiles are drawn from the `<img>` elements Leaflet already loaded (nothing is fetched for
   the export); the vector layer from the live SVG with computed paint written onto it; symbols
   and labels from their elements.
@@ -58,13 +61,16 @@ No data was written; there is nothing to source in this stream.
   "None recorded in the Atlas". Experiment years are the first to last `active` interval (or
   "present"; "building (2017)" etc. for one that never ran).
 * Not offered on a phone (header has no room; `export.css` hides it). Print works anywhere.
+* The sheet is fitted to one page by measurement (`fitSheet`): built off screen at A4's narrower width,
+  it lowers the map's height (then the type size) until it is under 252 mm, which is one page on Letter
+  (257 mm printable) and A4 (273 mm). All 48 facilities were printed to PDF on Letter: one page each.
 * A sheet lists at most 30 experiments and 8 sources and says "and N more"; the panel has all.
 
 ## For the integrator
 
 Shared files touched, each by a few lines: `index.html` (link + header button), `app.js`
 (import + `exportModule.init`), `panels.js` (import + one button in `renderFacility`),
-`globe.js` (`captureFrame` on the API), `localmap.js` (`exportInfo()`), `about.html` (one
+`globe.js` (`captureFrame` and `isSettled` on the API), `localmap.js` (`exportInfo()`), `about.html` (one
 paragraph), `tests/browser_atlas.cjs` (two records, before the local-map block),
 `tests/test_atlas_static_css.py` (`export.css` in the brace-balance list). New: `js/export.js`,
 `js/exportpaint.js`, `export.css`. The embed/projector streams that hide the header will hide
