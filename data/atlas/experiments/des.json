@@ -1,0 +1,251 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "DES"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:des"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cerro-tololo-inter-american-observatory",
+      "locator": "arXiv:2101.05765, abstract",
+      "note": "",
+      "quote": "optical/near-infrared imaging by the Dark Energy Camera mounted on the 4-m Blanco telescope at Cerro Tololo Inter-American Observatory in Chile",
+      "role": "host",
+      "sources": [
+        "src:c2-de-des-dr2-arxiv-2021"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:des",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2008",
+      "label": "DES white paper (proposed survey)",
+      "locator": "arXiv:astro-ph/0510346, abstract (submitted October 2005)",
+      "note": "Start is the month the white paper was posted; the date of the original proposal is not stated. End is the 2008 DOE approval to start construction of DECam.",
+      "quote": "We describe the Dark Energy Survey (DES), a proposed optical-near infrared survey of 5000 sq. deg of the South Galactic Cap to ~24th magnitude in SDSS griz",
+      "sources": [
+        "src:c2-de-des-white-paper-arxiv-2005"
+      ],
+      "start": "2005-10",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2012-09-12",
+      "label": "DECam construction",
+      "locator": "arXiv:1504.02900, section 1 (Introduction)",
+      "note": "\"In 2012 DECam was completed and installed on the Blanco telescope, with first light in September 2012.\"",
+      "quote": "in 2008 the project received approval from DOE to initiate construction",
+      "sources": [
+        "src:c2-de-decam-arxiv-2015"
+      ],
+      "start": "2008",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2012-11-01",
+      "label": "first light and commissioning",
+      "locator": "arXiv:1504.02900, section on installation",
+      "note": "End is the start of the science-verification period (next interval).",
+      "quote": "Official “First Light” was on the night of September 12 (UT), 2012.",
+      "sources": [
+        "src:c2-de-decam-arxiv-2015"
+      ],
+      "start": "2012-09-12",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2013-02",
+      "label": "science verification",
+      "locator": "arXiv:2101.05765, section 3 (data processing; the sentence continues \"February 22)\" after a column break)",
+      "note": "The DES overview paper (arXiv:1601.00329) gives the SV period as \"November 2012 to February 2013\"; the DR2 paper gives 2012 November 1 through 2013 February 22. End is recorded at month precision. The Y1 survey season started on 2013 August 15, so about six months of the record between SV and Y1 carry no interval.",
+      "quote": "Verification (SV) period (2012 November 1 through 2013",
+      "sources": [
+        "src:c2-de-des-dr2-arxiv-2021",
+        "src:c2-de-des-overview-arxiv-2016"
+      ],
+      "start": "2012-11-01",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2019-01-09",
+      "kind": "run",
+      "label": "survey observations (Y1 to Y6)",
+      "locator": "arXiv:2601.14559, section II (Dark Energy Survey)",
+      "note": "The Y6 paper says DES was allocated 760 distinct full or half nights between these dates; six observing seasons (Y1 to Y6).",
+      "quote": "between 2013 August 15 and 2019 January 9",
+      "sources": [
+        "src:c2-de-des-y6-3x2pt-arxiv-2026"
+      ],
+      "start": "2013-08-15",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "observing completed",
+      "locator": "NOIRLab release noao1901 (8 January 2019), first paragraph",
+      "note": "The release is dated 8 January 2019 and states in the future tense that the final image will be taken on the night of 9 January; the Y6 paper independently gives 2019 January 9 as the end of the allocated window. No post-event page could be fetched because darkenergysurvey.org returned HTTP 504 or timed out on every attempt. Data analysis continues (DES Y6 results, 2026).",
+      "quote": "On the night of 9 January 2019, the V. M. Blanco 4-meter telescope at the National Science Foundation’s (NSF) Cerro Tololo Inter-American Observatory (CTIO), high in the mountains of Chile, will close the camera’s shutter on the final image from the Dark Energy Survey (DES)",
+      "sources": [
+        "src:c2-de-noirlab-des-legacy-release-2019"
+      ],
+      "start": "2019-01-09",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Camera focal plane",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "570,000,000 pixels (570 Mpixel)",
+        "locator": "arXiv:1504.02900, abstract",
+        "note": "",
+        "quote": "The 570 Mpixel focal plane comprises 62 2kx4k CCDs for imaging and 12 2kx2k CCDs for guiding and focus.",
+        "sources": [
+          "src:c2-de-decam-arxiv-2015"
+        ],
+        "unit": "",
+        "value": 570000000,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Imaging CCDs",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "62 imaging CCDs",
+        "locator": "arXiv:1504.02900, abstract",
+        "note": "",
+        "quote": "The 570 Mpixel focal plane comprises 62 2kx4k CCDs for imaging and 12 2kx2k CCDs for guiding and focus.",
+        "sources": [
+          "src:c2-de-decam-arxiv-2015"
+        ],
+        "unit": "",
+        "value": 62,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Allocated observing nights",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "760 distinct full or half nights",
+        "locator": "arXiv:2101.05765, section 2 (DES Operations)",
+        "note": "Allocation figure (the paper says \"scheduled to observe\"); the Y6 paper says \"allocated 760 distinct full- or half-nights\".",
+        "quote": "DES was scheduled to observe for 760 distinct full or half",
+        "sources": [
+          "src:c2-de-des-dr2-arxiv-2021"
+        ],
+        "unit": "",
+        "value": 760,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "dark_energy_survey",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "darkenergysurvey.org home page",
+      "note": "",
+      "quote": "Exploring the expanding Universe",
+      "sources": [
+        "src:c2-de-des-homepage"
+      ],
+      "value": "https://www.darkenergysurvey.org/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "Dark Energy Survey",
+  "notes": [
+    "external.inspire_experiment is left null: INSPIRE-HEP was not contacted (STREAM_RULES forbid it), so no INSPIRE experiment recid could be fetched.",
+    "Survey sky coverage (~5000 deg², stated in the DES DR2 abstract) is not a Quantity because the Atlas area dimension has no deg² unit.",
+    "darkenergysurvey.org (including the collaboration, overview and end-of-nights pages) returned HTTP 504 or timed out on every fetch except its home page, so dates come from collaboration papers and a NOIRLab release."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:astro-ph/0510346, abstract",
+      "note": "",
+      "quote": "The survey data will allow us to measure the dark energy and dark matter densities and the dark energy equation of state through four independent methods: galaxy clusters, weak gravitational lensing tomography, galaxy angular clustering, and supernova distances.",
+      "sources": [
+        "src:c2-de-des-white-paper-arxiv-2005"
+      ],
+      "value": "Measure the dark energy and dark matter densities and the dark energy equation of state with four complementary probes: galaxy clusters, weak lensing, galaxy angular clustering and supernova distances.",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:c2-de-des-homepage",
+    "src:c2-de-des-white-paper-arxiv-2005",
+    "src:c2-de-decam-arxiv-2015",
+    "src:c2-de-des-dr2-arxiv-2021",
+    "src:c2-de-des-y6-3x2pt-arxiv-2026",
+    "src:c2-de-noirlab-des-legacy-release-2019"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A six-year photographic map of a quarter of the southern sky, made with the 570-megapixel Dark Energy Camera on a Chilean telescope. By measuring the shapes and positions of hundreds of millions of galaxies, it tests how dark energy and gravity shape the universe.",
+    "technical": "Optical/near-infrared imaging survey (grizY) of ~5000 deg² with DECam on the 4-m Blanco telescope, CTIO, for weak lensing, galaxy clustering and BAO, cluster counts and Type Ia supernovae. Observed 2013 August 15 to 2019 January 9; Y3 and Y6 3×2pt cosmology results published in 2021 and 2026."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:dark-energy",
+    "topic:cosmology",
+    "topic:dark-matter"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1504.02900, abstract",
+      "note": "",
+      "quote": "The camera was designed and constructed by the Dark Energy Survey Collaboration",
+      "sources": [
+        "src:c2-de-decam-arxiv-2015"
+      ],
+      "value": "The wide-field Dark Energy Camera (570 megapixels, 2.2-degree field of view) on the Blanco 4-m telescope, built by the DES Collaboration, imaged 5000 deg² in five bands.",
+      "verified_at": "2026-10-26"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:boss",
+    "experiment:eboss",
+    "experiment:sdss"
+  ],
+  "id": "detector:boss-spectrographs",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operations",
+      "locator": "sdss.org BOSS page, 'BOSS at a Glance'",
+      "note": "Start is the first BOSS dark-time observation season; the spectrographs continue in use in SDSS-V as the primary instruments of the Black Hole Mapper (sdss.org BOSS Spectrographs page).",
+      "quote": "Dark time observations Fall 2009 - Spring 2014",
+      "sources": [
+        "src:c2-de-sdss-boss-page"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2009-10",
+        "display": "Fall 2009",
+        "earliest": "2009-09",
+        "latest": "2009-11"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "BOSS spectrographs",
+  "notes": [],
+  "parent_detector_id": "detector:sdss-2-5m-telescope",
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "sdss.org 'BOSS Spectrographs' page",
+      "note": "Start left open: the pages give BOSS first observations as fall 2009, but the spectrographs were rebuilt from the original SDSS spectrographs earlier.",
+      "quote": "In SDSS-V, one of (these two) BOSS spectrographs remained on the Sloan Telescope at Apache Point Observatory (APO) in New Mexico",
+      "role": "main",
+      "site_id": "site:apache-point-sdss-2-5m-telescope",
+      "sources": [
+        "src:c2-de-sdss-boss-spectrographs-page"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-de-sdss-boss-spectrographs-page",
+    "src:c2-de-sdss-boss-page",
+    "src:c2-de-sdss-eboss-page"
+  ],
+  "specs": {},
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "Two identical fibre-fed spectrographs, rebuilt from the original SDSS ones, that record the colours of up to 1,000 galaxies or quasars at once for BOSS, eBOSS and now SDSS-V.",
+    "technical": "Two rebuilt SDSS spectrographs (red and blue cameras split near 6000 Å), 1,000 fibres per plug plate for BOSS and eBOSS, resolution about 1560–2650, 3600–10,400 Å; in SDSS-V one remains at Apache Point and one is at Las Campanas."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "sdss.org 'BOSS Spectrographs' page",
+    "note": "",
+    "quote": "The two identical BOSS spectrographs were rebuilt from the original SDSS spectrographs.",
+    "sources": [
+      "src:c2-de-sdss-boss-spectrographs-page"
+    ],
+    "value": "Two identical dual-channel fibre-fed optical spectrographs rebuilt from the original SDSS spectrographs, fed by 1,000 fibres in 3-degree plug plates for BOSS and eBOSS.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "spectrometer",
+  "technology_classes": [
+    "spectrometer"
+  ],
+  "type": "detector"
+}
