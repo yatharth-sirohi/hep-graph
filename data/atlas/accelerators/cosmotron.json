@@ -1,0 +1,97 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:brookhaven-national-laboratory",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:cosmotron",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1953",
+      "label": "commissioning",
+      "locator": "BNL 'Our History: Accelerators', section heading",
+      "note": "Year precision, from the section heading; ends when the full design energy was reached.",
+      "quote": "Cosmotron (1952-1966)",
+      "sources": [
+        "src:bnl-about-history-accelerators-page"
+      ],
+      "start": "1952",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1966",
+      "label": "operation",
+      "locator": "BNL 'Our History: Accelerators', Cosmotron section",
+      "note": "",
+      "quote": "The machine reached its full design energy of 3.3 GeV in 1953.",
+      "sources": [
+        "src:bnl-about-history-accelerators-page",
+        "src:disc-bnl-75-timeline"
+      ],
+      "start": "1953",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "decommissioned",
+      "locator": "BNL 'Our History: Accelerators', Cosmotron section",
+      "note": "Ceased operation 1966; dismantled 1969.",
+      "quote": "After 14 years of service to the physics community, the Cosmotron ceased operation in 1966 and was dismantled in 1969.",
+      "sources": [
+        "src:bnl-about-history-accelerators-page"
+      ],
+      "start": "1966",
+      "status": "decommissioned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": false,
+  "kind": "synchrotron",
+  "links": {
+    "website": null
+  },
+  "name": "Cosmotron",
+  "notes": [
+    "The 1948 AEC approval is quoted in the page but not modelled as an interval, because intervals earlier than 1950 fall before the timeline epoch.",
+    "BNL lists the Cosmotron as 1952-1966; the page gives no first-beam date, so the commissioning interval starts at year precision."
+  ],
+  "particles": [
+    "proton"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:bnl-upton-campus",
+  "sources": [
+    "src:bnl-about-history-accelerators-page",
+    "src:disc-bnl-75-timeline"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "3.3 GeV (full design energy)",
+      "locator": "BNL 'Our History: Accelerators', Cosmotron section",
+      "note": "",
+      "quote": "The machine reached its full design energy of 3.3 GeV in 1953.",
+      "sources": [
+        "src:bnl-about-history-accelerators-page"
+      ],
+      "unit": "GeV",
+      "value": 3.3,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "decommissioned",
+  "summary": {
+    "plain": "Brookhaven's first big accelerator: a ring that in 1953 became the first to send protons to billions of electron volts and the first to deliver a beam outside the machine. It closed in 1966.",
+    "technical": "Proton synchrotron approved by the AEC in April 1948; reached its full design energy of 3.3 GeV in 1953; first synchrotron to provide an external beam; ceased operation in 1966 and was dismantled in 1969."
+  },
+  "type": "accelerator"
+}
