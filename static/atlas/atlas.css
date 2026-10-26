@@ -64,8 +64,11 @@
 
   /* ---- text */
   --white: #f4f7f8;
-  /* >= 4.5:1 on --paper, --panel, --panel-2 and --navy-2 (5.3:1 on --panel-2). */
-  --muted: #98a3a9;
+  /* Secondary text: 7.4:1 on --panel, 6.4:1 on --panel-2, 5.5:1 on --navy-2. The
+     margin is deliberate: a washed-out projector (simulated as brightness 1.6,
+     contrast 0.6) leaves it 4.8:1 on --panel-2, where the earlier #98a3a9 fell to
+     4.1:1. */
+  --muted: #a9b3b9;
 
   /* ---- accents (UI, not status) */
   --teal: #54c6ba;
@@ -1921,6 +1924,10 @@ body.is-map-route .atlas-header > .mode-buttons {
     left: var(--space-4);
     width: min(380px, calc(100% - 2 * var(--space-4)));
     padding: var(--space-4);
+  }
+  .start-card .start-action {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
   }
 }
 .start-card:focus {
