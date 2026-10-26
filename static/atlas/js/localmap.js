@@ -2134,31 +2134,38 @@ function renderDepth() {
   depth.innerHTML = '';
   depth.classList.toggle('hidden', !depthOpen);
   if (!depthOpen) return;
+  const depthValue = (d) => (d.value != null ? d.value : ((d.min || 0) + (d.max || 0)) / 2);
   const bars = [];
+  // Levels with no recorded depth are not plotted: the surface is at 0 m by
+  // definition, but an underground level whose depth the Atlas does not know
+  // would otherwise be drawn as if it were at the surface.
+  const unrecorded = [];
   for (const level of mapMeta.levels || []) {
     const d = level.depth_m;
-    const value = d ? (d.value != null ? d.value : ((d.min || 0) + (d.max || 0)) / 2) : 0;
-    bars.push({ label: level.name, depth: value, kind: 'level', display: d ? quantityText(d) : 'surface (0 m)' });
+    if (d) bars.push({ label: level.name, depth: depthValue(d), kind: 'level', display: quantityText(d) });
+    else if (level.kind === 'surface') bars.push({ label: level.name, depth: 0, kind: 'level', display: 'surface (0 m)' });
+    else unrecorded.push(level.name);
   }
   for (const feature of bundle.features) {
     if (!feature.depth_m) continue;
     const d = feature.depth_m;
-    const value = d.value != null ? d.value : ((d.min || 0) + (d.max || 0)) / 2;
-    bars.push({ label: feature.name, depth: value, kind: 'feature', display: quantityText(d) });
+    bars.push({ label: feature.name, depth: depthValue(d), kind: 'feature', display: quantityText(d) });
   }
   const maxDepth = Math.max(10, ...bars.map((b) => b.depth)) * 1.15;
   const W = 300;
-  const H = 240;
   const top = 26;
   const left = 54;
-  const plotH = H - top - 26;
+  const plotH = 188;
+  const labelBand = 78;
+  const H = top + plotH + 12 + labelBand;
   const svgNS = 'http://www.w3.org/2000/svg';
   const svg = document.createElementNS(svgNS, 'svg');
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
   svg.setAttribute('class', 'map-depth-svg');
   svg.setAttribute('role', 'img');
   svg.setAttribute('aria-label',
-    `Vertical section: depth below the surface in metres, ${bars.length} bars, deepest ${Math.round(Math.max(0, ...bars.map((b) => b.depth)))} metres.`);
+    `Vertical section: depth below the surface in metres, ${bars.length} bars, deepest ${Math.round(Math.max(0, ...bars.map((b) => b.depth)))} metres`
+    + `${unrecorded.length ? `; ${unrecorded.length} level${unrecorded.length === 1 ? '' : 's'} with no recorded depth not drawn` : ''}.`);
   const mk = (tag, attrs, text) => {
     const node = document.createElementNS(svgNS, tag);
     for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
@@ -2177,16 +2184,33 @@ function renderDepth() {
       `${Math.round(value)}`));
   }
   const slot = bars.length ? (W - left - 12) / bars.length : 0;
+  const barWidth = Math.max(6, slot - 8);
+  // The label band under the plot holds each bar's name, read upwards from the
+  // foot of its column; a long name is cut with an ellipsis (the whole name is
+  // the bar's <title> and sits in the key below).
+  const maxChars = 15;
   bars.forEach((bar, i) => {
     const x = left + 4 + i * slot;
     const y = top + (plotH * bar.depth) / maxDepth;
-    svg.appendChild(mk('rect', {
-      x, y: top, width: Math.max(6, slot - 8), height: Math.max(1, y - top),
+    const group = mk('g', { class: 'map-depth-column' });
+    group.appendChild(mk('title', {}, `${bar.label} — ${bar.display}`));
+    group.appendChild(mk('rect', {
+      x, y: top, width: barWidth, height: Math.max(1, y - top),
       class: `map-depth-bar is-${bar.kind}`,
     }));
-    svg.appendChild(mk('line', {
-      x1: x, y1: y, x2: x + Math.max(6, slot - 8), y2: y, class: 'map-depth-floor',
+    group.appendChild(mk('line', {
+      x1: x, y1: y, x2: x + barWidth, y2: y, class: 'map-depth-floor',
     }));
+    // The depth at the foot of the bar, and the name under the plot.
+    const cx = x + barWidth / 2;
+    group.appendChild(mk('text', {
+      x: cx, y: Math.min(y + 11, top + plotH + 9), 'text-anchor': 'middle', class: 'map-depth-value',
+    }, bar.depth ? `${Math.round(bar.depth)} m` : '0 m'));
+    const name = bar.label.length > maxChars ? `${bar.label.slice(0, maxChars - 1).trimEnd()}\u2026` : bar.label;
+    group.appendChild(mk('text', {
+      x: cx + 3, y: top + plotH + 16, class: 'map-depth-name', transform: `rotate(90 ${cx + 3} ${top + plotH + 16})`,
+    }, name));
+    svg.appendChild(group);
   });
   depth.append(
     h('h3', {}, 'Depth and level diagram — vertical section, not a plan view'),
@@ -2197,6 +2221,10 @@ function renderDepth() {
     h('ul', { class: 'map-depth-key' }, bars.map((bar) => h('li', {},
       `${bar.label} — ${bar.display}`))),
   );
+  if (unrecorded.length) {
+    depth.appendChild(h('p', { class: 'map-note map-depth-unrecorded' },
+      `Depth not recorded (not drawn): ${unrecorded.join('; ')}.`));
+  }
   const close = h('button', { type: 'button', class: 'text-btn' }, 'Close the depth diagram');
   close.addEventListener('click', () => {
     depthOpen = false;
