@@ -7,7 +7,7 @@
     "tier": "C"
   },
   "depth_m": null,
-  "entity_id": "site:psi-villigen",
+  "entity_id": null,
   "feature_type": "boundary",
   "geometry": {
     "confidence": "approximate",
@@ -522,6 +522,7 @@
   "method": "Three OpenStreetMap campus polygons combined into one MultiPolygon, used verbatim: way 28028409 and way 26680824 (both named 'Paul Scherrer Institut', research_institute, on the Villigen/west bank -- corroborated by the separately fetched named locality node 'PSI West' at 47.5368N, 8.2222E, which falls inside way 28028409's own bounding box) and way 26680821 (same name, on the Wurenlingen/east bank, corroborated by locality node 'PSI Ost' at 47.5386N, 8.2300E). The two-bank split matches PSI's own official description: 'located in the Canton of Aargau in the municipalities Villigen and Wurenlingen on either side of the River Aare.' Fetched through Nominatim's polygon_geojson=1 output; the geometry is the same underlying OpenStreetMap way data as a direct extract would give.",
   "name": "PSI Villigen/Wurenlingen campus boundary",
   "notes": [
+    "This shape is context: it shows where the PSI Villigen/Würenlingen campus is, not an experiment or detector, so it is drawn in every year. It is tied to its site by place only; the site's own record follows the experiments hosted there, which would have drawn the campus only from the date of the first hosted experiment.",
     "OSM's timestamp_osm_base is not available from Nominatim's response the way it is from a direct Overpass extract; osm.timestamp records the access date instead.",
     "This feature is linked to the PSI Villigen site and, through it, covers the site-hosted detector placements of MEG, MEG II and Mu3e; none of them has its own sourced hall footprint."
   ],
