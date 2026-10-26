@@ -1,0 +1,89 @@
+{
+  "aliases": [
+    "VEPP-2M collider",
+    "VEPP-2M e+e- collider"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:binp-novosibirsk",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:vepp-2m",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2000",
+      "label": "e+e- collider operation",
+      "locator": "Skrinsky (PAC 1995), section 1.3 (start); Silagadze essay on the SND site (end: \"After 2000, it was upgraded to the VEPP-2000\")",
+      "note": "Start = the year VEPP-2M started operating for experiments (Skrinsky). Other BINP sources date the machine earlier: \"Since 1974\" (Berkaev et al. 2011) and \"VEPP-2M (1972-2000)\" (Shatunov 2018). The end is the 2000 decision and upgrade to VEPP-2000.",
+      "quote": "started to operate for experiments at 1975",
+      "sources": [
+        "src:colliders2-skrinsky-accelerator-field-novosibirsk-1995",
+        "src:colliders2-snd-essay-silagadze"
+      ],
+      "start": "1975",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "upgraded to VEPP-2000",
+      "locator": "Silagadze, essay on the SND site, section I",
+      "note": "Year precision. In spring 2000 the Institute decided to modernise VEPP-2M into VEPP-2000 (Berkaev et al.); the old machine was not continued.",
+      "quote": "After 2000, it was upgraded to the VEPP-2000 collider with an increased center-of-mass energy (up to 2 GeV).",
+      "sources": [
+        "src:colliders2-snd-essay-silagadze"
+      ],
+      "start": "2000",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": null
+  },
+  "name": "VEPP-2M",
+  "notes": [
+    "The brief names VEPP-2000 and VEPP-4M; VEPP-2M is an addition because CMD-2 and SND ran on it.",
+    "Start-date conflict: Skrinsky (1995) \"started to operate for experiments at 1975\"; Berkaev et al. (2011) \"Since 1974\"; Shatunov (2018) \"VEPP-2M (1972-2000)\". The record follows Skrinsky (experiments) and notes the others."
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:binp-novosibirsk-akademgorodok",
+  "sources": [
+    "src:colliders2-skrinsky-accelerator-field-novosibirsk-1995",
+    "src:colliders2-snd-essay-silagadze",
+    "src:colliders2-vepp2000-first-experiments-jetp-2011",
+    "src:colliders2-shatunov-binp-colliders-talk-2018"
+  ],
+  "specs": {
+    "cms_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "up to 1.4 GeV",
+      "locator": "Silagadze, essay on the SND site, section I",
+      "note": "Centre-of-mass energy range 0.36-1.4 GeV; the maximum is recorded.",
+      "quote": "in the center-of-mass energy range of 0.36−1.4 GeV for over 25 years",
+      "sources": [
+        "src:colliders2-snd-essay-silagadze"
+      ],
+      "unit": "GeV",
+      "value": 1.4,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "summary": {
+    "plain": "The electron-positron collider of the Budker Institute in Novosibirsk, Siberia, that ran from the 1970s to 2000 at energies up to 1.4 GeV. Its detectors OLYA, ND, CMD-2 and SND measured how electron-positron collisions make hadrons, the basis of modern low-energy data. It was rebuilt as VEPP-2000.",
+    "technical": "VEPP-2M e⁺e⁻ collider at BINP: centre-of-mass energy range 0.36-1.4 GeV, operating for experiments from 1975 (some sources 1972/1974) to 2000; detectors ND (1982-87), CMD-1, CMD-2 (1992-2000) and SND (1995-2000); modernised into VEPP-2000 after 2000."
+  },
+  "type": "accelerator"
+}
