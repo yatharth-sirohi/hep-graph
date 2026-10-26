@@ -68,6 +68,34 @@ export function createChrome() {
     setKeyOpen(false, { restoreFocus: false });
   });
 
+  // The popover holds no controls, so the next Tab takes focus straight out of it — to
+  // the Filters button, or on into the page — and a popover left open behind that
+  // focus is one the person has stopped reading. Focus leaving it closes it, as
+  // Escape does, with focus staying where it went (it is not pulled back to the
+  // button). Not a close: focus moving to the Key button itself (its own click
+  // toggles), a pointer press on the button or in the popover (Safari does not focus
+  // a button it is clicked on, and a click on the popover's text is not leaving it),
+  // and the window losing focus while the popover has it (switching to another app).
+  let pointerOnKey = false;
+  document.addEventListener('pointerdown', (event) => {
+    pointerOnKey = keyPopover.contains(event.target) || keyBtn.contains(event.target);
+  }, true);
+  for (const type of ['pointerup', 'pointercancel']) {
+    document.addEventListener(type, () => { window.setTimeout(() => { pointerOnKey = false; }, 0); }, true);
+  }
+  keyPopover.addEventListener('focusout', (event) => {
+    if (keyPopover.hidden || pointerOnKey) return;
+    const next = event.relatedTarget;
+    if (next && (keyPopover.contains(next) || next === keyBtn)) return;
+    // relatedTarget is null when focus goes to nothing focusable and when the window
+    // is deactivated; only the second leaves the page's own focus where it was.
+    window.setTimeout(() => {
+      if (keyPopover.hidden || pointerOnKey || keyPopover.contains(document.activeElement)) return;
+      if (!next && !document.hasFocus()) return;
+      setKeyOpen(false, { restoreFocus: false });
+    }, 0);
+  });
+
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape' || PHONE.matches) return;
     // Escape inside the search box belongs to the search box (search.js).

@@ -338,14 +338,17 @@ async function openFilters(page) {
     assert.equal(card.role, "dialog");
     assert.notEqual(card.modal, "true", "the card is not modal: the globe behind it stays reachable");
     assert.equal(card.label, "Start here");
-    assert.equal(card.desc, "Every major particle-physics facility on a to-scale map, with every fact traced to its source.");
+    // Coverage is partial, so the card does not claim "every major facility" (M1 round 2).
+    assert.equal(card.desc, "Particle-physics facilities on to-scale maps, with every fact traced to its source.");
     assert.equal(card.focusInside, true, "opening the card moves focus into it, so a keyboard user starts there");
     assert.deepEqual(card.links.map((l) => l.href), [
-      "#/experiment/dune", "#/result/atlas-higgs-observation-2012", "#/topic/neutrino-oscillations", "?fk=underground_laboratory",
+      "#/experiment/dune", "#/result/atlas-higgs-observation-2012", "#/topic/neutrino-oscillations", "#/experiment/t2k",
     ]);
+    // The fourth question was "How deep are the underground labs?" until a depth chart
+    // exists to answer it; T2K's 295 km beam answers the one below today.
     assert.deepEqual(card.links.map((l) => l.text), [
       "Where is DUNE\u2019s far detector?", "Where was the Higgs discovered?",
-      "Which experiments study neutrino oscillations?", "How deep are the underground labs?",
+      "Which experiments study neutrino oscillations?", "How far does a neutrino beam travel?",
     ]);
     assert.deepEqual(card.buttons, ["Close Start here", "Browse results", "Search", "Explore the globe"]);
 
@@ -354,6 +357,7 @@ async function openFilters(page) {
       { href: "#/experiment/dune", panel: /Deep Underground Neutrino Experiment/, url: /#\/experiment\/dune$/ },
       { href: "#/result/atlas-higgs-observation-2012", panel: /observation of a new particle/i, url: /#\/result\/atlas-higgs-observation-2012$/ },
       { href: "#/topic/neutrino-oscillations", panel: /Neutrino oscillations/, url: /#\/topic\/neutrino-oscillations$/ },
+      { href: "#/experiment/t2k", panel: /^T2K/, url: /#\/experiment\/t2k$/ },
     ];
     for (const expected of expectations) {
       await p.locator(`#start-card a[href="${expected.href}"]`).click();
@@ -367,16 +371,8 @@ async function openFilters(page) {
       await p.locator("#start-card").waitFor();
       assert.equal(await p.locator("#start-here-link").getAttribute("aria-expanded"), "true");
     }
-    // The fourth is a filter: the globe narrows to underground laboratories.
-    const before = await p.evaluate(() => document.querySelectorAll(".atlas-marker").length);
-    await p.locator('#start-card a[href="?fk=underground_laboratory"]').click();
-    await p.waitForFunction(() => document.getElementById("start-card").hidden);
-    await p.waitForFunction((n) => document.querySelectorAll(".atlas-marker").length !== n, before, { timeout: 15000 });
-    assert.match(p.url(), /[?&]fk=underground_laboratory/);
-    assert.equal(await p.locator("#filters-badge").innerText(), "1", "the Filters button says one filter is on");
-
-    // Escape closes it, and it stays closed on the next cold visit.
-    await p.locator("#start-here-link").click();
+    // Escape closes it, and it stays closed on the next cold visit. (The loop above left it
+    // reopened from the footer after the last question.)
     await p.locator("#start-card").waitFor();
     await p.keyboard.press("Escape");
     await p.waitForFunction(() => document.getElementById("start-card").hidden);
@@ -462,6 +458,122 @@ async function openFilters(page) {
     assert.equal(box.overflowX, false, "no sideways scroll");
     await p.locator(".start-close").tap();
     await p.waitForFunction(() => document.getElementById("start-card").hidden);
+    await ctx.close();
+  });
+
+  // ---- what the Start-here questions land on (M1 round 2) -------------------------------
+  await record("Start here answers: the Higgs lands on CERN, selected, with ATLAS's and CMS's papers and the map first; the topic leads with its question and its experiments", async () => {
+    if (process.env.HEP_ATLAS_DATA !== "generated") return;
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const p = await ctx.newPage();
+    await p.goto(`${base}/atlas`);
+    await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 30000 });
+
+    // Where was the Higgs discovered? CERN is selected on the globe (the result names it),
+    // and the panel's first lines are the place, its map, and the paper announced beside it.
+    await p.goto(`${base}/atlas#/result/atlas-higgs-observation-2012`);
+    await p.locator("#detail-panel .result-where").waitFor({ timeout: 30000 });
+    await p.waitForFunction(() => [...document.querySelectorAll(".atlas-marker.is-selected")].some((el) => /CERN/.test(el.getAttribute("aria-label") || "")), null, { timeout: 15000 });
+    const higgs = await p.evaluate(() => {
+      const panel = document.getElementById("detail-panel");
+      const where = panel.querySelector(".result-where");
+      const companions = panel.querySelector(".result-companions");
+      const lede = panel.querySelector(".result-lede");
+      const before = (a, b) => !!(a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING);
+      return {
+        where: where.innerText, companions: companions && companions.innerText,
+        companionHref: companions && companions.querySelector("a").getAttribute("href"),
+        order: !!companions && before(where, companions) && before(companions, lede),
+        whereTop: where.getBoundingClientRect().top, panelBottom: panel.getBoundingClientRect().bottom,
+      };
+    });
+    assert.equal(higgs.where, "Where: CERN (local map)");
+    assert.match(higgs.companions, /^Announced the same day at CERN: CMS \u2014 Observation of a new boson at a mass of 125 GeV$/);
+    assert.equal(higgs.companionHref, "#/result/cms-higgs-boson-observation-2012");
+    assert.equal(higgs.order, true, "the place, then the paper announced with it, then the summary");
+    assert.ok(higgs.whereTop < 400, `the place is on the first screen, got y=${higgs.whereTop}`);
+    // The pair is symmetric: CMS's page names ATLAS's.
+    await p.locator(".result-companions a").click();
+    await p.waitForFunction(() => /CMS/.test(document.querySelector(".result-companions")?.innerText || "") === false
+      && /ATLAS/.test(document.querySelector(".result-companions")?.innerText || ""));
+    // A result with no same-day partner shows no such line.
+    await p.goto(`${base}/atlas#/result/lep-higgs-exclusion-2003`);
+    await p.locator("#detail-panel .result-where").waitFor();
+    assert.equal(await p.locator("#detail-panel .result-companions").count(), 0);
+
+    // Which experiments study neutrino oscillations? The question, then the experiments;
+    // the physicist's overview is collapsed below them.
+    await p.goto(`${base}/atlas#/topic/neutrino-oscillations`);
+    await p.locator("#detail-panel .plain-question").waitFor();
+    const topic = await p.evaluate(() => {
+      const panel = document.getElementById("detail-panel");
+      const sections = [...panel.querySelectorAll("details.panel-section")].map((d) => ({ title: d.querySelector("summary").textContent, open: d.open }));
+      const question = panel.querySelector(".plain-question");
+      const experiments = [...panel.querySelectorAll("details.panel-section")].find((d) => d.querySelector("summary").textContent === "Experiments");
+      return {
+        heading: panel.querySelector("h2").textContent,
+        questionAfterHeading: question.previousElementSibling === panel.querySelector("h2"),
+        questionText: question.textContent,
+        sections,
+        experimentLinks: experiments.querySelectorAll("a").length,
+        experimentsTop: experiments.getBoundingClientRect().top,
+        stray: [...panel.children].filter((c) => c.tagName === "P" && !c.className).length,
+      };
+    });
+    assert.equal(topic.heading, "Neutrino oscillations");
+    assert.equal(topic.questionAfterHeading, true);
+    assert.match(topic.questionText, /^Why do neutrinos change from one type into another/);
+    assert.equal(topic.sections[0].title, "Experiments", JSON.stringify(topic.sections));
+    assert.equal(topic.sections[0].open, true);
+    const overview = topic.sections.find((section) => section.title === "Technical overview");
+    assert.ok(overview && overview.open === false, "the technical overview is there, closed");
+    assert.equal(topic.stray, 0, "the overview paragraph is no longer loose in the panel");
+    assert.ok(topic.experimentLinks >= 20, `the list of experiments is the answer: ${topic.experimentLinks}`);
+    assert.ok(topic.experimentsTop < 400, `the experiments start on the first screen, got y=${topic.experimentsTop}`);
+    // The camera shows the world, not the densest region of it: lit places in North
+    // America, Europe and Asia are all on screen.
+    await p.waitForTimeout(2500);
+    const lit = await p.evaluate(() => [...document.querySelectorAll(".atlas-marker.is-highlighted")]
+      .filter((el) => el.getBoundingClientRect().width > 0 && getComputedStyle(el).display !== "none")
+      .map((el) => el.getAttribute("aria-label") || ""));
+    const region = (names) => lit.some((label) => names.test(label));
+    assert.ok(region(/Argonne|Fermi|Fred Lawrence|SNOLAB|Soudan|Los Alamos|Sanford/), `a North American place is in view: ${JSON.stringify(lit)}`);
+    assert.ok(region(/Boulby|CERN|Gran Sasso|Chooz|KM3NeT|Modane|Canfranc|ISIS/), `a European place is in view: ${JSON.stringify(lit)}`);
+    assert.ok(region(/J-PARC|Jinping|Kamioka|Daya|Jiangmen|Yonggwang|KEK/), `an Asian place is in view: ${JSON.stringify(lit)}`);
+
+    // How far does a neutrino beam travel? T2K, and the beam on the globe, 295 km.
+    await p.goto(`${base}/atlas#/experiment/t2k`);
+    await p.locator("#detail-panel h2").waitFor();
+    assert.match(await p.locator("#detail-panel .plain-summary").first().innerText(), /295 km/);
+    await ctx.close();
+  });
+
+  await record("A facility's local map is linked in the head of its panel, above the first section", async () => {
+    if (process.env.HEP_ATLAS_DATA !== "generated") return;
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const p = await ctx.newPage();
+    for (const [slug, maps] of [["cern", 1], ["juno-jiangmen", 2], ["km3net", 2]]) {
+      await p.goto(`${base}/atlas#/facility/${slug}`);
+      await p.locator("#detail-panel .local-map-header").waitFor({ timeout: 30000 });
+      const head = await p.evaluate(() => {
+        const panel = document.getElementById("detail-panel");
+        const links = [...panel.querySelectorAll(".local-map-header a")];
+        const firstSection = panel.querySelector("details.panel-section");
+        return {
+          links: links.map((a) => ({ text: a.textContent, href: a.getAttribute("href"), top: a.getBoundingClientRect().top })),
+          beforeFirstSection: links.every((a) => !!(a.compareDocumentPosition(firstSection) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          foot: [...panel.querySelectorAll("summary")].some((summary) => summary.textContent === "Local map"),
+        };
+      });
+      assert.equal(head.links.length, maps, `${slug}: one link per map, got ${JSON.stringify(head.links)}`);
+      assert.ok(head.links.every((link) => link.top < 520), `${slug}: the links are on the first screen: ${JSON.stringify(head.links)}`);
+      assert.equal(head.beforeFirstSection, true);
+      assert.equal(head.foot, false, "the link is not repeated in a card at the foot");
+      assert.match(head.links[0].text, /^\u25ce Open local map: /);
+    }
+    await p.goto(`${base}/atlas#/facility/cern`);
+    await p.locator("#detail-panel .local-map-header a").click();
+    await p.waitForFunction(() => location.hash === "#/map/cern");
     await ctx.close();
   });
 

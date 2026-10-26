@@ -53,7 +53,10 @@
         <div id="key-popover" class="key-popover" role="dialog" aria-label="Key to the map and the colours" tabindex="-1" hidden>
           <div id="key-body" class="key-body">
             <div id="marker-legend" class="marker-legend"></div>
-            <div id="key-status" class="key-status"></div>
+            <div class="key-col">
+              <div id="key-status" class="key-status"></div>
+              <div id="key-globe" class="marker-legend"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -118,7 +121,7 @@
         <p class="start-kicker">HEP Atlas</p>
         <h2 id="start-title" class="start-title">Start here</h2>
         <p id="start-lede" class="start-lede">
-          Every major particle-physics facility on a to-scale map, with every fact traced to its source.
+          Particle-physics facilities on to-scale maps, with every fact traced to its source.
         </p>
         <h3 class="start-heading">Ask a question</h3>
         <ul class="start-questions">
@@ -131,19 +134,19 @@
           <li>
             <a class="start-question" data-start-link href="#/result/atlas-higgs-observation-2012">
               <span class="start-question-text">Where was the Higgs discovered?</span>
-              <span class="start-question-hint">ATLAS&rsquo;s 2012 discovery, with the map of CERN</span>
+              <span class="start-question-hint">ATLAS&rsquo;s 2012 paper with CMS&rsquo;s beside it; the globe flies to CERN</span>
             </a>
           </li>
           <li>
             <a class="start-question" data-start-link href="#/topic/neutrino-oscillations">
               <span class="start-question-text">Which experiments study neutrino oscillations?</span>
-              <span class="start-question-hint">A topic page, with its experiments lit on the globe</span>
+              <span class="start-question-hint">Lists them and lights their sites across the globe</span>
             </a>
           </li>
           <li>
-            <a class="start-question" data-start-link href="?fk=underground_laboratory">
-              <span class="start-question-text">How deep are the underground labs?</span>
-              <span class="start-question-hint">Filters the globe to underground laboratories; open one for its depth</span>
+            <a class="start-question" data-start-link href="#/experiment/t2k">
+              <span class="start-question-text">How far does a neutrino beam travel?</span>
+              <span class="start-question-hint">Opens T2K; the globe flies to its 295 km beam, Tokai to Kamioka</span>
             </a>
           </li>
         </ul>
