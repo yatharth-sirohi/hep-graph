@@ -2,7 +2,8 @@
   "aliases": [
     "LSS5",
     "UA1 experimental area",
-    "Underground Area 1"
+    "Underground Area 1",
+    "SPS Long Straight Section 5 (UA1 hall)"
   ],
   "altitude": null,
   "coordinates": {
@@ -35,7 +36,7 @@
   "facility_id": "facility:cern",
   "id": "site:cern-sps-lss5-ua1",
   "links": {},
-  "name": "SPS Long Straight Section 5 (UA1 hall)",
+  "name": "SPS Long Straight Section 5 (UA1)",
   "notes": [
     "Coordinates are the CERN Meyrin main-site geocoder point (site:cern-meyrin), reused as the best available anchor; precision_m 3000 is chosen to cover the ~7 km SPS ring, not a survey of the specific hall.",
     "Coordinate kind is 'campus' rather than 'detector'/'underground_lab' because the only coordinate source available in this session is an OpenStreetMap/Nominatim geocoder lookup, and A17 restricts geocoder-backed coordinates to campus/headquarters kind (the validator's GEOCODER_COORDINATE_KINDS). This point should be read as 'the general CERN-site area this marker names', not a surveyed detector-cavern location. Because of this, detector:ua1 does not carry a structured placements[] row against this site (it would require kind 'detector'/'underground_lab', which in turn requires a non-geocoder source we do not have); the experiment-to-place relationship is instead recorded only as prose in this file and via collaboration.host_site_id, per A22/A17 rather than by fabricating a stronger source."

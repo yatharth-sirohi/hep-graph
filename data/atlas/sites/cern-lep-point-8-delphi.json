@@ -1,7 +1,8 @@
 {
   "aliases": [
     "Point 8",
-    "LEP IP8"
+    "LEP IP8",
+    "LEP Point 8 (DELPHI cavern)"
   ],
   "altitude": null,
   "coordinates": {
@@ -32,7 +33,7 @@
   "facility_id": "facility:cern",
   "id": "site:cern-lep-point-8-delphi",
   "links": {},
-  "name": "LEP Point 8 (DELPHI cavern)",
+  "name": "LEP Point 8 (DELPHI)",
   "notes": [
     "Point number inferred from a CERN news article describing 'a miniature model of the underground cavern featuring the DELPHI and LHCb detectors', displayed at the LHCb exhibition at CERN's Point 8 (src:lep-cern-lhcb-exhibition-news, src:lep-cern-lhcb-experiment-page): the two detectors are stated to share the same cavern, and LHCb's own page and the voisins.cern Point 8 page both place LHCb at Point 8 / Ferney-Voltaire, so DELPHI is placed there too. No single fetched sentence states 'DELPHI was at Point 8' in so many words. (src:lep-cern-lhcb-experiment-page corroborates LHCb's own location at Ferney-Voltaire/Point 8.)",
     "Coordinate kind is 'campus' rather than 'detector'/'underground_lab' because the only coordinate source available in this session is an OpenStreetMap/Nominatim geocoder lookup, and A17 restricts geocoder-backed coordinates to campus/headquarters kind (the validator's GEOCODER_COORDINATE_KINDS). This point should be read as 'the general CERN-site area this marker names', not a surveyed detector-cavern location. Because of this, detector:delphi does not carry a structured placements[] row against this site (it would require kind 'detector'/'underground_lab', which in turn requires a non-geocoder source we do not have); the experiment-to-place relationship is instead recorded only as prose in this file and via collaboration.host_site_id, per A22/A17 rather than by fabricating a stronger source."
