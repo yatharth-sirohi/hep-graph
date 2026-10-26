@@ -1,52 +1,68 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "facility:chooz",
-  "type": "facility",
-  "name": "Chooz Reactor Neutrino Site",
   "aliases": [],
-  "kind": "reactor_site",
-  "operator": {
-    "value": null,
-    "sources": ["src:double-chooz-wikipedia"],
-    "verified_at": "2026-09-17",
-    "confidence": "uncertain",
-    "note": "No source fetched this session states an explicit operator distinct from the Double Chooz Collaboration and EDF (which operates the adjacent Chooz Nuclear Power Plant, not the experimental site itself)."
+  "countries": [
+    "FR"
+  ],
+  "country": [
+    "FR"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
   },
-  "operator_ids": [],
-  "country": ["FR"],
-  "countries": ["FR"],
-  "primary_site_id": "site:double-chooz-far-detector",
+  "id": "facility:chooz",
   "intervals": [
     {
-      "label": "hosting Double Chooz",
-      "status": "active",
-      "start": "2011",
-      "end": null,
-      "sources": ["src:double-chooz-wikipedia", "src:double-chooz-2012-evidence"],
-      "verified_at": "2026-09-17",
       "confidence": "uncertain",
+      "end": null,
+      "label": "hosting Double Chooz",
+      "note": "No official facility page was reachable (checked 2026-09-17) to source a facility-level founding or operating interval; the start is the same inferred lower bound used for experiment:double-chooz's earliest interval. The site remains a candidate host for other reactor-neutrino work (e.g. NUCLEUS) beyond Double Chooz's own 2017 shutdown, so the interval is left open-ended.",
       "quote": "located at 1050 m from the reactor cores of the Chooz nuclear power plant in France",
-      "note": "No official facility page was reachable this session to independently source a facility-level founding/operating interval; start is the same inferred lower bound used for experiment:double-chooz's earliest interval. The site remains a candidate host for other reactor-neutrino work (e.g. the cevns workstream's NUCLEUS) beyond Double Chooz's own 2017 shutdown, so `end` is left null rather than closed."
+      "sources": [
+        "src:double-chooz-wikipedia",
+        "src:double-chooz-2012-evidence"
+      ],
+      "start": "2011",
+      "status": "active",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "active",
-  "specs": {},
-  "topic_ids": ["topic:reactor-neutrinos", "topic:neutrino-oscillations"],
-  "related_facility_ids": [],
+  "kind": "reactor_site",
   "links": {
     "website": null
   },
+  "name": "Chooz Reactor Neutrino Site",
   "notes": [
-    "The Double Chooz official site (double-chooz.fr, doublechooz.in2p3.fr, chooz.in2p3.fr) was unreachable (DNS failure) on every domain guessed this session; this record relies on the 2012 arXiv discovery paper, INSPIRE, and Wikipedia.",
-    "This id (`facility:chooz`) is also referenced by the cevns workstream for the NUCLEUS experiment, per the Wave 3 ID_REGISTRY; created here exactly as specified."
+    "The Double Chooz official site (double-chooz.fr, doublechooz.in2p3.fr, chooz.in2p3.fr) was unreachable (DNS failure on every domain tried, checked 2026-09-17); this record relies on the 2012 arXiv discovery paper, INSPIRE, and Wikipedia.",
+    "experiment:nucleus also uses this facility as its host site."
   ],
-  "sources": ["src:double-chooz-inspire-experiment-record", "src:double-chooz-2012-evidence", "src:double-chooz-wikipedia"],
+  "operator": {
+    "confidence": "uncertain",
+    "note": "No source consulted (checked 2026-09-17) states an explicit operator distinct from the Double Chooz Collaboration and EDF (which operates the adjacent Chooz Nuclear Power Plant, not the experimental site itself).",
+    "sources": [
+      "src:double-chooz-wikipedia"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
+  },
+  "operator_ids": [],
+  "primary_site_id": "site:double-chooz-far-detector",
+  "related_facility_ids": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:double-chooz-inspire-experiment-record",
+    "src:double-chooz-2012-evidence",
+    "src:double-chooz-wikipedia"
+  ],
+  "specs": {},
+  "status": "active",
   "summary": {
     "plain": "The site near the Chooz nuclear power station in northern France where the Double Chooz experiment placed two detectors to catch antineutrinos from the reactors.",
     "technical": "Reactor-neutrino site adjacent to the Chooz-B nuclear power plant, Ardennes, France, hosting the Double Chooz near (400 m) and far (1050 m) detector halls."
   },
-  "coverage": {
-    "tier": "B",
-    "researched": "partial"
-  }
+  "topic_ids": [
+    "topic:reactor-neutrinos",
+    "topic:neutrino-oscillations"
+  ],
+  "type": "facility"
 }

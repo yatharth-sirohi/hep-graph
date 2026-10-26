@@ -35,7 +35,7 @@
         "display": "≈17.5 m (10–25 m below ground level)",
         "max": 25,
         "min": 10,
-        "note": "Sourced to Wikipedia only (rank 12), matching accelerator:hera's own sourcing for this figure; no official DESY civil-engineering page fetched this session states the depth range directly.",
+        "note": "Sourced to Wikipedia only, matching accelerator:hera's own sourcing for this figure; no official DESY civil-engineering page consulted states the depth range directly.",
         "quote": "The HERA tunnel runs 10 to 25 m below ground level and has a circumference of 6.3 km",
         "sources": [
           "src:hera-wikipedia"
@@ -53,7 +53,7 @@
       "id": "petra-tunnel",
       "kind": "underground",
       "name": "PETRA III tunnel",
-      "note": "No fetched source states the PETRA III tunnel's depth below surface this session (left null per A17 rather than guessed); OSM tags it layer=-4, one layer shallower than the HERA tunnel's layer=-5, which is why it is not placed on the same level."
+      "note": "No source consulted states the PETRA III tunnel's depth below surface, so the depth is left blank rather than guessed; OSM tags it layer=-4, one layer shallower than the HERA tunnel's layer=-5, which is why it is not placed on the same level."
     }
   ],
   "linked_map_ids": [],
@@ -62,7 +62,6 @@
   },
   "name": "DESY — Hamburg-Bahrenfeld campus and the HERA ring",
   "notes": [
-    "Site coordinate correction (for the integrator, not applied here): site:desy-hamburg-campus, site:desy-hera-north-hall-h1 and site:desy-hera-south-hall-zeus all currently carry the same ROR-geocoded point (53.55073N, 9.99302E, precision_m 800). That point is about 10.3 km from DESY's actual Hamburg-Bahrenfeld campus. Two independent sources fetched this session agree with each other instead: (1) OSM way 276641657, the campus landuse polygon itself, tagged with DESY's own postal address (Notkestraße 85, 22607 Hamburg) and centroid 53.5771N, 9.8808E; (2) src:desy-wikipedia's own excerpt, already cited by the existing site record, states the coordinate '53 34'33''N 9 52'46''E' = 53.5758N, 9.8794E -- 150 m from (1) and nothing like the ROR point actually used. See the worklog for the full correction list.",
     "geometry:hera-halle-nord (entity_id site:desy-hera-north-hall-h1) stands in for both detector:h1 (1992-2007) and detector:alps-ii (active, in the same former HERA tunnel straight section); it is not time-sliced because sites carry no independent state_segments in this schema version, matching map:cern's documented over-display of boundary/hall features across every year."
   ],
   "schema": "hep-atlas/0.2",
