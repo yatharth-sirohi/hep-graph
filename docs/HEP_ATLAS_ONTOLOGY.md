@@ -350,6 +350,19 @@ The validator applies a plausibility range of 1e-11 to 5e-2 cm^-2 s^-1 (the
 deepest laboratory to sea level) to the site field. The chart of depth
 against flux reads `depth_mwe` and `muon_flux` and nothing else.
 
+**A30. Accelerator chains (2026-10-26).** `accelerator.feeds_accelerator_ids[]`
+entries are id strings or A9 objects `{id, start?, end?, sources, quote, locator,
+confidence, verified_at, note}`; a link without dates holds for hull(A) ∩ hull(B).
+In `atlas.json` the list mixes strings and `{"id": …}` objects, and consumers
+accept both. `specs.beam_energy` is the highest energy the machine delivers
+(extraction or design; per beam for a collider). The new spec key
+`specs.injection_energy` (dimension `energy`) is the energy at which the machine
+receives beam in its current configuration. Earlier eras live in `intervals[]`
+entries of `kind: "phase"` with their own `specs`. A view at year Y takes the
+`specs` of the latest-starting covering interval that has the key, else the
+top-level value. Momenta are stored in GeV with the display in GeV/c and a note.
+Contract and evidence: `docs/atlas-worklog/ACCELERATOR_CHAINS.md`.
+
 ## 0. Ground rules
 
 1. **Canonical data is JSON under `data/atlas/`**, one file per entity, human
