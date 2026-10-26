@@ -15,25 +15,34 @@
   "id": "accelerator:fermilab-booster",
   "intervals": [
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
+      "end": "1971-05-21",
+      "label": "commissioning after completion of construction",
+      "locator": "Fermilab History and Archives, page 'Accelerator History', section 'Booster'",
+      "note": "Start is the completion of construction (21 December 1970); the end is the day the Booster reached its design energy of 8 GeV (21 May 1971), after which it is recorded as operating. No source fetched gives a groundbreaking date for the ring, so no construction interval is written.",
+      "quote": "The lab completed construction of the Booster on December 21, 1970.",
+      "sources": [
+        "src:rv-fnal-history-accelerator-history"
+      ],
+      "start": "1970-12-21",
+      "status": "commissioning",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "verified",
       "end": null,
       "label": "operating",
-      "locator": "§II, The Booster Neutrino Beamline",
-      "note": "Evidence date, not a commissioning date: this is the earliest operation of the machine documented by a source fetched in this session (NuMI beam paper, MINOS data taking from 20 May 2005). The machine has run since the 1970s; no fetchable source gave its commissioning date (fnal.gov and history.fnal.gov returned HTTP 403).",
-      "quote": "the data taking of the MINOS experiment, from May 20, 2005 until April 30, 2012 ... The ions are converted into protons in the Booster where they are accelerated to 8 GeV",
+      "locator": "Fermilab History and Archives, page 'Accelerator History', section 'Booster'",
+      "note": "Start is the day the Booster achieved its design energy of 8 GeV (21 May 1971). NuMI beam data taking from 20 May 2005 (NuMI beam paper) documents it as operating in the neutrino era. REPLACED 2026-10-25: the earlier start ('in operation by 2005; earliest 1968') was an evidence date, not a start.",
+      "quote": "The Booster achieved its design energy of 8 GeV on May 21, 1971.",
       "sources": [
+        "src:rv-fnal-history-accelerator-history",
         "src:fermilab-numi-beam-paper-2016",
         "src:fermilab-miniboone-flux-paper-2009"
       ],
-      "start": {
-        "approx": true,
-        "date": "2005",
-        "display": "in operation by 2005; commissioning date not sourced",
-        "earliest": "1968",
-        "latest": "2005"
-      },
+      "start": "1971-05-21",
       "status": "active",
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
     }
   ],
   "is_collider": false,
@@ -58,7 +67,7 @@
       "confidence": "verified",
       "dimension": "energy",
       "display": "8 GeV",
-      "locator": "§1.1, accelerator complex",
+      "locator": "§4.2 NuMI Mode of Operation; arXiv PDF p. 50",
       "note": "",
       "quote": "The Booster then accelerates those protons to 8 GeV.",
       "sources": [

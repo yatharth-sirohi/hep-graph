@@ -18,14 +18,15 @@
     "tier": "A"
   },
   "date": {
-    "confidence": "approximate",
-    "locator": "arXiv:2408.02877 identifier",
-    "note": "2024-08 derived from the arXiv identifier 2408.02877 (YYMM prefix); exact day not confirmed by a fetched source. Published as Phys. Rev. Lett. 133, 191002 (2024).",
+    "confidence": "verified",
+    "locator": "arXiv:2408.02877, submission history",
+    "note": "arXiv v1 submission date. Published as Phys. Rev. Lett. 133, 191002 (2024).",
+    "quote": "Submitted on 6 Aug 2024 (v1)",
     "sources": [
       "src:dm-noble-liquid-xenonnt-b8-cevns-2024"
     ],
-    "value": "2024-08",
-    "verified_at": "2026-09-17"
+    "value": "2024-08-06",
+    "verified_at": "2026-10-25"
   },
   "date_kind": "preprint",
   "detector_ids": [
@@ -63,7 +64,7 @@
   },
   "name": "First Indication of Solar 8B Neutrinos via Coherent Elastic Neutrino-Nucleus Scattering with XENONnT",
   "notes": [
-    "result_type is \"measurement\", not \"first_detection\", \"evidence\" or \"observation\": the collaboration's own title says \"First Indication\" and the paper reports only a 2.73 sigma rejection of the background-only hypothesis, below the conventional ~3 sigma threshold for \"evidence\". The ontology's result_type enum has no \"indication\" tier; per the precedent already set in this atlas for an identical situation (result:t2k-electron-neutrino-indication-2011, a 2.5 sigma \"indication\" paper), the honest choice is \"measurement\", not the unconstrained \"first_detection\" type -- \"first_detection\" reads as an actual detection to a reader and is reserved elsewhere in this atlas (icecube-glashow-resonance-candidate-2021, kamiokande-sn1987a-1987) for events that were actually detected, not a sub-evidence-threshold statistical indication. Corrected during wave-3 independent verification (2026-09-17); the original record mislabeled this as first_detection."
+    "result_type is \"measurement\", not \"first_detection\", \"evidence\" or \"observation\": the collaboration's own title says \"First Indication\" and the paper reports only a 2.73 sigma rejection of the background-only hypothesis, below the 99.73% (3σ) confidence level that the T2K Nature paper (arXiv:1910.03887) describes as \"considered as evidence in the particle physics community\". The ontology's result_type enum has no \"indication\" tier; per the precedent already set in this atlas for an identical situation (result:t2k-electron-neutrino-indication-2011, a 2.5 sigma \"indication\" paper), the honest choice is \"measurement\", not the unconstrained \"first_detection\" type -- \"first_detection\" reads as an actual detection to a reader and is reserved elsewhere in this atlas (icecube-glashow-resonance-candidate-2021, kamiokande-sn1987a-1987) for events that were actually detected, not a sub-evidence-threshold statistical indication. Corrected during wave-3 independent verification (2026-09-17); the original record mislabeled this as first_detection."
   ],
   "official_url": null,
   "publication": {
@@ -90,15 +91,15 @@
     "sources": [
       "src:dm-noble-liquid-xenonnt-b8-cevns-2024"
     ],
-    "value": "2.73 sigma",
-    "verified_at": "2026-09-17"
+    "value": "2.73σ (rejection of the background-only hypothesis)",
+    "verified_at": "2026-10-25"
   },
   "sources": [
     "src:dm-noble-liquid-xenonnt-b8-cevns-2024"
   ],
   "summary": {
-    "plain": "XENONnT saw a hint -- not yet a firm discovery -- of solar neutrinos bouncing gently off xenon nuclei, a process too faint for most detectors to see. The signal is weak (under 3-sigma), but if confirmed it would make XENONnT one of the smallest neutrino detectors in the world.",
-    "technical": "3.51 tonne-year exposure; 37 events observed above 0.5 keV against (26.4+1.4-1.3) expected background events. Background-only hypothesis rejected at 2.73 sigma (an indication, not evidence or an observation, per the collaboration's own title). Measured 8B flux (4.7+3.6-2.3)e6 cm^-2 s^-1, consistent with prior solar neutrino measurements (e.g. SNO)."
+    "plain": "XENONnT, a dark-matter detector with a 5.9-tonne liquid-xenon target, reported what its title calls a first indication of nuclear recoils from solar 8B neutrinos scattering coherently off xenon nuclei: 37 events were observed above 0.5 keV against 26.4 expected from backgrounds, a 2.73σ rejection of the background-only hypothesis.",
+    "technical": "Blind analysis, 3.51 tonne-year exposure: 37 events observed above 0.5 keV, (26.4 +1.4/−1.3) expected from backgrounds; the background-only hypothesis is rejected at 2.73σ. Measured 8B solar-neutrino flux (4.7 +3.6/−2.3) × 10⁶ cm⁻² s⁻¹, consistent with results from the Sudbury Neutrino Observatory; neutrino flux-weighted CEνNS cross section on Xe (1.1 +0.8/−0.5) × 10⁻³⁹ cm², consistent with the Standard Model prediction. The collaboration's title calls it a 'First Indication'."
   },
   "title": "First Indication of Solar 8B Neutrinos via Coherent Elastic Neutrino-Nucleus Scattering with XENONnT",
   "topic_ids": [
@@ -107,5 +108,15 @@
     "topic:solar-neutrinos"
   ],
   "type": "result",
-  "why_it_matters": "The first hint that a dark-matter detector can see the \"neutrino fog\" -- the background of solar-neutrino interactions that ultimately limits how sensitive liquid-xenon dark matter searches can become."
+  "why_it_matters": {
+    "confidence": "verified",
+    "locator": "arXiv:2408.02877, main text (first page, after the abstract)",
+    "note": "The paper's own priority claim, attributed to it; its significance is 2.73σ, below the conventional evidence threshold.",
+    "quote": "This is a “first” in three different aspects: the first detection of elastic NRs from astrophysical neutrinos, the first measurement of the CEνNS process with a Xe target, and the first step into the “neutrino fog” by a DM experiment",
+    "sources": [
+      "src:dm-noble-liquid-xenonnt-b8-cevns-2024"
+    ],
+    "value": "The paper describes this as a 'first' in three respects: the first detection of elastic nuclear recoils from astrophysical neutrinos, the first measurement of the CEνNS process with a xenon target, and the first step into the 'neutrino fog' by a dark-matter experiment.",
+    "verified_at": "2026-10-25"
+  }
 }

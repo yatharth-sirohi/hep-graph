@@ -1,5 +1,16 @@
 {
   "aliases": [],
+  "announced": {
+    "confidence": "verified",
+    "locator": "ATLAS physics briefing dated 9 July 2018",
+    "note": "",
+    "quote": "9 July 2018 | By ATLAS Collaboration ... Today, at the 2018 International Conference on High Energy Physics (ICHEP) in Seoul, the ATLAS experiment reported a preliminary result establishing the observation of the Higgs boson decaying into pairs of b quarks",
+    "sources": [
+      "src:rv-atlas-briefing-hbb-observation-2018"
+    ],
+    "value": "2018-07-09",
+    "verified_at": "2026-10-25"
+  },
   "claim": {
     "locator": "abstract",
     "quote": "which yields an observed (expected) significance of 5.4 (5.5) standard deviations, thus providing direct observation of the Higgs boson decay into b-quarks.",
@@ -16,15 +27,17 @@
   },
   "date": {
     "confidence": "verified",
-    "locator": "arXiv submission history",
-    "note": "arXiv submission date; published as Phys. Lett. B 786 (2018) 59.",
+    "locator": "ATLAS physics briefing dated 9 July 2018",
+    "note": "Announcement date: ATLAS reported a preliminary result establishing the observation at ICHEP 2018 (Seoul) on 9 July 2018. The final paper was submitted to arXiv on 24 August 2018 and published as Phys. Lett. B 786 (2018) 59.",
+    "quote": "9 July 2018 | By ATLAS Collaboration ... Today, at the 2018 International Conference on High Energy Physics (ICHEP) in Seoul, the ATLAS experiment reported a preliminary result establishing the observation of the Higgs boson decaying into pairs of b quarks",
     "sources": [
+      "src:rv-atlas-briefing-hbb-observation-2018",
       "src:atlas-hbb-arxiv-1808-08238"
     ],
-    "value": "2018-08-24",
-    "verified_at": "2026-09-17"
+    "value": "2018-07-09",
+    "verified_at": "2026-10-25"
   },
-  "date_kind": "preprint",
+  "date_kind": "announcement",
   "detector_ids": [
     "detector:atlas"
   ],
@@ -54,8 +67,19 @@
   },
   "publication": {
     "arxiv": "1808.08238",
-    "doi": "10.48550/arXiv.1808.08238",
+    "doi": "10.1016/j.physletb.2018.09.013",
     "url": "https://arxiv.org/abs/1808.08238"
+  },
+  "published": {
+    "confidence": "verified",
+    "locator": "arXiv:1808.08238 journal reference (paper header)",
+    "note": "",
+    "quote": "Phys. Lett. B 786 (2018) 59",
+    "sources": [
+      "src:atlas-hbb-arxiv-1808-08238"
+    ],
+    "value": "2018",
+    "verified_at": "2026-10-25"
   },
   "result_type": "observation",
   "schema": "hep-atlas/0.2",
@@ -66,15 +90,15 @@
     "sources": [
       "src:atlas-hbb-arxiv-1808-08238"
     ],
-    "value": "5.4 standard deviations (observed); 5.5 (expected)",
-    "verified_at": "2026-09-17"
+    "value": "5.4σ observed (5.5σ expected), combination of Run 1 and Run 2 H → bb̄ searches",
+    "verified_at": "2026-10-25"
   },
   "sources": [
     "src:atlas-hbb-arxiv-1808-08238"
   ],
   "summary": {
-    "plain": "ATLAS saw the Higgs boson decaying into bottom quarks - its single most common decay - by looking for it alongside a W or Z boson.",
-    "technical": "VH production, H -> bb, using 79.8 fb^-1 of 13 TeV data combined with 7 and 8 TeV results: observed (expected) significance 5.4 (5.5) standard deviations."
+    "plain": "ATLAS reports the observation of the Higgs boson decaying into bottom quarks, which the paper describes as the Standard Model Higgs boson's dominant decay (expected branching fraction about 58%). The main search looked for it produced together with a W or Z boson.",
+    "technical": "Search for H → bb̄ produced with a W or Z boson (VH) in 79.8 fb^-1 of 13 TeV data: observed (expected) significance 4.9 (4.3) standard deviations; combined with Run 1 and other Run 2 H → bb̄ searches: 5.4 (5.5) standard deviations, 'direct observation of the Higgs boson decay into b-quarks'. Ratio of the measured H → bb̄ yield to the Standard Model expectation 1.01 ± 0.12 (stat) +0.16/−0.15 (syst); VH production observed at 5.3 (4.8) standard deviations (Run 2 combination)."
   },
   "title": "Observation of H -> bbbar decays and VH production with the ATLAS detector",
   "topic_ids": [
@@ -82,5 +106,5 @@
     "topic:collider-physics"
   ],
   "type": "result",
-  "why_it_matters": "H -> bb is the dominant Higgs decay mode; observing it at the predicted rate confirmed the Standard Model coupling of the Higgs boson to down-type quarks."
+  "why_it_matters": "H → bb̄ is the dominant decay of the Standard Model Higgs boson, but large multijet backgrounds make a search in the dominant gluon–gluon fusion production mode difficult, so the search uses production with a W or Z boson. The ratio of the measured H → bb̄ yield to the Standard Model expectation is 1.01 ± 0.12 (stat) +0.16/−0.15 (syst)."
 }

@@ -16,13 +16,14 @@
   },
   "date": {
     "confidence": "verified",
-    "locator": "arXiv:1106.2822, submission date",
-    "note": "arXiv submission June 2011; published as Phys. Rev. Lett. 107, 041801 (2011).",
+    "locator": "arXiv:1106.2822, submission history",
+    "note": "arXiv v1 submission date; the collaboration's press release (KEK, ICRR, J-PARC) is dated 15 June 2011, one day later. Published as Phys. Rev. Lett. 107, 041801 (2011).",
+    "quote": "Submitted on 14 Jun 2011 (v1)",
     "sources": [
       "src:t2k-prl-2011-indication"
     ],
-    "value": "2011-06",
-    "verified_at": "2026-09-17"
+    "value": "2011-06-14",
+    "verified_at": "2026-10-25"
   },
   "date_kind": "preprint",
   "detector_ids": [
@@ -47,7 +48,7 @@
     "sources": [
       "src:t2k-prl-2011-indication"
     ],
-    "value": "sin^2(2 theta_13) consistent with 0.03(0.04) to 0.28(0.34) at 90% CL for normal (inverted) hierarchy, delta_CP = 0.",
+    "value": "sin²(2θ13) consistent with 0.03 (0.04) to 0.28 (0.34) at 90% CL for normal (inverted) hierarchy, δCP = 0.",
     "verified_at": "2026-09-17"
   },
   "links": {
@@ -63,7 +64,9 @@
     }
   },
   "name": "T2K indication of electron-neutrino appearance",
-  "notes": [],
+  "notes": [
+    "result_type is 'measurement' because the collaboration's own wording is 'indications' (title: 'Indication of Electron Neutrino Appearance') and the ontology's result_type enum has no 'indication' tier; 2.5σ is also below the conventional 3σ evidence threshold (the T2K Nature paper, arXiv:1910.03887, calls a 99.73% (3σ) confidence level 'considered as evidence in the particle physics community')."
+  ],
   "official_url": {
     "confidence": "verified",
     "locator": "arXiv abstract page",
@@ -81,18 +84,40 @@
   },
   "result_type": "measurement",
   "schema": "hep-atlas/0.2",
-  "significance": "2.5 sigma",
+  "significance": {
+    "confidence": "verified",
+    "locator": "arXiv:1106.2822, abstract",
+    "note": "",
+    "quote": "Under this hypothesis, the probability to observe six or more candidate events is 7$\\times10^{-3}$, equivalent to 2.5$σ$ significance.",
+    "sources": [
+      "src:t2k-prl-2011-indication"
+    ],
+    "value": "2.5σ (probability 7×10⁻³ to observe six or more candidate events if sin²2θ13 = 0)",
+    "verified_at": "2026-10-25"
+  },
   "sources": [
-    "src:t2k-prl-2011-indication"
+    "src:t2k-prl-2011-indication",
+    "src:rv-l-t2k-press-2011-indication"
   ],
   "summary": {
-    "plain": "In 2011, T2K saw the first hints that muon neutrinos can turn into electron neutrinos on their way across Japan - six candidate events where fewer than two were expected. It was not yet a firm discovery, just a tantalising early sign.",
-    "technical": "Six candidate nu_e-appearance events observed at Super-Kamiokande with 1.43e20 protons on target, against an expected background of 1.5+/-0.3 events; probability of a background-only fluctuation 7e-3 (2.5 sigma). Constrains sin^2(2 theta_13) to 0.03(0.04)-0.28(0.34) at 90% CL. The collaboration's own title says 'indication', a weaker claim than 'evidence' or 'observation'; classified here as result_type 'measurement' because the ontology's result_type enum has no 'indication' tier and 2.5 sigma is below the conventional ~3 sigma evidence threshold."
+    "plain": "T2K reported 'indications' of muon neutrinos turning into electron neutrinos on their way across Japan: six candidate events at the far detector (Super-Kamiokande) where 1.5 ± 0.3 were expected if the mixing angle θ13 were zero, a 2.5σ result. The paper says more data were required to firmly establish electron-neutrino appearance.",
+    "technical": "Six events pass all selection criteria at the far detector (Super-Kamiokande) in data corresponding to 1.43×10²⁰ protons on target; the expected number is 1.5 ± 0.3 (syst.) for |Δm²23| = 2.4×10⁻³ eV², sin²2θ23 = 1 and sin²2θ13 = 0. The probability to observe six or more candidate events is 7×10⁻³, equivalent to 2.5σ. At 90% C.L. the data are consistent with 0.03 (0.04) < sin²2θ13 < 0.28 (0.34) for δCP = 0 and a normal (inverted) hierarchy."
   },
   "title": "Indication of Electron Neutrino Appearance from an Accelerator-produced Off-axis Muon Neutrino Beam",
   "topic_ids": [
     "topic:neutrino-oscillations"
   ],
   "type": "result",
-  "why_it_matters": "The first experimental hint, from any experiment, that theta_13 might be non-zero and that muon-to-electron neutrino appearance is observable at an accelerator; motivated the reactor experiments (Daya Bay, RENO, Double Chooz) that soon confirmed theta_13 != 0, and set up T2K's own later observation (2014) and CP-violation search (2020)."
+  "why_it_matters": {
+    "confidence": "verified",
+    "locator": "T2K/KEK/ICRR/J-PARC press release of 15 June 2011 (JAEA copy), first paragraph; paper: closing paragraph",
+    "note": "",
+    "quote": "For the first time, it was possible to observe an indication that muon neutrinos are able to transform into electron neutrinos over a distance of 295 km",
+    "sources": [
+      "src:rv-l-t2k-press-2011-indication",
+      "src:t2k-prl-2011-indication"
+    ],
+    "value": "The collaboration's 15 June 2011 press release says that, for the first time, it was possible to observe an indication that muon neutrinos are able to transform into electron neutrinos over a distance of 295 km; the paper itself concludes that more data are required to firmly establish νe appearance and to better determine the angle θ13.",
+    "verified_at": "2026-10-25"
+  }
 }

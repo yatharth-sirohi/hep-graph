@@ -17,17 +17,17 @@
   },
   "date": {
     "confidence": "verified",
-    "locator": "journal reference",
-    "note": "Published as Phys. Rev. D 64, 112007 (2001); submitted to arXiv 2001-04-27.",
-    "quote": "Phys.Rev.D64:112007,2001",
+    "locator": "arXiv:hep-ex/0104049, submission history",
+    "note": "arXiv v1 submission date; published as Phys. Rev. D 64, 112007 (2001).",
+    "quote": "Submitted on 27 Apr 2001 (v1)",
     "sources": [
       "src:lsnd-prd-2001-antineutrino-evidence",
       "src:rf07-lsnd-prd-2001-arxiv-abs"
     ],
-    "value": "2001",
+    "value": "2001-04-27",
     "verified_at": "2026-10-25"
   },
-  "date_kind": "publication",
+  "date_kind": "preprint",
   "detector_ids": [
     "detector:lsnd"
   ],
@@ -57,7 +57,7 @@
   },
   "name": "Evidence for Neutrino Oscillations from the Observation of Electron Anti-neutrinos in a Muon Anti-Neutrino Beam",
   "notes": [
-    "The brief specifically calls for LSND's antineutrino-appearance result to use the paper's own word 'evidence', never 'discovery'; this record uses result_type 'evidence' and the exact PRD 64, 112007 (2001) title, which contains 'Evidence' verbatim, satisfying A16's mechanical check."
+    "The paper's own title says 'Evidence'; this record uses result_type 'evidence' and the exact PRD 64, 112007 (2001) title, which contains 'Evidence' verbatim, satisfying A16's mechanical check."
   ],
   "official_url": null,
   "publication": {
@@ -66,12 +66,23 @@
     "url": "https://arxiv.org/abs/hep-ex/0104049"
   },
   "publication_source_id": "src:lsnd-prd-2001-antineutrino-evidence",
+  "published": {
+    "confidence": "verified",
+    "locator": "arXiv:hep-ex/0104049, journal reference",
+    "note": "",
+    "quote": "Journal reference: Phys.Rev.D64:112007,2001",
+    "sources": [
+      "src:rf07-lsnd-prd-2001-arxiv-abs"
+    ],
+    "value": "2001",
+    "verified_at": "2026-10-25"
+  },
   "result_type": "evidence",
   "schema": "hep-atlas/0.2",
   "significance": {
     "confidence": "uncertain",
     "locator": "abstract",
-    "note": "No single sigma significance figure is stated verbatim in the fetched text; the event excess (87.9 events) divided by its statistical uncertainty (22.4) is approximately 3.9, but this ratio is not itself quoted by the paper, so it is not asserted here as a stated significance.",
+    "note": "The abstract states no sigma significance figure; none is recorded.",
     "sources": [
       "src:lsnd-prd-2001-antineutrino-evidence"
     ],
@@ -83,8 +94,8 @@
     "src:rf07-lsnd-prd-2001-arxiv-abs"
   ],
   "summary": {
-    "plain": "LSND's final and strongest report that it saw more electron-antineutrinos than expected from a beam of muon-antineutrinos, at a distance too short to fit the standard three-flavour picture of how neutrinos change type. The collaboration called this evidence, not a discovery or observation.",
-    "technical": "Final LSND analysis of nu_mu_bar -> nu_e_bar appearance from mu+ decay at rest: excess of 87.9 +/- 22.4 (stat) +/- 6.0 (syst) beam-related nu_e_bar-candidate events, corresponding to an oscillation probability of (0.264 +/- 0.067 +/- 0.045)%, consistent with oscillations at Delta-m^2 in the 0.2-10 eV^2/c^4 range -- in tension with standard three-flavour oscillation and a principal motivation for subsequent short-baseline and sterile-neutrino experiments (KARMEN, MiniBooNE, MicroBooNE, SBN)."
+    "plain": "LSND counted an excess of electron-antineutrino events above the expected background in a beam of muon-antineutrinos, and interpreted it as evidence for neutrino oscillations (neutrinos changing type). The collaboration's own title calls this evidence.",
+    "technical": "LSND search for ν̄μ→ν̄e oscillations with ν̄μ from μ+ decay at rest (the paper's introduction calls these the final results using all the data): a total excess of 87.9 ± 22.4 ± 6.0 events consistent with ν̄e p → e+ n scattering was observed above the expected background, corresponding to an oscillation probability of (0.264 ± 0.067 ± 0.045)%. In conjunction with other known limits, the paper says the data suggest oscillations in the 0.2–10 eV²/c⁴ Δm² range, indicating a neutrino mass greater than 0.4 eV/c²."
   },
   "title": "Evidence for Neutrino Oscillations from the Observation of Electron Anti-neutrinos in a Muon Anti-Neutrino Beam",
   "topic_ids": [
@@ -92,5 +103,5 @@
     "topic:sterile-neutrinos"
   ],
   "type": "result",
-  "why_it_matters": "The LSND anomaly is one of the longest-standing puzzles in neutrino physics: if confirmed, it would require physics beyond three-flavour oscillation (e.g. one or more sterile neutrinos), and it directly motivated KARMEN, MiniBooNE, MicroBooNE and the Short-Baseline Neutrino programme at Fermilab."
+  "why_it_matters": "The paper notes that it is difficult to explain the solar neutrino deficit, the atmospheric neutrino anomaly and the LSND excess with only three flavours of neutrinos, so that a fourth, sterile neutrino has been proposed to explain all of the data."
 }

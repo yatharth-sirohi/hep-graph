@@ -16,13 +16,14 @@
   },
   "date": {
     "confidence": "verified",
-    "locator": "arXiv:1311.4750, submission date",
-    "note": "arXiv submission November 2013; published as Phys. Rev. Lett. 112, 061802 (2014).",
+    "locator": "arXiv:1311.4750, submission history",
+    "note": "arXiv v1 submission date (the T2K news item of 3 December 2013 says the paper had by then been submitted to Physical Review Letters). Published as Phys. Rev. Lett. 112, 061802 (2014).",
+    "quote": "Submitted on 19 Nov 2013 (v1)",
     "sources": [
       "src:t2k-prl-2014-observation"
     ],
-    "value": "2013-11",
-    "verified_at": "2026-09-17"
+    "value": "2013-11-19",
+    "verified_at": "2026-10-25"
   },
   "date_kind": "preprint",
   "detector_ids": [
@@ -43,12 +44,12 @@
     "confidence": "verified",
     "locator": "Phys. Rev. Lett. 112, 061802 (2014), abstract",
     "note": "",
-    "quote": "a best-fit value of $\\sin^2 2 \\theta_{13}$ = $0.140^{+0.038}_{-0.032}$ ($0.170^{+0.045}_{-0.037}$) is obtained at $\\delta_{\\mathrm{CP}}=0$",
+    "quote": "assuming $|Δm^2_{32}| = 2.4 \\times 10^{-3}$ $\\rm eV^2$, $\\sin^2 θ_{23} = 0.5$, and $Δm^2_{32} >0$ ($Δm^2_{32} <0$), a best-fit value of $\\sin^2 2 θ_{13}$ = $0.140^{+0.038}_{-0.032}$ ($0.170^{+0.045}_{-0.037}$) is obtained at $δ_{\\mathrm{CP}}=0$",
     "sources": [
       "src:t2k-prl-2014-observation"
     ],
-    "value": "Best-fit sin^2(2 theta_13) = 0.140(+0.038/-0.032) for normal mass ordering (0.170(+0.045/-0.037) for inverted), at delta_CP = 0.",
-    "verified_at": "2026-09-17"
+    "value": "Best-fit sin²(2θ13) = 0.140 (+0.038/−0.032) for normal mass ordering (0.170 (+0.045/−0.037) for inverted), at δCP = 0, assuming |Δm²32| = 2.4×10⁻³ eV² and sin²θ23 = 0.5.",
+    "verified_at": "2026-10-25"
   },
   "links": {
     "website": {
@@ -63,7 +64,9 @@
     }
   },
   "name": "T2K observation of electron-neutrino appearance",
-  "notes": [],
+  "notes": [
+    "T2K's own news item of 3 December 2013 (https://t2k-experiment.org/?p=1967) describes the paper as \"reporting the definitive observation of electron neutrino appearance in a high-purity muon neutrino beam\"; the abstract itself says \"The T2K experiment has observed electron neutrino appearance\"."
+  ],
   "official_url": {
     "confidence": "verified",
     "locator": "arXiv abstract page",
@@ -81,18 +84,39 @@
   },
   "result_type": "observation",
   "schema": "hep-atlas/0.2",
-  "significance": "7.3 sigma",
+  "significance": {
+    "confidence": "verified",
+    "locator": "arXiv:1311.4750, abstract",
+    "note": "",
+    "quote": "corresponding to a significance of 7.3$σ$ when compared to 4.92 $\\pm$ 0.55 expected background events",
+    "sources": [
+      "src:t2k-prl-2014-observation"
+    ],
+    "value": "7.3σ (rejection of the background-only expectation of 4.92 ± 0.55 events)",
+    "verified_at": "2026-10-25"
+  },
   "sources": [
-    "src:t2k-prl-2014-observation"
+    "src:t2k-prl-2014-observation",
+    "src:rv-l-t2k-news-2013-12-03"
   ],
   "summary": {
-    "plain": "In 2014, T2K confirmed for certain that muon neutrinos really do turn into electron neutrinos as they cross Japan: 28 electron-neutrino events were seen where only about 5 were expected if nothing changed, far too many to be a fluke.",
-    "technical": "28 nu_e candidate events at Super-Kamiokande vs. 4.92+/-0.55 expected background; 7.3 sigma significance. Best-fit sin^2(2 theta_13)=0.140(+0.038/-0.032) (normal ordering) at delta_CP=0, combined with reactor theta_13 measurements to begin constraining delta_CP."
+    "plain": "T2K reported observing electron-neutrino appearance in a muon-neutrino beam sent 295 km across Japan to Super-Kamiokande: 28 electron-neutrino events were detected against 4.92 ± 0.55 expected from background, a significance of 7.3σ. The collaboration's own news item calls it the definitive observation of electron neutrino appearance.",
+    "technical": "28 νe candidate events at Super-Kamiokande (295 km, peak energy 0.6 GeV) against 4.92 ± 0.55 expected background events: 7.3σ. Best-fit sin²2θ13 = 0.140 (+0.038/−0.032) for normal ordering and 0.170 (+0.045/−0.037) for inverted ordering at δCP = 0, assuming |Δm²32| = 2.4×10⁻³ eV² and sin²θ23 = 0.5; combined with reactor θ13 measurements, some values of δCP are disfavored at the 90% CL."
   },
   "title": "Observation of Electron Neutrino Appearance in a Muon Neutrino Beam",
   "topic_ids": [
     "topic:neutrino-oscillations"
   ],
   "type": "result",
-  "why_it_matters": "The first observation (as opposed to indication) of muon-to-electron neutrino appearance at an accelerator, confirming that theta_13 is sizeable and opening the direct search for leptonic CP violation that culminated in T2K's 2020 delta_CP constraint."
+  "why_it_matters": {
+    "confidence": "verified",
+    "locator": "arXiv:1311.4750, introduction (first paragraph); abstract for the δCP statement",
+    "note": "",
+    "quote": "there has not been an observation of the explicit appearance of a different neutrino flavor from neutrinos of another flavor through neutrino oscillations",
+    "sources": [
+      "src:t2k-prl-2014-observation"
+    ],
+    "value": "The paper's introduction notes that, to date, there had not been an observation of the explicit appearance of a different neutrino flavor from neutrinos of another flavor through neutrino oscillations; the appearance signal depends on θ13 and δCP, and combining with reactor θ13 data the paper finds that some values of δCP are disfavored at the 90% CL.",
+    "verified_at": "2026-10-25"
+  }
 }

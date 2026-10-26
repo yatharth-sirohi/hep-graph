@@ -3,11 +3,22 @@
     "UA1 Z boson discovery",
     "Experimental Observation of Lepton Pairs of Invariant Mass Around 95 GeV/c^2 at the CERN SPS Collider"
   ],
-  "announced": null,
+  "announced": {
+    "confidence": "verified",
+    "locator": "CERN archives guide, isaua1 (UA1 administrative history)",
+    "note": "",
+    "quote": "On 1 June 1983 CERN formally announced the discovery of the Z boson.",
+    "sources": [
+      "src:ua1-cern-archives-guide"
+    ],
+    "value": "1983-06-01",
+    "verified_at": "2026-10-25"
+  },
   "claim": {
-    "locator": "Title, Phys.Lett.B 126 (1983) 398, INSPIRE recid 190338",
+    "locator": "Title, Phys. Lett. B 126 (1983) 398 (facsimile at the cited URL)",
     "quote": "Experimental Observation of Lepton Pairs of Invariant Mass Around 95 GeV/c^2 at the CERN SPS Collider",
     "sources": [
+      "src:rv-l-ua1-z-plb126-398-mit",
       "src:ua1-inspire-w-z-discovery-papers"
     ]
   },
@@ -20,15 +31,16 @@
   },
   "date": {
     "confidence": "verified",
-    "locator": "INSPIRE recid 190338, field preprint_date",
-    "note": "INSPIRE preprint_date for this paper (month precision); no separate CERN press-announcement date for the Z result was located in this session's fetched sources.",
+    "locator": "CERN archives guide, isaua1 (UA1 administrative history)",
+    "note": "Announcement date: CERN formally announced the discovery of the Z boson on 1 June 1983. The paper was received by Physics Letters B on 6 June 1983 and printed in the issue dated 7 July 1983 (Vol. 126B, no. 5).",
+    "quote": "On 1 June 1983 CERN formally announced the discovery of the Z boson.",
     "sources": [
-      "src:ua1-inspire-w-z-discovery-papers"
+      "src:ua1-cern-archives-guide"
     ],
-    "value": "1983-07",
-    "verified_at": "2026-09-17"
+    "value": "1983-06-01",
+    "verified_at": "2026-10-25"
   },
-  "date_kind": "preprint",
+  "date_kind": "announcement",
   "detector_ids": [
     "detector:ua1"
   ],
@@ -46,26 +58,28 @@
     "confidence": "verified",
     "dimension": "mass_energy",
     "display": "~95 GeV/c^2",
-    "locator": "Phys.Lett.B 126 (1983) 398, abstract, INSPIRE recid 190338",
+    "locator": "Phys. Lett. B 126 (1983) 398, abstract (facsimile at the cited URL)",
     "note": "",
-    "quote": "mass ~ 95 GeV/c^2",
+    "quote": "a particle of mass ~95 GeV/c2",
     "sources": [
+      "src:rv-l-ua1-z-plb126-398-mit",
       "src:ua1-inspire-w-z-discovery-papers"
     ],
     "unit": "GeV/c^2",
     "value": 95,
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "key_value_text": {
     "confidence": "verified",
-    "locator": "Phys.Lett.B 126 (1983) 398, abstract, INSPIRE recid 190338",
+    "locator": "Phys. Lett. B 126 (1983) 398, abstract (facsimile at the cited URL)",
     "note": "",
-    "quote": "four electron-positron pairs and one muon pair\" with \"mass ~ 95 GeV/c^2\" from \"Z0 -> l+ + l-",
+    "quote": "We report the observation of four electron-positron pairs and one muon pair which have the signature of a two-body decay of a particle of mass ~95 GeV/c2.",
     "sources": [
+      "src:rv-l-ua1-z-plb126-398-mit",
       "src:ua1-inspire-w-z-discovery-papers"
     ],
-    "value": "Four electron-positron pairs and one muon pair with invariant mass around 95 GeV/c^2, interpreted as Z0 -> l+ l-",
-    "verified_at": "2026-09-17"
+    "value": "Four electron-positron pairs and one muon pair with the signature of a two-body decay of a particle of mass ~95 GeV/c^2, read as p-pbar -> Z0 + X, Z0 -> l+ l-",
+    "verified_at": "2026-10-25"
   },
   "links": {},
   "name": "Experimental Observation of Lepton Pairs of Invariant Mass Around 95 GeV/c² at the CERN SPS Collider",
@@ -79,23 +93,26 @@
   "publication_source_id": "src:ua1-inspire-w-z-discovery-papers",
   "published": {
     "confidence": "verified",
-    "locator": "Phys.Lett.B 126 (1983) 398-410, INSPIRE recid 190338",
-    "note": "Year only; exact publication day not sourced in this session.",
+    "locator": "Phys. Lett. B 126 (1983) 398, journal page header (facsimile at the cited URL)",
+    "note": "Issue dated 7 July 1983; year only recorded.",
+    "quote": "Volume 126B, number 5 PHYSICS LETTERS 7 July 1983",
     "sources": [
-      "src:ua1-inspire-w-z-discovery-papers"
+      "src:rv-l-ua1-z-plb126-398-mit"
     ],
     "value": "1983",
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "result_type": "observation",
   "schema": "hep-atlas/0.2",
   "significance": null,
   "sources": [
-    "src:ua1-inspire-w-z-discovery-papers"
+    "src:ua1-inspire-w-z-discovery-papers",
+    "src:rv-l-ua1-z-plb126-398-mit",
+    "src:ua1-cern-archives-guide"
   ],
   "summary": {
-    "plain": "A few months after finding the W boson, UA1 spotted its heavier, electrically neutral cousin: the Z boson, seen as pairs of electrons or muons whose combined mass clustered around 95 GeV.",
-    "technical": "UA1 Collaboration, Phys. Lett. B 126 (1983) 398-410; four e+e- pairs and one mu+mu- pair with invariant mass around 95 GeV/c^2, interpreted as Z0 -> l+ l-."
+    "plain": "UA1 reported four electron-positron pairs and one muon pair whose combined mass, about 95 GeV/c², is the signature of a two-body decay of a heavy particle, which the paper reads as the neutral Z boson. CERN announced the discovery of the Z boson on 1 June 1983, after the W announcement of 25 January.",
+    "technical": "UA1 Collaboration, Phys. Lett. B 126 (1983) 398: four e+e- pairs and one mu+mu- pair with the signature of a two-body decay of a particle of mass ~95 GeV/c^2; the events fit well the hypothesis p-pbar -> Z0 + X with Z0 -> l+ l-, where Z0 is the Intermediate Vector Boson postulated by the electroweak theories as the mediator of weak neutral currents."
   },
   "superseded_by": null,
   "title": "Experimental Observation of Lepton Pairs of Invariant Mass Around 95 GeV/c^2 at the CERN SPS Collider",
@@ -104,5 +121,5 @@
     "topic:collider-physics"
   ],
   "type": "result",
-  "why_it_matters": "The first direct observation of the Z boson, the neutral carrier of the weak force, completing the experimental confirmation of the electroweak theory's predicted force carriers alongside the W."
+  "why_it_matters": "The paper identifies the Z0 as the Intermediate Vector Boson postulated by the electroweak theories as the mediator of weak neutral currents, and CERN announced the discovery of the Z boson on 1 June 1983, after the W announcement of 25 January 1983."
 }

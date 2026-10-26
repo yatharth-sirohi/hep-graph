@@ -9,14 +9,33 @@
   "facility_ids": ["facility:kamioka-observatory"],
   "detector_ids": ["detector:kamland"],
   "date": {
-    "value": "2002-12",
-    "sources": ["src:kamland-first-results-2002"],
-    "verified_at": "2026-09-17",
+    "value": "2002-12-06",
+    "sources": ["src:rv-r2-kamland-public-release-2002"],
+    "verified_at": "2026-10-25",
     "confidence": "verified",
-    "locator": "arXiv:hep-ex/0212021, submitted 9 December 2002",
-    "note": "Published as Phys. Rev. Lett. 90, 021802 (2003); date recorded here is the preprint submission date, see `date_kind`."
+    "locator": "KamLAND public-level release, \"For Release 6 December 2002\"",
+    "quote": "FIRST KAMLAND RESULTS For Release 6 December 2002 First KamLAND Results Public Level Discussion Japanese and American physicists from a collaboration called KamLAND have released analysis of data from their first six months of experimental operations",
+    "note": "Public release of the first KamLAND results on 6 December 2002; the arXiv preprint (hep-ex/0212021) was submitted on 9 December 2002 and published as Phys. Rev. Lett. 90, 021802 (2003)."
   },
-  "date_kind": "preprint",
+  "date_kind": "announcement",
+  "announced": {
+    "value": "2002-12-06",
+    "sources": ["src:rv-r2-kamland-public-release-2002"],
+    "verified_at": "2026-10-25",
+    "confidence": "verified",
+    "locator": "KamLAND public-level release, \"For Release 6 December 2002\"",
+    "quote": "FIRST KAMLAND RESULTS For Release 6 December 2002 First KamLAND Results Public Level Discussion Japanese and American physicists from a collaboration called KamLAND have released analysis of data from their first six months of experimental operations",
+    "note": ""
+  },
+  "published": {
+    "value": "2003",
+    "sources": ["src:kamland-first-results-2002"],
+    "verified_at": "2026-10-25",
+    "confidence": "verified",
+    "locator": "arXiv:hep-ex/0212021, journal reference",
+    "quote": "Phys.Rev.Lett.90:021802,2003",
+    "note": ""
+  },
   "topic_ids": ["topic:reactor-neutrinos", "topic:neutrino-oscillations"],
   "result_type": "evidence",
   "title": "First Results from KamLAND: Evidence for Reactor Anti-Neutrino Disappearance",
@@ -26,8 +45,8 @@
     "sources": ["src:kamland-first-results-2002"]
   },
   "summary": {
-    "plain": "KamLAND's first data showed fewer antineutrinos arriving from distant Japanese reactors than expected if nothing happened to them on the way — direct proof, from reactors rather than the Sun, that the 'large mixing angle' explanation of the solar neutrino problem is right.",
-    "technical": "In a 162 ton·yr (145.1-day) exposure, KamLAND measured a ratio of observed to expected reactor antineutrino events of 0.611±0.085(stat)±0.041(syst) for E>3.4 MeV, excluding no-oscillation at 99.95% CL and, with CPT invariance, favouring the Large Mixing Angle solution to the solar neutrino problem over other two-flavour oscillation solutions."
+    "plain": "KamLAND's first data showed fewer antineutrinos from distant Japanese reactors than expected (observed/expected 0.611). The deficit is inconsistent with standard antineutrino propagation at the 99.95% confidence level; assuming two-flavor oscillations with CPT invariance, only the 'Large Mixing Angle' solution to the solar neutrino problem remains.",
+    "technical": "In a 162 ton·yr (145.1-day) exposure, KamLAND measured a ratio of observed to expected reactor antineutrino events of 0.611 ± 0.085(stat) ± 0.041(syst) for E > 3.4 MeV; the deficit is inconsistent with the expected rate for standard ν̄e propagation at the 99.95% confidence level, and in the context of two-flavor neutrino oscillations with CPT invariance the results exclude all oscillation solutions but the 'Large Mixing Angle' solution to the solar neutrino problem."
   },
   "why_it_matters": {
     "value": "In the context of two-flavor oscillations with CPT invariance, the first KamLAND data exclude every oscillation solution to the solar neutrino problem except the Large Mixing Angle solution, using reactor antineutrinos.",
@@ -47,9 +66,9 @@
     "note": ""
   },
   "significance": {
-    "value": "99.95% CL exclusion of no-disappearance",
+    "value": "99.95% CL (deficit inconsistent with standard ν̄e propagation)",
     "sources": ["src:kamland-first-results-2002"],
-    "verified_at": "2026-09-17",
+    "verified_at": "2026-10-25",
     "confidence": "verified",
     "quote": "The deficit of events is inconsistent with the expected rate for standard ν̄e propagation at the 99.95% confidence level",
     "note": "Not expressed as a sigma value in the fetched abstract; recorded as the stated confidence level."
