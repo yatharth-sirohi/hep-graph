@@ -124,6 +124,15 @@ function renderTopicMode() {
 }
 
 // ------------------------------------------------------------- results mode
+// The Results controls are open at wide widths and shut on a phone (see
+// renderResultsMode); crossing the breakpoint (a rotation, a resize) puts the
+// panel on the side of it that now applies. One listener, for whichever
+// Results panel is on screen.
+const phoneControls = { query: window.matchMedia('(max-width: 900px)'), el: null };
+phoneControls.query.addEventListener('change', () => {
+  if (phoneControls.el && phoneControls.el.isConnected) phoneControls.el.open = !phoneControls.query.matches;
+});
+
 function uniqueSorted(values) {
   return [...new Set(values.filter(Boolean))].sort();
 }
@@ -207,10 +216,17 @@ function renderResultsMode() {
   // opening a result and pressing Back, and travel in a shared link.
   const startView = (ctx.getState && ctx.getState().results) || null;
 
+  // Options are listed in the order a reader sees them: by the name shown
+  // (case and accents ignored, numbers in numeric order), not by the id or
+  // acronym behind it — "Deep Underground Neutrino Experiment" sorts under D
+  // although its id says "dune". A list with no names (the years) keeps its order.
+  const byLabel = new Intl.Collator(undefined, { sensitivity: 'base', numeric: true });
   function select(id, label, options, nameMap) {
     const sel = h('select', { id, 'aria-label': label });
     sel.appendChild(h('option', { value: '' }, `All ${label.toLowerCase()}`));
-    for (const opt of options) sel.appendChild(h('option', { value: opt }, nameMap ? (nameMap.get(opt) || opt) : String(opt)));
+    const shown = options.map((opt) => ({ opt, text: nameMap ? (nameMap.get(opt) || opt) : String(opt) }));
+    if (nameMap) shown.sort((a, b) => byLabel.compare(a.text, b.text));
+    for (const { opt, text } of shown) sel.appendChild(h('option', { value: opt }, text));
     return sel;
   }
 
@@ -235,6 +251,20 @@ function renderResultsMode() {
 
   const countEl = h('p', { class: 'mode-count', role: 'status', id: 'results-count' }, '');
   const list = h('ul', { class: 'results-list', id: 'results-mode-list' });
+
+  // On a phone the controls are a "Filters" disclosure, closed until opened, so
+  // the sheet opens on the list and not on seven controls above it; its summary
+  // says how many are in force. At wider widths the controls are always shown
+  // (the summary is hidden by CSS and the disclosure kept open).
+  const controls = h('details', { class: 'results-controls', id: 'results-controls' });
+  const controlsSummary = h('summary', { id: 'results-controls-summary' }, 'Filters');
+  controls.open = !phoneControls.query.matches;
+  phoneControls.el = controls;
+  function updateControlsSummary() {
+    const active = [yearSel, expSel, facSel, topicSel, typeSel].filter((sel) => sel.value).length
+      + (sortSel.value !== 'date' ? 1 : 0) + (groupBy !== 'none' ? 1 : 0);
+    controlsSummary.textContent = active ? `Filters \u00b7 ${active} active` : 'Filters';
+  }
 
   function buildResultRow(result) {
     const li = h('li', { class: 'result-row' });
@@ -290,6 +320,7 @@ function renderResultsMode() {
       && (!filters.type || r.result_type === filters.type)
     ));
     countEl.textContent = `Showing ${filtered.length} of ${results.length} results`;
+    updateControlsSummary();
     list.innerHTML = '';
     if (!filtered.length) {
       list.appendChild(h('li', { class: 'empty-note' }, emptyMessage()));
@@ -371,14 +402,19 @@ function renderResultsMode() {
     apply();
   };
 
-  return h('div', { class: 'mode-body' }, [
-    h('h2', {}, 'Results'),
-    countEl,
+  controls.append(
+    controlsSummary,
     h('div', { class: 'results-filters' }, [yearSel, expSel, facSel, topicSel, typeSel]),
     h('div', { class: 'mode-toolbar' }, [
       sortSel,
       h('div', { class: 'group-toggle-row', role: 'group', 'aria-label': 'Group results by' }, [groupYearBtn, groupExpBtn]),
     ]),
+  );
+  updateControlsSummary();
+  return h('div', { class: 'mode-body' }, [
+    h('h2', {}, 'Results'),
+    countEl,
+    controls,
     h('div', { class: 'mode-scroll' }, [list]),
   ]);
 }

@@ -2373,6 +2373,100 @@ async function setRangeValue(locator, value) {
 
   }
 
+  // Release-candidate review F2, F3, F4 (rc-frontend): the three that a green suite
+  // would otherwise not notice, because each shows wrong text or counts on a page
+  // that still renders.
+  if (process.env.HEP_ATLAS_DATA === "generated") {
+    await record("Every result panel leads with its plain-language summary and shows no raw TeX; the quote is a labelled, readable excerpt (rc F2)", async () => {
+      const [resultsRaw, textRaw] = await Promise.all([
+        page.request.get(`${base}/atlas/generated/results.json`).then((r) => r.json()),
+        page.request.get(`${base}/atlas/generated/text.json`).then((r) => r.json()),
+      ]);
+      const ids = Object.keys(resultsRaw).filter((key) => key.startsWith("result:"));
+      assert.ok(ids.length > 100, `expected the generated results, got ${ids.length}`);
+      await page.goto(`${base}/atlas`);
+      await page.locator("#detail-panel").waitFor({ state: "attached" });
+      for (const id of ids) {
+        const slug = id.split(":")[1];
+        await page.evaluate((hash) => { window.location.hash = hash; }, `#/result/${slug}`);
+        await page.waitForFunction((want) => {
+          const heading = document.querySelector("#detail-panel h2");
+          return !!heading && !!document.querySelector("#detail-panel .result-lede") && window.location.hash === `#/result/${want}`;
+        }, slug);
+        const seen = await page.evaluate(() => ({
+          text: document.getElementById("detail-panel").innerText,
+          lede: document.querySelector("#detail-panel .result-lede").textContent,
+        }));
+        assert.equal(seen.lede, resultsRaw[id].summary.plain, `${id}: the lede is the plain-language summary`);
+        assert.doesNotMatch(seen.text, /\$|\\[A-Za-z]|\^\{|_\{|\[object/, `${id}: the panel shows raw TeX or an object`);
+      }
+      // One with TeX in its quote, end to end.
+      const id = "result:miniboone-low-energy-excess-2021";
+      await page.evaluate(() => { window.location.hash = "#/result/miniboone-low-energy-excess-2021"; });
+      await page.locator("#detail-panel .result-excerpt").waitFor();
+      const excerpt = page.locator("#detail-panel .result-excerpt");
+      assert.match(await excerpt.locator(".excerpt-label").innerText(), /^From the abstract:/);
+      const readable = await excerpt.locator(".quote-text").innerText();
+      assert.match(readable, /638\.0 ± 132\.8 electron-like events \(4\.8 σ\)/, "the TeX reads as notation");
+      assert.equal(await excerpt.locator(".quote-view").getAttribute("data-verbatim"), textRaw[id].claim.quote,
+        "the stored quote is carried unaltered");
+      await excerpt.locator(".quote-toggle").click();
+      assert.match(await excerpt.locator(".quote-text").innerText(), /\$638\.0 \\pm 132\.8\$/, "the verbatim toggle shows the text as published");
+      await excerpt.locator(".quote-toggle").click();
+      assert.match(await excerpt.locator(".quote-text").innerText(), /638\.0 ± 132\.8/);
+      // A quote that is only the paper's title is not repeated under the lede.
+      await page.evaluate(() => { window.location.hash = "#/result/belle-d0-mixing-evidence-2007"; });
+      await page.waitForFunction(() => location.hash.endsWith("belle-d0-mixing-evidence-2007") && !!document.querySelector("#detail-panel .result-lede"));
+      assert.equal(await page.locator("#detail-panel .result-excerpt").count(), 0, "a quote that is the title is not shown again");
+    });
+
+    await record("Placement dates are words, never \"[object Object]\" (rc F3)", async () => {
+      for (const route of ["detector/nd280", "detector/ingrid", "detector/double-chooz", "detector/ship",
+        "site/cern-ecn3-north-area", "site/double-chooz-near-detector", "site/j-parc-neutrino-near-detector-hall"]) {
+        await page.goto(`${base}/atlas#/${route}`);
+        await page.locator("#detail-panel h2").waitFor();
+        await page.waitForFunction(() => /Placements|Detectors placed here/.test(document.getElementById("detail-panel").innerText));
+        const text = await page.locator("#detail-panel").innerText();
+        assert.doesNotMatch(text, /\[object Object\]/, `${route} prints an unformatted date object`);
+      }
+      await page.goto(`${base}/atlas#/detector/nd280`);
+      await page.locator("#detail-panel h2").waitFor();
+      assert.match(await page.locator("#detail-panel").innerText(), /— Near \(c\. 2009–present\)/, "an approximate start reads as c. 2009");
+      await page.goto(`${base}/atlas#/detector/ship`);
+      await page.locator("#detail-panel h2").waitFor();
+      assert.match(await page.locator("#detail-panel").innerText(), /— Main \(planned from 2033\)/, "a planned start is not 'present'");
+    });
+
+    await record("Globe clusters count and name only the facilities present in the selected year (rc F4)", async () => {
+      const atlasRaw = await page.request.get(`${base}/atlas/generated/atlas.json`).then((r) => r.json());
+      for (const year of [1950, 1975]) {
+        await page.goto(`${base}/atlas?y=${year}`);
+        await page.waitForFunction(() => document.querySelectorAll(".atlas-marker.tier-facility").length > 0, { timeout: 15000 });
+        await page.waitForTimeout(800);
+        const month = (year - 1950) * 12 + 6;
+        const presentNames = new Set(Object.values(atlasRaw.facilities)
+          .filter((facility) => (facility.state_segments || []).some(([from, to]) => month >= from && month <= to))
+          .map((facility) => facility.name));
+        const clusters = await page.evaluate(() => [...document.querySelectorAll(".atlas-marker.is-cluster.tier-facility")]
+          .map((el) => el.getAttribute("aria-label")));
+        const singles = await page.evaluate(() => [...document.querySelectorAll(".atlas-marker.tier-facility:not(.is-cluster):not(.is-absent)")]
+          .map((el) => el.getAttribute("aria-label")));
+        let drawn = singles.length;
+        for (const label of clusters) {
+          const [, count, names] = /^(\d+) facilities near here — (.*)\. Press Enter/.exec(label) || [];
+          assert.ok(count, `cluster label reads "N facilities near here": ${label}`);
+          drawn += Number(count);
+          // The label names at most four; every name it gives is a facility present that year.
+          for (const name of names.replace(/, …$/, "").split(", ")) {
+            assert.ok(presentNames.has(name), `${year}: cluster names ${name}, which is not present that year`);
+          }
+        }
+        assert.ok(drawn <= presentNames.size,
+          `${year}: ${drawn} facilities drawn (singles and cluster members) but only ${presentNames.size} are present`);
+      }
+    });
+  }
+
   // Phone-width findings F8 and F9 (rv-maps).
   if (process.env.HEP_ATLAS_DATA === "generated") {
     await record("Phone: the Results filters wrap instead of scrolling sideways, and about.html fits the screen (F8, F9)", async () => {
@@ -2381,7 +2475,16 @@ async function setRangeValue(locator, value) {
         mobile.on("page", (p) => p.on("pageerror", (e) => errors.push(e.message)));
         const p = await mobile.newPage();
         await p.goto(`${base}/atlas?m=results`);
-        await p.locator("#results-filter-facility").waitFor({ timeout: 20000 });
+        await p.locator("#results-filter-facility").waitFor({ timeout: 20000, state: "attached" });
+        // Release-candidate review F18: the controls are a "Filters" disclosure,
+        // shut until opened, so the sheet opens on the list; the geometry below is
+        // read with it open.
+        assert.equal(await p.evaluate(() => document.getElementById("results-controls").open), false,
+          "the Results filters start collapsed on a phone");
+        assert.match(await p.locator("#results-controls-summary").innerText(), /^Filters$/);
+        const firstRowTop = await p.evaluate(() => document.querySelector("#results-mode-list .result-row").getBoundingClientRect().top);
+        assert.ok(firstRowTop < 700, `the first result is on screen at ${width}px (top ${firstRowTop})`);
+        await p.locator("#results-controls-summary").click();
         const seen = await p.evaluate(() => [...document.querySelectorAll(".results-filters select, #results-sort, .group-toggle")]
           .map((el) => { const r = el.getBoundingClientRect(); return { id: el.id, left: r.left, right: r.right }; }));
         assert.equal(seen.length, 8, "five filters, the sort and two group buttons");
