@@ -1,0 +1,140 @@
+{
+  "aliases": [
+    "ELENA",
+    "Extra Low ENergy Antiproton ring"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:cern",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:elena",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2016-11",
+      "label": "approved by CERN Council; construction and installation",
+      "locator": "opening paragraph (28 September 2011)",
+      "note": "Construction was scheduled to begin in 2013 (same release); by 14 November 2016 \"The full ELENA ring is now installed, with the exception of its electron cooler\" (CERN message). The actual construction-start day is not stated, so one `approved` interval is used.",
+      "quote": "Approved by CERN Council in June this year, ELENA is scheduled to deliver its first antiprotons in 2016.",
+      "sources": [
+        "src:precision-2-cern-elena-kickoff-2011",
+        "src:precision-2-cern-great-progress-2016"
+      ],
+      "start": "2011-06",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2018-10",
+      "label": "commissioning with beam",
+      "locator": "message of 14 November 2016, third paragraph",
+      "note": "Start is the scheduled start of beam tests (a plan, week of 14 November 2016). End: GBAR \"received its first beam of antiprotons from ELENA in October 2018\".",
+      "quote": "Although this is a vital component, the ring can already be tested with beam, and that’s scheduled to start during the week of 14 November using an independent ion source.",
+      "sources": [
+        "src:precision-2-cern-great-progress-2016",
+        "src:precision-2-cern-gbar-page"
+      ],
+      "start": "2016-11",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2026-08-31",
+      "label": "operation for the AD-ELENA experiments",
+      "locator": "GBAR page, last paragraph",
+      "note": "Start: first ELENA beam to an experiment (GBAR), October 2018. The other AD experiments were connected during Long Shutdown 2 per the CERN message of 14 November 2016 (plan). End: 31 August 2026, LS3.",
+      "quote": "GBAR was approved by the CERN Research Board in May 2012 and received its first beam of antiprotons from ELENA in October 2018.",
+      "sources": [
+        "src:precision-2-cern-gbar-page",
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2018-10",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Long Shutdown 3 (Antimatter Factory)",
+      "locator": "opening paragraph",
+      "note": "The complex will progressively return to operation from 2028 onwards, with the different injectors and facilities restarting in stages. (31 August 2026). No separate ELENA restart date is published in that item.",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": false,
+  "kind": "synchrotron",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "ELENA is described on the CERN AD page",
+      "note": "",
+      "sources": [
+        "src:precision-2-cern-ad-page"
+      ],
+      "value": "https://home.cern/science/accelerators/antiproton-decelerator",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "ELENA (Extra Low ENergy Antiproton ring)",
+  "notes": [],
+  "particles": [
+    "antiproton"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:cern-antiproton-decelerator-hall",
+  "sources": [
+    "src:precision-2-cern-ad-page",
+    "src:precision-2-cern-elena-kickoff-2011",
+    "src:precision-2-cern-great-progress-2016",
+    "src:precision-2-cern-gbar-page",
+    "src:currency-cern-all-accelerators-2026-08-31"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "0.1 MeV",
+      "locator": "AD page, paragraph on ELENA",
+      "note": "Output energy of the ring.",
+      "quote": "This synchrotron, with a circumference of 30 metres, slows the antiprotons even more, reducing their energy by a factor of 50, from 5.3 MeV to just 0.1 MeV.",
+      "sources": [
+        "src:precision-2-cern-ad-page"
+      ],
+      "unit": "MeV",
+      "value": 0.1,
+      "verified_at": "2026-10-26"
+    },
+    "circumference": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "30 m",
+      "locator": "AD page, paragraph on ELENA",
+      "note": "",
+      "quote": "This synchrotron, with a circumference of 30 metres, slows the antiprotons even more, reducing their energy by a factor of 50, from 5.3 MeV to just 0.1 MeV.",
+      "sources": [
+        "src:precision-2-cern-ad-page"
+      ],
+      "unit": "m",
+      "value": 30,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "shutdown",
+  "summary": {
+    "plain": "A small 30-metre ring added to CERN’s antiproton machine. It slows antiprotons about fifty times more, so far more of them can be caught in the traps where antihydrogen is made. It paused for a long shutdown in August 2026.",
+    "technical": "ELENA decelerates the AD’s 5.3 MeV antiprotons to 0.1 MeV in a 30 m synchrotron with electron cooling, raising trapping efficiency by a factor of 10 to 100. Approved June 2011; first beam tests November 2016; first beam to an experiment October 2018; in LS3 since 31 August 2026."
+  },
+  "type": "accelerator"
+}
