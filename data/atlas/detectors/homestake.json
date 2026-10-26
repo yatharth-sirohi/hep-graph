@@ -1,87 +1,107 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "detector:homestake",
-  "type": "detector",
-  "name": "Homestake chlorine detector",
   "aliases": [],
-  "experiment_ids": ["experiment:homestake"],
-  "parent_detector_id": null,
-  "technology": {
-    "value": "Radiochemical chlorine detector: solar neutrinos capture on 37Cl to produce 37Ar via inverse beta decay in a large tank of perchloroethylene (dry-cleaning fluid), with the argon periodically extracted and counted",
-    "sources": ["src:homestake-1998-flux-measurement"],
-    "verified_at": "2026-09-18",
-    "confidence": "verified",
-    "quote": "using the inverse beta-decay reaction to measure solar neutrinos ... extraction and counting efficiencies",
-    "note": ""
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
   },
-  "technology_class": "other",
-  "technology_classes": ["other"],
-  "placements": [
-    {
-      "site_id": "site:surf-surface-campus",
-      "role": "main",
-      "start": "1970",
-      "end": "1994",
-      "sources": ["src:homestake-wikipedia"],
-      "verified_at": "2026-09-18",
-      "confidence": "uncertain",
-      "quote": "positioned 1,478 meters (4,850 feet) underground",
-      "note": "site:surf-surface-campus (owned by the fermilab-dune workstream; not created or edited here) is a `kind: campus`/`confidence: approximate` point for the whole SURF/Homestake site, used here per this workstream's brief as the fallback when no distinct sourced coordinate exists for the Davis chlorine-tank chamber specifically. This detector was actually ~1478 m (4850 ft) underground, NOT at the surface; the placement's role/time are sourced, but the site point itself only marks the general campus location, not the true underground depth -- flagged in `missing_fields`."
-    }
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:homestake"
   ],
+  "id": "detector:homestake",
   "intervals": [
     {
-      "label": "continuous operation",
-      "status": "active",
-      "start": "1970",
-      "end": "1994",
-      "sources": ["src:homestake-wikipedia"],
-      "verified_at": "2026-09-18",
       "confidence": "approximate",
+      "end": "1994",
+      "label": "continuous operation",
+      "note": "Dates sourced from Wikipedia (rank 12) only.",
       "quote": "The experiment operated continuously from 1970 until 1994.",
-      "note": "Dates sourced from Wikipedia (rank 12) only."
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "start": "1970",
+      "status": "active",
+      "verified_at": "2026-09-18"
     },
     {
-      "label": "shut down",
-      "status": "completed",
-      "start": "1994",
-      "end": null,
-      "sources": ["src:homestake-wikipedia"],
-      "verified_at": "2026-09-18",
       "confidence": "approximate",
+      "end": null,
+      "label": "shut down",
+      "note": "Terminal event date sourced from Wikipedia (rank 12) only.",
       "quote": "The experiment operated continuously from 1970 until 1994.",
-      "note": "Terminal event date sourced from Wikipedia (rank 12) only."
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "start": "1994",
+      "status": "completed",
+      "verified_at": "2026-09-18"
     }
   ],
-  "status": "completed",
-  "specs": {
-    "target_mass": {
-      "value": null,
-      "unit": "t",
-      "dimension": "mass",
-      "approx": false,
-      "display": null,
-      "sources": ["src:homestake-wikipedia"],
-      "verified_at": "2026-09-18",
-      "confidence": "uncertain",
-      "note": "Wikipedia gives target volume (380 m3 / 100,000 gallons of perchloroethylene) but no source fetched this session converts this to a mass; left null rather than computed from an assumed density."
-    }
-  },
-  "subsystems": [],
-  "document_ids": [],
   "links": {
     "website": null
   },
+  "name": "Homestake chlorine detector",
   "notes": [
     "Coordinate caveat: the site referenced (site:surf-surface-campus) is a surface campus point, not the detector's true ~1478 m underground location; see placement note."
   ],
-  "sources": ["src:homestake-wikipedia", "src:homestake-1998-flux-measurement"],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "uncertain",
+      "end": "1994",
+      "note": "site:surf-surface-campus is an approximate campus-level point for the whole SURF/Homestake site, used because no distinct sourced coordinate exists for the Davis chlorine-tank chamber. The detector was actually ~1478 m (4850 ft) underground, not at the surface; the placement's role and dates are sourced, but the site point only marks the general campus location, not the true underground depth.",
+      "quote": "The experiment took place in the Homestake Gold Mine in Lead, South Dakota. ... The experiment operated continuously from 1970 until 1994.",
+      "role": "main",
+      "site_id": "site:surf-surface-campus",
+      "sources": [
+        "src:homestake-wikipedia",
+        "src:rf06-davis-nobel-lecture-2002"
+      ],
+      "start": "1970",
+      "verified_at": "2026-10-25"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:homestake-wikipedia",
+    "src:homestake-1998-flux-measurement"
+  ],
+  "specs": {
+    "target_mass": {
+      "approx": false,
+      "confidence": "uncertain",
+      "dimension": "mass",
+      "display": null,
+      "note": "Wikipedia gives the target volume (380 m³ / 100,000 gallons of perchloroethylene) but no source consulted (checked 2026-09-18) converts this to a mass; the mass is left unset rather than computed from an assumed density.",
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "unit": "t",
+      "value": null,
+      "verified_at": "2026-09-18"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
   "summary": {
     "plain": "A tank of dry-cleaning fluid, nearly a mile underground, that turned rare chlorine atoms into argon whenever a solar neutrino struck.",
-    "technical": "Radiochemical chlorine-argon detector, 380 m3 perchloroethylene target, 1478 m (4850 ft) underground in the Homestake mine; ran 1970-1994, measured 37Ar production rate 2.56±0.16(stat)±0.16(syst) SNU."
+    "technical": "Radiochemical chlorine-argon detector, 380 m³ perchloroethylene target, 1478 m (4850 ft) underground in the Homestake mine; ran 1970-1994, measured 37Ar production rate 2.56±0.16(stat)±0.16(syst) SNU."
   },
-  "coverage": {
-    "tier": "D",
-    "researched": "partial"
-  }
+  "technology": {
+    "confidence": "verified",
+    "note": "Reaction νe + 37Cl → 37Ar + e⁻ (inverse beta decay) and the extraction/counting steps: Cleveland et al. 1998 abstract (src:homestake-1998-flux-measurement). Perchloroethylene tank, argon extraction by helium sweep every two to three months: Davis Nobel lecture (quoted). The 'dry-cleaning fluid' gloss is from Wikipedia.",
+    "quote": "build a 100,000-gallon chlorine-argon neutrino detector in the Homestake Gold Mine ... In order to extract argon from the tank, helium is bubbled through the perchloroethylene.",
+    "sources": [
+      "src:homestake-1998-flux-measurement",
+      "src:rf06-davis-nobel-lecture-2002",
+      "src:homestake-wikipedia"
+    ],
+    "value": "Radiochemical chlorine detector: solar neutrinos capture on 37Cl to produce 37Ar via inverse beta decay in a large tank of perchloroethylene (dry-cleaning fluid), with the argon periodically extracted and counted",
+    "verified_at": "2026-10-25"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
 }

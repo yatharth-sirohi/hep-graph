@@ -142,8 +142,7 @@
   },
   "name": "SuperKEKB",
   "notes": [
-    "Accelerator lineage is expressed with a `lineage` list keyed on `accelerator_id`, mirroring `experiment.lineage`; v0.2 A1 defines the canonical direction only for experiments.",
-    "Conflict logged in docs/atlas-worklog/flavor.md: design luminosity 8×10³⁵ (2018 accelerator paper and belle2.org) vs 6.0×10³⁵ (2025 Belle II strategy input). The newer value is recorded as design_luminosity and both are quoted."
+    "Sources disagree on the design luminosity: 8×10³⁵ (2018 accelerator paper and belle2.org) vs 6.0×10³⁵ (2025 Belle II strategy input). The newer value is recorded as the design luminosity and both are quoted."
   ],
   "particles": [
     "electron",
@@ -163,6 +162,7 @@
       "confidence": "verified",
       "dimension": "energy",
       "display": "7 GeV e⁻ (HER) × 4 GeV e⁺ (LER)",
+      "locator": "arXiv PDF p. 7",
       "note": "Same values in the SuperKEKB accelerator paper: 'a 7 GeV electron - 4 GeV positron double-ring collider'.",
       "quote": "The beam energies for the High Energy Ring (HER) and the Low Energy Ring (LER) are 7 GeV and 4 GeV, respectively",
       "sources": [
@@ -220,6 +220,7 @@
       "confidence": "verified",
       "dimension": "luminosity",
       "display": "6.0 × 10³⁵ cm⁻² s⁻¹ (target)",
+      "locator": "arXiv PDF p. 7",
       "note": "Current target (Belle II input to the European Strategy, 2025). The original design value was 8×10³⁵ cm⁻² s⁻¹ — see the SuperKEKB accelerator paper ('The design luminosity of SuperKEKB is 8 x 10^35 /cm^2 /s - 40 times higher than that achieved by KEKB') and belle2.org ('goal of increasing the instantaneous luminosity by a factor of ~40 to 8.0x1035 cm-2 s-1').",
       "quote": "with a target luminosity of 6.0×10³⁵ cm⁻² s⁻¹",
       "sources": [
@@ -247,7 +248,7 @@
   "status": "active",
   "summary": {
     "plain": "The rebuilt version of the KEKB collider in Japan. It squeezes its electron and positron beams down to nanometre thinness so they collide far more often than before, and since 2020 it has held the world record for collision rate.",
-    "technical": "Asymmetric e+e- double-ring collider, 7 GeV HER × 4 GeV LER at √s = 10.579 GeV, 3 km circumference, using the nano-beam scheme with a large crossing angle; target luminosity 6×10³⁵ cm⁻² s⁻¹ (originally 8×10³⁵), peak achieved 5.319×10³⁴ cm⁻² s⁻¹ on 30 June 2026."
+    "technical": "Asymmetric e⁺e⁻ double-ring collider, 7 GeV HER × 4 GeV LER at √s = 10.579 GeV, 3 km circumference, using the nano-beam scheme with a large crossing angle; target luminosity 6×10³⁵ cm⁻² s⁻¹ (originally 8×10³⁵), peak achieved 5.319×10³⁴ cm⁻² s⁻¹ on 30 June 2026."
   },
   "type": "accelerator"
 }

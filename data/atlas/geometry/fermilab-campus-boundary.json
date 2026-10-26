@@ -12,7 +12,7 @@
   "geometry": {
     "confidence": "approximate",
     "locator": "OSM way/31974155, extract timestamp 2026-09-18T20:20:01Z",
-    "note": "OpenStreetMap-alone representation; caps at 'approximate' confidence per contract rules even though the tracing itself is precise. Context feature only (entity_id null); shown for orientation, not a claim about any drawn accelerator or detector.",
+    "note": "Context feature only: no atlas entity depicts the campus boundary, and it is shown for orientation. OpenStreetMap alone yields at most approximate confidence, even though the tracing is precise.",
     "sources": [
       "src:fermilab-geo-osm-buildings"
     ],
@@ -218,7 +218,9 @@
   "map_id": "map:fermilab",
   "method": "OpenStreetMap way 31974155 (landuse=institutional), traced verbatim as the Fermilab campus boundary polygon.",
   "name": "Fermilab campus boundary (Batavia, Illinois)",
-  "notes": [],
+  "notes": [
+    "The Atomic Energy Commission chose a 6,800-acre site at Weston, Illinois, on 7 December 1966 (Fermilab History and Archives). The OpenStreetMap outline drawn here encloses about 6,817 acres (computed from its coordinates), so it is drawn from that date. It is the outline as mapped in 2026, not a survey of the boundary in earlier years."
+  ],
   "osm": {
     "elements": [
       "way/31974155"
@@ -229,11 +231,23 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:fermilab-main-campus",
   "sources": [
-    "src:fermilab-geo-osm-buildings"
+    "src:fermilab-geo-osm-buildings",
+    "src:rc-fnal-history-brief-history"
   ],
   "summary": {
-    "plain": "OpenStreetMap-alone representation; caps at 'approximate' confidence per contract rules even though the tracing itself is precise. Context feature only (entity_id null); shown for orientation, not ..."
+    "plain": "The outline of the Fermilab site (about 6,800 acres) as mapped in OpenStreetMap, drawn for orientation from the date the site was chosen, 7 December 1966."
   },
   "type": "geometry",
-  "valid": null
+  "valid": {
+    "confidence": "approximate",
+    "end": null,
+    "locator": "Fermilab History and Archives, 'A Brief History of Fermilab'; OSM way/31974155 polygon area computed from its coordinates (27.6 km2, about 6,817 acres)",
+    "note": "Start is the date the 6,800-acre site was chosen; the drawn outline is the 2026 OpenStreetMap polygon, whose area agrees with that acreage.",
+    "quote": "The AEC chose a 6,800 acre site at Weston, Illinois, on December 7, 1966.",
+    "sources": [
+      "src:rc-fnal-history-brief-history"
+    ],
+    "start": "1966-12-07",
+    "verified_at": "2026-10-25"
+  }
 }

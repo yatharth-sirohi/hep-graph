@@ -6,7 +6,7 @@
     "lat": 29.3576556,
     "locator": "Chinese Physics C 46, 030001 (2022), Chapter 1 'LHAASO Instruments and Detector technology', DOI 10.1088/1674-1137/ac3fa6",
     "lon": 100.1387944,
-    "note": "Map centre only; not a claim about any structure. QA pass (2026-09-21): replaced the previous OSM/Nominatim rest-area geocode (precision_m 5000) with the published coordinate now used by geometry:lhaaso-array-point; see that record and docs/atlas-worklog/REVIEW_geometry_qa.md.",
+    "note": "Map centre only; not a claim about any structure. On 2026-09-21 it replaced an OSM/Nominatim rest-area geocode (precision_m 5000) with the published coordinate also used by geometry:lhaaso-array-point.",
     "precision_m": 50,
     "sources": [
       "src:geo-lhaaso-cpc-2022-instruments"
@@ -17,7 +17,7 @@
     "researched": "partial",
     "tier": "B"
   },
-  "extent_m": 3000,
+  "extent_m": 1100,
   "facility_id": "facility:lhaaso-daocheng",
   "id": "map:lhaaso-daocheng",
   "levels": [
@@ -33,9 +33,14 @@
   "links": {
     "website": null
   },
-  "name": "LHAASO — Haizi Mountain, Daocheng",
+  "name": "LHAASO (Daocheng): KM2A detectors and WCDA pools",
   "notes": [
-    "QA pass (2026-09-21): the LHAASO Science Book (arXiv:1905.02773) coordinate this note used to flag as an unverified candidate remains unfetchable, but an independent QA re-derivation found and fetched (on two separate mirrors) a different, peer-reviewed paper stating the same figure to the hundredth of an arcsecond -- Chinese Physics C 46, 030001 (2022), doi:10.1088/1674-1137/ac3fa6. That figure now backs `center` and geometry:lhaaso-array-point directly; see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    "Drawn: the 1188 KM2A muon detectors (15 compact blocks of at most 80), the three WCDA pools, and the outline of the 5216-detector ED array. The map format has no multi-point type, so each muon detector is a 6 m square marker (the area-equivalent of its 36 m2) in a MultiPolygon. The 5216 electromagnetic detectors are NOT drawn one by one: as 1 m markers they need 26 000 vertices and push this map file to 3.5 MB, over the 2 MB size limit for a map file; their positions were read and checked and the outline carries the ED array.",
+    "Positions are read from the vector graphic of Fig. 1 of the LHAASO Science Book (Chin. Phys. C 46, 030001, CC BY 3.0; arXiv:1905.02773 v4, PDF page 8), registered to a second published copy of the layout (Fig. 1 of arXiv:2401.01038; 5215 of 5216 EDs within 2 m), and placed at the coordinate the Collaboration gives (29 21 27.56 N, 100 08 19.66 E). Checks: 4911 EDs inside 575 m and 305 outside (stated 4911 and 305), farthest ED 635.2 m (stated 635 m), pool sides 150.1 m, 150.1 m, 300.2 m x 110.1 m (stated 150, 150, 300 x 110), pool total 78,109 m2 (stated 78,000), ED hull span 1270.2 m (stated 1270 m).",
+    "The three pools are also traced in OpenStreetMap (ways 1046559931 to 1046559933, extract 2026-10-25T11:28:50Z) and lie within 1 to 3 m east and 2 to 10 m north of the placement used here, which supports the anchor; OpenStreetMap shapes are not used in any record (the OSM \"Kilometer-Square Array\" way 1003419124 is a regular 38-gon of radius 619.8 m centred 2 m from the coordinate, i.e. a drawn circle, not a trace).",
+    "Not drawn: the 18 WFCTA telescopes. The Science Book figure shows them as schematic 7 x 10 m rectangles at the junction of pools 1 and 2, but the text puts them \"at the southwest corner of the first pool\" and their container is 4.2 m x 2.5 m x 2.6 m; no position is taken from it.",
+    "It is not stated whether the layout shows design or as-built positions: the plotted EDs have a median nearest-neighbour distance of 13.6 m (stated spacing 15 m).",
+    "The previous version carried one 50 m-precision reference point (geometry:lhaaso-array-point) at the quoted coordinate; it is kept as the anchor marker. The 2016 and 2018 papers give 29 21 31 N, 100 08 15 E (164 m away); two 2020-2024 papers print \"100.01 E\" (a typo, about 12.5 km west)."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
@@ -43,11 +48,14 @@
     "site:lhaaso-haizi-mountain"
   ],
   "sources": [
+    "src:cosmic-gamma-lhaaso-science-book-arxiv-2019",
+    "src:geo-arrays-lhaaso-km2a-crab-2024",
+    "src:geo-arrays-lhaaso-km2a-quality-2024",
     "src:geo-lhaaso-cpc-2022-instruments"
   ],
   "summary": {
-    "plain": "The LHAASO cosmic-ray and gamma-ray observatory on Haizi Mountain, Daocheng County, Sichuan, China.",
-    "technical": "One local map for facility:lhaaso-daocheng. Drawn as a single published reference point (Chinese Physics C 46, 030001 (2022)); KM2A (circular, ~575-635 m radius) and WCDA (78,000 m2, three pools) are described with enough shape detail to draw and are now anchorable to this tighter point, but no source states their offset/orientation from it, so neither is drawn (see geometry record and REVIEW_geometry_qa.md backlog)."
+    "plain": "The LHAASO cosmic-ray observatory on the Haizi Mountain plateau in Sichuan at 4410 m: the outline of its kilometre-wide disc of 5216 electromagnetic detectors, its 1188 muon detectors, and the three adjacent water Cherenkov ponds near the centre, all drawn to scale from the Collaboration’s published layout figure.",
+    "technical": "One local map for facility:lhaaso-daocheng. KM2A ED (5216) and MD (1188) positions and the three WCDA pool rectangles are read from Fig. 1 of the LHAASO Science Book (vector graphic), registered to a second published layout (arXiv:2401.01038), centred on the Collaboration’s coordinate 29 21 27.56 N, 100 08 19.66 E and oriented by the figure’s north arrow (accuracy 30 m; the pools agree with OpenStreetMap to 10 m). The MDs, the pools and the ED-array outline are drawn; the individual EDs and WFCTA are not."
   },
   "type": "map",
   "unlocated": []

@@ -235,7 +235,7 @@ async function contrastOf(page, selector) {
       await region.check({ force: true });
       await page.locator(".filter-chip", { hasText: "Europe" }).first().waitFor();
       await runAxe(page, tree.label, "filters panel");
-      await page.locator(".filter-chip.filter-clear-all").click();
+      await page.locator("#filter-clear-all").click();
     });
 
     await record(`[${tree.label}] axe: timeline moved to a past year`, async () => {
@@ -424,7 +424,8 @@ async function contrastOf(page, selector) {
       await kbPage.locator("#atlas-search").focus();
       await kbPage.keyboard.type("DUNE");
       await kbPage.locator(".search-result").first().waitFor();
-      await kbPage.keyboard.press("ArrowDown");
+      // The first option is already active (aria-activedescendant), so Enter
+      // opens the best match without an arrow key first.
       await kbPage.keyboard.press("Enter");
       await kbPage.locator("#detail-panel h2").waitFor();
 
@@ -442,7 +443,7 @@ async function contrastOf(page, selector) {
       await kbPage.waitForFunction(() => {
         const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
         const details = summaries.find((s) => s.textContent.trim() === "Sources")?.closest("details");
-        return !!details && details.open && !details.querySelector(".loading-note");
+        return !!details && details.open && ["loaded", "error"].includes(details.dataset.state);
       }, { timeout: 10000 });
 
       // Escape closes the panel and returns focus to the search input — the

@@ -11,54 +11,82 @@
   "intervals": [
     {
       "confidence": "verified",
-      "end": null,
-      "label": "operating",
-      "locator": "GERDA final-results paper, abstract",
-      "note": "",
-      "quote": "T1/2 > 1.8x10^26 yr at 90% C.L.",
+      "end": "2013-05",
+      "label": "Phase I data taking",
+      "locator": "GERDA status paper (arXiv:1710.07776), Section 2",
+      "note": "Mirrors the experiment:gerda Phase I interval (same source and quote).",
+      "quote": "The first phase (Phase I), from November 2011 to May 2013, accumulated an exposure of 21.6 kg⋅yr with a background of about 10−2 cts/(keV⋅kg⋅yr) at Qββ",
+      "sources": [
+        "src:gerda-searching-conf-2017"
+      ],
+      "start": "2011-11",
+      "status": "active",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "verified",
+      "end": "2019-11",
+      "label": "Phase II data taking",
+      "locator": "GERDA final-results paper (arXiv:2009.06079), analysis section",
+      "note": "Phase II data set used for the final result. The official GERDA home page separately states that data taking stopped in February 2020 (see the completed interval).",
+      "quote": "GERDA Phase II data were collected between December 2015 and November 2019.",
       "sources": [
         "src:gerda-final-results-prl-2020"
       ],
-      "start": "2011-11",
+      "start": "2015-12",
+      "status": "active",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "MPI-HD GERDA home page",
+      "note": "Official GERDA page: data taking stopped in February 2020; the LEGEND collaboration took over the setup.",
+      "quote": "Data taking stopped in Febr 2020.",
+      "sources": [
+        "src:gerda-mpi-hd-official-site"
+      ],
+      "start": "2020-02",
       "status": "completed",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
     "website": null
   },
   "name": "GERDA detector",
-  "notes": [
-    "Placed at site:lngs-hall-a (dangling reference: owned by the 'facilities' lead, not yet created)."
-  ],
+  "notes": [],
   "parent_detector_id": null,
   "placements": [
     {
       "confidence": "verified",
-      "end": "2019-11",
+      "end": "2020-02",
       "locator": "MPI-HD GERDA official site",
-      "note": "site:lngs-hall-a is owned by the 'facilities' Wave 3 lead and does not exist yet in this repository (dangling reference, expected per ID_REGISTRY row 54).",
-      "quote": "GERDA searched for neutrinoless double-beta decay of 76Ge by operating Ge detectors made from 76Ge enriched material in a 64 m3 liquid argon cryostat in Hall A of LNGS.",
+      "note": "Start (2011-11) is the start of Phase I data taking (see intervals); end (2020-02) is when data taking stopped per the cited page; the quote supports the Hall A location and the end date, not the start.",
+      "quote": "The GERDA experiment searched for neutrinoless double-beta (0νββ) decay of 76Ge by operating Ge detectors made from 76Ge enriched material in a 64 m3 liquid argon cryostat located in Hall A of LNGS. Data taking stopped in Febr 2020.",
       "role": "main",
       "site_id": "site:lngs-hall-a",
       "sources": [
         "src:gerda-mpi-hd-official-site"
       ],
       "start": "2011-11",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:gerda-mpi-hd-official-site",
-    "src:gerda-mpp-institute-page"
+    "src:gerda-mpp-institute-page",
+    "src:gerda-searching-conf-2017",
+    "src:gerda-final-results-prl-2020"
   ],
   "specs": {
     "isotope": {
       "confidence": "verified",
       "locator": "MPI-HD GERDA official site",
       "note": "",
-      "quote": "GERDA searched for neutrinoless double-beta decay of 76Ge",
+      "quote": "The GERDA experiment searched for neutrinoless double-beta (0νββ) decay of 76Ge",
       "sources": [
         "src:gerda-mpi-hd-official-site"
       ],
@@ -73,7 +101,7 @@
       "display": "40 kg of germanium-76 detectors",
       "locator": "Max Planck Institute for Physics, GERDA page",
       "note": "",
-      "quote": "40 kilograms total, equivalent to approximately 10^26 germanium-76 nuclei",
+      "quote": "GERDA also employed detectors made of germanium-76. ... the GERDA experiment utilized a total of 40 kilograms of detector material",
       "sources": [
         "src:gerda-mpp-institute-page"
       ],
@@ -86,7 +114,7 @@
   "subsystems": [],
   "summary": {
     "plain": "Bare germanium crystals submerged directly in a huge tank of ultra-cold liquid argon, deep under an Italian mountain, listening for a rare kind of radioactive decay.",
-    "technical": "Array of bare, enriched (76Ge) high-purity germanium point-contact detectors (~40 kg total) submerged directly in a 64 m3 liquid-argon cryostat that serves as both cooling medium and active veto, in LNGS Hall A."
+    "technical": "Array of bare, enriched (76Ge) high-purity germanium point-contact detectors (~40 kg total) submerged directly in a 64 m³ liquid-argon cryostat that serves as both cooling medium and active veto, in LNGS Hall A."
   },
   "technology": {
     "confidence": "verified",

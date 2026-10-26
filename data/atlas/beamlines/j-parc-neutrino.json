@@ -12,7 +12,7 @@
         "approx": false,
         "confidence": "verified",
         "dimension": "length",
-        "display": "295,335.2 +- 0.7 m",
+        "display": "295,335.2 ± 0.7 m",
         "note": "Surveyed target-to-detector distance; the collaboration quotes it as \"295 km\".",
         "quote": "The measured distance between the target and the center position of Super-Kamiokande is 295,335.2 +- 0.7 m.",
         "sources": [
@@ -64,7 +64,7 @@
   "direction": {
     "confidence": "verified",
     "note": "",
-    "quote": "In the arc section, the beam is bent toward the direction of Kamioka by 80.7 deg, with a 104 m radius of curvature, using 14 doublets of superconducting combined function magnets",
+    "quote": "In the arc section, the beam is bent toward the direction of Kamioka by 80.7◦, with a 104 m radius of curvature, using 14 doublets of superconducting combined function magnets (SCFMs)",
     "sources": [
       "src:t2k-nim-2011"
     ],
@@ -106,19 +106,18 @@
     },
     {
       "confidence": "derived",
-      "end": {
-        "date": "2011-12",
-        "planned": true
-      },
+      "end": "2012-01",
       "label": "shutdown after the Great East Japan Earthquake",
-      "note": "End recorded as the planned J-PARC restart date; no source read confirms the actual restart.",
+      "locator": "end: J-PARC \"History of J-PARC\", entry \"2012 January: Operation resumed and user operation started.\"",
+      "note": "End replaced 2026-10-25: it was the planned December 2011 restart; the J-PARC history page states that after the March 2011 suspension \"2012 January Operation resumed and user operation started.\" This is a facility-wide statement, not one specific to this machine, beamline or experiment, so confidence stays derived. Previous note: End recorded as the planned J-PARC restart date; no source read confirms the actual restart.",
       "quote": "The T2K data taking stopped abruptly on March 11 2011 due to the Great East Japan Earthquake.",
       "sources": [
-        "src:t2k-status-2011-arxiv"
+        "src:t2k-status-2011-arxiv",
+        "src:jparc-history"
       ],
       "start": "2011-03-11",
       "status": "shutdown",
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
     },
     {
       "confidence": "derived",
@@ -159,7 +158,7 @@
   "primary_beam": {
     "confidence": "verified",
     "note": "",
-    "quote": "Circumference 1567 m Beam power ~750 kW Beam kinetic energy 30 GeV",
+    "quote": "The proton beam injected into the MR is accelerated up to 30 GeV.",
     "sources": [
       "src:t2k-nim-2011"
     ],
@@ -172,11 +171,12 @@
         "note": "",
         "quote": "Beam kinetic energy 30 GeV",
         "sources": [
-          "src:t2k-nim-2011"
+          "src:t2k-nim-2011",
+          "src:rf12-t2k-nim-2011-ar5iv"
         ],
         "unit": "GeV",
         "value": 30,
-        "verified_at": "2026-09-16"
+        "verified_at": "2026-10-25"
       },
       "particle": "proton"
     },
@@ -186,7 +186,7 @@
   "secondary_beam": {
     "confidence": "verified",
     "note": "",
-    "quote": "The off-axis angle is set at 2.5 deg so that the narrow-band muon-neutrino beam generated toward the far detector has a peak energy at ~0.6 GeV",
+    "quote": "The off-axis angle is set at 2.5◦ ... has a peak energy at ∼0.6 GeV, which maximizes the effect of the neutrino oscillation at 295 km",
     "sources": [
       "src:t2k-nim-2011"
     ],
@@ -217,9 +217,9 @@
       "approx": false,
       "confidence": "verified",
       "dimension": "angle",
-      "display": "2.504 +- 0.004 deg",
+      "display": "2.504 ± 0.004°",
       "note": "",
-      "quote": "The measured off-axis angle is 2.504 +- 0.004 deg.",
+      "quote": "The measured off-axis angle is 2.504 ± 0.004◦.",
       "sources": [
         "src:t2k-nim-2011"
       ],
@@ -249,11 +249,12 @@
       "note": "",
       "quote": "Beam kinetic energy 30 GeV",
       "sources": [
-        "src:t2k-nim-2011"
+        "src:t2k-nim-2011",
+        "src:rf12-t2k-nim-2011-ar5iv"
       ],
       "unit": "GeV",
       "value": 30,
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
     }
   },
   "status": "active",
@@ -268,7 +269,7 @@
     "sources": [
       "src:t2k-nim-2011"
     ],
-    "value": "Graphite rod, 91.4 cm long (1.9 interaction lengths), 2.6 cm diameter, 1.8 g/cm3, helium cooled, supported inside the first horn",
+    "value": "Graphite rod, 91.4 cm long (1.9 interaction lengths), 2.6 cm diameter, 1.8 g/cm³, helium cooled, supported inside the first horn",
     "verified_at": "2026-09-16"
   },
   "type": "beamline"

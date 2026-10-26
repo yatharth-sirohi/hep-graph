@@ -6,17 +6,18 @@
   "altitude": null,
   "coordinates": {
     "confidence": "approximate",
-    "kind": "underground_lab",
-    "lat": 42.4189343,
-    "locator": "\"How to reach LNGS\" page; coordinates taken from the map link on that page (same point already used for site:lngs-hall-b)",
-    "lon": 13.5183438,
-    "note": "This is the LNGS site coordinate published by the laboratory (Assergi address), reused here as an approximate marker for Hall A because LNGS publishes no separate coordinate for the individual underground halls, matching the treatment already used for site:lngs-hall-b.",
-    "precision_m": 8000,
-    "quote": "Via G. Acitelli, 22, 67100 Assergi (AQ)",
+    "kind": "campus",
+    "lat": 42.4515426,
+    "locator": "Piano di Emergenza Esterna INFN-LNGS, ed. 2024 rev. 7, pp. 27-28 (A24 chainage of the laboratory's doors) and the A24 tunnel line of OSM way 24389234 (src:geo-lngs-osm-tunnel-relation): midpoint of the doors' stretch, 6142 m from the Assergi portal (km 117,653); same point as geometry:lngs-hall-a",
+    "lon": 13.5774421,
+    "note": "Approximate, about ±400 m (derived, not surveyed): the laboratory's entrance (km 124,150) and exit (km 123,440) doors are published as motorway chainage; subtracting the Assergi portal chainage (km 117,653) puts them 6497 m and 5787 m along the tunnel, and the midpoint of that ~700 m stretch is taken as the underground complex. The tunnel line's own length (10 187 m) agrees with the external emergency plan's chainage (10 176 m). Hall A's own position within the stretch, and the order of Halls A, B and C along it, are not published, so all three halls share this point. It replaces the Assergi street-address point (42.4189343, 13.5183438), which is the surface office complex 6.1 km away. It is labelled campus-grade and approximate, as for the other detector sites placed from a building or tunnel position rather than a published hall survey; the source is a prefecture emergency plan, not a survey.",
+    "precision_m": 400,
+    "quote": "L’ingresso ai laboratori si trova al km 124,150, quello di uscita al km 123,440.",
     "sources": [
-      "src:lngs-how-to-reach"
+      "src:geo-lngs-pee-2024",
+      "src:geo-lngs-osm-tunnel-relation"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "country": "IT",
   "coverage": {
@@ -45,8 +46,7 @@
   },
   "name": "LNGS Hall A",
   "notes": [
-    "No official LNGS page fetched in this session names which specific experiments occupy Hall A individually (only the collective three-hall description is given); that attribution is therefore omitted rather than guessed.",
-    "Coordinates and depth reuse the same LNGS address-point and average-overburden values already recorded on site:lngs-hall-b, per that file's established, honest pattern for halls the laboratory does not separately geolocate."
+    "No official LNGS page consulted names which specific experiments occupy Hall A individually (only the collective three-hall description is given); that attribution is therefore omitted rather than guessed."
   ],
   "place": {
     "city": "Assergi",
@@ -62,7 +62,7 @@
   ],
   "summary": {
     "plain": "One of three big rooms carved out of the rock under the Gran Sasso mountain in Italy, about 100 metres long.",
-    "technical": "Underground experimental hall of LNGS, about 100 x 20 x 18 m under ~1400 m of rock, one of the laboratory's three main halls (A, B, C)."
+    "technical": "Underground experimental hall of LNGS, about 100 × 20 × 18 m under ~1400 m of rock, one of the laboratory's three main halls (A, B, C)."
   },
   "type": "site"
 }

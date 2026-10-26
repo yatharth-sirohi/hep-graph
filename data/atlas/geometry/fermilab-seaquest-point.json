@@ -12,8 +12,8 @@
   "geometry": {
     "confidence": "approximate",
     "locator": "OpenStreetMap node 4425992583, fetched 2026-09-21",
-    "note": "OSM node explicitly named and tagged for this experiment; confidence stays 'approximate' per the OSM-alone ceiling (no rank <=10 source independently confirms this exact point).",
-    "quote": "name=SeaQuest, addr:housenumber=NM4, office=research, description=\"High energy physics experiment studying anti quark distribution\", website=https://www.fnal.gov/",
+    "note": "OpenStreetMap node named and tagged for this experiment; confidence is approximate because no primary source independently confirms this exact point.",
+    "quote": "addr:housenumber NM4 description High energy physics experiment studying anti quark distribution name SeaQuest office research",
     "sources": [
       "src:geo-fermilab-osm-seaquest-node"
     ],
@@ -24,7 +24,7 @@
       ],
       "type": "Point"
     },
-    "verified_at": "2026-09-21"
+    "verified_at": "2026-10-25"
   },
   "id": "geometry:fermilab-seaquest-point",
   "level_id": "surface",
@@ -37,10 +37,10 @@
     "website": null
   },
   "map_id": "map:fermilab",
-  "method": "OpenStreetMap node 4425992583, used verbatim (a POI node, not a building footprint). Independently found during a QA re-derivation pass: the geometry worklog (docs/atlas-worklog/GEOMETRY_fermilab.md) reported that 'a targeted OSM name search for NM4 returned no results' and left detector:seaquest / site:fermilab-nm4-hall unlocated on that basis; that specific narrow search was true, but a search for the experiment's own name ('SeaQuest') -- never tried in that session -- finds this node directly, independently confirmed by this reviewer with a direct fetch of https://api.openstreetmap.org/api/0.6/node/4425992583.json (not just trusting a subagent's report of it). accuracy_m 10 m follows the contract's floor for an OSM point/building-scale feature; feature_type 'other' (not 'hall') because this is a single address-point node, not a traced building footprint.",
+  "method": "OpenStreetMap node 4425992583, used verbatim (a point of interest, not a building footprint). A search of OpenStreetMap for the literal string 'NM4' returns nothing, but a search for the experiment's own name ('SeaQuest') finds this node, tagged name=SeaQuest and addr:housenumber=NM4 (fetched 2026-09-21 from https://api.openstreetmap.org/api/0.6/node/4425992583.json). accuracy_m is 10 m, the floor for an OpenStreetMap point or building-scale feature; the feature type is 'other' (not 'hall') because this is a single address-point node, not a traced building footprint.",
   "name": "SeaQuest / DarkQuest spectrometer (NM4 building)",
   "notes": [
-    "QA pass (2026-09-21): removes detector:seaquest and site:fermilab-nm4-hall from map:fermilab.unlocated[] (see that map's own notes for the prior, now-superseded reason text)."
+    "detector:seaquest and site:fermilab-nm4-hall are drawn (since 2026-09-21) and are no longer listed as unlocated on the map."
   ],
   "osm": {
     "elements": [

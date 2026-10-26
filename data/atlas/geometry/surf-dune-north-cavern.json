@@ -1,0 +1,99 @@
+{
+  "accuracy_m": 30,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "area",
+        "display": "3 145.5 m²",
+        "unit": "m^2",
+        "value": 3145.5
+      },
+      "kind": "area",
+      "locator": "Heise (arXiv:2603.06504) Table 2, row \"4850L LBNF/DUNE (laser scan)\", Science Area column; CUC 190 m x 19.3 m from DUNE TDR Vol. III section 5.2",
+      "note": "Expected = (9958 m2 - 190 m x 19.3 m) / 2 = (9958 - 3667) / 2 = 3145.5 m2 per detector cavern, assuming the laser-scanned LBNF science area is the two detector caverns plus the CUC. The same sum with the TDR design dimensions gives 2 x 144.5 x 19.8 + 3667 = 9389 m2 against the table's nominal 9445 m2 (0.6 %), which supports that assumption. With the TDR length the cavern area is 2861 m2, 9 % below this expected value.",
+      "quote": "4850L LBNF/DUNE (nominal) 4850L LBNF/DUNE (laser scan) 9445 9958 191,863 198,871 17,251 19,288 242,190 248,217",
+      "sources": [
+        "src:geo-surf-heise-2026-review",
+        "src:dune-fd-tdr-vol-3"
+      ],
+      "tolerance": 0.03
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "site:surf-4850-level-dune-far-detector",
+  "feature_type": "cavern",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "Heise (arXiv:2603.06504) Table 4, 4850L LBNF Campus rows FD1 (NE), FD2 (SE), FD3 (NW), FD4 (SW)",
+    "note": "Position: midpoint of two published module coordinates (a design-model table, not a cavern survey); the module points may be cryostat centres or pit centres, and the table does not say. Length: 158.95 m (Fermilab slide, 521.5 ft) agrees with the laser-scan area in Heise Table 2; the TDR design length is 144.5 m and cannot hold two 65.8 m cryostats whose published centres are 83.3 m apart.",
+    "quote": "4850L LBNF Campus FD1 (NE) 103.7546341 W FD2 (SE) 103.7548042 W FD3 (NW) 103.7556732 W FD4 (SW) 103.7558433 W ... 44.3459914 N 44.3450261 N 44.3460857 N 44.3451204 N",
+    "sources": [
+      "src:geo-surf-heise-2026-review",
+      "src:dune-fd-tdr-vol-3",
+      "src:dune-fd-tdr-vol-4",
+      "src:geo-surf-lbnf-community-2023-12",
+      "src:dune-fd-tdr-vol-1"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -103.7541465,
+            44.3460369
+          ],
+          [
+            -103.7561295,
+            44.3462169
+          ],
+          [
+            -103.7561608,
+            44.3460402
+          ],
+          [
+            -103.7541778,
+            44.3458602
+          ],
+          [
+            -103.7541465,
+            44.3460369
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:surf-dune-north-cavern",
+  "level_id": "4850-level",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:surf",
+  "method": "Derived. Inputs: (1) the four published 4850L LBNF Campus module coordinates of Heise (arXiv:2603.06504) Table 4, WGS 84 decimal degrees (the table prints its \"Latitude\" and \"Longitude\" column headings interchanged: the cells under \"Latitude\" carry the W longitudes, the hemisphere letters resolve it): FD1 (NE) -103.7546341, 44.3459914; FD2 (SE) -103.7548042, 44.3450261; FD3 (NW) -103.7556732, 44.3460857; FD4 (SW) -103.7558433, 44.3451204 (lon, lat). They form a rectangle 83.29 m by 108.19 m. (2) The TDR (Vol. III, section 5.2) puts the first detector in the east side of the north cavern and the second in the east side of the south cavern, so FD1 and FD3 share the north cavern and FD2 and FD4 the south cavern, and (Vol. IV, section 1) \"one either side of the central access drift\". The cavern centre is taken as the midpoint of FD1 and FD3; its long axis runs along the line joining them (initial bearing 277.23 deg, 277.23 deg for the other cavern). (3) The footprint is 521.5 ft x 65 ft = 158.95 m x 19.81 m, the as-excavated figure on a Fermilab LBNF/DUNE project slide of 12 Dec 2023, not the TDR design length of 144.5 m (see notes). No survey outline of the cavern exists in the sources found; edges and ends are idealised.",
+  "name": "LBNF/DUNE north detector cavern, 4850 Level (FD1 east, FD3 west)",
+  "notes": [
+    "Excavation of the LBNF caverns was completed in February 2024 (Fermilab LBNF/DUNE page). Module numbering: FD1 (the first detector module, horizontal drift) is in the east side, FD3 in the west side of this cavern."
+  ],
+  "osm": null,
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:surf-4850-level-dune-far-detector",
+  "sources": [
+    "src:geo-surf-heise-2026-review",
+    "src:dune-fd-tdr-vol-3",
+    "src:dune-fd-tdr-vol-4",
+    "src:geo-surf-lbnf-community-2023-12",
+    "src:dune-fd-tdr-vol-1"
+  ],
+  "summary": {
+    "plain": "The north of the two large caverns excavated for the DUNE far detector, drawn at the as-excavated size around the midpoint of the published positions of modules FD1 and FD3."
+  },
+  "type": "geometry",
+  "valid": null
+}

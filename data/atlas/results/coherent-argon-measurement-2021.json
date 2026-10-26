@@ -16,16 +16,16 @@
   },
   "date": {
     "confidence": "verified",
-    "locator": "publication record, Phys. Rev. Lett. 126, 012002",
-    "note": "Published 2021-01-07; first submitted to arXiv 2020-03-24, last revised 2021-02-15.",
-    "quote": "First Measurement of Coherent Elastic Neutrino-Nucleus Scattering on Argon",
+    "locator": "arXiv:2003.10630, submission history",
+    "note": "First public posting (arXiv v1, 24 March 2020), before the Phys. Rev. Lett. 126, 012002 (2021) publication; the display date is the earliest public date.",
+    "quote": "Submitted on 24 Mar 2020 (v1)",
     "sources": [
       "src:cevns-coherent-argon-2021"
     ],
-    "value": "2021",
-    "verified_at": "2026-09-17"
+    "value": "2020-03-24",
+    "verified_at": "2026-10-25"
   },
-  "date_kind": "publication",
+  "date_kind": "preprint",
   "detector_ids": [
     "detector:coherent-cenns-10"
   ],
@@ -41,16 +41,16 @@
     "approx": false,
     "confidence": "verified",
     "dimension": "cross_section",
-    "display": "2.2e-39 cm^2 (+/- 0.7e-39)",
+    "display": "2.2 × 10⁻³⁹ cm² (± 0.7 × 10⁻³⁹)",
     "locator": "abstract",
-    "note": "Flux-averaged CEvNS cross section on argon.",
+    "note": "Flux-averaged CEvNS cross section on argon. Value 2.2 × 10⁻³⁹ cm² is the quote's (2.2 ± 0.7) × 10⁻³⁹ cm² written in scientific notation; the ±0.7 × 10⁻³⁹ in the display is the same quote's uncertainty.",
     "quote": "The measured cross section averaged over the incident neutrino flux is (2.2 +/- 0.7) x 10^-39 cm^2",
     "sources": [
       "src:cevns-coherent-argon-2021"
     ],
     "unit": "cm^2",
     "value": 2.2e-39,
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "key_value_text": null,
   "links": {
@@ -65,6 +65,17 @@
     "url": "https://arxiv.org/abs/2003.10630"
   },
   "publication_source_id": "src:cevns-coherent-argon-2021",
+  "published": {
+    "confidence": "verified",
+    "locator": "arXiv:2003.10630, journal reference",
+    "note": "",
+    "quote": "Phys. Rev. Lett. 126, 012002 (2021)",
+    "sources": [
+      "src:cevns-coherent-argon-2021"
+    ],
+    "value": "2021",
+    "verified_at": "2026-10-25"
+  },
   "result_type": "measurement",
   "schema": "hep-atlas/0.2",
   "significance": {
@@ -75,20 +86,20 @@
     "sources": [
       "src:cevns-coherent-argon-2021"
     ],
-    "value": 3.0,
-    "verified_at": "2026-09-17"
+    "value": "more than 3σ (two independent analyses, against the background-only hypothesis)",
+    "verified_at": "2026-10-25"
   },
   "sources": [
     "src:cevns-coherent-argon-2021"
   ],
   "summary": {
-    "plain": "The first time neutrinos were caught bouncing gently off argon nuclei, using a 22-kilogram tank of liquid argon, confirming the effect follows the pattern the Standard Model predicts as the target nucleus changes.",
-    "technical": "First CEvNS measurement on argon using the 22 kg CENNS-10 liquid argon detector; two independent analyses each favor CEvNS over background-only at >3 sigma, with a flux-averaged cross section of (2.2+/-0.7)x10^-39 cm^2 consistent with the Standard Model, and combined with the CsI result to confirm the predicted neutron-number (N^2) scaling."
+    "plain": "COHERENT reports the first measurement of neutrinos scattering coherently off argon nuclei, using a 24-kilogram liquid-argon detector at Oak Ridge. The rate is consistent with the Standard Model; together with the earlier caesium-iodide result, the collaboration says it confirms the existence of the process.",
+    "technical": "First CEvNS measurement on argon using the 24 kg active-mass CENNS-10 liquid-argon detector at the SNS; two independent analyses each prefer CEvNS over the background-only hypothesis at greater than 3σ, with a flux-averaged cross section of (2.2 ± 0.7)×10⁻³⁹ cm² consistent with the Standard Model prediction. The collaboration states that the neutron-number dependence of this result, together with its earlier CsI measurement, confirms the existence of the CEvNS process and improves constraints on non-standard neutrino interactions."
   },
   "title": "First Measurement of Coherent Elastic Neutrino-Nucleus Scattering on Argon",
   "topic_ids": [
     "topic:cevns"
   ],
   "type": "result",
-  "why_it_matters": "Measuring CEvNS on a second target nucleus (argon, after CsI) tests the Standard Model's predicted N^2 dependence of the cross section on neutron number, directly relevant to the many current and future dark-matter and neutrino experiments that use liquid argon as a target."
+  "why_it_matters": "Argon is a second, lighter target nucleus after CsI, so the pair of results traces how the CEvNS cross section depends on neutron number; the paper's introduction says this establishes the N² behavior predicted by the Standard Model. The introduction also notes that CEvNS from solar and atmospheric neutrinos forms the \"neutrino floor\" background in future dark-matter searches, which cross section measurements help quantify."
 }

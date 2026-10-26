@@ -1,0 +1,217 @@
+{
+  "accuracy_m": 5,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "350 m",
+        "unit": "m",
+        "value": 350
+      },
+      "kind": "length",
+      "locator": "NuMI NIM paper (arXiv:1507.06690) section 2.1",
+      "note": "The paper does not say where its 350 m starts; the length from the first pretarget quadrupole HQ101 to the target is 347.6 m horizontally (station difference 1145.6 ft = 349.2 m along the beam).",
+      "quote": "Fractional losses over the 350 m beam line were required to be kept below 10−5.",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "tolerance": 0.02
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "depth_m": null,
+  "entity_id": "beamline:numi",
+  "feature_type": "transfer_line",
+  "geometry": {
+    "confidence": "verified",
+    "locator": "NuMI Facility TDR (FERMILAB-DESIGN-1998-01) Appendix A, beam sheet 'Site coordinates for beamline: horn2.ces' (DUSAF x, y in ft; station along the beam in ft)",
+    "note": "",
+    "sources": [
+      "src:fermilab-geo-numi-tdr-1998",
+      "src:fermilab-geo-oshinowo-coordinate-systems-1997"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          -88.2638476,
+          41.8291066
+        ],
+        [
+          -88.2638791,
+          41.82917
+        ],
+        [
+          -88.2638937,
+          41.8291986
+        ],
+        [
+          -88.2639086,
+          41.8292271
+        ],
+        [
+          -88.2639239,
+          41.8292555
+        ],
+        [
+          -88.2639397,
+          41.8292838
+        ],
+        [
+          -88.2639557,
+          41.829312
+        ],
+        [
+          -88.263972,
+          41.8293401
+        ],
+        [
+          -88.2639992,
+          41.8293862
+        ],
+        [
+          -88.2640386,
+          41.8294526
+        ],
+        [
+          -88.2642712,
+          41.8298451
+        ],
+        [
+          -88.2643288,
+          41.8299424
+        ],
+        [
+          -88.2643602,
+          41.8299952
+        ],
+        [
+          -88.2643915,
+          41.8300481
+        ],
+        [
+          -88.2644228,
+          41.8301009
+        ],
+        [
+          -88.264454,
+          41.8301535
+        ],
+        [
+          -88.2644852,
+          41.8302062
+        ],
+        [
+          -88.2645087,
+          41.8302458
+        ],
+        [
+          -88.2645241,
+          41.8302719
+        ],
+        [
+          -88.2645485,
+          41.830313
+        ],
+        [
+          -88.2651996,
+          41.8314117
+        ],
+        [
+          -88.2652179,
+          41.8314425
+        ],
+        [
+          -88.2652404,
+          41.8314805
+        ],
+        [
+          -88.265254,
+          41.8315034
+        ],
+        [
+          -88.2652877,
+          41.8315603
+        ],
+        [
+          -88.2653042,
+          41.8315881
+        ],
+        [
+          -88.2653206,
+          41.8316159
+        ],
+        [
+          -88.2653372,
+          41.8316438
+        ],
+        [
+          -88.2653537,
+          41.8316716
+        ],
+        [
+          -88.2653702,
+          41.8316996
+        ],
+        [
+          -88.2653868,
+          41.8317275
+        ],
+        [
+          -88.2654132,
+          41.8317721
+        ],
+        [
+          -88.2654354,
+          41.8318095
+        ],
+        [
+          -88.2654398,
+          41.8318169
+        ],
+        [
+          -88.2655031,
+          41.8319238
+        ],
+        [
+          -88.2655091,
+          41.8319338
+        ],
+        [
+          -88.2655305,
+          41.83197
+        ]
+      ],
+      "type": "LineString"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:fermilab-numi-primary-beamline",
+  "level_id": "near-detector-caverns",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fermilab",
+  "method": "Published coordinates converted to WGS 84: the 37 beam-sheet rows from HQ101 (the first pretarget quadrupole, station 0.49938 ft) through the 59 mrad horizontal bend (HV1011 to HV1017) and the downward bend (V1050 to V1054, V1090 to V1096) to the target HALTA, joined by straight segments. The sheet rows before HQ101 (Q606 to V100, the extraction region inside the MI-60 straight section) are not drawn; the Main Injector ring covers them. Conversion of DUSAF to WGS 84: DUSAF x, y (ft) are the FSCS coordinates of Beams-doc-1148 (origin A0 = 41°50′14.312704″ N, 88°15′41.143123″ W, false x = y = 100000 ft, +y axis at geodetic azimuth 38°16′48.01429″, scale 1.000029251 at A0), applied as a rotated tangent plane on the GRS80 ellipsoid (difference to the double stereographic projection below 0.2 m within 1.5 km of A0). NAD83 and WGS 84 are taken as equal.",
+  "name": "NuMI primary proton beam line (first pretarget quadrupole to target)",
+  "notes": [
+    "The sheet's first row Q606 (not drawn) coincides with lattice element M_606 of the Main Injector TDR survey table (site northing 97163.814 ft = 29615.590 m in both), which ties the proton line to the Main Injector straight section MI-60."
+  ],
+  "osm": null,
+  "representation": "surveyed",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:fermilab-geo-numi-tdr-1998",
+    "src:fermilab-geo-oshinowo-coordinate-systems-1997"
+  ],
+  "summary": {
+    "plain": "The underground proton beam line that carries 120 GeV protons from the Main Injector to the NuMI target, about 350 m long."
+  },
+  "type": "geometry",
+  "valid": null
+}

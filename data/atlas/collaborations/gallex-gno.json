@@ -1,73 +1,87 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "collaboration:gallex-gno",
-  "type": "collaboration",
-  "name": "GALLEX/GNO Collaboration",
   "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
   "formation": {
-    "value": null,
-    "sources": ["src:gallex-inspire-experiment-record"],
-    "verified_at": "2026-09-17",
     "confidence": "uncertain",
     "locator": "INSPIRE experiment record 1109244",
-    "note": "No fetched source states an explicit collaboration formation date."
+    "note": "No fetched source states an explicit collaboration formation date.",
+    "sources": [
+      "src:gallex-inspire-experiment-record"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
   },
-  "intervals": [
-    {
-      "label": "collaboration active",
-      "status": "active",
-      "start": "1991",
-      "end": "2003-04",
-      "sources": ["src:gallex-wikipedia"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "GALLEX: Operated from 1991 to 1997 ... GNO (successor): Continued from May 1998 to April 2003",
-      "note": "Dates sourced from Wikipedia (rank 12) only."
-    },
-    {
-      "label": "collaboration completed",
-      "status": "completed",
-      "start": "2003-04",
-      "end": null,
-      "sources": ["src:gallex-wikipedia"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "GNO (successor): Continued from May 1998 to April 2003",
-      "note": "Terminal event date sourced from Wikipedia (rank 12) only."
-    }
-  ],
-  "status": "completed",
-  "membership": {
-    "as_of": null,
-    "evidence_class": "institutional_page",
-    "institution_count": null,
-    "country_count": {
-      "value": 6,
-      "sources": ["src:gallex-wikipedia"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "an international collaboration of French, German, Italian, Israeli, Polish and American scientists led by the Max-Planck-Institut für Kernphysik Heidelberg",
-      "note": "Counted from the six nationalities named; Wikipedia (rank 12) does not itself state a numeric count."
-    },
-    "member_count": null,
-    "roster_source_ids": ["src:gallex-wikipedia"]
-  },
-  "leadership": [],
   "host_facility_id": "facility:lngs",
   "host_site_id": "site:lngs-hall-a",
+  "id": "collaboration:gallex-gno",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2003-04",
+      "label": "collaboration active",
+      "note": "Span from the GNO collaboration's final paper (gallium observations at LNGS lasted from May 14, 1991 through April 9, 2003); stored at year/month precision.",
+      "quote": "gallium based solar observations at LNGS (first in GALLEX, later in GNO) lasted from May 14, 1991 through April 9, 2003",
+      "sources": [
+        "src:rf05-gno-complete-results-arxiv"
+      ],
+      "start": "1991",
+      "status": "active",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "collaboration completed",
+      "note": "Terminal event from the GNO collaboration's final paper (GNO terminated after solar runs performed between May 20, 1998 and April 9, 2003); stored at month precision.",
+      "quote": "The GNO experiment is now terminated after altogether 58 solar exposure runs that were performed between May 20, 1998 and April 9, 2003.",
+      "sources": [
+        "src:rf05-gno-complete-results-arxiv"
+      ],
+      "start": "2003-04",
+      "status": "completed",
+      "verified_at": "2026-10-25"
+    }
+  ],
+  "leadership": [],
   "links": {
     "website": null
   },
+  "membership": {
+    "as_of": null,
+    "country_count": {
+      "confidence": "approximate",
+      "note": "Derived by counting the six nationalities named in the quote (French, German, Italian, Israeli, Polish, American); Wikipedia (rank 12) does not itself state a numeric count. Describes the GALLEX-era collaboration; the GNO-phase author list in arXiv:hep-ex/0504037 shows affiliations in four countries (Germany, Italy, France, Poland).",
+      "quote": "an international collaboration of French, German, Italian, Israeli, Polish and American scientists led by the Max-Planck-Institut für Kernphysik Heidelberg",
+      "sources": [
+        "src:gallex-wikipedia"
+      ],
+      "value": 6,
+      "verified_at": "2026-09-17"
+    },
+    "evidence_class": "institutional_page",
+    "institution_count": null,
+    "member_count": null,
+    "roster_source_ids": [
+      "src:gallex-wikipedia"
+    ]
+  },
+  "name": "GALLEX/GNO Collaboration",
   "notes": [
-    "No institution list or member count was found in a source fetched this session; only the collaboration's six represented nationalities are recorded, sourced from Wikipedia."
+    "No institution list or member count was found in a source consulted (checked 2026-09-17); only the collaboration's six represented nationalities are recorded, sourced from Wikipedia."
   ],
-  "sources": ["src:gallex-inspire-experiment-record", "src:gallex-wikipedia"],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:gallex-inspire-experiment-record",
+    "src:gallex-wikipedia",
+    "src:rf05-gno-complete-results-arxiv"
+  ],
+  "status": "completed",
   "summary": {
     "plain": "The international team, led by the Max Planck Institute for Nuclear Physics in Heidelberg, that ran the GALLEX and GNO gallium solar-neutrino experiments in Italy.",
     "technical": "International collaboration (France, Germany, Italy, Israel, Poland, US) led by MPIK Heidelberg, operating GALLEX (1991-1997) and its successor GNO (1998-2003) at LNGS."
   },
-  "coverage": {
-    "tier": "D",
-    "researched": "partial"
-  }
+  "type": "collaboration"
 }

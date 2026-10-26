@@ -1,5 +1,5 @@
 {
-  "accuracy_m": 60,
+  "accuracy_m": 10,
   "aliases": [],
   "checks": [
     {
@@ -20,36 +20,20 @@
     {
       "expected": {
         "dimension": "length",
-        "display": "1002.7 m (sourced radius)",
+        "display": "1002.7 m (radius from the sourced circumference)",
         "unit": "m",
         "value": 1002.68
       },
       "kind": "distance",
-      "locator": "ring centre to OSM CDF Hall (way 51755116) centroid",
-      "quote": null,
+      "locator": "ring centre to the published A0 point (geometry:fermilab-a0-reference-point)",
+      "note": "A0 is the origin of the site grid, on the Tevatron/Main Ring A0 straight section; the radius is the sourced 6.3 km circumference over 2 pi. A0 was not used to place the centre.",
+      "quote": "the (now named) Tevatron to be constructed with the same circumference of 6.3 km",
       "sources": [
         "src:fermilab-tevatron-shiltsev-2011",
-        "src:fermilab-geo-osm-buildings"
+        "src:fermilab-geo-oshinowo-coordinate-systems-1997"
       ],
-      "to_geometry_id": "geometry:fermilab-cdf-hall",
-      "tolerance": 0.06
-    },
-    {
-      "expected": {
-        "dimension": "length",
-        "display": "1002.7 m (sourced radius)",
-        "unit": "m",
-        "value": 1002.68
-      },
-      "kind": "distance",
-      "locator": "ring centre to OSM D0 Assembly building (way 51755107) centroid",
-      "quote": null,
-      "sources": [
-        "src:fermilab-tevatron-shiltsev-2011",
-        "src:fermilab-geo-osm-rings-and-d0"
-      ],
-      "to_geometry_id": "geometry:fermilab-d0-hall",
-      "tolerance": 0.06
+      "to_geometry_id": "geometry:fermilab-a0-reference-point",
+      "tolerance": 0.01
     }
   ],
   "coverage": {
@@ -61,529 +45,530 @@
   "feature_type": "ring",
   "geometry": {
     "confidence": "derived",
-    "locator": "OSM ways tagged 'Outer Ring Road' (20 segments; ids include 21828966,22107445,22107459,22107465,22107473,22107477,22107479,22107482,22107483,22107488,22107494,22107500,22107503,22107505,22107506,22107508,22107510,22107512,22107514,22107515,22107524), extract timestamp 2026-09-18T21:52:02Z; circumference per src:fermilab-tevatron-shiltsev-2011, Introduction",
-    "note": "Drawn as a 128-vertex circle of the sourced radius about the OSM-fit centre; the true beam-pipe wall was not itself traced (no OSM tunnel way exists for the Tevatron). depth_m for this level is sourced separately (src:fermilab-geo-tevatron-tunnel-penetron, 'Located 25 feet underground').",
+    "locator": "Main Injector TDR FERMILAB-DESIGN-1994-01 (lattice origin, site-coordinate table) and Beams-doc-1148 Appendix A (MI-60 and F0 relation) and section 4.2 (FSCS); circumference per src:fermilab-tevatron-shiltsev-2011, Introduction",
+    "note": "Drawn as a 128-vertex circle of the sourced radius about a centre derived from Fermilab survey documents; the true beam-pipe wall was not traced. depth_m for this level is sourced separately (src:fermilab-geo-tevatron-tunnel-penetron, 'Located 25 feet underground').",
     "sources": [
-      "src:fermilab-geo-osm-rings-and-d0",
-      "src:fermilab-tevatron-shiltsev-2011"
+      "src:fermilab-tevatron-shiltsev-2011",
+      "src:fermilab-geo-mi-tdr-1994",
+      "src:fermilab-geo-oshinowo-coordinate-systems-1997"
     ],
     "value": {
       "coordinates": [
         [
-          -88.251594,
-          41.8407413
+          -88.252077,
+          41.8406603
         ],
         [
-          -88.2510001,
-          41.8407304
+          -88.2514831,
+          41.8406494
         ],
         [
-          -88.2504076,
-          41.8406978
+          -88.2508906,
+          41.8406168
         ],
         [
-          -88.249818,
-          41.8406437
+          -88.250301,
+          41.8405627
         ],
         [
-          -88.2492327,
-          41.840568
+          -88.2497157,
+          41.840487
         ],
         [
-          -88.2486531,
-          41.840471
+          -88.2491361,
+          41.84039
         ],
         [
-          -88.2480805,
-          41.8403529
+          -88.2485635,
+          41.8402719
         ],
         [
-          -88.2475164,
-          41.8402141
+          -88.2479994,
+          41.8401331
         ],
         [
-          -88.2469622,
-          41.8400548
+          -88.2474452,
+          41.8399738
         ],
         [
-          -88.2464191,
-          41.8398754
+          -88.2469021,
+          41.8397944
         ],
         [
-          -88.2458885,
-          41.8396764
+          -88.2463715,
+          41.8395954
         ],
         [
-          -88.2453716,
-          41.8394582
+          -88.2458546,
+          41.8393772
         ],
         [
-          -88.2448697,
-          41.8392214
+          -88.2453527,
+          41.8391404
         ],
         [
-          -88.244384,
-          41.8389665
+          -88.2448671,
+          41.8388855
         ],
         [
-          -88.2439157,
-          41.8386942
+          -88.2443988,
+          41.8386132
         ],
         [
-          -88.243466,
-          41.8384051
+          -88.243949,
+          41.8383241
         ],
         [
-          -88.2430358,
-          41.8380999
+          -88.2435188,
+          41.8380189
         ],
         [
-          -88.2426262,
-          41.8377793
+          -88.2431092,
+          41.8376983
         ],
         [
-          -88.2422382,
-          41.8374441
+          -88.2427212,
+          41.8373631
         ],
         [
-          -88.2418728,
-          41.8370952
+          -88.2423558,
+          41.8370142
         ],
         [
-          -88.2415308,
-          41.8367333
+          -88.2420138,
+          41.8366523
         ],
         [
-          -88.241213,
-          41.8363593
+          -88.241696,
+          41.8362783
         ],
         [
-          -88.2409203,
-          41.8359742
+          -88.2414033,
+          41.8358932
         ],
         [
-          -88.2406533,
-          41.8355789
+          -88.2411363,
+          41.8354979
         ],
         [
-          -88.2404126,
-          41.8351742
+          -88.2408956,
+          41.8350932
         ],
         [
-          -88.2401989,
-          41.8347613
+          -88.2406819,
+          41.8346803
         ],
         [
-          -88.2400127,
-          41.834341
+          -88.2404957,
+          41.83426
         ],
         [
-          -88.2398543,
-          41.8339144
+          -88.2403373,
+          41.8338334
         ],
         [
-          -88.2397242,
-          41.8334826
+          -88.2402072,
+          41.8334016
         ],
         [
-          -88.2396228,
-          41.8330465
+          -88.2401058,
+          41.8329655
         ],
         [
-          -88.2395501,
-          41.8326072
+          -88.2400331,
+          41.8325262
         ],
         [
-          -88.2395065,
-          41.8321658
+          -88.2399895,
+          41.8320848
         ],
         [
-          -88.239492,
-          41.8317234
+          -88.239975,
+          41.8316424
         ],
         [
-          -88.2395067,
-          41.8312809
+          -88.2399897,
+          41.8311999
         ],
         [
-          -88.2395505,
-          41.8308395
+          -88.2400335,
+          41.8307585
         ],
         [
-          -88.2396232,
-          41.8304003
+          -88.2401063,
+          41.8303193
         ],
         [
-          -88.2397249,
-          41.8299642
+          -88.2402079,
+          41.8298832
         ],
         [
-          -88.2398551,
-          41.8295324
+          -88.2403381,
+          41.8294514
         ],
         [
-          -88.2400136,
-          41.8291058
+          -88.2404966,
+          41.8290248
         ],
         [
-          -88.2402,
-          41.8286856
+          -88.240683,
+          41.8286046
         ],
         [
-          -88.2404138,
-          41.8282727
+          -88.2408968,
+          41.8281917
         ],
         [
-          -88.2406546,
-          41.8278681
+          -88.2411376,
+          41.8277871
         ],
         [
-          -88.2409217,
-          41.8274728
+          -88.2414047,
+          41.8273918
         ],
         [
-          -88.2412145,
-          41.8270877
+          -88.2416975,
+          41.8270067
         ],
         [
-          -88.2415324,
-          41.8267138
+          -88.2420154,
+          41.8266328
         ],
         [
-          -88.2418744,
-          41.826352
+          -88.2423574,
+          41.826271
         ],
         [
-          -88.2422399,
-          41.8260031
+          -88.2427229,
+          41.8259221
         ],
         [
-          -88.2426279,
-          41.825668
+          -88.2431109,
+          41.825587
         ],
         [
-          -88.2430375,
-          41.8253475
+          -88.2435205,
+          41.8252665
         ],
         [
-          -88.2434677,
-          41.8250424
+          -88.2439507,
+          41.8249614
         ],
         [
-          -88.2439174,
-          41.8247533
+          -88.2444004,
+          41.8246723
         ],
         [
-          -88.2443857,
-          41.824481
+          -88.2448687,
+          41.8244
         ],
         [
-          -88.2448713,
-          41.8242262
+          -88.2453543,
+          41.8241452
         ],
         [
-          -88.2453731,
-          41.8239895
+          -88.2458561,
+          41.8239085
         ],
         [
-          -88.2458899,
-          41.8237713
+          -88.2463729,
+          41.8236903
         ],
         [
-          -88.2464204,
-          41.8235724
+          -88.2469034,
+          41.8234914
         ],
         [
-          -88.2469634,
-          41.823393
+          -88.2474464,
+          41.823312
         ],
         [
-          -88.2475175,
-          41.8232338
+          -88.2480005,
+          41.8231528
         ],
         [
-          -88.2480815,
-          41.823095
+          -88.2485645,
+          41.823014
         ],
         [
-          -88.2486539,
-          41.8229769
+          -88.2491369,
+          41.8228959
         ],
         [
-          -88.2492333,
-          41.82288
+          -88.2497163,
+          41.822799
         ],
         [
-          -88.2498185,
-          41.8228043
+          -88.2503015,
+          41.8227233
         ],
         [
-          -88.250408,
-          41.8227501
+          -88.250891,
+          41.8226691
         ],
         [
-          -88.2510003,
-          41.8227176
+          -88.2514833,
+          41.8226366
         ],
         [
-          -88.251594,
-          41.8227067
+          -88.252077,
+          41.8226257
         ],
         [
-          -88.2521877,
-          41.8227176
+          -88.2526707,
+          41.8226366
         ],
         [
-          -88.25278,
-          41.8227501
+          -88.253263,
+          41.8226691
         ],
         [
-          -88.2533695,
-          41.8228043
+          -88.2538525,
+          41.8227233
         ],
         [
-          -88.2539547,
-          41.82288
+          -88.2544377,
+          41.822799
         ],
         [
-          -88.2545341,
-          41.8229769
+          -88.2550171,
+          41.8228959
         ],
         [
-          -88.2551065,
-          41.823095
+          -88.2555895,
+          41.823014
         ],
         [
-          -88.2556705,
-          41.8232338
+          -88.2561535,
+          41.8231528
         ],
         [
-          -88.2562246,
-          41.823393
+          -88.2567076,
+          41.823312
         ],
         [
-          -88.2567676,
-          41.8235724
+          -88.2572506,
+          41.8234914
         ],
         [
-          -88.2572981,
-          41.8237713
+          -88.2577811,
+          41.8236903
         ],
         [
-          -88.2578149,
-          41.8239895
+          -88.2582979,
+          41.8239085
         ],
         [
-          -88.2583167,
-          41.8242262
+          -88.2587997,
+          41.8241452
         ],
         [
-          -88.2588023,
-          41.824481
+          -88.2592853,
+          41.8244
         ],
         [
-          -88.2592706,
-          41.8247533
+          -88.2597536,
+          41.8246723
         ],
         [
-          -88.2597203,
-          41.8250424
+          -88.2602033,
+          41.8249614
         ],
         [
-          -88.2601505,
-          41.8253475
+          -88.2606335,
+          41.8252665
         ],
         [
-          -88.2605601,
-          41.825668
+          -88.2610431,
+          41.825587
         ],
         [
-          -88.2609481,
-          41.8260031
+          -88.2614311,
+          41.8259221
         ],
         [
-          -88.2613136,
-          41.826352
+          -88.2617966,
+          41.826271
         ],
         [
-          -88.2616556,
-          41.8267138
+          -88.2621386,
+          41.8266328
         ],
         [
-          -88.2619735,
-          41.8270877
+          -88.2624565,
+          41.8270067
         ],
         [
-          -88.2622663,
-          41.8274728
+          -88.2627493,
+          41.8273918
         ],
         [
-          -88.2625334,
-          41.8278681
+          -88.2630164,
+          41.8277871
         ],
         [
-          -88.2627742,
-          41.8282727
+          -88.2632572,
+          41.8281917
         ],
         [
-          -88.262988,
-          41.8286856
+          -88.263471,
+          41.8286046
         ],
         [
-          -88.2631744,
-          41.8291058
+          -88.2636574,
+          41.8290248
         ],
         [
-          -88.2633329,
-          41.8295324
+          -88.2638159,
+          41.8294514
         ],
         [
-          -88.2634631,
-          41.8299642
+          -88.2639461,
+          41.8298832
         ],
         [
-          -88.2635648,
-          41.8304003
+          -88.2640477,
+          41.8303193
         ],
         [
-          -88.2636375,
-          41.8308395
+          -88.2641205,
+          41.8307585
         ],
         [
-          -88.2636813,
-          41.8312809
+          -88.2641643,
+          41.8311999
         ],
         [
-          -88.263696,
-          41.8317234
+          -88.264179,
+          41.8316424
         ],
         [
-          -88.2636815,
-          41.8321658
+          -88.2641645,
+          41.8320848
         ],
         [
-          -88.2636379,
-          41.8326072
+          -88.2641209,
+          41.8325262
         ],
         [
-          -88.2635652,
-          41.8330465
+          -88.2640482,
+          41.8329655
         ],
         [
-          -88.2634638,
-          41.8334826
+          -88.2639468,
+          41.8334016
         ],
         [
-          -88.2633337,
-          41.8339144
+          -88.2638167,
+          41.8338334
         ],
         [
-          -88.2631753,
-          41.834341
+          -88.2636583,
+          41.83426
         ],
         [
-          -88.2629891,
-          41.8347613
+          -88.2634721,
+          41.8346803
         ],
         [
-          -88.2627754,
-          41.8351742
+          -88.2632584,
+          41.8350932
         ],
         [
-          -88.2625347,
-          41.8355789
+          -88.2630177,
+          41.8354979
         ],
         [
-          -88.2622677,
-          41.8359742
+          -88.2627507,
+          41.8358932
         ],
         [
-          -88.261975,
-          41.8363593
+          -88.262458,
+          41.8362783
         ],
         [
-          -88.2616572,
-          41.8367333
+          -88.2621402,
+          41.8366523
         ],
         [
-          -88.2613152,
-          41.8370952
+          -88.2617982,
+          41.8370142
         ],
         [
-          -88.2609498,
-          41.8374441
+          -88.2614328,
+          41.8373631
         ],
         [
-          -88.2605618,
-          41.8377793
+          -88.2610448,
+          41.8376983
         ],
         [
-          -88.2601522,
-          41.8380999
+          -88.2606352,
+          41.8380189
         ],
         [
-          -88.259722,
-          41.8384051
+          -88.260205,
+          41.8383241
         ],
         [
-          -88.2592723,
-          41.8386942
+          -88.2597552,
+          41.8386132
         ],
         [
-          -88.258804,
-          41.8389665
+          -88.2592869,
+          41.8388855
         ],
         [
-          -88.2583183,
-          41.8392214
+          -88.2588013,
+          41.8391404
         ],
         [
-          -88.2578164,
-          41.8394582
+          -88.2582994,
+          41.8393772
         ],
         [
-          -88.2572995,
-          41.8396764
+          -88.2577825,
+          41.8395954
         ],
         [
-          -88.2567689,
-          41.8398754
+          -88.2572519,
+          41.8397944
         ],
         [
-          -88.2562258,
-          41.8400548
+          -88.2567088,
+          41.8399738
         ],
         [
-          -88.2556716,
-          41.8402141
+          -88.2561546,
+          41.8401331
         ],
         [
-          -88.2551075,
-          41.8403529
+          -88.2555905,
+          41.8402719
         ],
         [
-          -88.2545349,
-          41.840471
+          -88.2550179,
+          41.84039
         ],
         [
-          -88.2539553,
-          41.840568
+          -88.2544383,
+          41.840487
         ],
         [
-          -88.25337,
-          41.8406437
+          -88.253853,
+          41.8405627
         ],
         [
-          -88.2527804,
-          41.8406978
+          -88.2532634,
+          41.8406168
         ],
         [
-          -88.2521879,
-          41.8407304
+          -88.2526709,
+          41.8406494
         ],
         [
-          -88.251594,
-          41.8407413
+          -88.252077,
+          41.8406603
         ]
       ],
       "type": "LineString"
@@ -592,55 +577,28 @@
   },
   "id": "geometry:fermilab-tevatron-ring",
   "level_id": "tevatron-tunnel",
-  "license": {
-    "attribution": "© OpenStreetMap contributors",
-    "name": "ODbL-1.0",
-    "url": "https://www.openstreetmap.org/copyright"
-  },
+  "license": null,
   "links": {
     "website": null
   },
   "map_id": "map:fermilab",
-  "method": "Centre from a least-squares circle fit to OpenStreetMap way(s) tagged 'Outer Ring Road' (20 way segments, 173 vertices total, fit centre 41.831724,-88.251594, fitted radius 973.7 m, rms 57.2 m -- reproducing the integrator's independent fit exactly). Radius is set from the sourced circumference (Shiltsev 2011: 'circumference of 6.3 km' -> 6300/(2*pi) = 1002.68 m) rather than the ring-road's own fitted radius, since the road is an inner service loop. Cross-checked (see checks[]) against the OSM-sourced CDF (B0) and D0 collision-hall building centroids: both sit within 1.2% of the sourced radius from this same centre (1003.9 m and 990.8 m respectively), and their great-circle separation (1768.9 m) subtends about 124.6 degrees at this centre, close to the '1/3 of the ring apart' relationship between B0 and D0 -- strong independent corroboration that the fitted centre and sourced radius describe a real circular ring, even though no single fetched source explicitly uses the word 'circular'. Haversine on R=6371008.8 m.",
-  "name": "Tevatron ring (derived circle, decommissioned 2011)",
+  "method": "Derived. Radius 1002.68 m = the sourced circumference 6.3 km / 2 pi (Shiltsev: \"circumference of 6.3 km\"); a circle because the Tevatron shared the Main Ring tunnel and circumference and the MI-60 relation below fits it (no primary source consulted says \"circular\"). Centre from the Main Injector TDR relation quoted in Beams-doc-1148 Appendix A: the MI-60 straight \"is parallel to the Tevatron F0 straight section\", its reference point \"is 13.222 m downstream from the F0 TeV point, and offset from the TeV straight section by 11.823 m\". The MI-60 reference point is the lattice origin of the TDR site-coordinate table (DUSAF x = 101516.842 ft, y = 97134.405 ft, heading 148.76849 deg ccw from site east, i.e. geodetic azimuth 339.5 deg); the F0 point is 13.222 m upstream of it along the heading and 11.823 m to the right (the Main Injector lies south-west of the Tevatron), and the ring centre is a radius further along the right-hand normal. Site coordinates were converted with the FSCS of Beams-doc-1148. Result: centre 41.831643 N, 88.252077 W. Independent test, not used in the placement: the published A0 point (the origin of the site grid, on the Tevatron/Main Ring A0 straight) lies 999.7 m from this centre against the 1002.68 m radius. The earlier placement came from a circle fit to OSM service roads (centre 41.831724 N, 88.251594 W, rms 57 m); it is 41 m from this one. The OSM CDF Hall and D0 Assembly buildings lie 1017.7 m and 1032.1 m from the centre, 15 m and 30 m outside the ring, as surface buildings beside the underground collision halls should; the two distance checks that took them for ring points were removed. Accuracy 10 m: A0 residual 3 m, the 2.7 m between a 1000 m and a 1002.68 m radius, and design versus as-built positions.",
+  "name": "Tevatron ring (derived circle, placed from the Main Injector TDR; decommissioned 2011)",
   "notes": [
-    "QA pass (2026-09-21): this record's own worklog (docs/atlas-worklog/GEOMETRY_fermilab.md SS2/SS5) flagged the Tevatron-as-circle judgement call as the single item most needing independent scrutiny, since no rank<=10 primary source it fetched uses the word 'circular' or states a numeric radius. Two independently dispatched QA reviewers re-derived this from scratch: both reproduced this record's own OSM circle fit (same centre/radius/vertex count, from a fresh Overpass fetch) and its CDF/D0 distance cross-checks to within a few metres; both also independently found lower-rank secondary sources (a Wikipedia statement that the Tevatron 'was a circular particle accelerator ... in a 6.28 km circumference ring', and independent descriptions of the same-tunnel, same-circumference predecessor Main Ring as 'a large (1000 m radius) synchrotron') that satisfy the research brief's rule 3 by its plain text, even though no fetched rank<=10 paper phrases it that way. Per 'nothing from memory', those secondary quotes are recorded here as a review finding, not cited as a new `sources` entry, since this reviewer did not independently re-fetch them. Confidence stays `derived` (not upgraded) and the shape stays drawn: the reviewers' conclusion is that the existing derived-circle representation is honest and, if anything, under-claimed its own justification -- not that it should be weakened or removed. See docs/atlas-worklog/REVIEW_geometry_qa.md for the full independent re-derivation."
+    "No primary source consulted uses the word 'circular' or states a numeric radius for the Tevatron. The circle is a derived representation: the sourced 6.3 km circumference, in the Main Ring tunnel it shared. Secondary sources describe the ring as circular, but they are not cited here. The shape stays derived.",
+    "Re-placed on 2026-10-25 from the Main Injector design handbook's relation and the Fermilab Site Coordinate System; the OpenStreetMap ring-road centre it replaces was 41 m away. A distance check to the A0 point replaces the two hall-centroid checks, which assumed the surface buildings stand on the ring."
   ],
-  "osm": {
-    "elements": [
-      "way/21828966",
-      "way/22107445",
-      "way/22107459",
-      "way/22107465",
-      "way/22107473",
-      "way/22107477",
-      "way/22107479",
-      "way/22107482",
-      "way/22107483",
-      "way/22107488",
-      "way/22107494",
-      "way/22107500",
-      "way/22107503",
-      "way/22107505",
-      "way/22107506",
-      "way/22107508",
-      "way/22107510",
-      "way/22107512",
-      "way/22107514",
-      "way/22107515",
-      "way/22107524"
-    ],
-    "timestamp": "2026-09-18T21:52:02Z"
-  },
+  "osm": null,
   "representation": "derived",
   "schema": "hep-atlas/0.2",
   "site_id": null,
   "sources": [
-    "src:fermilab-geo-osm-rings-and-d0",
-    "src:fermilab-tevatron-shiltsev-2011"
+    "src:fermilab-tevatron-shiltsev-2011",
+    "src:fermilab-geo-mi-tdr-1994",
+    "src:fermilab-geo-oshinowo-coordinate-systems-1997"
   ],
   "summary": {
-    "plain": "Drawn as a 128-vertex circle of the sourced radius about the OSM-fit centre; the true beam-pipe wall was not itself traced (no OSM tunnel way exists for the Tevatron). depth_m for this level is sou..."
+    "plain": "Drawn as a 128-vertex circle of the sourced radius about a centre fixed by Fermilab's own survey data (the Main Injector design handbook and the site coordinate system); the beam-pipe wall itself was not traced."
   },
   "type": "geometry",
   "valid": {

@@ -8,17 +8,18 @@
     "lon": 16.5,
     "note": "Map centre only; not a claim about any structure. Uses the array's own published coordinate.",
     "precision_m": 200,
-    "quote": "23°16'18\" S, 16°30'00\" E, at about 1,800 m above sea level",
+    "quote": "The coordinates are 23°16’18” S, 16°30’00” E, at about 1,800 m above sea level.",
     "sources": [
-      "src:cosmic-gamma-hess-official-site-page"
+      "src:cosmic-gamma-hess-official-site-page",
+      "src:rf06-hess-site-wayback"
     ],
-    "verified_at": "2026-09-18"
+    "verified_at": "2026-10-25"
   },
   "coverage": {
     "researched": "partial",
     "tier": "B"
   },
-  "extent_m": 900,
+  "extent_m": 1000,
   "facility_id": "facility:hess-khomas-highland",
   "id": "map:hess-khomas-highland",
   "levels": [
@@ -36,8 +37,8 @@
   },
   "name": "H.E.S.S. — Khomas Highland",
   "notes": [
-    "Individual CT1-CT4 telescope positions within the square (which corner is which) are not distinguished; no source fetched this session assigns telescope numbers to corners.",
-    "Overpass (OpenStreetMap) was unreachable for the whole of this research session (connection refused on every attempt, from multiple mirrors) -- an OSM trace of the individual telescope pads, which the brief's own leads suggested as a cross-check, could not be attempted. See worklog."
+    "Telescope positions are OpenStreetMap traces (ways 171900951, 171900954, 171900955, 171900956 for the four 12 m telescopes, 171900953 for CT5), read with the OSM API map call on 2026-10-25 because Overpass answered 502 at capacity. The corner telescopes are not numbered: no fetched source says which of CT1-CT4 stands at which corner.",
+    "Other unnamed OpenStreetMap buildings stand in and around the compound; the Puhlhofer 2024 review says the site has 'multiple halls for the storage of spare parts and technical equipment' but none of these polygons is identified as such, so they are not drawn."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
@@ -46,11 +47,13 @@
   ],
   "sources": [
     "src:cosmic-gamma-hess-official-site-page",
-    "src:geo-arrays-hess-telescopes-page"
+    "src:geo-arrays-hess-telescopes-page",
+    "src:geo-arrays2-hess-crab-2006",
+    "src:geo-arrays2-hess-puhlhofer-2024"
   ],
   "summary": {
-    "plain": "The H.E.S.S. gamma-ray telescope array on Farm Göllschau in the Khomas Highland of Namibia: four 12 m telescopes on a 120 m square plus the large central CT5 dish.",
-    "technical": "One local map for facility:hess-khomas-highland. The CT1-CT4 square (120 m side, diagonal oriented north-south) is derived from the collaboration's own stated array geometry, centred on the array's official published coordinate; CT5 reuses that same coordinate as its own position ('centre of the array' per the same source)."
+    "plain": "The H.E.S.S. gamma-ray telescope array on Farm Gollschau in the Khomas Highland of Namibia: four 12 m telescopes on a 120 m square, the 28 m CT5 dish at its centre, the control building and the residence.",
+    "technical": "Telescope footprints from OpenStreetMap (five ways, centroid-to-centroid distances checked against the published 120 m square side and the 120 m/sqrt(2) centre-to-corner distance); the array outline is the quadrilateral through the four corner centroids, with a perimeter check of 480 m. Map centre is the collaboration's published array coordinate (23d16'18\"S 16d30'00\"E, good to one arc-second), which lies 21 m from the OSM CT5 centroid."
   },
   "type": "map",
   "unlocated": []

@@ -12,16 +12,40 @@
   "intervals": [
     {
       "confidence": "uncertain",
-      "end": null,
+      "end": {
+        "approx": true,
+        "date": "2026-06"
+      },
       "label": "operating",
       "locator": "INSPIRE experiment record 1110581, field date_approved",
-      "note": "Uses the approval date as a lower bound; no explicit installation/first-data date for the detector was found in this session (distinct from the experiment's own approval).",
+      "note": "Uses the approval date as a lower bound; no explicit installation or first-data date for the detector was found (distinct from the experiment's own approval). End capped at the LHC switch-off for LS3 (2026-06).",
       "sources": [
         "src:colliders-lhc-moedal-inspire-experiment-record"
       ],
       "start": "2009-12-02",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "derived",
+      "end": {
+        "approx": true,
+        "date": "2030",
+        "display": "mid-2030",
+        "note": "CERN schedule: the LHC resumes operation in mid-2030; the rest of the CERN complex restarts in stages from mid-2028.",
+        "planned": true
+      },
+      "label": "Long Shutdown 3",
+      "locator": "home.cern/science/long-shutdown-3, item of 5 August 2026 \"The LHC is being warmed up from near absolute zero to room temperature\"",
+      "note": "The detector record carries the same Long Shutdown 3 interval as experiment:moedal, whose interval note gives the evidence and CERN's wording for the bounds; the state is inferred from the LHC being shut down.",
+      "quote": "Following its final physics run, the accelerator has been switched off to begin CERN’s Long Shutdown 3 (LS3) ... The HiLumi LHC, scheduled to begin operation in 2030",
+      "sources": [
+        "src:cern-long-shutdown-3-page",
+        "src:cern-ls3-farewell-2026"
+      ],
+      "start": "2026-06-29",
+      "status": "shutdown",
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -35,7 +59,7 @@
       "confidence": "verified",
       "end": null,
       "locator": "INSPIRE experiment record 1110581, field description",
-      "note": "MoEDAL is deployed inside the LHCb cavern at Point 8, surrounding the intersection region; placed at site:cern-point-8-lhcb (created by the lhcb pass of this same wave), role 'main' since MoEDAL's own detector fully occupies its NTD/trapping-detector footprint there (not a prototype).",
+      "note": "MoEDAL is deployed inside the LHCb cavern at Point 8, surrounding the intersection region; placed at site:cern-point-8-lhcb, role 'main' since MoEDAL's own detector fully occupies its NTD/trapping-detector footprint there (not a prototype).",
       "quote": "The MoEDAL experiment at Point 8 of the LHC ring is the seventh and newest LHC experiment.",
       "role": "main",
       "site_id": "site:cern-point-8-lhcb",
@@ -56,7 +80,7 @@
       "approx": false,
       "confidence": "verified",
       "dimension": "area",
-      "display": "47 m^2 (NTD plastic)",
+      "display": "47 m² (NTD plastic)",
       "locator": "home.cern MoEDAL-MAPP page",
       "note": "",
       "quote": "125 plastic Nuclear Track Detector (NTD) stacks with a total of 47m2 of deployed plastic",
@@ -74,7 +98,7 @@
       "display": "~1 tonne (trapping detectors)",
       "locator": "home.cern MoEDAL-MAPP page",
       "note": "",
-      "quote": "Approximately one tonne of trapping detectors to register and retain exotic particles for analysis",
+      "quote": "it has about one tonne of trapping detectors designed to register and capture exotic particles for further study.",
       "sources": [
         "src:colliders-lhc-moedal-mapp-home-cern-page"
       ],
@@ -83,17 +107,17 @@
       "verified_at": "2026-09-17"
     }
   },
-  "status": "active",
+  "status": "shutdown",
   "subsystems": [],
   "summary": {
     "plain": "MoEDAL's detector is mostly passive: 125 stacks of special plastic sheets that record the tracks of heavily-charged particles, plus about a tonne of metal to trap and hold onto anything unusual.",
-    "technical": "125 NTD stacks (47 m^2 total plastic), ~1 t of paramagnetic trapping detectors, TimePix pixel monitors; deployed in the LHCb cavern at Point 8, requiring no trigger or online DAQ for its main passive elements."
+    "technical": "125 NTD stacks (47 m² total plastic), ~1 t of paramagnetic trapping detectors, TimePix pixel monitors; deployed in the LHCb cavern at Point 8, requiring no trigger or online DAQ for its main passive elements."
   },
   "technology": {
     "confidence": "verified",
     "locator": "home.cern MoEDAL-MAPP page",
     "note": "",
-    "quote": "125 plastic Nuclear Track Detector (NTD) stacks with a total of 47m2 of deployed plastic... Approximately one tonne of trapping detectors to register and retain exotic particles for analysis... TimePix pixel detectors for real-time radiation environment assessment",
+    "quote": "composed of 125 plastic Nuclear Track Detector (NTD) stacks with a total of 47m2 of deployed plastic. ... it has about one tonne of trapping detectors designed to register and capture exotic particles for further study. ... TimePix pixel detectors help to monitor MoEDAL’s radiation environment.",
     "sources": [
       "src:colliders-lhc-moedal-mapp-home-cern-page"
     ],

@@ -57,7 +57,6 @@
   },
   "name": "Pierre Auger Observatory",
   "notes": [
-    "site_ids, accelerator_ids, beamline_ids, institution_id, document_ids, experiment_ids are deliberately not written (v0.2 A1 derived fields).",
     "operator/operator_text left null: no fetched source names a distinct legal operator; the Observatory is run by the international Pierre Auger Collaboration itself."
   ],
   "operator": null,
@@ -68,28 +67,29 @@
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:cosmic-gamma-auger-official-observatory-page",
-    "src:cosmic-gamma-auger-official-history-page"
+    "src:cosmic-gamma-auger-official-history-page",
+    "src:rf09-auger-hybrid-detector-page"
   ],
   "specs": {
     "area": {
-      "approx": false,
+      "approx": true,
       "confidence": "verified",
       "dimension": "area",
-      "display": "3000 km²",
+      "display": "~3000 km²",
       "note": "",
-      "quote": "3000 km2 array of 1660 particle detectors",
+      "quote": "the 1,660 water surface detector tanks that cover about 3,000 km2 of the Pampa",
       "sources": [
-        "src:cosmic-gamma-auger-official-observatory-page"
+        "src:rf09-auger-hybrid-detector-page"
       ],
       "unit": "km^2",
       "value": 3000,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   },
   "status": "active",
   "summary": {
     "plain": "A giant outdoor laboratory in the Argentine pampas that catches ultra-high-energy cosmic rays: tanks of water spread over an area the size of Rhode Island, watched by telescopes that see the faint light of particle showers in the night sky.",
-    "technical": "Hybrid ultra-high-energy cosmic-ray observatory in Mendoza Province, Argentina, combining a 3000 km^2 surface array of 1660 water-Cherenkov detector stations with 27 fluorescence telescopes in four buildings overlooking the array; operated by the international Pierre Auger Collaboration since inauguration in November 2008, currently undergoing the AugerPrime upgrade."
+    "technical": "Hybrid ultra-high-energy cosmic-ray observatory in Mendoza Province, Argentina, combining a 3000 km² surface array of 1660 water-Cherenkov detector stations with 27 fluorescence telescopes in four buildings overlooking the array; operated by the international Pierre Auger Collaboration since inauguration in November 2008, currently undergoing the AugerPrime upgrade."
   },
   "superseded_by": null,
   "topic_ids": [

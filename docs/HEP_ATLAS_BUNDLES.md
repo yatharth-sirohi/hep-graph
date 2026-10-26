@@ -7,8 +7,9 @@ A1-A22) governs the *input*; this governs the *output*.
 
 Rules that hold for every bundle:
 
-* **Canonical JSON.** `json.dumps(sort_keys=True, indent=2, ensure_ascii=False)`
-  plus a trailing newline (A11).  Byte-for-byte deterministic: two builds of
+* **Canonical JSON.** `json.dumps(sort_keys=True, ensure_ascii=False)` with no
+  indentation, plus a trailing newline (A11; bundles are compact since the
+  2026-10 release — authored records under `data/atlas/` keep `indent=2`).  Byte-for-byte deterministic: two builds of
   the same data produce identical files.  `build.py --check` rebuilds into a
   temporary directory and fails when anything differs.
 * **No provenance in the hot path.** `atlas.json` carries *stripped* values
@@ -51,8 +52,14 @@ revalidation over content-hashed URLs**:
   in-process keyed by `(path, mtime_ns, size)` so an unchanged file is not
   re-hashed on every request.
 * Every response carries `Cache-Control: public, max-age=0, must-revalidate`
-  — always revalidate, never serve a bundle that is more than one round
-  trip stale.
+  — the browser always revalidates — and, since the 2026-10 release,
+  `Vercel-CDN-Cache-Control: max-age=86400, stale-while-revalidate=604800`,
+  which only Vercel's CDN reads (it never reaches the browser). Files under
+  `/atlas` change only with a deployment, and a deployment starts with an empty
+  edge cache, so no reader is served the previous build; before this, every
+  file of every page load was a serverless invocation counted against the
+  per-address request budget. A browser-visible `stale-while-revalidate` was
+  tried first and made Firefox's background revalidations stall page loads.
 * A request with a matching `If-None-Match` gets a bodyless `304`; a stale
   or absent one gets the normal `200` with the full bytes and a fresh ETag.
 

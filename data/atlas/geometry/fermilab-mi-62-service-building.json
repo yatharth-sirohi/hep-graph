@@ -1,0 +1,98 @@
+{
+  "accuracy_m": 8,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": null,
+  "feature_type": "building",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way/272687522 version 2 (2025-04-08T20:20:39Z), fetched 2026-10-25T10:57:42Z; TDR ch. 2 s2.1 ('the locations of these service buildings are used as the basis for numbering locations in the FMI ring')",
+    "note": "OpenStreetMap alone yields at most 'approximate'. Context feature: no atlas entity depicts a service building.",
+    "sources": [
+      "src:fermilab-geo-osm-mi-62-building",
+      "src:fermilab-geo-mi-tdr-1994"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -88.2651011,
+            41.8309501
+          ],
+          [
+            -88.2649726,
+            41.8308423
+          ],
+          [
+            -88.2651127,
+            41.8307431
+          ],
+          [
+            -88.2652412,
+            41.830851
+          ],
+          [
+            -88.2651011,
+            41.8309501
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:fermilab-mi-62-service-building",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fermilab",
+  "method": "OpenStreetMap way 272687522 (building=yes, name='MI-62') used verbatim. The TDR numbers its service buildings by their place on the ring ('the locations of these service buildings are used as the basis for numbering locations in the FMI ring'), so the building named MI-62 stands at the MI-62 straight section. With the ring placed from the TDR's own site coordinates (placement revised 2026-10-25), the building lies 14.7 m from the tunnel and 53.6 m from the centre of the MI-62 straight section; it stood 7.4 m from the earlier, road-fitted ring, which was displaced 54 m. A service building need not stand over the middle of a 52 m straight, so this is not a contradiction, and the building was not used to place the ring.",
+  "name": "Main Injector service building MI-62 (OpenStreetMap)",
+  "notes": [
+    "No source consulted (checked 2026-10-25) gives the completion date of this building. The Main Injector Technical Design Handbook (August 1994) lists the MI-52 and MI-62 service buildings among the project's eleven service buildings and describes MI-62 in the future tense, and the 1999 commissioning paper says the ring's civil construction was complete in 1997 (groundbreaking was on 22 March 1993). The building is therefore drawn from 1997; it may have stood earlier."
+  ],
+  "osm": {
+    "elements": [
+      "way/272687522"
+    ],
+    "timestamp": "2026-10-25T10:57:42Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:fermilab-geo-osm-mi-62-building",
+    "src:fermilab-geo-mi-tdr-1994",
+    "src:rv-fnal-mi-commissioning-pac99",
+    "src:rv-fnal-history-accelerator-history"
+  ],
+  "summary": {
+    "plain": "The service building at the MI-62 straight section of the Main Injector, drawn from 1997, when the ring's civil construction was complete."
+  },
+  "type": "geometry",
+  "valid": {
+    "confidence": "derived",
+    "end": null,
+    "locator": "PAC 1999 paper MOCL3, section 1 (Introduction); Main Injector Technical Design Handbook (August 1994), chapter 4 'Service Buildings' (WBS 1.2.2.4: 'The MI-52 and 62 service buildings'); Fermilab History and Archives, 'Accelerator History', section 'Main Injector' (groundbreaking 22 March 1993)",
+    "note": "Start is the year the ring's civil construction was complete; this building's own completion date is not published in the sources consulted.",
+    "quote": "Completion of the Main Injector ring civil construction occurred in 1997",
+    "sources": [
+      "src:rv-fnal-mi-commissioning-pac99",
+      "src:fermilab-geo-mi-tdr-1994",
+      "src:rv-fnal-history-accelerator-history"
+    ],
+    "start": "1997",
+    "verified_at": "2026-10-25"
+  }
+}

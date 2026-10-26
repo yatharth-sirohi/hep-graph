@@ -17,7 +17,7 @@
       "end": null,
       "label": "conceptual design",
       "locator": "abstract",
-      "note": "Publication of the Near Detector Conceptual Design Report. No construction start date for the near detector could be sourced from any page fetched in this session.",
+      "note": "Publication of the Near Detector Conceptual Design Report. No source consulted (checked 2026-09-16) gives a construction start date for the near detector.",
       "quote": "This report describes the conceptual design of the DUNE near detector",
       "sources": [
         "src:dune-nd-cdr"
@@ -32,7 +32,7 @@
   },
   "name": "DUNE Near Detector",
   "notes": [
-    "Status \"proposed\" reflects the evidence available: the ND CDR (2021) is the latest near-detector design document that could be fetched, and no construction milestone was sourced."
+    "Status \"proposed\" reflects the evidence available: the ND CDR (2021) is the latest near-detector design document consulted (checked 2026-09-16), and none of the sources consulted gives a construction milestone."
   ],
   "parent_detector_id": null,
   "placements": [
@@ -40,8 +40,8 @@
       "confidence": "verified",
       "end": null,
       "locator": "Vol. I, §1.1.2",
-      "note": "Located on the Fermilab site just downstream of the neutrino source. A dedicated near-detector hall site id (site:fermilab-dune-near-detector-hall) is reserved in the registry but no coordinates for it could be sourced, so the campus site is used.",
-      "quote": "a composite ND installed just downstream of the neutrino source",
+      "note": "Located on the Fermilab site just downstream of the neutrino source. No source consulted gives coordinates for a dedicated near-detector hall, so the Fermilab main-campus site is used.",
+      "quote": "a composite near detector (ND) installed just downstream of the neutrino source",
       "role": "near",
       "site_id": "site:fermilab-main-campus",
       "sources": [
@@ -59,14 +59,14 @@
   "specs": {
     "target_medium": {
       "confidence": "verified",
-      "locator": "ND CDR, chapter 2 heading",
+      "locator": "ND CDR, §1.2 Overview of the Near Detector",
       "note": "",
-      "quote": "2 Liquid Argon TPC - ND-LAr",
+      "quote": "a LArTPC constructed using ArgonCube technology ... consists of a high pressure gaseous argon TPC ... Currently two options are being explored for the inner tracker, one based on a combination of plastic scintillator cubes with TPCs and one based on straw-tubes",
       "sources": [
         "src:dune-nd-cdr"
       ],
-      "value": "liquid argon (ND-LAr), plus the SAND inner tracker targets",
-      "verified_at": "2026-09-16"
+      "value": "liquid argon (ND-LAr) and high-pressure gaseous argon (ND-GAr), plus the SAND inner tracker (two options under study: plastic scintillator cubes with TPCs, or straw tubes)",
+      "verified_at": "2026-10-25"
     }
   },
   "status": "proposed",
@@ -74,28 +74,28 @@
     {
       "description": {
         "confidence": "verified",
-        "locator": "ND CDR, chapter 2",
+        "locator": "ND CDR, §1.2 and §2.3",
         "note": "",
-        "quote": "2 Liquid Argon TPC - ND-LAr 2.1 Introduction 2.2 Requirements 2.3 Overview of ND-LAr ArgonCube structure",
+        "quote": "A critical component of the DUNE ND is a LArTPC constructed using ArgonCube technology. ... ND-LAr consists of 35 optically separated LArTPC modules",
         "sources": [
           "src:dune-nd-cdr"
         ],
-        "value": "Modular liquid argon TPC based on the ArgonCube design, the primary target and tracker of the near detector",
-        "verified_at": "2026-09-16"
+        "value": "Modular liquid argon TPC (35 optically separated modules) based on ArgonCube technology, a critical component of the near detector",
+        "verified_at": "2026-10-25"
       },
       "name": "ND-LAr"
     },
     {
       "description": {
         "confidence": "uncertain",
-        "locator": "ND CDR, §1.5",
+        "locator": "ND CDR, §1.5 (TMS) and §2.1 (ND-GAr downstream of ND-LAr)",
         "note": "The ND CDR explicitly does not describe the TMS in detail.",
-        "quote": "This group is also responsible for the design of a possible Day 1 detector in this location (Temporary Muon Spectrometer, TMS)",
+        "quote": "Immediately downstream of ND-LAr is the gaseous argon (GAr) component, ND-GAr, which serves ND-LAr as a muon spectrometer. ... a possible Day 1 detector in this location (Temporary Muon Spectrometer, TMS)",
         "sources": [
           "src:dune-nd-cdr"
         ],
-        "value": "Day-1 muon spectrometer downstream of ND-LAr, to be replaced later by the gaseous argon detector ND-GAr",
-        "verified_at": "2026-09-16"
+        "value": "Possible Day-1 muon spectrometer (Temporary Muon Spectrometer, TMS) in the location of ND-GAr, immediately downstream of ND-LAr",
+        "verified_at": "2026-10-25"
       },
       "name": "TMS (Temporary Muon Spectrometer)"
     },
@@ -104,7 +104,7 @@
         "confidence": "verified",
         "locator": "ND CDR, §1",
         "note": "",
-        "quote": "SAND consists of an inner tracker surrounded by an ECAL inside a large solenoidal magnet.",
+        "quote": "SAND consists of an inner tracker surrounded by an ECAL inside a large solenoidal magnet. ... The magnet and ECAL are repurposed from the KLOE detector",
         "sources": [
           "src:dune-nd-cdr"
         ],
@@ -122,7 +122,7 @@
     "confidence": "verified",
     "locator": "ND CDR, §1",
     "note": "",
-    "quote": "The final component of the DUNE ND suite is a magnetized beam monitor called the System for on-Axis Neutrino Detection (SAND) .",
+    "quote": "The DUNE ND has three primary detector components and the capability for two of those components to move off the beam axis. ... The final component of the DUNE ND suite is a magnetized beam monitor called the System for on-Axis Neutrino Detection (SAND)",
     "sources": [
       "src:dune-nd-cdr"
     ],

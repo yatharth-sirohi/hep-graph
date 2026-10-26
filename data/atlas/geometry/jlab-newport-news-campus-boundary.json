@@ -12,7 +12,7 @@
   "geometry": {
     "confidence": "approximate",
     "locator": "OSM/Nominatim way/246018258, queried 2026-09-18",
-    "note": "OpenStreetMap alone yields at most 'approximate' confidence (A25). This address (12000 Jefferson Avenue) independently matches Jefferson Lab's own site-plan document ('12 CEBAF Center - 12000 Jefferson Ave.', src:geo-jlab-site-plan-detail), corroborating the identification.",
+    "note": "OpenStreetMap alone yields at most 'approximate' confidence. This address (12000 Jefferson Avenue) independently matches Jefferson Lab's own site-plan document ('12 CEBAF Center - 12000 Jefferson Ave.', src:geo-jlab-site-plan-detail), corroborating the identification.",
     "sources": [
       "src:geo-jlab-nominatim-campus-boundary"
     ],
@@ -224,7 +224,7 @@
     "website": null
   },
   "map_id": "map:jefferson-lab",
-  "method": "OpenStreetMap/Nominatim way 246018258 (amenity=research_institute, name 'Thomas Jefferson National Accelerator Facility', address '12000 Jefferson Avenue, Newport News, Virginia 23606'), used verbatim as the campus fence/boundary. Fetched via the Nominatim search API (nominatim.openstreetmap.org) rather than Overpass: both permitted Overpass mirrors (overpass-api.de, lz4.overpass-api.de) refused connections for the entire remainder of this session after an initial handful of successful BNL queries (see worklog); Nominatim, a separate OSM service reading the same underlying database, remained reachable and returns full way geometry via its lookup/search endpoints with 'polygon_geojson=1'. This is still third-party OpenStreetMap data (ODbL) and stays 'approximate', matching every OSM-alone shape in this atlas.",
+  "method": "OpenStreetMap/Nominatim way 246018258 (amenity=research_institute, name 'Thomas Jefferson National Accelerator Facility', address '12000 Jefferson Avenue, Newport News, Virginia 23606'), used verbatim as the campus fence/boundary. Fetched through the Nominatim search API (nominatim.openstreetmap.org), which reads the same underlying OpenStreetMap database as Overpass and returns the full way geometry with 'polygon_geojson=1'. This is third-party OpenStreetMap data (ODbL) and stays 'approximate', like every OpenStreetMap-only shape in the Atlas.",
   "name": "Jefferson Lab, Newport News campus boundary",
   "notes": [],
   "osm": {

@@ -4,16 +4,16 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 50.09,
-    "locator": "infobox",
-    "lon": 4.78944,
-    "note": "Campus-level coordinate of the Chooz nuclear power plant from Wikipedia's infobox (geocoder/Wikipedia is acceptable only at kind:campus, labelled approximate, per v0.2 A17). NUCLEUS is sited 'very near' the reactor core, much closer than the Double Chooz near/far halls, but no fetched source in this pass gives an exact distance-from-core figure or a more precise coordinate for the NUCLEUS location specifically, so the plant's own campus point is used (A23: shown as approximate until a hall position is sourced). Sign/hemisphere sanity-checked: Chooz, France is in the northern hemisphere (positive lat) and east of the prime meridian (positive lon) — consistent.",
-    "precision_m": 300,
-    "quote": "50°5′24″N 4°47′22″E",
+    "lat": 50.0893714,
+    "locator": "geometry:chooz-vns-position (intersection of the NUCLEUS baselines 72 m to B-1 and 102 m to B-2)",
+    "lon": 4.7900333,
+    "note": "Derived from the NUCLEUS baselines about the B1/B2 unit centroids; the solution lies inside the office building between the units that the paper describes.",
+    "precision_m": 40,
     "sources": [
-      "src:chooz-npp-wikipedia"
+      "src:geo-chooz-nucleus-2019",
+      "src:geo-chooz-osm-extract-2026-10"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "country": "FR",
   "coverage": {
@@ -29,9 +29,7 @@
   },
   "name": "Chooz very-near site (NUCLEUS)",
   "notes": [
-    "facility_id references facility:chooz, owned by the reactor-solar-neutrino workstream (ID_REGISTRY Wave 3, Double Chooz row); that facility record has since landed (checked 2026-09-17, verifier pass).",
-    "This site is distinct from any Double Chooz near/far detector site: NUCLEUS is described in its own papers as sited 'very near' the reactor core (much closer than Double Chooz's near detector), but no fetched source in this pass gives its exact distance or an independent coordinate, so it shares the plant's campus-level point pending a better source from either workstream.",
-    "Reuses src:chooz-npp-wikipedia (owned by the reactor-solar-neutrino workstream) instead of the cevns-owned src:cevns-nucleus-chooz-wikipedia, which cited the identical URL and was retired once that workstream's facility:chooz/Double Chooz records landed and created the duplicate (A20 duplicate-source-url; rule 4 says reuse an existing source for the same URL). [verifier fix, 2026-09-17]"
+    "This site is distinct from any Double Chooz near or far detector site: NUCLEUS is described in its own papers as sited 'very near' the reactor cores, much closer than Double Chooz's near detector. Its position is derived from the NUCLEUS baselines of 72 m to reactor unit B-1 and 102 m to B-2 (see the coordinate note), not from a surveyed point."
   ],
   "place": {
     "city": "Chooz",
@@ -41,11 +39,13 @@
   "schema": "hep-atlas/0.2",
   "setting": "surface",
   "sources": [
-    "src:chooz-npp-wikipedia"
+    "src:chooz-npp-wikipedia",
+    "src:geo-chooz-nucleus-2019",
+    "src:geo-chooz-osm-extract-2026-10"
   ],
   "summary": {
     "plain": "A location very close to the reactor core at the Chooz nuclear power plant in France, where the NUCLEUS experiment is being built to catch antineutrinos with extremely sensitive cryogenic detectors.",
-    "technical": "NUCLEUS's 'very-near' site at the EDF Chooz B nuclear power plant, Ardennes, France; distance from the reactor core is not sourced precisely in this pass."
+    "technical": "NUCLEUS's 'very-near' site at the EDF Chooz B nuclear power plant, Ardennes, France; its position is derived from the NUCLEUS baselines of 72 m to reactor unit B-1 and 102 m to B-2."
   },
   "type": "site"
 }

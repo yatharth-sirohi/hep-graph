@@ -1,0 +1,76 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 41.709622,
+    "locator": "Centroid of the OSM campus fence polygon, way 4372309",
+    "lon": -87.980823,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 500,
+    "sources": [
+      "src:geo-argonne-osm-campus-boundary"
+    ],
+    "verified_at": "2026-10-25"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 2200,
+  "facility_id": "facility:argonne-national-laboratory",
+  "id": "map:argonne-national-laboratory",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "Plan view of the campus boundary, the principal APS buildings, the derived storage-ring orbit and Building 203; no underground feature is drawn."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "Argonne National Laboratory — campus, Advanced Photon Source and Physics Building",
+  "notes": [
+    "Argonne has no accelerator, beamline or detector record in the atlas, so every feature here is a context shape (entity_id null) except the campus boundary and the derived APS orbit, which are attached to site:argonne-campus.",
+    "anl.gov, aps.anl.gov, www.phy.anl.gov, map.anl.gov and the sandbox mirror all returned HTTP 403 to every fetch attempt (checked 2026-10-25); the statements used come from the APS operations pages (ops.aps.anl.gov) and OSTI-hosted laboratory documents.",
+    "The APS storage-ring orbit is drawn as a derived circle (see geometry:argonne-aps-storage-ring-orbit); the ATLAS layout is not located."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [
+    {
+      "note": "Official cutaway of the ATLAS injectors, booster, ATLAS linac and target areas; topology only. Never drawn on the to-scale map.",
+      "source_id": "src:geo-argonne-atlas-lab-portrait",
+      "title": "ATLAS facility layout, Figure 1 of the laboratory portrait ANL/PHY/PP-87036 (cutaway, not to scale)"
+    }
+  ],
+  "site_ids": [
+    "site:argonne-campus"
+  ],
+  "sources": [
+    "src:geo-argonne-osm-campus-boundary",
+    "src:geo-argonne-aps-parameters",
+    "src:geo-argonne-atlas-lab-portrait",
+    "src:geo-argonne-aps-sr-parameters",
+    "src:geo-argonne-aps-cdr-1987"
+  ],
+  "summary": {
+    "plain": "Argonne National Laboratory's campus near Lemont, Illinois, drawn to scale: the ring-shaped Advanced Photon Source hall with the storage-ring path inside it, the injector buildings, and the Physics Building that houses the ATLAS heavy-ion linac.",
+    "technical": "One local map for facility:argonne-national-laboratory. Drawn from OpenStreetMap: the campus fence polygon (way 4372309), the APS Experiment Hall multipolygon (relation 3126234), the APS linac tunnel (411) and injection wing (412) buildings, and Building 203 (the ATLAS building). Derived: the APS storage-ring orbit as a circle of the published 1103.609 m circumference, concentric with the hall's circular outlines (accuracy 10 m). Not drawn: the internal layout of ATLAS."
+  },
+  "type": "map",
+  "unlocated": [
+    {
+      "backlog": "Obtain the ATLAS floor plan (phy.anl.gov/atlas/facility/floorplan.html, an unscaled graphic) or a surveyed drawing of Building 203 and georeference it against at least three building corners from the OSM footprint; official plans may only be cited, never copied.",
+      "entity_id": "facility:argonne-national-laboratory",
+      "reason": "ATLAS accelerator layout (injectors, booster linac, ATLAS linac, target areas I-IV). Only the Building 203 footprint is drawn; the laboratory's own layout figure is an unscaled cutaway, and no fetched source gives the beam axis or hall outlines inside the building. The official ATLAS floor-plan PDF and the 'Facility Layout with Beam Locations' page (anl.gov) and phy.anl.gov documents returned HTTP 403 again on 2026-10-25, and a floor plan of equipment would in any case need three identifiable building corners to be georeferenced. The Atlas has no accelerator record for ATLAS.",
+      "sources": [
+        "src:geo-argonne-atlas-lab-portrait"
+      ],
+      "verified_at": "2026-10-25"
+    }
+  ]
+}

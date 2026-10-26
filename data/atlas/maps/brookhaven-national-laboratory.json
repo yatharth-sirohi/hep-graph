@@ -33,14 +33,14 @@
       "id": "rhic-tunnel",
       "kind": "underground",
       "name": "RHIC tunnel",
-      "note": "OpenStreetMap tags the ring tunnel=yes/indoor=yes/layer=-5, confirming it is underground; no fetched source this session states a metres-below-surface figure for the RHIC tunnel specifically, so depth_m is left null per A17 rather than guessed."
+      "note": "OpenStreetMap tags the ring tunnel=yes/indoor=yes/layer=-5, confirming it is underground; no source consulted states a metres-below-surface figure for the RHIC tunnel specifically, so the depth is left blank rather than guessed."
     },
     {
       "depth_m": null,
       "id": "ags-tunnel",
       "kind": "underground",
       "name": "AGS tunnel",
-      "note": "BNL's own 1960 Bulletin Board describes the AGS ring as an 'underground magnet tunnel' built in a dug 'circular trench' with a 'ring-shaped 18 foot square' cross-section (src:geo-bnl-ags-1960-bulletin), confirming it is underground; no fetched source states a metres-below-surface figure, so depth_m is left null per A17 rather than guessed."
+      "note": "BNL's own 1960 Bulletin Board describes the AGS ring as an 'underground magnet tunnel' built in a dug 'circular trench' with a 'ring-shaped 18 foot square' cross-section (src:geo-bnl-ags-1960-bulletin), confirming it is underground; no source consulted states a metres-below-surface figure, so the depth is left blank rather than guessed."
     }
   ],
   "linked_map_ids": [],
@@ -49,9 +49,9 @@
   },
   "name": "Brookhaven National Laboratory — Upton campus, RHIC and AGS rings",
   "notes": [
-    "All three of this facility's atlas sites (site:bnl-upton-campus, site:bnl-rhic-ip6-star, site:bnl-rhic-ip8-phenix-sphenix) and both of its atlas accelerators (accelerator:rhic, accelerator:ags) are drawn; map.unlocated is empty. accelerator:bnl-linac and accelerator:bnl-booster (optional ids reserved for the 'facilities' partition in ID_REGISTRY.md) were never created in this atlas, so Buildings 930 (Linear Accelerator), 901 (Tandem Van de Graaff) and 942 (AGS Booster) are drawn as unlinked context features (entity_id null) rather than being listed in unlocated[], which only covers entities that actually exist as atlas records.",
-    "An Overpass query for a BNL campus-boundary polygon (comparable to CERN's Meyrin/Prévessin fence lines) was queued but overpass-api.de and its lz4 mirror both became unreachable ('Connection refused') for the remainder of this session; the boundary (geometry:bnl-upton-campus-boundary) was instead fetched via the Nominatim search API (OSM relation 18896697), a separate OSM service that remained reachable. See the worklog's 'Method note' section.",
-    "E949 (Brookhaven AGS experiment, K+ -> pi+ nu nu-bar) has no atlas site or detector record of its own (its facility_roles reference facility:brookhaven-national-laboratory only), so nothing about it is drawn or listed in unlocated[]; a candidate location (Building 912, 'AGS Exp. Area', drawn here as geometry:bnl-ags-experimental-area-building) is flagged in the worklog as a lead for whoever creates that site record."
+    "All three of this facility's Atlas sites (site:bnl-upton-campus, site:bnl-rhic-ip6-star, site:bnl-rhic-ip8-phenix-sphenix) and both of its Atlas accelerators (accelerator:rhic, accelerator:ags) are drawn; nothing is listed as not drawn. Buildings 930 (Linear Accelerator), 901 (Tandem Van de Graaff) and 942 (AGS Booster) are drawn as context features not linked to an entity, because the Atlas has no accelerator records for the linac or the Booster.",
+    "The campus boundary (geometry:bnl-upton-campus-boundary) is OSM relation 18896697, fetched through the Nominatim search API; an Overpass query for a boundary polygon (comparable to CERN's Meyrin/Prévessin fence lines) could not be completed.",
+    "E949 (Brookhaven AGS experiment, K+ -> pi+ nu nu-bar) has no Atlas site or detector record of its own (its facility roles reference facility:brookhaven-national-laboratory only), so nothing about it is drawn or listed as not drawn; a candidate location (Building 912, 'AGS Exp. Area', drawn here as geometry:bnl-ags-experimental-area-building) would be the place to start if a site record is added."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [

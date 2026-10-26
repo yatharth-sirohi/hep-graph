@@ -53,7 +53,7 @@
       "end": null,
       "label": "Expression of Interest",
       "locator": "Wikipedia, 'Search for Hidden Particles': Expression of Interest October 2013",
-      "note": "Sourced only to a Wikipedia pointer (rank 12), not independently corroborated by a rank <= 10 source fetched this session; recorded as uncertain per A17/A18.",
+      "note": "Sourced only to a Wikipedia pointer; no independent primary or official source consulted (checked 2026-09-17) corroborates it, so it is recorded as uncertain.",
       "sources": [
         "src:ship-wikipedia-pointer"
       ],
@@ -65,7 +65,7 @@
       "confidence": "approximate",
       "end": null,
       "label": "SPSC review of Technical and Physics Proposal",
-      "note": "Only source is CERN Courier (rank 12, secondary); A17 requires rank <= 10 for confidence: verified.",
+      "note": "The only source is CERN Courier, a secondary source, so this is recorded as approximate rather than verified.",
       "quote": "The CERN SPS and PS experiments Committee (SPSC) has recently completed a review of the SHiP Technical and Physics Proposal, and it recommended that the SHiP collaboration proceed towards preparing a Comprehensive Design Report.",
       "sources": [
         "src:ship-cern-courier-2016-spsc"
@@ -79,7 +79,7 @@
       "end": null,
       "label": "approved for ECN3",
       "locator": "arXiv:2606.11039, abstract",
-      "note": "2026-09-17 fixed-target verification: corroborated with a rank<=10 source. arXiv:2606.11039 ('The SHiP/NA67 experiment at the ECN3 high-intensity beam facility at the CERN SPS', SHiP Collaboration, submitted 9 June 2026) states verbatim in its abstract that SHiP/BDF was 'approved in 2024' for the ECN3 hall, matching the CERN Research Board's 2024 decision reported by CERN Courier ('SHiP to chart hidden sector', published 3 May 2024, which also names the collaboration's then-current schedule aim of commissioning the facility toward the end of 2030 and the detector in 2031 -- an earlier schedule than the 2033 physics-start figure below, which remains sourced only to Wikipedia and is left `uncertain`). Satisfies A17 (a `verified` value needs a source of rank <= 10; arxiv is rank 10).",
+      "note": "arXiv:2606.11039 ('The SHiP/NA67 experiment at the ECN3 high-intensity beam facility at the CERN SPS', SHiP Collaboration, submitted 9 June 2026) states verbatim in its abstract that SHiP/BDF was 'approved in 2024' for the ECN3 hall, matching the CERN Research Board's 2024 decision reported by CERN Courier ('SHiP to chart hidden sector', published 3 May 2024, which also names the collaboration's then-current schedule aim of commissioning the facility toward the end of 2030 and the detector in 2031 -- an earlier schedule than the 2033 physics-start figure below, which is sourced only to Wikipedia and is uncertain).",
       "quote": "approved in 2024",
       "sources": [
         "src:fixed-target-verify-ship-bdf-ecn3-arxiv-2606-11039",
@@ -121,11 +121,10 @@
   },
   "name": "SHiP",
   "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
-    "Placed at site:cern-ecn3-north-area, created by this same workstream for NA48/NA62; the official site's own description ('High-Intensity ECN3 Facility') supports this placement.",
-    "The 2024 approval date and 2033 start date rest only on a Wikipedia pointer (rank 12) in this session; WebSearch access was exhausted before a rank <= 10 corroborating source (e.g. a CERN Research Board or Council press release) could be fetched. Flagged as `confidence: uncertain` throughout rather than presented as verified. Re-verification against an official CERN Council/SPSC document is recommended as a follow-up.",
+    "Placed at site:cern-ecn3-north-area, shared with the NA48 and NA62 records; the official site's own description ('High-Intensity ECN3 Facility') supports this placement.",
+    "The 2033 planned start rests only on a Wikipedia pointer, so it is recorded as uncertain; an official CERN Council or SPSC document would settle it.",
     "No collaboration membership counts found on the official site.",
-    "2026-09-17 fixed-target verification: the 2024 CERN Research Board approval of SHiP/BDF for ECN3 is now corroborated by a rank<=10 source (arXiv:2606.11039, 'approved in 2024'), so the 'approved for ECN3' interval is upgraded from `confidence: uncertain` to `verified`. The 2033 planned-start interval remains sourced only to Wikipedia and is left `uncertain`; a 3 May 2024 CERN Courier article ('SHiP to chart hidden sector') quotes the collaboration aiming to commission the facility by the end of 2030 and the detector in 2031, an earlier figure than 2033, so the exact first-physics-data year is not treated as settled by this pass. Also newly confirmed by two further rank<=10 sources (arXiv:2504.06692 and the arXiv:2606.11039 abstract itself) that the programme is still officially called 'SHiP/NA67' in at least one 2026 collaboration paper; not added as an alias here since the official ship.web.cern.ch site fetched this session uses only 'SHiP', and this is flagged as a follow-up rather than asserted as a renaming."
+    "The 2024 CERN Research Board approval of SHiP/BDF for ECN3 is corroborated by arXiv:2606.11039 ('approved in 2024'), so the 'approved for ECN3' interval is recorded as verified. A 3 May 2024 CERN Courier article ('SHiP to chart hidden sector') quotes the collaboration aiming to commission the facility by the end of 2030 and the detector in 2031, earlier than the 2033 planned start, so the year of first physics data is not settled. Two further sources (arXiv:2504.06692 and the abstract of arXiv:2606.11039) show the programme is still called 'SHiP/NA67' in at least one 2026 collaboration paper; this is not added as an alias because the official ship.web.cern.ch site uses only 'SHiP'."
   ],
   "physics_goals": [
     {

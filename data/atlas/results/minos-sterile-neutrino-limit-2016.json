@@ -2,7 +2,7 @@
   "aliases": [],
   "claim": {
     "locator": "arXiv:1607.01176, abstract",
-    "quote": "No evidence for νμ → νs transitions is found and we set a world-leading limit on θ₂₄ for values of Δm²₄₁ ≲ 1 eV².",
+    "quote": "No evidence for $\\nu_{\\mu} \\to \\nu_{s}$ transitions is found and we set a world-leading limit on $\\theta_{24}$ for values of $\\Delta m^{2}_{41} \\lesssim 1\\,\\mathrm{eV}^{2}$.",
     "sources": [
       "src:minos-prl-2016-sterile-search"
     ]
@@ -16,23 +16,22 @@
   },
   "date": {
     "confidence": "verified",
-    "locator": "title, Phys. Rev. Lett. 117, 151803 (2016)",
-    "note": "Published as Phys. Rev. Lett. 117, 151803 (2016).",
-    "quote": "Search for Sterile Neutrinos Mixing with Muon Neutrinos in MINOS",
+    "locator": "arXiv:1607.01176, submission history",
+    "note": "Published as Phys. Rev. Lett. 117, 151803 (2016). `date` is the arXiv v1 submission date, earlier than the journal publication (A9: the display date is the earliest sourced public date).",
+    "quote": "Submitted on 5 Jul 2016 (v1)",
     "sources": [
       "src:minos-prl-2016-sterile-search"
     ],
-    "value": "2016",
-    "verified_at": "2026-09-17"
+    "value": "2016-07-05",
+    "verified_at": "2026-10-25"
   },
-  "date_kind": "publication",
+  "date_kind": "preprint",
   "detector_ids": [
     "detector:minos-near-detector",
     "detector:minos-far-detector"
   ],
   "experiment_ids": [
-    "experiment:minos",
-    "experiment:minos-plus"
+    "experiment:minos"
   ],
   "facility_ids": [
     "facility:fermilab",
@@ -49,7 +48,7 @@
     "sources": [
       "src:minos-prl-2016-sterile-search"
     ],
-    "value": "World-leading upper limit on the θ₂₄ mixing angle for Δm²₄₁ ≲ 1 eV², from a νμ-dominated beam over 1.04 km and 735 km baselines with 10.56×10²⁰ protons on target; no evidence for νμ→νs oscillations",
+    "value": "Upper limit on the θ₂₄ mixing angle for Δm²₄₁ ≲ 1 eV² in a one-sterile-neutrino model with |U_e4|² = 0 (described by the paper as world-leading), from a νμ-dominated beam over 1.04 km and 735 km baselines with 10.56×10²⁰ protons on target; no evidence for νμ→νs oscillations",
     "verified_at": "2026-09-17"
   },
   "links": {
@@ -57,7 +56,7 @@
   },
   "name": "Search for Sterile Neutrinos Mixing with Muon Neutrinos in MINOS",
   "notes": [
-    "experiment_ids lists both experiment:minos and experiment:minos-plus because the analysis uses the combined MINOS/MINOS+ near+far detector data set (1.04 km and 735 km baselines) described in the abstract."
+    "experiment_ids lists experiment:minos only: the paper analyses 10.56×10²⁰ protons on target in the MINOS near and far detectors (1.04 km and 735 km baselines) and does not mention MINOS+."
   ],
   "official_url": null,
   "publication": {
@@ -66,6 +65,17 @@
     "url": "https://arxiv.org/abs/1607.01176"
   },
   "publication_source_id": "src:minos-prl-2016-sterile-search",
+  "published": {
+    "confidence": "verified",
+    "locator": "arXiv:1607.01176, journal reference",
+    "note": "Year only.",
+    "quote": "Journal reference: Phys. Rev. Lett. 117, 151803 (2016)",
+    "sources": [
+      "src:minos-prl-2016-sterile-search"
+    ],
+    "value": "2016",
+    "verified_at": "2026-10-25"
+  },
   "result_type": "limit",
   "schema": "hep-atlas/0.2",
   "significance": {
@@ -82,8 +92,8 @@
     "src:minos-prl-2016-sterile-search"
   ],
   "summary": {
-    "plain": "MINOS looked for its muon neutrinos secretly turning into an undetectable 'sterile' neutrino and found no sign of it, setting the tightest limit at the time on how much that could be happening.",
-    "technical": "Two-detector search for νμ→νs oscillations over 1.04 km and 735 km baselines using a νμ-dominated beam peaked at 3 GeV (10.56x10^20 POT); no evidence found, yielding a world-leading limit on θ_24 for Δm^2_41 <~ 1 eV^2 under a one-sterile-neutrino model with |U_e4|^2=0."
+    "plain": "MINOS searched for muon neutrinos turning into undetectable 'sterile' neutrinos, over distances of 1.04 and 735 kilometres, and found no evidence of it. The paper sets what it calls a world-leading limit on the mixing angle θ24 for small mass splittings (Δm²41 up to about 1 eV²).",
+    "technical": "Two-detector search for νμ→νs oscillations over 1.04 km and 735 km baselines using a νμ-dominated beam peaked at 3 GeV (10.56×10²⁰ POT) and a one-sterile-neutrino model, under the assumption that νe-νs mixing is negligible (|U_e4|²=0); no evidence for νμ→νs transitions is found, and the paper sets what it calls a world-leading limit on θ₂₄ for Δm²₄₁ ≲ 1 eV²."
   },
   "title": "Search for Sterile Neutrinos Mixing with Muon Neutrinos in MINOS",
   "topic_ids": [
@@ -91,5 +101,5 @@
     "topic:neutrino-oscillations"
   ],
   "type": "result",
-  "why_it_matters": "Sterile neutrinos are a leading candidate explanation for the LSND/MiniBooNE anomalies; MINOS's world-leading limit on muon-neutrino disappearance into a sterile state constrained the parameter space available to explain those anomalies via nu_mu-nu_s mixing."
+  "why_it_matters": "The paper's introduction lists the LSND and MiniBooNE excesses, the reactor anomaly and the gallium-source deficit as anomalous oscillation signals that may potentially be reconciled with the three-flavor picture by adding one or more sterile neutrinos; this search found no evidence for νμ→νs transitions."
 }

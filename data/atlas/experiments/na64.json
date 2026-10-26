@@ -75,16 +75,32 @@
     },
     {
       "confidence": "verified",
-      "end": null,
+      "end": "2026-08-31",
       "label": "operating",
-      "note": "",
+      "note": "End capped at 2026-08-31, when the SPS beams stopped for LS3 (see the shutdown interval below).",
       "quote": "started operations at CERN's North Area in 2016",
       "sources": [
-        "src:na64-home-cern-experiments-page"
+        "src:na64-home-cern-experiments-page",
+        "src:currency-cern-all-accelerators-2026-08-31"
       ],
       "start": "2016",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "derived",
+      "end": null,
+      "label": "no SPS beam: Long Shutdown 3",
+      "note": "Derived, not an experiment-specific report: the SPS and the whole injector complex stopped on 31 August 2026 (CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.) and the North Area, which hosts this experiment, is being consolidated during LS3 (\"the consolidation of the Super Proton Synchrotron (SPS) North Area\", CERN, 29 June 2026). No NA62/NA64 statement about its own last day of data taking was fetched, so the end is set to the date beams stopped and confidence is derived.",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31",
+        "src:cern-long-shutdown-3-page",
+        "src:currency-cern-accelerator-report-2026-08-20"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [],
@@ -103,9 +119,8 @@
   },
   "name": "NA64",
   "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
-    "Placed at the EXISTING site:cern-neutrino-platform-ehn1 (owned by the fermilab-dune workstream) rather than a new site, per the brief: CERN's own Experimental Areas page (src:na62-cern-north-area-page, already on file from this same workstream's NA62 research) states verbatim 'Four of the beamlines, H2, H4, H6, and H8, are located in EHN1', confirming H4 is inside EHN1.",
-    "No membership/institution counts found on the official site in this session; left unrecorded rather than estimated."
+    "Placed at the shared site site:cern-neutrino-platform-ehn1 rather than a new site: CERN's own Experimental Areas page (src:na62-cern-north-area-page) states verbatim 'Four of the beamlines, H2, H4, H6, and H8, are located in EHN1', confirming H4 is inside EHN1.",
+    "No membership or institution counts were found on the official site; none is recorded rather than estimated."
   ],
   "physics_goals": [
     {
@@ -128,7 +143,7 @@
     "src:na64-inspire-experiment-record",
     "src:na62-cern-north-area-page"
   ],
-  "status": "active",
+  "status": "shutdown",
   "summary": {
     "plain": "NA64 is a CERN experiment that fires an electron beam into a block of material and watches for missing energy -- a sign that an invisible, unknown particle escaped. It searches for dark photons and other hidden particles.",
     "technical": "Fixed-target active beam-dump experiment on the H4 beamline in EHN1 (CERN North Area SPS beam), using 100-150 GeV electrons (with planned muon/hadron beam extensions) and the missing-energy technique to search for dark photons, dark leptonic gauge bosons and invisible meson decays. Proposed January 2014, approved by the CERN Research Board 9 March 2016, operating since 2016."
@@ -146,7 +161,7 @@
       "sources": [
         "src:na64-home-cern-experiments-page"
       ],
-      "value": "Active beam-dump and missing-energy technique whose sensitivity to a hidden Z' coupling scales as epsilon^2 rather than epsilon^4 as in classical beam-dump searches",
+      "value": "Active beam-dump and missing-energy technique whose sensitivity to a hidden Z' coupling scales as ε² rather than ε⁴ as in classical beam-dump searches",
       "verified_at": "2026-09-17"
     }
   ]

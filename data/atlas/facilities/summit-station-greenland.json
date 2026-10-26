@@ -1,50 +1,97 @@
 {
-  "id": "facility:summit-station-greenland",
-  "type": "facility",
-  "name": "Summit Station, Greenland",
-  "aliases": ["Summit Camp"],
-  "kind": "polar_station",
-  "operator": null,
-  "operator_text": {
-    "value": "Battelle Arctic Research Operations (ARO) for the U.S. National Science Foundation Arctic Research Program",
-    "sources": ["src:astro-neutrino-rno-g-geo-summit-station-page"],
-    "verified_at": "2026-09-17", "confidence": "verified",
-    "quote": "72° N, 38° W at an elevation of 10,530 feet (3200 meters) above sea level.",
-    "note": "Publisher/operator identity taken from the page's own domain and publisher metadata (geo-summit.org, Battelle ARO / NSF Arctic Research Program)."
-  },
-  "operator_ids": [],
-  "country": ["GL"],
-  "countries": ["GL"],
-  "primary_site_id": "site:summit-station-rno-g",
-  "site_ids": [],
   "accelerator_ids": [],
-  "beamline_ids": [],
-  "intervals": [
-    {"label": "hosting RNO-G", "status": "active", "start": "2021-05", "end": null,
-     "sources": ["src:astro-neutrino-rno-g-geo-summit-rno-g-project-page"],
-     "verified_at": "2026-09-17", "confidence": "verified",
-     "quote": "Fieldwork occurred in 2021 (May 24-August 19, with 13 personnel)", "note": ""}
+  "aliases": [
+    "Summit Camp"
   ],
-  "status": "active",
-  "specs": {
-    "altitude": {"value": 3200, "unit": "m", "dimension": "length", "approx": false, "display": "3200 m (10,530 ft)",
-      "sources": ["src:astro-neutrino-rno-g-geo-summit-station-page"], "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "72° N, 38° W at an elevation of 10,530 feet (3200 meters) above sea level.", "note": ""}
+  "beamline_ids": [],
+  "countries": [
+    "GL"
+  ],
+  "country": [
+    "GL"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
   },
-  "topic_ids": ["topic:high-energy-astrophysical-neutrinos", "topic:cosmic-rays"],
-  "related_facility_ids": [],
-  "institution_id": null,
   "document_ids": [],
   "experiment_ids": [],
-  "links": {"website": {"value": "https://geo-summit.org/summit-station", "sources": ["src:astro-neutrino-rno-g-geo-summit-station-page"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
-  "notes": [
-    "Derived fields (site_ids, accelerator_ids, beamline_ids, institution_id, document_ids, experiment_ids) are deliberately not written (v0.2 A1)."
+  "id": "facility:summit-station-greenland",
+  "institution_id": null,
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "hosting RNO-G",
+      "note": "",
+      "quote": "In 2021, participants from the science team and from the British Antarctic Survey (BAS) will begin installation of their science array at Summit Station. ... Season Field Site Date In Date Out #People 2021 Greenland - Summit 2021-05-24 2021-08-19 13",
+      "sources": [
+        "src:astro-neutrino-rno-g-geo-summit-rno-g-project-page"
+      ],
+      "start": "2021-05",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
   ],
+  "kind": "polar_station",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:astro-neutrino-rno-g-geo-summit-station-page"
+      ],
+      "value": "https://geo-summit.org/summit-station",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "Summit Station, Greenland",
+  "notes": [],
+  "operator": null,
+  "operator_ids": [],
+  "operator_text": {
+    "confidence": "verified",
+    "locator": "page 'Summit Station' on geo-summit.org, page text",
+    "note": "The page states the funder and the operator in the quoted sentence. Replaced 2026-10-25: the earlier quote was the station's coordinates and elevation, which does not name an operator.",
+    "quote": "Summit Station is funded by the NSF Section for Arctic Sciences (ARC) and operated by Battelle Arctic Research Operations (ARO) with guidance from the Science Coordination Office (SCO) and in cooperation with the Government of Greenland.",
+    "sources": [
+      "src:astro-neutrino-rno-g-geo-summit-station-page"
+    ],
+    "value": "Battelle Arctic Research Operations (ARO), funded by the NSF Section for Arctic Sciences (ARC)",
+    "verified_at": "2026-10-25"
+  },
+  "primary_site_id": "site:summit-station-rno-g",
+  "related_facility_ids": [],
+  "schema": "hep-atlas/0.2",
+  "site_ids": [],
+  "sources": [
+    "src:astro-neutrino-rno-g-geo-summit-station-page",
+    "src:astro-neutrino-rno-g-geo-summit-rno-g-project-page"
+  ],
+  "specs": {
+    "altitude": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "3200 m (10,530 ft)",
+      "note": "",
+      "quote": "72° N, 38° W at an elevation of 10,530 feet (3200 meters) above sea level.",
+      "sources": [
+        "src:astro-neutrino-rno-g-geo-summit-station-page"
+      ],
+      "unit": "m",
+      "value": 3200,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
   "summary": {
     "plain": "A high, remote research station at the very top of the Greenland ice sheet, more than three kilometres above sea level, where the RNO-G neutrino detector is being built into the ice.",
     "technical": "Summit Station: year-round research station at the summit of the Greenland ice sheet, 72°N 38°W, elevation 3200 m, operated by Battelle Arctic Research Operations for the NSF Arctic Research Program; hosts the Radio Neutrino Observatory Greenland (RNO-G)."
   },
-  "coverage": {"researched": "partial", "tier": "B"},
-  "sources": ["src:astro-neutrino-rno-g-geo-summit-station-page", "src:astro-neutrino-rno-g-geo-summit-rno-g-project-page"],
-  "schema": "hep-atlas/0.2"
+  "topic_ids": [
+    "topic:high-energy-astrophysical-neutrinos",
+    "topic:cosmic-rays"
+  ],
+  "type": "facility"
 }

@@ -407,6 +407,34 @@ Implementation resolved these; they are normative from here on.
   toggleable, default on; on tile failure the features still render on the
   dark background and a notice says the basemap is unavailable. No API key,
   nothing paid.
+* Framing: a map opens framed to the bounds of the features it draws for the
+  current level and year selection (padded; a Point is framed as its accuracy
+  circle; the zoom is capped so a small feature is never shown finer than its
+  accuracy supports; inferred directions are not part of the frame). `center`
+  and `extent_m` frame the map only when nothing is drawn. A view the reader
+  has not moved is re-framed when the drawn set changes; the reset-view button
+  frames it again on demand.
+* Labels: every drawn feature carries a permanent label (a ring's on its
+  outline, a line's at its midpoint, a footprint's at its centre), taken from
+  the record's own names. At each zoom a label that would cover a
+  higher-priority one (by feature type, then size; the selected feature first)
+  is hidden; its name stays in the hover tooltip and the feature list, and
+  hovering or focusing the list row shows it. Labels follow the level and year
+  filters and are ghosted with their shape. They are `aria-hidden`: the
+  feature list is the screen-reader equivalent.
+* Series: three or more numbered records of one thing ("Auger SD1500
+  stations, band 3 of 20", "LHAASO ... block 7 of 15", "Baikal-GVD cluster 4")
+  are labelled once, "Auger SD1500 stations: 20 bands", at the middle of the
+  whole run; hovering or focusing any member's list row shows that label. The
+  records themselves stay individually listed, hoverable and selectable.
+* A footprint or line drawn smaller than 8 px across (reactor buildings 50 m
+  wide on a map that also frames a detector 52 km away) is not left invisible:
+  it also gets a point symbol at its centroid, shaped by feature type (diamond
+  for line-like structures, square for footprints, circle otherwise), which
+  goes away once the shape is large enough. Its label is decluttered like any
+  other and sits beside the symbol.
+* When the selection leaves nothing drawn, a notice over the map says so, with
+  one action ("Show features from all years", or "Show all levels").
 * Styling encodes four things independently and the legend says so:
   **feature type** (ring/tunnel thick line, beamline line with arrowheads,
   hall/cavern/building filled polygon, boundary thin dashed, direction line

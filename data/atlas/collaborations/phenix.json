@@ -24,7 +24,7 @@
       "confidence": "verified",
       "end": "2016",
       "label": "collaboration operating PHENIX",
-      "note": "Start is the collaboration's own sourced formation date; end is PHENIX's sourced end of data taking. This replaces a previously-collapsed single 1991-08 to present interval that had incorrectly carried status 'completed' across the entire 1991-2016 period during which PHENIX was actually forming, commissioning and actively taking data (v0.2 A3/A13; RESEARCH_AGENT_RULES rule 8: do not collapse richer sourced history into one row). Mirrors the staging already used on experiment:phenix and detector:phenix.",
+      "note": "Start is the collaboration's own sourced formation date; end is PHENIX's sourced end of data taking. The interval covers the whole 1991-2016 period of forming, commissioning and taking data; the same staging is used on the PHENIX experiment and detector records.",
       "quote": "August 1991: PHENIX is born from the merger of proposals named TALES, SPARC, OASIS, and DIMUON.",
       "sources": [
         "src:heavy-ions-phenix-concept-history"
@@ -53,11 +53,9 @@
   },
   "name": "PHENIX Collaboration",
   "notes": [
-    "facility:brookhaven-national-laboratory and accelerator:rhic are owned by the facilities lead. Both were still missing from data/atlas/facilities/ and data/atlas/accelerators/ when this record was first drafted (2026-09-17); the facilities lead's BNL child has since landed both, and the references here were re-checked against the landed files and resolve cleanly (0 dangling-reference findings).",
-    "site:bnl-rhic-ip8-phenix-sphenix is owned by the facilities lead. It was still missing from data/atlas/sites/ when this record was first drafted (2026-09-17); the facilities lead's BNL child has since landed it, and the reference here was re-checked and resolves cleanly. This interaction point (IP8) was used first by PHENIX, then by sPHENIX.",
-    "membership counts (institutions/countries/collaborators) not recorded: no directly-fetched source in this session stated them.",
-    "Leadership left empty: person records are owned by another workstream; no people/ files created.",
-    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+    "The interaction point (IP8) was used first by PHENIX, then by sPHENIX.",
+    "Membership counts (institutions/countries/collaborators) are not recorded: no source consulted (checked 2026-09-17) states them.",
+    "No leadership list is recorded in the Atlas for this collaboration."
   ],
   "schema": "hep-atlas/0.2",
   "sources": [

@@ -1,150 +1,246 @@
 {
-  "id": "experiment:anita",
-  "type": "experiment",
-  "name": "ANITA",
-  "aliases": ["Antarctic Impulsive Transient Antenna"],
-  "kind": "astrophysical_neutrino",
-  "secondary_kinds": ["cosmic_ray"],
-  "collaboration_ids": ["collaboration:anita"],
-  "facility_roles": [
-    {
-      "facility_id": "facility:mcmurdo-ldb",
-      "role": "host",
-      "sources": ["src:astro-neutrino-anita-campaign-anita-i"],
-      "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "ANITA I launched December 15, 2006, and flew for ~35 days onboard a NASA LDB scientific balloon during the 2006-2007 Austral Summer from McMurdo Base, Antarctica.",
-      "note": "'host' here means the balloon-launch site, not a detector location: ANITA takes data at float altitude (~37 km) over the Antarctic ice sheet during flight, using the ice sheet itself as a detection medium/aperture, not the launch facility."
-    }
+  "accelerator_ids": [],
+  "aliases": [
+    "Antarctic Impulsive Transient Antenna"
   ],
   "beamline_ids": [],
-  "accelerator_ids": [],
-  "topic_ids": ["topic:high-energy-astrophysical-neutrinos", "topic:cosmic-rays"],
+  "collaboration_ids": [
+    "collaboration:anita"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "document_ids": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1108484,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:mcmurdo-ldb",
+      "note": "'host' here means the balloon-launch site, not a detector location: ANITA takes data at float altitude (~37 km) over the Antarctic ice sheet during flight, using the ice sheet itself as a detection medium/aperture, not the launch facility.",
+      "quote": "ANITA I Launch Date: December 15, 2006 The first ANITA experiment was flown for ~35 days onboard a NASA LDB scientific balooon during the 2006-2007 Austral Summer from McMurdo Base, Antarctica.",
+      "role": "host",
+      "sources": [
+        "src:astro-neutrino-anita-campaign-anita-i"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:anita",
   "intervals": [
     {
-      "label": "ANITA-LITE", "status": "active",
-      "start": "2003-12-17", "end": "2004-01-04",
-      "sources": ["src:astro-neutrino-anita-campaign-anita-lite"],
-      "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "ANITA-LITE launched December 17, 2003 and flew for ~18.5 days onboard a NASA LDB scientific balloon during the 2003 Austral Summer from McMurdo Base, Antarctica, flying piggyback with the TIGER experiment.",
-      "note": "End date derived by adding the stated ~18.5-day flight duration to the launch date; not independently stated as a calendar date by the source."
+      "confidence": "verified",
+      "end": "2004-01-04",
+      "label": "ANITA-LITE",
+      "note": "End date derived by adding the stated ~18.5-day flight duration to the launch date; not independently stated as a calendar date by the source.",
+      "quote": "ANITA-LITE Launch Date: December 17, 2003 A prototype to the full ANITA experiment, ANITA-LITE, was flown for ~18.5 days onboard a NASA LDB scientific balooon during the 2003 Austral Summer from McMurdo Base, Antarctica.",
+      "sources": [
+        "src:astro-neutrino-anita-campaign-anita-lite"
+      ],
+      "start": "2003-12-17",
+      "status": "active",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "ANITA-I", "status": "active",
-      "start": "2006-12-15", "end": "2007-01-19",
-      "sources": ["src:astro-neutrino-anita-campaign-anita-i", "src:astro-neutrino-anita-arxiv-anita1-2008"],
-      "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "ANITA I launched December 15, 2006, and flew for ~35 days onboard a NASA LDB scientific balloon during the 2006-2007 Austral Summer from McMurdo Base, Antarctica.",
-      "note": "End date derived from the stated ~35-day flight duration; not independently stated as a calendar date."
+      "confidence": "verified",
+      "end": "2007-01-19",
+      "label": "ANITA-I",
+      "note": "End date derived from the stated ~35-day flight duration; not independently stated as a calendar date.",
+      "quote": "ANITA I Launch Date: December 15, 2006 The first ANITA experiment was flown for ~35 days onboard a NASA LDB scientific balooon during the 2006-2007 Austral Summer from McMurdo Base, Antarctica.",
+      "sources": [
+        "src:astro-neutrino-anita-campaign-anita-i",
+        "src:astro-neutrino-anita-arxiv-anita1-2008"
+      ],
+      "start": "2006-12-15",
+      "status": "active",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "ANITA-II", "status": "active",
-      "start": "2008-12-21", "end": "2009-01-21",
-      "sources": ["src:astro-neutrino-anita-campaign-anita-ii", "src:astro-neutrino-anita-arxiv-anita2-2010"],
-      "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "ANITA II launched December 21, 2008, from Williams Field, Antarctica.",
-      "note": "End date derived from the companion paper's stated 31-day flight duration (28.5 live days)."
+      "confidence": "verified",
+      "end": "2009-01-21",
+      "label": "ANITA-II",
+      "note": "End date derived from the companion paper's stated 31-day flight duration (28.5 live days).",
+      "quote": "The second ﬂight of ANITA (ANITA-II) launched from Williams Field, Antarctica on December 21, 2008 and landed near Siple Dome after 31 days aloft, resulting in 28.5 live days.",
+      "sources": [
+        "src:astro-neutrino-anita-campaign-anita-ii",
+        "src:astro-neutrino-anita-arxiv-anita2-2010"
+      ],
+      "start": "2008-12-21",
+      "status": "active",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "ANITA-III", "status": "active",
-      "start": "2014-12", "end": null,
-      "sources": ["src:astro-neutrino-anita-arxiv-anita3-2018"],
-      "verified_at": "2026-09-17", "confidence": "approximate",
+      "confidence": "approximate",
+      "end": null,
+      "label": "ANITA-III",
+      "note": "Only month precision for the launch date is stated; the official ANITA-III campaign page (fetched) gave only a pre-launch schedule statement, not a confirmed launch date.",
       "quote": "The third flight of ANITA (ANITA-III) was launched in December 2014 and completed a 22-day flight.",
-      "note": "Only month precision for the launch date is stated; the official ANITA-III campaign page (fetched) gave only a pre-launch schedule statement, not a confirmed launch date."
+      "sources": [
+        "src:astro-neutrino-anita-arxiv-anita3-2018"
+      ],
+      "start": "2014-12",
+      "status": "active",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "ANITA-IV", "status": "active",
-      "start": "2016-12", "end": null,
-      "sources": ["src:astro-neutrino-anita-arxiv-anita4-2019"],
-      "verified_at": "2026-09-17", "confidence": "approximate",
+      "confidence": "approximate",
+      "end": null,
+      "label": "ANITA-IV",
+      "note": "Only month precision for the launch date is stated; no exact end date is given, only the 28-day flight duration.",
       "quote": "The ANtarctic Impulsive Transient Antenna (ANITA) NASA long-duration balloon payload completed its fourth flight in December 2016, after 28 days of flight time.",
-      "note": "Only month precision for the launch date is stated; no exact end date is given, only the 28-day flight duration."
+      "sources": [
+        "src:astro-neutrino-anita-arxiv-anita4-2019"
+      ],
+      "start": "2016-12",
+      "status": "active",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "programme completed", "status": "completed",
-      "start": "2017-01", "end": null,
-      "sources": ["src:astro-neutrino-anita-pueo-washu-news"],
-      "verified_at": "2026-09-17", "confidence": "approximate",
+      "confidence": "approximate",
+      "end": null,
+      "label": "programme completed",
+      "note": "No source consulted (checked 2026-09-17) states a formal end date for the ANITA programme itself; ANITA-IV (December 2016) was its last flight and its successor PUEO (announced 2021) supersedes it, so 'completed' is used with a start just after the final flight.",
       "quote": "PUEO leverages experience from and supersedes the successful Antarctic Impulsive Transient Antenna (ANITA) program.",
-      "note": "No source fetched this session states a formal end date for the ANITA programme itself; ANITA-IV (December 2016) was its last flight and its successor PUEO (announced 2021, not owned by this workstream / not in the Wave-3 ID registry) supersedes it, so 'completed' is used with a start just after the final flight."
+      "sources": [
+        "src:astro-neutrino-anita-pueo-washu-news"
+      ],
+      "start": "2017-01",
+      "status": "completed",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "completed",
-  "physics_goals": [
-    {
-      "value": "Detect ultra-high-energy cosmic neutrinos using the Antarctic ice sheet as a giant radio-detection medium, viewed from a balloon-borne antenna array",
-      "sources": ["src:astro-neutrino-anita-official-about"],
-      "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "ANITA observes the Antarctic ice sheet out to a horizon approaching 700 km, giving a neutrino detection volume of near one million cubic kilometers.",
-      "note": ""
-    }
-  ],
-  "unique_capabilities": [
-    {
-      "value": "A balloon-borne radio antenna array flown at high altitude over Antarctica, giving an enormous neutrino detection volume without any fixed in-ice or undersea infrastructure",
-      "sources": ["src:astro-neutrino-anita-official-instrument"],
-      "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "Flying at 120,000ft (~37 km), the instrument observes ~1.5 million square kilometers of ice.",
-      "note": ""
-    }
-  ],
-  "energy_regime": null,
   "key_specs": [
     {
       "label": "Float altitude",
       "quantity": {
-        "value": 37, "unit": "km", "dimension": "length", "approx": true,
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "length",
         "display": "~37 km (120,000 ft)",
-        "sources": ["src:astro-neutrino-anita-official-instrument"],
-        "verified_at": "2026-09-17", "confidence": "verified",
-        "quote": "Flying at 120,000ft (~37 km), the instrument observes ~1.5 million square kilometers of ice.", "note": ""
+        "note": "",
+        "quote": "Flying at 120,000ft (~ 37 km) the instrument can observe ~1.5 million square kilometers of ice while searching for radio signals originating from the Antarctic ice.",
+        "sources": [
+          "src:astro-neutrino-anita-official-instrument"
+        ],
+        "unit": "km",
+        "value": 37,
+        "verified_at": "2026-09-17"
       }
     },
     {
       "label": "Ice area observed",
       "quantity": {
-        "value": 1500000, "unit": "km^2", "dimension": "area", "approx": true,
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "area",
         "display": "~1,500,000 km²",
-        "sources": ["src:astro-neutrino-anita-official-instrument"],
-        "verified_at": "2026-09-17", "confidence": "verified",
-        "quote": "Flying at 120,000ft (~37 km), the instrument observes ~1.5 million square kilometers of ice.", "note": ""
+        "note": "",
+        "quote": "Flying at 120,000ft (~ 37 km) the instrument can observe ~1.5 million square kilometers of ice while searching for radio signals originating from the Antarctic ice.",
+        "sources": [
+          "src:astro-neutrino-anita-official-instrument"
+        ],
+        "unit": "km^2",
+        "value": 1500000,
+        "verified_at": "2026-09-17"
       }
     },
     {
       "label": "Neutrino detection volume",
       "quantity": {
-        "value": 1000000, "unit": "km^3", "dimension": "volume", "approx": true,
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "volume",
         "display": "~1,000,000 km³",
-        "sources": ["src:astro-neutrino-anita-official-about"],
-        "verified_at": "2026-09-17", "confidence": "verified",
-        "quote": "ANITA observes the Antarctic ice sheet out to a horizon approaching 700 km, giving a neutrino detection volume of near one million cubic kilometers.", "note": ""
+        "note": "",
+        "quote": "ANITA, as an Antarctic long-duration balloon ﬂight, observes the Antarctic ice sheet out to a horizon approaching 700 km, giving a neutrino detection volume of near one million cubic kilometers.",
+        "sources": [
+          "src:astro-neutrino-anita-official-about"
+        ],
+        "unit": "km^3",
+        "value": 1000000,
+        "verified_at": "2026-09-17"
       }
     }
   ],
+  "kind": "astrophysical_neutrino",
   "lineage": [],
-  "external": {"greybook": null, "inspire_experiment": 1108484, "wikidata": null},
-  "document_ids": [],
-  "result_ids": [],
-  "links": {"website": {"value": "https://www.phys.hawaii.edu/~anita/", "sources": ["src:astro-neutrino-anita-official-site"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:astro-neutrino-anita-official-site"
+      ],
+      "value": "https://www.phys.hawaii.edu/~anita/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "ANITA",
   "notes": [
-    "External INSPIRE experiment recid 1108484 confirmed via the INSPIRE experiment API record fetched this session.",
-    "ANITA's successor, PUEO (Payload for Ultrahigh Energy Observations), is named in a Washington University in St. Louis news page as superseding ANITA; PUEO is not modelled here (not an id this workstream owns per the Wave-3 ID registry, and not itself in the astro-neutrino coverage file).",
-    "The famous 'ANITA anomalous events' (steeply upward-going radio pulses inconsistent with standard-model neutrino propagation, reported around 2016-2020) are not recorded as a result in this pass; results are an optional extra for non-flagship experiments and were deprioritised in favour of completing the mandatory record set for all nine experiments in this coverage file.",
+    "External INSPIRE experiment recid 1108484 confirmed against the INSPIRE experiment API record.",
+    "ANITA's successor, PUEO (Payload for Ultrahigh Energy Observations), is named in a Washington University in St. Louis news page as superseding ANITA. The record for PUEO does not exist in the Atlas yet.",
+    "The 'ANITA anomalous events' (steeply upward-going radio pulses inconsistent with standard-model neutrino propagation, reported around 2016-2020) are not recorded as a result in the Atlas.",
     "Conflict: the official ANITA-III campaign page (undated) said 'ANITA III is set to launch in December 2013', but the companion journal article (arXiv:1803.02719) reports the actual launch as December 2014 -- a one-year schedule slip; the actual-launch date is used in the intervals above and the campaign page is kept only as a record of the original schedule.",
-    "The University of Chicago KICP project page corroborates 'ANITA has flown four times, and has produced world-leading constraints on the ultra-high energy neutrino flux'; the general Wikipedia article is kept only as a pointer confirming the 2006-2016 flight span, never as the sole source of a critical value.",
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1)."
+    "The University of Chicago KICP project page corroborates 'ANITA has flown four times, and has produced world-leading constraints on the ultra-high energy neutrino flux'; the general Wikipedia article is kept only as a pointer confirming the 2006-2016 flight span, never as the sole source of a critical value."
   ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "The primary objective of the ANtarctic Impulsive Transient Antenna (ANITA) mission is to extend the reach of NASA observatories into the realm of high energy neutrino astronomy ... ANITA will search for radio pulses that arise from electromagnetic cascade interactions of the high energy neutrinos",
+      "sources": [
+        "src:astro-neutrino-anita-official-about"
+      ],
+      "value": "Detect ultra-high-energy cosmic neutrinos using the Antarctic ice sheet as a giant radio-detection medium, viewed from a balloon-borne antenna array",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "cosmic_ray"
+  ],
+  "sources": [
+    "src:astro-neutrino-anita-official-site",
+    "src:astro-neutrino-anita-official-about",
+    "src:astro-neutrino-anita-official-instrument",
+    "src:astro-neutrino-anita-campaign-anita-lite",
+    "src:astro-neutrino-anita-campaign-anita-i",
+    "src:astro-neutrino-anita-campaign-anita-ii",
+    "src:astro-neutrino-anita-arxiv-anita1-2008",
+    "src:astro-neutrino-anita-arxiv-anita2-2010",
+    "src:astro-neutrino-anita-arxiv-anita3-2018",
+    "src:astro-neutrino-anita-arxiv-anita4-2019",
+    "src:astro-neutrino-anita-inspire-experiment-record",
+    "src:astro-neutrino-anita-campaign-anita-iii",
+    "src:astro-neutrino-anita-kavlicosmo-uchicago",
+    "src:astro-neutrino-anita-wikipedia"
+  ],
+  "status": "completed",
   "summary": {
     "plain": "A radio antenna array flown high over Antarctica on a NASA balloon, using the entire ice sheet below as a giant listening surface for ultra-high-energy neutrinos and cosmic rays. It flew five times between 2003 and 2016.",
     "technical": "Balloon-borne radio-Cherenkov (Askaryan effect) UHE neutrino/cosmic-ray detector flown at ~37 km altitude over Antarctica, launched from the NASA long-duration-balloon facility near McMurdo Station. Five flights: ANITA-LITE (2003), ANITA-I (2006-2007), ANITA-II (2008-2009), ANITA-III (2014-2015) and ANITA-IV (2016-2017); superseded by the PUEO mission."
   },
-  "coverage": {"researched": "partial", "tier": "B"},
-  "sources": [
-    "src:astro-neutrino-anita-official-site", "src:astro-neutrino-anita-official-about", "src:astro-neutrino-anita-official-instrument",
-    "src:astro-neutrino-anita-campaign-anita-lite", "src:astro-neutrino-anita-campaign-anita-i", "src:astro-neutrino-anita-campaign-anita-ii",
-    "src:astro-neutrino-anita-arxiv-anita1-2008", "src:astro-neutrino-anita-arxiv-anita2-2010", "src:astro-neutrino-anita-arxiv-anita3-2018",
-    "src:astro-neutrino-anita-arxiv-anita4-2019", "src:astro-neutrino-anita-inspire-experiment-record",
-    "src:astro-neutrino-anita-campaign-anita-iii", "src:astro-neutrino-anita-kavlicosmo-uchicago", "src:astro-neutrino-anita-wikipedia"
+  "topic_ids": [
+    "topic:high-energy-astrophysical-neutrinos",
+    "topic:cosmic-rays"
   ],
-  "schema": "hep-atlas/0.2"
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "Flying at 120,000ft (~ 37 km) the instrument can observe ~1.5 million square kilometers of ice while searching for radio signals originating from the Antarctic ice.",
+      "sources": [
+        "src:astro-neutrino-anita-official-instrument"
+      ],
+      "value": "A balloon-borne radio antenna array flown at high altitude over Antarctica, giving an enormous neutrino detection volume without any fixed in-ice or undersea infrastructure",
+      "verified_at": "2026-09-17"
+    }
+  ]
 }

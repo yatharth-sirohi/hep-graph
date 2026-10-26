@@ -14,7 +14,7 @@
       "confidence": "uncertain",
       "end": "1998",
       "label": "operation",
-      "note": "Year-precision only, sourced to Wikipedia only ('discovered first Z event on April 12, 1989' and 'early-to-mid 1990s' for SLD operation); end year 1998 matches the commonly-cited shutdown but is not independently re-confirmed by an official page in this session. Flagged for review. Operating interval; the single sourced row was split from its terminal event (A3, 2026-09-17).",
+      "note": "Year precision only, sourced to Wikipedia only ('discovered first Z event on April 12, 1989' and 'early-to-mid 1990s' for SLD operation); the end year 1998 matches the commonly cited shutdown but no official page consulted (checked 2026-09-17) confirms it. Operating interval; the terminal event is its end.",
       "quote": "on April 12, 1989",
       "sources": [
         "src:slac-wikipedia",
@@ -28,7 +28,7 @@
       "confidence": "uncertain",
       "end": null,
       "label": "completed",
-      "note": "Year-precision only, sourced to Wikipedia only ('discovered first Z event on April 12, 1989' and 'early-to-mid 1990s' for SLD operation); end year 1998 matches the commonly-cited shutdown but is not independently re-confirmed by an official page in this session. Flagged for review. Terminal event derived from the end of the same sourced interval (A3, 2026-09-17).",
+      "note": "Year precision only, sourced to Wikipedia only ('discovered first Z event on April 12, 1989' and 'early-to-mid 1990s' for SLD operation); the end year 1998 matches the commonly cited shutdown but no official page consulted (checked 2026-09-17) confirms it. Terminal event: the end of the operating interval above.",
       "quote": "on April 12, 1989",
       "sources": [
         "src:slac-wikipedia",
@@ -62,28 +62,29 @@
       "confidence": "uncertain",
       "dimension": "energy",
       "display": "up to 50 GeV (design/maximum per beam)",
-      "note": "Added 2026-09-17. This is the SLC linac's quoted maximum per-beam energy, not the energy actually used for physics: to sit on the Z resonance the collider ran at cms/2 ~ 45.5-45.6 GeV per beam (see this record's cms_energy, ~91 GeV / Z mass). Both figures come from the same Wikipedia article; sourced to Wikipedia only, confidence uncertain per A17.",
+      "note": "This is the SLC linac's quoted maximum per-beam energy, not the energy used for physics: to sit on the Z resonance the collider ran at cms/2 ~ 45.5-45.6 GeV per beam (cms energy ~91 GeV). The 50 GeV figure is sourced to Wikipedia only, so confidence is uncertain.",
       "quote": "an RF linear accelerator that accelerated electrons and positrons up to 50 GeV",
       "sources": [
         "src:slc-wikipedia"
       ],
       "unit": "GeV",
       "value": 50,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     "cms_energy": {
       "approx": true,
-      "confidence": "uncertain",
+      "confidence": "verified",
       "dimension": "energy",
       "display": "~91 GeV (Z-pole)",
-      "note": "Sourced to Wikipedia only ('about 90 GeV, equal to the mass of the Z boson'); recorded as ~91 GeV (the Z mass) with approx flag.",
-      "quote": "The center of mass energy was about 90 GeV, equal to the mass of the Z boson, which the accelerator was designed to study.",
+      "locator": "arXiv:hep-ex/0004026, section on the SLC beams (Ecm measured with energy spectrometers); arXiv PDF p. 4",
+      "note": "Luminosity-weighted mean e⁺e⁻ centre-of-mass energy measured by the SLD at the SLC: 91.26 ± 0.03 GeV (1996 run) and 91.237 ± 0.029 GeV (1997-98 run, calibrated to the Z mass). The recorded value 91 GeV is these figures rounded to the nearest GeV (approx flag set); the collider ran at the Z resonance. The earlier Wikipedia wording (about 90 GeV) is not used.",
+      "quote": "The luminosity-weighted mean e+ e− center-of-mass energy (Ecm ) was measured with precision energy spectrometers [8] and was found to be 91.26±0.03 GeV for the 1996 run.",
       "sources": [
-        "src:slc-wikipedia"
+        "src:rf12-sld-alr-final-arxiv-hep-ex-0004026"
       ],
       "unit": "GeV",
       "value": 91,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   },
   "status": "completed",

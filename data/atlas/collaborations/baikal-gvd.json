@@ -1,51 +1,72 @@
 {
-  "id": "collaboration:baikal-gvd",
-  "type": "collaboration",
-  "name": "Baikal-GVD Collaboration",
   "aliases": [],
-  "formation": {
-    "value": null,
-    "sources": ["src:astro-neutrino-baikal-gvd-cern-courier-2016"],
-    "verified_at": "2026-09-17", "confidence": "uncertain",
-    "locator": "CERN Courier, \"A new neutrino telescope for Lake Baikal\" (2016) (no explicit collaboration formation date stated)",
-    "note": "No fetched source states an explicit Baikal-GVD collaboration formation date; the CERN Courier account traces project origins to 1980 (predecessor Baikal neutrino experiment) and the first Baikal-GVD cluster to 2015-2016, but neither is a stated collaboration founding date, so this field is left null."
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
   },
+  "document_ids": [],
+  "formation": {
+    "confidence": "uncertain",
+    "locator": "CERN Courier, \"A new neutrino telescope for Lake Baikal\" (2016) (no explicit collaboration formation date stated)",
+    "note": "No fetched source states an explicit Baikal-GVD collaboration formation date; the CERN Courier account traces project origins to 1980 (predecessor Baikal neutrino experiment) and the first Baikal-GVD cluster to 2015-2016, but neither is a stated collaboration founding date, so this field is left null.",
+    "sources": [
+      "src:astro-neutrino-baikal-gvd-cern-courier-2016"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
+  },
+  "host_facility_id": "facility:baikal-deep-underwater-neutrino-telescope",
+  "host_site_id": "site:baikal-gvd-lake-baikal",
+  "id": "collaboration:baikal-gvd",
   "intervals": [
     {
-      "label": "collaboration",
-      "status": "active",
-      "start": "2016",
+      "confidence": "approximate",
       "end": null,
-      "sources": ["src:astro-neutrino-baikal-gvd-status-2023-paper"],
-      "verified_at": "2026-09-17", "confidence": "approximate",
+      "label": "collaboration",
+      "note": "Start is a lower bound taken from the first Baikal-GVD cluster deployment; true formation date not sourced.",
       "quote": "The first cluster of the Baikal-GVD neutrino telescope was deployed in 2016",
-      "note": "Start is a lower bound taken from the first Baikal-GVD cluster deployment; true formation date not sourced."
+      "sources": [
+        "src:astro-neutrino-baikal-gvd-status-2023-paper"
+      ],
+      "start": "2016",
+      "status": "active",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "active",
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:astro-neutrino-baikal-gvd-official-facility-page"
+      ],
+      "value": "https://www.inr.ru/eng/ebgnt.html",
+      "verified_at": "2026-09-17"
+    }
+  },
   "membership": {
     "as_of": null,
+    "country_count": null,
     "evidence_class": "official_institution_list",
     "institution_count": null,
-    "country_count": null,
     "member_count": null,
     "roster_source_ids": []
   },
-  "leadership": [],
-  "host_facility_id": "facility:baikal-deep-underwater-neutrino-telescope",
-  "host_site_id": "site:baikal-gvd-lake-baikal",
-  "document_ids": [],
-  "links": {"website": {"value": "https://www.inr.ru/eng/ebgnt.html", "sources": ["src:astro-neutrino-baikal-gvd-official-facility-page"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "name": "Baikal-GVD Collaboration",
   "notes": [
-    "Membership counts (institutions/countries/scientists) were not found on any source fetched this session; the collaboration's own dedicated site (baikalgvd.jinr.ru) could not be reached due to a persistent TLS error. Left null per A17 rather than estimated from author lists (forbidden by RESEARCH_AGENT_RULES #4).",
-    "Institution-level membership rows and leadership are owned by the membership-lead workstream and are not written here.",
-    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+    "Membership counts (institutions/countries/scientists) were not found on any source consulted (checked 2026-09-17); the collaboration's own site (baikalgvd.jinr.ru) could not be reached because of a persistent TLS error. Left null rather than estimated from author lists.",
+    "No institution-level member list or leadership list is recorded in the Atlas for this collaboration."
   ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:astro-neutrino-baikal-gvd-official-facility-page",
+    "src:astro-neutrino-baikal-gvd-status-2023-paper"
+  ],
+  "status": "active",
   "summary": {
     "plain": "The Russian-led international team of scientists building and running the Baikal-GVD neutrino telescope in Lake Baikal.",
-    "technical": "Collaboration operating the Baikal-GVD underwater neutrino telescope, led by INR RAS with JINR Dubna and other partners; membership counts not published on the sources fetched this session."
+    "technical": "Collaboration operating the Baikal-GVD underwater neutrino telescope, led by INR RAS with JINR Dubna and other partners; membership counts not published on the sources consulted."
   },
-  "coverage": {"researched": "partial", "tier": "B"},
-  "sources": ["src:astro-neutrino-baikal-gvd-official-facility-page", "src:astro-neutrino-baikal-gvd-status-2023-paper"],
-  "schema": "hep-atlas/0.2"
+  "type": "collaboration"
 }

@@ -1,0 +1,117 @@
+{
+  "accuracy_m": 8,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "area",
+        "display": "982 m²",
+        "unit": "m^2",
+        "value": 982.0
+      },
+      "kind": "area",
+      "locator": "MapCERN Facilities layer, feature numero 2875: area of its outer ring, measured here from the service geometry",
+      "note": "The official GIS outline of the same building, measured with the same spherical-excess formula as the check; an independent tracing, not a published area figure.",
+      "quote": "\"numero\":2875,\"name_long\":\"2875 (SR8)\",\"type_ouv\":\"BÂTIMENT\",\"sigle\":\"SR8\"",
+      "sources": [
+        "src:geo-cern-mapcern-facilities"
+      ],
+      "tolerance": 0.05
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "site:cern-cast-sr8",
+  "feature_type": "building",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way/35204808 as of 2026-10-25T20:58:55Z; MapCERN Facilities feature numero 2875",
+    "note": "The building is identified by number and name; whether CAST occupies the whole building or one hall of it is not stated by any source fetched.",
+    "quote": "\"numero\":2875,\"name_long\":\"2875 (SR8)\",\"type_ouv\":\"BÂTIMENT\",\"sigle\":\"SR8\"",
+    "sources": [
+      "src:geo-cern-osm-sps-ba-sr8-buildings",
+      "src:geo-cern-mapcern-facilities",
+      "src:axions-cast-sr8-point8-cryo-doc"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            6.0966422,
+            46.2422834
+          ],
+          [
+            6.0968243,
+            46.2423671
+          ],
+          [
+            6.0968998,
+            46.242288
+          ],
+          [
+            6.0969195,
+            46.2422675
+          ],
+          [
+            6.0970311,
+            46.2421506
+          ],
+          [
+            6.0970502,
+            46.2421305
+          ],
+          [
+            6.097235,
+            46.241937
+          ],
+          [
+            6.0970529,
+            46.2418533
+          ],
+          [
+            6.0966422,
+            46.2422834
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:cast-sr8-building",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:cern",
+  "method": "OpenStreetMap way 35204808 (name 2875) used verbatim. CERN's MapCERN Facilities layer names building 2875 \"SR8\" (surface building at LHC Point 8); the OSM polygon centroid is within 1 m of the official one. The CAST site record places the experiment at SR8 (its cryogenic coldbox is labelled \"/SR8\" under \"CERN Axion Solar Telescope (CAST) - LHC Point 8\", src:axions-cast-sr8-point8-cryo-doc, a secondary CERN cryogenics document); no official CAST page found names the building, so the identification of CAST with this building rests on that document and the name SR8.",
+  "name": "SR8 building (building 2875), LHC Point 8: CAST site",
+  "notes": [],
+  "osm": {
+    "elements": [
+      "way/35204808"
+    ],
+    "timestamp": "2026-10-25T20:58:55Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:cern-cast-sr8",
+  "sources": [
+    "src:geo-cern-osm-sps-ba-sr8-buildings",
+    "src:geo-cern-mapcern-facilities",
+    "src:axions-cast-sr8-point8-cryo-doc"
+  ],
+  "summary": {
+    "plain": "The big surface building SR8 at LHC Point 8, which the CERN Axion Solar Telescope (CAST) records place the experiment in."
+  },
+  "type": "geometry",
+  "valid": null
+}

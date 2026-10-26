@@ -16,7 +16,7 @@
       "end": null,
       "label": "seafloor installation begins",
       "locator": "km3net.org, 8 December 2015 news item",
-      "note": "Site-wide KM3NeT installation start; ARCA-specific first-string date not separately sourced this session.",
+      "note": "Site-wide KM3NeT installation start; no source consulted (checked 2026-09-17) gives a separate ARCA-specific first-string date.",
       "quote": "In the early morning of 3 December 2015, scientists and engineers started the installation of KM3NeT",
       "sources": [
         "src:astro-neutrino-km3net-construction-begins-2015"
@@ -44,7 +44,7 @@
       "end": null,
       "label": "51 detection units operating (current, undated official statement)",
       "locator": "Astroparticle physics with ARCA (km3net.org)",
-      "note": "The source page carries no publication or last-updated date; 'start' is set to the year this agent accessed the page (2026) as a lower bound only, not a claim that 51 DUs were reached exactly in 2026. Recorded to give the richest available snapshot of current construction progress; the lead should treat the precise date as uncertain.",
+      "note": "The source page carries no publication or last-updated date; 'start' is set to the year the page was read (2026) as a lower bound only, not a claim that 51 detection units were reached exactly in 2026. It is recorded as the most detailed available snapshot of construction progress; the precise date is uncertain.",
       "quote": "Currently the ARCA detector is operated with 51 detection units.",
       "sources": [
         "src:astro-neutrino-km3net-astronomy-with-arca-page"
@@ -59,7 +59,7 @@
   },
   "name": "KM3NeT/ARCA",
   "notes": [
-    "sensor_count (total optical-module or PMT count) is left unset: the LoI states 18 optical modules per string and 31 PMTs per optical module, but no fetched source states a total ARCA-wide optical-module or PMT count directly, and multiplying per-string figures by the design string count would be an unsourced derived computation on a critical field, which A17 forbids.",
+    "sensor_count (total optical-module or PMT count) is left unset: the LoI states 18 optical modules per string and 31 PMTs per optical module, but no source consulted states a total ARCA-wide optical-module or PMT count directly, and multiplying per-string figures by the design string count would be an unsourced derived computation.",
     "depth_min (top of the instrumented array) is left unset for the same reason: the LoI states a ~700 m detection-unit height but no source states the resulting top-of-array depth directly."
   ],
   "parent_detector_id": null,
@@ -68,7 +68,7 @@
       "confidence": "approximate",
       "end": null,
       "locator": "km3net.org, 8 December 2015 news item",
-      "note": "This 2015-12-03 news item describes the start of KM3NeT seafloor installation generally; it is used here as the start of ARCA's placement at Capo Passero because the KM3NeT-It / Capo Passero site is where the described installation infrastructure was laid. No official page fetched this session names a distinct 'first ARCA detection unit online' date; the earliest ARCA-specific operational milestone actually sourced is the six-detection-unit announcement of 2021-04-15 (see intervals).",
+      "note": "This 2015-12-03 news item describes the start of KM3NeT seafloor installation generally; it is used here as the start of ARCA's placement at Capo Passero because the KM3NeT-It / Capo Passero site is where the described installation infrastructure was laid. No official page consulted (checked 2026-09-17) names a distinct 'first ARCA detection unit online' date; the earliest ARCA-specific operational milestone sourced is the six-detection-unit announcement of 2021-04-15 (see intervals).",
       "quote": "In the early morning of 3 December 2015, scientists and engineers started the installation of KM3NeT, which once completed, will be largest detector of neutrinos in the Northern Hemisphere.",
       "role": "main",
       "site_id": "site:km3net-arca-capo-passero",
@@ -121,14 +121,14 @@
       "dimension": "count",
       "display": "230 detection units (design: two building blocks of 115 each)",
       "locator": "The ARCA and ORCA detectors (km3net.org)",
-      "note": "Design total. As of the 2026 access date, the official 'Astroparticle physics with ARCA' page states 51 detection units are actually operating (see intervals); that as-built figure is not repeated here as the spec value to avoid conflating design capacity with current construction state.",
+      "note": "Derived: 230 = 2 building blocks x 115 detection units each (both numbers are in the quote). Design total. As of the 2026 access date, the official 'Astroparticle physics with ARCA' page states 51 detection units are actually operating (see intervals); that as-built figure is not repeated here as the spec value to avoid conflating design capacity with current construction state.",
       "quote": "instrumented volume of ARCA is about 1 cubic kilometer in two 'building blocks' of 115 detection units each",
       "sources": [
         "src:astro-neutrino-km3net-arca-orca-detector-page"
       ],
       "unit": "",
       "value": 230,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   },
   "status": "commissioning",
@@ -141,7 +141,7 @@
     "confidence": "verified",
     "locator": "Letter of Intent for KM3NeT 2.0, abstract",
     "note": "",
-    "quote": "A building block thus constitutes a 3-dimensional array of photo sensors that can be used to detect the Cherenkov light produced by relativistic particles emerging from neutrino interactions.",
+    "quote": "each optical module comprises 31 photo-multiplier tubes (PMTs). Each building block thus constitutes a 3-dimensional array of photo sensors that can be used to detect the Cherenkov light produced by relativistic particles emerging from neutrino interactions.",
     "sources": [
       "src:astro-neutrino-km3net-arca-orca-detector-page",
       "src:astro-neutrino-km3net-loi-2016"

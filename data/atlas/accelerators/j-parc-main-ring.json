@@ -41,20 +41,19 @@
     },
     {
       "confidence": "derived",
-      "end": {
-        "date": "2011-12",
-        "planned": true
-      },
+      "end": "2012-01",
       "label": "shutdown after the Great East Japan Earthquake",
-      "note": "The October 2011 T2K status report states the beam stopped on 11 March 2011 and that J-PARC was \"on schedule to resume operations ... in December 2011\"; no source read on 2026-09-16 confirms the actual restart date, so the end is recorded as the planned date.",
+      "locator": "start of the stoppage: T2K status paper, arXiv PDF p. 7; end: J-PARC \"History of J-PARC\", entry \"2012 January: Operation resumed and user operation started.\"",
+      "note": "End replaced 2026-10-25: it was the planned December 2011 restart; the J-PARC history page states that after the March 2011 suspension \"2012 January Operation resumed and user operation started.\" This is a facility-wide statement, not one specific to this machine, beamline or experiment, so confidence stays derived. Previous note: The October 2011 T2K status report states the beam stopped on 11 March 2011 and that J-PARC was \"on schedule to resume operations ... in December 2011\"; no source read on 2026-09-16 confirms the actual restart date, so the end is recorded as the planned date.",
       "quote": "The T2K data taking stopped abruptly on March 11 2011 due to the Great East Japan Earthquake.",
       "sources": [
         "src:t2k-status-2011-arxiv",
-        "src:jparc-what-is"
+        "src:jparc-what-is",
+        "src:jparc-history"
       ],
       "start": "2011-03-11",
       "status": "shutdown",
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
     },
     {
       "confidence": "verified",
@@ -96,14 +95,15 @@
       "dimension": "energy",
       "display": "30 GeV",
       "note": "Kinetic energy. The J-PARC MR page still describes the machine as a \"50 GeV (currently 30 GeV) main ring\"; 30 GeV is the energy actually used for the neutrino beam.",
-      "quote": "Circumference 1567 m Beam power ~750 kW Beam kinetic energy 30 GeV",
+      "quote": "Beam kinetic energy 30 GeV",
       "sources": [
         "src:t2k-nim-2011",
-        "src:jparc-mr-page"
+        "src:jparc-mr-page",
+        "src:rf12-t2k-nim-2011-ar5iv"
       ],
       "unit": "GeV",
       "value": 30,
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
     },
     "beam_power": {
       "approx": false,
@@ -127,11 +127,12 @@
       "note": "The J-PARC accelerators page rounds this to \"about 1600 m\".",
       "quote": "Circumference 1567 m",
       "sources": [
-        "src:t2k-nim-2011"
+        "src:t2k-nim-2011",
+        "src:rf12-t2k-nim-2011-ar5iv"
       ],
       "unit": "m",
       "value": 1567,
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
     }
   },
   "status": "active",

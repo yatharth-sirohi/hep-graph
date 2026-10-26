@@ -5,7 +5,7 @@
   ],
   "claim": {
     "locator": "arXiv:2006.16883, abstract",
-    "quote": "A total excess of 638.0 ± 132.8 electron-like events (4.8σ)",
+    "quote": "The MiniBooNE experiment at Fermilab reports a total excess of $638.0 \\pm 132.8$ electron-like events ($4.8 \\sigma$) from a data sample corresponding to $18.75 \\times 10^{20}$ protons-on-target in neutrino mode",
     "sources": [
       "src:miniboone-prd-2021-updated-excess"
     ]
@@ -19,16 +19,16 @@
   },
   "date": {
     "confidence": "verified",
-    "locator": "title, Phys. Rev. D 103, 052002 (2021)",
-    "note": "Publication date (year precision) from the source record; the paper is Phys. Rev. D 103, 052002 (2021).",
-    "quote": "Updated MiniBooNE Neutrino Oscillation Results with Increased Data and New Background Studies",
+    "locator": "arXiv:2006.16883, submission history",
+    "note": "arXiv v1 submission date; the result was first made public as a preprint, so the earlier date is used. Published as Phys. Rev. D 103, 052002 (2021).",
+    "quote": "[Submitted on 30 Jun 2020 (v1), last revised 8 Mar 2021 (this version, v3)]",
     "sources": [
       "src:miniboone-prd-2021-updated-excess"
     ],
-    "value": "2021",
-    "verified_at": "2026-09-17"
+    "value": "2020-06-30",
+    "verified_at": "2026-10-25"
   },
-  "date_kind": "publication",
+  "date_kind": "preprint",
   "detector_ids": [
     "detector:miniboone"
   ],
@@ -46,8 +46,8 @@
     "dimension": "count",
     "display": "638.0 ± 132.8 electron-like events (4.8σ)",
     "locator": "arXiv:2006.16883, abstract",
-    "note": "Combined neutrino- and antineutrino-mode electron-like event excess, full MiniBooNE exposure (12.84e20 POT neutrino mode, 11.27e20 POT antineutrino mode).",
-    "quote": "A total excess of 638.0 ± 132.8 electron-like events (4.8σ)",
+    "note": "Combined neutrino- and antineutrino-mode electron-like event excess, full MiniBooNE exposure (18.75 × 10²⁰ POT neutrino mode, 11.27 × 10²⁰ POT antineutrino mode).",
+    "quote": "a total excess of $638.0 \\pm 132.8$ electron-like events ($4.8 \\sigma$) from a data sample corresponding to $18.75 \\times 10^{20}$ protons-on-target in neutrino mode",
     "sources": [
       "src:miniboone-prd-2021-updated-excess"
     ],
@@ -59,7 +59,7 @@
     "confidence": "verified",
     "locator": "arXiv:2006.16883, abstract",
     "note": "",
-    "quote": "A total excess of 638.0 ± 132.8 electron-like events (4.8σ)",
+    "quote": "a total excess of $638.0 \\pm 132.8$ electron-like events ($4.8 \\sigma$)",
     "sources": [
       "src:miniboone-prd-2021-updated-excess"
     ],
@@ -72,8 +72,7 @@
   "name": "Updated MiniBooNE Neutrino Oscillation Results with Increased Data and New Background Studies",
   "notes": [
     "The collaboration's own wording is 'excess', never 'discovery' or 'observation'; result_type is 'anomaly' accordingly.",
-    "An earlier report (Phys. Rev. Lett. 121, 221801 (2018), arXiv:1805.12028, src:miniboone-prl-2018-excess) found a 4.5σ charged-current quasielastic-only excess of 381.2±85.2 events with a smaller exposure; this record uses the 2021 combined/updated figure as the primary claim and cites the 2018 paper as a supporting source.",
-    "The 2021 abstract also reports a combined LSND+MiniBooNE significance of 6.0σ, not recorded as this entity's own significance since it is a joint result with a different experiment (LSND, not in this atlas wave)."
+    "An earlier report (Phys. Rev. Lett. 121, 221801 (2018), arXiv:1805.12028, src:miniboone-prl-2018-excess) found a charged-current quasielastic νe excess of 381.2±85.2 events (4.5σ) in neutrino mode alone and 460.5±99.0 events (4.7σ) combined with antineutrino mode, with a smaller exposure; this record uses the 2021 combined/updated figure as the primary claim and cites the 2018 paper as a supporting source."
   ],
   "official_url": null,
   "publication": {
@@ -82,26 +81,37 @@
     "url": "https://arxiv.org/abs/2006.16883"
   },
   "publication_source_id": "src:miniboone-prd-2021-updated-excess",
+  "published": {
+    "confidence": "verified",
+    "locator": "arXiv:2006.16883 abstract page, journal reference",
+    "note": "",
+    "quote": "Journal reference: Phys. Rev. D 103, 052002 (2021)",
+    "sources": [
+      "src:miniboone-prd-2021-updated-excess"
+    ],
+    "value": "2021",
+    "verified_at": "2026-10-25"
+  },
   "result_type": "anomaly",
   "schema": "hep-atlas/0.2",
   "significance": {
     "confidence": "verified",
     "locator": "arXiv:2006.16883, abstract",
     "note": "",
-    "quote": "A total excess of 638.0 ± 132.8 electron-like events (4.8σ)",
+    "quote": "overall significance of the excess, 4.8σ, is limited by systematic uncertainties, assumed to be Gaussian, as the statistical significance of the excess is 12.2σ",
     "sources": [
       "src:miniboone-prd-2021-updated-excess"
     ],
-    "value": "4.8σ",
-    "verified_at": "2026-09-17"
+    "value": "4.8σ overall (limited by systematic uncertainties; the statistical significance of the excess is 12.2σ)",
+    "verified_at": "2026-10-25"
   },
   "sources": [
     "src:miniboone-prd-2021-updated-excess",
     "src:miniboone-prl-2018-excess"
   ],
   "summary": {
-    "plain": "MiniBooNE saw more low-energy, electron-like flashes of light in its detector than it expected from known physics: 638 more than predicted, a 4.8-out-of-a-possible-many-sigma excess. No one has agreed on why.",
-    "technical": "Combined neutrino- and antineutrino-mode MiniBooNE data (24.11e20 POT total) show a 4.8sigma excess of 638.0+-132.8 low-energy electron-like events over the background-only prediction, updating the original 2018 result. The origin of the excess (sterile neutrinos, a misestimated background, or new physics) remains unresolved; MicroBooNE's 2021 search (result:microboone-no-low-energy-excess-2021) found no corresponding excess in its own single-final-state analyses."
+    "plain": "MiniBooNE reported a total excess of 638 electron-like events, at 4.8 standard deviations overall (the significance is limited by systematic uncertainties), from combined neutrino-mode and antineutrino-mode data. Its extra studies disfavor models of the excess based on photons entering or exiting the detector.",
+    "technical": "Neutrino-mode data (18.75×10²⁰ protons on target, a 46% increase over previously published results) and antineutrino-mode data (11.27×10²⁰ protons on target) show a total excess of 638.0 ± 132.8 electron-like events; the overall significance of the excess is 4.8σ, limited by systematic uncertainties, while its statistical significance is 12.2σ. Beam-timing and radius-distribution studies lead the collaboration to conclude that models of the excess based on entering and exiting photons are disfavored."
   },
   "title": "Updated MiniBooNE Neutrino Oscillation Results with Increased Data and New Background Studies",
   "topic_ids": [
@@ -109,5 +119,5 @@
     "topic:sterile-neutrinos"
   ],
   "type": "result",
-  "why_it_matters": "If it is not an underestimated background, the MiniBooNE excess would require physics beyond the three-neutrino Standard Model, such as a sterile neutrino or new interactions; it motivated the entire Fermilab Short-Baseline Neutrino programme (MicroBooNE, SBND, ICARUS) built to pin down its cause."
+  "why_it_matters": "The paper's introduction says LSND and MiniBooNE reported excesses of νe and ν̄e charged-current quasielastic events in νμ beams, and that exotic models beyond the three-neutrino paradigm, for example 3+N oscillation models with N additional sterile neutrinos, have been invoked to explain these anomalies."
 }

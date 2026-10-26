@@ -1,0 +1,92 @@
+{
+  "accuracy_m": 15,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "17.3 m",
+        "unit": "m",
+        "value": 17.3
+      },
+      "kind": "span",
+      "locator": "NuMI NIM paper (arXiv:1507.06690) section 2.8",
+      "note": "The paper gives the hall as 8.2 m wide x 15.2 m long; expected = sqrt(15.2^2 + 8.2^2) = 17.3 m, the largest extent of such a rectangle.",
+      "quote": "an underground excavated hall with dimensions 8.2 m wide × 6.1 m high × 15.2 m long",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "tolerance": 0.03
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "depth_m": null,
+  "entity_id": "beamline:numi",
+  "feature_type": "target_station",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "TDR section 5.2.7 with the beam-sheet row DENCU",
+    "note": "Derived: the corners follow from published dimensions laid on the surveyed beam axis; the position of the walls along the axis and the beam-to-wall offset are assumptions stated in the method.",
+    "quote": "The enclosure dimensions are 50 ft. long, 27 ft. wide, and approx. 36 ft. high.",
+    "sources": [
+      "src:fermilab-geo-numi-tdr-1998",
+      "src:fermilab-numi-beam-paper-2016",
+      "src:fermilab-geo-oshinowo-coordinate-systems-1997"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -88.2690119,
+            41.8379356
+          ],
+          [
+            -88.2690862,
+            41.8380611
+          ],
+          [
+            -88.2691768,
+            41.838031
+          ],
+          [
+            -88.2691025,
+            41.8379056
+          ],
+          [
+            -88.2690119,
+            41.8379356
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:fermilab-numi-absorber-hall",
+  "level_id": "near-detector-caverns",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fermilab",
+  "method": "Derived. Enclosure size 50 ft x 27 ft (NuMI TDR sec. 5.2.7: \"The enclosure dimensions are 50 ft. long, 27 ft. wide, and approx. 36 ft. high\"), laid out horizontally on the beam axis starting at the end of the decay pipe (row DENCU, station 3522.04627 ft). The beam-sheet row MUOND1 (station 3576.97575 ft) lies 3 ft past the 50 ft end, consistent with the 33 ft of rock the TDR places between the enclosure and the first muon alcove (row MUON0, station 3609.84 ft). Conversion of DUSAF to WGS 84: DUSAF x, y (ft) are the FSCS coordinates of Beams-doc-1148 (origin A0 = 41°50′14.312704″ N, 88°15′41.143123″ W, false x = y = 100000 ft, +y axis at geodetic azimuth 38°16′48.01429″, scale 1.000029251 at A0), applied as a rotated tangent plane on the GRS80 ellipsoid (difference to the double stereographic projection below 0.2 m within 1.5 km of A0). NAD83 and WGS 84 are taken as equal.",
+  "name": "NuMI hadron absorber enclosure",
+  "notes": [],
+  "osm": null,
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:fermilab-geo-numi-tdr-1998",
+    "src:fermilab-numi-beam-paper-2016",
+    "src:fermilab-geo-oshinowo-coordinate-systems-1997"
+  ],
+  "summary": {
+    "plain": "The underground hall that holds the NuMI hadron absorber, which stops everything but neutrinos and muons at the end of the decay pipe."
+  },
+  "type": "geometry",
+  "valid": null
+}

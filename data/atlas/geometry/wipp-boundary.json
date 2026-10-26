@@ -7,12 +7,12 @@
     "tier": "C"
   },
   "depth_m": null,
-  "entity_id": "site:wipp-surface-campus",
+  "entity_id": null,
   "feature_type": "boundary",
   "geometry": {
     "confidence": "approximate",
     "locator": "OSM way 389288415",
-    "note": "OpenStreetMap alone yields at most 'approximate' confidence (contract §1.2). Measured area 1,187,824 m² (≈293.6 acres) is in the range the DOE environmental-assessment chapter (Chapter3.pdf, fetched this session) describes qualitatively as the fenced 'Exclusive Use Area' inside the 10,240-acre land-withdrawal boundary, but that document does not itself state the EUA's acreage, so this is reported as a residual in the worklog, not asserted as a checks[] row.",
+    "note": "OpenStreetMap alone supports at most 'approximate' confidence. Measured area 1,187,824 m² (≈293.6 acres) is in the range the DOE environmental-assessment chapter (Chapter3.pdf, consulted 2026-09-18) describes qualitatively as the fenced 'Exclusive Use Area' inside the 10,240-acre land-withdrawal boundary, but that document does not itself state the Exclusive Use Area's acreage, so no area check is asserted.",
     "sources": [
       "src:geo-wipp-osm-extract"
     ],
@@ -90,7 +90,9 @@
   "map_id": "map:wipp",
   "method": "OpenStreetMap landuse polygon way/389288415 (name='Waste Isolation Pilot Plant', landuse=landfill, hazard=nuclear), used verbatim.",
   "name": "WIPP protected/exclusive-use area boundary (surface)",
-  "notes": [],
+  "notes": [
+    "This shape is context: it shows where the WIPP surface area is, not an experiment or detector, so it is drawn in every year. It is tied to its site by place only; the site's own record follows the experiments hosted there and ends when they end, which would have hidden the campus from the years after its last experiment completed."
+  ],
   "osm": {
     "elements": [
       "way/389288415"

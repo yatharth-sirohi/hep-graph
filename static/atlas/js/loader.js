@@ -199,6 +199,14 @@ export async function getSources() {
   return sourcesCache;
 }
 
+/** One local map's geometry bundle (`maps[id].bundle` in atlas.json, e.g.
+ * `geometry/fermilab.json`). Panels read only its `entity_index` and each
+ * feature's `representation` — to say truthfully how a map depicts an entity —
+ * so this is the same cached request the map view itself makes later. */
+export async function getGeometry(bundlePath) {
+  return fetchJSON(bundlePath);
+}
+
 export async function getSearchEntries() {
   const raw = await fetchJSON('search.json');
   const entries = Array.isArray(raw) ? raw : (raw.entries || []);
@@ -244,9 +252,31 @@ export async function getCoverage() {
   return { rows };
 }
 
+/** Whether the build wrote the bundle at `relativePath`.
+ *
+ * manifest.json lists every bundle in the data tree, and 119 of the 122
+ * collaborations have no membership roster, so asking the server for
+ * `memberships/<slug>.json` unconditionally is a 404 (and a console error) for
+ * almost every collaboration panel. The manifest is already loaded and cached;
+ * a path it does not list does not exist. A manifest with no `bundles` table
+ * cannot answer, and then the only honest move is to try the request.
+ */
+export async function isBundleListed(relativePath) {
+  const manifest = await getManifest();
+  const bundles = manifest && manifest.bundles;
+  if (Array.isArray(bundles)) return bundles.includes(relativePath);
+  if (bundles && typeof bundles === 'object') return Object.hasOwn(bundles, relativePath);
+  return true;
+}
+
+/** The membership roster of a collaboration, or `null` when the build has none
+ * for it (no roster curated yet). A listed roster that fails to load throws:
+ * that is an error, not "no members". */
 export async function getMembership(collaborationId) {
   const slug = collaborationId.split(':')[1];
-  const roster = await fetchJSON(`memberships/${slug}.json`);
+  const bundlePath = `memberships/${slug}.json`;
+  if (!(await isBundleListed(bundlePath))) return null;
+  const roster = await fetchJSON(bundlePath);
   // Same nested-versus-flat coordinate split as the site records: an
   // institution whose latitude reads as undefined silently draws no dot, so
   // collaboration mode would come up empty against the generated bundles.
@@ -260,8 +290,11 @@ export async function getMembership(collaborationId) {
   return roster;
 }
 
-/** relPath is the exact value of a membership row's `people_bundle` field. */
+/** relPath is the exact value of a membership row's `people_bundle` field.
+ * `null` when the manifest does not list it (the row says people exist, the
+ * build has not written their names). */
 export async function getPeople(relPath) {
+  if (!(await isBundleListed(relPath))) return null;
   return fetchJSON(relPath);
 }
 

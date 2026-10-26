@@ -4,15 +4,18 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 50.09,
-    "locator": "Wikipedia infobox, Chooz Nuclear Power Plant",
-    "lon": 4.78944,
-    "note": "No source fetched this session gives numeric coordinates for the far-detector hall specifically; this is the adjacent Chooz Nuclear Power Plant's own Wikipedia coordinate (rank 12), used as an approximate regional proxy per A17/A23. The far detector is known (2012 discovery paper) to be 1050 m from the reactor cores, inside a hill under 300 m.w.e. of shielding (Wikipedia).",
-    "precision_m": 2000,
+    "lat": 50.0845889,
+    "locator": "geometry:chooz-far-laboratory (two-circle intersection of the TDR baselines about the B1/B2 unit centroids)",
+    "lon": 4.8026591,
+    "note": "Derived, not published: the far laboratory is placed where the Double Chooz baselines (1114.6 m and 997.9 m) meet, choosing the solution under the hill near Chooz A. If the TDR's RE/RW labels were geographic the point would move about 1.6 km; the method is described in the geometry record.",
+    "precision_m": 200,
     "sources": [
-      "src:chooz-npp-wikipedia"
+      "src:geo-chooz-dc-tdr-2006",
+      "src:double-chooz-2012-evidence",
+      "src:geo-chooz-osm-extract-2026-10",
+      "src:geo-chooz-ign-alti-api"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "countries": [
     "FR"
@@ -28,7 +31,7 @@
     "confidence": "approximate",
     "dimension": "depth_mwe",
     "display": "300 m.w.e.",
-    "note": "Sourced from Wikipedia (rank 12) only this session.",
+    "note": "Sourced from Wikipedia only (checked 2026-09-17).",
     "quote": "300 meters of water equivalent of shielding from cosmic muons",
     "sources": [
       "src:double-chooz-wikipedia"
@@ -56,7 +59,10 @@
   "sources": [
     "src:chooz-npp-wikipedia",
     "src:double-chooz-2012-evidence",
-    "src:double-chooz-wikipedia"
+    "src:double-chooz-wikipedia",
+    "src:geo-chooz-dc-tdr-2006",
+    "src:geo-chooz-osm-extract-2026-10",
+    "src:geo-chooz-ign-alti-api"
   ],
   "summary": {
     "plain": "A hall inside a hill near the Chooz nuclear plant in France, over a kilometre from the reactors, shielded by rock from cosmic rays.",

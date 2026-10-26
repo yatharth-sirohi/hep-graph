@@ -6,11 +6,11 @@
   "altitude": null,
   "coordinates": {
     "confidence": "uncertain",
-    "kind": "detector",
+    "kind": "campus",
     "lat": 41.8422582,
     "locator": "LBNF/DUNE official project website",
     "lon": -88.245782,
-    "note": "This site is used as the placement for several Fermilab short-baseline and long-baseline near detectors (DUNE near detector, ICARUS, SBND, MicroBooNE, MiniBooNE, MINOS near detector, NOvA near detector, MINERvA), none of which has its own dedicated site record. `kind` is set to `detector` only because A17/the validator requires that for any site holding a detector placement; the coordinate itself is the OpenStreetMap/Nominatim polygon centroid for the whole ~27 km^2 Fermilab campus, not a surveyed position for any one detector hall. Real effort (LBNF/DUNE's own 'excavations and structures' page, its FAQ, and the Fermilab design reports) did not turn up published lat/lon for the near detector hall itself, only that it sits near Kirk Road and Giese Road on site and 60 m underground. Treat every placement at this site as campus-precision, not detector-hall precision. No coordinate is published on a Fermilab page that could be fetched directly (fnal.gov returned HTTP 403); the LBNF/DUNE site confirms the Batavia, Illinois location only.",
+    "note": "The coordinate is the OpenStreetMap/Nominatim polygon centroid of the whole Fermilab campus (about 27 km2), not a surveyed position of any detector hall, so it is recorded as a campus point and shown as approximate. The site is the placement of several Fermilab short- and long-baseline detectors (DUNE near detector, ICARUS, SBND, MicroBooNE, MiniBooNE, MINOS near detector, NOvA near detector, MINERvA). LBNF/DUNE's 'excavations and structures' page, its FAQ and the Fermilab design reports (checked 2026-09-17) give no latitude and longitude for the near-detector hall, only that it is near Kirk Road and Giese Road, 60 m underground; fnal.gov refuses automated requests. Treat every placement here as campus-precision.",
     "precision_m": 3000,
     "sources": [
       "src:fermilab-lbnf-dune-site"
@@ -33,7 +33,7 @@
   },
   "name": "Fermilab main campus, Batavia, Illinois",
   "notes": [
-    "Coordinates are shown at campus precision; see coordinates.note. `kind: detector` is a schema requirement (this site hosts several detector placements), not a claim of survey-grade precision for any one hall."
+    "Coordinates are shown at campus precision; see the coordinate note. The marker is not a claim of survey-grade precision for any one hall."
   ],
   "place": {
     "city": "Batavia",

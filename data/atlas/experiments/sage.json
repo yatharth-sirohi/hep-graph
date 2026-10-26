@@ -1,128 +1,151 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "experiment:sage",
-  "type": "experiment",
-  "name": "SAGE",
+  "accelerator_ids": [],
   "aliases": [
     "Soviet-American Gallium Experiment",
     "Russian-American Gallium Experiment"
   ],
-  "kind": "solar_neutrino",
-  "secondary_kinds": [],
-  "collaboration_ids": ["collaboration:sage"],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:sage"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "document_ids": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1109179,
+    "wikidata": null
+  },
   "facility_roles": [
     {
-      "facility_id": "facility:baksan-neutrino-observatory",
-      "role": "host",
-      "start": null,
-      "end": null,
-      "sources": ["src:sage-wikipedia"],
-      "verified_at": "2026-09-18",
       "confidence": "uncertain",
-      "note": "Sourced from Wikipedia (rank 12) only this session."
+      "end": null,
+      "facility_id": "facility:baksan-neutrino-observatory",
+      "note": "Sourced from Wikipedia only; no other source consulted (checked 2026-09-18) states it.",
+      "role": "host",
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "start": null,
+      "verified_at": "2026-09-18"
     }
   ],
-  "beamline_ids": [],
-  "accelerator_ids": [],
-  "topic_ids": ["topic:solar-neutrinos"],
+  "id": "experiment:sage",
   "intervals": [
     {
-      "label": "construction / start",
-      "status": "construction",
-      "start": "1989-12",
-      "end": "1990-01",
-      "sources": ["src:sage-wikipedia"],
-      "verified_at": "2026-09-18",
       "confidence": "approximate",
-      "quote": "Construction/Start: December 1989",
-      "note": "Sourced from Wikipedia (rank 12) only this session."
+      "end": "1989-12",
+      "label": "commissioning (gallium extractions, background reduction)",
+      "note": "Start is the year extractions began on about 30 tons of gallium (SAGE 1999 paper, arXiv:astro-ph/9907113); end is the December 1989 start of solar-neutrino measurements stated in the SAGE Collaboration's 2009 paper (arXiv:0901.2200). Replaces an earlier Wikipedia-infobox 'construction / start' row (1989-12 to 1990-01) that the collaboration papers do not support as a construction period.",
+      "quote": "Extractions on approximately 30 tons of Ga began in 1988; by late 1989 backgrounds were low enough to begin solar neutrino measurements.",
+      "sources": [
+        "src:sage-1999-capture-rate",
+        "src:rf09-sage-iii-arxiv"
+      ],
+      "start": "1988",
+      "status": "commissioning",
+      "verified_at": "2026-10-25"
     },
     {
-      "label": "primary data-taking",
-      "status": "active",
-      "start": "1990-01",
+      "confidence": "approximate",
       "end": "2007-12",
-      "sources": ["src:sage-wikipedia"],
-      "verified_at": "2026-09-18",
-      "confidence": "approximate",
-      "quote": "Primary Data-Taking: January 1990 through December 2007 (168 extractions)",
-      "note": "Sourced from Wikipedia (rank 12) only this session."
+      "label": "primary data-taking",
+      "note": "December 2007 is the end of the dataset analysed in the SAGE Collaboration's 2009 paper (arXiv:0901.2200), not a stop of data-taking; the next row records that measurements continued.",
+      "quote": "For all SAGE data from January 1990 through December 2007 (168 runs and 310 separate counting sets)",
+      "sources": [
+        "src:rf09-sage-iii-arxiv"
+      ],
+      "start": "1990-01",
+      "status": "active",
+      "verified_at": "2026-10-25"
     },
     {
-      "label": "continued operations",
-      "status": "active",
-      "start": "2007-12",
+      "confidence": "uncertain",
       "end": null,
-      "sources": ["src:sage-wikipedia"],
-      "verified_at": "2026-09-18",
-      "confidence": "uncertain",
-      "quote": "End: August 2011, with continued operations thereafter",
-      "note": "Wikipedia's own wording is ambiguous/self-contradictory ('End: August 2011, with continued operations thereafter'); no source fetched this session clarifies whether SAGE stopped or continued. Left open (`end: null`, ongoing at `verified_at` per §2.3) rather than asserting either a firm shutdown or firm continuation."
+      "label": "continued operations",
+      "note": "The SAGE Collaboration's 2009 paper (arXiv:0901.2200) says measurements have continued since December 1989. Wikipedia says the data run through August 2011 and that the experiment was ongoing in 2016-2017, but no authoritative source fetched here confirms the status after 2009. Left open (`end: null`, ongoing at `verified_at` per §2.3) rather than asserting either a firm shutdown or firm continuation.",
+      "quote": "Measurements have continued with only a few brief interruptions since that time.",
+      "sources": [
+        "src:rf09-sage-iii-arxiv"
+      ],
+      "start": "2007-12",
+      "status": "active",
+      "verified_at": "2026-10-25"
     }
   ],
-  "physics_goals": [
-    {
-      "value": "Measure the flux of low-energy (pp-chain) solar neutrinos via the radiochemical gallium-to-germanium reaction",
-      "sources": ["src:sage-wikipedia"],
-      "verified_at": "2026-09-18",
-      "confidence": "uncertain",
-      "quote": "to measure the flux of solar neutrinos",
-      "locator": "Wikipedia",
-      "note": "Sourced from Wikipedia (rank 12) only this session."
-    }
-  ],
-  "unique_capabilities": [
-    {
-      "value": "Radiochemical liquid-gallium target sensitive to the lowest-energy (pp) solar neutrinos",
-      "sources": ["src:sage-wikipedia"],
-      "verified_at": "2026-09-18",
-      "confidence": "uncertain",
-      "quote": "Between 50–57 tonnes of liquid gallium metal served as the neutrino detection medium.",
-      "locator": "Wikipedia",
-      "note": "Sourced from Wikipedia (rank 12) only this session."
-    }
-  ],
-  "energy_regime": null,
   "key_specs": [
     {
       "label": "Gallium target mass",
       "quantity": {
-        "value": 50,
-        "unit": "t",
-        "dimension": "mass",
         "approx": true,
-        "display": "50-57 t liquid gallium",
-        "sources": ["src:sage-wikipedia"],
-        "verified_at": "2026-09-18",
         "confidence": "approximate",
-        "quote": "Between 50–57 tonnes of liquid gallium metal served as the neutrino detection medium.",
-        "note": "Sourced from Wikipedia (rank 12) only this session; recorded value is the lower bound of the stated range."
+        "dimension": "mass",
+        "display": "50 t liquid gallium",
+        "note": "50 t is the mass stated in the SAGE Collaboration's 2009 paper (arXiv:0901.2200). The target mass varied over time: the 1999 SAGE paper (arXiv:astro-ph/9907113) says the extraction mass was increased to nearly 60 tons in summer 1991, and Wikipedia gives a range of 50-57 tonnes.",
+        "quote": "The mass of gallium used in SAGE at the present time is 50 tonnes.",
+        "sources": [
+          "src:rf09-sage-iii-arxiv"
+        ],
+        "unit": "t",
+        "value": 50,
+        "verified_at": "2026-10-25"
       }
     }
   ],
+  "kind": "solar_neutrino",
   "lineage": [],
-  "external": {
-    "inspire_experiment": 1109179,
-    "greybook": null,
-    "wikidata": null
-  },
-  "document_ids": [],
-  "result_ids": [],
   "links": {
     "website": null
   },
+  "name": "SAGE",
   "notes": [
-    "No dedicated official SAGE/Baksan website was reachable this session (inr.ru/baksan.html returned 404); `links.website` left null rather than guessed.",
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not authored (v0.2 A1)."
+    "No dedicated official SAGE/Baksan website was reachable (inr.ru/baksan.html returned 404); no website is recorded."
   ],
-  "sources": ["src:sage-inspire-experiment-record", "src:sage-wikipedia", "src:sage-1999-capture-rate"],
+  "physics_goals": [
+    {
+      "confidence": "uncertain",
+      "locator": "Wikipedia",
+      "note": "Sourced from Wikipedia only; no other source consulted (checked 2026-09-18) states it.",
+      "quote": "to measure the flux of solar neutrinos",
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "value": "Measure the flux of low-energy (pp-chain) solar neutrinos via the radiochemical gallium-to-germanium reaction",
+      "verified_at": "2026-09-18"
+    }
+  ],
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:sage-inspire-experiment-record",
+    "src:sage-wikipedia",
+    "src:sage-1999-capture-rate",
+    "src:rf09-sage-iii-arxiv"
+  ],
   "status": "active",
   "summary": {
     "plain": "An experiment deep inside a Russian mountain that uses tonnes of liquid gallium metal to catch the Sun's lowest-energy neutrinos.",
-    "technical": "Radiochemical liquid-gallium solar-neutrino experiment at the Baksan Neutrino Observatory, Russia, ~2100 m underground; 50-57 t gallium target. Measured a solar neutrino capture rate of 67.2 (+7.2/-7.0 stat) (+3.5/-3.0 syst) SNU over 1990-1997, about half the Standard Solar Model prediction of 129 SNU."
+    "technical": "Radiochemical liquid-gallium solar-neutrino experiment at the Baksan Neutrino Observatory, Russia, under a rock overburden equivalent to 4700 m of water; 50 t gallium target. Measured a solar neutrino capture rate of 67.2 (+7.2/−7.0 stat) (+3.5/−3.0 syst) SNU over 1990-1997, about half the Standard Solar Model prediction of 129 SNU."
   },
-  "coverage": {
-    "tier": "D",
-    "researched": "partial"
-  }
+  "topic_ids": [
+    "topic:solar-neutrinos"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "uncertain",
+      "locator": "SAGE Collaboration 2009 paper (arXiv:0901.2200), Sec. V",
+      "note": "Quote states sensitivity to all components of the solar neutrino flux (including pp) because of the 233 keV threshold; 'lowest-energy (pp)' in the value is the reading that follows from that.",
+      "quote": "In contrast to all other present or past solar neutrino experiments, the radiochemical Ga experiment, because of its low threshold of 233 keV, is sensitive to all components of the",
+      "sources": [
+        "src:rf09-sage-iii-arxiv"
+      ],
+      "value": "Radiochemical liquid-gallium target sensitive to the lowest-energy (pp) solar neutrinos",
+      "verified_at": "2026-10-25"
+    }
+  ]
 }

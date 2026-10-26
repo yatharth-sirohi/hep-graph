@@ -53,7 +53,7 @@
       "confidence": "approximate",
       "end": "2021-07-06",
       "label": "start of operation / commissioning",
-      "note": "Official site says operation started in 2020; INSPIRE experiment record gives date_started 2021-07-06, which is treated here as the end of commissioning / start of the sourced science-run interval below.",
+      "note": "The official site says operation started in 2020; INSPIRE's experiment record gives date_started 2021-07-06, used here as the end of commissioning and the start of the science-operations interval below.",
       "quote": "XENONnT started its operation with about 8.6 tonnes of xenon in 2020.",
       "sources": [
         "src:dm-noble-liquid-xenon-official-history",
@@ -64,17 +64,74 @@
       "verified_at": "2026-09-17"
     },
     {
-      "confidence": "verified",
-      "end": null,
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2025",
+        "display": "before the summer-2025 upgrade"
+      },
       "label": "science operations",
-      "locator": "inspirehep.net/experiments/1807876, date_started field",
-      "note": "Start date per the INSPIRE experiment record date_started field. Exact SR0/SR1 run boundaries were not confirmed by a source fetched in this session.",
+      "locator": "start: INSPIRE experiment record, field date_started; end: ATHEXIS 2026 and LIDINE 2026 talk abstracts",
+      "note": "Start = the date_started field of INSPIRE's experiment record (6 July 2021). The Nikhef slides of May 2026 list science runs SR0, SR1 and SR2 before the upgrade. The date of the last science-run data is not given by any source consulted, and the end is year precision: it is set to the 2025 detector upgrade, which the collaboration says was 'carried out in summer 2025' (LIDINE 2026 abstract), after which 'the experiment began its new commissioning phase in 2026' (ATHEXIS 2026 abstract). The last science data may predate the upgrade.",
       "sources": [
-        "src:dm-noble-liquid-xenonnt-inspire-experiment"
+        "src:dm-noble-liquid-xenonnt-inspire-experiment",
+        "src:currency-xenonnt-athexis-2026-abstract",
+        "src:currency-xenonnt-lidine-2026-abstract"
       ],
       "start": "2021-07-06",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2026-03",
+        "display": "first half of 2026",
+        "earliest": "2026-01",
+        "latest": "2026-06",
+        "note": "Bounded by the ATHEXIS 2026 abstract ('began its new commissioning phase in 2026'; talk at a conference held 8-12 June 2026) and the Nikhef slides of May 2026 ('Everything back in place, 8.5 tons of LXe'); the month is not given by any source consulted. March is the midpoint of the January-June bounds, not a reported date."
+      },
+      "label": "detector upgrade (new TPC electrodes, drift field 23 → 100 V/cm)",
+      "locator": "LIDINE 2026 abstract; Nikhef slides May 2026: \"Upgrade completed replacing electrodes to increase drift field from 23 V/cm to 100 V/cm\", \"12 month upgrade\" on the timeline",
+      "note": "The upgrade replaced the TPC electrodes to raise the drift field from 23 V/cm to 100 V/cm. LIDINE 2026 abstract: 'an overview of the XENONnT detector upgrade carried out in summer 2025'. The Nikhef slides of May 2026 call it a '1-year long operation' ('12 month upgrade' on their timeline), in which the electrode replacement itself took a few weeks, and say 'Upgrade completed'. The ATHEXIS abstract says 'Following upgrade operations conducted in 2025' the commissioning phase began in 2026. No source consulted gives the month the upgrade began or ended; the end is the start of the recommissioning interval below, bounded to the first half of 2026.",
+      "quote": "an overview of the XENONnT detector upgrade carried out in summer 2025 and present the status and first results of the subsequent commissioning campaign",
+      "sources": [
+        "src:currency-xenonnt-lidine-2026-abstract",
+        "src:currency-xenonnt-nikhef-jamboree-2026-05"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2025-07",
+        "display": "summer 2025",
+        "earliest": "2025-06",
+        "latest": "2025-08",
+        "note": "Summer is stored as July with June-August bounds: the LIDINE 2026 abstract says the upgrade was 'carried out in summer 2025'."
+      },
+      "status": "upgrade",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "Recommissioning after the 2025 upgrade (2026)",
+      "note": "Last documented state. The ATHEXIS 2026 abstract (conference 8-12 June 2026) says the experiment 'began its new commissioning phase in 2026'. The Nikhef slides of May 2026 say 'Commissioning until July, then start of data taking'. The LIDINE 2026 abstract (talk of 7 October 2026) still reports 'the status and first results of the subsequent commissioning campaign'. No source consulted says that post-upgrade science data taking has started or that commissioning has ended, so the state is shown as commissioning, not active; whether it is still commissioning at 2026-10-25 is not confirmed. Before the upgrade the experiment ran science operations from July 2021 (see the interval above).",
+      "quote": "Following upgrade operations conducted in 2025, the experiment began its new commissioning phase in 2026.",
+      "sources": [
+        "src:currency-xenonnt-athexis-2026-abstract",
+        "src:currency-xenonnt-lidine-2026-abstract",
+        "src:currency-xenonnt-nikhef-jamboree-2026-05"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2026-03",
+        "display": "first half of 2026",
+        "earliest": "2026-01",
+        "latest": "2026-06",
+        "note": "Bounded by the ATHEXIS 2026 abstract ('began its new commissioning phase in 2026'; talk at a conference held 8-12 June 2026) and the Nikhef slides of May 2026 ('Everything back in place, 8.5 tons of LXe'); the month is not given by any source consulted. March is the midpoint of the January-June bounds, not a reported date."
+      },
+      "status": "commissioning",
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [
@@ -177,10 +234,10 @@
     "src:dm-noble-liquid-xenon-official-history",
     "src:dm-noble-liquid-xenonnt-instrument-paper"
   ],
-  "status": "active",
+  "status": "commissioning",
   "summary": {
-    "plain": "XENONnT is a tank of nearly six tonnes of liquid xenon deep under a mountain in Italy, watching for dark matter particles and other rare signals. It is the upgraded successor of XENON1T, has been running since 2020, and has set new dark matter limits and reported the first hint of solar neutrinos bouncing off xenon nuclei.",
-    "technical": "Dual-phase xenon TPC upgrade of XENON1T: 8.5 t total / 5.9 t active liquid xenon in LNGS Hall B (INFN, ~1400 m rock). Construction began Dec 2018; operation began 2020. The first WIMP-search result (2023, 1.1 t-y exposure) set a spin-independent limit of 2.58e-47 cm^2 at 28 GeV/c^2. A 2024 analysis reported the first indication (2.73 sigma) of solar 8B neutrinos via coherent elastic neutrino-nucleus scattering."
+    "plain": "XENONnT is a tank of nearly six tonnes of liquid xenon deep under a mountain in Italy, watching for dark matter and other rare signals. The upgraded successor of XENON1T, it began operating in 2020, took science data from 2021, was upgraded in 2025 and, per the collaboration's 2026 talks, is being recommissioned. It has set new dark matter limits.",
+    "technical": "Dual-phase xenon TPC upgrade of XENON1T: 8.5 t total / 5.9 t active liquid xenon in LNGS Hall B (INFN, ~1400 m rock). Construction began Dec 2018; operation began 2020, science operations from July 2021, detector upgrade (new TPC electrodes, drift field raised from 23 to 100 V/cm) from summer 2025 to the first half of 2026, recommissioning in 2026. The first WIMP-search result (2023, 1.1 t-y exposure) set a spin-independent limit of 2.58 × 10⁻⁴⁷ cm² at 28 GeV/c². A 2024 analysis reported the first indication (2.73σ) of solar 8B neutrinos via coherent elastic neutrino-nucleus scattering."
   },
   "topic_ids": [
     "topic:dark-matter",

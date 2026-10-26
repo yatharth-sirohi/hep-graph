@@ -1,5 +1,16 @@
 {
   "aliases": [],
+  "announced": {
+    "confidence": "verified",
+    "locator": "IceCube press release \"IceCube neutrinos give us first glimpse into the inner depths of an active galaxy\", posted 2022-11-03",
+    "note": "IceCube press release of 3 November 2022, the day before the Science issue of 4 November 2022; the arXiv posting (18 November 2022) came later.",
+    "quote": "IceCube neutrinos give us first glimpse into the inner depths of an active galaxy Posted on November 3, 2022 by Staff",
+    "sources": [
+      "src:rv-r2-icecube-pr-ngc1068-2022"
+    ],
+    "value": "2022-11-03",
+    "verified_at": "2026-10-25"
+  },
   "claim": {
     "locator": "abstract (arXiv:2211.09972)",
     "quote": "We found an excess of $79_{-20}^{+22}$ neutrinos associated with the nearby active galaxy NGC 1068 at a significance of 4.2$\\,\\sigma$.",
@@ -16,15 +27,16 @@
   },
   "date": {
     "confidence": "verified",
-    "note": "arXiv v1 submission date. Published as Science 378, 6619, 538-543 (2022).",
-    "quote": "[Submitted on 18 Nov 2022 ( v1 ), last revised 8 Feb 2024 (this version, v2)]",
+    "locator": "IceCube press release \"IceCube neutrinos give us first glimpse into the inner depths of an active galaxy\", posted 2022-11-03",
+    "note": "IceCube press release of 3 November 2022, the day before the Science issue of 4 November 2022; the arXiv posting (18 November 2022) came later.",
+    "quote": "IceCube neutrinos give us first glimpse into the inner depths of an active galaxy Posted on November 3, 2022 by Staff",
     "sources": [
-      "src:icecube-result-ngc1068-science-2022"
+      "src:rv-r2-icecube-pr-ngc1068-2022"
     ],
-    "value": "2022-11-18",
-    "verified_at": "2026-09-16"
+    "value": "2022-11-03",
+    "verified_at": "2026-10-25"
   },
-  "date_kind": "preprint",
+  "date_kind": "announcement",
   "detector_ids": [
     "detector:icecube"
   ],
@@ -58,6 +70,17 @@
     "doi": "10.1126/science.abg3395",
     "url": "https://arxiv.org/abs/2211.09972"
   },
+  "published": {
+    "confidence": "verified",
+    "locator": "arXiv journal reference",
+    "note": "",
+    "quote": "Science 378, 6619, 538-543 (2022)",
+    "sources": [
+      "src:icecube-result-ngc1068-science-2022"
+    ],
+    "value": "2022",
+    "verified_at": "2026-10-25"
+  },
   "result_type": "evidence",
   "schema": "hep-atlas/0.2",
   "significance": {
@@ -67,15 +90,15 @@
     "sources": [
       "src:icecube-result-ngc1068-science-2022"
     ],
-    "value": "4.2σ",
+    "value": "4.2σ (excess of neutrinos associated with NGC 1068)",
     "verified_at": "2026-09-16"
   },
   "sources": [
     "src:icecube-result-ngc1068-science-2022"
   ],
   "summary": {
-    "plain": "IceCube saw about 79 extra neutrinos coming from a nearby galaxy with a hidden, dust-shrouded black hole at its centre — far more neutrinos than the gamma rays from the same galaxy would suggest.",
-    "technical": "Point-source search over 2011–2020 data with improved reconstruction and calibration; 110 a priori gamma-ray sources analysed. An excess of 79(+22/-20) neutrinos at NGC 1068 with 4.2σ significance; the inferred TeV neutrino flux exceeds the TeV gamma-ray flux by at least an order of magnitude."
+    "plain": "IceCube found an excess of about 79 neutrinos associated with the nearby active galaxy NGC 1068, at a significance of 4.2σ. The collaboration interprets it as direct evidence of TeV neutrino emission from a nearby active galaxy, and says the inferred neutrino flux exceeds the potential TeV gamma-ray flux by at least one order of magnitude.",
+    "technical": "Point-source search over 2011–2020 data with improved reconstruction and calibration; 110 a priori selected gamma-ray sources analysed individually. An excess of 79 (+22/−20) neutrinos associated with NGC 1068 at a significance of 4.2σ, spatially consistent with the direction of the strongest clustering of neutrinos in the Northern Sky and interpreted as direct evidence of TeV neutrino emission from a nearby active galaxy; the inferred flux exceeds the potential TeV gamma-ray flux by at least one order of magnitude."
   },
   "title": "Evidence for neutrino emission from the nearby active galaxy NGC 1068",
   "topic_ids": [
@@ -83,5 +106,5 @@
     "topic:multimessenger-astrophysics"
   ],
   "type": "result",
-  "why_it_matters": "First steady neutrino source candidate and evidence that neutrinos escape from environments opaque to gamma rays, probing the obscured core of an active galaxy."
+  "why_it_matters": "The abstract interprets the excess, spatially consistent with the direction of the strongest clustering of neutrinos in the Northern Sky, as direct evidence of TeV neutrino emission from a nearby active galaxy."
 }

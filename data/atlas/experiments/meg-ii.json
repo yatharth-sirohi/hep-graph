@@ -17,7 +17,7 @@
     {
       "confidence": "verified",
       "facility_id": "facility:psi",
-      "note": "facility:psi is owned by the 'facilities' Wave-3 workstream and had not landed in data/atlas/facilities/ as of this session; this is an expected dangling reference (see worklog).",
+      "note": "",
       "role": "host",
       "sources": [
         "src:muons-inspire-experiment-meg-ii"
@@ -45,7 +45,7 @@
       "end": "2021",
       "label": "first physics run",
       "note": "",
-      "quote": "data taken from the first physics run in 2021",
+      "quote": "The data analysed in this work were collected in the year 2021 during the first, seven-week-long physics run of MEG II",
       "sources": [
         "src:muons-arxiv-2310-12614"
       ],
@@ -74,7 +74,7 @@
         "approx": false,
         "confidence": "verified",
         "dimension": "fraction",
-        "display": "6x10^-14",
+        "display": "6×10⁻¹⁴",
         "note": "Quote corrected during verification (2026-09-17): the original quote field was a paraphrase, not verbatim text from the cited INSPIRE record.",
         "quote": "In order to increase the sensitivity reach of the experiment by an order of magnitude to the level of 6 x 10^{-14} for the branching ratio, a total upgrade, involving substantial changes to the experiment, has been undertaken, known as MEG II.",
         "sources": [
@@ -99,7 +99,7 @@
   "links": {
     "website": {
       "confidence": "verified",
-      "note": "meg.web.psi.ch returned HTTP 404 to a fetch attempt in this session; the ICEPP (University of Tokyo) mirror, an official collaboration site, was fetched successfully.",
+      "note": "meg.web.psi.ch returned HTTP 404 when fetched on 2026-09-17; the ICEPP (University of Tokyo) mirror, an official collaboration site, was reachable.",
       "sources": [
         "src:muons-meg-icepp-site"
       ],
@@ -109,7 +109,6 @@
   },
   "name": "MEG II",
   "notes": [
-    "facility_roles references facility:psi, which is owned by the 'facilities' Wave-3 workstream and was not yet present in data/atlas/facilities/ at the time this file was written -- an expected dangling reference.",
     "external.inspire_experiment (1679100) is sourced from https://inspirehep.net/api/experiments?q=%22meg+ii%22, confirmed at https://inspirehep.net/experiments/1679100."
   ],
   "physics_goals": [
@@ -120,7 +119,7 @@
       "sources": [
         "src:muons-inspire-experiment-meg-ii"
       ],
-      "value": "Search for the charged-lepton-flavor-violating decay mu+ -> e+ gamma with roughly an order of magnitude better sensitivity than MEG, targeting a branching-ratio sensitivity of 6x10^-14",
+      "value": "Search for the charged-lepton-flavor-violating decay μ⁺ → e⁺ γ with roughly an order of magnitude better sensitivity than MEG, targeting a branching-ratio sensitivity of 6×10⁻¹⁴",
       "verified_at": "2026-09-17"
     }
   ],
@@ -134,7 +133,7 @@
   "status": "active",
   "summary": {
     "plain": "The upgraded version of MEG at the same Swiss laboratory, hunting for the same forbidden muon decay with about ten times better sensitivity. It has been taking data since 2021 and is still running.",
-    "technical": "MEG II: upgrade of MEG on the PSI piE5 DC muon beamline, with an upgraded LXe calorimeter, new cylindrical drift chamber, timing counter and radiative decay counter, targeting a branching-ratio sensitivity of 6x10^-14 for mu+ -> e+ gamma. First physics run 2021; a ten-fold larger dataset collected 2022-2023 with data-taking continuing. See result:meg-ii-mu-to-e-gamma-limit-2024 for the first-dataset limit."
+    "technical": "MEG II: upgrade of MEG on the PSI piE5 DC muon beamline, with an upgraded LXe calorimeter, new cylindrical drift chamber, timing counter and radiative decay counter, targeting a branching-ratio sensitivity of 6×10⁻¹⁴ for μ⁺ → e⁺ γ. First physics run 2021; a ten-fold larger dataset collected 2022-2023 with data-taking continuing. See result:meg-ii-mu-to-e-gamma-limit-2024 for the first-dataset limit."
   },
   "topic_ids": [
     "topic:lepton-flavor-violation",
@@ -145,12 +144,12 @@
     {
       "confidence": "verified",
       "note": "",
-      "quote": "Liquid Xenon Calorimeter...Cylindrical Drift Chamber...Timing Counter...Target and Radial Drift Chamber (RDC)",
+      "quote": "A beam of surface µ+ is extracted from the πE5 channel of the PSI high-intensity proton accelerator complex, as in MEG ... newly designed single-volume cylindrical drift chamber (CDCH) ... a new pixelated timing counter (pTC) ... an upgraded LXe photon detector ... the Radiative Decay Counter (RDC)",
       "sources": [
-        "src:muons-meg-icepp-site"
+        "src:rf07-meg-ii-design-arxiv-1801-04688"
       ],
       "value": "Upgraded liquid xenon calorimeter, cylindrical drift chamber and timing counter, plus a radiative decay counter, on the same PSI piE5 DC muon beamline used by MEG",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ]
 }

@@ -4,16 +4,15 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 47.60306,
-    "locator": "infobox",
-    "lon": 8.18472,
-    "note": "Campus-level coordinate from Wikipedia's infobox (geocoder/Wikipedia is acceptable only at kind:campus, labelled approximate, per v0.2 A17). No official plant-operator page or geodetic source was fetched in this pass. Sign/hemisphere sanity-checked: Leibstadt, Switzerland is in the northern hemisphere (positive lat) and east of the prime meridian (positive lon) — consistent.",
-    "precision_m": 200,
-    "quote": "47°36′11″N 8°11′05″E / 47.60306°N 8.18472°E",
+    "lat": 47.601617,
+    "locator": "centroid of OpenStreetMap way 608881797 (dome-roofed reactor building part containing the plant's power=generator node)",
+    "lon": 8.1827,
+    "note": "Campus point at the reactor building. The previous Wikipedia point was 221 m from it, outside its own 200 m precision.",
+    "precision_m": 100,
     "sources": [
-      "src:cevns-conus-leibstadt-wikipedia"
+      "src:geo-leibstadt-osm-extract-2026-10"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "country": "CH",
   "coverage": {
@@ -39,7 +38,8 @@
   "schema": "hep-atlas/0.2",
   "setting": "surface",
   "sources": [
-    "src:cevns-conus-leibstadt-wikipedia"
+    "src:cevns-conus-leibstadt-wikipedia",
+    "src:geo-leibstadt-osm-extract-2026-10"
   ],
   "summary": {
     "plain": "A nuclear power plant on the Rhine in northern Switzerland, hosting the relocated CONUS+ experiment just under 21 metres from the reactor core since late 2023.",

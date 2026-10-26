@@ -15,39 +15,35 @@
   "intervals": [
     {
       "confidence": "verified",
-      "end": null,
+      "end": "1970-12-01",
       "kind": "phase",
       "label": "construction",
-      "locator": "article 'The birth of Fermilab'",
-      "note": "The news article states the 1 December 1968 groundbreaking was for the linac, the first part of the accelerator complex. No completion date sourced. Recorded as a phase annotation: the source gives the groundbreaking date but no completion, so it marks a milestone rather than an ongoing state.",
-      "quote": "the lab broke ground for its first accelerator on Dec. 1, 1968.",
+      "locator": "Fermilab History and Archives, page 'Accelerator History', section 'Linacs'; start also: article 'The birth of Fermilab'",
+      "note": "The news article states the 1 December 1968 groundbreaking was for the linac, the first part of the accelerator complex. No completion date sourced. Recorded as a phase annotation: the source gives the groundbreaking date but no completion, so it marks a milestone rather than an ongoing state. The Fermilab accelerator-history page says the Linac \"achieved its design energy of 200 MeV exactly two years later, on December 1, 1970\" (another paper dates the first 200 MeV beam to 30 November 1970: arXiv:physics/0008176).",
+      "quote": "The groundbreaking for the Linac was on December 1, 1968 and it achieved its design energy of 200 MeV exactly two years later, on December 1, 1970.",
       "sources": [
+        "src:rv-fnal-history-accelerator-history",
         "src:fermilab-news-birth-of-fermilab-2017"
       ],
       "start": "1968-12-01",
       "status": "construction",
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
     },
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "end": null,
       "label": "operating",
-      "locator": "§1.1, accelerator complex",
-      "note": "Evidence date, not a commissioning date: this is the earliest operation of the machine documented by a source fetched in this session (NuMI beam paper, MINOS data taking from 20 May 2005). The machine has run since the 1970s; no fetchable source gave its commissioning date (fnal.gov and history.fnal.gov returned HTTP 403).",
-      "quote": "Protons originate as H - ions in the Linac which accelerates them to 400 MeV.",
+      "locator": "Fermilab History and Archives, page 'Accelerator History', section 'Linacs'",
+      "note": "Start is the day the Linac reached its design energy of 200 MeV (1 December 1970). The same page says the Linac was upgraded in the early 1990s to a new design energy of 400 MeV on 4 September 1993 (the 400 MeV machine is the one the NuMI beam paper describes); NuMI beam data taking from 20 May 2005 documents it as operating. The NuMI paper is cited at section 2, PDF p. 6 (see the sources).",
+      "quote": "The groundbreaking for the Linac was on December 1, 1968 and it achieved its design energy of 200 MeV exactly two years later, on December 1, 1970.",
       "sources": [
+        "src:rv-fnal-history-accelerator-history",
         "src:fermilab-numi-beam-paper-2016",
         "src:fermilab-proton-complex-status-2017"
       ],
-      "start": {
-        "approx": true,
-        "date": "2005",
-        "display": "in operation by 2005; commissioning date not sourced",
-        "earliest": "1968",
-        "latest": "2005"
-      },
+      "start": "1970-12-01",
       "status": "active",
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
     }
   ],
   "is_collider": false,
@@ -73,7 +69,7 @@
       "confidence": "verified",
       "dimension": "energy",
       "display": "400 MeV",
-      "locator": "§1.1, accelerator complex",
+      "locator": "§4.2 NuMI Mode of Operation; arXiv PDF p. 50",
       "note": "",
       "quote": "Subsequently a 201.2 MHz linac accelerates them to 400 MeV",
       "sources": [

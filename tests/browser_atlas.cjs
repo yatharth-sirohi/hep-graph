@@ -15,6 +15,9 @@ if (!ENGINES[BROWSER_NAME]) {
   throw new Error(`Unknown HEP_BROWSER "${BROWSER_NAME}" — expected chromium, firefox or webkit`);
 }
 const engine = ENGINES[BROWSER_NAME];
+// Firefox has no mobile emulation (`isMobile` throws); it still gets the touch
+// flag and the phone-sized viewport.
+const MOBILE = BROWSER_NAME === "firefox" ? { hasTouch: true } : { isMobile: true, hasTouch: true };
 
 function launchOptions(extra = {}) {
   const opts = { headless: true, ...extra };
@@ -189,6 +192,88 @@ async function setRangeValue(locator, value) {
     assert.match(panelText, /1285 ?km|1,285 ?km/);
   });
 
+  await record("Search is one combobox: first option active, Enter opens it, arrows move, Escape closes", async () => {
+    // A fresh context: the next test continues from the DUNE panel left open here.
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 960 } });
+    const p = await ctx.newPage();
+    await p.goto(`${base}/atlas${dataTree}`);
+    await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+    const active = () => p.evaluate(() => {
+      const input = document.getElementById("atlas-search");
+      const id = input.getAttribute("aria-activedescendant");
+      const el = id && document.getElementById(id);
+      return {
+        text: el ? el.textContent : null,
+        selected: el ? el.getAttribute("aria-selected") : null,
+        highlighted: document.querySelectorAll(".search-result.is-active").length,
+        expanded: input.getAttribute("aria-expanded"),
+        role: input.getAttribute("role"),
+      };
+    });
+    await p.locator("#atlas-search").click();
+    await p.keyboard.type("Fermilab");
+    await p.locator(".search-result").first().waitFor();
+    const first = await active();
+    assert.ok(first.text, "the first option must be active as soon as the list appears");
+    assert.deepEqual([first.selected, first.highlighted, first.expanded, first.role], ["true", 1, "true", "combobox"]);
+    await p.keyboard.press("ArrowDown");
+    const second = await active();
+    assert.notEqual(second.text, first.text, "ArrowDown moves the active option");
+    assert.equal(second.highlighted, 1, "exactly one option is highlighted at a time");
+    await p.keyboard.press("ArrowUp");
+    assert.equal((await active()).text, first.text, "ArrowUp moves it back");
+    await p.keyboard.press("Escape");
+    assert.equal((await active()).expanded, "false", "Escape closes the list");
+    assert.equal(await p.locator("#search-results").isHidden(), true);
+    // Enter opens the top result — here with the list dismissed, so it also
+    // proves Enter asks for the query again rather than doing nothing.
+    await p.keyboard.press("Enter");
+    const type = first.text.split(" — ").pop().toLowerCase();
+    await p.waitForFunction((prefix) => location.hash.startsWith(prefix), `#/${type}/`);
+    await p.locator("#detail-panel h2").waitFor();
+    // Escape inside the search box belongs to the search box, not to the open panel.
+    await p.locator("#atlas-search").click();
+    await p.keyboard.type("DUNE");
+    await p.locator(".search-result").first().waitFor();
+    await p.keyboard.press("Escape");
+    assert.equal(await p.locator("#detail-panel").isHidden(), false, "Escape that closes the list must leave the record panel open");
+    await ctx.close();
+  });
+
+  await record("Filter groups: long ones start collapsed, headers carry the count, Clear all filters appears only while one is active", async () => {
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 960 } });
+    const p = await ctx.newPage();
+    await p.goto(`${base}/atlas${dataTree}`);
+    await p.locator("#filters-controls .filter-group").first().waitFor();
+    // The checkboxes exist before the app has subscribed to state changes (the
+    // globe loads first), and a change made in that gap updates the URL but
+    // not the panel: wait until the globe has markers, as the other checks do.
+    await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 30000 });
+    const groups = () => p.evaluate(() => Object.fromEntries([...document.querySelectorAll("#filters-controls .filter-group")]
+      .map((d) => [d.dataset.facet, { open: d.open, header: d.querySelector("summary").textContent.trim() }])));
+    const before = await groups();
+    assert.equal(before.topic.open, false, "Research topic starts collapsed");
+    assert.equal(before.experimentKind.open, false, "Experiment kind starts collapsed");
+    assert.equal(before.region.open, true, "the short groups stay open");
+    assert.equal(await p.locator("#filter-clear-all").count(), 0, "no Clear all filters while nothing is active");
+    await p.locator('.filter-group[data-facet="topic"] > summary').click();
+    await p.locator('.filter-group[data-facet="topic"] input[type=checkbox]').first().check({ force: true });
+    assert.match((await groups()).topic.header, /1 selected$/);
+    await p.locator("#filter-clear-all").waitFor();
+    // Collapse it again, then change another facet: it must stay collapsed and keep its count.
+    await p.locator('.filter-group[data-facet="topic"] > summary').click();
+    await p.locator("#filter-region-Europe").check({ force: true });
+    const after = await groups();
+    assert.equal(after.topic.open, false, "ticking another facet must not re-open a group the reader closed");
+    assert.match(after.topic.header, /1 selected$/, "a collapsed group still shows its selection count");
+    assert.match(after.region.header, /1 selected$/);
+    await p.locator("#filter-clear-all").click();
+    await p.waitForFunction(() => !document.getElementById("filter-clear-all"));
+    assert.doesNotMatch(p.url(), /[?&](t|rg)=/, "Clear all filters removes the parameters from the URL");
+    assert.doesNotMatch((await groups()).topic.header, /selected/);
+    await ctx.close();
+  });
+
   await record("Collaboration mode shows institution dots on the globe", async () => {
     await page.locator(".collab-line .collab-link").first().click();
     await page.locator("#detail-panel h2", { hasText: "DUNE Collaboration" }).waitFor();
@@ -201,11 +286,23 @@ async function setRangeValue(locator, value) {
     // is worded "Partial roster: N confirmed institutions (+M undated)…; the
     // full membership is larger" — never a bare "N members" that reads as a
     // complete count.
-    assert.match(panelText, /Partial roster: \d+ confirmed institutions \(\+\d+ undated\)[^.]*the full membership is larger/);
-    assert.doesNotMatch(panelText, /\b0 confirmed institutions\b(?!\s*\()/, "DUNE has a real, nonzero confirmed-member count");
+    // Release-candidate review F12: the generated roster is the collaboration's
+    // official institution list with no individual dates (`counts` all zero), and
+    // "Partial roster: 0 confirmed institutions" over it read as an empty roster.
+    // It says what the list is instead; a roster with dated rows keeps the
+    // confirmed/undated wording.
+    if (process.env.HEP_ATLAS_DATA === "generated") {
+      assert.match(panelText, /\d+ institutions on the official list as of \d{4}-\d{2}, not individually dated/);
+    } else {
+      assert.match(panelText, /Partial roster: \d+ confirmed institutions \(\+\d+ undated\)[^.]*the full membership is larger/);
+    }
+    assert.doesNotMatch(panelText, /\b0 confirmed institutions\b(?!\s*\()/, "a roster is never described as 0 confirmed institutions");
     await page.locator("#view-on-globe").click();
     await page.waitForFunction(() => document.querySelectorAll(".atlas-marker.tier-institution").length > 0, { timeout: 10000 });
-    assert.ok(await page.locator(".atlas-marker.tier-institution").count() > 0);
+    // The camera's fly-to rebuilds the marker layer once (the dots blink out
+    // for ~0.4 s); judge the settled globe.
+    await page.waitForTimeout(1500);
+    await page.waitForFunction(() => document.querySelectorAll(".atlas-marker.tier-institution").length > 0, { timeout: 10000 });
   });
 
   await record("Experiment status badge follows the selected timeline year, not just build-time status", async () => {
@@ -260,6 +357,204 @@ async function setRangeValue(locator, value) {
     assert.doesNotMatch(subtitle, /·\s*$/, "document subtitle must not end in a dangling separator");
     assert.match(subtitle, /\d{4}/, "document subtitle should carry a real year");
   });
+
+  // ---- Independent-review round (rv-panels) ----------------------------------
+  // Each of these was found by someone using the Atlas, not by this suite, and
+  // each failed silently: the page rendered, nothing threw. They need the real
+  // records (the fixtures have no Higgs topic or DUNE detectors), so they run
+  // against the generated tree only.
+  if (process.env.HEP_ATLAS_DATA === "generated") {
+    const freshReader = async (options = {}) => {
+      const ctx = await browser.newContext({ viewport: { width: 1440, height: 960 }, reducedMotion: "reduce", ...options });
+      const p = await ctx.newPage();
+      return { ctx, p };
+    };
+    const markerCounts = (p) => p.evaluate(() => ({
+      lit: document.querySelectorAll(".atlas-marker.is-highlighted").length,
+      muted: document.querySelectorAll(".atlas-marker.is-muted").length,
+    }));
+
+    await record("Topics: opening a topic highlights its experiments' facilities and mutes the rest, until the topic closes", async () => {
+      const { ctx, p } = await freshReader();
+      await p.goto(`${base}/atlas${dataTree}`);
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+      await p.locator('#mode-buttons [data-mode="topic"]').click();
+      await p.locator(".topic-link", { hasText: "Neutrino oscillations" }).click();
+      await p.locator("#detail-panel h2", { hasText: "Neutrino oscillations" }).waitFor();
+      // The highlight used to be set by the click and wiped by the route change
+      // that followed it, so the globe never showed which places the topic means.
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker.is-highlighted").length > 0, { timeout: 10000 });
+      const open = await markerCounts(p);
+      assert.ok(open.lit > 0 && open.muted > 0, `expected some markers lit and the rest muted, got ${JSON.stringify(open)}`);
+      await p.keyboard.press("Escape");
+      await p.waitForFunction(() => document.getElementById("detail-panel").classList.contains("hidden"));
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker.is-highlighted, .atlas-marker.is-muted").length === 0);
+      await ctx.close();
+    });
+
+    await record("Results: filters, sort and grouping live in the URL, survive Back from an opened result, and arrive in a shared link", async () => {
+      const { ctx, p } = await freshReader();
+      await p.goto(`${base}/atlas${dataTree}`);
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+      await p.locator('#mode-buttons [data-mode="results"]').click();
+      await p.locator("#results-mode-list li").first().waitFor();
+      await p.selectOption("#results-filter-topic", "topic:higgs-physics");
+      await p.selectOption("#results-filter-type", "observation");
+      await p.selectOption("#results-sort", "experiment");
+      await p.locator("#results-group-experiment").click();
+      const view = () => p.evaluate(() => ({
+        count: document.getElementById("results-count").textContent,
+        topic: document.getElementById("results-filter-topic").value,
+        type: document.getElementById("results-filter-type").value,
+        sort: document.getElementById("results-sort").value,
+        grouped: document.getElementById("results-group-experiment").getAttribute("aria-pressed"),
+      }));
+      const filtered = await view();
+      assert.deepEqual([filtered.topic, filtered.type, filtered.sort, filtered.grouped],
+        ["topic:higgs-physics", "observation", "experiment", "true"]);
+      const shared = p.url();
+      assert.match(shared, /[?&]rt=topic%3Ahiggs-physics/, "the topic filter is in the address");
+      assert.match(shared, /[?&]rs=experiment/, "the sort is in the address");
+      await p.locator("#results-mode-list .result-title").first().click();
+      await p.locator("#detail-panel h2").waitFor();
+      assert.doesNotMatch(p.url(), /[?&]rt=/, "an opened result's address does not carry the list's filters");
+      await p.goBack();
+      await p.locator("#results-mode-list li").first().waitFor();
+      assert.deepEqual(await view(), filtered, "Back restores the same filtered, sorted, grouped list");
+      const q = await ctx.newPage();
+      await q.goto(shared);
+      await q.locator("#results-mode-list li").first().waitFor();
+      assert.equal(await q.locator("#results-count").innerText(), filtered.count, "a shared link opens the same list");
+      assert.equal(await q.locator("#results-filter-topic").inputValue(), "topic:higgs-physics");
+      await ctx.close();
+    });
+
+    await record("Search reads words, not one string: Higgs reaches CERN, ATLAS, CMS and the CMS discovery; questions are never 'No matches'", async () => {
+      const { ctx, p } = await freshReader();
+      await p.goto(`${base}/atlas${dataTree}`);
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+      const rows = async (query) => {
+        await p.locator("#atlas-search").fill("");
+        await p.locator("#atlas-search").fill(query);
+        await p.locator("#search-results li").first().waitFor();
+        return p.evaluate(() => [...document.querySelectorAll("#search-results li")].map((li) => li.textContent.trim()));
+      };
+      const higgs = await rows("Higgs");
+      assert.match(higgs[0], /^Higgs physics — Topic$/, "the topic named Higgs is still first");
+      for (const wanted of [/^CERN — Facility/, /^ATLAS — Experiment/, /^CMS — Experiment/,
+        /^Observation of a new boson at a mass of 125 GeV — Result/]) {
+        assert.ok(higgs.some((row) => wanted.test(row)), `"Higgs" must offer ${wanted}; got ${JSON.stringify(higgs)}`);
+      }
+      assert.ok(higgs.find((row) => /^CMS — Experiment/.test(row)).includes("via Higgs physics"),
+        "a row reached through a topic says which");
+      for (const query of ["Higgs discovery", "where was the Higgs discovered"]) {
+        const found = await rows(query);
+        assert.ok(!found.includes("No matches."), `"${query}" must not be "No matches"`);
+        assert.ok(found.some((row) => /^Observation of a new boson at a mass of 125 GeV — Result/.test(row)),
+          `"${query}" must reach the CMS discovery paper; got ${JSON.stringify(found)}`);
+        // Release-candidate review F7: a question about a discovery is answered
+        // by the papers that announced it, not by later measurements.
+        if (process.env.HEP_ATLAS_DATA === "generated") {
+          assert.ok(found.slice(0, 2).every((row) => /^Observation of a new (boson|particle)/.test(row)),
+            `"${query}" must lead with the two 2012 discovery papers; got ${JSON.stringify(found.slice(0, 4))}`);
+        }
+      }
+      assert.deepEqual(await rows("pr\u00e9vessin"), await rows("PREVESSIN"), "accents and case do not matter");
+      assert.ok((await rows("Super Kamiokande"))[0].startsWith("Super-Kamiokande — Experiment"), "words match across a hyphen");
+      assert.deepEqual(await rows("zzzzqq"), ["No matches."], "a query no word of which is in the Atlas still says so");
+      assert.ok((await rows("zzzzqq Higgs")).length > 1, "one matching word is enough once all-words finds nothing");
+      await ctx.close();
+    });
+
+    await record("Experiment panel lists its detectors and the distance and bearing between its sites; a result says where", async () => {
+      const { ctx, p } = await freshReader();
+      await p.goto(`${base}/atlas${dataTree}#/experiment/dune`);
+      await p.locator("#detail-panel h2").waitFor();
+      const section = (title) => p.locator("#detail-panel details.panel-section", { has: p.locator("summary", { hasText: new RegExp(`^${title}$`) }) });
+      const detectors = await section("Detectors").locator("a.entity-link").allInnerTexts();
+      assert.equal(detectors.length, 5, `DUNE records five detectors, got ${JSON.stringify(detectors)}`);
+      assert.ok(detectors.some((name) => /Far Detector Module 1/.test(name)));
+      const beam = section("Beam and sites");
+      await beam.locator("summary").click();
+      const text = await beam.innerText();
+      assert.match(text, /Fermi National Accelerator Laboratory → Sanford Underground Research Facility: ≈ 12\d0 km, bearing 28\d° \(WNW\)/);
+      assert.ok(await beam.locator('a.local-map-link', { hasText: /Fermilab/ }).count() > 0, "the Fermilab local map is linked");
+      assert.ok(await beam.locator('a.local-map-link', { hasText: /SURF/ }).count() > 0, "the SURF local map is linked");
+      // A same-document hash change (Playwright's goto waits for a load that
+      // Firefox never fires for one).
+      await p.evaluate(() => { window.location.hash = "#/result/cms-higgs-boson-observation-2012"; });
+      await p.locator("#detail-panel .result-where").waitFor();
+      assert.match(await p.locator("#detail-panel .result-where").innerText(), /^Where: CERN \(local map\)$/);
+      await p.locator("#detail-panel .result-where a", { hasText: "local map" }).click();
+      await p.waitForFunction(() => location.hash === "#/map/cern");
+      await ctx.close();
+    });
+
+    await record("A detector with only a direction line on a map is never 'shown to scale' there; its own site's map is the to-scale link", async () => {
+      const { ctx, p } = await freshReader();
+      await p.goto(`${base}/atlas${dataTree}#/detector/dune-far-detector-1`);
+      await p.locator("#detail-panel .local-map-chip-row").waitFor();
+      const chips = await p.locator("#detail-panel .local-map-chip").allInnerTexts();
+      assert.ok(chips.some((t) => /^◎ Direction toward this detector drawn on the Fermilab.*map/.test(t)), JSON.stringify(chips));
+      assert.ok(!chips.some((t) => /Shown to scale on the Fermilab/.test(t)), "a direction line is not drawn to scale");
+      assert.ok(chips.some((t) => /^◎ Its site is shown to scale on the SURF/.test(t)), JSON.stringify(chips));
+      // A detector the map really draws keeps the plain claim.
+      await p.goto(`${base}/atlas${dataTree}#/detector/cdf`);
+      await p.waitForFunction(() => /CDF/.test(document.querySelector("#detail-panel h2")?.textContent || ""));
+      await p.locator("#detail-panel .local-map-chip").first().waitFor();
+      assert.match(await p.locator("#detail-panel .local-map-chip").first().innerText(), /^◎ Shown to scale on the Fermilab/);
+      await ctx.close();
+    });
+
+    await record("Timeline: Play at the last year starts again from the first year", async () => {
+      const { ctx, p } = await freshReader();
+      await p.goto(`${base}/atlas${dataTree}`);
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+      const maxYear = await p.locator("#timeline-year").getAttribute("max");
+      const minYear = await p.locator("#timeline-year").getAttribute("min");
+      await setRangeValue(p.locator("#timeline-year"), Number(maxYear));
+      await p.waitForFunction((y) => document.getElementById("timeline-readout").textContent.trim() === y, maxYear);
+      await p.locator("#timeline-play").click();
+      assert.equal(await p.locator("#timeline-play").getAttribute("aria-pressed"), "true", "Play is running");
+      await p.waitForFunction((y) => document.getElementById("timeline-readout").textContent.trim() === y, minYear);
+      await p.locator("#timeline-play").click();
+      await ctx.close();
+    });
+
+    await record("Topic panel: physics results come first, technology milestones follow under their own heading", async () => {
+      const { ctx, p } = await freshReader();
+      await p.goto(`${base}/atlas${dataTree}#/topic/neutrino-oscillations`);
+      await p.locator("#detail-panel h2").waitFor();
+      const related = p.locator("#detail-panel details.panel-section", { has: p.locator("summary", { hasText: /^Related results$/ }) });
+      await related.locator("summary").click();
+      const order = await related.evaluate((el) => [...el.querySelectorAll(".panel-section-body > *")].map((node) => (
+        node.tagName === "H4" ? `H4:${node.textContent}` : `UL:${[...node.querySelectorAll("a")].map((a) => a.textContent).join("|")}`)));
+      assert.equal(order.length, 3, JSON.stringify(order));
+      assert.equal(order[1], "H4:Technology milestones");
+      assert.doesNotMatch(order[0], /Excavation of (colossal caverns|the DUNE far-site caverns)/, "a milestone is not among the physics results");
+      assert.match(order[2], /Excavation of (colossal caverns|the DUNE far-site caverns)/);
+      await ctx.close();
+    });
+
+    await record("Copy share link without clipboard access says what to do and offers the link in a selected read-only field", async () => {
+      const { ctx, p } = await freshReader({ viewport: { width: 390, height: 844 }, hasTouch: true });
+      await p.addInitScript(() => {
+        Object.defineProperty(navigator, "clipboard", { value: { writeText: () => Promise.reject(new Error("denied")) } });
+      });
+      await p.goto(`${base}/atlas${dataTree}`);
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+      await p.locator("#share-link").click();
+      const field = p.locator("#share-status input.share-url");
+      await field.waitFor();
+      assert.equal(await field.getAttribute("readonly"), "");
+      assert.equal(await field.inputValue(), p.url());
+      assert.equal((await p.locator("#share-status .share-status-text").innerText()).trim(), "Press and hold to copy");
+      assert.doesNotMatch(await p.locator("#share-status").innerText(), /https?:/, "the raw address is not dumped into the status line");
+      const selected = await field.evaluate((el) => el.selectionStart === 0 && el.selectionEnd === el.value.length);
+      assert.ok(selected, "the whole link is selected");
+      await ctx.close();
+    });
+  }
 
   // Workstream A1: site/detector/accelerator/beamline routes. Before this,
   // state.js's TYPE_PREFIX and panels.js's RENDERERS both lacked these four
@@ -348,8 +643,10 @@ async function setRangeValue(locator, value) {
     const historical = sections.find((s) => s.heading.includes("Historical experiments"));
     const future = sections.find((s) => s.heading.includes("Future"));
     assert.ok(current && current.text.includes(duneHeading), "DUNE should be listed under Current experiments at Fermilab");
-    assert.ok(historical && !historical.text.includes(duneHeading), "DUNE must not also be listed under Historical experiments");
-    assert.ok(future, "a Future / planned experiments section should exist alongside current and historical");
+    // A section the Atlas has nothing for is not drawn at all, so "not under
+    // Historical / Future" means either no such section or one without DUNE.
+    assert.ok(!historical || !historical.text.includes(duneHeading), "DUNE must not also be listed under Historical experiments");
+    assert.ok(!future || !future.text.includes(duneHeading), "DUNE must not be listed under Future / planned experiments");
   });
 
   await record("Setting the year to 1990 hides the not-yet-built ATLAS cavern site", async () => {
@@ -376,16 +673,18 @@ async function setRangeValue(locator, value) {
     // unchanged either way.
     await freshPage.waitForTimeout(1200);
     await setRangeValue(freshPage.locator("#timeline-year"), 1990);
+    // Gone from the layer outright, or still attached but marked absent/dimmed
+    // (with motion allowed, a removed marker lingers through its exit tween).
     await freshPage.waitForFunction((selector) => {
       const el = document.querySelector(selector);
-      return !!el && (el.classList.contains("is-absent") || el.classList.contains("is-dimmed"));
+      return !el || el.classList.contains("is-absent") || el.classList.contains("is-dimmed");
     }, atlasCavernSelector, { timeout: 15000 });
-    const state = await freshPage.locator(atlasCavernSelector).evaluate((el) => ({
-      absent: el.classList.contains("is-absent"),
-      dimmed: el.classList.contains("is-dimmed"),
-      display: getComputedStyle(el).display,
-    }));
-    assert.ok(state.absent || state.dimmed, "ATLAS site marker should be absent or dimmed at 1990");
+    const state = await freshPage.evaluate((selector) => {
+      const el = document.querySelector(selector);
+      return el ? { removed: false, absent: el.classList.contains("is-absent"),
+        dimmed: el.classList.contains("is-dimmed"), display: getComputedStyle(el).display } : { removed: true };
+    }, atlasCavernSelector);
+    assert.ok(state.removed || state.absent || state.dimmed, "ATLAS site marker should be gone, absent or dimmed at 1990");
     if (state.absent) assert.equal(state.display, "none");
     await freshContext.close();
   });
@@ -401,6 +700,12 @@ async function setRangeValue(locator, value) {
         .map((dd) => dd.textContent);
     });
     assert.deepEqual(overflowing, [], "no key-spec value should render past the detail panel's own right edge");
+    // The label column once took everything and left values 28 px wide (one
+    // character per line): a value must always have room for a real word.
+    const slivers = await page.evaluate(() => [...document.querySelectorAll("#detail-panel .kv-list dd")]
+      .filter((dd) => dd.getBoundingClientRect().width < 120)
+      .map((dd) => `${dd.previousElementSibling.textContent}: ${Math.round(dd.getBoundingClientRect().width)}px`));
+    assert.deepEqual(slivers, [], "no key-spec value may be squeezed into a sliver by its label");
   });
 
   await record("Site-tier globe markers have an enlarged tap target", async () => {
@@ -447,7 +752,7 @@ async function setRangeValue(locator, value) {
     await freshPage.waitForFunction(() => {
       const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
       const details = summaries.find((s) => s.textContent.trim() === "Sources")?.closest("details");
-      return !!details && details.open && !details.querySelector(".loading-note");
+      return !!details && details.open && ["loaded", "error"].includes(details.dataset.state);
     }, { timeout: 10000 });
     assert.ok(requested.some((u) => u.includes("provenance.json")), "opening the Sources disclosure must fetch provenance.json");
     assert.ok(requested.some((u) => u.includes("sources.json")), "opening the Sources disclosure must fetch sources.json");
@@ -531,7 +836,7 @@ async function setRangeValue(locator, value) {
       await page.waitForFunction(() => {
         const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
         const details = summaries.find((s) => s.textContent.trim() === "Sources")?.closest("details");
-        return !!details && details.open && !details.querySelector(".loading-note");
+        return !!details && details.open && ["loaded", "error"].includes(details.dataset.state);
       }, { timeout: 10000 });
       const sourcesText = await detailsText("Sources");
       assert.match(sourcesText || "", /Approximate location — Rutherford Appleton Laboratory/,
@@ -623,9 +928,16 @@ async function setRangeValue(locator, value) {
         const at = await p.evaluate((gid) => {
           const el = document.querySelector(`path[data-geometry-id="${gid}"]`);
           if (!el) return null;
-          const point = el.getPointAtLength(el.getTotalLength() * 0.25);
-          const q = new DOMPoint(point.x, point.y).matrixTransform(el.getScreenCTM());
-          return { x: q.x, y: q.y };
+          // Click a point of the path that is topmost there: where two rings
+          // touch (the Booster and the Tevatron), the other one may be on top.
+          let fallback = null;
+          for (const f of [0.25, 0.4, 0.6, 0.75, 0.1, 0.9, 0.5]) {
+            const point = el.getPointAtLength(el.getTotalLength() * f);
+            const q = new DOMPoint(point.x, point.y).matrixTransform(el.getScreenCTM());
+            fallback = fallback || { x: q.x, y: q.y };
+            if (document.elementFromPoint(q.x, q.y) === el) return { x: q.x, y: q.y };
+          }
+          return fallback;
         }, geometryId);
         assert.ok(at, `expected a drawn path for ${geometryId}`);
         await p.mouse.click(at.x, at.y);
@@ -707,48 +1019,57 @@ async function setRangeValue(locator, value) {
         await mapContext.close();
       });
 
-      await record("Local map: the opening view is framed by center/extent_m, not by the features", async () => {
+      await record("Local map: the opening view is framed to the features it draws", async () => {
         const { mapContext, p } = await openMap();
-        const framing = await p.evaluate(() => {
+        await p.waitForTimeout(1500);
+        // A campus boundary is context, not framed when structures are drawn.
+        const boundaryIds = geometry.features.filter((f) => f.feature_type === "boundary").map((f) => f.id);
+        const framing = await p.evaluate((boundaries) => {
           const m = window.__hepAtlasLocalMap;
+          const c = document.querySelector(".leaflet-container").getBoundingClientRect();
+          // The drawn structures, not the inferred-direction lines (bearings
+          // that run hundreds of km and are clipped at the map edge).
+          const drawnPaths = [...document.querySelectorAll(".leaflet-overlay-pane path[data-geometry-id]")]
+            .filter((el) => el.getAttribute("data-representation") !== "inferred_direction");
+          const structures = drawnPaths.filter((el) => !boundaries.includes(el.getAttribute("data-geometry-id")));
+          const boxes = (structures.length ? structures : drawnPaths)
+            .map((el) => el.getBoundingClientRect())
+            .filter((r) => r.width || r.height);
+          const left = Math.min(...boxes.map((r) => r.left)) - c.left;
+          const right = c.right - Math.max(...boxes.map((r) => r.right));
+          const top = Math.min(...boxes.map((r) => r.top)) - c.top;
+          const bottom = c.bottom - Math.max(...boxes.map((r) => r.bottom));
           const size = m.getSize();
-          const mid = size.y / 2;
           return {
-            centre: [m.getCenter().lat, m.getCenter().lng],
-            widthM: m.distance(m.containerPointToLatLng([0, mid]), m.containerPointToLatLng([size.x, mid])),
+            drawn: boxes.length, left, right, top, bottom, sx: size.x, sy: size.y,
+            widthM: m.distance(m.containerPointToLatLng([0, size.y / 2]), m.containerPointToLatLng([size.x, size.y / 2])),
             heightM: m.distance(m.containerPointToLatLng([size.x / 2, 0]), m.containerPointToLatLng([size.x / 2, size.y])),
-            sx: size.x, sy: size.y,
           };
-        });
-        // The record's own extent_m spans the shorter side of the stage.
-        const expectedShorter = 2 * meta.extent_m;
-        const measuredShorter = Math.min(framing.widthM, framing.heightM);
-        const error = Math.abs(measuredShorter - expectedShorter) / expectedShorter;
-        console.log("framing:", JSON.stringify({
-          map: mapId, extent_m: meta.extent_m, expectedShorter,
-          measuredShorter: Math.round(measuredShorter), errorPercent: Number((100 * error).toFixed(2)),
-        }));
-        assert.ok(error <= 0.02,
-          `opening view spans ${Math.round(measuredShorter)} m across its shorter side, but the map `
-          + `record declares extent_m ${meta.extent_m} (so ${expectedShorter} m) — ${(100 * error).toFixed(1)} % out`);
-        assert.ok(Math.abs(framing.centre[0] - meta.center.lat) < 0.01
-          && Math.abs(framing.centre[1] - meta.center.lon) < 0.01,
-        "the opening view is centred on the record's own centre");
-
-        // And the decisive case: a map carrying a feature far outside its
-        // extent must still open at its extent. Fitting the features would
-        // zoom a campus out to nothing to accommodate an inferred-direction
-        // line that is not a structure (T2K's is 295 km, CNGS's 730 km).
-        const far = geometry.features.reduce((acc, f) => {
-          const c = f.measured && f.measured.centroid;
-          if (!c) return acc;
-          const dx = (c[0] - meta.center.lon) * 111320 * Math.cos(meta.center.lat * Math.PI / 180);
-          const dy = (c[1] - meta.center.lat) * 110540;
-          return Math.max(acc, Math.hypot(dx, dy));
-        }, 0);
-        console.log(`farthest feature centroid on ${mapId}: ${Math.round(far)} m from the centre`);
-        assert.ok(measuredShorter < 4 * expectedShorter,
-          "the opening view must not have been widened to fit the features");
+        }, boundaryIds);
+        console.log("framing:", JSON.stringify({ map: mapId, extent_m: meta.extent_m,
+          drawn: framing.drawn, margins: [framing.left, framing.right, framing.top, framing.bottom].map(Math.round) }));
+        assert.ok(framing.drawn > 0, "the map draws features");
+        // Nothing the map draws is cut off by the edge of the stage...
+        for (const side of ["left", "right", "top", "bottom"]) {
+          assert.ok(framing[side] >= 0, `the drawn features run off the ${side} edge of the opening view (${framing[side].toFixed(0)} px)`);
+        }
+        // ...and the facility is not left at one edge of empty land: the margin
+        // on the emptier side of each axis is at most 3x the tighter one, or
+        // the zoom cap (never finer than a sixth of extent_m) is what stopped it.
+        const shorter = Math.min(framing.widthM, framing.heightM);
+        const capped = shorter <= 2 * (meta.extent_m / 6) * 1.02;
+        if (!capped) {
+          const lopsided = (a, b) => Math.max(a, b) > 3 * Math.max(Math.min(a, b), 60);
+          assert.ok(!lopsided(framing.left, framing.right),
+            `the features sit against one side: margins left ${framing.left.toFixed(0)} px, right ${framing.right.toFixed(0)} px`);
+          assert.ok(!lopsided(framing.top, framing.bottom),
+            `the features sit against one edge: margins top ${framing.top.toFixed(0)} px, bottom ${framing.bottom.toFixed(0)} px`);
+        }
+        // A map carrying a feature far outside its extent must still frame the
+        // campus: the inferred-direction line (T2K's is 295 km, CNGS's 730 km)
+        // is not part of the frame.
+        assert.ok(shorter < 4 * 2 * meta.extent_m,
+          "the opening view must not have been widened to fit a far-away line");
         await mapContext.close();
       });
 
@@ -876,7 +1197,10 @@ async function setRangeValue(locator, value) {
           }
           assert.equal(await p.locator(`path[data-geometry-id="${pointFeature.id}"]`).count(), 1,
             "a Point feature is an SVG path, so it carries the same four encodings as every other feature");
-          assert.equal(await p.locator(".leaflet-marker-icon").count(), 0,
+          // The only marker-pane elements allowed are the point symbols that
+          // stand in for a footprint drawn smaller than a few pixels
+          // (.map-symbol-icon, a styled <div>); a default pin (<img>) is not.
+          assert.equal(await p.locator(".leaflet-marker-icon:not(.map-symbol-icon)").count(), 0,
             "no default Leaflet pin markers anywhere: a pin would assert a footprint no source gives");
           assert.match(await row.innerText(), /position only/i,
             "the list row says only the position is known");
@@ -950,6 +1274,13 @@ async function setRangeValue(locator, value) {
               tiles: document.querySelectorAll("img.leaflet-tile").length,
               basemapDisabled: document.getElementById("map-basemap-toggle").disabled,
               paths: document.querySelectorAll(".leaflet-overlay-pane svg path").length,
+              drawnInside: (() => {
+                const c = document.querySelector(".leaflet-container").getBoundingClientRect();
+                const boxes = [...document.querySelectorAll(".leaflet-overlay-pane path[data-geometry-id]")]
+                  .map((el) => el.getBoundingClientRect()).filter((r) => r.width || r.height);
+                return boxes.length > 0 && boxes.every((r) => r.left >= c.left && r.right <= c.right
+                  && r.top >= c.top && r.bottom <= c.bottom);
+              })(),
             };
           });
           console.log("polar map:", polarMapId, JSON.stringify(info));
@@ -963,10 +1294,13 @@ async function setRangeValue(locator, value) {
           assert.equal(info.tiles, 0, "no Web Mercator basemap tiles are requested at a pole");
           assert.equal(info.basemapDisabled, true, "the basemap toggle is disabled, not merely off");
           assert.match(await p.locator("#map-basemap-unavailable").innerText(), /No basemap at the pole/i);
-          const expectedShorter = 2 * polarMeta.extent_m;
+          // Framed to what the map draws, in the metre grid: a finite span in
+          // metres (not NaN, which is what projecting a lat/lng box around a pole
+          // gives) with every drawn shape inside the view.
           const measuredShorter = Math.min(info.widthM, info.heightM);
-          assert.ok(Math.abs(measuredShorter - expectedShorter) / expectedShorter <= 0.02,
-            `polar opening view spans ${Math.round(measuredShorter)} m, want ${expectedShorter} m`);
+          assert.ok(Number.isFinite(measuredShorter) && measuredShorter > 0,
+            `polar opening view spans ${measuredShorter} m, want a finite span in metres`);
+          assert.ok(info.drawnInside, "everything the polar map draws is inside its opening view");
           assert.ok(info.paths > 0, "the features are drawn on the plain background");
           assert.deepEqual(polarErrors, [], "no uncaught errors on a polar map");
           await mapContext.close();
@@ -1274,7 +1608,7 @@ async function setRangeValue(locator, value) {
         await mapContext.close();
 
         const phoneContext = await browser.newContext({
-          viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, reducedMotion: "reduce",
+          viewport: { width: 390, height: 844 }, ...MOBILE, reducedMotion: "reduce",
         });
         phoneContext.on("page", (pg) => pg.on("pageerror", (e) => errors.push(`map view (mobile): ${e.message}`)));
         const phone = await phoneContext.newPage();
@@ -1284,11 +1618,15 @@ async function setRangeValue(locator, value) {
         await phone.waitForTimeout(1200);
         const overflow = await phone.evaluate(() => document.documentElement.scrollWidth);
         assert.ok(overflow <= 392, `expected no horizontal overflow at 390 px, got ${overflow}`);
-        await phone.locator("[data-feature-row]").first().click();
+        // On a phone the layer list is a bottom sheet behind a header button
+        // (js/phone.js); the feature rows are only reachable once it is open.
+        await phone.locator("#phone-layers-btn").tap();
+        await phone.locator("[data-feature-row]").first().tap();
         await phone.locator("#map-drawer-title").waitFor({ timeout: 15000 });
         const sheet = await phone.locator(".map-drawer").boundingBox();
-        assert.ok(sheet.y + sheet.height >= 840,
-          "on a phone the drawer is a bottom sheet anchored to the bottom of the viewport");
+        const timeline = await phone.locator("#timeline-bar").boundingBox();
+        assert.ok(Math.abs(sheet.y + sheet.height - timeline.y) <= 2,
+          "on a phone the drawer is a bottom sheet resting on the timeline bar, which stays reachable");
         await phone.screenshot({ path: path.join(output, "local-map-390x844.png") });
         await phoneContext.close();
       });
@@ -1389,7 +1727,13 @@ async function setRangeValue(locator, value) {
       afterRegion,
       { timeout: 15000 },
     );
-    assert.equal(await page.locator("#filter-region-Europe").isChecked(), true, "reload must restore the checked filter");
+    await page.locator("#filter-region-Europe").waitFor({ state: "attached", timeout: 15000 });
+    const restored = await page.evaluate(() => {
+      const box = document.getElementById("filter-region-Europe");
+      return { exists: !!box, checked: !!(box && box.checked), url: location.href,
+        chips: [...document.querySelectorAll(".filter-chip")].map((c) => c.textContent.trim()) };
+    });
+    assert.equal(restored.checked, true, `reload must restore the checked filter: ${JSON.stringify(restored)} (reloaded ${urlWithRegionOnly})`);
 
     // AND composition: adding a second facet must narrow the set further
     // (never widen it) — a region with no "planned" facility legitimately
@@ -1427,7 +1771,7 @@ async function setRangeValue(locator, value) {
     // merge and split with altitude), and the reloads above may leave the
     // camera elsewhere than the cold-load default; the invariant is that
     // clearing widens the set beyond the Europe-only subset.
-    await page.locator(".filter-chip.filter-clear-all").click();
+    await page.locator("#filter-clear-all").click();
     await page.waitForFunction(
       (n) => document.querySelectorAll(".atlas-marker").length > n
         && document.querySelectorAll(".filter-chip").length === 0,
@@ -1555,6 +1899,29 @@ async function setRangeValue(locator, value) {
       .map((el) => Date.parse(el.textContent.trim().length === 4 ? `${el.textContent.trim()}-01-01` : el.textContent.trim()) || 0));
     const sortedDesc = [...dates].sort((a, b) => b - a);
     assert.deepEqual(dates, sortedDesc, "results must render newest-first by default");
+  });
+
+  await record("Results mode: 'Move timeline here' keeps the list's scroll position, its filters and keyboard focus", async () => {
+    await page.goto(`${base}/atlas${modeQuery("results")}`);
+    await page.locator("#results-mode-list").waitFor();
+    await page.waitForFunction(() => document.querySelectorAll("#results-mode-list .result-row").length > 5);
+    // Every state change (the timeline year included) used to rebuild this
+    // panel from scratch: back to the top, selects reset, focus on <body>.
+    await page.selectOption("#results-sort", "experiment");
+    const scroller = page.locator("#mode-panel .mode-scroll");
+    await scroller.evaluate((el) => { el.scrollTop = 400; });
+    const jump = page.locator("#results-mode-list .jump-year-btn").nth(8);
+    await jump.focus(); // scrolls the button into view; measure after that
+    const before = await scroller.evaluate((el) => el.scrollTop);
+    assert.ok(before > 0, "the results list must be tall enough to scroll in this check");
+    const year = await jump.evaluate((button) => button.closest("li").querySelector(".result-date").textContent.trim().slice(0, 4));
+    // The keyboard path (a click does not focus a button in WebKit on macOS).
+    await jump.press("Enter");
+    await page.waitForFunction((y) => document.querySelector("#timeline-readout").textContent.trim() === y, year);
+    assert.equal(await page.locator("#results-sort").inputValue(), "experiment", "a timeline move must not reset the sort control");
+    assert.ok(Math.abs(await scroller.evaluate((el) => el.scrollTop) - before) < 40, "a timeline move must not scroll the list back to the top");
+    assert.equal(await page.evaluate(() => document.activeElement && document.activeElement.className), "text-btn jump-year-btn",
+      "keyboard focus stays on the button that was pressed");
   });
 
   await record("Results mode: the sort control reorders rows; the group toggles bucket them and set aria-pressed", async () => {
@@ -1690,7 +2057,7 @@ async function setRangeValue(locator, value) {
   ]) {
     await record(`Mobile viewport ${viewport.name} avoids overflow and stays usable`, async () => {
       const mobile = await browser.newContext({
-        viewport: { width: viewport.width, height: viewport.height }, isMobile: true, hasTouch: true,
+        viewport: { width: viewport.width, height: viewport.height }, ...MOBILE,
       });
       mobile.on("page", (p) => p.on("pageerror", (e) => errors.push(e.message)));
       const p = await mobile.newPage();
@@ -1856,7 +2223,7 @@ async function setRangeValue(locator, value) {
     await page.waitForFunction(() => {
       const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
       const details = summaries.find((s) => s.textContent.trim() === "Sources")?.closest("details");
-      return !!details && !details.querySelector(".loading-note");
+      return !!details && details.open && ["loaded", "error"].includes(details.dataset.state);
     }, { timeout: 10000 });
     const labels = await page.locator("#detail-panel .claim-label").allInnerTexts();
     assert.ok(labels.length > 0, "expected at least one claim label in DUNE's Sources disclosure");
@@ -1867,10 +2234,271 @@ async function setRangeValue(locator, value) {
     // should render with content pulled from its own record, not just a
     // title-cased fallback of the pointer path.
     assert.ok(labels.some((l) => /Timeline:|Baseline/.test(l)), `expected a Timeline/Baseline claim label, got ${JSON.stringify(labels)}`);
-    // The exact pointer is still available, just not the headline.
-    const fieldLines = await page.locator("#detail-panel .claim-field").allInnerTexts();
-    assert.ok(fieldLines.some((t) => /^field: \//.test(t.trim())), "expected the raw pointer to remain visible in a 'field: /...' line");
+    // The exact pointer is a maintainer's handle (review F11): never visible text,
+    // and (release-candidate review F23) not a hover tooltip either; it stays on
+    // the label's data-field attribute.
+    assert.equal(await page.locator("#detail-panel .claim-field").count(), 0, "no 'field: /...' line may be visible");
+    assert.doesNotMatch(await page.locator("#detail-panel").innerText(), /field: \//, "the JSON pointer must not be visible text");
+    const pointers = await page.locator("#detail-panel .claim-label").evaluateAll((els) => els.map((el) => ({
+      title: el.getAttribute("title"), field: el.getAttribute("data-field"),
+    })));
+    assert.ok(pointers.every((row) => !row.title), "no claim label may carry the pointer as a hover title");
+    assert.ok(pointers.some((row) => /^\//.test(row.field || "")), "expected the pointer to remain on the claim label's data-field attribute");
   });
+
+  await record("Sources: the source that holds the quote is listed first, the locator is shown, and a PDF link is offered (review F11)", async () => {
+    await page.goto(`${base}/atlas${dataTree}`);
+    const out = await page.evaluate(async () => {
+      const m = await import("/atlas/js/provenance.js");
+      const quote = "The Booster then accelerates those protons to 8 GeV ... and more.";
+      const a = { id: "a", title: "A", excerpt: "unrelated words about something else entirely" };
+      const b = { id: "b", title: "B", excerpt: "The Booster then accelerates those protons to 8 GeV" };
+      return {
+        order: m.orderSourcesForQuote([a, b], quote).map((x) => x.id),
+        keep: m.orderSourcesForQuote([a, { id: "c", title: "C" }], quote).map((x) => x.id),
+        arxivRef: m.sourcePdfUrl({ url: "https://doi.org/10.1/x", reference: { arxiv: "1507.06690" } }),
+        arxivAbs: m.sourcePdfUrl({ url: "https://arxiv.org/abs/0806.1449" }),
+        pdfUrl: m.sourcePdfUrl({ url: "https://example.org/a/b.pdf" }),
+        none: m.sourcePdfUrl({ url: "https://example.org/page" }),
+        open: m.claimLabel("/intervals/0", { intervals: [{ label: "operating", status: "active", start: "2013-09", end: null }] }).label,
+        closed: m.claimLabel("/intervals/0", { intervals: [{ label: "operating", status: "active", start: "2013-09", end: "2020" }] }).label,
+      };
+    });
+    assert.deepEqual(out.order, ["b", "a"]);
+    assert.deepEqual(out.keep, ["a", "c"], "no excerpt match: authored order is kept");
+    assert.equal(out.arxivRef, "https://arxiv.org/pdf/1507.06690");
+    assert.equal(out.arxivAbs, "https://arxiv.org/pdf/0806.1449");
+    assert.equal(out.pdfUrl, "https://example.org/a/b.pdf");
+    assert.equal(out.none, null);
+    assert.equal(out.open, "Timeline: operating (active, since 2013-09)", "an open interval never ends in a dangling dash");
+    assert.equal(out.closed, "Timeline: operating (active, 2013-09 – 2020)");
+    if (process.env.HEP_ATLAS_DATA === "generated") {
+      await page.goto(`${base}/atlas#/accelerator/fermilab-booster`);
+      await page.locator("#detail-panel h2").waitFor();
+      await openSection(page, "Sources");
+      await page.waitForSelector("#detail-panel .claim-group", { timeout: 10000 });
+      const located = await page.locator("#detail-panel .claim-locator").allInnerTexts();
+      assert.ok(located.some((t) => /In the source: §/.test(t)), `expected a locator beside a quote, got ${JSON.stringify(located)}`);
+      assert.ok(await page.locator("#detail-panel .claim-source a.source-pdf").count() > 0, "expected a PDF link next to an arXiv-backed source");
+    }
+  });
+
+  // Reader-review findings F12 and F15-F17 (rv-maps). These read the real
+  // geometry bundles, so they only run against the generated tree.
+  if (process.env.HEP_ATLAS_DATA === "generated") {
+    const openLocalMap = async (slug, contextOptions = {}) => {
+      const mapContext = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: "reduce", ...contextOptions });
+      mapContext.on("page", (p) => p.on("pageerror", (e) => errors.push(e.message)));
+      const p = await mapContext.newPage();
+      p.setDefaultTimeout(30000);
+      await p.goto(`${base}/atlas#/map/${slug}`, { waitUntil: "domcontentloaded" });
+      await p.locator(".leaflet-container").waitFor({ timeout: 20000 });
+      await p.locator(".map-section").first().waitFor({ timeout: 20000 });
+      await p.waitForTimeout(1500);
+      return { mapContext, p };
+    };
+
+    await record("Local map: an unlocated entry gives one plain reason and keeps the research log under a collapsed 'Research notes' (F12)", async () => {
+      const { mapContext, p } = await openLocalMap("fermilab");
+      const rows = await p.locator(".map-unlocated-row").evaluateAll((els) => els.map((el) => ({
+        visible: el.innerText,
+        reason: el.querySelector(".map-unlocated-reason").innerText,
+        notesOpen: el.querySelector("details.map-research-notes").open,
+        notesText: el.querySelector("details.map-research-notes").textContent,
+      })));
+      assert.ok(rows.length > 5, `expected Fermilab's unlocated entries, got ${rows.length}`);
+      for (const row of rows) {
+        assert.doesNotMatch(row.visible, /\b(?:src|geometry|beamline|site|detector|accelerator|experiment):[a-z0-9]|HTTP\s*\d{3}|this session|Overpass|To do:/i,
+          `research-log wording or a raw id is visible: ${JSON.stringify(row.visible)}`);
+        assert.ok(row.reason.length > 20 && row.reason.length < 400, `one plain sentence, got ${JSON.stringify(row.reason)}`);
+        assert.equal(row.notesOpen, false, "the research notes are collapsed");
+        assert.match(row.notesText, /Record ids/, "the raw ids live in the research notes");
+      }
+      assert.ok(rows.some((r) => /What would let us draw it/.test(r.notesText)), "the backlog is in the research notes");
+      await mapContext.close();
+    });
+
+    await record("Local map: the unlocated-reason helper names ids, drops research-log clauses and falls back plainly (F12)", async () => {
+      const out = await page.evaluate(async () => {
+        const m = await import("/atlas/js/unlocated.js");
+        const names = { "src:paper-a": "The A paper", "detector:det-b": "B detector" };
+        const resolve = (id) => names[id] || null;
+        return {
+          named: m.namedText("Placed (src:paper-a) near detector:det-b, see geometry:gone-x.", resolve),
+          reason: m.plainReason("No OpenStreetMap footprint for the hall was found this session (a targeted OSM name search returned none); the placement cites src:paper-a only.", { resolve, name: "X" }),
+          log: m.plainReason("A web search on 2026-10-25 returned HTTP 403 from Overpass via src:zzz-q.", { resolve, name: "The hall" }),
+          sentences: m.splitSentences("Fig. 2 shows it (Vol. II). A. C. Mezger wrote it. Done."),
+        };
+      });
+      assert.equal(out.named, "Placed (The A paper) near B detector.");
+      assert.doesNotMatch(out.reason, /this session|OSM|src:/);
+      assert.match(out.reason, /No OpenStreetMap footprint for the hall was found/);
+      assert.match(out.log, /^No source we could read gives a verified position or outline for The hall/);
+      assert.equal(out.sentences.length, 3, JSON.stringify(out.sentences));
+    });
+
+    await record("Local map: a position-only map labels its accuracy circle, opens the legend, and draws no tile seam (F15, F16)", async () => {
+      const { mapContext, p } = await openLocalMap("km3net-arca");
+      const label = p.locator(".map-label-uncertainty:not(.is-hidden)");
+      assert.equal(await label.count(), 1, "the big circle is labelled on the map");
+      assert.match((await label.innerText()).replace(/\s+/g, " "), /position uncertainty ±2000 m — not the detector outline/);
+      assert.equal(await p.locator(".map-section", { hasText: "Legend" }).first().evaluate((el) => el.open), true,
+        "the legend starts open on a map that has only positions");
+      // F15: tiles overlap their neighbours, so the fractional-zoom hairline has nothing to show through.
+      await p.waitForSelector(".leaflet-tile-pane img.leaflet-tile", { timeout: 15000 }).catch(() => {});
+      const tile = await p.evaluate(() => {
+        const t = document.querySelector(".leaflet-tile-pane img.leaflet-tile");
+        return t ? { width: parseFloat(getComputedStyle(t).width), blend: getComputedStyle(t).mixBlendMode } : null;
+      });
+      if (tile) {
+        assert.ok(tile.width > 256, `tiles are drawn slightly oversize, got ${tile.width}px`);
+        assert.equal(tile.blend, "normal");
+      }
+      await mapContext.close();
+      // A map with a drawn outline does not open the legend by itself.
+      const other = await openLocalMap("fermilab");
+      assert.equal(await other.p.locator(".map-section", { hasText: "Legend" }).first().evaluate((el) => el.open), false);
+      await other.mapContext.close();
+    });
+
+    await record("Local map: every LHC experiment point is labelled at the default zoom, and a temporary shutdown is not worded as closed (F17)", async () => {
+      const { mapContext, p } = await openLocalMap("cern");
+      for (const id of ["point1-atlas-boundary", "point2-alice-boundary", "point5-cms-cavern", "point8-lhcb-boundary"]) {
+        assert.equal(await p.locator(`[data-label-for="geometry:${id}"]:not(.is-hidden)`).count(), 1, `${id} is labelled`);
+      }
+      const status = await p.evaluate(async () => (await import("/atlas/js/mapstyle.js")).statusStyle("shutdown").label);
+      assert.match(status, /^Temporarily shut down \(long shutdown \/ upgrade\)$/);
+      await mapContext.close();
+    });
+
+  }
+
+  // Release-candidate review F2, F3, F4 (rc-frontend): the three that a green suite
+  // would otherwise not notice, because each shows wrong text or counts on a page
+  // that still renders.
+  if (process.env.HEP_ATLAS_DATA === "generated") {
+    await record("Every result panel leads with its plain-language summary and shows no raw TeX; the quote is a labelled, readable excerpt (rc F2)", async () => {
+      const [resultsRaw, textRaw] = await Promise.all([
+        page.request.get(`${base}/atlas/generated/results.json`).then((r) => r.json()),
+        page.request.get(`${base}/atlas/generated/text.json`).then((r) => r.json()),
+      ]);
+      const ids = Object.keys(resultsRaw).filter((key) => key.startsWith("result:"));
+      assert.ok(ids.length > 100, `expected the generated results, got ${ids.length}`);
+      await page.goto(`${base}/atlas`);
+      await page.locator("#detail-panel").waitFor({ state: "attached" });
+      for (const id of ids) {
+        const slug = id.split(":")[1];
+        await page.evaluate((hash) => { window.location.hash = hash; }, `#/result/${slug}`);
+        await page.waitForFunction((want) => {
+          const heading = document.querySelector("#detail-panel h2");
+          return !!heading && !!document.querySelector("#detail-panel .result-lede") && window.location.hash === `#/result/${want}`;
+        }, slug);
+        const seen = await page.evaluate(() => ({
+          text: document.getElementById("detail-panel").innerText,
+          lede: document.querySelector("#detail-panel .result-lede").textContent,
+        }));
+        assert.equal(seen.lede, resultsRaw[id].summary.plain, `${id}: the lede is the plain-language summary`);
+        assert.doesNotMatch(seen.text, /\$|\\[A-Za-z]|\^\{|_\{|\[object/, `${id}: the panel shows raw TeX or an object`);
+      }
+      // One with TeX in its quote, end to end.
+      const id = "result:miniboone-low-energy-excess-2021";
+      await page.evaluate(() => { window.location.hash = "#/result/miniboone-low-energy-excess-2021"; });
+      await page.locator("#detail-panel .result-excerpt").waitFor();
+      const excerpt = page.locator("#detail-panel .result-excerpt");
+      assert.match(await excerpt.locator(".excerpt-label").innerText(), /^From the abstract:/);
+      const readable = await excerpt.locator(".quote-text").innerText();
+      assert.match(readable, /638\.0 ± 132\.8 electron-like events \(4\.8 σ\)/, "the TeX reads as notation");
+      assert.equal(await excerpt.locator(".quote-view").getAttribute("data-verbatim"), textRaw[id].claim.quote,
+        "the stored quote is carried unaltered");
+      await excerpt.locator(".quote-toggle").click();
+      assert.match(await excerpt.locator(".quote-text").innerText(), /\$638\.0 \\pm 132\.8\$/, "the verbatim toggle shows the text as published");
+      await excerpt.locator(".quote-toggle").click();
+      assert.match(await excerpt.locator(".quote-text").innerText(), /638\.0 ± 132\.8/);
+      // A quote that is only the paper's title is not repeated under the lede.
+      await page.evaluate(() => { window.location.hash = "#/result/belle-d0-mixing-evidence-2007"; });
+      await page.waitForFunction(() => location.hash.endsWith("belle-d0-mixing-evidence-2007") && !!document.querySelector("#detail-panel .result-lede"));
+      assert.equal(await page.locator("#detail-panel .result-excerpt").count(), 0, "a quote that is the title is not shown again");
+    });
+
+    await record("Placement dates are words, never \"[object Object]\" (rc F3)", async () => {
+      for (const route of ["detector/nd280", "detector/ingrid", "detector/double-chooz", "detector/ship",
+        "site/cern-ecn3-north-area", "site/double-chooz-near-detector", "site/j-parc-neutrino-near-detector-hall"]) {
+        await page.goto(`${base}/atlas#/${route}`);
+        await page.locator("#detail-panel h2").waitFor();
+        await page.waitForFunction(() => /Placements|Detectors placed here/.test(document.getElementById("detail-panel").innerText));
+        const text = await page.locator("#detail-panel").innerText();
+        assert.doesNotMatch(text, /\[object Object\]/, `${route} prints an unformatted date object`);
+      }
+      await page.goto(`${base}/atlas#/detector/nd280`);
+      await page.locator("#detail-panel h2").waitFor();
+      assert.match(await page.locator("#detail-panel").innerText(), /— Near \(c\. 2009–present\)/, "an approximate start reads as c. 2009");
+      await page.goto(`${base}/atlas#/detector/ship`);
+      await page.locator("#detail-panel h2").waitFor();
+      assert.match(await page.locator("#detail-panel").innerText(), /— Main \(planned from 2033\)/, "a planned start is not 'present'");
+    });
+
+    await record("Globe clusters count and name only the facilities present in the selected year (rc F4)", async () => {
+      const atlasRaw = await page.request.get(`${base}/atlas/generated/atlas.json`).then((r) => r.json());
+      for (const year of [1950, 1975]) {
+        await page.goto(`${base}/atlas?y=${year}`);
+        await page.waitForFunction(() => document.querySelectorAll(".atlas-marker.tier-facility").length > 0, { timeout: 15000 });
+        await page.waitForTimeout(800);
+        const month = (year - 1950) * 12 + 6;
+        const presentNames = new Set(Object.values(atlasRaw.facilities)
+          .filter((facility) => (facility.state_segments || []).some(([from, to]) => month >= from && month <= to))
+          .map((facility) => facility.name));
+        const clusters = await page.evaluate(() => [...document.querySelectorAll(".atlas-marker.is-cluster.tier-facility")]
+          .map((el) => el.getAttribute("aria-label")));
+        const singles = await page.evaluate(() => [...document.querySelectorAll(".atlas-marker.tier-facility:not(.is-cluster):not(.is-absent)")]
+          .map((el) => el.getAttribute("aria-label")));
+        let drawn = singles.length;
+        for (const label of clusters) {
+          const [, count, names] = /^(\d+) facilities near here — (.*)\. Press Enter/.exec(label) || [];
+          assert.ok(count, `cluster label reads "N facilities near here": ${label}`);
+          drawn += Number(count);
+          // The label names at most four; every name it gives is a facility present that year.
+          for (const name of names.replace(/, …$/, "").split(", ")) {
+            assert.ok(presentNames.has(name), `${year}: cluster names ${name}, which is not present that year`);
+          }
+        }
+        assert.ok(drawn <= presentNames.size,
+          `${year}: ${drawn} facilities drawn (singles and cluster members) but only ${presentNames.size} are present`);
+      }
+    });
+  }
+
+  // Phone-width findings F8 and F9 (rv-maps).
+  if (process.env.HEP_ATLAS_DATA === "generated") {
+    await record("Phone: the Results filters wrap instead of scrolling sideways, and about.html fits the screen (F8, F9)", async () => {
+      for (const width of [360, 390]) {
+        const mobile = await browser.newContext({ viewport: { width, height: 844 }, ...MOBILE });
+        mobile.on("page", (p) => p.on("pageerror", (e) => errors.push(e.message)));
+        const p = await mobile.newPage();
+        await p.goto(`${base}/atlas?m=results`);
+        await p.locator("#results-filter-facility").waitFor({ timeout: 20000, state: "attached" });
+        // Release-candidate review F18: the controls are a "Filters" disclosure,
+        // shut until opened, so the sheet opens on the list; the geometry below is
+        // read with it open.
+        assert.equal(await p.evaluate(() => document.getElementById("results-controls").open), false,
+          "the Results filters start collapsed on a phone");
+        assert.match(await p.locator("#results-controls-summary").innerText(), /^Filters$/);
+        const firstRowTop = await p.evaluate(() => document.querySelector("#results-mode-list .result-row").getBoundingClientRect().top);
+        assert.ok(firstRowTop < 700, `the first result is on screen at ${width}px (top ${firstRowTop})`);
+        await p.locator("#results-controls-summary").click();
+        const seen = await p.evaluate(() => [...document.querySelectorAll(".results-filters select, #results-sort, .group-toggle")]
+          .map((el) => { const r = el.getBoundingClientRect(); return { id: el.id, left: r.left, right: r.right }; }));
+        assert.equal(seen.length, 8, "five filters, the sort and two group buttons");
+        for (const c of seen) assert.ok(c.left >= 0 && c.right <= width, `${c.id} is on screen at ${width}px (${c.left}..${c.right})`);
+        const strips = await p.evaluate(() => [...document.querySelectorAll(".results-filters, .mode-toolbar")]
+          .map((el) => el.scrollWidth - el.clientWidth));
+        assert.ok(strips.every((d) => d <= 0), `no control strip scrolls sideways: ${strips}`);
+        await p.goto(`${base}/atlas/about.html`);
+        await p.locator(".about-toc").waitFor();
+        assert.ok(await p.evaluate(() => document.documentElement.scrollWidth) <= width, `about.html is wider than ${width}px`);
+        await mobile.close();
+      }
+    });
+  }
 
   await record("A result whose official_url restates its arXiv link shows one arXiv link and no 'Official page'", async () => {
     const arxivDuplicateResult = process.env.HEP_ATLAS_DATA === "generated"
@@ -1898,18 +2526,29 @@ async function setRangeValue(locator, value) {
     assert.match(pubText, new RegExp(`arXiv ${distinctArxiv.replace(".", "\\.")} \\(preprint\\)`));
   });
 
-  await record("An experiment without curated results explains why, with counts from the loaded bundle", async () => {
+  // The panel draws no section it has nothing for; one closing line names what
+  // is missing, as absence from the Atlas and never as absence in the world.
+  async function omittedNote(targetPage) {
+    return targetPage.evaluate(() => {
+      const note = document.querySelector("#detail-panel .omitted-note");
+      return {
+        text: note ? note.innerText : "",
+        hasCoverageLink: !!(note && note.querySelector('a[href$="about.html#coverage"]')),
+        headings: [...document.querySelectorAll("#detail-panel details.panel-section summary")].map((s) => s.textContent.trim()),
+      };
+    });
+  }
+
+  await record("An experiment without curated results says so as absence from the Atlas, not as an empty section", async () => {
     const noResultsExperiment = process.env.HEP_ATLAS_DATA === "generated" ? "abracadabra" : "belle";
     await page.goto(`${base}/atlas${dataTree}#/experiment/${noResultsExperiment}`);
     await page.locator("#detail-panel h2").waitFor();
-    await openSection(page, "Results timeline");
-    const sectionText = await page.evaluate(() => {
-      const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
-      const details = summaries.find((s) => s.textContent.trim() === "Results timeline")?.closest("details");
-      return details ? details.innerText : "";
-    });
-    assert.match(sectionText, /No results curated for this experiment yet \(the atlas records \d+ results across \d+ experiments; see coverage\)/,
-      `expected the honest "not yet curated" wording with real counts, got: ${sectionText}`);
+    const { text, hasCoverageLink, headings } = await omittedNote(page);
+    assert.ok(!headings.includes("Results timeline"), `an empty Results timeline must not be drawn, got: ${headings.join(" | ")}`);
+    assert.match(text, /None recorded in the Atlas: .*Results/, `got: ${text}`);
+    assert.match(text, /Coverage is partial, so this is not evidence that none exist/, `got: ${text}`);
+    assert.ok(hasCoverageLink, "the closing line must link to the coverage report");
+    assert.doesNotMatch(text, /^None\b(?! recorded)/, "never a bare 'None'");
   });
 
   if (process.env.HEP_ATLAS_DATA === "generated") {
@@ -1919,26 +2558,21 @@ async function setRangeValue(locator, value) {
       // distinct from a curation gap, so it gets its own wording.
       await page.goto(`${base}/atlas${dataTree}#/experiment/cupid`);
       await page.locator("#detail-panel h2").waitFor();
-      await openSection(page, "Results timeline");
-      const sectionText = await page.evaluate(() => {
-        const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
-        const details = summaries.find((s) => s.textContent.trim() === "Results timeline")?.closest("details");
-        return details ? details.innerText : "";
-      });
-      assert.match(sectionText, /Not yet operating — no results expected\./, `got: ${sectionText}`);
+      const { text } = await omittedNote(page);
+      assert.match(text, /Results \(not yet operating, none expected\)/, `got: ${text}`);
     });
 
     await record("A collaboration with no curated roster disables 'View collaboration on globe' with a reason", async () => {
-      // A fresh, unlistened context: this deliberately requests a
-      // memberships/abracadabra.json that does not exist (the whole point
-      // of the check), which the app itself handles via a caught rejection
-      // — but Chromium still logs the failed network request itself as a
-      // console error regardless of whether JS catches it, which would
-      // otherwise fail this file's blanket "no uncaught console errors"
-      // assertion on the shared `page`/`context` for a 404 this test causes
-      // on purpose.
+      // manifest.json lists every bundle the build wrote, so a collaboration
+      // with no roster must never be asked for `memberships/<slug>.json`: that
+      // request is a 404, and Chromium logs it as a console error whether or
+      // not the page's JavaScript catches it.
       const freshContext = await browser.newContext({ viewport: { width: 1440, height: 960 } });
       const freshPage = await freshContext.newPage();
+      const failedRequests = [];
+      freshPage.on("response", (response) => { if (response.status() >= 400) failedRequests.push(`${response.status()} ${response.url()}`); });
+      const consoleErrors = [];
+      freshPage.on("console", (message) => { if (message.type() === "error") consoleErrors.push(message.text()); });
       await freshPage.goto(`${base}/atlas${dataTree}#/collaboration/abracadabra`);
       await freshPage.locator("#detail-panel h2").waitFor();
       const panelText = await freshPage.locator("#detail-panel").innerText();
@@ -1948,6 +2582,8 @@ async function setRangeValue(locator, value) {
       assert.equal(await viewBtn.isDisabled(), true, "the globe button must be disabled without a curated roster");
       const title = await viewBtn.getAttribute("title");
       assert.ok(title && title.length > 0, "the disabled button must carry a reason in its title");
+      assert.deepEqual(failedRequests, [], "opening a collaboration without a roster must not request a bundle the manifest does not list");
+      assert.deepEqual(consoleErrors, [], "and must not log a console error");
       await freshContext.close();
     });
   }

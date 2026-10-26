@@ -26,7 +26,7 @@
       "id": "surface",
       "kind": "surface",
       "name": "Surface",
-      "note": "No underground level is defined this session: no sourced footprint or depth was found for the HIPA Ring Cyclotron building or the large experimental hall (see accelerator:psi-hipa in unlocated[])."
+      "note": "Plan view of the campus buildings. The HIPA proton beam tunnels and the Ring Cyclotron vault are not drawn and no depth for them is sourced (see accelerator:psi-hipa in unlocated[])."
     }
   ],
   "linked_map_ids": [],
@@ -35,8 +35,9 @@
   },
   "name": "PSI — Villigen and Wurenlingen campus",
   "notes": [
-    "Overpass (overpass-api.de and lz4.overpass-api.de) refused every connection attempt for the entire PSI/KIT portion of this session (curl: 'Failed to connect ... Couldn't connect to server', not a 429/504 that a backoff would clear). The campus boundary was recovered through Nominatim's polygon_geojson=1 output instead (same underlying OSM way data), but Nominatim only supports name search, not Overpass's tag/bbox queries -- so the HIPA ring-cyclotron building and the large experimental hall (housing MEG-II and Mu3e in the piE5 area) could not be located by name and are not drawn. Named locality nodes 'PSI West' (47.5368N, 8.2222E) and 'PSI Ost' (47.5386N, 8.2300E) corroborate which OSM polygon is which bank, but are themselves place labels, not building footprints, so they are not drawn either.",
-    "geometry:psi-campus-boundary (entity_id site:psi-villigen) accounts for the site and, through it, the placements of detector:meg, detector:meg-ii and detector:mu3e -- none of which has its own hall footprint this session for the same Overpass-outage reason."
+    "The campus is drawn with its experimental hall WEHA (a hall whose OSM footprint, 134.0 m x 52.4 m, matches PSI's own 'dimensions experimental hall: 130x50x20 m3'), the Injector 2 hall WIHA, the SINQ building, the UCN hall WNAB and 109 other buildings, all from OpenStreetMap elements fetched through the OSM API on 2026-10-25.",
+    "The identity of each named building rests on PSI's own 2015 site-map legend (PSI four-letter codes) matched to the OSM name tag of the same code; the OSM names themselves are third-party.",
+    "geometry:psi-campus-boundary (entity site:psi-villigen) accounts for the site and, through it, the placements of detector:meg, detector:meg-ii and detector:mu3e; no source was found that says in which hall MEG II or Mu3e stands, so none is attributed to a hall."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
@@ -44,22 +45,30 @@
     "site:psi-villigen"
   ],
   "sources": [
-    "src:geo-psi-osm-campus-boundary"
+    "src:geo-psi-osm-campus-boundary",
+    "src:psi-geo-arealplan-2015",
+    "src:psi-geo-kiselev-impact-2024",
+    "src:psi-geo-seidel-2009",
+    "src:psi-geo-ring-cyclotron-page"
   ],
   "summary": {
-    "plain": "The Paul Scherrer Institute's two-bank campus beside the River Aare in Aargau, Switzerland, drawn to scale from OpenStreetMap as a campus boundary; the HIPA ring cyclotron and its experimental halls could not be located to scale this session because OpenStreetMap's Overpass query service was unreachable throughout.",
-    "technical": "One local map for facility:psi. Only the campus boundary (OSM ways 28028409, 26680824 on the Villigen/west bank and 26680821 on the Wurenlingen/east bank, fetched via Nominatim) is drawn; accelerator:psi-hipa is unlocated pending a working Overpass query for its unnamed building."
+    "plain": "The Paul Scherrer Institute's two-bank campus beside the River Aare in Aargau, Switzerland, drawn to scale from OpenStreetMap: the campus boundary, the 134 m by 52 m experimental hall of the proton accelerator, the Injector 2 hall, the SINQ neutron source and the ultracold-neutron hall, and the other buildings. The Ring Cyclotron itself could not be placed because PSI's own site map does not say which building holds it.",
+    "technical": "Local map for facility:psi: campus boundary (OSM ways 28028409, 26680824, 26680821), the WEHA experimental hall as a 'hall' feature verified by identity (PSI Arealplan legend 'WEHA Experimentierhalle') and by perimeter/area checks against PSI's 130 m x 50 m (Seidel 2009; measured 370 m / 6916 m2), WIHA (Injektorhalle 2), SINQ and the UCN hall WNAB as approximate context buildings, and 109 further OSM buildings as one MultiPolygon. accelerator:psi-hipa is unlocated: no fetched source names the building of the 590 MeV Ring Cyclotron (ø15 m)."
   },
   "type": "map",
   "unlocated": [
     {
-      "backlog": "Retry Overpass once it is reachable again: a tag search (way[\"building\"] or way[\"man_made\"]) inside the 'PSI West' sub-area (near 47.5368N, 8.2222E, inside OSM way 28028409) should find the Ring Cyclotron building even without a name tag, the way DESY's unnamed halls were found by proximity to the HERA ring. Alternatively, request PSI's own site-plan/GIS layer.",
+      "backlog": "Find a PSI document that names the building of the Ring Cyclotron (its building code in the Arealplan legend, or a layout drawing with a scale bar and coordinates), or an official GIS layer; then take that building from OSM by its four-letter code (the OSM names carry the codes). The 2015 Arealplan is a graphic with a text legend; it was read for the legend only and not traced. Candidate leads, unconfirmed: the building codes WHFA (RF building) and the WEHA/WIHA halls are adjacent to the machine area, and the sourced 'ø15m' size (Seidel 2009) is a 15 m machine inside a vault, so the building is larger than the machine; a PSI beam-line layout drawing with building codes, or the 'HIPA info' elog layout, would settle it.",
       "entity_id": "accelerator:psi-hipa",
-      "reason": "The HIPA Ring Cyclotron's own building has no distinctly-named OpenStreetMap element: Nominatim name searches for 'Ringzyklotron PSI', 'Ring Cyclotron PSI Villigen', 'Zyklotron' and 'Cyclotron' (bounded to the PSI campus) all returned zero results, and the tag/bbox-based Overpass search that would find an unnamed building near the accelerator could not run -- both overpass-api.de and lz4.overpass-api.de refused every connection attempt for the entire PSI/KIT portion of this session. site:psi-villigen's own coordinate (precision_m 800) is too coarse to derive a 48 m-circumference ring's position from.",
+      "reason": "The Ring Cyclotron (a 590 MeV machine 'ø15m' across, src:psi-geo-seidel-2009) is not placed: PSI's own site-map legend (src:psi-geo-arealplan-2015) names an experimental hall (WEHA), an Injector 2 hall (WIHA), a neutron hall, a UCN hall and a 'Nukleonenhalle' (WNAA) but has no entry that says which building holds the Ring Cyclotron, and PSI's HIPA page and talks show its layout only as an unscaled diagram. No building was guessed from its shape. What the map does show of the HIPA complex is context only: the experimental hall WEHA (drawn as a hall, size-checked), the Injector 2 hall WIHA, the SINQ building and the UCN hall WNAB. The Cockcroft-Walton injector and the beam transfer tunnels are not located either. Checked again on 2026-10-25: PSI's own Ring Cyclotron page gives the machine's radii (injection 2.1 m, extraction 4.5 m) and no location; the HIPA, Injector 2 and Kiselev (2024) pages and talks, the HB2012 and Cyclotrons 2022 papers and the full Arealplan legend (which lists WEHA, WIHA, WHFA 'Hochfrequenzgebaeude' and 'Niederenergieareal C' WYCA but no 'Ringzyklotron' entry) were searched again; none says which building holds the Ring Cyclotron. The Injector 2 hall WIHA is named 'Injektorhalle 2' by PSI's legend, so it is drawn as context but deliberately not attached to accelerator:psi-hipa, whose main machine is the Ring Cyclotron.",
       "sources": [
-        "src:facilities-verify-psi-hipa-page"
+        "src:psi-geo-arealplan-2015",
+        "src:psi-geo-seidel-2009",
+        "src:facilities-verify-psi-hipa-page",
+        "src:psi-geo-ring-cyclotron-page",
+        "src:psi-geo-kiselev-impact-2024"
       ],
-      "verified_at": "2026-09-18"
+      "verified_at": "2026-10-25"
     }
   ]
 }

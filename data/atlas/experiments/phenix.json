@@ -24,7 +24,7 @@
     {
       "confidence": "verified",
       "facility_id": "facility:brookhaven-national-laboratory",
-      "note": "facility:brookhaven-national-laboratory and accelerator:rhic are owned by the facilities lead. Both were still missing from data/atlas/facilities/ and data/atlas/accelerators/ when this record was first drafted (2026-09-17); the facilities lead's BNL child has since landed both, and the references here were re-checked against the landed files and resolve cleanly (0 dangling-reference findings).",
+      "note": "",
       "quote": "June 15, 2000 at 6:28 am EDT: PHENIX records its first relativistic heavy ion collision.",
       "role": "host",
       "sources": [
@@ -35,7 +35,7 @@
     {
       "confidence": "verified",
       "facility_id": "facility:brookhaven-national-laboratory",
-      "note": "RHIC (accelerator:rhic) is the beam source. facility:brookhaven-national-laboratory and accelerator:rhic are owned by the facilities lead. Both were still missing from data/atlas/facilities/ and data/atlas/accelerators/ when this record was first drafted (2026-09-17); the facilities lead's BNL child has since landed both, and the references here were re-checked against the landed files and resolve cleanly (0 dangling-reference findings).",
+      "note": "RHIC (accelerator:rhic) is the beam source.",
       "role": "beam_source",
       "sources": [
         "src:heavy-ions-phenix-concept-history"
@@ -96,15 +96,13 @@
   },
   "name": "PHENIX",
   "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
-    "facility:brookhaven-national-laboratory and accelerator:rhic are owned by the facilities lead. Both were still missing from data/atlas/facilities/ and data/atlas/accelerators/ when this record was first drafted (2026-09-17); the facilities lead's BNL child has since landed both, and the references here were re-checked against the landed files and resolve cleanly (0 dangling-reference findings).",
-    "key_specs left empty: central-arm/muon-arm acceptance and magnet field figures found via search (e.g. |eta|<0.35 central arms, 0.72 T*m muon magnet) come only from secondary characterisations of the PHENIX detector-overview and muon-arm NIM A499 (2003) papers; the primary papers themselves (ScienceDirect, and a PDF at phenix.bnl.gov) could not be retrieved as readable text in this session, so per A17 these numbers are omitted rather than sourced from an unverified paraphrase. Recorded as a missing_field in coverage.",
-    "Succeeded at the same interaction point (RHIC IP8) by sPHENIX; the upgrade_of lineage row is recorded on experiment:sphenix (owned by a sibling child agent), not here, per A1 (successor/upgraded_to are derived, never authored)."
+    "No key specifications are recorded: central-arm/muon-arm acceptance and magnet field figures found via search (e.g. |η|<0.35 central arms, 0.72 T*m muon magnet) come only from secondary characterisations of the PHENIX detector-overview and muon-arm NIM A499 (2003) papers; the primary papers themselves (ScienceDirect, and a PDF at phenix.bnl.gov) could not be retrieved as readable text, so these numbers are omitted rather than sourced from an unverified paraphrase.",
+    "Succeeded at the same interaction point (RHIC IP8) by sPHENIX (experiment:sphenix), which records the upgrade relation."
   ],
   "physics_goals": [
     {
       "confidence": "verified",
-      "note": "Phrased from the concept-history page's own framing of PHENIX's research objectives; see worklog for exact secondary confirmation.",
+      "note": "Phrased from the concept-history page's own framing of PHENIX's research objectives.",
       "sources": [
         "src:heavy-ions-phenix-concept-history"
       ],

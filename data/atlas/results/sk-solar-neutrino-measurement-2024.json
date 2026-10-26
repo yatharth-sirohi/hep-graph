@@ -16,13 +16,14 @@
   },
   "date": {
     "confidence": "verified",
-    "locator": "arXiv:2312.12907, submission date",
-    "note": "arXiv submission December 2023; published as Phys. Rev. D 109, 092001 (2024).",
+    "locator": "arXiv:2312.12907, submission history",
+    "note": "arXiv submission date (20 December 2023); published as Phys. Rev. D 109, 092001 (2024).",
+    "quote": "Submitted on 20 Dec 2023 (v1)",
     "sources": [
       "src:sk-prd-2024-solar"
     ],
-    "value": "2023-12",
-    "verified_at": "2026-09-17"
+    "value": "2023-12-20",
+    "verified_at": "2026-10-25"
   },
   "date_kind": "preprint",
   "detector_ids": [
@@ -38,27 +39,29 @@
   "id": "result:sk-solar-neutrino-measurement-2024",
   "key_value": {
     "approx": false,
-    "confidence": "approximate",
+    "confidence": "verified",
     "dimension": "luminosity",
-    "display": "2.336e6 cm^-2 s^-1 (all-SK-phase combined 8B flux)",
+    "display": "2.336 × 10⁶ cm⁻² s⁻¹ (all-SK-phase combined 8B flux)",
     "locator": "arXiv:2312.12907, abstract",
-    "note": "Value/unit taken from a WebFetch paraphrase of the abstract rather than a directly quoted number; dimension 'luminosity' (cm^-2 s^-1) is the closest match in the ontology's unit table to a neutrino flux, though the physical quantity is a particle flux rather than a photon luminosity.",
+    "note": "Value taken from the paper text: 8B flux combined with all SK phases up to SK-IV, (2.336 ± 0.011 (stat.) ± 0.043 (syst.))×10⁶ cm⁻² s⁻¹. The quantity is a neutrino particle flux per unit area and time.",
+    "quote": "The flux combined with all SK phases up to SK-IV is (2.336 ± 0.011 (stat.) ± 0.043 (syst.))",
     "sources": [
       "src:sk-prd-2024-solar"
     ],
     "unit": "cm^-2 s^-1",
     "value": 2336000.0,
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "key_value_text": {
-    "confidence": "approximate",
+    "confidence": "verified",
     "locator": "arXiv:2312.12907, abstract",
-    "note": "Figures taken from a WebFetch paraphrase of the abstract, not a verbatim quote of the numbers.",
+    "note": "Figures verified against the text of arXiv:2312.12907 (2026-10-25); the PDF text layer scrambles the exponent typography, so the quote reproduces it as extracted.",
+    "quote": "is (2.314 ± 0.014 (stat.) ± 0.040 (syst.)) × 10 cm s , assuming a pure electron-neutrino flavor component without neutrino oscillations. The flux combined with all SK phases up to SK-IV is (2.336 ± 0.011 (stat.) ± 0.043 (syst.)) ... sin2 θ12, solar = 0.306±0.013",
     "sources": [
       "src:sk-prd-2024-solar"
     ],
-    "value": "Combined SK-I - SK-IV 8B solar-neutrino flux 2.336e6 cm^-2 s^-1; SK-IV-only flux 2.314e6 cm^-2 s^-1 from 65,443 solar-neutrino events over 2,970 (SK-IV) of 5,805 (all-phase) live days; sin^2(theta_12)=0.306+/-0.013.",
-    "verified_at": "2026-09-17"
+    "value": "8B solar-neutrino flux (2.336 ± 0.011 ± 0.043)×10⁶ cm⁻² s⁻¹ combined with all SK phases up to SK-IV; SK-IV-only flux (2.314 ± 0.014 ± 0.040)×10⁶ cm⁻² s⁻¹ (assuming no oscillations) from 65,443 solar-neutrino events over 2,970 (SK-IV) of 5,805 (all-phase) live days; sin²θ12 = 0.306 ± 0.013 from all solar experiments.",
+    "verified_at": "2026-10-25"
   },
   "links": {
     "website": {
@@ -74,7 +77,7 @@
   },
   "name": "Super-Kamiokande-IV solar-neutrino measurement (full data period)",
   "notes": [
-    "key_value and part of key_value_text rely on a WebFetch-summarised reading of the abstract rather than a verbatim quoted number, because the raw abstract text could not be extracted character-for-character in this session; confidence is set to 'approximate' accordingly."
+    "key_value and key_value_text numbers were re-checked against the text of the paper (arXiv:2312.12907) on 2026-10-25 and match."
   ],
   "official_url": {
     "confidence": "verified",
@@ -98,8 +101,8 @@
     "src:sk-prd-2024-solar"
   ],
   "summary": {
-    "plain": "Super-Kamiokande's most complete measurement yet of neutrinos streaming from the Sun, combining more than 20 years of data across all four phases of the detector to pin down how many boron-8 solar neutrinos arrive at Earth and how they mix.",
-    "technical": "Combines SK-I through SK-IV (5,805 live days total); SK-IV alone contributes 2,970 days (Oct. 2008 - May 2018) and 65,443 solar-neutrino events. Reports an 8B solar-neutrino flux and oscillation parameters (sin^2 theta_12, Delta m^2_21) in mild tension with the complementary KamLAND reactor measurement."
+    "plain": "Super-Kamiokande measured the flux of boron-8 solar neutrinos using the full period of its fourth phase, SK-IV (2,970 days), and combined it with the earlier phases (5,805 live days in total). The paper also reports the solar neutrino oscillation parameters obtained from all solar experiments.",
+    "technical": "Combines SK-I through SK-IV (5,805 live days total); SK-IV alone contributes 2,970 days (Oct. 2008 - May 2018) and 65,443 +390/−388 (stat.) ± 925 (syst.) solar-neutrino events. 8B flux (2.314 ± 0.014 ± 0.040)×10⁶ cm⁻² s⁻¹ for SK-IV (assuming no neutrino oscillations) and (2.336 ± 0.011 ± 0.043)×10⁶ cm⁻² s⁻¹ combined with all SK phases up to SK-IV. From all solar experiments including SK's 5805-day data set, sin²θ12 = 0.306 ± 0.013 and Δm²21 = (6.10 +0.95 −0.81)×10⁻⁵ eV², a deviation of about 1.5σ from the Δm²21 obtained by KamLAND."
   },
   "title": "Solar neutrino measurements using the full data period of Super-Kamiokande-IV",
   "topic_ids": [
@@ -107,5 +110,5 @@
     "topic:neutrino-oscillations"
   ],
   "type": "result",
-  "why_it_matters": "Super-Kamiokande's most precise, longest-baseline solar-neutrino measurement, testing the MSW-LMA solar-oscillation solution and probing for any energy-dependent deviation (the 'upturn') that would signal new physics beyond standard three-flavour oscillation."
+  "why_it_matters": "The paper tests for an energy-dependent 'upturn' of the electron-neutrino survival probability (from about 0.3 at high energy, above 10 MeV, to about 0.6 at low energy, below 1 MeV) and reports a solar Δm²21 that deviates by about 1.5σ from the KamLAND value."
 }

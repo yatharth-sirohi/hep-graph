@@ -4,13 +4,16 @@
 
 import { titleCase, fmtDate, buildIndex } from './model.js';
 
-let ctx = null; // { container, atlas, results, documents, navigate, highlightGlobe, setTimelineYear }
+let ctx = null; // { container, atlas, results, documents, navigate, getState, setTimelineYear }
 // Flat id->record index over atlas.json (same groups buildIndex covers:
 // facilities/sites/accelerators/beamlines/experiments/detectors/
 // collaborations/topics), built once per init() and reused to resolve a
 // document's owner_ids to names — those ids point at experiment/detector/
 // collaboration/beamline records, never at a separate "people" bundle.
 let entityIndex = null;
+// Set by the Results panel while it is on screen: brings it in line with the
+// view the address names (see state.js's `results`).
+let resultsSync = null;
 
 /** The human label of a record.
  *
@@ -95,10 +98,11 @@ function renderTopicNode(topics, topic) {
   const children = topicChildren(topics, topic.id);
   const li = h('li', {});
   const link = h('a', { href: `#/topic/${topic.id.split(':')[1]}`, class: 'topic-link' }, topic.name);
+  // The globe highlight for the chosen topic is not set here: it follows the
+  // route (app.js), so it stays for as long as the topic is open and goes when
+  // the reader leaves it, whichever way they arrived (this tree, search, a link).
   link.addEventListener('click', (event) => {
     event.preventDefault();
-    const matches = new Set([topic.id, ...(topic.experiment_ids || []), ...(topic.facility_ids || [])]);
-    ctx.highlightGlobe(matches);
     goto({ type: 'topic', slug: topic.id.split(':')[1] });
   });
   li.appendChild(link);
@@ -120,6 +124,15 @@ function renderTopicMode() {
 }
 
 // ------------------------------------------------------------- results mode
+// The Results controls are open at wide widths and shut on a phone (see
+// renderResultsMode); crossing the breakpoint (a rotation, a resize) puts the
+// panel on the side of it that now applies. One listener, for whichever
+// Results panel is on screen.
+const phoneControls = { query: window.matchMedia('(max-width: 900px)'), el: null };
+phoneControls.query.addEventListener('change', () => {
+  if (phoneControls.el && phoneControls.el.isConnected) phoneControls.el.open = !phoneControls.query.matches;
+});
+
 function uniqueSorted(values) {
   return [...new Set(values.filter(Boolean))].sort();
 }
@@ -199,11 +212,21 @@ function renderResultsMode() {
   const filters = { year: '', experiment: '', facility: '', topic: '', type: '' };
   let sortBy = 'date';
   let groupBy = 'none';
+  // The view the address carries (state.js): filters, sort and grouping survive
+  // opening a result and pressing Back, and travel in a shared link.
+  const startView = (ctx.getState && ctx.getState().results) || null;
 
+  // Options are listed in the order a reader sees them: by the name shown
+  // (case and accents ignored, numbers in numeric order), not by the id or
+  // acronym behind it — "Deep Underground Neutrino Experiment" sorts under D
+  // although its id says "dune". A list with no names (the years) keeps its order.
+  const byLabel = new Intl.Collator(undefined, { sensitivity: 'base', numeric: true });
   function select(id, label, options, nameMap) {
     const sel = h('select', { id, 'aria-label': label });
     sel.appendChild(h('option', { value: '' }, `All ${label.toLowerCase()}`));
-    for (const opt of options) sel.appendChild(h('option', { value: opt }, nameMap ? (nameMap.get(opt) || opt) : String(opt)));
+    const shown = options.map((opt) => ({ opt, text: nameMap ? (nameMap.get(opt) || opt) : String(opt) }));
+    if (nameMap) shown.sort((a, b) => byLabel.compare(a.text, b.text));
+    for (const { opt, text } of shown) sel.appendChild(h('option', { value: opt }, text));
     return sel;
   }
 
@@ -229,6 +252,20 @@ function renderResultsMode() {
   const countEl = h('p', { class: 'mode-count', role: 'status', id: 'results-count' }, '');
   const list = h('ul', { class: 'results-list', id: 'results-mode-list' });
 
+  // On a phone the controls are a "Filters" disclosure, closed until opened, so
+  // the sheet opens on the list and not on seven controls above it; its summary
+  // says how many are in force. At wider widths the controls are always shown
+  // (the summary is hidden by CSS and the disclosure kept open).
+  const controls = h('details', { class: 'results-controls', id: 'results-controls' });
+  const controlsSummary = h('summary', { id: 'results-controls-summary' }, 'Filters');
+  controls.open = !phoneControls.query.matches;
+  phoneControls.el = controls;
+  function updateControlsSummary() {
+    const active = [yearSel, expSel, facSel, topicSel, typeSel].filter((sel) => sel.value).length
+      + (sortSel.value !== 'date' ? 1 : 0) + (groupBy !== 'none' ? 1 : 0);
+    controlsSummary.textContent = active ? `Filters \u00b7 ${active} active` : 'Filters';
+  }
+
   function buildResultRow(result) {
     const li = h('li', { class: 'result-row' });
     li.appendChild(h('span', { class: 'result-date' }, fmtDate(result.date) || String(yearOf(result) || '')));
@@ -236,8 +273,6 @@ function renderResultsMode() {
     const link = h('a', { href: `#/result/${result.id.split(':')[1]}`, class: 'result-title' }, labelOf(result));
     link.addEventListener('click', (event) => {
       event.preventDefault();
-      const firstExp = (result.experiment_ids || [])[0];
-      if (firstExp) ctx.highlightGlobe(new Set([firstExp]));
       goto({ type: 'result', slug: result.id.split(':')[1] });
     });
     main.appendChild(link);
@@ -285,6 +320,7 @@ function renderResultsMode() {
       && (!filters.type || r.result_type === filters.type)
     ));
     countEl.textContent = `Showing ${filtered.length} of ${results.length} results`;
+    updateControlsSummary();
     list.innerHTML = '';
     if (!filtered.length) {
       list.appendChild(h('li', { class: 'empty-note' }, emptyMessage()));
@@ -297,28 +333,88 @@ function renderResultsMode() {
     }
   }
 
-  function setGroupBy(next) {
-    groupBy = groupBy === next ? 'none' : next;
+  function showGroupBy(next) {
+    groupBy = next;
     groupYearBtn.setAttribute('aria-pressed', String(groupBy === 'year'));
     groupYearBtn.classList.toggle('is-active', groupBy === 'year');
     groupExpBtn.setAttribute('aria-pressed', String(groupBy === 'experiment'));
     groupExpBtn.classList.toggle('is-active', groupBy === 'experiment');
+  }
+
+  // A <select> takes a value only when it is one of its options; a link that
+  // names a filter this list does not offer falls back to "All" rather than
+  // leaving the box blank.
+  function setSelect(sel, value) {
+    sel.value = value || '';
+    if (sel.value !== (value || '')) sel.value = '';
+  }
+
+  function viewNow() {
+    return {
+      year: yearSel.value, experiment: expSel.value, facility: facSel.value,
+      topic: topicSel.value, type: typeSel.value, sort: sortSel.value, group: groupBy,
+    };
+  }
+
+  function sameView(a, b) {
+    return ['year', 'experiment', 'facility', 'topic', 'type', 'sort', 'group']
+      .every((key) => (a[key] || '') === (b[key] || ''));
+  }
+
+  function setView(view) {
+    setSelect(yearSel, view.year);
+    setSelect(expSel, view.experiment);
+    setSelect(facSel, view.facility);
+    setSelect(topicSel, view.topic);
+    setSelect(typeSel, view.type);
+    setSelect(sortSel, view.sort || 'date');
+    showGroupBy(['year', 'experiment'].includes(view.group) ? view.group : 'none');
+  }
+
+  // Writes the view into the address (replacing the entry, like the globe
+  // filters do), so Back from an opened result and a shared link both land on
+  // this same list. The panel is not rebuilt for its own change: show() sees
+  // the address already agrees with what is on screen.
+  function persist() {
+    const saved = (ctx.getState && ctx.getState().results) || {};
+    const view = viewNow();
+    if (!sameView(saved, view)) ctx.navigate({ results: view }, { replace: true });
+  }
+
+  function setGroupBy(next) {
+    showGroupBy(groupBy === next ? 'none' : next);
     apply();
+    persist();
   }
   groupYearBtn.addEventListener('click', () => setGroupBy('year'));
   groupExpBtn.addEventListener('click', () => setGroupBy('experiment'));
 
-  for (const sel of [yearSel, expSel, facSel, topicSel, typeSel, sortSel]) sel.addEventListener('change', apply);
+  for (const sel of [yearSel, expSel, facSel, topicSel, typeSel, sortSel]) {
+    sel.addEventListener('change', () => { apply(); persist(); });
+  }
+  if (startView) setView(startView);
   apply();
+  // The address changed under an open panel (Back or Forward between two
+  // filtered lists): follow it.
+  resultsSync = (view) => {
+    if (!view || sameView(view, viewNow())) return;
+    setView(view);
+    apply();
+  };
 
-  return h('div', { class: 'mode-body' }, [
-    h('h2', {}, 'Results'),
-    countEl,
+  controls.append(
+    controlsSummary,
     h('div', { class: 'results-filters' }, [yearSel, expSel, facSel, topicSel, typeSel]),
     h('div', { class: 'mode-toolbar' }, [
       sortSel,
       h('div', { class: 'group-toggle-row', role: 'group', 'aria-label': 'Group results by' }, [groupYearBtn, groupExpBtn]),
     ]),
+  );
+  updateControlsSummary();
+  return h('div', { class: 'mode-body' }, [
+    h('h2', {}, 'Results'),
+    countEl,
+    controls,
     h('div', { class: 'mode-scroll' }, [list]),
   ]);
 }
@@ -351,7 +447,9 @@ function renderDocsMode() {
       h('a', {
         href: (doc.reference && doc.reference.url) || '#', target: '_blank', rel: 'noopener', class: 'document-title',
       }, labelOf(doc)),
-      h('span', { class: 'document-meta' }, ` — ${metaBits.join(', ')}`),
+      // Its own line: inline after a title that wraps, " — Conceptual Design
+      // Report, 2021" used to begin a line of its own with a dangling dash.
+      h('div', { class: 'document-meta' }, metaBits.join(' · ')),
     ]);
     if (owners.length) {
       li.appendChild(h('div', { class: 'document-owners' }, `Owners: ${owners.join(', ')}`));
@@ -405,17 +503,27 @@ const MODE_RENDERERS = { topic: renderTopicMode, results: renderResultsMode, doc
 let modeOpener = null;
 let lastMode = null;
 
-export function show(mode) {
+export function show(mode, current = null) {
   const { container } = ctx;
   if (!mode || !MODE_RENDERERS[mode]) {
     container.innerHTML = '';
     container.classList.add('hidden');
-    ctx.highlightGlobe(null);
+    resultsSync = null;
     lastMode = null;
     if (modeOpener && document.body.contains(modeOpener)) {
       modeOpener.focus({ preventScroll: true });
     }
     modeOpener = null;
+    return;
+  }
+  // app.js calls show() on every state change — a timeline move, a filter, the
+  // "Move timeline here" button on a result row — and none of them changes what
+  // this panel lists (results, documents and topics do not depend on the
+  // timeline or the filters). Rebuilding it anyway threw away the person's
+  // scroll position, the selects and the text they had typed, and dropped
+  // keyboard focus onto <body>.
+  if (mode === lastMode && container.firstElementChild && !container.classList.contains('hidden')) {
+    if (mode === 'results' && resultsSync && current) resultsSync(current.results);
     return;
   }
   if (mode !== lastMode) {

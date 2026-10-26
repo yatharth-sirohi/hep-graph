@@ -55,25 +55,27 @@
     "country_count": {
       "confidence": "approximate",
       "locator": "atlas.cern, 'The ATLAS Collaboration', figures panel",
-      "note": "home.cern states 42 countries as of March 2022.",
+      "note": "The collaboration page and the official institutions list both give 40 countries (list: 'Number of countries with ATLAS institutions: 40', read 2026-10-25); CERN's ATLAS page gave 42 countries in March 2022.",
       "quote": "40 Countries",
       "sources": [
         "src:atlas-collaboration-page"
       ],
       "value": 40,
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
     },
     "evidence_class": "official_institution_list",
     "institution_count": {
-      "confidence": "approximate",
-      "locator": "atlas.cern, 'The ATLAS Collaboration', figures panel",
-      "note": "The page states '170+', so 170 is a lower bound. home.cern states 245 institutes as of March 2022 - see the record notes.",
-      "quote": "170+ Institutions",
+      "confidence": "verified",
+      "display": "175 institutions (246 institutes counting cluster members and associates)",
+      "locator": "atlaspo.cern.ch/public/institutions, summary block at the foot of the page (Number of countries 40; Total number of institutions 175: Regular institutions 154, Cluster institutions 21; Institutes in clusters 76; Associate institutes 16; Total number of institutes 246). The page carries no date of its own beyond its footer; read 2026-10-25.",
+      "note": "This is the official ATLAS institutions list's own total. The collaboration's page atlas.cern/Discover/Collaboration gives the rounded headline '170+ Institutions' (read 2026-10-25), consistent with 175. The list counts 175 institutions (154 regular institutions and 21 clusters of institutes) and 246 institutes (the 154, the 76 institutes inside the clusters and 16 associates); it also lists 19 technical associates and 10 Tier-1 computing centres, which are not counted in either total. The Atlas holds 197 institution rows from the list as read on 2026-09-17 (see the roster snapshot), so those rows are institutes, not institutions, and they are not a complete copy of the list's 246.",
+      "quote": "Total number of institutions: 175",
       "sources": [
+        "src:atlas-institutions",
         "src:atlas-collaboration-page"
       ],
-      "value": 170,
-      "verified_at": "2026-09-16"
+      "value": 175,
+      "verified_at": "2026-10-25"
     },
     "member_count": {
       "confidence": "approximate",
@@ -84,7 +86,7 @@
         "src:atlas-collaboration-page"
       ],
       "value": 5500,
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
     },
     "roster_source_ids": [
       "src:atlas-collaboration-page"
@@ -92,10 +94,10 @@
   },
   "name": "ATLAS Collaboration",
   "notes": [
-    "CONFLICT on size: atlas.cern (the collaboration's own page) gives 'over 5500 members and 3000 scientific authors', '170+ Institutions', '40 Countries'; home.cern's ATLAS page gives 'More than 5500 scientists from 245 institutes in 42 countries (March 2022)'. The collaboration's own current figures are recorded; the two institution counts are almost certainly counting different things (member institutions vs. institutes including sub-groups), but no fetched source says so.",
-    "The stated counts carry no publication date on the page; as_of is set to the month this partition was researched (2026-09) and the counts are marked approximate because the page gives them as 'over' and '170+'.",
-    "Leadership rows are intentionally empty: no fetched source names the current spokesperson.",
-    "Institution membership rows (data/atlas/memberships/atlas.json) are owned by the membership lead and are not written here."
+    "Sizes from three official ATLAS pages, read 2026-10-25. The collaboration page (atlas.cern/Discover/Collaboration) says 'over 5500 members and 3000 scientific authors', '170+ Institutions', '40 Countries'. The official institutions list (atlaspo.cern.ch/public/institutions) counts 175 institutions, 246 institutes and 40 countries. CERN's ATLAS page gave 'More than 5500 scientists from 245 institutes in 42 countries' in March 2022. The institution figures differ only in what they count: institutions (175; '170+' on the collaboration page) versus institutes (246 on the list, 245 in 2022), where cluster members and associates count as institutes.",
+    "The Atlas's 197 institution rows come from the official institutions list as read on 2026-09-17; they are institutes (a subset of the list's 246), not a count of institutions.",
+    "The page gives its counts without a date; the membership 'as of' month (2026-09) is when the roster was recorded. The figures are lower bounds where the page says 'over' or '170+'.",
+    "Leadership rows are empty: no source consulted names the current spokesperson."
   ],
   "schema": "hep-atlas/0.2",
   "sources": [

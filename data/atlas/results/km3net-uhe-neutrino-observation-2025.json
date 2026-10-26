@@ -2,11 +2,22 @@
   "aliases": [
     "KM3-230213A"
   ],
-  "claim": {
-    "locator": "Abstract, Nature 638, 376-382 (2025) / INSPIRE literature record 2879193",
-    "quote": "We detect a muon with an estimated energy of 120 petaelectronvolts (PeV)",
+  "announced": {
+    "confidence": "verified",
+    "locator": "km3net.org announcement page",
+    "note": "KM3NeT announcement coinciding with the Nature publication of 12 February 2025 (the page header also carries a stale \"February 11, 2024\" line, which is inconsistent with the same page's own body text).",
+    "quote": "On February 12, 2025, The KM3NeT Collaboration has announced the detection from the abyss of the Mediterranean Sea of a cosmic neutrino with a record-breaking energy of about 220 PeV.",
     "sources": [
-      "src:astro-neutrino-km3net-uhe-neutrino-inspire-literature"
+      "src:astro-neutrino-km3net-observation-announcement-page"
+    ],
+    "value": "2025-02-12",
+    "verified_at": "2026-10-25"
+  },
+  "claim": {
+    "locator": "Abstract, Nature 638, 376-382 (2025), as hosted on Europe PMC",
+    "quote": "We detect a muon with an estimated energy of 120-60+110 petaelectronvolts (PeV). ... the energy of this event is much larger than that of any neutrino detected so far.",
+    "sources": [
+      "src:rv-r2-europepmc-km3net-nature-2025"
     ]
   },
   "collaboration_ids": [
@@ -18,16 +29,16 @@
   },
   "date": {
     "confidence": "verified",
-    "locator": "INSPIRE literature record 2879193 / Nature 638",
-    "note": "Publication year per the Nature journal reference. The event itself was recorded 2023-02-13; the Collaboration's own announcement is dated 2025-02-12.",
-    "quote": "Nature 638, 376-382 (2025)",
+    "locator": "km3net.org announcement page",
+    "note": "KM3NeT announcement coinciding with the Nature publication of 12 February 2025 (the page header also carries a stale \"February 11, 2024\" line, which is inconsistent with the same page's own body text).",
+    "quote": "On February 12, 2025, The KM3NeT Collaboration has announced the detection from the abyss of the Mediterranean Sea of a cosmic neutrino with a record-breaking energy of about 220 PeV.",
     "sources": [
-      "src:astro-neutrino-km3net-uhe-neutrino-inspire-literature"
+      "src:astro-neutrino-km3net-observation-announcement-page"
     ],
-    "value": "2025",
-    "verified_at": "2026-09-17"
+    "value": "2025-02-12",
+    "verified_at": "2026-10-25"
   },
-  "date_kind": "publication",
+  "date_kind": "announcement",
   "detector_ids": [
     "detector:km3net-arca"
   ],
@@ -45,7 +56,7 @@
     "dimension": "energy",
     "display": "~220 PeV (estimated neutrino energy)",
     "locator": "The observation of an ultra-high-energy cosmic neutrino at the bottom of the sea (km3net.org)",
-    "note": "The Collaboration's own announcement pages give the event's estimated neutrino energy as ~220 PeV; the peer-reviewed abstract (INSPIRE) instead reports the reconstructed muon energy of 120 PeV, from which the higher neutrino energy is inferred. Both figures are recorded (muon energy in key_value_text) to avoid conflating the two.",
+    "note": "The Collaboration's own announcement pages give the event's estimated neutrino energy as ~220 PeV; the peer-reviewed abstract (as hosted on Europe PMC) instead reports the muon energy as 120 (-60/+110) PeV, from which the higher neutrino energy is inferred. Both figures are recorded (muon energy in key_value_text) to avoid conflating the two.",
     "quote": "the neutrino's energy was estimated to be an astonishing 220 peta-electronvolts (PeV)",
     "sources": [
       "src:astro-neutrino-km3net-observation-announcement-page",
@@ -59,21 +70,21 @@
     "confidence": "verified",
     "locator": "The observation of an ultra-high-energy cosmic neutrino at the bottom of the sea (km3net.org)",
     "note": "",
-    "quote": "On February 13, 2023, the KM3NeT team recorded a neutrino event unlike any other.",
+    "quote": "We detect a muon with an estimated energy of 120-60+110 petaelectronvolts (PeV)",
     "sources": [
-      "src:astro-neutrino-km3net-observation-feature-page",
-      "src:astro-neutrino-km3net-uhe-neutrino-inspire-literature"
+      "src:rv-r2-europepmc-km3net-nature-2025",
+      "src:astro-neutrino-km3net-observation-feature-page"
     ],
-    "value": "Estimated cosmic-neutrino energy ~220 PeV (Collaboration announcement); reconstructed muon energy 120 PeV (paper abstract). Near-horizontal muon track detected by KM3NeT/ARCA on 2023-02-13, event designated KM3-230213A.",
-    "verified_at": "2026-09-17"
+    "value": "Estimated muon energy 120 (−60/+110) PeV (paper abstract); neutrino energy estimated at about 220 PeV (KM3NeT feature page). Near-horizontal muon track detected by KM3NeT/ARCA on 2023-02-13, event designated KM3-230213A.",
+    "verified_at": "2026-10-25"
   },
   "links": {
     "website": null
   },
   "name": "Observation of an ultra-high-energy cosmic neutrino with KM3NeT",
   "notes": [
-    "This is the mandatory flagship result specified in the brief (the KM3-230213A event). result_type set to 'observation' per the A16 mechanical check: the paper title contains 'Observation'.",
-    "Journal page numbers (376-382) and volume/issue (638/8050) were obtained via the INSPIRE literature API (record 2879193) fetched this session, not by directly reading the paywalled nature.com article (WebFetch of nature.com redirected to an authentication wall)."
+    "Describes the event KM3-230213A. Classified as an observation because the paper's title says 'Observation'.",
+    "Journal volume/issue (638/8050) and pages (376-382) are given by the Europe PMC record of the Nature paper (src:rv-r2-europepmc-km3net-nature-2025); nature.com redirects to a login wall, so the article itself was not read."
   ],
   "official_url": {
     "confidence": "verified",
@@ -89,6 +100,18 @@
     "url": "https://doi.org/10.1038/s41586-024-08543-1"
   },
   "publication_source_id": "src:astro-neutrino-km3net-uhe-neutrino-inspire-literature",
+  "published": {
+    "confidence": "verified",
+    "locator": "Europe PMC record of Nature 638, 376-382 (2025): firstPublicationDate",
+    "note": "",
+    "quote": "\"firstPublicationDate\":\"2025-02-12\"",
+    "sources": [
+      "src:rv-r2-europepmc-km3net-nature-2025",
+      "src:astro-neutrino-km3net-observation-announcement-page"
+    ],
+    "value": "2025-02-12",
+    "verified_at": "2026-10-25"
+  },
   "result_type": "observation",
   "schema": "hep-atlas/0.2",
   "significance": {
@@ -107,8 +130,8 @@
     "src:astro-neutrino-km3net-uhe-neutrino-inspire-literature"
   ],
   "summary": {
-    "plain": "KM3NeT's ARCA telescope caught the most energetic neutrino ever recorded, a near-horizontal flash of light from a particle interaction on the sea floor in February 2023, suggesting an origin far more powerful than any neutrino source seen before.",
-    "technical": "Single ultra-high-energy through-going muon event (KM3-230213A), recorded 2023-02-13 by 21 active KM3NeT/ARCA detection units, with reconstructed muon energy 120 PeV implying a still higher parent-neutrino energy (~220 PeV, Collaboration estimate); the highest-energy neutrino candidate reported to date, published in Nature 638, 376-382 (2025)."
+    "plain": "KM3NeT's ARCA telescope in the Mediterranean recorded, on 13 February 2023, a near-horizontal muon with an estimated energy of 120 PeV, which the paper says most probably came from a neutrino of even higher energy (about 220 PeV in the collaboration's announcement). The paper says the event's energy is much larger than that of any neutrino detected so far.",
+    "technical": "Single ultra-high-energy near-horizontal muon event (KM3-230213A), recorded on 2023-02-13 by KM3NeT/ARCA with 21 detection lines installed at the time; estimated muon energy 120 (−60/+110) PeV, produced most probably by a neutrino of even higher energy (about 220 PeV in the collaboration's estimate). The paper says the energy of this event is much larger than that of any neutrino detected so far. Published in Nature 638, 376-382 (2025)."
   },
   "title": "Observation of an ultra-high-energy cosmic neutrino with KM3NeT",
   "topic_ids": [
@@ -116,5 +139,5 @@
     "topic:multimessenger-astrophysics"
   ],
   "type": "result",
-  "why_it_matters": "The event's energy far exceeds any previously detected neutrino, implying either a new class of cosmic accelerator or the first detection of a cosmogenic neutrino produced by ultra-high-energy cosmic rays interacting with the cosmic microwave background."
+  "why_it_matters": "The abstract says the neutrino may have originated in a different cosmic accelerator than the lower-energy neutrinos, or may be the first detection of a cosmogenic neutrino produced by interactions of ultra-high-energy cosmic rays with background photons in the Universe."
 }

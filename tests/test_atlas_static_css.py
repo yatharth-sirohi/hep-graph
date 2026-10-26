@@ -12,7 +12,10 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-STYLESHEETS = [ROOT / "static" / "atlas" / "atlas.css"]
+STYLESHEETS = [
+    ROOT / "static" / "atlas" / "atlas.css",
+    ROOT / "static" / "atlas" / "phone.css",
+]
 
 
 def _strip_comments(text: str) -> str:

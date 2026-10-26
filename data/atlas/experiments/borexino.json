@@ -1,143 +1,171 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "experiment:borexino",
-  "type": "experiment",
-  "name": "Borexino",
+  "accelerator_ids": [],
   "aliases": [],
-  "kind": "solar_neutrino",
-  "secondary_kinds": [],
-  "collaboration_ids": ["collaboration:borexino"],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:borexino"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "document_ids": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1110446,
+    "wikidata": null
+  },
   "facility_roles": [
     {
-      "facility_id": "facility:lngs",
-      "role": "host",
-      "start": null,
-      "end": null,
-      "sources": ["src:borexino-official-site"],
-      "verified_at": "2026-09-17",
       "confidence": "verified",
-      "note": "facility:lngs already exists (owned by the dark-matter/facilities workstreams) and is referenced here, not edited."
+      "end": null,
+      "facility_id": "facility:lngs",
+      "note": "",
+      "role": "host",
+      "sources": [
+        "src:borexino-official-site"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
     }
   ],
-  "beamline_ids": [],
-  "accelerator_ids": [],
-  "topic_ids": ["topic:solar-neutrinos", "topic:neutrino-oscillations"],
+  "id": "experiment:borexino",
   "intervals": [
     {
-      "label": "construction",
-      "status": "construction",
-      "start": "1990",
+      "confidence": "approximate",
       "end": "2004",
-      "sources": ["src:borexino-wikipedia"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "Research and development began in 1990; By 2004, the structure of the detector had been completed.",
-      "note": "Sourced from Wikipedia (rank 12) only this session."
+      "label": "construction",
+      "note": "Sourced from Wikipedia (rank 12) only.",
+      "quote": "In 1990, the design was fundamentally altered, and the name of the experiment was changed to \"Borexino\". Research and development began on the detector at that time. ... By 2004, the structure of the detector had been completed",
+      "sources": [
+        "src:borexino-wikipedia"
+      ],
+      "start": "1990",
+      "status": "construction",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "data taking",
-      "status": "active",
-      "start": "2007-05",
+      "confidence": "approximate",
       "end": "2021-10",
-      "sources": ["src:borexino-wikipedia"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "Started May 2007; the entire Borexino experiment was terminated in October 2021.",
-      "note": "Sourced from Wikipedia (rank 12) only; the official site's own homepage this session described '35 years of operation through 2025' without giving exact start/end dates, which is not used here as it appears to describe the collaboration's overall lifetime (proposal to final analysis) rather than the detector's active data-taking window."
+      "label": "data taking",
+      "note": "Sourced from Wikipedia (rank 12) only; the official site's homepage (checked 2026-09-17) describes '35 years of operation through 2025' without giving exact start/end dates, which is not used here because it appears to describe the collaboration's overall lifetime (proposal to final analysis) rather than the detector's active data-taking window.",
+      "quote": "by May 2007 the detector chamber had been filled and data taking began ... The entire Borexino experiment was terminated in October 2021.",
+      "sources": [
+        "src:borexino-wikipedia"
+      ],
+      "start": "2007-05",
+      "status": "active",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "shut down",
-      "status": "completed",
-      "start": "2021-10",
-      "end": null,
-      "sources": ["src:borexino-wikipedia"],
-      "verified_at": "2026-09-17",
       "confidence": "approximate",
+      "end": null,
+      "label": "shut down",
+      "note": "Terminal event date sourced from Wikipedia (rank 12) only.",
       "quote": "the entire Borexino experiment was terminated in October 2021",
-      "note": "Terminal event date sourced from Wikipedia (rank 12) only."
+      "sources": [
+        "src:borexino-wikipedia"
+      ],
+      "start": "2021-10",
+      "status": "completed",
+      "verified_at": "2026-09-17"
     }
   ],
-  "physics_goals": [
-    {
-      "value": "Directly detect and spectroscopically measure low-energy solar neutrinos (pp, 7Be, pep, 8B and CNO) in real time",
-      "sources": ["src:borexino-official-site"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "A solar neutrino detector designed to observe neutrinos produced in the Sun's nuclear fusion processes.",
-      "locator": "borex.lngs.infn.it homepage"
-    }
-  ],
-  "unique_capabilities": [
-    {
-      "value": "Unprecedentedly radio-pure, large-volume liquid-scintillator detector able to see the CNO-cycle neutrino signal for the first time",
-      "sources": ["src:borexino-cno-evidence-2020"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "the unprecedentedly radio-pure large-volume liquid-scintillator Borexino detector located at the underground Laboratori Nazionali del Gran Sasso in Italy",
-      "locator": "arXiv:2006.15115, abstract"
-    }
-  ],
-  "energy_regime": null,
   "key_specs": [
     {
       "label": "Active (target) mass",
       "quantity": {
-        "value": 278,
-        "unit": "t",
-        "dimension": "mass",
         "approx": false,
-        "display": "278 t active mass (~100 t fiducial)",
-        "sources": ["src:borexino-wikipedia"],
-        "verified_at": "2026-09-17",
-        "confidence": "approximate",
-        "quote": "278 tonnes of active mass (315 m³ volume), with approximately 100 tonnes fiducial mass",
-        "note": "Sourced from Wikipedia (rank 12) only; corroborated by the CNO paper's own '100 tonnes of target' fiducial-mass figure."
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "278 t active mass",
+        "note": "278 t is the active liquid-scintillator mass stated in the 2014 Nature pp-neutrino paper (Methods); Wikipedia's infobox gives the same figure. The nominal fiducial mass is recorded separately on detector:borexino (specs.fiducial_mass); the pp analysis itself used a 75.5 t fiducial cut.",
+        "quote": "The active neutrino target, 278 t of ultrapure liquid scintillator",
+        "sources": [
+          "src:borexino-pp-first-detection-2014",
+          "src:borexino-wikipedia"
+        ],
+        "unit": "t",
+        "value": 278,
+        "verified_at": "2026-09-17"
       }
     },
     {
       "label": "Overburden",
       "quantity": {
-        "value": 3800,
-        "unit": "m.w.e.",
-        "dimension": "depth_mwe",
         "approx": false,
-        "display": "3800 m.w.e.",
-        "sources": ["src:borexino-wikipedia"],
-        "verified_at": "2026-09-17",
         "confidence": "approximate",
+        "dimension": "depth_mwe",
+        "display": "3800 m.w.e.",
+        "note": "Sourced from Wikipedia (rank 12) only; differs from the ~1400 m rock / average LNGS overburden figure recorded on site:lngs-hall-c because m.w.e. and rock-metres are different units and per-hall shielding can differ from the site average.",
         "quote": "Protected by 3,800 meters of water-equivalent depth",
-        "note": "Sourced from Wikipedia (rank 12) only; differs from the ~1400 m rock / average LNGS overburden figure already recorded on site:lngs-hall-c (owned by the facilities workstream) because m.w.e. and rock-metres are different units and per-hall shielding can differ from the site average."
+        "sources": [
+          "src:borexino-wikipedia"
+        ],
+        "unit": "m.w.e.",
+        "value": 3800,
+        "verified_at": "2026-09-17"
       }
     }
   ],
+  "kind": "solar_neutrino",
   "lineage": [],
-  "external": {
-    "inspire_experiment": 1110446,
-    "greybook": null,
-    "wikidata": null
-  },
-  "document_ids": [],
-  "result_ids": [],
   "links": {
     "website": {
-      "value": "https://borex.lngs.infn.it/",
-      "sources": ["src:borexino-official-site"],
-      "verified_at": "2026-09-17",
       "confidence": "verified",
-      "note": "The certificate-mismatched domain borexino.lngs.infn.it redirects to/matches borex.lngs.infn.it; the latter is recorded as the working URL fetched this session."
+      "note": "The certificate-mismatched domain borexino.lngs.infn.it redirects to/matches borex.lngs.infn.it; the latter is recorded as the working URL (checked 2026-09-17).",
+      "sources": [
+        "src:borexino-official-site"
+      ],
+      "value": "https://borex.lngs.infn.it/",
+      "verified_at": "2026-09-17"
     }
   },
-  "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not authored (v0.2 A1)."
+  "name": "Borexino",
+  "notes": [],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "borex.lngs.infn.it/about-borexino/ page",
+      "quote": "It was designed to reveal low energy (sub-MeV) neutrinos in real time. Its main goals were to perform solar neutrinos spectroscopy and to measure the 7Be neutrino flux from the Sun.",
+      "sources": [
+        "src:rfua-borexino-about"
+      ],
+      "value": "Detect low-energy (sub-MeV) neutrinos in real time to perform solar-neutrino spectroscopy, including measurement of the 7Be neutrino flux from the Sun",
+      "verified_at": "2026-10-25"
+    }
   ],
-  "sources": ["src:borexino-official-site", "src:borexino-wikipedia", "src:borexino-pp-first-detection-2014", "src:borexino-cno-evidence-2020", "src:borexino-inspire-experiment-record"],
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:borexino-official-site",
+    "src:borexino-wikipedia",
+    "src:borexino-pp-first-detection-2014",
+    "src:borexino-cno-evidence-2020",
+    "src:borexino-inspire-experiment-record"
+  ],
   "status": "completed",
   "summary": {
     "plain": "A giant ball of ultra-pure liquid deep under the Gran Sasso mountain in Italy that directly watched low-energy neutrinos streaming from the Sun's core, including two kinds no one had ever seen before.",
     "technical": "Liquid-scintillator (pseudocumene+PPO) solar-neutrino detector at LNGS Hall C, 278 t active mass (~100 t fiducial), built 1990-2004, took data May 2007-October 2021. First direct spectral measurement of pp-chain neutrinos (2014) and first experimental evidence of CNO-cycle solar neutrinos (2020)."
   },
-  "coverage": {
-    "tier": "D",
-    "researched": "partial"
-  }
+  "topic_ids": [
+    "topic:solar-neutrinos",
+    "topic:neutrino-oscillations"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2006.15115, abstract",
+      "quote": "the unprecedentedly radio-pure large-volume liquid-scintillator Borexino detector located at the underground Laboratori Nazionali del Gran Sasso in Italy",
+      "sources": [
+        "src:borexino-cno-evidence-2020"
+      ],
+      "value": "Unprecedentedly radio-pure, large-volume liquid-scintillator detector able to see the CNO-cycle neutrino signal for the first time",
+      "verified_at": "2026-09-17"
+    }
+  ]
 }

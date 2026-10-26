@@ -19,7 +19,7 @@
     {
       "confidence": "verified",
       "facility_id": "facility:desy",
-      "note": "facility:desy is owned by the 'facilities' lead (landed during this session).",
+      "note": "",
       "role": "host",
       "sources": [
         "src:axions-alps-ii-official-site"
@@ -44,16 +44,33 @@
     },
     {
       "confidence": "verified",
-      "end": null,
+      "end": "2024-05",
       "label": "operating",
-      "locator": "INSPIRE experiment record 1761312, field date_started",
-      "note": "Day-precision start date from the INSPIRE experiment record's date_started field, matching the wave-3 brief's 'operating since 2023' guidance.",
+      "locator": "end: arXiv:2512.14110 abstract",
+      "note": "Day-precision start date from the INSPIRE experiment record's date_started field. The end (2024-05) is set from the collaboration paper, which says ALPS II \"searched for axions and similar lightweight particles in its first science campaign from February to May 2024\" and that \"Currently, the optical system of ALPS II is being upgraded aiming for another two orders of magnitude sensitivity increase.\" (arXiv:2512.14110, v3 of 15 May 2026). No second science run is reported there (checked 2026-10-25).",
       "sources": [
-        "src:axions-alps-ii-inspire-experiment"
+        "src:axions-alps-ii-inspire-experiment",
+        "src:currency-alps-ii-first-science-arxiv-2512-14110"
       ],
       "start": "2023-05-23",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "optical-system upgrade after the first science campaign",
+      "note": "Start not stated: set to the end of the first science campaign (May 2024) as the earliest it can be. Still under way in the version of the paper dated 15 May 2026; no later report was found.",
+      "quote": "Currently, the optical system of ALPS II is being upgraded aiming for another two orders of magnitude sensitivity increase.",
+      "sources": [
+        "src:currency-alps-ii-first-science-arxiv-2512-14110"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2024-05"
+      },
+      "status": "upgrade",
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [],
@@ -72,8 +89,8 @@
   },
   "name": "ALPS II",
   "notes": [
-    "ALPS I (the predecessor LSW experiment, completed 2010) is not created as a separate entity in this wave (out of the axions lead's assigned scope); its history is only described in prose here from the ALPS II INSPIRE record's description field.",
-    "detector:alps-ii is placed at site:desy-hera-north-hall-h1. VERIFIER FIX (2026-09-17): upgraded from Wikipedia-only (rank 12) to DESY's own ALPS cryoplatform page (src:axions-alps-ii-desy-cryoplatform, official_experiment_site), which independently states the ALPS II hardware is in the HERA North Hall / HERA tunnel; confidence raised to verified."
+    "ALPS I (the predecessor light-shining-through-a-wall experiment, completed 2010) has no separate record in the Atlas; its history is described only in prose here, from the description field of the ALPS II INSPIRE record.",
+    "The ALPS II detector is placed at the HERA North Hall (site:desy-hera-north-hall-h1). The placement rests on DESY's own ALPS cryoplatform page (src:axions-alps-ii-desy-cryoplatform, an official experiment site), which states that the ALPS II hardware is in the HERA North Hall / HERA tunnel; an earlier Wikipedia-only placement was replaced by this source."
   ],
   "physics_goals": [
     {
@@ -95,7 +112,7 @@
     "src:axions-alps-ii-official-site",
     "src:axions-alps-ii-tdr-2013"
   ],
-  "status": "active",
+  "status": "upgrade",
   "summary": {
     "plain": "ALPS II shines a laser at a light-tight wall to see whether a tiny fraction can pass through as an undetectable particle and turn back into light on the far side. This would reveal new, very light particles related to dark matter. It has been operating at DESY since 2023.",
     "technical": "Light-shining-through-a-wall (LSW) experiment at DESY reusing decommissioned superconducting HERA dipole magnets and matched optical build-up/regeneration cavities, successor to ALPS I (completed 2010); TDR submitted 2012-08, operating (data taking) since 2023-05-23."

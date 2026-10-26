@@ -12,7 +12,7 @@
   "geometry": {
     "confidence": "approximate",
     "locator": "OSM way/51755107, extract timestamp 2026-09-18T21:52:02Z",
-    "note": "This is the surface building footprint, not a survey of the underground collision point. Its centroid also anchors the Tevatron ring's derived centre (see geometry:fermilab-tevatron-ring checks). The existing site record site:fermilab-d0-collision-hall still carries a coarse 3 km campus point; this OSM position is a strictly better anchor and is flagged as a site coordinate correction in the geometry worklog. This is also the first sourced coordinate found this session for the D0 hall at all -- the OSM Overpass probes the integrator ran earlier this session did not surface it (only CDF Hall); it was found by a dedicated name search for 'D0' within the campus bounding box.",
+    "note": "This is the surface building footprint, not a survey of the underground collision point. The Tevatron ring (geometry:fermilab-tevatron-ring) is placed independently of this footprint; the building lies just outside the ring, as a surface building beside an underground collision hall should. The atlas site record site:fermilab-d0-collision-hall now carries this footprint's centroid as its point (accuracy 40 m). As of 2026-09-18 this was the first sourced coordinate found for the D0 hall: an earlier OpenStreetMap query of the campus buildings returned only the CDF Hall, and this building was found by a name search for 'D0' within the campus bounding box.",
     "sources": [
       "src:fermilab-geo-osm-rings-and-d0"
     ],
@@ -88,7 +88,7 @@
     "src:fermilab-geo-osm-rings-and-d0"
   ],
   "summary": {
-    "plain": "This is the surface building footprint, not a survey of the underground collision point. Its centroid also anchors the Tevatron ring's derived centre (see geometry:fermilab-tevatron-ring checks). T..."
+    "plain": "The D0 Assembly Building at the Tevatron D0 straight section, above the D0 collision hall, from an OpenStreetMap footprint; drawn until December 2011."
   },
   "type": "geometry",
   "valid": {

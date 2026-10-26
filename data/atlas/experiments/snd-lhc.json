@@ -17,7 +17,7 @@
   "document_ids": [],
   "energy_regime": {
     "confidence": "approximate",
-    "note": "No SND@LHC-specific energy value distinct from the LHC-wide figures was found in this session.",
+    "note": "No SND@LHC-specific energy value distinct from the LHC-wide figures was found.",
     "sources": [
       "src:colliders-lhc-snd-lhc-inspire-experiment-record"
     ],
@@ -63,11 +63,11 @@
       "end": {
         "approx": true,
         "date": "2022",
-        "note": "Year precision only: bounded above by the 2023 PRL's statement that SND@LHC recorded pp collision data in 2022; no source fetched gives an exact installation/commissioning-complete date."
+        "note": "Year precision only: bounded above by the 2023 PRL's statement that SND@LHC recorded pp collision data in 2022; no source consulted gives an exact installation/commissioning-complete date."
       },
       "label": "approved / construction / commissioning",
       "locator": "INSPIRE experiment record 2032474, field date_approved",
-      "note": "No separate proposal, construction-start or commissioning date was found; only the approval date is sourced. VERIFIER FIX (2026-09-17): a prior draft of this record left `status` at 'approved' although its own note already said the true state should be 'active', citing SND@LHC's publicly known Run 3 data-taking; that self-contradiction is fixed here by actually sourcing the operating interval below (arXiv:2305.09383 / PRL 131, 031802), rather than by asserting 'active' unsourced.",
+      "note": "No separate proposal, construction-start or commissioning date was found; only the approval date is sourced. The operating interval below is sourced to arXiv:2305.09383 / PRL 131, 031802.",
       "sources": [
         "src:colliders-lhc-snd-lhc-inspire-experiment-record"
       ],
@@ -80,12 +80,12 @@
       "end": {
         "approx": true,
         "date": "2026-06",
-        "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary (see the added interval below). SND@LHC only detects particles from LHC collisions, so it cannot be 'active' while the LHC itself is off for LS3 (as already modelled for ALICE, LHCb, TOTEM, FASER and LHCf in this partition)."
+        "note": "Ends at the LHC-wide start of Long Shutdown 3 (June 2026); SND@LHC only detects particles from LHC collisions, so it cannot be active while the LHC is off."
       },
       "kind": "run",
       "label": "data-taking (LHC Run 3)",
       "locator": "arXiv:2305.09383 / Phys. Rev. Lett. 131, 031802 (2023), abstract",
-      "note": "VERIFIER-ADDED (2026-09-17): the SND@LHC Collaboration's own first-neutrino-observation paper states it used 'a data set of proton-proton collisions at sqrt(s) = 13.6 TeV collected by SND@LHC in 2022'. This directly establishes SND@LHC as an operating, data-taking experiment from 2022, correcting the prior 'approved'-only record (a P1 timeline error per the wave-3 verification brief). Year precision only; no exact first-data day/month is sourced.",
+      "note": "The SND@LHC Collaboration's own first-neutrino-observation paper states it used 'a data set of proton-proton collisions at sqrt(s) = 13.6 TeV collected by SND@LHC in 2022'. This establishes SND@LHC as an operating, data-taking experiment from 2022. Year precision only; no exact first-data day or month is sourced.",
       "quote": "A data set of proton-proton collisions at sqrt(s) = 13.6 TeV collected by SND@LHC in 2022 is used, corresponding to an integrated luminosity of 36.8 fb-1.",
       "sources": [
         "src:colliders-lhc-snd-lhc-2023-prl-muon-neutrino"
@@ -98,17 +98,25 @@
       "verified_at": "2026-09-17"
     },
     {
-      "confidence": "verified",
-      "end": null,
+      "confidence": "derived",
+      "end": {
+        "approx": true,
+        "date": "2030",
+        "display": "mid-2030",
+        "note": "CERN schedule: the LHC resumes operation in mid-2030; the rest of the CERN complex restarts in stages from mid-2028.",
+        "planned": true
+      },
       "label": "Long Shutdown 3",
-      "locator": "reused from accelerator:lhc's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
-      "note": "VERIFIER-ADDED (2026-09-17): shares the LHC-wide Long Shutdown 3 interval already sourced for ALICE, LHCb, TOTEM, FASER and LHCf in this partition; ongoing at verified_at.",
+      "locator": "home.cern/science/long-shutdown-3, item of 5 August 2026 \"The LHC is being warmed up from near absolute zero to room temperature\"",
+      "note": "SND@LHC detects neutrinos and other particles produced in LHC collisions, so it is idle while the LHC is shut down; this is an inference, since no SND@LHC-specific statement about this shutdown was found. Status is shutdown, not upgrade. The collaboration's home page (checked 2026-10-25) does not mention LS3 or an upgrade. No source consulted says that SND@LHC's own detector is being upgraded in LS3. Start and end are the LHC-wide Long Shutdown 3 dates. CERN's 5 August 2026 item says 'The cryogenics team has been running the warm-up sequence since LS3 began on 29 June 2026' and that the stored helium is kept 'ready to be used again once the accelerator resumes operation in mid-2030'; CERN's 29 June 2026 article says 'The HiLumi LHC, scheduled to begin operation in 2030'. The end is a schedule value, not a reported event.",
+      "quote": "Following its final physics run, the accelerator has been switched off to begin CERN’s Long Shutdown 3 (LS3) ... The HiLumi LHC, scheduled to begin operation in 2030",
       "sources": [
+        "src:cern-long-shutdown-3-page",
         "src:cern-ls3-farewell-2026"
       ],
-      "start": "2026-06",
+      "start": "2026-06-29",
       "status": "shutdown",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [
@@ -120,15 +128,23 @@
   "kind": "accelerator_neutrino",
   "lineage": [],
   "links": {
-    "website": null
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "quote": "SND@LHC: Scattering and Neutrino Detector at the LHC",
+      "sources": [
+        "src:rc-snd-lhc-official-site"
+      ],
+      "value": "https://snd-lhc.web.cern.ch/",
+      "verified_at": "2026-10-25"
+    }
   },
   "name": "SND@LHC",
   "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not written (v0.2 A1).",
-    "The official SND@LHC site (attempted at home.cern/science/experiments/snd-lhc [404, re-checked 2026-09-17], sndlhc.web.cern.ch and sndlhc.cern [DNS failure, re-checked 2026-09-17]) could not be fetched; only the INSPIRE experiment record and the collaboration's own PRL were used. links.website is left null rather than guessed.",
+    "The official SND@LHC site is snd-lhc.web.cern.ch (checked 2026-10-25); home.cern/science/experiments/snd-lhc returns 404 and sndlhc.web.cern.ch does not resolve (checked 2026-10-25).",
     "key_specs pseudo-rapidity coverage value is left as a bare label with a null quantity because pseudo-rapidity_coverage is a sourced-string (S) Appendix-A key, not a quantity; the value '7.2 < eta < 8.6' is instead carried on physics_goals/unique_capabilities above with its quote.",
-    "Mandatory-bar-only pass: no results/technical documents written (SND@LHC is not a wave-3 flagship); the 2023 muon-neutrino-observation PRL was added only as timeline evidence for the 'active' interval, not as a flagship result record.",
-    "VERIFIER FIX (2026-09-17): status corrected 'approved' -> 'active' and a sourced data-taking interval added, citing arXiv:2305.09383 (SND@LHC Collaboration, 'Observation of Collider Muon Neutrinos with the SND@LHC Experiment', PRL 131, 031802 (2023)), which states data were collected 'in 2022'. The prior record left status at 'approved' citing an absence of a sourced first-data date, even though its own interval note already said the true state was 'active' -- a P1 timeline error per the wave-3 verification brief (SND@LHC has taken Run 3 data since 2022)."
+    "The 2023 muon-neutrino-observation PRL is used only as timeline evidence for the 'active' interval; no results or technical documents are recorded for SND@LHC yet.",
+    "SND@LHC has taken Run 3 data since 2022: the collaboration's 2023 PRL (arXiv:2305.09383, 'Observation of Collider Muon Neutrinos with the SND@LHC Experiment', PRL 131, 031802) states data were collected 'in 2022'. SND@LHC cannot record anything while the LHC is off for LS3, so its status is shutdown."
   ],
   "physics_goals": [
     {
@@ -156,7 +172,7 @@
   "status": "shutdown",
   "summary": {
     "plain": "SND@LHC is a compact experiment in a disused CERN tunnel that catches neutrinos produced in LHC collisions, in a direction close to the beam that no other LHC experiment can see. It recorded collision data from 2022 until the LHC's current maintenance shutdown began in 2026.",
-    "technical": "Stand-alone forward neutrino/long-lived-particle detector in the TI18 tunnel, covering the pseudo-rapidity range 7.2 < eta < 8.6, complementary to FASER. Approved 17 March 2021; recorded LHC Run 3 pp-collision data from 2022 (arXiv:2305.09383) through June 2026; off since CERN's Long Shutdown 3 began."
+    "technical": "Stand-alone forward neutrino/long-lived-particle detector in the TI18 tunnel, covering the pseudo-rapidity range 7.2 < η < 8.6, complementary to FASER. Approved 17 March 2021; recorded LHC Run 3 pp-collision data from 2022 (arXiv:2305.09383) through June 2026; off since CERN's Long Shutdown 3 began."
   },
   "topic_ids": [
     "topic:neutrino-interactions"

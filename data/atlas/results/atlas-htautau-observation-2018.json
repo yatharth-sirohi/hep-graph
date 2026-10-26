@@ -1,5 +1,16 @@
 {
   "aliases": [],
+  "announced": {
+    "confidence": "verified",
+    "locator": "ATLAS physics briefing dated 8 June 2018 (ATLAS-CONF-2018-021)",
+    "note": "",
+    "quote": "8 June 2018 | By ATLAS Collaboration ... The new result is an unambiguous observation of this decay with a significance of 6.4 standard deviations.",
+    "sources": [
+      "src:rv-atlas-briefing-htautau-observation-2018"
+    ],
+    "value": "2018-06-08",
+    "verified_at": "2026-10-25"
+  },
   "claim": {
     "locator": "abstract",
     "quote": "the observed (expected) significance amounts to 6.4 (5.4) standard deviations and constitutes an observation of H->tautau decays.",
@@ -16,15 +27,17 @@
   },
   "date": {
     "confidence": "verified",
-    "locator": "arXiv submission history",
-    "note": "arXiv submission date; published as Phys. Rev. D 99, 072001 (2019).",
+    "locator": "ATLAS physics briefing dated 8 June 2018 (ATLAS-CONF-2018-021)",
+    "note": "Announcement date: ATLAS released the measurement, as conference note ATLAS-CONF-2018-021, on 8 June 2018 (ATLAS physics briefing). The paper was submitted to arXiv on 21 November 2018 and published as Phys. Rev. D 99 (2019) 072001.",
+    "quote": "8 June 2018 | By ATLAS Collaboration ... The new result is an unambiguous observation of this decay with a significance of 6.4 standard deviations.",
     "sources": [
+      "src:rv-atlas-briefing-htautau-observation-2018",
       "src:atlas-htautau-arxiv-1811-08856"
     ],
-    "value": "2018-11-21",
-    "verified_at": "2026-09-17"
+    "value": "2018-06-08",
+    "verified_at": "2026-10-25"
   },
-  "date_kind": "preprint",
+  "date_kind": "announcement",
   "detector_ids": [
     "detector:atlas"
   ],
@@ -38,14 +51,15 @@
   "id": "result:atlas-htautau-observation-2018",
   "key_value": null,
   "key_value_text": {
-    "confidence": "uncertain",
+    "confidence": "verified",
     "locator": "abstract",
-    "note": "No single cross-section or signal-strength headline number was quoted in the 300-character excerpt already fetched for this source; not re-fetching the full text to avoid inventing a number.",
+    "note": "",
+    "quote": "the observed (expected) significance amounts to 6.4 (5.4) standard deviations and constitutes an observation of H→tautau decays.",
     "sources": [
       "src:atlas-htautau-arxiv-1811-08856"
     ],
-    "value": "Observation of H -> tau tau decays, 6.4 sigma observed significance",
-    "verified_at": "2026-09-17"
+    "value": "Observation of H → ττ decays: 6.4σ observed (5.4σ expected) significance, 13 TeV data combined with 7 and 8 TeV data",
+    "verified_at": "2026-10-25"
   },
   "links": {
     "website": null
@@ -66,6 +80,17 @@
     "doi": "10.1103/PhysRevD.99.072001",
     "url": "https://arxiv.org/abs/1811.08856"
   },
+  "published": {
+    "confidence": "verified",
+    "locator": "arXiv:1811.08856 journal reference (paper header)",
+    "note": "",
+    "quote": "Phys. Rev. D 99 (2019) 072001",
+    "sources": [
+      "src:atlas-htautau-arxiv-1811-08856"
+    ],
+    "value": "2019",
+    "verified_at": "2026-10-25"
+  },
   "result_type": "observation",
   "schema": "hep-atlas/0.2",
   "significance": {
@@ -75,15 +100,15 @@
     "sources": [
       "src:atlas-htautau-arxiv-1811-08856"
     ],
-    "value": "6.4 standard deviations (observed); 5.4 (expected)",
-    "verified_at": "2026-09-17"
+    "value": "6.4σ observed (5.4σ expected), 13 TeV data combined with 7 and 8 TeV data",
+    "verified_at": "2026-10-25"
   },
   "sources": [
     "src:atlas-htautau-arxiv-1811-08856"
   ],
   "summary": {
-    "plain": "ATLAS saw, on its own, the Higgs boson decaying into a pair of tau leptons - heavy cousins of the electron - confirming that the Higgs couples to this type of particle.",
-    "technical": "Combination of boosted-Higgs and VBF categories using 13 TeV data (36.1 fb^-1): observed (expected) significance 6.4 (5.4) standard deviations for H -> tau tau, an ATLAS-only observation."
+    "plain": "ATLAS reports an observation of the Higgs boson decaying into a pair of tau leptons (heavier cousins of the electron), from 13 TeV data combined with earlier 7 and 8 TeV data. The paper reports cross-section measurements, all in agreement with Standard Model expectations.",
+    "technical": "36.1 fb⁻¹ of 13 TeV data: H → ττ signal established with observed (expected) significance 4.4 (4.1) standard deviations; combined with 7 and 8 TeV data, 6.4 (5.4) standard deviations, which 'constitutes an observation of H → ττ decays'. Total H → ττ cross section at 13 TeV 3.77 +0.60/−0.59 (stat) +0.87/−0.74 (syst) pb; all measurements in agreement with Standard Model expectations."
   },
   "title": "Cross-section measurements of the Higgs boson decaying into a pair of tau-leptons in proton-proton collisions at sqrt(s)=13 TeV with the ATLAS detector",
   "topic_ids": [
@@ -91,5 +116,5 @@
     "topic:collider-physics"
   ],
   "type": "result",
-  "why_it_matters": "It was ATLAS's own first observation of the Higgs boson coupling directly to leptons, testing the Yukawa-coupling structure of the Standard Model in a second fermion channel after b quarks and top quarks."
+  "why_it_matters": "Tau leptons are heavier cousins of the electron, so this decay tests how the Higgs boson couples to leptons. The paper states that the combined significance constitutes an observation of H → ττ decays by the ATLAS experiment, with all measurements in agreement with Standard Model expectations."
 }

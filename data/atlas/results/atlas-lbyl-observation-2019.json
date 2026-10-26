@@ -1,8 +1,19 @@
 {
   "aliases": [],
+  "announced": {
+    "confidence": "verified",
+    "locator": "ATLAS physics briefing dated 17 March 2019 (ATLAS-CONF-2019-002)",
+    "note": "",
+    "quote": "17 March 2019 ... Today, at the Rencontres de Moriond conference (La Thuile, Italy)",
+    "sources": [
+      "src:rv-atlas-briefing-lbyl-observation-2019"
+    ],
+    "value": "2019-03-17",
+    "verified_at": "2026-10-25"
+  },
   "claim": {
     "locator": "abstract",
-    "quote": "This letter describes the observation of the light-by-light scattering process, gamma gamma -> gamma gamma, in Pb+Pb collisions at sqrt(s_NN) = 5.02 TeV.",
+    "quote": "This letter describes the observation of the light-by-light scattering process, γγ → γγ, ... in Pb+Pb collisions at sNN = 5.02 TeV.",
     "sources": [
       "src:atlas-lbyl-arxiv-1904-03536"
     ]
@@ -16,15 +27,17 @@
   },
   "date": {
     "confidence": "verified",
-    "locator": "arXiv submission history",
-    "note": "arXiv submission date; published as Phys. Rev. Lett. 123, 052001 (2019).",
+    "locator": "ATLAS physics briefing dated 17 March 2019 (ATLAS-CONF-2019-002)",
+    "note": "Announcement date: ATLAS presented the result at the Rencontres de Moriond (La Thuile) on 17 March 2019 (ATLAS physics briefing; conference note ATLAS-CONF-2019-002). The paper was submitted to arXiv on 6 April 2019 and published as Phys. Rev. Lett. 123 (2019) 052001.",
+    "quote": "17 March 2019 ... Today, at the Rencontres de Moriond conference (La Thuile, Italy)",
     "sources": [
+      "src:rv-atlas-briefing-lbyl-observation-2019",
       "src:atlas-lbyl-arxiv-1904-03536"
     ],
-    "value": "2019-04-06",
-    "verified_at": "2026-09-17"
+    "value": "2019-03-17",
+    "verified_at": "2026-10-25"
   },
-  "date_kind": "preprint",
+  "date_kind": "announcement",
   "detector_ids": [
     "detector:atlas"
   ],
@@ -40,8 +53,8 @@
     "approx": false,
     "confidence": "verified",
     "dimension": "cross_section",
-    "display": "78 +/- 13 (stat.) +/- 7 (syst.) +/- 3 (lumi.) nb",
-    "note": "Fetched from the arXiv abstract page (1904.03536) in this session.",
+    "display": "78 ± 13 (stat.) ± 7 (syst.) ± 3 (lumi.) nb",
+    "note": "Taken from the arXiv abstract page (1904.03536), read on 2026-09-17.",
     "quote": "The measured fiducial cross section is 78 +/- 13 (stat.) +/- 7 (syst.) +/- 3 (lumi.) nb.",
     "sources": [
       "src:atlas-lbyl-arxiv-1904-03536"
@@ -70,24 +83,35 @@
     "doi": "10.1103/PhysRevLett.123.052001",
     "url": "https://arxiv.org/abs/1904.03536"
   },
+  "published": {
+    "confidence": "verified",
+    "locator": "arXiv:1904.03536 journal reference (paper header)",
+    "note": "",
+    "quote": "Phys. Rev. Lett. 123 (2019) 052001",
+    "sources": [
+      "src:atlas-lbyl-arxiv-1904-03536"
+    ],
+    "value": "2019",
+    "verified_at": "2026-10-25"
+  },
   "result_type": "observation",
   "schema": "hep-atlas/0.2",
   "significance": {
     "confidence": "verified",
-    "note": "Fetched from the arXiv abstract page (1904.03536) in this session; not present in the 300-character excerpt already recorded on src:atlas-lbyl-arxiv-1904-03536.",
+    "note": "Taken from the arXiv abstract page (1904.03536), read on 2026-10-25; the quote is not in the 300-character excerpt recorded on src:atlas-lbyl-arxiv-1904-03536.",
     "quote": "The observed excess of events over the expected background has a significance of 8.2 standard deviations.",
     "sources": [
       "src:atlas-lbyl-arxiv-1904-03536"
     ],
-    "value": "8.2 standard deviations",
-    "verified_at": "2026-09-17"
+    "value": "8.2σ",
+    "verified_at": "2026-10-25"
   },
   "sources": [
     "src:atlas-lbyl-arxiv-1904-03536"
   ],
   "summary": {
-    "plain": "ATLAS watched two particles of light bounce off each other - a process so rare it needs the electromagnetic fields of whole lead nuclei grazing past one another to see it at all.",
-    "technical": "Ultraperipheral Pb+Pb collisions at 5.02 TeV per nucleon pair, 1.73 nb^-1 (Nov 2018): 59 gamma-gamma -> gamma-gamma candidates against a background of 12 +/- 3 events, 8.2 sigma significance, fiducial cross section 78 +/- 13 (stat.) +/- 7 (syst.) +/- 3 (lumi.) nb."
+    "plain": "ATLAS observed two photons (particles of light) scattering off each other, using the strong electromagnetic fields of lead nuclei that pass close to one another without touching; those fields act as a beam of nearly real photons.",
+    "technical": "Ultraperipheral Pb+Pb collisions at 5.02 TeV per nucleon pair, 1.73 nb⁻¹ (Nov 2018): 59 γγ → γγ candidates against a background of 12 ± 3 events, 8.2σ significance, fiducial cross section 78 ± 13 (stat.) ± 7 (syst.) ± 3 (lumi.) nb."
   },
   "title": "Observation of light-by-light scattering in ultraperipheral Pb+Pb collisions with the ATLAS detector",
   "topic_ids": [
@@ -95,5 +119,5 @@
     "topic:heavy-ion-physics-qgp"
   ],
   "type": "result",
-  "why_it_matters": "Light-by-light scattering is forbidden in classical electrodynamics and occurs only through virtual charged-particle loops in QED; observing it directly tests the Standard Model in an extreme low-background regime and constrains new light, weakly-charged particles."
+  "why_it_matters": "Light-by-light scattering is forbidden in the classical theory of electrodynamics; in the Standard Model it proceeds at one-loop level via virtual box diagrams involving electrically charged fermions or W bosons. The paper notes that extensions of the Standard Model (for example magnetic monopoles, vector-like fermions and axion-like particles) can add contributions, so the measurement is sensitive to new physics."
 }

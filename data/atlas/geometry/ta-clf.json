@@ -1,0 +1,54 @@
+{
+  "accuracy_m": 20,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "detector:telescope-array",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "verified",
+    "locator": "arXiv:1410.3151 section 5.1, list of MC thrown-event parameters, \"Surface Impact Position\"",
+    "note": "Confidence verified: a surveyed coordinate from a rank 10 source; the rounded value in a second paper agrees.",
+    "quote": "inside a circle of radius 25 km, centered at the CLF (39.296918 N Lat, 112.908733 W Long).",
+    "sources": [
+      "src:geo-arrays-ta-hybrid-spectrum-2014",
+      "src:geo-arrays-ta-tax4-sd-2021"
+    ],
+    "value": {
+      "coordinates": [
+        -112.908733,
+        39.296918
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:ta-clf",
+  "level_id": "surface",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:telescope-array-utah",
+  "method": "Point at the latitude and longitude the Telescope Array Collaboration gives for the Central Laser Facility (CLF), 39.296918 N, 112.908733 W (arXiv:1410.3151 section 5.1, where it is the centre of the Monte Carlo impact-position circle). The rounded 39.30 N, 112.91 W of arXiv:2103.01086 section 1 agrees. A position marker; the facility is a small installation.",
+  "name": "Telescope Array Central Laser Facility",
+  "notes": [
+    "The paper says the CLF is \"at the center of the SD array, equidistant from all three telescope stations\"; the centroid of the 507 stations is 4.0 km south of it, so it is the centre of the three-telescope triangle, not of the station grid."
+  ],
+  "representation": "surveyed",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:telescope-array-utah-central-site",
+  "sources": [
+    "src:geo-arrays-ta-hybrid-spectrum-2014",
+    "src:geo-arrays-ta-tax4-sd-2021"
+  ],
+  "summary": {
+    "plain": "The laser at the centre of the Telescope Array that all three fluorescence telescope stations fire at to measure the air."
+  },
+  "type": "geometry",
+  "valid": null
+}

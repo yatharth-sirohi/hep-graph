@@ -34,7 +34,7 @@
       "confidence": "verified",
       "facility_id": "facility:los-alamos-national-laboratory",
       "locator": "title",
-      "note": "facility:los-alamos-national-laboratory is owned by a different lead ('facilities') and did not exist in data/atlas/ at the time this record was written; this is an expected dangling reference until that lead lands.",
+      "note": "",
       "quote": "The Liquid Scintillator Neutrino Detector and LAMPF Neutrino Source",
       "role": "host",
       "sources": [
@@ -46,7 +46,7 @@
       "confidence": "verified",
       "facility_id": "facility:los-alamos-national-laboratory",
       "locator": "title / §2.1.1",
-      "note": "Same dangling-reference note as the host role above.",
+      "note": "",
       "quote": "The Liquid Scintillator Neutrino Detector and LAMPF Neutrino Source",
       "role": "beam_source",
       "sources": [
@@ -63,7 +63,7 @@
       "label": "proposed",
       "locator": "§1.2",
       "note": "Year precision only; the source does not give a month.",
-      "quote": "The LSND experiment was proposed for this purpose in 1989 and first operated in 1993.",
+      "quote": "The LSND experiment was proposed [1] for this purpose in 1989 and first operated in 1993.",
       "sources": [
         "src:lsnd-nim-1997-detector-paper"
       ],
@@ -77,7 +77,7 @@
       "label": "data taking",
       "locator": "§1.2 (first operation); Introduction §I (run length)",
       "note": "Year precision only.",
-      "quote": "first operated in 1993 ... The LSND experiment took data over six calendar years (1993-1998).",
+      "quote": "The Liquid Scintillation Neutrino Detector (LSND) experiment took data over six calendar years (1993-1998).",
       "sources": [
         "src:lsnd-nim-1997-detector-paper",
         "src:lsnd-prd-2001-antineutrino-evidence"
@@ -92,7 +92,7 @@
       "label": "completed",
       "locator": "Introduction §I",
       "note": "Terminal event; no fetched source gives a month/day precision end date beyond the year 1998.",
-      "quote": "The LSND experiment took data over six calendar years (1993-1998).",
+      "quote": "The Liquid Scintillation Neutrino Detector (LSND) experiment took data over six calendar years (1993-1998).",
       "sources": [
         "src:lsnd-prd-2001-antineutrino-evidence"
       ],
@@ -113,11 +113,12 @@
         "note": "Corrected from a paraphrased quote to the verbatim §1.2 sentence; the value (30 m) is unchanged and was already correct.",
         "quote": "The detector was located about 30 m from the neutrino source and was shielded by the equivalent of 9 m of steel.",
         "sources": [
-          "src:lsnd-nim-1997-detector-paper"
+          "src:lsnd-nim-1997-detector-paper",
+          "src:rf07-lsnd-nim-1997-arxiv-abs"
         ],
         "unit": "m",
         "value": 30,
-        "verified_at": "2026-09-17"
+        "verified_at": "2026-10-25"
       }
     },
     {
@@ -164,22 +165,21 @@
   },
   "name": "LSND",
   "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
-    "facility_id facility:los-alamos-national-laboratory is owned by the 'facilities' lead and did not exist in data/atlas/ when this record was written; it is referenced, not created, and the reference is expected to be dangling until that lead lands.",
-    "external.inspire_experiment left null: no INSPIRE experiment-registry lookup was performed in this session (etiquette limits inspirehep.net requests); LSND is tier D so this is not mandatory (brief §'What you are producing').",
-    "No official LSND experiment website was found reachable/current in this session; links.website left null rather than guessed."
+    "No INSPIRE experiment identifier is recorded for LSND.",
+    "No official LSND experiment website was found that was reachable and current, so none is recorded."
   ],
   "physics_goals": [
     {
       "confidence": "verified",
-      "locator": "title",
+      "locator": "Abstract",
       "note": "",
-      "quote": "A search for muon anti-neutrino to electron anti-neutrino oscillations",
+      "quote": "A search for muon anti-neutrino to electron anti-neutrino oscillations was conducted by the Liquid Scintillator Neutrino Detector at the Los Alamos Neutron Science Center using muon anti-neutrinos from positive muon decay at rest.",
       "sources": [
-        "src:lsnd-prd-2001-antineutrino-evidence"
+        "src:lsnd-prd-2001-antineutrino-evidence",
+        "src:rf07-lsnd-prd-2001-arxiv-abs"
       ],
       "value": "Search for muon-antineutrino to electron-antineutrino oscillations from muon decay at rest",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "schema": "hep-atlas/0.2",
@@ -192,7 +192,7 @@
   "status": "completed",
   "summary": {
     "plain": "A tank of mineral oil at Los Alamos National Laboratory, New Mexico, that watched for neutrinos changing type just 30 metres from where an accelerator beam produced them. From 1993 to 1998 it reported more electron-antineutrinos than expected, a puzzling result that later experiments tried to confirm or rule out.",
-    "technical": "167 t mineral-oil/scintillator (Cherenkov + scintillation) detector at LAMPF/LANSCE, Los Alamos, 30 m from the A6 beam-stop neutrino source, using an 800 MeV proton beam. Took data 1993-1998 and reported a statistically significant excess of nu_e_bar candidate events consistent with nu_mu_bar -> nu_e_bar oscillation at short baseline, a result in tension with standard three-flavour oscillation and a long-standing driver of sterile-neutrino searches."
+    "technical": "167 t mineral-oil/scintillator (Cherenkov + scintillation) detector at LAMPF/LANSCE, Los Alamos, 30 m from the A6 beam-stop neutrino source, using an 800 MeV proton beam. Took data 1993-1998 and reported a statistically significant excess of ν̄e candidate events consistent with ν̄μ → ν̄e oscillation at short baseline, a result in tension with standard three-flavour oscillation and a long-standing driver of sterile-neutrino searches."
   },
   "topic_ids": [
     "topic:neutrino-oscillations",

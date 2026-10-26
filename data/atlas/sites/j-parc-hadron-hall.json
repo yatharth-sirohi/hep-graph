@@ -10,7 +10,7 @@
     "lat": 36.4445437,
     "locator": "OSM building footprint centroid, Hadron Experimental Facility",
     "lon": 140.6048467,
-    "note": "Correction: replaces the J-PARC campus-wide geocoder point (1.66 km away) with the Hadron Experimental Facility building footprint centroid. `kind: campus` under A23: an OpenStreetMap tracing (rank 11) cannot stand as a detector-grade point on its own. Previous record: campus point 36.4587536, 140.599175 at 2500 m precision, sources ['src:muons-nominatim-jparc']; moved 1374 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+    "note": "Centroid of the Hadron Experimental Facility building footprint as traced in OpenStreetMap. It is shown as approximate because an OpenStreetMap tracing is not a surveyed detector position. It replaces the J-PARC campus-wide geocoder point, 1.66 km away.",
     "precision_m": 15,
     "sources": [
       "src:geo-jparc-osm-hadron-hall"
@@ -34,7 +34,7 @@
   },
   "name": "Hadron Experimental Facility, J-PARC",
   "notes": [
-    "Precise, building-level coordinates for the Hadron Experimental Facility were not found in any officially fetchable source this session; the j-parc.jp Hadron Facility overview page loaded but its descriptive/location text was not present in the fetched excerpt beyond a floor-plan image reference. The point recorded is the general J-PARC-site geocoder centroid also used (independently) by the japan-neutrino lead's site:j-parc-main-ring record; it does not distinguish the Hadron Hall's real position (south of the Main Ring) from the rest of the campus."
+    "No official source consulted gives surveyed coordinates for the Hadron Experimental Facility: the fetched excerpt of the j-parc.jp Hadron Facility overview page had no location text beyond a floor-plan image. The point recorded is the centroid of the facility's building footprint as traced in OpenStreetMap (see the coordinate note)."
   ],
   "place": {
     "city": "Tokai-mura",
@@ -50,7 +50,7 @@
   ],
   "summary": {
     "plain": "The building at the J-PARC laboratory in Japan where COMET (and other experiments) search for a muon turning directly into an electron, using an intense beam of muons from J-PARC's 50 GeV proton synchrotron.",
-    "technical": "Hadron Experimental Facility (Hadron Hall) at J-PARC, Tokai-mura, Ibaraki, fed by the 50 GeV Main Ring slow-extracted beam; hosts COMET Phase-I among other hadron/kaon experiments. No building-specific sourced coordinate was found this session; recorded as a campus-level approximate point shared in form with the existing J-PARC main-ring site record."
+    "technical": "Hadron Experimental Facility (Hadron Hall) at J-PARC, Tokai-mura, Ibaraki, fed by the 50 GeV Main Ring slow-extracted beam; hosts COMET Phase-I among other hadron/kaon experiments. No official building-specific coordinate was found; the recorded point is the centroid of the building footprint as traced in OpenStreetMap, shown as approximate."
   },
   "type": "site"
 }

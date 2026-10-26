@@ -12,7 +12,7 @@
   "geometry": {
     "confidence": "approximate",
     "locator": "OSM way/25473315, extract timestamp 2026-09-18T20:20:01Z",
-    "note": "Context building; entity_id null (Wilson Hall is not itself an atlas entity).",
+    "note": "Context building: no atlas entity depicts Wilson Hall. The footprint is the OpenStreetMap outline of the completed building.",
     "sources": [
       "src:fermilab-geo-osm-buildings"
     ],
@@ -118,7 +118,9 @@
   "map_id": "map:fermilab",
   "method": "OpenStreetMap way 25473315 footprint, traced verbatim. Used as the map's default centre (see map:fermilab.center) because it is Fermilab's best-known landmark and sits near the middle of the drawn features, not because of any technical significance to the accelerator complex.",
   "name": "Wilson Hall (Fermilab high-rise, map centre landmark)",
-  "notes": [],
+  "notes": [
+    "Fermilab History and Archives gives the completion of Wilson Hall as 1973 (\"was completed in 1973\"; \"Shortly after the completion of Wilson Hall in 1973\") and its construction span as 1971 to 1974 (\"it was built between 1971 and 1974\"). The sixteenth floor was topped out on 5 April 1973, and the laboratory was dedicated on 11 May 1974. The building is drawn from 1973, the year the pages give for completion; the foundation and first-phase work of 1971-72 is not drawn."
+  ],
   "osm": {
     "elements": [
       "way/25473315"
@@ -129,11 +131,27 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:fermilab-main-campus",
   "sources": [
-    "src:fermilab-geo-osm-buildings"
+    "src:fermilab-geo-osm-buildings",
+    "src:rc-fnal-history-brief-history",
+    "src:rc-fnal-history-art-architecture",
+    "src:rc-fnal-history-last-bucket"
   ],
   "summary": {
-    "plain": "Context building; entity_id null (Wilson Hall is not itself an atlas entity)."
+    "plain": "Wilson Hall, Fermilab's high-rise laboratory and office building near the centre of the map, drawn as a context building from 1973, the year Fermilab's history pages give for its completion."
   },
   "type": "geometry",
-  "valid": null
+  "valid": {
+    "confidence": "approximate",
+    "end": null,
+    "locator": "Fermilab History and Archives: 'A Brief History of Fermilab' (paragraph on Robert Wilson); 'Art and Architecture', section 'Wilson Hall'; reprinted article 'The Last Bucket of Cement Goes Up' (topping-out, 5 April 1973)",
+    "note": "The drawn window opens in the year the history pages give for completion; construction began in 1971.",
+    "quote": "He guided the design of the distinctive high-rise Wilson Hall, which houses most of the lab’s offices and was completed in 1973.",
+    "sources": [
+      "src:rc-fnal-history-brief-history",
+      "src:rc-fnal-history-art-architecture",
+      "src:rc-fnal-history-last-bucket"
+    ],
+    "start": "1973",
+    "verified_at": "2026-10-25"
+  }
 }

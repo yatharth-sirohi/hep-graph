@@ -1,5 +1,5 @@
 {
-  "accuracy_m": 35,
+  "accuracy_m": 30,
   "aliases": [],
   "checks": [],
   "coverage": {
@@ -12,15 +12,15 @@
   "geometry": {
     "confidence": "derived",
     "locator": "arXiv:2407.11912, 'positioned at (20.7 +/- 0.1) m from the reactor core center'",
-    "note": "CONUS+'s own paper (arXiv:2407.11912) states the detector sits 20.7 m from the reactor core center, 12.45 m horizontal distance from the reactor central axis, inside room ZA28R027 of the KKL containment building -- i.e. inside the reactor building itself, not a separate structure. No fetched source gives the azimuth of that horizontal offset, so this point is the candidate reactor-building's own centroid (geometry:leibstadt-core), used directly as the detector's position; accuracy_m is widened to 35 m to cover both the unresolved ~12-21 m offset and the building's own 30 m identification accuracy (see geometry:leibstadt-core note).",
+    "note": "CONUS+'s own paper (arXiv:2407.11912) states the detector sits (20.7 +/- 0.1) m from the reactor core center, 12.45 m horizontal distance from the reactor central axis, inside room ZA28R027 of the KKL containment, i.e. inside the reactor building itself. No fetched source gives the azimuth of that horizontal offset, so this point is the centre of a circle fitted to the circular part of the reactor-building outline (geometry:leibstadt-core, radius 23.0 m), taken as the reactor axis, and the detector lies within 12.45 m of it in an unknown direction. accuracy_m 30 m covers that 12.45 m offset plus the ~10 m uncertainty of the fitted axis.",
     "sources": [
       "src:cevns-conus-plus-overview-2024",
-      "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
+      "src:geo-leibstadt-osm-extract-2026-10"
     ],
     "value": {
       "coordinates": [
-        8.181802805882354,
-        47.59957785294118
+        8.1827149,
+        47.6016013
       ],
       "type": "Point"
     },
@@ -37,13 +37,17 @@
     "website": null
   },
   "map_id": "map:leibstadt-nuclear-power-plant",
-  "method": "CONUS+'s own paper (arXiv:2407.11912) states the detector sits 20.7 m from the reactor core center, 12.45 m horizontal distance from the reactor central axis, inside room ZA28R027 of the KKL containment building -- i.e. inside the reactor building itself, not a separate structure. No fetched source gives the azimuth of that horizontal offset, so this point is the candidate reactor-building's own centroid (geometry:leibstadt-core), used directly as the detector's position; accuracy_m is widened to 35 m to cover both the unresolved ~12-21 m offset and the building's own 30 m identification accuracy (see geometry:leibstadt-core note).",
+  "method": "CONUS+'s own paper (arXiv:2407.11912) states the detector sits (20.7 +/- 0.1) m from the reactor core center, 12.45 m horizontal distance from the reactor central axis, inside room ZA28R027 of the KKL containment, i.e. inside the reactor building itself. No fetched source gives the azimuth of that horizontal offset, so this point is the centre of a circle fitted to the circular part of the reactor-building outline (geometry:leibstadt-core, radius 23.0 m), taken as the reactor axis, and the detector lies within 12.45 m of it in an unknown direction. accuracy_m 30 m covers that 12.45 m offset plus the ~10 m uncertainty of the fitted axis.",
   "name": "CONUS+ detector position (inside the Leibstadt reactor building)",
   "notes": [
-    "QA pass (2026-09-21): removed the `valid: {start: '2023-11', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:conus-hpge-array genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md.",
-    "Integrator (2026-09-21): ODbL-1.0 licence — the point is derived from the OpenStreetMap reactor-building footprint."
+    "The point is derived from the OpenStreetMap reactor-building footprint, so it carries the ODbL-1.0 licence."
   ],
-  "osm": null,
+  "osm": {
+    "elements": [
+      "way/608881797"
+    ],
+    "timestamp": "2026-10-25T11:13:24Z"
+  },
   "representation": "derived",
   "schema": "hep-atlas/0.2",
   "site_id": "site:leibstadt-nuclear-power-plant-campus",

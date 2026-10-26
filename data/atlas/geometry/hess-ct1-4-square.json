@@ -1,5 +1,5 @@
 {
-  "accuracy_m": 200,
+  "accuracy_m": 10,
   "aliases": [],
   "checks": [
     {
@@ -10,12 +10,13 @@
         "value": 480
       },
       "kind": "length",
-      "locator": "H.E.S.S. Telescopes page, array layout paragraph",
-      "quote": "square with 120 m side length",
+      "locator": "H.E.S.S. Telescopes page, 'Arrangement of the telescopes' (4 x 120 m = 480 m); Crab paper (A&A 457, 899) section 2",
+      "quote": "placed in a square formation with a side length of 120 metres",
       "sources": [
-        "src:geo-arrays-hess-telescopes-page"
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006"
       ],
-      "tolerance": 0.02
+      "tolerance": 0.03
     }
   ],
   "coverage": {
@@ -27,64 +28,82 @@
   "feature_type": "array",
   "geometry": {
     "confidence": "derived",
-    "locator": "H.E.S.S. Telescopes page, array layout paragraph",
-    "note": "Confidence 'derived' per contract (a derived shape is derived, even with a passing check).",
-    "quote": "The initial four H.E.S.S. telescopes (Phase I) are arranged in form of a square with 120 m side length. The diagonal of the square is oriented north-south.",
+    "locator": "centroids of OSM way/171900951, way/171900954, way/171900955, way/171900956 as of the 2026-10-25T10:35:43Z OSM API extract; H.E.S.S. Telescopes page 'Arrangement of the telescopes'",
+    "note": "'Derived' rather than 'verified': the shape is computed from four telescope positions, so it stays derived even though its perimeter check passes.",
+    "quote": "The initial four H.E.S.S. telescopes (Phase I) are arranged in form of a square with 120 m side length ... The diagonal of the square is oriented north-south.",
     "sources": [
+      "src:geo-arrays2-hess-osm-ct-north",
+      "src:geo-arrays2-hess-osm-ct-east",
+      "src:geo-arrays2-hess-osm-ct-south",
+      "src:geo-arrays2-hess-osm-ct-west",
       "src:geo-arrays-hess-telescopes-page",
-      "src:cosmic-gamma-hess-official-site-page"
+      "src:geo-arrays2-hess-crab-2006"
     ],
     "value": {
       "coordinates": [
         [
           [
-            16.5,
-            -23.2709039
+            16.5000721,
+            -23.270724
           ],
           [
-            16.5008307,
-            -23.271667
+            16.5008982,
+            -23.271506
           ],
           [
-            16.5,
-            -23.2724301
+            16.500076,
+            -23.2722596
           ],
           [
-            16.4991693,
-            -23.271667
+            16.4992529,
+            -23.2715126
           ],
           [
-            16.5,
-            -23.2709039
+            16.5000721,
+            -23.270724
           ]
         ]
       ],
       "type": "Polygon"
     },
-    "verified_at": "2026-09-18"
+    "verified_at": "2026-10-25"
   },
   "id": "geometry:hess-ct1-4-square",
   "level_id": "surface",
-  "license": null,
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
   "links": {
     "website": null
   },
   "map_id": "map:hess-khomas-highland",
-  "method": "Square of side 120 m, diagonal oriented north-south (both facts from the H.E.S.S. Telescopes page), computed by placing one vertex at each of bearings 0/90/180/270 degrees and distance 120*sqrt(2)/2 = 84.8528 m (spherical destination-point formula, R = 6371008.8 m) from the array's own official published coordinate (site:khomas-highland-hess, precision_m 200). accuracy_m is set equal to that anchor's own precision_m (200 m), satisfying the coarse-anchor rule exactly rather than claiming a false sub-200 m accuracy for where the square sits; the square's own shape (120 m side) is exact by construction from the sourced figure. No OpenStreetMap trace of the individual CT1-CT4 telescope pads could be attempted this session (Overpass refused every connection attempt, see worklog), which would otherwise have anchored the square far more tightly.",
+  "method": "Quadrilateral whose four vertices are the centroids of the four corner-telescope footprints, OpenStreetMap ways 171900951 (north), 171900954 (east), 171900955 (south), 171900956 (west), joined N-E-S-W. The perimeter check compares this OSM-derived quadrilateral with the published 120 m side (480 m perimeter): an independent test, because the OSM positions were not fitted to it.",
   "name": "H.E.S.S. CT1-CT4 telescope square (120 m side, diagonal north-south)",
   "notes": [
-    "Positioned at the array's own official coordinate, not at an independently surveyed square centre; the square's internal geometry (120 m side, N-S diagonal) is exact, its placement on the ground carries the site point's own 200 m uncertainty. Individual CT1-CT4 identities/positions within the square are not distinguished (no source this session assigns a specific corner to a specific telescope number)."
+    "The vertices are telescope centres traced by OpenStreetMap mappers; the polygon is the geometric outline of the four telescope positions, not a structure on the ground."
   ],
-  "osm": null,
+  "osm": {
+    "elements": [
+      "way/171900951",
+      "way/171900954",
+      "way/171900955",
+      "way/171900956"
+    ],
+    "timestamp": "2026-10-25T10:35:43Z"
+  },
   "representation": "derived",
   "schema": "hep-atlas/0.2",
   "site_id": "site:khomas-highland-hess",
   "sources": [
-    "src:geo-arrays-hess-telescopes-page",
-    "src:cosmic-gamma-hess-official-site-page"
+    "src:geo-arrays2-hess-osm-ct-north",
+    "src:geo-arrays2-hess-osm-ct-east",
+    "src:geo-arrays2-hess-osm-ct-south",
+    "src:geo-arrays2-hess-osm-ct-west"
   ],
   "summary": {
-    "plain": "The square formed by H.E.S.S.'s original four 12 m telescopes, 120 metres to a side."
+    "plain": "The square formed by H.E.S.S.'s original four 12-metre telescopes, 120 metres to a side, with a north-south diagonal."
   },
   "type": "geometry",
   "valid": null

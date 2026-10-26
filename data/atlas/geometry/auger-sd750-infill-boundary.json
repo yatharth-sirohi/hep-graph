@@ -14,7 +14,8 @@
     "locator": "sdMap.csv, rows with sd750=1 (71 of 1690)",
     "note": "No checks[] row: the 71-station sd750 flag and the collaboration's own quoted '61-detector, 23.5 km2' infill figure do not obviously describe the same set (see method); asserting a check against a figure that may not match this shape would be dishonest, not merely imprecise.",
     "sources": [
-      "src:geo-arrays-auger-opendata-sdmap"
+      "src:geo-arrays-auger-opendata-sdmap",
+      "src:geo-arrays-auger-opendata-data-page"
     ],
     "value": {
       "coordinates": [
@@ -79,22 +80,29 @@
   },
   "id": "geometry:auger-sd750-infill-boundary",
   "level_id": "surface",
-  "license": null,
+  "license": {
+    "attribution": "Pierre Auger Collaboration, Auger Open Data release 2024 (DOI 10.5281/zenodo.10488964)",
+    "name": "CC-BY-SA-4.0",
+    "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
   "links": {
     "website": null
   },
   "map_id": "map:pierre-auger-observatory",
-  "method": "Convex hull of the 71 stations flagged sd750=1 in sdMap.csv (49 sd750-only + 22 dual-flagged sd1500/sd750), same UTM-to-WGS84 conversion and hull algorithm as geometry:auger-sd1500-array-boundary. Computed area is 29.3 km^2, 24.7% above the 23.5 km^2 figure quoted for the '61-detector infilled array' in a 2026 collaboration paper (src:cosmic-gamma-ta-arxiv-2026-recent-findings is the wrong facility -- see notes for the actual infill source used); the 71-station sd750 flag count itself does not match the quoted 61-detector figure, so this is very likely a different (looser) definition of 'infill station' than the one behind the quoted 23.5 km^2 number. No checks[] row is asserted for this reason -- see worklog residual.",
+  "method": "Convex hull of the 71 stations flagged sd750=1 in the Auger open-data station table sdMap.csv (49 sd750-only plus 22 flagged both sd1500 and sd750), using the same UTM-to-WGS84 conversion and hull algorithm as the Auger SD-1500 array boundary. The computed area is 29.3 km^2, 24.7% above the 23.5 km^2 quoted for the '61-detector infilled array' in a collaboration publication. The 71-station sd750 flag count also does not match the quoted 61 detectors, so the flag very likely uses a looser definition of 'infill station' than the one behind the quoted figure. For that reason no check against the quoted area is asserted.",
   "name": "Pierre Auger Observatory infill surface-detector array (750 m spacing), convex hull",
   "notes": [
-    "Area (29.3 km^2) does not match the collaboration's own quoted '23.5 km^2, 61-detector' infill figure closely enough to assert a checks[] row; the sd750 flag likely covers a superset (e.g. including AMIGA/HEAT-related stations) of the specific infill array that figure describes. Flagged as backlog."
+    "The area (29.3 km^2) does not match the collaboration's quoted '23.5 km^2, 61-detector' infill figure closely enough to assert a check; the sd750 flag likely covers a superset (for example including AMIGA/HEAT-related stations) of the specific infill array that figure describes.",
+    "Licence: sdMap.csv is released under CC BY-SA 4.0 (opendata.auger.org home page), so the derived geometry carries that licence name and attribution."
   ],
   "osm": null,
   "representation": "derived",
   "schema": "hep-atlas/0.2",
   "site_id": "site:malargue-auger",
   "sources": [
-    "src:geo-arrays-auger-opendata-sdmap"
+    "src:geo-arrays-auger-opendata-sdmap",
+    "src:geo-arrays-auger-opendata-data-page",
+    "src:geo-arrays-auger-opendata-home"
   ],
   "summary": {
     "plain": "A smaller, more closely packed patch of detector tanks near the centre of the Auger array, added to catch lower-energy cosmic rays."

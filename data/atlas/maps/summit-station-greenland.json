@@ -1,0 +1,70 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 72.582793,
+    "locator": "The DISC borehole, published as the RNO-G coordinate origin",
+    "lon": -38.455815,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 50,
+    "sources": [
+      "src:geo-summit-rnog-detector-origin-code"
+    ],
+    "verified_at": "2026-10-25"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 4500,
+  "facility_id": "facility:summit-station-greenland",
+  "id": "map:summit-station-greenland",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "ice-surface",
+      "kind": "ice",
+      "name": "Ice-sheet surface",
+      "note": "Plan view of surface positions on the Greenland ice sheet; each RNO-G station's three strings reach about 100 m below the surface point drawn."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "Summit Station, Greenland — RNO-G stations, skiway and camp",
+  "notes": [
+    "The planned 28 further RNO-G stations (35 in all, same grid) are not drawn: only the seven installed stations have as-installed positions.",
+    "The earlier RNO-G design paper (arXiv:2010.12279, Figure 7) says the planned grid spacing was about 1 km; the 2024 as-built paper says 1.25 km, which the installed positions (1.20 to 1.28 km) match."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:summit-station-rno-g"
+  ],
+  "sources": [
+    "src:geo-summit-rnog-season-2022-detector-json",
+    "src:geo-summit-rnog-detector-origin-code",
+    "src:geo-summit-working-at-summit-page",
+    "src:geo-summit-osm-skiway",
+    "src:astro-neutrino-rno-g-first-seven-stations-2024"
+  ],
+  "summary": {
+    "plain": "Summit Station on top of the Greenland ice sheet, drawn to scale with its 5-kilometre skiway, the camp's building footprints and the seven RNO-G radio-neutrino stations installed in 2021 and 2022 on a grid about 1.25 kilometres apart.",
+    "technical": "One local map for facility:summit-station-greenland. Seven RNO-G station points derived from RNO_season_2022.json offsets (m) about the published DISC-borehole origin (72.582793 N, -38.455815 E), each with 1.25 km grid-spacing checks to its neighbours (all within 5 %); the OSM skiway line (5101 m against 16,800 ft = 5120.6 m on the official page: pass); eleven unnamed OSM camp building footprints; the DISC borehole. Named camp buildings are unlocated."
+  },
+  "type": "map",
+  "unlocated": [
+    {
+      "backlog": "Georeference the official 'Summit Station Site Plan (2016)' or 'Summit Overall Site Plan and Skiway Layout (2014)' (linked from the Working at Summit page; cite, never copy) against the OSM skiway and the DISC borehole to name the buildings, or find a GEOSummit GIS layer; the 'Summit GIS' page on geo-summit.org was not reachable as a downloadable dataset.",
+      "entity_id": "facility:summit-station-greenland",
+      "reason": "Summit Station's named buildings: the Big House (26 ft x 56 ft), Green House/Berthing Module, Science and Operations Barn, Summit Mobile Garage (32 ft x 97 ft), Atmospheric Watch Observatory (150 sq ft, about 1 km south of the station) and Mobile Science Facility (16 ft x 36 ft). OpenStreetMap has eleven unnamed footprints near the camp (drawn as one context feature) but none can be matched to the official dimensions, and several of these buildings are moved on sleds.",
+      "sources": [
+        "src:geo-summit-working-at-summit-page",
+        "src:geo-summit-osm-camp-buildings"
+      ],
+      "verified_at": "2026-10-25"
+    }
+  ]
+}

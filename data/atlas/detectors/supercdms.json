@@ -12,32 +12,54 @@
   "id": "detector:supercdms",
   "intervals": [
     {
-      "confidence": "verified",
+      "confidence": "approximate",
       "end": "2026-08",
       "label": "SNOLAB commissioning",
-      "locator": "SLAC news, 2026-03-17",
-      "note": "",
-      "quote": "With base temperature achieved, the collaboration has now moved into detector commissioning, a months-long process of turning on, calibrating and optimizing each detector channel.",
+      "locator": "Light Dark World 2026 talk (29 July 2026), slide \"SuperCDMS SNOLAB Cooldown\"; corroborated by SLAC news, 2026-03-17",
+      "note": "Start moved from 2026-03 to 2026-01: the collaboration's own July 2026 talk gives \"Reached base temperature in Jan 2026\" followed by \"Detector characterization began\", and SLAC (17 March 2026) says reaching base temperature marks the transition to commissioning (\"With base temperature achieved, the collaboration has now moved into detector commissioning, a months-long process of turning on, calibrating and optimizing each detector channel.\"). 2026-03 was the date of the announcement. End set where the 2026-08-26 SLAC article reports the start of the early-science data-collection phase.",
+      "quote": "Reached base temperature in Jan 2026",
       "sources": [
+        "src:currency-supercdms-wilson-ldw2026",
         "src:supercdms-slac-news-2026-03-17-cooldown"
       ],
-      "start": "2026-03",
+      "start": "2026-01",
       "status": "commissioning",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     {
       "confidence": "verified",
       "end": null,
       "label": "SNOLAB early science",
       "locator": "SLAC news, 2026-08-26",
-      "note": "",
+      "note": "As of 2026-10-25 no source newer than the 2026-08-26 SLAC article was found. The July 2026 talk anticipated SR1a \"to continue until Sept 2026\", then a full warm-up with maintenance and repairs before SR1b in early 2027; SLAC says early science \"will continue through fall 2026\". The experiment may therefore already be warming up, which no fetched source reports, so it is not recorded as an event.",
       "quote": "has begun collecting its very first scientific data",
       "sources": [
-        "src:supercdms-slac-news-2026-08-26-early-science"
+        "src:supercdms-slac-news-2026-08-26-early-science",
+        "src:currency-supercdms-wilson-ldw2026"
       ],
       "start": "2026-08",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "SR1b: full-sensitivity science run (planned)",
+      "locator": "Light Dark World 2026 talk, slide \"SuperCDMS SNOLAB Science Run 1a/b\"",
+      "note": "A schedule, not a reported event. SLAC, 26 August 2026: the early-science phase is followed by a warm-up to optimize the cryogenic system and noise environment and \"a year of data collection with the detectors running at optimized, full sensitivity\"; the full-scale search is \"set to begin in 2027\". After SR1b: installation of water tanks and Science Run 2.",
+      "quote": "Cooldown and data taking: early 2027",
+      "sources": [
+        "src:currency-supercdms-wilson-ldw2026",
+        "src:supercdms-slac-news-2026-08-26-early-science"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2027",
+        "display": "early 2027",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -45,7 +67,7 @@
   },
   "name": "SuperCDMS detector",
   "notes": [
-    "Detector total/active/fiducial mass in kg was not found on any page fetched this session; only the crystal count (24) is sourced.",
+    "Detector total, active and fiducial mass in kg are not given on any page consulted; only the crystal count (24) is sourced.",
     "Split on 2026-09-18: this record now covers only the SNOLAB payload. The earlier Soudan-era iZIP payload is now detector:supercdms-soudan (see experiment:supercdms.lineage)."
   ],
   "parent_detector_id": null,
@@ -113,7 +135,7 @@
           "confidence": "verified",
           "locator": "SLAC news, 2026-08-26",
           "note": "",
-          "quote": "Multiple shielding layers (copper, polyethylene, ultrapure lead, and radon barriers) reduce background radiation.",
+          "quote": "Layers of copper, polyethylene, ultrapure lead and a barrier against radon are used to reduce these backgrounds to acceptable levels.",
           "sources": [
             "src:supercdms-slac-news-2026-08-26-early-science"
           ],

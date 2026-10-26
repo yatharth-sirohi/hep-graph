@@ -1,0 +1,96 @@
+{
+  "accuracy_m": 10,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "depth_m": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "105 m",
+    "note": "",
+    "quote": "The near detector hall is located at the Fermi National Accelerator Laboratory, 105 m below the surface.",
+    "sources": [
+      "src:minos-detector-paper-2008"
+    ],
+    "unit": "m",
+    "value": 105,
+    "verified_at": "2026-10-25"
+  },
+  "entity_id": "detector:minos-near-detector",
+  "feature_type": "hall",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "TDR section 5.2.9 with the beam-sheet row M ENCU",
+    "note": "Derived: the corners follow from published dimensions laid on the surveyed beam axis from the published upstream end of the enclosure; the lateral offset of the hall from the beam is an assumption stated in the method.",
+    "quote": "The MINOS Enclosure, which is 150 ft. long x 30 ft. wide x 36 ft. high",
+    "sources": [
+      "src:fermilab-geo-numi-tdr-1998",
+      "src:minos-detector-paper-2008",
+      "src:fermilab-numi-beam-paper-2016",
+      "src:fermilab-geo-oshinowo-coordinate-systems-1997"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -88.2704183,
+            41.840319
+          ],
+          [
+            -88.2706414,
+            41.8406953
+          ],
+          [
+            -88.270742,
+            41.8406619
+          ],
+          [
+            -88.270519,
+            41.8402856
+          ],
+          [
+            -88.2704183,
+            41.840319
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:fermilab-minos-near-hall",
+  "level_id": "near-detector-caverns",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fermilab",
+  "method": "Derived. Enclosure size 150 ft x 30 ft (NuMI TDR sec. 5.2.9: \"The MINOS Enclosure, which is 150 ft. long x 30 ft. wide x 36 ft. high\"), laid out horizontally on the beam axis starting at the published upstream end of the enclosure (beam-sheet row M ENCU, station 4472.99378 ft, DUSAF x = 97390.376, y = 99330.045); the sheet's own downstream rows M ENCD and ROCK (stations 4613.2 and 4623.2 ft) fall 150.0 ft (horizontal) beyond M ENCU, matching the 150 ft length. The detector sits on the beam axis in this hall; the sources do not give the hall's lateral offset from the beam, so the 30 ft width is centred on it. Conversion of DUSAF to WGS 84: DUSAF x, y (ft) are the FSCS coordinates of Beams-doc-1148 (origin A0 = 41°50′14.312704″ N, 88°15′41.143123″ W, false x = y = 100000 ft, +y axis at geodetic azimuth 38°16′48.01429″, scale 1.000029251 at A0), applied as a rotated tangent plane on the GRS80 ellipsoid (difference to the double stereographic projection below 0.2 m within 1.5 km of A0). NAD83 and WGS 84 are taken as equal.",
+  "name": "MINOS enclosure, 105 m below grade (MINOS near detector, MINERvA, ArgoNeuT, SENSEI)",
+  "notes": [
+    "Hosts: MINOS near detector (2005-2016, mounted in this hall), then MINERvA and ArgoNeuT (\"The cavern subsequently housed additional experiments such as MINERvA or ArgoNeuT\", NuMI NIM paper section 1) and the SENSEI prototype (existing placement record). The positions of those detectors inside the hall are not drawn.",
+    "Underground construction of the hall was completed in March 2004 (MINOS NIM paper, section 6.1)."
+  ],
+  "osm": null,
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:fermilab-geo-numi-tdr-1998",
+    "src:minos-detector-paper-2008",
+    "src:fermilab-numi-beam-paper-2016",
+    "src:fermilab-geo-oshinowo-coordinate-systems-1997"
+  ],
+  "summary": {
+    "plain": "The underground hall, 45 m long, built for the MINOS near detector and later used by MINERvA, ArgoNeuT and SENSEI."
+  },
+  "type": "geometry",
+  "valid": {
+    "end": null,
+    "start": "2004-03"
+  }
+}

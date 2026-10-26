@@ -37,7 +37,7 @@
       "confidence": "approximate",
       "end": null,
       "facility_id": "facility:brookhaven-national-laboratory",
-      "note": "The AGS (accelerator:ags) is the historical stopped-kaon beam source for the E787/E949 programme at BNL; no source fetched this session names the AGS verbatim (one record's keywords reference 'Brookhaven PS'), so this is recorded as approximate rather than verified.",
+      "note": "The AGS (accelerator:ags) is the historical stopped-kaon beam source for the E787/E949 programme at BNL; no source consulted names the AGS verbatim (one record's keywords reference 'Brookhaven PS'), so this is recorded as approximate rather than verified.",
       "role": "beam_source",
       "sources": [
         "src:e949-from-e787-to-e949-2001"
@@ -65,7 +65,7 @@
       "confidence": "uncertain",
       "end": "2004-09",
       "label": "physics run",
-      "note": "The source describes this as the 'first year of physics run' as of a September 2004 paper; no source fetched this session gives an explicit calendar start year (commonly cited elsewhere as 2002) or an explicit end date for data-taking, so those are left unrecorded rather than guessed.",
+      "note": "The source describes this as the 'first year of physics run' as of a September 2004 paper; no source consulted gives an explicit calendar start year (commonly cited elsewhere as 2002) or an explicit end date for data-taking, so those are left unrecorded rather than guessed.",
       "quote": "In the first year of physics run, the E949 experiment at Brookhaven National Laboratory has already collected 1.8x10^12 kaons stopping in the target.",
       "sources": [
         "src:e949-first-year-physics-run-2004"
@@ -79,7 +79,7 @@
       "end": null,
       "label": "completed",
       "locator": "src:e949-e787-combined-result-arxiv-2009, PRD 79, 092004 (2009), submitted 2009-02-28",
-      "note": "2009-02 is the date of the final combined E787+E949 result paper, used as a lower bound for when the programme was treated as complete; no source fetched this session states an explicit end-of-data-taking date.",
+      "note": "2009-02 is the date of the final combined E787+E949 result paper, used as a lower bound for when the programme was treated as complete; no source consulted states an explicit end-of-data-taking date.",
       "sources": [
         "src:e949-e787-combined-result-arxiv-2009"
       ],
@@ -96,10 +96,8 @@
   },
   "name": "E949",
   "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
-    "experiment:e787 (the predecessor) was not created: it is not in this workstream's coverage file and no lineage row referencing it was written to avoid creating or asserting an id owned by nobody in this wave.",
-    "Precise calendar start/end years of E949 data-taking (commonly cited elsewhere as centred on 2002) were not confirmed by a source fetched this session and are therefore not asserted.",
-    "No BNL/facilities-owned id used here was dangling: facility:brookhaven-national-laboratory, site:bnl-upton-campus and accelerator:ags all already exist on disk at the time this record was written."
+    "The record for E787 (the predecessor) does not exist in the Atlas yet, so no lineage link to it is recorded.",
+    "Precise calendar start/end years of E949 data-taking (commonly cited elsewhere as centred on 2002) were not confirmed by any source consulted and are therefore not asserted."
   ],
   "physics_goals": [
     {
@@ -109,7 +107,7 @@
         "src:e949-from-e787-to-e949-2001",
         "src:e949-e787-combined-result-arxiv-2009"
       ],
-      "value": "Search for and measure the branching ratio of the rare kaon decay K+ -> pi+ nu nubar using stopped kaons, as the successor to E787",
+      "value": "Search for and measure the branching ratio of the rare kaon decay K⁺ → π⁺ ν ν̄ using stopped kaons, as the successor to E787",
       "verified_at": "2026-09-17"
     }
   ],
@@ -126,7 +124,7 @@
   "status": "completed",
   "summary": {
     "plain": "E949 was a Brookhaven National Laboratory experiment that stopped kaons in a detector to catch the same ultra-rare decay NA62 studies today -- a kaon turning into a pion and two invisible neutrinos -- continuing the earlier E787 experiment.",
-    "technical": "Stopped-kaon experiment at Brookhaven (successor to E787) measuring K+ -> pi+ nu nubar; by its first year of physics running (per a September 2004 paper) had collected 1.8x10^12 stopped kaons, giving a combined E787+E949 branching ratio of (1.47+1.30-0.89)x10^-10; the final combined analysis (PRD 79, 092004, 2009) found seven total signal events and Br = (1.73+1.15-1.05)x10^-10."
+    "technical": "Stopped-kaon experiment at Brookhaven (successor to E787) measuring K⁺ → π⁺ ν ν̄; by its first year of physics running (per a September 2004 paper) had collected 1.8×10¹² stopped kaons, giving a combined E787+E949 branching ratio of (1.47+1.30−0.89)×10⁻¹⁰; the final combined analysis (PRD 79, 092004, 2009) found seven total signal events and Br = (1.73+1.15−1.05)×10⁻¹⁰."
   },
   "topic_ids": [
     "topic:rare-kaon-physics"

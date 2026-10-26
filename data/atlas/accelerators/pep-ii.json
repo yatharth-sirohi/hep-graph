@@ -16,7 +16,7 @@
       "confidence": "uncertain",
       "end": "2008",
       "label": "operation",
-      "note": "Year-precision only; sourced to Wikipedia only, flagged for review. Operating interval; the single sourced row was split from its terminal event (A3, 2026-09-17).",
+      "note": "Year-precision only; sourced to Wikipedia only. Operating interval; the terminal event is its end.",
       "quote": "From 1999 to 2008",
       "sources": [
         "src:slac-wikipedia"
@@ -29,7 +29,7 @@
       "confidence": "uncertain",
       "end": null,
       "label": "completed",
-      "note": "Year-precision only; sourced to Wikipedia only, flagged for review. Terminal event derived from the end of the same sourced interval (A3, 2026-09-17).",
+      "note": "Year-precision only; sourced to Wikipedia only. Terminal event: the end of the operating interval above.",
       "quote": "From 1999 to 2008",
       "sources": [
         "src:slac-wikipedia"
@@ -46,7 +46,7 @@
   },
   "name": "PEP-II",
   "notes": [
-    "feeds_accelerator_ids records that PEP-II was injected from the SLAC linac; no source fetched in this session states this explicitly, so it is recorded as an uncited structural fact of the accelerator complex rather than a sourced claim — flag for a future agent to source or remove."
+    "The record lists the SLAC linac as PEP-II's injector. No source consulted states this explicitly; it is an uncited fact about the accelerator complex rather than a sourced claim."
   ],
   "particles": [
     "electron",
@@ -75,23 +75,24 @@
     },
     "cms_energy": {
       "approx": false,
-      "confidence": "uncertain",
+      "confidence": "verified",
       "dimension": "energy",
-      "display": "10.58 GeV (Upsilon(4S) resonance)",
-      "note": "Sourced to Wikipedia (BaBar experiment article) only; flagged for review.",
-      "quote": "9 GeV electrons collide with 3.1 GeV antielectrons to produce a center-of-mass collision energy of 10.58 GeV, corresponding to the Upsilon(4S) resonance.",
+      "display": "10.58 GeV (Υ(4S) resonance)",
+      "locator": "arXiv:hep-ex/0105044, Sec. 3.1 PEP-II Storage Rings; arXiv PDF p. 9",
+      "note": "Design centre-of-mass energy (mass of the Υ(4S)). The introduction of the same paper (arXiv:hep-ex/0105044) gives the beam energies as 9.0 GeV (electrons) and 3.1 GeV (positrons).",
+      "quote": "PEP-II is an e+ e− storage ring system designed to operate at a center of mass (c.m.) energy of 10.58 GeV, corresponding to the mass of the Υ (4S) resonance.",
       "sources": [
-        "src:babar-wikipedia"
+        "src:colliders-historical-babar-detector-nim-2002"
       ],
       "unit": "GeV",
       "value": 10.58,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   },
   "status": "completed",
   "summary": {
     "plain": "A particle collider at SLAC that smashed together electrons and positrons at slightly different energies to produce large numbers of B mesons, studied by the BaBar detector from 1999 to 2008.",
-    "technical": "PEP-II B-factory: an asymmetric-energy electron-positron collider at SLAC (9 GeV e- x 3.1 GeV e+, cms 10.58 GeV, tuned to the Upsilon(4S) resonance), 2.2 km circumference, feeding the BaBar detector, 1999-2008."
+    "technical": "PEP-II B-factory: an asymmetric-energy electron-positron collider at SLAC (9 GeV e⁻ × 3.1 GeV e⁺, cms 10.58 GeV, tuned to the Υ(4S) resonance), 2.2 km circumference, feeding the BaBar detector, 1999-2008."
   },
   "type": "accelerator"
 }

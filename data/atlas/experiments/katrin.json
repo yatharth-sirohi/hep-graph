@@ -35,17 +35,35 @@
   "intervals": [
     {
       "confidence": "verified",
-      "end": null,
+      "end": "2025-10-26",
       "label": "neutrino-mass measurement campaigns",
       "locator": "KATRIN 2024/2025 Science paper (arXiv:2406.13516), abstract",
-      "note": "Covers the first five measurement campaigns analysed in the 2025 Science result; exact calendar start/end dates of the campaign series are not stated with day/month precision in the abstract fetched in this session.",
+      "note": "Covers the first five measurement campaigns analysed in the 2025 Science result; exact calendar start/end dates of the campaign series are not stated with day/month precision in the abstract consulted. The end comes from MPIK, 27.10.2025: \"on Oct 26th KATRIN accomplished its goal of 1000 measurement days of probing the endpoint region of the tritium beta-decay spectrum with unprecedented sensitivity, marking the completion of its neutrino-mass data taking.\" The KIT workshop abstract of April 2026 agrees: \"After 1000days of measurement and 19 campaigns, the data taking was concluded in October 2025.\"",
       "quote": "Based on the first five neutrino-mass measurement campaigns ... 36 million electrons collected in 259 measurement days",
       "sources": [
-        "src:katrin-arxiv-2406-13516"
+        "src:katrin-arxiv-2406-13516",
+        "src:currency-katrin-mpik-news-2025-10-27",
+        "src:currency-katrin-kit-numass2026-abstract"
       ],
       "start": "2019",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "TRISTAN phase: commissioning of the new detector system",
+      "locator": "DEIB (Politecnico di Milano) news item, 27 May 2026; MPIK news item of 18.04.2026 (caption: \"launching KATRIN++ and TRISTAN with a ceremonial button press\")",
+      "note": "Start is the April 2026 symposium at which the TRISTAN phase was inaugurated (17 April 2026); the technical start of commissioning is not dated by any fetched source. MPIK (27.10.2025): \"Starting in 2026, a new detector system, TRISTAN, will be installed\"; MPIK (18.04.2026): \"preparations for the TRISTAN upgrade are already opening new opportunities\". No interval is recorded between the end of neutrino-mass data taking (2025-10-26) and this start: no fetched source dates the installation work. The neutrino-mass analysis of the full 1000-day data set continues.",
+      "quote": "celebrated the achievement of 1,000 days of neutrino measurements with the inauguration of phase 2 of the project: the commissioning of a new and more sophisticated detector, TRISTAN.",
+      "sources": [
+        "src:currency-katrin-deib-news-2026-05-27",
+        "src:currency-katrin-mpik-news-2026-04-18",
+        "src:currency-katrin-mpik-news-2025-10-27"
+      ],
+      "start": "2026-04",
+      "status": "commissioning",
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [
@@ -81,7 +99,7 @@
           "src:katrin-arxiv-2406-13516"
         ],
         "unit": "",
-        "value": 3.6e+07,
+        "value": 36000000.0,
         "verified_at": "2026-09-17"
       }
     }
@@ -101,9 +119,9 @@
   },
   "name": "KATRIN",
   "notes": [
-    "facility:kit-karlsruhe and its site are created by this workstream (owned ids); no coordinate more precise than a geocoder-derived campus point for KIT Campus North was found in this session (see site:kit-campus-north notes).",
-    "No INSPIRE experiment-registry lookup was performed in this session; external.inspire_experiment is left null with this note rather than guessed.",
-    "Collaboration formation date and exact campaign start/end calendar dates are not sourced to day/month precision in this session; see interval note.",
+    "No coordinate more precise than a geocoder-derived campus point for KIT Campus North (the site of facility:kit-karlsruhe) was found; see the notes on site:kit-campus-north.",
+    "No INSPIRE experiment lookup was performed; external.inspire_experiment is left empty rather than guessed.",
+    "Collaboration formation date and the exact campaign start date are not sourced to day/month precision; see interval note.",
     "See results/katrin-neutrino-mass-upper-limit-2025.json for the sourced 2025 upper-limit result."
   ],
   "physics_goals": [
@@ -125,7 +143,7 @@
     "src:katrin-official-site",
     "src:katrin-arxiv-2406-13516"
   ],
-  "status": "active",
+  "status": "commissioning",
   "summary": {
     "plain": "A giant spectrometer in Germany that weighs neutrinos indirectly, by measuring electrons released when radioactive tritium decays. Its latest result shows the neutrino weighs no more than 0.45 electron-volts.",
     "technical": "KATRIN: precision tritium beta-decay endpoint spectroscopy using a windowless gaseous tritium source and a large MAC-E (Magnetic Adiabatic Collimation with Electrostatic) filter spectrometer at KIT Campus North. The 2025 Science result, based on the first five measurement campaigns (259 measurement days, 36 million electrons), set an upper limit mν < 0.45 eV (90% CL), improving on the 2022 result of 0.8 eV by nearly a factor of two."

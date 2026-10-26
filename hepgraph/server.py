@@ -45,6 +45,18 @@ ATLAS_CONTENT_TYPES = {
 _ATLAS_ETAG_CACHE: dict[Path, tuple[int, int, str]] = {}
 _ATLAS_ETAG_LOCK = threading.Lock()
 ATLAS_CACHE_CONTROL = 'public, max-age=0, must-revalidate'
+# Every file under /atlas is static and changes only with a deployment, which
+# starts with an empty edge cache. This header is read by Vercel's CDN only and
+# never reaches the browser, so the CDN answers for everyone (a page load was
+# ~40 serverless invocations, each counted against the per-address budget)
+# while browsers keep plain revalidation: a browser-visible
+# stale-while-revalidate made Firefox's background revalidations stall page
+# loads against this server.
+ATLAS_CDN_CACHE_CONTROL = 'max-age=86400, stale-while-revalidate=604800'
+# Static files a single address may fetch per minute. A browser test suite on
+# one machine opens hundreds of pages a minute with no CDN in front, so it may
+# raise this locally (HEPGRAPH_ASSET_RATE_LIMIT); production keeps the default.
+ASSET_RATE_LIMIT = int(os.environ.get('HEPGRAPH_ASSET_RATE_LIMIT', '2000'))
 
 
 def _atlas_etag(target, body):
@@ -252,7 +264,7 @@ class Handler(BaseHTTPRequestHandler):
             'image/svg+xml', 'model/gltf-binary',
         }
 
-    def respond(self, value, status=200, content_type='application/json; charset=utf-8', *, cache_control=None, etag=None, raw=False):
+    def respond(self, value, status=200, content_type='application/json; charset=utf-8', *, cache_control=None, etag=None, raw=False, cdn_cache_control=None):
         body = json.dumps(value, ensure_ascii=False, allow_nan=False).encode() if content_type.startswith('application/json') and not raw else value
         encoding = None
 
@@ -267,6 +279,8 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header('Vary', 'Accept-Encoding')
         self.send_header('Content-Length', str(len(body)))
         self.send_header('Cache-Control', cache_control or ('no-store' if content_type.startswith('application/json') else 'no-cache'))
+        if cdn_cache_control:
+            self.send_header('Vercel-CDN-Cache-Control', cdn_cache_control)
         if etag:
             self.send_header('ETag', etag)
         self.send_header('X-Content-Type-Options', 'nosniff')
@@ -315,7 +329,7 @@ class Handler(BaseHTTPRequestHandler):
         # worker. One HEP Atlas page pulls dozens of bundles, so serving them
         # under the query budget would throttle ordinary browsing.
         asset = not urllib.parse.urlsplit(self.path).path.startswith('/api/')
-        if not state.rate_ok(self.client_address[0], 2000 if asset else 180,
+        if not state.rate_ok(self.client_address[0], ASSET_RATE_LIMIT if asset else 180,
                              'asset' if asset else 'api'):
             return self.respond({'status': 'resource_limit', 'message': 'Request rate limit reached; retry after one minute.'}, 429)
         if not asset and not state.workers.acquire(blocking=False):
@@ -395,12 +409,13 @@ class Handler(BaseHTTPRequestHandler):
             self.send_response(304)
             self.send_header('ETag', etag)
             self.send_header('Cache-Control', ATLAS_CACHE_CONTROL)
+            self.send_header('Vercel-CDN-Cache-Control', ATLAS_CDN_CACHE_CONTROL)
             self.send_header('X-Content-Type-Options', 'nosniff')
             self.send_header('X-HEP-Instance', PROCESS_INSTANCE)
             self.end_headers()
             return None
         return self.respond(body, content_type=content_type, cache_control=ATLAS_CACHE_CONTROL,
-                            etag=etag, raw=True)
+                            cdn_cache_control=ATLAS_CDN_CACHE_CONTROL, etag=etag, raw=True)
 
     def route(self, state):
         parsed = urllib.parse.urlsplit(self.path)

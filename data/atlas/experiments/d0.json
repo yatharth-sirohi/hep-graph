@@ -168,7 +168,7 @@
         "dimension": "mass",
         "display": "~5,500 tons",
         "locator": "fnal.gov Tevatron Experiments: DZero page",
-        "note": "Approximate figure (\"about 5,500-ton\", not a survey-precision number) as stated on the fnal.gov Tevatron Experiments: DZero page; no independent detector-paper mass figure was found to cross-check it against this session.",
+        "note": "Approximate figure (\"about 5,500-ton\", not a survey-precision number) as stated on the fnal.gov Tevatron Experiments: DZero page; no independent detector-paper mass figure was found to cross-check it against (checked 2026-09-17).",
         "quote": "The 5,500-ton detector sits more than four stories tall and is composed of more than 1 million individual detector elements.",
         "sources": [
           "src:colliders-historical-d0-fnal-tevatron-experiments-page"
@@ -194,21 +194,19 @@
   },
   "name": "D0",
   "notes": [
-    "Derived fields (site_ids, detector_ids, document_ids, result_ids) are deliberately not written (v0.2 A1).",
-    "INSPIRE experiment record 1109214 date_completed=2001 is NOT used as the experiment's end: the same record's own description states \"the DZero experiment ran from 2001 to 2011,\" so date_completed=2001 evidently marks the end of the original Run I proposal/configuration, not the detector's actual end (2011, per d0.fnal.gov and the 2011 Fermilab shutdown sources). Flagged as a conflict in the worklog.",
-    "external.inspire_experiment is recorded as the bare INSPIRE recid (1109214) per the ontology §3.5 shape; the record-level `sources` list includes src:colliders-historical-d0-inspire-experiment-record, whose url (https://inspirehep.net/experiments/1109214) contains that recid, per A20."
+    "INSPIRE experiment record 1109214 date_completed=2001 is NOT used as the experiment's end: the same record's own description states \"the DZero experiment ran from 2001 to 2011,\" so date_completed=2001 evidently marks the end of the original Run I proposal/configuration, not the detector's actual end (2011, per d0.fnal.gov and the 2011 Fermilab shutdown sources). The two dates conflict; the 2011 end is used."
   ],
   "physics_goals": [
     {
       "confidence": "verified",
       "locator": "D0 Design Report, FERMILAB-DESIGN-1984-02, abstract",
-      "note": "",
-      "quote": "The impetus was a decision by the Fermilab Program Advisory Committee to call for a new general purpose detector whose focus (electron and muon identification, excellent calorimetric energy and spatial resolution) would complement the CDF detector at B0.",
+      "note": "The quote supports the general-purpose detector focus (electron/muon identification, calorimetry, complementary to CDF). The QCD, W/Z (electroweak) and new-phenomena search goals are discussed in the report introduction and physics sections; that OCR text interleaves columns, so no clean sentence is quoted for them.",
+      "quote": "The impetus was a decision by the Fermilab Program Advisory Committee to call for a new general purpose detector whose focus (electron and muon identification, excellent calorimetric energy and spatial resolution) would complement the CDF detector",
       "sources": [
         "src:colliders-historical-d0-design-report"
       ],
       "value": "General-purpose study of proton-antiproton collisions: quantum chromodynamics, electroweak physics, and searches for new phenomena, with an initial detector focus on electron and muon identification and calorimetric precision complementary to CDF",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "schema": "hep-atlas/0.2",

@@ -148,6 +148,62 @@ export function titleCase(s) {
   return (s || '').replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+// Display labels for the schema's `kind` / `technology_class` enums
+// (hepgraph/atlas/schema.py FACILITY_KINDS, EXPERIMENT_KINDS, ACCELERATOR_KINDS,
+// TECHNOLOGY_CLASSES). The ids stay the slugs the data uses — this is only
+// what a person reads. titleCase() turns "cevns" into "Cevns" and "lar_tpc"
+// into "Lar Tpc", so any slug whose natural spelling is not plain Title Case
+// is listed here; the rest fall through to titleCase().
+export const KIND_LABELS = {
+  // experiment kinds
+  cevns: 'CEvNS',
+  long_lived_particle: 'Long-Lived Particle (LLP)',
+  gamma_ray: 'Gamma-Ray',
+  // technology classes
+  lar_tpc: 'Liquid-Argon TPC',
+  xenon_tpc: 'Liquid-Xenon TPC',
+  argon_tpc: 'Liquid-Argon TPC',
+  noble_liquid_tpc: 'Noble-Liquid TPC',
+  gaseous_tpc: 'Gaseous TPC',
+  imaging_atmospheric_cherenkov: 'Imaging Atmospheric Cherenkov (IACT)',
+  skipper_ccd: 'Skipper CCD',
+  light_shining_through_wall: 'Light-Shining-Through-Wall',
+  lumped_element_resonator: 'Lumped-Element Resonator',
+};
+
+/** Human label for a facility/experiment/accelerator kind or a detector
+ * technology class: the explicit KIND_LABELS entry if there is one, else
+ * titleCase(). */
+export function kindLabel(value) {
+  if (value == null || value === '') return '';
+  return KIND_LABELS[value] || titleCase(value);
+}
+
+/** The globe markers that stand for a research topic: the facilities and sites
+ * of the experiments that carry it in `topic_ids` — exactly the experiments the
+ * topic panel lists. (A topic record carries no experiment list of its own; the
+ * link is stored on the experiment.) Returns an empty set for a topic nothing
+ * in the Atlas is tagged with, which callers must treat as "nothing to
+ * highlight" rather than "mute the whole globe". */
+export function topicMarkerIds(atlas, topicId) {
+  const ids = new Set();
+  const facilities = atlas.facilities || {};
+  const sites = atlas.sites || {};
+  for (const experiment of Object.values(atlas.experiments || {})) {
+    if (!(experiment.topic_ids || []).includes(topicId)) continue;
+    for (const facilityId of experiment.facility_ids || []) {
+      if (facilities[facilityId]) ids.add(facilityId);
+    }
+    for (const siteId of experiment.site_ids || []) {
+      const site = sites[siteId];
+      if (!site) continue;
+      ids.add(siteId);
+      if (site.facility_id && facilities[site.facility_id]) ids.add(site.facility_id);
+    }
+  }
+  return ids;
+}
+
 /** A flat entity index over atlas.json, so any id can be resolved to its
  * record and coarse "kind" in O(1). */
 export function buildIndex(atlas) {
@@ -161,11 +217,45 @@ export function buildIndex(atlas) {
   return index;
 }
 
+// A date is a plain string ("2012-07-04") or a structured value
+// `{date, approx, planned, earliest, latest, display}` (an interval end that is
+// only known roughly). A structured value reads as its own `display` wording
+// when the record has one ("end of 2014"); otherwise as the date, with "c."
+// for an approximate one and the bounds it carries ("2028 (between 2027 and
+// 2028)"). An object is never printed as "[object Object]".
 export function fmtDate(d) {
   if (!d) return '';
   if (typeof d === 'string') return d;
-  if (typeof d === 'object') return d.display || d.date || '';
+  if (typeof d === 'object') {
+    if (d.display) return String(d.display);
+    if (!d.date) return '';
+    const base = `${d.approx ? 'c. ' : ''}${d.date}`;
+    const { earliest, latest } = d;
+    if (earliest && latest && earliest !== latest) return `${base} (between ${earliest} and ${latest})`;
+    if (earliest && earliest !== d.date) return `${base} (no earlier than ${earliest})`;
+    if (latest && latest !== d.date) return `${base} (no later than ${latest})`;
+    return base;
+  }
   return String(d);
+}
+
+// "2009–present" for an interval whose ends are strings or structured dates. An
+// open end reads "present", except after a planned start (a detector not yet
+// built is not "present"), which reads "planned from <start>". An end the record
+// words itself ("end of 2014", "summer of 2022") is a phrase, not a year, so a
+// range reads "since end of 2014" / "from X to Y" instead of a dash between
+// phrases. Empty when neither end is recorded.
+export function fmtInterval(start, end) {
+  const from = fmtDate(start);
+  const to = fmtDate(end);
+  if (!from && !to) return '';
+  const phrased = (d) => !!d && typeof d === 'object' && !!d.display;
+  if (from && !to) {
+    if (start && typeof start === 'object' && start.planned) return `planned from ${from}`;
+    return phrased(start) ? `since ${from}` : `${from}\u2013present`;
+  }
+  if (!from) return phrased(end) ? `until ${to}` : `?\u2013${to}`;
+  return phrased(start) || phrased(end) ? `from ${from} to ${to}` : `${from}\u2013${to}`;
 }
 
 export function quantityText(q) {

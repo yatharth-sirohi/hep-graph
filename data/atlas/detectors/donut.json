@@ -10,56 +10,54 @@
   "id": "detector:donut",
   "intervals": [
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "end": "1997",
       "label": "operating",
-      "locator": "Wikipedia, DONUT",
-      "note": "Sole fetched source is Wikipedia (rank 12); year-only precision.",
-      "quote": "operated at Fermilab in summer 1997",
+      "locator": "arXiv:hep-ex/0012035 (Phys. Lett. B 504 (2001) 218), detector and beam description",
+      "note": "Year-only precision; the DONUT paper states the emulsion targets were exposed from April to September 1997.",
+      "quote": "The emulsion targets were exposed from April to September 1997.",
       "sources": [
-        "src:donut-wikipedia"
+        "src:donut-plb-2001-observation"
       ],
       "start": "1997",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     {
-      "confidence": "uncertain",
+      "confidence": "approximate",
       "end": null,
       "label": "completed",
-      "locator": "Wikipedia, DONUT",
-      "note": "Terminal event. No fetched source gives a month/day precision end-of-run date; 1997 (the sourced run year, rank 12) is used rather than the 2000-12 publication-submission date, since data taking itself ended in 1997.",
-      "quote": "operated at Fermilab in summer 1997",
+      "locator": "arXiv:hep-ex/0012035 (Phys. Lett. B 504 (2001) 218), detector and beam description",
+      "note": "Terminal event. The DONUT paper gives April to September 1997 as the exposure period of the emulsion targets, so 1997 is used as the year data taking ended, rather than the 2000-12 publication-submission date.",
+      "quote": "The emulsion targets were exposed from April to September 1997.",
       "sources": [
-        "src:donut-wikipedia"
+        "src:donut-plb-2001-observation"
       ],
       "start": "1997",
       "status": "completed",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
     "website": null
   },
   "name": "DONUT detector",
-  "notes": [
-    "Placed at site:fermilab-main-campus, an existing site record owned by the 'fermilab-dune' lead, referenced here rather than duplicated (see experiment:donut notes)."
-  ],
+  "notes": [],
   "parent_detector_id": null,
   "placements": [
     {
-      "confidence": "uncertain",
+      "confidence": "approximate",
       "end": "1997",
-      "locator": "Wikipedia, DONUT",
-      "note": "site:fermilab-main-campus is an existing record owned by another lead, already used for several other Fermilab short-baseline detector placements without a hall-specific coordinate; referenced here, not created.",
-      "quote": "operated at Fermilab in summer 1997",
+      "locator": "arXiv:hep-ex/0012035 (Phys. Lett. B 504 (2001) 218), detector and beam description",
+      "note": "Placed at the Fermilab main-campus point, which several other Fermilab short-baseline detector placements also use because no hall-specific coordinate is published.",
+      "quote": "The neutrino beam was created using 800 GeV protons from the Fermilab Tevatron interacting in a meter long tungsten beam dump ... The emulsion targets were exposed from April to September 1997.",
       "role": "main",
       "site_id": "site:fermilab-main-campus",
       "sources": [
-        "src:donut-wikipedia"
+        "src:donut-plb-2001-observation"
       ],
       "start": "1997",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "schema": "hep-atlas/0.2",
@@ -75,15 +73,15 @@
     "technical": "Hybrid emulsion-target (nuclear-emulsion sheets interspersed with steel/iron sheets, an emulsion-cloud-chamber-style target) followed by electronic scintillator counters and drift-chamber spectrometers, at a Tevatron fixed-target beam dump."
   },
   "technology": {
-    "confidence": "uncertain",
-    "locator": "Wikipedia, DONUT",
-    "note": "Sole fetched source is Wikipedia (rank 12); the primary 2001 publication's own detector-section text could not be extracted from its PDF in this session.",
-    "quote": "sheets of nuclear emulsion ... along with scintillators and drift chambers",
+    "confidence": "verified",
+    "locator": "arXiv:hep-ex/0012035 (Phys. Lett. B 504 (2001) 218), detector and beam description",
+    "note": "Detector description from the DONUT 2001 paper (arXiv:hep-ex/0012035): nuclear emulsion with stainless steel sheets (ECC modules), scintillation counter veto wall, scintillating-fibre tracker, hodoscopes and drift chambers.",
+    "quote": "Nuclear emulsion was used to locate and resolve these decays. ... stainless steel sheets interleaved with emulsion plates ... scintillation counter veto wall ... Tracks in the SFT were projected downstream to those in drift chambers",
     "sources": [
-      "src:donut-wikipedia"
+      "src:donut-plb-2001-observation"
     ],
     "value": "Nuclear-emulsion target with interspersed steel sheets, combined with electronic scintillator counters and drift chambers",
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "technology_class": "emulsion",
   "technology_classes": [

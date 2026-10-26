@@ -11,7 +11,7 @@
         "dimension": "length",
         "display": "732 km",
         "locator": "CERN Neutrinos to Gran Sasso page",
-        "note": "The CERN end is site:cern-meyrin per the brief's default (no more specific sourced CNGS target-point coordinate was found in this session); the LNGS end is site:lngs-hall-c, owned by the 'facilities' lead and not yet created in data/atlas/, so the A21 great-circle cross-check cannot run against it yet.",
+        "note": "The CERN end is taken to be the Meyrin site (site:cern-meyrin), since no more specific sourced coordinate for the CNGS target point was found; the LNGS end is Hall C (site:lngs-hall-c).",
         "quote": "732 kilometres away in Italy",
         "sources": [
           "src:opera-cern-cngs-page"
@@ -49,7 +49,7 @@
       "label": "beam operation",
       "locator": "CERN Neutrinos to Gran Sasso page",
       "note": "",
-      "quote": "From July 2006 to December 2012, the CNGS project sent muon neutrinos from CERN, 732 kilometres away in Italy",
+      "quote": "From July 2006 to December 2012, the CNGS project sent muon neutrinos from CERN to the Gran Sasso National Laboratory (LNGS), 732 kilometres away in Italy.",
       "sources": [
         "src:opera-cern-cngs-page"
       ],
@@ -86,8 +86,7 @@
   "name": "CERN Neutrinos to Gran Sasso (CNGS)",
   "near_detector_site_ids": [],
   "notes": [
-    "far_detector_site_ids and baselines[].to_site_id reference site:lngs-hall-c, owned by the 'facilities' lead and not yet created in data/atlas/ when this record was written; expected dangling reference until that lead lands. The A21 great-circle geometry check cannot be run until that site has coordinates -- re-check the 732 km figure against the great-circle distance once it does.",
-    "The CERN end is recorded as site:cern-meyrin per the brief's instruction ('the CERN end is site:cern-meyrin unless you source a CNGS target point'); no more specific sourced CNGS extraction-point coordinate was found in this session."
+    "The CERN end is recorded as site:cern-meyrin, the default CERN site; no more specific sourced coordinate for the CNGS extraction point was found."
   ],
   "primary_beam": {
     "confidence": "verified",
@@ -110,7 +109,7 @@
   "status": "completed",
   "summary": {
     "plain": "A beam of neutrinos sent 732 kilometres straight through the Earth's crust, from CERN in Switzerland to the Gran Sasso laboratory in Italy, between 2006 and 2012, so that the OPERA experiment could watch them change type on the way.",
-    "technical": "CERN Super Proton Synchrotron protons directed onto a graphite target to produce a muon-neutrino beam aimed 732 km through the Earth's crust at LNGS; operated July 2006 to December 2012, providing the neutrino source for the OPERA experiment's nu_mu -> nu_tau appearance search."
+    "technical": "CERN Super Proton Synchrotron protons directed onto a graphite target to produce a muon-neutrino beam aimed 732 km through the Earth's crust at LNGS; operated July 2006 to December 2012, providing the neutrino source for the OPERA experiment's νμ → ντ appearance search."
   },
   "target": {
     "confidence": "verified",

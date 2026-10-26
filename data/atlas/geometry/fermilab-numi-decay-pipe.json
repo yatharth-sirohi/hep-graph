@@ -1,0 +1,74 @@
+{
+  "accuracy_m": 5,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "675 m",
+        "unit": "m",
+        "value": 675
+      },
+      "kind": "length",
+      "locator": "NuMI NIM paper section 2.7",
+      "quote": "The NuMI decay pipe is 2 m in diameter and 675 m in length within a larger excavated tunnel.",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "tolerance": 0.01
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "depth_m": null,
+  "entity_id": "beamline:numi",
+  "feature_type": "tunnel",
+  "geometry": {
+    "confidence": "verified",
+    "locator": "NuMI Facility TDR (FERMILAB-DESIGN-1998-01) Appendix A, beam sheet 'Site coordinates for beamline: horn2.ces' (DUSAF x, y in ft; station along the beam in ft)",
+    "note": "",
+    "sources": [
+      "src:fermilab-geo-numi-tdr-1998",
+      "src:fermilab-geo-oshinowo-coordinate-systems-1997"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          -88.2657701,
+          41.8323742
+        ],
+        [
+          -88.2690572,
+          41.8379206
+        ]
+      ],
+      "type": "LineString"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:fermilab-numi-decay-pipe",
+  "level_id": "near-detector-caverns",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fermilab",
+  "method": "Published coordinates converted to WGS 84: beam-sheet rows DECAY (station 1307.48377 ft, x = 100185.345, y = 97855.370) and DENCU (station 3522.04627 ft, x = 98230.009, y = 98887.039); the station difference is 2214.56 ft = 675.0 m. Conversion of DUSAF to WGS 84: DUSAF x, y (ft) are the FSCS coordinates of Beams-doc-1148 (origin A0 = 41°50′14.312704″ N, 88°15′41.143123″ W, false x = y = 100000 ft, +y axis at geodetic azimuth 38°16′48.01429″, scale 1.000029251 at A0), applied as a rotated tangent plane on the GRS80 ellipsoid (difference to the double stereographic projection below 0.2 m within 1.5 km of A0). NAD83 and WGS 84 are taken as equal.",
+  "name": "NuMI decay tunnel and decay pipe (675 m)",
+  "notes": [],
+  "osm": null,
+  "representation": "surveyed",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:fermilab-geo-numi-tdr-1998",
+    "src:fermilab-geo-oshinowo-coordinate-systems-1997"
+  ],
+  "summary": {
+    "plain": "The 675 m long, 2 m wide decay pipe in which particles from the NuMI target decay into neutrinos, inside its tunnel."
+  },
+  "type": "geometry",
+  "valid": null
+}

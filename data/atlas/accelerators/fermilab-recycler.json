@@ -13,24 +13,58 @@
   "id": "accelerator:fermilab-recycler",
   "intervals": [
     {
-      "confidence": "uncertain",
-      "end": null,
-      "label": "proton stacking for the NuMI programme",
-      "locator": "§4.2",
-      "note": "Evidence date only. The Recycler was built as an antiproton storage ring for Tevatron Run II; the fetched source documents its reuse for proton stacking once the Tevatron stopped, for the post-MINOS (NOvA-era) programme that restarted in September 2013. Its own commissioning date was not sourced.",
-      "quote": "Advantage is taken of the availability of the Recycler since the Tevatron is no longer operational.",
+      "confidence": "verified",
+      "end": "2004-06-01",
+      "label": "commissioning (proton beam studies, then antiproton storage)",
+      "locator": "EPAC 2000 paper MOP5B01 (G. Jackson), abstract; PDF p. 1",
+      "note": "Month-precision start from the Recycler operations paper of 2000, which adds that 'To date only protons have been injected into the Recycler ring' (section 2). The end is the 1 June 2004 Run II milestone that closed Recycler commissioning (next interval). The Fermilab dedication release of 1 June 1999 says the Recycler was added to the Main Injector project 'without increasing the total project budget or delaying its scheduled completion'; no source fetched gives a construction start for the ring itself, so none is recorded. First beam: \"A beam of protons moved through about one-third of the Recycler ring on January 12, 1999, before ending its run by being absorbed at a temporary steel target.\" (FermiNews, 5 March 1999, reprinted by Fermilab History and Archives); the EPAC 2000 paper dates the start of commissioning proper to May 1999, which is the interval start used here. The Fermilab accelerator-history page says the Recycler was built as part of the Main Injector project, in the same tunnel.",
+      "quote": "Commissioning of this accelerator was started in May 1999.",
       "sources": [
+        "src:rv-fnal-recycler-epac2000",
+        "src:fermilab-geo-mi-dedication-1999",
+        "src:rv-fnal-history-recycler-beam"
+      ],
+      "start": "1999-05",
+      "status": "commissioning",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2011",
+      "label": "antiproton storage and cooling ring for Tevatron Run II",
+      "locator": "start: Bhat & Spalding (arXiv:hep-ex/0410046), §3 'Increase Antiproton Stacking & Storing Capabilities', arXiv PDF p. 6; end: Fermilab proton-complex paper (arXiv:1705.03075), introduction, arXiv PDF p. 2",
+      "note": "Start at day precision: the Recycler commissioning milestone for Run II was met on 1 June 2004, and the paper says the ring then supported a mixed source mode in which antiprotons went into the Tevatron from both the Accumulator and the Recycler. Nagaitsev (arXiv:1408.0759): 'Since late 2005, all Tevatron antiprotons were extracted from the Recycler only.' End: the Recycler was 'originally built for storage and accumulation of low intensity antiproton beams during the Tevatron Collider Run II (2001-2011)'; year precision, the Tevatron shut down on 30 September 2011. The start is a commissioning milestone and the end is inferred from the Run II span '(2001-2011)'; the interval is therefore marked 'approximate'. The Tevatron record dates Run II as 2002-2011 while Bhat & Spalding put its start in March 2001; the two are not reconciled here.",
+      "quote": "Commissioning the Recycler, ready for installation and implementation of electron cooling, was one of the major milestones for Run II upgrades. This milestone was met, on schedule, on June 1, 2004.",
+      "sources": [
+        "src:rv-fnal-run2-status-bhat-2004",
+        "src:fermilab-geo-nagaitsev-pbar-recycler-mi-2014",
+        "src:fermilab-proton-complex-status-2017",
+        "src:colliders-historical-tevatron-fnal-news-2011-shutdown"
+      ],
+      "start": "2004-06-01",
+      "status": "active",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "proton stacking ahead of the Main Injector (NuMI/NOvA era)",
+      "locator": "arXiv:1705.03075, §2 'Current upgrade activities' (PIP and PIP-I+), paragraph on the Recycler; arXiv PDF p. 4",
+      "note": "Start is an evidence date: the Fermilab proton-complex paper lists 'just 6 batches in late 2014' as the first step of Recycler batch stacking/slip-stacking, then 2+6, 4+6 and 6+6 batches in mid-2016. The earliest possible start is the end of Tevatron operation in 2011 (the NuMI beam paper: 'Advantage is taken of the availability of the Recycler since the Tevatron is no longer operational'); no source consulted (checked 2026-10-25) dates the conversion or says when the Recycler first stacked protons, so 2011-2014 is shown as a possible range. The NuMI beam paper itself says the Booster-into-Recycler scheme was the 'eventual mode of operation' for NOvA. No source consulted says whether the Recycler operated after the Main Injector stopped in July 2024; the interval stays open-ended because no end is sourced.",
+      "quote": "On the way, the operations team increased the number of batches slip-stacked in the Recycler in steps (just 6 batches in late 2014, then 2+6, 4+6 and, finally, 6+6 batches in mid-2016).",
+      "sources": [
+        "src:fermilab-proton-complex-status-2017",
         "src:fermilab-numi-beam-paper-2016"
       ],
       "start": {
         "approx": true,
-        "date": "2013",
-        "display": "in this role from the 2013 NuMI restart",
-        "earliest": "1999",
-        "latest": "2013"
+        "date": "2014",
+        "display": "by late 2014 (first documented step: 6 batches stacked); not before the Tevatron stopped in 2011",
+        "earliest": "2011",
+        "latest": "2014"
       },
       "status": "active",
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
     }
   ],
   "is_collider": false,
@@ -55,7 +89,7 @@
       "confidence": "verified",
       "dimension": "energy",
       "display": "8 GeV",
-      "locator": "§4.2",
+      "locator": "§5 Post-MINOS Plans and Developments; arXiv PDF p. 60",
       "note": "",
       "quote": "The Recycler is a fixed energy machine of 8 GeV located on the top of the MI with the same circumference of 3.3 km.",
       "sources": [
@@ -70,7 +104,7 @@
       "confidence": "verified",
       "dimension": "length",
       "display": "3.3 km",
-      "locator": "§4.2",
+      "locator": "§5 Post-MINOS Plans and Developments; arXiv PDF p. 60",
       "note": "",
       "quote": "the same circumference of 3.3 km",
       "sources": [

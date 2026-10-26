@@ -20,7 +20,7 @@
       "confidence": "approximate",
       "end": null,
       "label": "hosts gamma-ray telescopes",
-      "note": "Start date is a lower bound taken from MAGIC-I's October 2003 operational start (the earliest sourced gamma-ray-telescope activity at this site found this session), not a founding date for the wider Roque de los Muchachos Observatory itself, which predates both MAGIC and CTAO.",
+      "note": "Start date is a lower bound taken from MAGIC-I's October 2003 operational start (the earliest sourced gamma-ray-telescope activity found at this site), not a founding date for the wider Roque de los Muchachos Observatory itself, which predates both MAGIC and CTAO.",
       "quote": "started operations in its final configuration in October 2003",
       "sources": [
         "src:cosmic-gamma-magic-arxiv-2004-status"
@@ -36,13 +36,12 @@
   },
   "name": "Roque de los Muchachos Observatory",
   "notes": [
-    "site_ids, accelerator_ids, beamline_ids, institution_id, document_ids, experiment_ids are deliberately not written (v0.2 A1 derived fields).",
-    "This facility is shared: created once by the cosmic-gamma workstream (owner of both experiment:ctao and experiment:magic per the wave-3 id registry), referenced by both experiment:ctao's facility_roles and experiment:magic's facility_roles. No other workstream should create a duplicate.",
-    "No founding/intervals data for the wider Roque de los Muchachos Observatory (which predates both MAGIC and CTAO) was sourced this session; intervals is left empty rather than guessed, and status 'active' reflects that both hosted experiments are currently operating."
+    "This facility is shared: experiment:ctao and experiment:magic both list it in their facility roles.",
+    "No founding date is sourced for the wider Roque de los Muchachos Observatory (which predates both MAGIC and CTAO); the single interval is only a lower bound from MAGIC-I. Status 'active' reflects that both hosted experiments are operating (checked 2026-09-17)."
   ],
   "operator": {
     "confidence": "approximate",
-    "note": "CTAO's own page names La Palma, Spain as one of its two array sites without naming a local operator sentence; the Instituto de Astrofísica de Canarias is the well-known operator of the wider Roque de los Muchachos Observatory but that specific operator statement was not seen in a source fetched this session.",
+    "note": "CTAO's own page names La Palma, Spain as one of its two array sites without naming a local operator; the Instituto de Astrofísica de Canarias is the well-known operator of the wider Roque de los Muchachos Observatory, but that specific operator statement was not seen in any source consulted (checked 2026-09-17).",
     "quote": "La Palma, Spain, and Paranal, Chile",
     "sources": [
       "src:cosmic-gamma-ctao-official-about-us-page"

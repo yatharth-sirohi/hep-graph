@@ -18,7 +18,7 @@
     "sources": [
       "src:damic-11kgday-2020-arxiv"
     ],
-    "value": "WIMPs of a few GeV/c^2 (silicon target); low-energy ionization excess near 100 eV under continued study",
+    "value": "WIMPs of a few GeV/c² (silicon target); low-energy ionization excess near 100 eV under continued study",
     "verified_at": "2026-09-17"
   },
   "external": {
@@ -32,7 +32,7 @@
       "end": "2012-04",
       "facility_id": "facility:fermilab",
       "locator": "INSPIRE experiment record 1108203 (FNAL-T-0987), fields date_approved / date_completed",
-      "note": "Original shallow-depth Fermilab prototype phase, before the SNOLAB deployment. INSPIRE experiment record 1108203 gives date_approved 2008-12-15 and an explicit terminal date_completed 2012-04-09. This phase is deliberately represented only here (a dated facility_roles/placement row) and not as a lifecycle `intervals` row: it was a small-scale R&D prototype, not a revived full science programme (contrast experiment:supercdms-soudan, which WAS split into its own experiment id because it ran a multi-year science campaign with its own terminal INSPIRE record). Keeping a terminal-status `intervals` row for this phase would conflict with the later, still-active/completed SNOLAB intervals under A3's non-terminal-after-terminal check regardless of `Interval.kind`, since the current validator does not filter that check by kind.",
+      "note": "Original shallow-depth Fermilab prototype phase, before the SNOLAB deployment. INSPIRE experiment record 1108203 gives date_approved 2008-12-15 and an explicit terminal date_completed 2012-04-09. This phase is recorded only here, as a dated placement, and not as a lifecycle interval: it was a small-scale R&D prototype, not a revived full science programme (contrast experiment:supercdms-soudan, which has its own experiment record because it ran a multi-year science campaign with its own terminal INSPIRE record).",
       "role": "prototype_host",
       "sources": [
         "src:damic-inspire-experiment-original"
@@ -45,7 +45,7 @@
       "end": "2025",
       "facility_id": "facility:snolab",
       "locator": "arXiv:2007.15622, abstract",
-      "note": " Closed 2025 per the newly fetched 2025 SNOLAB workshop report describing the original DAMIC detector as repurposed into a test stand.",
+      "note": "Closed 2025 per the 2025 SNOLAB workshop report describing the original DAMIC detector as repurposed into a test stand.",
       "quote": "an 11 kg-day target exposure of the DAMIC experiment at the SNOLAB underground laboratory",
       "role": "host",
       "sources": [
@@ -77,7 +77,7 @@
       "end": "2025",
       "label": "SNOLAB science run (skipper CCDs)",
       "locator": "INSPIRE literature record 2752302 (2024-01), abstract",
-      "note": "End set to 2025 per a newly fetched source (2026-09-17 verification pass): the 2025 SNOLAB Future Projects Workshop report states the original DAMIC detector has become a test stand, i.e. its dark-matter science run had ended by then. Exact month of cessation not given, so year precision is used.",
+      "note": "End set to 2025 per the 2025 SNOLAB Future Projects Workshop report (checked 2026-09-17), which states the original DAMIC detector has become a test stand, i.e. its dark-matter science run had ended by then. Exact month of cessation not given, so year precision is used.",
       "quote": "two 24-megapixel skipper charge-coupled devices (CCDs) deployed in the DAMIC setup at SNOLAB",
       "sources": [
         "src:damic-2025-snolab-workshop-status",
@@ -93,7 +93,7 @@
       "end": null,
       "label": "SNOLAB: repurposed as background test stand",
       "locator": "arXiv:2507.11368 (2025-07), full text",
-      "note": "Terminal marker (status completed = 'data taking over' per ontology S4): the original DAMIC detector's dark-matter search at SNOLAB ended and the apparatus is now used as a test stand for background studies, per the 2025 SNOLAB Future Projects Workshop community report. This resolves the open item flagged by the original research pass, which had recorded DAMIC as active because no closure source had been found yet.",
+      "note": "Terminal marker (data taking over): the original DAMIC detector's dark-matter search at SNOLAB ended and the apparatus is now used as a test stand for background studies, per the 2025 SNOLAB Future Projects Workshop community report. No earlier source reported the closure.",
       "quote": "The original DAMIC detector at SNOLAB has become a test stand for background studies.",
       "sources": [
         "src:damic-2025-snolab-workshop-status"
@@ -110,16 +110,16 @@
         "approx": false,
         "confidence": "verified",
         "dimension": "mass",
-        "display": "7 x 16-Mpixel CCDs, 6.0 g each (~42 g total)",
+        "display": "7 × 16-Mpixel CCDs, 6.0 g each (~42 g total)",
         "locator": "arXiv:2007.15622 (ar5iv)",
-        "note": "",
+        "note": "Derived: 7 CCDs x 6.0 g = 42 g, from the quoted \"seven 16-megapixel CCDs (6.0 g each)\".",
         "quote": "a tower of seven 16-megapixel CCDs (6.0 g each)",
         "sources": [
           "src:damic-11kgday-2020-arxiv"
         ],
         "unit": "g",
         "value": 42,
-        "verified_at": "2026-09-17"
+        "verified_at": "2026-10-25"
       }
     },
     {
@@ -146,7 +146,7 @@
     {
       "confidence": "verified",
       "experiment_id": "experiment:damic-m",
-      "note": "DAMIC-M's own status paper identifies itself as the follow-on programme using the DAMIC name and skipper-CCD technology at a new site (Modane); no source explicitly uses the word 'predecessor', so this relation is inferred from the shared name and collaboration continuity described in that paper, flagged confidence verified only for the site/technology facts quoted, not for the lineage label itself.",
+      "note": "DAMIC-M's own status paper identifies itself as the follow-on programme using the DAMIC name and skipper-CCD technology at a new site (Modane); no source explicitly uses the word 'predecessor', so this relation is inferred from the shared name and collaboration continuity described in that paper. Verified confidence applies only to the site/technology facts quoted, not to the lineage label itself.",
       "quote": "A prototype, the Low Background Chamber (LBC), with 20g of low background Skipper CCDs, has been recently installed at Laboratoire Souterrain de Modane and is currently taking data.",
       "relation": "predecessor",
       "sources": [
@@ -169,13 +169,12 @@
   "name": "DAMIC",
   "notes": [
     "Two INSPIRE experiment records exist: the original Fermilab prototype (recid 1108203, FNAL-T-0987, approved 2008-12-15, completed 2012-04-09) and the current SNOLAB programme (recid 1401315). Unlike SuperCDMS-Soudan/SNOLAB (see experiment:supercdms-soudan), the Fermilab prototype is not represented as its own experiment id or as a lifecycle `intervals` row: it was a small-scale R&D device establishing feasibility, not an independent science campaign, so it is recorded only via the dated `facility_roles` row above. `external.inspire_experiment` cites the current (SNOLAB) recid.",
-    "RESOLVED by independent verification (2026-09-17 pass): the original research pass recorded status `active` because no source it had fetched stated an end date. A 2025 SNOLAB Future Projects Workshop report (arXiv:2507.11368), fetched during verification, states the original DAMIC detector at SNOLAB has become a test stand for background studies -- i.e. its dark-matter science run is over. Status is now recorded as `completed` with a sourced terminal interval.",
-    "2026-09-18 fix: the Fermilab prototype's lifecycle `intervals` row was removed (previously labelled non-terminal `active` through 2012-04 specifically to avoid an A3 non-terminal-after-terminal conflict with the later SNOLAB intervals, despite INSPIRE giving an explicit date_completed for that phase). The underlying fact (2008-12 to 2012-04, at Fermilab) is unchanged and remains fully sourced via `facility_roles`; only its representation moved, per the coordinator's instruction that a prototype phase belongs in a dated placement/facility_role row rather than a mislabelled lifecycle interval."
+    "Status is 'completed': a 2025 SNOLAB Future Projects Workshop report (arXiv:2507.11368) states the original DAMIC detector at SNOLAB has become a test stand for background studies, i.e. its dark-matter science run is over. Earlier sources stated no end date."
   ],
   "physics_goals": {
     "confidence": "verified",
     "note": "",
-    "quote": "our data exclude spin-independent WIMP-nucleon scattering cross sections as low as 3x10^-41 cm^2 for WIMPs with masses from 7 to 10 GeV/c^2",
+    "quote": "The DAMIC experiment at SNOLAB employs the bulk silicon of scientific charge-coupled devices (CCDs) to search for ionization signals produced by interactions of particle dark matter from the Milky Way halo.",
     "sources": [
       "src:damic-11kgday-2020-arxiv"
     ],

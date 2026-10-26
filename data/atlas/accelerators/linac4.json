@@ -27,16 +27,38 @@
     },
     {
       "confidence": "verified",
-      "end": null,
+      "end": "2026-08-31",
       "label": "CERN's proton source",
-      "note": "",
+      "locator": "end: home.cern, \"All CERN accelerators now on the road to HiLumi\", 31 August 2026",
+      "note": "End = 31 August 2026, when \"CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.\" The 20 August 2026 accelerator report had scheduled the switch-off of all machines for 6.00 a.m. on Monday, 31 August.",
       "quote": "It became the source of proton beams for the Large Hadron Collider (LHC) in 2020",
       "sources": [
-        "src:cern-linac4-page"
+        "src:cern-linac4-page",
+        "src:currency-cern-all-accelerators-2026-08-31",
+        "src:currency-cern-accelerator-report-2026-08-20"
       ],
       "start": "2020",
       "status": "active",
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2028",
+        "display": "start of 2028",
+        "planned": true
+      },
+      "label": "Long Shutdown 3 (injector complex)",
+      "note": "Start = 31 August 2026 (CERN news item of that date). End is a schedule value: \"Following the long shutdown, CERN’s accelerator complex will gradually come back to life, beginning with Linac4, the PS Booster and ISOLDE at the start of 2028.\" (20 August 2026) and \"The complex will progressively return to operation from 2028 onwards, with the different injectors and facilities restarting in stages.\" (31 August 2026).",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31",
+        "src:currency-cern-accelerator-report-2026-08-20"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-25"
     }
   ],
   "is_collider": false,
@@ -95,7 +117,7 @@
       "verified_at": "2026-09-16"
     }
   },
-  "status": "active",
+  "status": "shutdown",
   "summary": {
     "plain": "An 86-metre straight accelerator, 12 metres underground, that is the first step for every proton used at CERN. It accelerates hydrogen ions to 160 million electronvolts and has been the source of the beams that end up in the Large Hadron Collider since 2020.",
     "technical": "86 m H- linac (RFQ to 3 MeV, DTL to 50 MeV, CCDTL to 100 MeV, PIMS to 160 MeV) injecting into the PS Booster; replaced Linac2 during the 2019-20 long shutdown."

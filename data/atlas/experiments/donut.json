@@ -15,15 +15,15 @@
     "tier": "D"
   },
   "energy_regime": {
-    "confidence": "uncertain",
-    "locator": "Wikipedia, DONUT",
-    "note": "Sole source for beam-energy framing is Wikipedia (rank 12); no official Fermilab page describing DONUT's beam setup was reachable in this session (fnal.gov returned HTTP 403 to every fetch attempt).",
-    "quote": "used the Tevatron ... to produce tau neutrinos via decay of charmed mesons",
+    "confidence": "verified",
+    "locator": "arXiv:hep-ex/0012035 (Phys. Lett. B 504 (2001) 218), detector and beam description",
+    "note": "Beam description from the DONUT 2001 paper (arXiv:hep-ex/0012035): 800 GeV protons from the Fermilab Tevatron on a meter-long tungsten beam dump, with most interacting neutrinos from charmed-meson decays in the dump.",
+    "quote": "The neutrino beam was created using 800 GeV protons from the Fermilab Tevatron interacting in a meter long tungsten beam dump ... Most of the neutrinos that interacted in the emulsion target originated in the decays of charmed mesons in the beam dump.",
     "sources": [
-      "src:donut-wikipedia"
+      "src:donut-plb-2001-observation"
     ],
     "value": "Tau neutrinos from charmed-meson decay in a Tevatron fixed-target proton beam dump",
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "external": {
     "greybook": null,
@@ -35,7 +35,7 @@
       "confidence": "uncertain",
       "facility_id": "facility:fermilab",
       "locator": "Wikipedia, DONUT (opening sentence)",
-      "note": "Corrected from a non-verbatim paraphrase ('operated at Fermilab') to the actual opening-sentence wording; sole fetched source is Wikipedia (rank 12), fnal.gov returned HTTP 403 to every fetch attempt.",
+      "note": "The quote is the opening-sentence wording of the Wikipedia article (rank 12), the only source consulted; fnal.gov returned HTTP 403 to every access attempt.",
       "quote": "was an experiment at Fermilab dedicated to the search for tau neutrino interactions",
       "role": "host",
       "sources": [
@@ -44,47 +44,47 @@
       "verified_at": "2026-09-17"
     },
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "facility_id": "facility:fermilab",
-      "locator": "Wikipedia, DONUT",
-      "note": "Sole fetched source is Wikipedia (rank 12); fnal.gov returned HTTP 403 to every fetch attempt in this session.",
-      "quote": "used the Tevatron ... to produce tau neutrinos via decay of charmed mesons",
+      "locator": "arXiv:hep-ex/0012035 (Phys. Lett. B 504 (2001) 218), detector and beam description",
+      "note": "Beam description from the DONUT 2001 paper (arXiv:hep-ex/0012035): 800 GeV protons from the Fermilab Tevatron on a tungsten beam dump.",
+      "quote": "The neutrino beam was created using 800 GeV protons from the Fermilab Tevatron interacting in a meter long tungsten beam dump ... Most of the neutrinos that interacted in the emulsion target originated in the decays of charmed mesons in the beam dump.",
       "role": "beam_source",
       "sources": [
-        "src:donut-wikipedia"
+        "src:donut-plb-2001-observation"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "id": "experiment:donut",
   "intervals": [
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "end": "1997",
       "label": "data taking",
-      "locator": "Wikipedia, DONUT",
-      "note": "Sole fetched source for the run period is Wikipedia (rank 12); no official Fermilab/INSPIRE page giving the run dates was reachable in this session. Year-only precision.",
-      "quote": "operated at Fermilab in summer 1997",
+      "locator": "arXiv:hep-ex/0012035 (Phys. Lett. B 504 (2001) 218), detector and beam description",
+      "note": "Year-only precision; the DONUT paper states the emulsion targets were exposed from April to September 1997.",
+      "quote": "The emulsion targets were exposed from April to September 1997.",
       "sources": [
-        "src:donut-wikipedia"
+        "src:donut-plb-2001-observation"
       ],
       "start": "1997",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     {
-      "confidence": "uncertain",
+      "confidence": "approximate",
       "end": null,
       "label": "completed",
-      "locator": "Wikipedia, DONUT; abstract",
-      "note": "Terminal event. No fetched source gives a month/day precision end-of-run date; 1997 (the sourced run year, rank 12) is used as the start of this terminal interval rather than the 2000-12 publication-submission date, since the experiment's actual data taking ended in 1997 and the publication only reports the completed analysis.",
-      "quote": "operated at Fermilab in summer 1997",
+      "locator": "arXiv:hep-ex/0012035 (Phys. Lett. B 504 (2001) 218), detector and beam description",
+      "note": "Terminal event. The DONUT paper gives April to September 1997 as the exposure period of the emulsion targets, so 1997 is used as the start of this terminal interval (year data taking ended) rather than the 2000-12 publication-submission date.",
+      "quote": "The emulsion targets were exposed from April to September 1997.",
       "sources": [
-        "src:donut-wikipedia"
+        "src:donut-plb-2001-observation"
       ],
       "start": "1997",
       "status": "completed",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [
@@ -114,7 +114,7 @@
         "dimension": "count",
         "display": "4 candidate events",
         "locator": "abstract",
-        "note": "A later (2008) final analysis reported 9 tau-neutrino events in a larger 578-event sample per Wikipedia (rank 12, not used as the primary figure here); this key_spec records the number from the primary 2001 observation paper actually fetched.",
+        "note": "A later (2008) final analysis reported 9 tau-neutrino events in a larger 578-event sample per Wikipedia (rank 12, not used as the primary figure here); this key_spec records the number from the primary 2001 observation paper.",
         "quote": "A decay search has found evidence of four tau neutrino interactions with an estimated background of 0.34 events.",
         "sources": [
           "src:donut-plb-2001-observation"
@@ -132,12 +132,10 @@
   },
   "name": "DONUT",
   "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
-    "kind is set to 'accelerator_neutrino' with secondary_kinds 'fixed_target': DONUT is structurally a fixed-target beam-dump experiment, but its defining physics purpose -- direct detection of tau-neutrino interactions from an accelerator-produced neutrino beam -- matches the accelerator_neutrino kind used for this lead's other experiments (KARMEN, LSND, OPERA).",
-    "No official DONUT/Fermilab website was reachable in this session (fnal.gov returned HTTP 403 to every fetch attempt, matching the note already on facility:fermilab); links.website left null rather than guessed.",
-    "external.inspire_experiment left null: no INSPIRE experiment-registry lookup was performed in this session (the INSPIRE literature record fetched did not render usable content, and DONUT is tier D so this is not mandatory per the brief).",
-    "Detector placement site is site:fermilab-main-campus, an existing record owned by the 'fermilab-dune' lead (already used for several other Fermilab short-baseline experiments' near detectors); referenced here rather than duplicated, per A20's warning against two sites of one facility within 100 m.",
-    "summary.technical previously stated an '800 GeV-class' Tevatron beam energy; this figure was not supported by any fetched source (energy_regime deliberately carries no specific beam-energy number, confidence: uncertain, Wikipedia-only) and has been removed as an unsourced from-memory value per A17."
+    "DONUT is structurally a fixed-target beam-dump experiment, but its defining physics purpose -- direct detection of tau-neutrino interactions from an accelerator-produced neutrino beam -- matches the accelerator-neutrino category used for KARMEN, LSND and OPERA, so it is classed as an accelerator-neutrino experiment with fixed-target as a secondary kind.",
+    "No official DONUT/Fermilab website was reachable (fnal.gov returned HTTP 403 to every access attempt, as also noted on facility:fermilab), so no website is recorded rather than a guessed one.",
+    "No INSPIRE experiment lookup was performed for DONUT, so external.inspire_experiment is left empty (the INSPIRE literature record that was opened did not render usable content).",
+    "The detector placement site is site:fermilab-main-campus, an existing record already used for several other Fermilab short-baseline experiments' near detectors; it is referenced here rather than duplicated, because two sites of one facility within 100 m would be redundant."
   ],
   "physics_goals": [
     {

@@ -14,7 +14,7 @@
       "end": "2021",
       "label": "first physics run",
       "note": "",
-      "quote": "data taken from the first physics run in 2021",
+      "quote": "The data analysed in this work were collected in the year 2021 during the first, seven-week-long physics run of MEG II",
       "sources": [
         "src:muons-arxiv-2310-12614"
       ],
@@ -41,14 +41,14 @@
   },
   "name": "MEG II detector",
   "notes": [
-    "technology_classes uses 'other', matching detector:meg for the same reason (no LXe-scintillation-calorimeter class exists in the ontology's enum)."
+    "The technology class is 'other', matching detector:meg: no liquid-xenon scintillation calorimeter class exists among the available technology classes."
   ],
   "parent_detector_id": null,
   "placements": [
     {
       "confidence": "verified",
       "end": null,
-      "note": "site:psi-villigen is owned by the 'facilities' Wave-3 workstream and had not landed in data/atlas/sites/ as of this session; this is an expected dangling reference.",
+      "note": "",
       "role": "main",
       "site_id": "site:psi-villigen",
       "sources": [
@@ -69,17 +69,17 @@
   "subsystems": [],
   "summary": {
     "plain": "The upgraded version of the MEG detector: a finer liquid-xenon calorimeter and new tracking and timing detectors, at the same Swiss laboratory, still taking data.",
-    "technical": "Upgrade of the MEG detector: higher-granularity LXe calorimeter, single-volume cylindrical drift chamber (replacing MEG's drift chamber array), upgraded plastic-scintillator timing counter and a new radiative decay counter (RDC) for normalization, on the PSI piE5 beamline. First physics run 2021, ongoing data-taking through at least 2023 per the most recent fetched source. No separately sourced subsystem dimension quantities were fetched this session."
+    "technical": "Upgrade of the MEG detector: higher-granularity LXe calorimeter, single-volume cylindrical drift chamber (replacing MEG's drift chamber array), upgraded plastic-scintillator timing counter and a new radiative decay counter (RDC) for normalization, on the PSI piE5 beamline. First physics run 2021, ongoing data-taking through at least 2023 per the most recent source consulted. No separately sourced subsystem dimensions are recorded."
   },
   "technology": {
     "confidence": "verified",
     "note": "",
-    "quote": "Liquid Xenon Calorimeter...Cylindrical Drift Chamber...Timing Counter...Target and Radial Drift Chamber (RDC)",
+    "quote": "newly designed single-volume cylindrical drift chamber (CDCH) ... a new pixelated timing counter (pTC) based on scintillator tiles read out by SiPMs ... measured by an upgraded LXe photon detector. ... the Radiative Decay Counter (RDC)",
     "sources": [
-      "src:muons-meg-icepp-site"
+      "src:rf07-meg-ii-design-arxiv-1801-04688"
     ],
     "value": "Upgraded liquid xenon calorimeter with finer granularity, a new single-volume cylindrical drift chamber, upgraded timing counter and a new radiative decay counter, on the same PSI DC muon beamline",
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "technology_classes": [
     "other"

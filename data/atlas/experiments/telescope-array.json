@@ -39,7 +39,7 @@
       "confidence": "verified",
       "end": null,
       "label": "data taking (original array)",
-      "note": "10 May 2024 is the end of a 16-year analysis dataset window used in a 2026 paper, not a stated end of operations; no fetched source says the array has stopped taking data. No fetched source in this session gives a construction-start date distinct from this first-data date.",
+      "note": "10 May 2024 is the end of a 16-year analysis dataset window used in a 2026 paper, not a stated end of operations; no source consulted says the array has stopped taking data. No source consulted gives a construction-start date distinct from this first-data date.",
       "quote": "16 years of data collected from 11 May 2008 to 10 May 2024",
       "sources": [
         "src:cosmic-gamma-ta-arxiv-2026-recent-findings"
@@ -52,7 +52,7 @@
       "confidence": "verified",
       "end": null,
       "label": "TAx4 extension data taking",
-      "note": "TAx4 expands the original TA aperture by a factor of four (~3000 km^2 target), adding 500 SDs on a 2.08 km grid and 12 new FD telescopes. September 2022 is the end of an analysis dataset window, not a stated end of TAx4 operations.",
+      "note": "TAx4 expands the original TA aperture by a factor of four (~3000 km² target), adding 500 SDs on a 2.08 km grid and 12 new FD telescopes. September 2022 is the end of an analysis dataset window, not a stated end of TAx4 operations.",
       "quote": "three years of data collected from October 2019 to September 2022",
       "sources": [
         "src:cosmic-gamma-ta-arxiv-2026-recent-findings"
@@ -122,13 +122,14 @@
         "dimension": "area",
         "display": "~3000 km² target",
         "note": "",
-        "quote": "with a target coverage of ~3000 km^2",
+        "quote": "with a target coverage of ∼3000 km2",
         "sources": [
-          "src:cosmic-gamma-ta-arxiv-2026-recent-findings"
+          "src:cosmic-gamma-ta-arxiv-2026-recent-findings",
+          "src:rf10-ta-recent-findings-arxiv-pdf"
         ],
         "unit": "km^2",
         "value": 3000,
-        "verified_at": "2026-09-17"
+        "verified_at": "2026-10-25"
       }
     }
   ],
@@ -137,7 +138,7 @@
   "links": {
     "website": {
       "confidence": "uncertain",
-      "note": "Site itself could not be fetched this session; URL taken from the INSPIRE experiment record.",
+      "note": "The site itself could not be fetched (2026-09-17); the URL is taken from the INSPIRE experiment record.",
       "sources": [
         "src:cosmic-gamma-inspire-telescope-array-experiment-record"
       ],
@@ -147,9 +148,7 @@
   },
   "name": "Telescope Array",
   "notes": [
-    "site_ids, detector_ids, document_ids, result_ids are deliberately not written (v0.2 A1 derived fields).",
-    "Construction-start and formal collaboration-formation dates were not sourced this session (the official site was unreachable); only the first-data date (2008-05-11) is sourced.",
-    "No results or technical documents were written in this pass (non-flagship experiment; mandatory bar only per the wave-3 brief)."
+    "Construction-start and formal collaboration-formation dates are not recorded (the official site was unreachable); only the first-data date (2008-05-11) is sourced."
   ],
   "physics_goals": [
     {
@@ -172,7 +171,7 @@
   "status": "active",
   "summary": {
     "plain": "A cosmic-ray observatory in the Utah desert with over 500 ground detectors spread across 700 square kilometres and telescopes at three stations, watching for the rarest, most energetic particles from space; recently made four times bigger by the TAx4 extension.",
-    "technical": "Hybrid ultra-high-energy cosmic-ray observatory near Delta, Utah (~1400 m altitude): 507 plastic-scintillator surface-detector stations on a 1.2 km grid over ~700 km^2, plus 38 fluorescence telescopes at three sites (Middle Drum, Long Ridge, Black Rock Mesa). Taking data since 11 May 2008; extended since October 2019 by TAx4 (500 additional SDs on a 2.08 km grid, 12 new FD telescopes, target ~3000 km^2)."
+    "technical": "Hybrid ultra-high-energy cosmic-ray observatory near Delta, Utah (~1400 m altitude): 507 plastic-scintillator surface-detector stations on a 1.2 km grid over ~700 km², plus 38 fluorescence telescopes at three sites (Middle Drum, Long Ridge, Black Rock Mesa). Taking data since 11 May 2008; extended since October 2019 by TAx4 (500 additional SDs on a 2.08 km grid, 12 new FD telescopes, target ~3000 km²)."
   },
   "superseded_by": null,
   "topic_ids": [
@@ -184,12 +183,13 @@
     {
       "confidence": "verified",
       "note": "",
-      "quote": "the TA×4 project expands the original TA aperture by a factor of four, with a target coverage of ~3000 km^2",
+      "quote": "The Telescope Array (TA) is the largest ultra-high energy cosmic ray (UHECR) observatory in the Northern Hemisphere. ... At the highest energies, the TA×4 project expands the original TA aperture by a factor of four, with a target coverage of ∼3000 km2",
       "sources": [
-        "src:cosmic-gamma-ta-arxiv-2026-recent-findings"
+        "src:cosmic-gamma-ta-arxiv-2026-recent-findings",
+        "src:rf10-ta-recent-findings-arxiv-pdf"
       ],
-      "value": "The largest ultra-high-energy cosmic-ray observatory in the Northern Hemisphere, complementing the Pierre Auger Observatory's Southern Hemisphere sky coverage; extended fourfold in area by the TAx4 project to gain statistics at the very highest energies.",
-      "verified_at": "2026-09-17"
+      "value": "The largest ultra-high-energy cosmic-ray observatory in the Northern Hemisphere; extended fourfold in area by the TAx4 project to gain statistics at the very highest energies.",
+      "verified_at": "2026-10-25"
     }
   ]
 }

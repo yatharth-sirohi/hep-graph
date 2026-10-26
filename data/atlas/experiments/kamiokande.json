@@ -52,8 +52,8 @@
       "kind": "lifecycle",
       "label": "Kamiokande-II (solar and supernova neutrino phase)",
       "locator": "Super-Kamiokande history page, entry “Dec. 1986”",
-      "note": "Status recorded as 'completed' because Kamiokande no longer operates (Super-Kamiokande, a newer/larger detector in the same mine, began operation in April 1996), but no source fetched in this session states an explicit end/decommissioning date for Kamiokande itself; end is left null under the terminal-status uncertain-confidence exception (v0.2 A17; §4) rather than assigning an unsourced end date.",
-      "quote": "Kamiokande modified detector to observe solar neutrinos",
+      "note": "Status recorded as 'completed' because Kamiokande no longer operates (Super-Kamiokande, a newer/larger detector in the same mine, began operation in April 1996), but no source consulted states an explicit end/decommissioning date for Kamiokande itself; the end is left empty rather than assigning an unsourced date.",
+      "quote": "Dec. 1986 Kamiokande modified its detector to observe solar neutrinos.",
       "sources": [
         "src:sk-history-page"
       ],
@@ -69,16 +69,17 @@
         "approx": false,
         "confidence": "verified",
         "dimension": "count",
-        "display": "948 x 50cm PMTs",
-        "locator": "Super-Kamiokande outline page, Kamiokande/Super-K/Hyper-K comparison table",
+        "display": "948 × 50cm PMTs",
+        "locator": "Hyper-Kamiokande overview page, Kamiokande / Super-Kamiokande / Hyper-Kamiokande comparison table",
         "note": "",
         "quote": "50cm diameter / 948",
         "sources": [
-          "src:sk-outline-page"
+          "src:hk-outline-page",
+          "src:rfua-hk-outline-wayback"
         ],
         "unit": "",
         "value": 948,
-        "verified_at": "2026-09-17"
+        "verified_at": "2026-10-25"
       }
     },
     {
@@ -88,15 +89,16 @@
         "confidence": "verified",
         "dimension": "length",
         "display": "19 m diameter x 16 m height",
-        "locator": "Super-Kamiokande outline page, comparison table",
+        "locator": "Hyper-Kamiokande overview page, Kamiokande / Super-Kamiokande / Hyper-Kamiokande comparison table",
         "note": "Height (16 m) recorded in note, not as a separate value field: this quantity records diameter only.",
         "quote": "19m diameter x 16m hight",
         "sources": [
-          "src:sk-outline-page"
+          "src:hk-outline-page",
+          "src:rfua-hk-outline-wayback"
         ],
         "unit": "m",
         "value": 19,
-        "verified_at": "2026-09-17"
+        "verified_at": "2026-10-25"
       }
     },
     {
@@ -106,15 +108,16 @@
         "confidence": "verified",
         "dimension": "mass",
         "display": "4500 t total (680-1040 t fiducial, depending on analysis)",
-        "locator": "Super-Kamiokande outline page, comparison table",
+        "locator": "Hyper-Kamiokande overview page, Kamiokande / Super-Kamiokande / Hyper-Kamiokande comparison table",
         "note": "",
         "quote": "4500 ton※ (680~1040 ton)",
         "sources": [
-          "src:sk-outline-page"
+          "src:hk-outline-page",
+          "src:rfua-hk-outline-wayback"
         ],
         "unit": "t",
         "value": 4500,
-        "verified_at": "2026-09-17"
+        "verified_at": "2026-10-25"
       }
     }
   ],
@@ -125,23 +128,23 @@
   },
   "name": "Kamiokande / Kamiokande-II",
   "notes": [
-    "No collaboration:kamiokande record is created: ID_REGISTRY assigns only experiment:kamiokande (and optionally experiment:kamland) to this workstream, not a Kamiokande collaboration id, and no source fetched gives a distinct collaboration name/roster separate from the later Super-Kamiokande collaboration.",
-    "The ontology's experiment-kind enum has no value for a proton-decay search; Kamiokande's original proton-decay goal is recorded in physics_goals only, and the primary 'kind' instead reflects its best-known result (the SN1987A supernova-neutrino detection).",
-    "Lineage (Super-Kamiokande's 'predecessor' relation to Kamiokande) is recorded once, on experiment:super-kamiokande, per this workstream's instructions.",
-    "Height for the 'Tank dimensions' key_spec (16 m) and the fiducial-mass range are carried in the quantity's display/note text because the ontology's Quantity shape holds one value per entry; see the quote for the full comparison-table row.",
+    "No Kamiokande collaboration record is created: no source consulted gives a distinct collaboration name or roster separate from the later Super-Kamiokande collaboration.",
+    "There is no experiment kind for a proton-decay search; Kamiokande's original proton-decay goal is recorded in physics_goals only, and the primary 'kind' instead reflects its best-known result (the SN1987A supernova-neutrino detection).",
+    "The 'predecessor' relation between Super-Kamiokande and Kamiokande is recorded on experiment:super-kamiokande.",
+    "Height for the 'Tank dimensions' key_spec (16 m) and the fiducial-mass range are carried in the quantity's display/note text because each entry holds a single value; see the quote for the full comparison-table row.",
     "external.inspire_experiment = 1110455 (src:kamiokande-inspire-experiment, INSPIRE experiment record for KAMIOKANDE)."
   ],
   "physics_goals": [
     {
       "confidence": "verified",
-      "locator": "Super-Kamiokande research page",
+      "locator": "Super-Kamiokande 5-minute overview page",
       "note": "",
       "quote": "Kamiokande originally started to search for proton decay, but it has not yet been observed.",
       "sources": [
-        "src:sk-research-page"
+        "src:sk-5min-page"
       ],
       "value": "Search for proton decay predicted by Grand Unified Theories",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     {
       "confidence": "verified",
@@ -158,7 +161,7 @@
       "confidence": "verified",
       "locator": "Super-Kamiokande history page, entry “Feb. 1987”",
       "note": "",
-      "quote": "Successful detection of neutrinos from a supernova in the Large Magellanic Cloud",
+      "quote": "Kamiokande achieved a major breakthrough by detecting neutrinos from a supernova in the Large Magellanic Cloud.",
       "sources": [
         "src:sk-history-page"
       ],

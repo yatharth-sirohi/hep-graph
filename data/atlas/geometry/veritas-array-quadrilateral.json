@@ -1,0 +1,108 @@
+{
+  "accuracy_m": 15,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "409 m (= 99 + 102 + 81 + 127 m)",
+        "unit": "m",
+        "value": 409
+      },
+      "kind": "length",
+      "locator": "Perkins and Maier 2009, Figure 1: new-layout side labels 99m (T1-T2), 102m (T2-T4), 81m (T4-T3), 127m (T3-T1), summed",
+      "quote": "the new layout distances range from 81 m to 127 m",
+      "sources": [
+        "src:geo-arrays2-veritas-perkins-2009"
+      ],
+      "tolerance": 0.03
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "site:mount-hopkins-veritas",
+  "feature_type": "array",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "vertices: OSM node/664910895 (T1), node/664910802 (T2), node/664910849 (T4), node/664910876 (T3), as of the 2026-10-25T10:39:02Z OSM API extract; Perkins and Maier 2009 Figure 1",
+    "note": "'Derived' rather than 'verified': the shape is computed from four telescope positions, so it stays derived even though its perimeter check passes.",
+    "quote": "the new layout distances range from 81 m to 127 m",
+    "sources": [
+      "src:geo-arrays2-veritas-osm-t1",
+      "src:geo-arrays2-veritas-osm-t2",
+      "src:geo-arrays2-veritas-osm-t3",
+      "src:geo-arrays2-veritas-osm-t4",
+      "src:geo-arrays2-veritas-perkins-2009"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -110.9509397,
+            31.6749735
+          ],
+          [
+            -110.9519566,
+            31.6745891
+          ],
+          [
+            -110.95274,
+            31.6751674
+          ],
+          [
+            -110.9520404,
+            31.675596
+          ],
+          [
+            -110.9509397,
+            31.6749735
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:veritas-array-quadrilateral",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fred-lawrence-whipple-observatory",
+  "method": "Closed quadrilateral through the four OpenStreetMap telescope nodes in the order T1, T2, T4, T3, which are the four sides labelled in Figure 1 of Perkins and Maier 2009 (T1-T2 99 m, T2-T4 102 m, T4-T3 81 m, T3-T1 127 m). It joins telescope positions and is not a structure or a fence line. The perimeter check compares its measured length with the sum of those four published labels (409 m).",
+  "name": "VERITAS array outline (quadrilateral through T1, T2, T4, T3)",
+  "notes": [
+    "Not drawn as a parallelogram or rectangle: the layout is 'not entirely symmetric' (Perkins and Maier 2009). The diagonal T1-T4 (172 m in OSM) is not a published figure and is not checked."
+  ],
+  "osm": {
+    "elements": [
+      "node/664910895",
+      "node/664910802",
+      "node/664910849",
+      "node/664910876"
+    ],
+    "timestamp": "2026-10-25T10:39:02Z"
+  },
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:mount-hopkins-veritas",
+  "sources": [
+    "src:geo-arrays2-veritas-osm-t1",
+    "src:geo-arrays2-veritas-osm-t2",
+    "src:geo-arrays2-veritas-osm-t3",
+    "src:geo-arrays2-veritas-osm-t4"
+  ],
+  "summary": {
+    "plain": "The quadrilateral formed by the four VERITAS telescopes (about 410 metres round), with 81 to 127 metres between neighbours."
+  },
+  "type": "geometry",
+  "valid": null
+}

@@ -17,7 +17,7 @@
   "document_ids": [],
   "energy_regime": {
     "confidence": "approximate",
-    "note": "No TOTEM-specific energy value distinct from the LHC-wide figures was found in this session.",
+    "note": "No TOTEM-specific energy value distinct from the LHC-wide figures was found.",
     "sources": [
       "src:colliders-lhc-totem-inspire-experiment-record"
     ],
@@ -89,7 +89,7 @@
       "end": {
         "approx": true,
         "date": "2013",
-        "note": "Run 1 ended in early 2013 with Long Shutdown 1; reused from the LHC-wide run schedule since no TOTEM-specific end date was found."
+        "note": "Run 1 ended in early 2013 with Long Shutdown 1; the end is the LHC-wide Run 1 end, since no TOTEM-specific end date was found."
       },
       "kind": "run",
       "label": "operating",
@@ -109,7 +109,7 @@
         "date": "2015"
       },
       "label": "Long Shutdown 1",
-      "note": "Reused from the LHC-wide Long Shutdown 1 schedule (accelerator:lhc); no TOTEM-specific announcement was fetched this session.",
+      "note": "The LHC-wide Long Shutdown 1 schedule (accelerator:lhc); no TOTEM-specific announcement was consulted.",
       "sources": [
         "src:cern-lhc-page"
       ],
@@ -126,8 +126,8 @@
       "kind": "run",
       "label": "Run 2 / CMS-TOTEM combined operation",
       "locator": "home.cern TOTEM page",
-      "note": "Run dates reused from the LHC-wide schedule (accelerator:lhc); the CMS-TOTEM combined-measurement partnership itself is TOTEM-specific and sourced to home.cern.",
-      "quote": "In 2015, TOTEM and CMS coordinated their detector usage to perform combined measurements",
+      "note": "Run dates are the LHC-wide schedule (accelerator:lhc); the CMS-TOTEM combined-measurement partnership itself is TOTEM-specific and sourced to home.cern, whose page (August 2014) states it as a plan for 2015 (\"will coordinate\").",
+      "quote": "In 2015, the TOTEM and CMS collaborations will coordinate the use of their detectors to perform combined measurements.",
       "sources": [
         "src:cern-lhc-page",
         "src:cms-cern-run2-conclusion-2018",
@@ -135,14 +135,14 @@
       ],
       "start": "2015",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     {
       "confidence": "verified",
       "end": "2022-07-05",
       "label": "Long Shutdown 2",
-      "locator": "reused from accelerator:lhc's sourced Long Shutdown 2 interval (src:cern-lhc-prepares-new-achievements-2018, src:cern-run3-start-2022)",
-      "note": "Reused from the LHC-wide LS2 schedule; no TOTEM-specific announcement was fetched this session.",
+      "locator": "the same Long Shutdown 2 dates as accelerator:lhc (src:cern-lhc-prepares-new-achievements-2018, src:cern-run3-start-2022)",
+      "note": "The LHC-wide LS2 schedule; no TOTEM-specific announcement was consulted.",
       "sources": [
         "src:cern-lhc-prepares-new-achievements-2018",
         "src:cern-run3-start-2022"
@@ -156,8 +156,8 @@
       "end": "2026-06",
       "kind": "run",
       "label": "Run 3",
-      "locator": "reused from accelerator:lhc's sourced Run 3 interval (src:cern-run3-start-2022, src:cern-ls3-farewell-2026)",
-      "note": "Reused from the LHC-wide Run 3 schedule; no TOTEM-specific run status was fetched this session confirming continued Roman-Pot operation through all of Run 3.",
+      "locator": "the same Run 3 dates as accelerator:lhc (src:cern-run3-start-2022, src:cern-ls3-farewell-2026)",
+      "note": "The LHC-wide Run 3 schedule; no TOTEM-specific run status was consulted confirming continued Roman-Pot operation through all of Run 3.",
       "sources": [
         "src:cern-run3-start-2022",
         "src:cern-ls3-farewell-2026"
@@ -167,17 +167,25 @@
       "verified_at": "2026-09-17"
     },
     {
-      "confidence": "verified",
-      "end": null,
+      "confidence": "derived",
+      "end": {
+        "approx": true,
+        "date": "2030",
+        "display": "mid-2030",
+        "note": "CERN schedule: the LHC resumes operation in mid-2030; the rest of the CERN complex restarts in stages from mid-2028.",
+        "planned": true
+      },
       "label": "Long Shutdown 3",
-      "locator": "reused from accelerator:lhc's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
-      "note": "Reused from the LHC-wide LS3 schedule; ongoing at verified_at.",
+      "locator": "home.cern/science/long-shutdown-3, item of 5 August 2026 \"The LHC is being warmed up from near absolute zero to room temperature\"",
+      "note": "TOTEM measures protons and particles from LHC collisions, so it is idle while the LHC is shut down; this is an inference, since no TOTEM-specific statement about this shutdown was found. Status is shutdown, not upgrade. No source consulted says that TOTEM's own detector is being modified in LS3. Start and end are the LHC-wide Long Shutdown 3 dates. CERN's 5 August 2026 item says 'The cryogenics team has been running the warm-up sequence since LS3 began on 29 June 2026' and that the stored helium is kept 'ready to be used again once the accelerator resumes operation in mid-2030'; CERN's 29 June 2026 article says 'The HiLumi LHC, scheduled to begin operation in 2030'. The end is a schedule value, not a reported event.",
+      "quote": "Following its final physics run, the accelerator has been switched off to begin CERN’s Long Shutdown 3 (LS3) ... The HiLumi LHC, scheduled to begin operation in 2030",
       "sources": [
+        "src:cern-long-shutdown-3-page",
         "src:cern-ls3-farewell-2026"
       ],
-      "start": "2026-06",
+      "start": "2026-06-29",
       "status": "shutdown",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [
@@ -189,7 +197,7 @@
         "dimension": "count",
         "display": "26 Roman Pot detectors",
         "locator": "home.cern TOTEM page",
-        "note": "Corrected 2026-09-18 (release-candidate red team): the prior quote spliced two separate sentences from the page (\"26 'Roman pot' detectors\" and \"'Roman Pots' with silicon sensors perform measurements of scattered protons.\") into one that does not appear verbatim on the cited page, violating A15. Replaced with the sentence that actually supports the count.",
+        "note": "The quote is the phrase on the cited page that gives the count; an earlier version of the quote joined two separate sentences from the page, which did not appear verbatim.",
         "quote": "26 'Roman pot' detectors",
         "sources": [
           "src:colliders-lhc-totem-home-cern-page"
@@ -208,7 +216,7 @@
         "display": "~3000 kg",
         "locator": "home.cern TOTEM page",
         "note": "",
-        "quote": "Nearly 3,000 kg of detector equipment total.",
+        "quote": "TOTEM has almost 3,000 kg of equipment",
         "sources": [
           "src:colliders-lhc-totem-home-cern-page"
         ],
@@ -226,7 +234,7 @@
         "display": "~0.5 km",
         "locator": "home.cern TOTEM page",
         "note": "",
-        "quote": "TOTEM is positioned around the CMS interaction point (IP5), spreading across approximately half a kilometer.",
+        "quote": "As CERN’s ‘longest’ experiment, TOTEM detectors are spread across almost half a kilometre around the CMS interaction point.",
         "sources": [
           "src:colliders-lhc-totem-home-cern-page"
         ],
@@ -243,11 +251,10 @@
   },
   "name": "TOTEM",
   "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not written (v0.2 A1).",
     "kind is recorded as 'collider' (an LHC forward-physics measurement experiment sharing IP5 with CMS, not a standalone accelerator/fixed-target/neutrino/etc. experiment); no more specific enum value fits a diffractive/elastic cross-section experiment at a collider IP, so 'collider' plus the topic_ids/physics_goals context is used to distinguish it from CMS itself.",
-    "The official TOTEM site (totem.web.cern.ch) redirected to a CERN SSO login wall in this session and was not fetched; home.cern and the INSPIRE experiment record were used instead.",
-    "Run/shutdown intervals from Run 1 onward are the LHC-wide machine schedule (already sourced for accelerator:lhc and other LHC experiments in this wave) applied to TOTEM, since no TOTEM-specific run-by-run announcement was found; the 2015 CMS-TOTEM combined-measurement partnership is the one TOTEM-specific fact confirmed independently.",
-    "Mandatory-bar-only pass: no results/technical documents written (TOTEM is not a wave-3 flagship)."
+    "As of 2026-10-25 the official TOTEM site (totem.web.cern.ch) redirects to a CERN single-sign-on login page and could not be read; home.cern and the INSPIRE experiment record were used instead.",
+    "Run/shutdown intervals from Run 1 onward are the LHC-wide machine schedule (accelerator:lhc and the other LHC experiments' records) applied to TOTEM, since no TOTEM-specific run-by-run announcement was found; the 2015 CMS-TOTEM combined-measurement partnership is the one TOTEM-specific fact confirmed independently.",
+    "No results or technical documents are recorded for TOTEM yet."
   ],
   "physics_goals": [
     {

@@ -1,5 +1,16 @@
 {
   "aliases": [],
+  "announced": {
+    "confidence": "verified",
+    "locator": "Fermilab press release dated August 10, 2023",
+    "note": "",
+    "quote": "announced the much-anticipated updated measurement on Aug. 10.",
+    "sources": [
+      "src:rv-fnal-news-muon-g-2-2023-latest-measurement"
+    ],
+    "value": "2023-08-10",
+    "verified_at": "2026-10-25"
+  },
   "claim": {
     "locator": "title, arXiv:2308.06230",
     "quote": "Measurement of the Positive Muon Anomalous Magnetic Moment to 0.20 ppm",
@@ -16,15 +27,17 @@
   },
   "date": {
     "confidence": "verified",
-    "locator": "title, arXiv:2308.06230",
-    "note": "",
+    "locator": "Fermilab press release dated August 10, 2023",
+    "note": "Announcement date: Fermilab's press release of 10 August 2023 says the collaboration 'announced the much-anticipated updated measurement on Aug. 10'. The paper (arXiv:2308.06230) is dated 10 August 2023.",
+    "quote": "announced the much-anticipated updated measurement on Aug. 10.",
     "sources": [
+      "src:rv-fnal-news-muon-g-2-2023-latest-measurement",
       "src:muons-arxiv-2308-06230"
     ],
-    "value": "2023",
-    "verified_at": "2026-09-17"
+    "value": "2023-08-10",
+    "verified_at": "2026-10-25"
   },
-  "date_kind": "publication",
+  "date_kind": "announcement",
   "detector_ids": [],
   "experiment_ids": [
     "experiment:muon-g-2"
@@ -37,13 +50,14 @@
   "key_value": null,
   "key_value_text": {
     "confidence": "verified",
+    "locator": "arXiv:2308.06230, abstract",
     "note": "",
-    "quote": "a factor of 2 improvement in precision",
+    "quote": "we obtain aµ (FNAL) = 116 592 055(24)×10−11 (0.20 ppm). The new experimental world average is aµ (exp) = 116 592 059(22)×10−11 (0.19 ppm), which represents a factor of 2 improvement in precision.",
     "sources": [
       "src:muons-arxiv-2308-06230"
     ],
-    "value": "0.20 ppm precision, a factor of 2 improvement in precision compared to the prior world average",
-    "verified_at": "2026-09-17"
+    "value": "aμ(FNAL) = 116,592,055(24)×10⁻¹¹ (0.20 ppm); new experimental world average aμ(exp) = 116,592,059(22)×10⁻¹¹ (0.19 ppm), a factor of 2 improvement in precision",
+    "verified_at": "2026-10-25"
   },
   "links": {
     "website": null
@@ -61,7 +75,7 @@
   "significance": {
     "confidence": "uncertain",
     "locator": "arXiv:2308.06230 abstract; no single sigma-significance-vs-Standard-Model figure stated in the abstract text fetched",
-    "note": "This is a precision remeasurement, not framed by the collaboration around a single sigma-significance figure in the material fetched this session; left null rather than guessed.",
+    "note": "This is a precision remeasurement, not framed by the collaboration around a single sigma-significance figure in the material read (2026-09-17); no value is given rather than a guess.",
     "sources": [
       "src:muons-arxiv-2308-06230"
     ],
@@ -72,13 +86,13 @@
     "src:muons-arxiv-2308-06230"
   ],
   "summary": {
-    "plain": "A second, sharper Fermilab measurement of the same muon property, using over four times as much data as the first result and cutting the experiment's uncertainty in half.",
-    "technical": "Combines Runs 2 and 3 with Run 1 for more than 4x the positron statistics of the 2021 result and a >50% reduction in systematic uncertainty, reaching 0.20 ppm precision -- a factor-of-2 improvement over the prior world average."
+    "plain": "A second Fermilab measurement of the same muon property, using data from 2019 and 2020 with more than four times as many positrons as the first result. The systematic error is reduced by more than a factor of 2, and the new experimental world average is a factor of 2 more precise.",
+    "technical": "Run-2 and Run-3 data (collected in 2019 and 2020) with more than 4 times the number of positrons from muon decay than the previous result from 2018 data; the systematic error is reduced by more than a factor of 2. these data alone give aμ = 116,592,057(25)×10⁻¹¹ (0.21 ppm), and combined with the 2018 result aμ(FNAL) = 116,592,055(24)×10⁻¹¹ (0.20 ppm); the new experimental world average aμ(exp) = 116,592,059(22)×10⁻¹¹ (0.19 ppm) represents a factor of 2 improvement in precision."
   },
   "title": "Measurement of the Positive Muon Anomalous Magnetic Moment to 0.20 ppm",
   "topic_ids": [
     "topic:muon-precision-physics"
   ],
   "type": "result",
-  "why_it_matters": "Tightening the experimental precision on a_mu sharpens the test of the Standard Model and narrows the space for new physics that any discrepancy would imply."
+  "why_it_matters": "The paper's introduction says a precise measurement of the muon magnetic anomaly provides a stringent test of the Standard Model, whose prediction is made with high precision, and that any deviation between experiment and theory may be a sign of physics beyond the Standard Model."
 }

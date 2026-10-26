@@ -1,0 +1,193 @@
+{
+  "accuracy_m": 15,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "52.77 km",
+        "locator": "arXiv:2104.02565 Table 1 (baselines in km, GPS-surveyed to 1 m)",
+        "note": "",
+        "quote": "The distances from the detector site to the Yangjiang and Taishan cores are surveyed with a Global Positioning System (GPS) to a precision of 1 meter. ... Baseline(km) ... TS-1 4.6 52.77",
+        "sources": [
+          "src:juno-physics-detector-arxiv-2021"
+        ],
+        "unit": "m",
+        "value": 52770.0,
+        "verified_at": "2026-10-25"
+      },
+      "kind": "distance",
+      "locator": "arXiv:2104.02565 Table 1 (baselines in km, GPS-surveyed to 1 m)",
+      "sources": [
+        "src:juno-physics-detector-arxiv-2021"
+      ],
+      "to_geometry_id": "geometry:juno-baseline-hall-point",
+      "tolerance": 0.003
+    },
+    {
+      "expected": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "252.5 m",
+        "locator": "arXiv:2104.02565 Sec. 1.2",
+        "note": "",
+        "quote": "The distance between the two cores is 252.5 m.",
+        "sources": [
+          "src:juno-physics-detector-arxiv-2021"
+        ],
+        "unit": "m",
+        "value": 252.5,
+        "verified_at": "2026-10-25"
+      },
+      "kind": "distance",
+      "locator": "arXiv:2104.02565 Sec. 1.2",
+      "sources": [
+        "src:juno-physics-detector-arxiv-2021"
+      ],
+      "to_geometry_id": "geometry:taishan-reactor-ts2",
+      "tolerance": 0.03
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": null,
+  "feature_type": "building",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way 520344774 and node/3040238479 as of 2026-10-25T10:42:05Z; baseline in arXiv:2104.02565 Table 1",
+    "note": "OpenStreetMap alone yields at most 'approximate'. The polygon is the whole nuclear-island building as traced, not the reactor vessel; the core lies somewhere inside it.",
+    "sources": [
+      "src:geo-juno-osm-taishan-reactors",
+      "src:juno-physics-detector-arxiv-2021"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            112.9831431,
+            21.9190024
+          ],
+          [
+            112.9830162,
+            21.9191945
+          ],
+          [
+            112.983057,
+            21.9192954
+          ],
+          [
+            112.983193,
+            21.9193988
+          ],
+          [
+            112.9830362,
+            21.9196409
+          ],
+          [
+            112.9828876,
+            21.9195398
+          ],
+          [
+            112.9827547,
+            21.9195578
+          ],
+          [
+            112.9826711,
+            21.9197015
+          ],
+          [
+            112.982395,
+            21.9195109
+          ],
+          [
+            112.9823473,
+            21.9195914
+          ],
+          [
+            112.9822494,
+            21.9195219
+          ],
+          [
+            112.9823331,
+            21.9193819
+          ],
+          [
+            112.9824047,
+            21.9192294
+          ],
+          [
+            112.9823792,
+            21.9191174
+          ],
+          [
+            112.9822049,
+            21.9190054
+          ],
+          [
+            112.9823148,
+            21.9188288
+          ],
+          [
+            112.9825012,
+            21.9189569
+          ],
+          [
+            112.9825871,
+            21.9189445
+          ],
+          [
+            112.9827043,
+            21.9187559
+          ],
+          [
+            112.9831431,
+            21.9190024
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:taishan-reactor-ts1",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:juno-reactor-baselines",
+  "method": "OpenStreetMap way 520344774 (untagged building=yes, ~6396 m2, 19 vertices) kept verbatim. It is identified as the unit's nuclear-island building because the power=generator node 3040238479 (generator:type=EPR, 1660 MW) lies inside it. Core label TS-1 is assigned by matching distance order to the published baselines (52.64 km TS-2, 52.77 km TS-1); the OSM objects carry no unit number.",
+  "name": "Taishan nuclear power plant EPR unit building, core TS-1 (OpenStreetMap)",
+  "notes": [
+    "Measured centroid-to-hall distance 52754 m against 52770 m published (-16 m)."
+  ],
+  "osm": {
+    "elements": [
+      "way/520344774",
+      "node/3040238479"
+    ],
+    "timestamp": "2026-10-25T10:42:05Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-juno-osm-taishan-reactors",
+    "src:juno-physics-detector-arxiv-2021"
+  ],
+  "summary": {
+    "plain": "One of the two EPR reactor units of the Taishan nuclear power plant, 52.6-52.8 km from the JUNO hall."
+  },
+  "type": "geometry",
+  "valid": null
+}

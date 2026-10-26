@@ -17,7 +17,7 @@
   "document_ids": [],
   "energy_regime": {
     "confidence": "approximate",
-    "note": "LHCb shares the LHC's collision energy history (see accelerator:lhc); no LHCb-specific energy value distinct from the LHC-wide figures was found in this session.",
+    "note": "LHCb shares the LHC's collision energy history (see accelerator:lhc); no LHCb-specific energy value distinct from the LHC-wide figures was found.",
     "sources": [
       "src:cern-lhc-page"
     ],
@@ -79,7 +79,7 @@
       "end": "2008-09",
       "label": "construction and installation",
       "locator": "INSPIRE experiment record 1110643, fields date_approved and date_completed",
-      "note": "Start = date_approved (1998-09-17). VERIFIER NOTE (2026-09-17): end = INSPIRE's date_completed field, re-fetched and confirmed to read '2008-09' verbatim (not fabricated). But this field is NOT a routine construction-milestone field: on ATLAS's INSPIRE record (1108541) and on LHCf's (1126263), the same date_completed field reads '9999', which both those records correctly treat as INSPIRE's placeholder for 'ongoing, not completed' rather than a real date (see experiment:lhcf's interval note). LHCb is likewise an active, non-terminal experiment, so a literal 'completed' date is intrinsically implausible; unlike ATLAS/LHCf, LHCb's record has an actual date in this field rather than the placeholder, which is most likely either (a) a genuine INSPIRE data-entry anomaly, or (b) a real but differently-scoped milestone (e.g. detector installation/construction complete, consistent with first collisions 14 months later) that INSPIRE's schema does not distinguish from experiment completion. No source independent of this one INSPIRE field corroborates a September 2008 construction-complete date for LHCb, so confidence is downgraded from 'verified' to 'uncertain' and this interval must not be read as asserting LHCb 'completed' in 2008 (it is deliberately given the non-terminal status 'construction', not 'completed', for exactly this reason). Re-verify against the LHCb JINST detector paper or an LHCb-specific installation announcement if either becomes fetchable.",
+      "note": "Start = date_approved (1998-09-17). End = INSPIRE's date_completed field, which reads '2008-09'. That field is not a routine construction-milestone field: on ATLAS's INSPIRE record (1108541) and on LHCf's (1126263) the same field reads '9999', which both records treat as INSPIRE's placeholder for 'ongoing, not completed' rather than a real date. LHCb is likewise an active, non-terminal experiment, so a literal 'completed' date is implausible; the value is most likely either an INSPIRE data-entry anomaly or a differently scoped milestone (for example detector installation or construction complete, consistent with first collisions 14 months later). No source independent of this one INSPIRE field corroborates a September 2008 construction-complete date for LHCb, so confidence is 'uncertain' and the interval is given the non-terminal status 'construction', not 'completed'; it must not be read as asserting that LHCb completed in 2008. The LHCb JINST detector paper or an LHCb-specific installation announcement would settle it.",
       "sources": [
         "src:colliders-lhc-lhcb-inspire-experiment-record"
       ],
@@ -105,12 +105,12 @@
       "end": {
         "approx": true,
         "date": "2013",
-        "note": "Run 1 ended in early 2013 with Long Shutdown 1; no LHCb- or CERN-specific page fetched in this session gives the exact end date, so year precision only."
+        "note": "Run 1 ended in early 2013 with Long Shutdown 1; no LHCb- or CERN-specific page consulted gives the exact end date, so year precision only."
       },
       "kind": "run",
       "label": "Run 1",
-      "locator": "home.cern 'Key figures' table (reused from accelerator:lhc)",
-      "note": "LHCb records data throughout LHC Run 1 as one of the four main LHC experiments; dates reused from accelerator:lhc's sourced Run 1 interval since no LHCb-specific start/end date was found.",
+      "locator": "home.cern 'Key figures' table; the same Run 1 dates as accelerator:lhc",
+      "note": "LHCb records data throughout LHC Run 1 as one of the four main LHC experiments; the dates are the LHC's Run 1 dates (accelerator:lhc), since no LHCb-specific start/end date was found.",
       "quote": "first high-energy collisions (7 TeV) on 30 March 2010",
       "sources": [
         "src:cern-lhc-page"
@@ -126,7 +126,7 @@
         "date": "2015"
       },
       "label": "Long Shutdown 1",
-      "note": "Bounded by the same sourced facts used for accelerator:lhc's Long Shutdown 1 interval; no LHCb-specific announcement was fetched in this session.",
+      "note": "Bounded by the same sourced facts used for accelerator:lhc's Long Shutdown 1 interval; no LHCb-specific announcement was consulted.",
       "sources": [
         "src:cern-lhc-page",
         "src:cern-lhc-prepares-new-achievements-2018"
@@ -143,8 +143,8 @@
       "end": "2018-12-03",
       "kind": "run",
       "label": "Run 2",
-      "locator": "reused from accelerator:lhc's sourced Run 2 interval",
-      "note": "LHCb records data throughout LHC Run 2; dates reused from accelerator:lhc since no LHCb-specific start/end date was found in this session.",
+      "locator": "the same Run 2 dates as accelerator:lhc's sourced interval",
+      "note": "LHCb records data throughout LHC Run 2; the dates are the LHC's (accelerator:lhc), since no LHCb-specific start/end date was found.",
       "quote": "On 3 December, the LHC's second run came to an end after three fantastic years",
       "sources": [
         "src:cern-lhc-page",
@@ -159,7 +159,7 @@
       "end": "2023-04",
       "label": "Long Shutdown 2 / LHCb Upgrade I installation",
       "locator": "lhcb-outreach.web.cern.ch, 'The LHCb collaboration turns 30!'",
-      "note": "CONFLICT/nuance: the LHC-wide Long Shutdown 2 ended and Run 3 pp collisions began on 5 July 2022 (see accelerator:lhc), but LHCb's own outreach page dates the completion of Upgrade I *installation* specifically to April 2023, nine months later. This record follows the LHCb-specific completion date rather than the LHC-wide Run 3 start, since Upgrade I (new VELO, new tracker, removal of the hardware trigger) is an LHCb-specific programme; the discrepancy likely reflects LHCb running in a partial/commissioning capacity for the first months of Run 3 while Upgrade I installation finished. No source fetched in this session resolves this explicitly.",
+      "note": "The LHC-wide Long Shutdown 2 ended and Run 3 pp collisions began on 5 July 2022 (see accelerator:lhc), but LHCb's own outreach page dates the completion of Upgrade I installation to April 2023, nine months later. This interval follows the LHCb-specific completion date, since Upgrade I (new VELO, new tracker, removal of the hardware trigger) is an LHCb-specific programme. The gap likely reflects LHCb running in a partial or commissioning capacity for the first months of Run 3 while installation finished; no source consulted states this explicitly.",
       "quote": "The installation of the new Upgrade I detector was completed in April 2023.",
       "sources": [
         "src:cern-lhc-prepares-new-achievements-2018",
@@ -174,30 +174,39 @@
       "end": "2026-06",
       "kind": "run",
       "label": "Run 3 (LHCb Upgrade I)",
-      "locator": "reused end date from accelerator:lhc's sourced Run 3 / Long Shutdown 3 boundary (src:cern-ls3-farewell-2026)",
-      "note": "Start = LHCb Upgrade I installation completion (see previous interval); end = the LHC-wide switch-off for Long Shutdown 3, reused from accelerator:lhc.",
-      "quote": "This phase, known as 'Long Shutdown 3' or 'LS3', is expected to last up to four years.",
+      "locator": "start: LHCb collaboration turns 30 page (Upgrade I installation completed April 2023); end: CERN LS3 announcement of 29 June 2026, the same switch-off date as accelerator:lhc",
+      "note": "Start = LHCb Upgrade I installation completion (see previous interval); end = the LHC-wide switch-off for Long Shutdown 3 (accelerator:lhc).",
+      "quote": "The installation of the new Upgrade I detector was completed in April 2023.",
       "sources": [
         "src:colliders-lhc-lhcb-collaboration-30-years",
         "src:cern-ls3-farewell-2026"
       ],
       "start": "2023-04",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     {
-      "confidence": "verified",
-      "end": null,
-      "label": "Long Shutdown 3",
-      "locator": "reused from accelerator:lhc's sourced Long Shutdown 3 interval",
-      "note": "Ongoing at verified_at, matching accelerator:lhc's current status. No LHCb-specific Upgrade II activity is confirmed to be underway in this shutdown in any source fetched this session (LHCb Upgrade II is generally planned for LS4 in the early 2030s, not sourced here).",
-      "quote": "This phase, known as 'Long Shutdown 3' or 'LS3', is expected to last up to four years.",
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2030",
+        "display": "mid-2030",
+        "note": "CERN schedule: the LHC resumes operation in mid-2030; the rest of the CERN complex restarts in stages from mid-2028.",
+        "planned": true
+      },
+      "label": "Long Shutdown 3 / ECAL and RICH enhancements",
+      "locator": "home.cern/science/long-shutdown-3, item of 5 August 2026 \"The LHC is being warmed up from near absolute zero to room temperature\"",
+      "note": "LHCb's own detector is being enhanced in this shutdown: the inner part of the electromagnetic calorimeter (ECAL) is replaced and the RICH electronics are upgraded. LHCb's outreach site (8 May 2024) says 'The LHCb experiment will upgrade the inner part of the Electromagnetic Calorimeter and the electronics of the Ring Imaging Cherenkov detectors in the next LHC Long Shutdown (LS3)'. The LHCb ECAL group's JINST paper (published 11 March 2026) says 'An enhancement of the LHCb electromagnetic calorimeter (ECAL) is foreseen during Long Shutdown 3 (LS3) of the LHC' and 'In total, 176 new SpaCal modules with radiation-tolerant scintillating plastic fibers will be installed during LS3'. These are plans for the shutdown; no source consulted reports the installation as under way or finished. The main Upgrade II is a later step: 'Upgrade II will be installed during Long Shutdown 4 (LS4)' (LHCb outreach site, 2024). The 2024 page gives LS3 as 'currently scheduled for the years 2026–28'; this interval follows CERN's later schedule, in which the LHC resumes operation in mid-2030. Start and end are the LHC-wide Long Shutdown 3 dates. CERN's 5 August 2026 item says 'The cryogenics team has been running the warm-up sequence since LS3 began on 29 June 2026' and that the stored helium is kept 'ready to be used again once the accelerator resumes operation in mid-2030'; CERN's 29 June 2026 article says 'The HiLumi LHC, scheduled to begin operation in 2030'. The end is a schedule value, not a reported event.",
+      "quote": "The LHCb experiment will upgrade the inner part of the Electromagnetic Calorimeter and the electronics of the Ring Imaging Cherenkov detectors in the next LHC Long Shutdown (LS3).",
       "sources": [
+        "src:rc-lhcb-ecal-rich-enhancements-2024",
+        "src:rc-lhcb-ecal-ls3-jinst-2026",
+        "src:cern-long-shutdown-3-page",
         "src:cern-ls3-farewell-2026"
       ],
-      "start": "2026-06",
-      "status": "shutdown",
-      "verified_at": "2026-09-17"
+      "start": "2026-06-29",
+      "status": "upgrade",
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [
@@ -209,7 +218,7 @@
         "dimension": "mass",
         "display": "5600 t",
         "locator": "INSPIRE experiment record 1110643, field description (verbatim CERN wording, also on home.cern)",
-        "note": "CONFLICT: lhcb-outreach.web.cern.ch's own detector page states the detector mass as '4,500 tonne' without giving a breakdown; this record uses the 5600 t figure because it is independently corroborated, verbatim, by both the INSPIRE experiment registry and home.cern, whereas the outreach-page figure could not be confirmed with a verbatim quote in this session. Flagged for review.",
+        "note": "LHCb's outreach site gives its own detector page's mass as '4,500 tonne' without a breakdown. This record uses the 5600 t figure because both the INSPIRE experiment registry and home.cern state it verbatim, whereas the outreach-page figure could not be confirmed with a verbatim quote; the two figures are not reconciled.",
         "quote": "The 5600-tonne LHCb detector is made up of a forward spectrometer and planar detectors.",
         "sources": [
           "src:colliders-lhc-lhcb-inspire-experiment-record",
@@ -245,16 +254,16 @@
         "confidence": "verified",
         "dimension": "length",
         "display": "100 m below ground",
-        "locator": "INSPIRE experiment record 1110643, field description; home.cern LHCb page",
+        "locator": "home.cern LHCb experiment page, paragraph beginning \"The 5600-tonne LHCb detector\"",
         "note": "",
-        "quote": "sits 100 metres below ground near the village of Ferney-Voltaire, France",
+        "quote": "sits 100 metres below ground near the town of Ferney-Voltaire, France",
         "sources": [
           "src:colliders-lhc-lhcb-inspire-experiment-record",
           "src:lep-cern-lhcb-experiment-page"
         ],
         "unit": "m",
         "value": 100,
-        "verified_at": "2026-09-17"
+        "verified_at": "2026-10-25"
       }
     }
   ],
@@ -273,10 +282,9 @@
   },
   "name": "LHCb",
   "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
-    "A joint CMS+LHCb result, result:cms-lhcb-bs-to-mumu-observation-2015, already exists (owned by the cern-cms workstream) for the 2015 observation of the rare decay Bs0->mu+mu-; it is not duplicated here and is not referenced in result_ids since that field is derived/not authored (A1), but is worth noting as a related joint LHCb result.",
-    "CERN Greybook was not fetched in this session (external.greybook left null); INSPIRE experiment record 1110643 was used instead per the source hierarchy (Greybook/INSPIRE experiment record share rank 3).",
-    "Pseudorapidity coverage, dipole magnet field integral and RICH/VELO technical specs were sought (lhcb-outreach detector page, JINST detector paper) but the JINST PDF was blocked by CERN's bot-detection (Anubis) and exceeded the fetch size limit at its mirror; only the abstract was retrieved via the INSPIRE literature API. These specs are left out rather than guessed."
+    "A joint CMS+LHCb result, result:cms-lhcb-bs-to-mumu-observation-2015 (the 2015 observation of the rare decay Bs⁰→μ⁺μ⁻), has its own record and is not duplicated here.",
+    "CERN Greybook was not consulted (external.greybook is null); INSPIRE experiment record 1110643 was used instead (Greybook and the INSPIRE experiment record share source rank 3).",
+    "Pseudorapidity coverage, dipole magnet field integral and RICH/VELO technical specs were sought (LHCb outreach detector page, JINST detector paper), but the JINST PDF was blocked by CERN's bot protection and exceeded the fetch size limit at its mirror; only the abstract was retrieved, via the INSPIRE literature API. These specs are left out rather than guessed."
   ],
   "physics_goals": [
     {
@@ -300,7 +308,7 @@
     "src:colliders-lhc-lhcb-collaboration-30-years",
     "src:colliders-lhc-lhcb-outreach-detector-page"
   ],
-  "status": "shutdown",
+  "status": "upgrade",
   "summary": {
     "plain": "LHCb is one of the four big experiments at CERN's Large Hadron Collider. Instead of surrounding the collision point on all sides, its detector is shaped like a single forward cone, built to catch particles containing beauty and charm quarks and study why the universe has so much more matter than antimatter.",
     "technical": "Single-arm forward-spectrometer experiment at LHC Point 8 (Ferney-Voltaire, France), covering low pseudorapidity in the forward direction to exploit the strongly forward-peaked production of b-hadrons and c-hadrons at hadron colliders. Proposed by Letter of Intent in August 1995, approved September 1998, installed by September 2008, first collisions November 2009. Physics programme centres on CP violation and rare decays of heavy-flavour hadrons; Upgrade I (new VELO, silicon tracker, removal of the hardware trigger) was installed by April 2023."
@@ -321,7 +329,7 @@
       "sources": [
         "src:colliders-lhc-lhcb-inspire-experiment-record"
       ],
-      "value": "A single forward-arm spectrometer (not a 4-pi enclosure) optimised for the forward-peaked production of b and c hadrons at a hadron collider",
+      "value": "A single forward-arm spectrometer (not a 4π enclosure) optimised for the forward-peaked production of b and c hadrons at a hadron collider",
       "verified_at": "2026-09-17"
     }
   ]

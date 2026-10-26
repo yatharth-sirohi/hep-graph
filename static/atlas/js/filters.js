@@ -10,7 +10,7 @@
 // This module owns no globe/DOM rendering of markers — only the filter
 // *panel* UI (checkboxes, chips, clear-all) and the pure matching logic.
 
-import { statusForTimeline, statusEra, titleCase } from './model.js';
+import { statusForTimeline, statusEra, titleCase, kindLabel } from './model.js';
 
 // ---------------------------------------------------------------- regions
 // Not exhaustive of all ISO-3166 alpha-2 codes, but covers every country
@@ -345,7 +345,18 @@ const FACET_LABELS = {
   facilityKind: 'Facility kind', experimentKind: 'Experiment kind', region: 'Region',
 };
 
+// The sidebar holds ~90 checkboxes. The two long groups start collapsed so the
+// short ones (and the groups below them) are reachable without scrolling past
+// 60 rows; a collapsed group still says how many of its options are active.
+const COLLAPSED_BY_DEFAULT = new Set(['topic', 'experimentKind']);
+const LONG_FACETS = new Set(['topic', 'experimentKind']);
+const CLEAR_ALL_ID = 'filter-clear-all';
+
 function optionLabel(facet, value) {
+  // Kind slugs go through the explicit label map (model.js KIND_LABELS), not
+  // titleCase(), which spells "cevns" as "Cevns" and "long_lived_particle" as
+  // "Long Lived Particle".
+  if (facet === 'facilityKind' || facet === 'experimentKind') return kindLabel(value);
   return facet === 'region' || facet === 'era' ? titleCase(value).replace(/^./, (c) => c.toUpperCase())
     : titleCase(value);
 }
@@ -371,10 +382,23 @@ export function createFilterPanel(container, { atlas, topicIndex, onChange }) {
     .slice()
     .sort((a, b) => a.name.localeCompare(b.name));
 
+  const clearRow = h('div', { class: 'filter-clear-row' });
   const chipsRow = h('div', { class: 'filter-chips', role: 'status', 'aria-live': 'polite' });
   const body = h('div', { class: 'filter-facets' });
   container.innerHTML = '';
-  container.append(chipsRow, body);
+  container.append(clearRow, chipsRow, body);
+
+  // Every render rebuilds the groups, so whether each one is open lives here,
+  // not in the DOM — otherwise ticking a box would snap a group back to its
+  // default. Updated by the native `toggle` event (a click or the keyboard).
+  const openState = new Map();
+  const isOpenGroup = (facet) => (openState.has(facet) ? openState.get(facet) : !COLLAPSED_BY_DEFAULT.has(facet));
+
+  // The outer "Filters" disclosure (index.html) can be collapsed too, so its
+  // own summary carries the active count: a hidden filter never goes unnoticed.
+  const outerSummary = container.closest('details')
+    ? container.closest('details').querySelector(':scope > summary') : null;
+  const outerLabel = outerSummary ? outerSummary.textContent.trim() : '';
 
   function countFor(facet, value) {
     return counts[facet] && counts[facet][value] != null ? counts[facet][value] : null;
@@ -400,12 +424,32 @@ export function createFilterPanel(container, { atlas, topicIndex, onChange }) {
     ]);
   }
 
-  function facetGroup(facet, options, labelFn) {
-    const rows = options.map((value) => checkboxRow(facet, value, labelFn ? labelFn(value) : optionLabel(facet, value)));
-    return h('details', { class: 'filter-group', open: '' }, [
-      h('summary', {}, FACET_LABELS[facet]),
-      h('div', { class: 'filter-options' }, rows),
+  // A group's header: its name, plus "N selected" whenever any of its options
+  // is active — the only cue a collapsed group has that it is filtering.
+  function groupSummary(facet) {
+    const selected = filters[facet].length;
+    return h('summary', {}, [
+      FACET_LABELS[facet],
+      // The space is real text, so the accessible name reads "Research topic 3 selected".
+      selected ? ' ' : null,
+      selected ? h('span', { class: 'filter-group-count' }, `${selected} selected`) : null,
     ]);
+  }
+
+  function groupDetails(facet, rows) {
+    const details = h('details', {
+      class: 'filter-group', 'data-facet': facet, open: isOpenGroup(facet) ? '' : null,
+    }, [
+      groupSummary(facet),
+      h('div', { class: `filter-options${LONG_FACETS.has(facet) ? ' is-long' : ''}` }, rows),
+    ]);
+    details.addEventListener('toggle', () => openState.set(facet, details.open));
+    return details;
+  }
+
+  function facetGroup(facet, options, labelFn) {
+    return groupDetails(facet, options.map((value) => (
+      checkboxRow(facet, value, labelFn ? labelFn(value) : optionLabel(facet, value)))));
   }
 
   function topicRows(list, depth) {
@@ -419,11 +463,19 @@ export function createFilterPanel(container, { atlas, topicIndex, onChange }) {
 
   function renderChips() {
     chipsRow.innerHTML = '';
+    clearRow.innerHTML = '';
     const active = [];
     for (const facet of Object.keys(filters)) {
       for (const value of filters[facet]) active.push({ facet, value });
     }
+    if (outerSummary) {
+      outerSummary.textContent = active.length ? `${outerLabel} (${active.length} active)` : outerLabel;
+    }
     if (!active.length) return;
+    clearRow.appendChild(h('button', {
+      type: 'button', id: CLEAR_ALL_ID, class: 'filter-clear-all',
+      onclick: () => { filters = emptyFilterState(); onChange(filters); },
+    }, 'Clear all filters'));
     for (const { facet, value } of active) {
       const label = facet === 'topic'
         ? (atlas.topics[value] && atlas.topics[value].name) || value
@@ -434,10 +486,6 @@ export function createFilterPanel(container, { atlas, topicIndex, onChange }) {
         onclick: () => toggle(facet, value, false),
       }, `${label} ×`));
     }
-    chipsRow.appendChild(h('button', {
-      type: 'button', class: 'filter-chip filter-clear-all',
-      onclick: () => { filters = emptyFilterState(); onChange(filters); },
-    }, 'Clear all'));
   }
 
   function render() {
@@ -445,14 +493,14 @@ export function createFilterPanel(container, { atlas, topicIndex, onChange }) {
     // keyboard focus after every single toggle. Facet/option checkbox ids
     // are stable across renders, so re-find and refocus the same one.
     const focusedId = document.activeElement && document.activeElement.id;
+    // The `toggle` event is dispatched asynchronously, so a group closed just
+    // before this render may not have reported it yet: read the DOM too.
+    for (const group of body.querySelectorAll('.filter-group')) openState.set(group.dataset.facet, group.open);
     body.innerHTML = '';
     body.append(
       facetGroup('era', ERA_LIST),
       facetGroup('status', statuses),
-      h('details', { class: 'filter-group', open: '' }, [
-        h('summary', {}, FACET_LABELS.topic),
-        h('div', { class: 'filter-options' }, topicRows(topics.filter((t) => !t.parent_id), 0)),
-      ]),
+      groupDetails('topic', topicRows(topics.filter((t) => !t.parent_id), 0)),
       facetGroup('facilityKind', facilityKinds),
       facetGroup('experimentKind', experimentKinds),
       facetGroup('region', REGION_LIST),
@@ -461,6 +509,12 @@ export function createFilterPanel(container, { atlas, topicIndex, onChange }) {
     if (focusedId) {
       const toRefocus = document.getElementById(focusedId);
       if (toRefocus) toRefocus.focus();
+      else if (focusedId === CLEAR_ALL_ID) {
+        // The button removes itself once nothing is active; keep the keyboard
+        // user's place at the top of the filter list instead of on <body>.
+        const first = body.querySelector('summary');
+        if (first) first.focus();
+      }
     }
   }
 

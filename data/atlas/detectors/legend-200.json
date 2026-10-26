@@ -29,8 +29,7 @@
   },
   "name": "LEGEND-200 detector",
   "notes": [
-    "Placed at site:lngs-hall-a (dangling reference: owned by the 'facilities' lead, not yet created).",
-    "Verification note (2026-09-17, src:0vbb-verify-*): the previously cited LEGEND official-site quote confirmed LNGS but not the Hall A designation specifically; added src:0vbb-verify-legend-200-hall-a-lbl (LBL Nuclear Science Division, 2023-07-01), which states LEGEND-200 'reuses the GERDA cryostat in Hall A of ... LNGS', to support the Hall A placement."
+    "The LEGEND official-site quote confirms LNGS but not the Hall A designation specifically; the LBL Nuclear Science Division item of 2023-07-01 (src:0vbb-verify-legend-200-hall-a-lbl) states LEGEND-200 'reuses the GERDA cryostat in Hall A of ... LNGS', which supports the Hall A placement."
   ],
   "parent_detector_id": null,
   "placements": [
@@ -38,7 +37,7 @@
       "confidence": "verified",
       "end": null,
       "locator": "LBL Nuclear Science Division, \"LEGEND-200 Enters Data Production Phase\" (2023-07-01)",
-      "note": "site:lngs-hall-a is owned by the 'facilities' Wave 3 lead and does not exist yet in this repository (dangling reference).",
+      "note": "",
       "quote": "Its first phase, LEGEND-200, reuses the GERDA cryostat in Hall A of the Laboratori Nazionali del Gran Sasso (LNGS) underground laboratory in Italy",
       "role": "main",
       "site_id": "site:lngs-hall-a",
@@ -57,6 +56,18 @@
     "src:0vbb-verify-legend-200-hall-a-lbl"
   ],
   "specs": {
+    "enrichment": {
+      "confidence": "verified",
+      "locator": "LEGEND-200 first-results paper, abstract",
+      "note": "",
+      "quote": "High Purity Germanium detectors enriched in 76Ge beyond the 86%",
+      "sources": [
+        "src:legend-200-first-results-arxiv-2509"
+      ],
+      "unit": "%",
+      "value": ">86",
+      "verified_at": "2026-09-17"
+    },
     "isotope": {
       "confidence": "verified",
       "locator": "LEGEND-200 first-results paper, abstract",
@@ -76,24 +87,12 @@
       "display": "up to 200 kg enriched germanium",
       "locator": "LEGEND official site",
       "note": "",
-      "quote": "LEGEND-200 (Current Stage): operates up to 200 kg of enriched germanium detectors",
+      "quote": "LEGEND-200, operating up to 200 kg of enriched germanium detectors immersed in liquid argon at the INFN Gran Sasso National Laboratory (LNGS), represents the first stage of the LEGEND scientific program.",
       "sources": [
         "src:legend-official-site"
       ],
       "unit": "kg",
       "value": 200,
-      "verified_at": "2026-09-17"
-    },
-    "enrichment": {
-      "confidence": "verified",
-      "locator": "LEGEND-200 first-results paper, abstract",
-      "note": "",
-      "quote": "High Purity Germanium detectors enriched in 76Ge beyond the 86%",
-      "sources": [
-        "src:legend-200-first-results-arxiv-2509"
-      ],
-      "unit": "%",
-      "value": ">86",
       "verified_at": "2026-09-17"
     }
   },
@@ -105,14 +104,15 @@
   },
   "technology": {
     "confidence": "verified",
-    "locator": "LEGEND official site / first-results paper",
+    "locator": "LEGEND-200 first-results paper (arXiv:2509.21166), detector description; LEGEND official site",
     "note": "",
-    "quote": "operates up to 200 kg of enriched germanium detectors",
+    "quote": "The HPGe detectors array is the core of the LEGEND-200 experiment, represented in Fig. 3. These detectors are operated bare in a 64 m3 Liquid Argon (LAr) cryostat at ∼ 88 K. LAr serves not only as a coolant and as a passive shield, but also as an active background veto",
     "sources": [
+      "src:legend-200-first-results-arxiv-2509",
       "src:legend-official-site"
     ],
     "value": "Enriched high-purity germanium detectors immersed in a liquid-argon active shield",
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "technology_class": "germanium",
   "technology_classes": [

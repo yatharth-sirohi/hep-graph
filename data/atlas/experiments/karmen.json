@@ -15,7 +15,7 @@
     "confidence": "verified",
     "locator": "detector description (beam energy); abstract (beam-stop framing)",
     "note": "The 800 MeV figure is stated in src:karmen-prd-2002-numubar-nuebar-limits, not in the originally-cited src:karmen-prc-1998-nue-nutau-limits abstract (which supports only the 'beam stop neutrino source ISIS' framing); both sources are now cited.",
-    "quote": "The pulsed spallation neutron source ISIS of the Rutherford Appleton Laboratory uses a rapid cycle synchrotron to accelerate protons up to 800 MeV with a design beam current of I=200 uA.",
+    "quote": "The pulsed spallation neutron source ISIS of the Rutherford Appleton Laboratory uses a rapid cycle synchrotron to accelerate protons up to 800 MeV",
     "sources": [
       "src:karmen-prc-1998-nue-nutau-limits",
       "src:karmen-prd-2002-numubar-nuebar-limits"
@@ -141,13 +141,14 @@
         "display": "65 m³",
         "locator": "detector description",
         "note": "",
-        "quote": "65 m³ of liquid scintillator consisted of a mixture of paraffin oil (75% vol.), pseudocumene (25% vol.) and 2 g/l of the scintillating additive 1-phenyl-3-mesityl-2-pyrazoline (PMP)",
+        "quote": "The 65 m3 of liquid scintillator consisted of a mixture of paraffin oil (75%vol.), pseudocumene (25%vol.) and 2 g/l of the scintillating additive 1-phenyl-3-mesityl-2-pyrazoline (PMP).",
         "sources": [
-          "src:karmen-prd-2002-numubar-nuebar-limits"
+          "src:karmen-prd-2002-numubar-nuebar-limits",
+          "src:rf06-karmen-prd-2002-arxiv-pdf"
         ],
         "unit": "m^3",
         "value": 65,
-        "verified_at": "2026-09-17"
+        "verified_at": "2026-10-25"
       }
     },
     {
@@ -176,9 +177,8 @@
   },
   "name": "KARMEN",
   "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
-    "external.inspire_experiment left null: no INSPIRE experiment-registry record URL was fetched in this session; KARMEN is tier D so this is not mandatory (brief §'What you are producing').",
-    "No official KARMEN experiment website was found reachable in this session; links.website left null rather than guessed."
+    "No INSPIRE experiment lookup was performed for KARMEN, so external.inspire_experiment is left empty.",
+    "No official KARMEN experiment website was found reachable; no website is recorded rather than a guessed one."
   ],
   "physics_goals": [
     {
@@ -196,7 +196,7 @@
       "confidence": "verified",
       "locator": "abstract",
       "note": "",
-      "quote": "ruling out a large fraction of the parameter region favored by the LSND experiment",
+      "quote": "Thus, KARMEN does not confirm the LSND experiment and restricts significantly its favored parameter region",
       "sources": [
         "src:karmen-prd-2002-numubar-nuebar-limits"
       ],
@@ -214,7 +214,7 @@
   "status": "completed",
   "summary": {
     "plain": "A neutrino experiment at the ISIS particle accelerator in England, running from 1990 to 2001. A tank of liquid holding light sensors sat 18 metres from where the beam stopped, watching for neutrinos changing type on the way. It found no such change and helped test a puzzling result from a similar experiment in the United States.",
-    "technical": "Liquid-scintillator calorimeter (56 t, 65 m^3 active volume) at the ISIS spallation neutron source, Rutherford Appleton Laboratory, 17.7 m from the beam-stop target at 100 degrees to the proton beam. Ran as KARMEN 1 from 1990 and, after an outer-veto upgrade in 1996, as KARMEN 2 from February 1997 to March 2001, setting limits on nu_e disappearance and on nu_mu_bar -> nu_e_bar appearance that excluded much of the LSND-favoured oscillation parameter space."
+    "technical": "Liquid-scintillator calorimeter (56 t, 65 m³ active volume) at the ISIS spallation neutron source, Rutherford Appleton Laboratory, 17.7 m from the beam-stop target at 100 degrees to the proton beam. Ran as KARMEN 1 from 1990 and, after an outer-veto upgrade in 1996, as KARMEN 2 from February 1997 to March 2001, setting limits on νe disappearance and on ν̄μ → ν̄e appearance that excluded much of the LSND-favoured oscillation parameter space."
   },
   "topic_ids": [
     "topic:neutrino-oscillations",

@@ -1,0 +1,161 @@
+{
+  "accuracy_m": 8,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "area",
+        "display": "1495 m²",
+        "unit": "m^2",
+        "value": 1495.0
+      },
+      "kind": "area",
+      "locator": "MapCERN Facilities layer, feature numero 871: area of its outer ring, measured here from the service geometry",
+      "note": "The official GIS outline of the same building, measured with the same spherical-excess formula as the check; an independent tracing, not a published area figure.",
+      "quote": "\"numero\":871,\"name_long\":\"871 (BA4)\",\"type_ouv\":\"BÂTIMENT\",\"sigle\":\"BA4\"",
+      "sources": [
+        "src:geo-cern-mapcern-facilities"
+      ],
+      "tolerance": 0.05
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "site:cern-sps-lss4-ua2",
+  "feature_type": "building",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way/68885471 as of 2026-10-25T20:58:55Z; MapCERN Facilities feature numero 871",
+    "note": "Surface building only; the hall (cavern ECX4) lies underground at this point, offset by an unpublished distance from the building.",
+    "quote": "\"numero\":871,\"name_long\":\"871 (BA4)\",\"type_ouv\":\"BÂTIMENT\",\"sigle\":\"BA4\"",
+    "sources": [
+      "src:geo-cern-osm-sps-ba-sr8-buildings",
+      "src:geo-cern-mapcern-facilities",
+      "src:geo-cern-sps-history",
+      "src:geo-cern-crome-sps-deployment"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            6.0686441,
+            46.2486424
+          ],
+          [
+            6.0686875,
+            46.2487074
+          ],
+          [
+            6.068819,
+            46.2486649
+          ],
+          [
+            6.0688396,
+            46.2486958
+          ],
+          [
+            6.0688728,
+            46.2486858
+          ],
+          [
+            6.0689855,
+            46.2488621
+          ],
+          [
+            6.0688741,
+            46.2488979
+          ],
+          [
+            6.0688915,
+            46.2489277
+          ],
+          [
+            6.0688144,
+            46.248951
+          ],
+          [
+            6.068795,
+            46.2489197
+          ],
+          [
+            6.0684565,
+            46.2490279
+          ],
+          [
+            6.0684757,
+            46.2490553
+          ],
+          [
+            6.0684007,
+            46.2490797
+          ],
+          [
+            6.0683829,
+            46.2490487
+          ],
+          [
+            6.0683277,
+            46.2490672
+          ],
+          [
+            6.068214,
+            46.2488921
+          ],
+          [
+            6.0685136,
+            46.2487972
+          ],
+          [
+            6.0684546,
+            46.2487034
+          ],
+          [
+            6.0686441,
+            46.2486424
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:sps-ba4-access-building",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:cern",
+  "method": "OpenStreetMap way 68885471 (building 871) used verbatim. Identified as BA4 by the official MapCERN Facilities layer (feature numero 871, acronym BA4); the OSM polygon centroid is within 1 m of the official one. CERN lists the six SPS access buildings as numbers 868 to 873 with the acronyms BA1 to BA6 (MapCERN Facilities layer); their centres lie at bearings 247, 310, 6, 67, 128 and 190 degrees around the centre of a circle fitted to the SPS ring drawn on this map, 62, 57, 60, 61 and 62 degrees apart, as six equally spaced long straight sections require. The SPS history page says UA1 was installed in the ECX5 cavern and UA2 in ECX4, and CERN's SPS radiation-monitoring page lists the areas as \"BA1, BA2, BA4/ECA4, BA5 and BA6\", so cavern and access building share the point number; the building of point 4 is taken as the surface presence of the cavern ECX4 (an inference from the shared numbering, not a stated fact). The experimental cavern is underground at that point; its outline is not published and is not drawn.",
+  "name": "SPS access building BA4 (building 871), over long straight section 4: site of UA2",
+  "notes": [
+    "Not the hall: UA2 ran in the underground cavern ECX4 (SPS history page); the building is where it is reached."
+  ],
+  "osm": {
+    "elements": [
+      "way/68885471"
+    ],
+    "timestamp": "2026-10-25T20:58:55Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:cern-sps-lss4-ua2",
+  "sources": [
+    "src:geo-cern-osm-sps-ba-sr8-buildings",
+    "src:geo-cern-mapcern-facilities",
+    "src:geo-cern-sps-history",
+    "src:geo-cern-crome-sps-deployment"
+  ],
+  "summary": {
+    "plain": "The surface access building of the CERN SPS at point 4, above the long straight section where the UA2 experiment, which helped discover the W and Z bosons, stood underground."
+  },
+  "type": "geometry",
+  "valid": null
+}

@@ -7,9 +7,9 @@
     "lat": 32.37167,
     "locator": "Wikipedia, \"Waste Isolation Pilot Plant\", infobox coordinates",
     "lon": -103.79361,
-    "note": "No official DOE/WIPP page or technical/geodetic paper fetched in this session states coordinates; this is the site's general campus/surface location per Wikipedia only (rank 12, pointer), used here per the ontology's rule that geocoder/Wikipedia coordinates are acceptable ONLY for kind: campus|headquarters, labelled approximate. EXO-200's own underground placement (~655 m below this surface point) is recorded on the detector's placement note rather than as a separate `detector`-kind coordinate, since no rank<=7 source gives an underground coordinate distinct from this campus point.",
+    "note": "No official DOE/WIPP page or technical/geodetic paper consulted (checked 2026-09-17) states coordinates; this is the site's general campus/surface location per Wikipedia only, shown as approximate. EXO-200's own underground placement (~655 m below this surface point) is recorded on the detector's placement note rather than as a separate detector-grade coordinate, since no primary or official source gives an underground coordinate distinct from this campus point.",
     "precision_m": 2000,
-    "quote": "32°22'18\"N 103°47'37\"W",
+    "quote": "Coordinates: 32°22′18″N 103°47′37″W",
     "sources": [
       "src:exo-200-wipp-wikipedia",
       "src:exo-200-doe-wipp-official-page"
@@ -27,14 +27,14 @@
     "dimension": "length",
     "display": "~655 m (2,150 ft)",
     "locator": "WIPP official DOE page",
-    "note": "",
-    "quote": "2,150 feet underground",
+    "note": "Converted from the quoted feet figure (2,150 ft x 0.3048 = 655.3 m).",
+    "quote": "Transuranic waste is disposed of 2,150 feet underground in rooms mined from the salt bed.",
     "sources": [
       "src:exo-200-doe-wipp-official-page"
     ],
     "unit": "m",
     "value": 655,
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "depth_mwe": {
     "approx": false,
@@ -42,7 +42,7 @@
     "dimension": "depth_mwe",
     "display": "1585 m.w.e.",
     "locator": "The EXO-200 detector, part I: Detector design and construction (arXiv:1202.2192), site description",
-    "note": "Verification fix (2026-09-17): this agent directly fetched the EXO-200 detector design paper, which gives this figure; a later EXO-200 paper (Searches for Double Beta Decay of 134Xe with EXO-200) instead reports ~1624 (+22/-21) m.w.e. for the underground clean room, a later re-estimate not independently re-verified against a directly fetched primary source in this session. The construction paper's 1585 m.w.e. figure is recorded here as the directly sourced value; the discrepancy with the later 1624 m.w.e. figure is noted for a future pass.",
+    "note": "The figure is from the EXO-200 detector design paper (arXiv:1202.2192), read directly on 2026-09-17. A later EXO-200 paper (Searches for Double Beta Decay of 134Xe with EXO-200) instead reports ~1624 (+22/−21) m.w.e. for the underground clean room; this later re-estimate was not checked against the paper itself. The detector design paper's 1585 m.w.e. is recorded as the directly sourced value; the difference between the two figures is unresolved.",
     "quote": "EXO-200 is located at a depth of 1585 m water equivalent ... in the Waste Isolation Pilot Plant (WIPP) near Carlsbad, New Mexico",
     "sources": [
       "src:0vbb-verify-exo-200-detector-design-arxiv-1202-2192"
@@ -66,8 +66,8 @@
   },
   "name": "WIPP surface campus, Carlsbad, New Mexico",
   "notes": [
-    "This is a campus-level approximate marker (Wikipedia-sourced), not a detector-kind coordinate; per the coordinate rules (and v0.2 A23), EXO-200's underground hall/clean-room position is unsourced in this session and is not relabelled as `detector`/`underground_lab`.",
-    "Verification fix (2026-09-17, src:0vbb-verify-*): `depth_mwe` was previously left null because this agent had not directly fetched an EXO-200 paper stating the m.w.e. figure. Independent verification directly fetched the EXO-200 detector design paper (arXiv:1202.2192), which states 1585 m water equivalent; that value is now recorded. A later EXO-200 paper reports ~1624 (+22/-21) m.w.e. instead (a subsequent re-estimate), which was not independently re-verified against a directly fetched primary source in this pass; see `depth_mwe.note`."
+    "This is a campus-level approximate marker (Wikipedia-sourced), not a detector-grade coordinate; EXO-200's underground hall and clean-room position is unsourced and is not given a detector-grade marker.",
+    "The water-equivalent depth is the 1585 m.w.e. stated in the EXO-200 detector design paper (arXiv:1202.2192). A later EXO-200 paper reports ~1624 (+22/−21) m.w.e. instead (a subsequent re-estimate, not checked against the paper itself); see the note on the depth value."
   ],
   "place": {
     "city": "Carlsbad",

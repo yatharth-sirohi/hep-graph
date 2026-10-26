@@ -5,6 +5,31 @@ function clamp(v, lo, hi) {
   return Math.min(hi, Math.max(lo, v));
 }
 
+function span(className, text) {
+  const node = document.createElement('span');
+  node.className = className;
+  node.textContent = text;
+  return node;
+}
+
+// "Single date" / "Date": the long caption is the button's name; the short one
+// is `hidden` (so it is not shown, and not read) until phone.css displays it.
+function captionButton(button, full, short) {
+  const brief = span('tl-short', short);
+  brief.hidden = true;
+  brief.setAttribute('aria-hidden', 'true');
+  button.replaceChildren(span('tl-long', full), brief);
+}
+
+// The play glyph is decoration; the word carries the name. Same rendered text
+// as before ("▶ Play" / "⏸ Pause") — phone.css can drop the word and keep the
+// glyph without touching the accessible name.
+function setPlayCaption(button, playing) {
+  const glyph = span('tl-glyph', playing ? '⏸' : '▶');
+  glyph.setAttribute('aria-hidden', 'true');
+  button.replaceChildren(glyph, span('tl-play-text', playing ? ' Pause' : ' Play'));
+}
+
 export function createTimeline(container, { minYear, maxYear, defaultYear, onChange }) {
   container.innerHTML = '';
   // A landmark, not just a group: #timeline-bar sits outside <main> as its
@@ -20,20 +45,29 @@ export function createTimeline(container, { minYear, maxYear, defaultYear, onCha
   const yearBtn = document.createElement('button');
   yearBtn.type = 'button';
   yearBtn.className = 'mode-btn is-active';
-  yearBtn.textContent = 'Single date';
   yearBtn.id = 'timeline-mode-year';
+  // Phone width (phone.css) shows the short caption and keeps the full one as
+  // the accessible name; everywhere else only the full caption is displayed.
+  captionButton(yearBtn, 'Single date', 'Date');
   const rangeBtn = document.createElement('button');
   rangeBtn.type = 'button';
   rangeBtn.className = 'mode-btn';
-  rangeBtn.textContent = 'Range';
   rangeBtn.id = 'timeline-mode-range';
+  rangeBtn.textContent = 'Range';
   const playBtn = document.createElement('button');
   playBtn.type = 'button';
   playBtn.className = 'mode-btn play-btn';
   playBtn.id = 'timeline-play';
   playBtn.setAttribute('aria-pressed', 'false');
-  playBtn.textContent = '▶ Play';
-  modeRow.append(yearBtn, rangeBtn, playBtn);
+  setPlayCaption(playBtn, false);
+  // Playback speed: one press steps 1x -> 2x -> 5x -> 1x. A plain button, so it
+  // takes Tab, Enter and Space like Play beside it; its name states the speed.
+  const speedBtn = document.createElement('button');
+  speedBtn.type = 'button';
+  speedBtn.className = 'mode-btn speed-btn';
+  speedBtn.id = 'timeline-speed';
+  speedBtn.title = 'Change playback speed';
+  modeRow.append(yearBtn, rangeBtn, playBtn, speedBtn);
 
   const sliderRow = document.createElement('div');
   sliderRow.className = 'timeline-sliders';
@@ -126,34 +160,67 @@ export function createTimeline(container, { minYear, maxYear, defaultYear, onCha
   loInput.addEventListener('input', emit);
   hiInput.addEventListener('input', emit);
 
-  const PLAY_INTERVAL_MS = 900; // restrained: about one year per second
+  const PLAY_INTERVAL_MS = 900; // restrained: about one year per second at 1x
+  const SPEEDS = [1, 2, 5];
+  let speed = SPEEDS[0];
+  function setSpeedCaption() {
+    speedBtn.textContent = `${speed}\u00d7`;
+    speedBtn.setAttribute('aria-label', `Playback speed ${speed}\u00d7. Press to change.`);
+  }
+  setSpeedCaption();
   function stopPlay() {
     playing = false;
-    playBtn.textContent = '▶ Play';
+    setPlayCaption(playBtn, false);
     playBtn.setAttribute('aria-pressed', 'false');
     if (timer) clearInterval(timer);
     timer = null;
   }
   function startPlay() {
-    playing = true;
-    playBtn.textContent = '⏸ Pause';
-    playBtn.setAttribute('aria-pressed', 'true');
-    timer = setInterval(() => {
-      if (mode === 'year') {
-        const next = Number(yearInput.value) + 1;
-        if (next > maxYear) { stopPlay(); return; }
-        yearInput.value = String(next);
-      } else {
-        const span = Number(hiInput.value) - Number(loInput.value);
-        const nextHi = Number(hiInput.value) + 1;
-        if (nextHi > maxYear) { stopPlay(); return; }
-        hiInput.value = String(nextHi);
-        loInput.value = String(clamp(nextHi - span, minYear, maxYear));
+    // Pressing Play with the slider already at the last year used to start a
+    // timer whose first tick found nothing to advance to and stopped it again:
+    // the button did nothing. From the end it plays from the beginning, and a
+    // range keeps its width.
+    if (mode === 'year') {
+      if (Number(yearInput.value) >= maxYear) {
+        yearInput.value = String(minYear);
+        emit();
       }
+    } else if (Number(hiInput.value) >= maxYear) {
+      const width = Number(hiInput.value) - Number(loInput.value);
+      loInput.value = String(minYear);
+      hiInput.value = String(clamp(minYear + width, minYear, maxYear));
       emit();
-    }, PLAY_INTERVAL_MS);
+    }
+    playing = true;
+    setPlayCaption(playBtn, true);
+    playBtn.setAttribute('aria-pressed', 'true');
+    scheduleTicks();
+  }
+  function tick() {
+    if (mode === 'year') {
+      const next = Number(yearInput.value) + 1;
+      if (next > maxYear) { stopPlay(); return; }
+      yearInput.value = String(next);
+    } else {
+      const span = Number(hiInput.value) - Number(loInput.value);
+      const nextHi = Number(hiInput.value) + 1;
+      if (nextHi > maxYear) { stopPlay(); return; }
+      hiInput.value = String(nextHi);
+      loInput.value = String(clamp(nextHi - span, minYear, maxYear));
+    }
+    emit();
+  }
+  function scheduleTicks() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(tick, PLAY_INTERVAL_MS / speed);
   }
   playBtn.addEventListener('click', () => (playing ? stopPlay() : startPlay()));
+  speedBtn.addEventListener('click', () => {
+    speed = SPEEDS[(SPEEDS.indexOf(speed) + 1) % SPEEDS.length];
+    setSpeedCaption();
+    // A change while playing takes effect at once, from the year it is at.
+    if (playing) scheduleTicks();
+  });
 
   updateLegend();
   // Deliberately no emit() here. Announcing the default year at construction

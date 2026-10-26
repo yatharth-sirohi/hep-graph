@@ -12,7 +12,7 @@
   "geometry": {
     "confidence": "approximate",
     "locator": "OSM way/720556732, extract timestamp 2026-09-18",
-    "note": "Candidate anchor for detector:mu2e's backlog (see map.unlocated), not a claim that this is confirmed to be the Mu2e hall.",
+    "note": "Context building and a candidate anchor for the Mu2e entry in the map's unlocated list; it is not confirmed to be the Mu2e hall.",
     "sources": [
       "src:fermilab-geo-osm-muon-campus"
     ],
@@ -72,10 +72,11 @@
     "website": null
   },
   "map_id": "map:fermilab",
-  "method": "OpenStreetMap way 720556732 'MC-2' footprint, traced verbatim, 84 m from MC-1 (way 720556725, confirmed as the Muon g-2 building). Drawn as a context feature (entity_id null, not detector:mu2e) because no source fetched this session confirms MC-2 is specifically the Mu2e hall -- the MC-1/MC-2 naming pattern and Muon Campus adjacency are suggestive but not sourced; a WebSearch and two WebFetch attempts (arXiv:2208.02889 'Muon Campus at Fermilab', both HTML and PDF) found no fetchable text naming MC-2.",
+  "method": "OpenStreetMap way 720556732 'MC-2' footprint, traced verbatim, 84 m from MC-1 (way 720556725, confirmed as the Muon g-2 building). Drawn as a context feature (entity_id null, not detector:mu2e) because no source consulted confirms MC-2 is specifically the Mu2e hall; the MC-1/MC-2 naming pattern and Muon Campus adjacency are suggestive but not sourced. As of 2026-09-18 a web search and two attempts to read the arXiv paper 'Muon Campus at Fermilab' (arXiv:2208.02889, HTML and PDF) found no text naming MC-2, and its HTML text contains no mention of it on 2026-10-25.",
   "name": "MC-2 building, Fermilab Muon Campus (identity not confirmed)",
   "notes": [
-    "Integrator (2026-09-21): `site_id` cleared — the identification of MC-2 with the Mu2e hall is unconfirmed (see the map's unlocated row for detector:mu2e), so this context building must not stand for site:fermilab-mu2e-hall."
+    "No source consulted (checked 2026-10-25) names this building or gives its construction date. Its label belongs to the Muon Campus building series; the MC-1 building was proposed when the Muon Campus program was set up in 2012 (U.S. Department of Energy determination CX-010394, dated 12 June 2012, which does not mention MC-2). The earliest evidence that the building stands is its first appearance in OpenStreetMap on 31 August 2019, so it is drawn from August 2019; that date is when it was traced, not when it was built.",
+    "No site is attached: the identification of MC-2 with the Mu2e hall is not confirmed (see the map's unlocated entry for detector:mu2e), so this building is not drawn as site:fermilab-mu2e-hall."
   ],
   "osm": {
     "elements": [
@@ -87,11 +88,24 @@
   "schema": "hep-atlas/0.2",
   "site_id": null,
   "sources": [
-    "src:fermilab-geo-osm-muon-campus"
+    "src:fermilab-geo-osm-muon-campus",
+    "src:rc-osm-way-720556732-history",
+    "src:rc-doe-cx-010394-fermilab-muon-campus"
   ],
   "summary": {
-    "plain": "Candidate anchor for detector:mu2e's backlog (see map.unlocated), not a claim that this is confirmed to be the Mu2e hall."
+    "plain": "A building labelled MC-2 in OpenStreetMap, 84 m from the MC-1 (Muon g-2) building on the Fermilab Muon Campus. No source consulted identifies it or dates it; it is drawn from August 2019, when it first appears in OpenStreetMap. It is not confirmed to be the Mu2e hall."
   },
   "type": "geometry",
-  "valid": null
+  "valid": {
+    "confidence": "uncertain",
+    "end": null,
+    "locator": "OSM way/720556732 history (api.openstreetmap.org/api/0.6/way/720556732/history): version 1 created 2019-08-31T16:47:52Z, changeset 73953436; DOE CX-010394, dated 2012-06-12 (Muon Campus program and the MC-1 Building; no MC-2)",
+    "note": "Start is the building's first appearance in OpenStreetMap, an upper bound on its construction date; its actual construction date is not established.",
+    "sources": [
+      "src:rc-osm-way-720556732-history",
+      "src:rc-doe-cx-010394-fermilab-muon-campus"
+    ],
+    "start": "2019-08",
+    "verified_at": "2026-10-25"
+  }
 }

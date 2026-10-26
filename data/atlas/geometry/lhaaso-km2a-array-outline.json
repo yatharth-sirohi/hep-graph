@@ -1,0 +1,279 @@
+{
+  "accuracy_m": 30,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "area",
+        "display": "1.3 km²",
+        "unit": "km^2",
+        "value": 1.3
+      },
+      "kind": "area",
+      "locator": "arXiv:2405.11826, section 2.1 (KM2A)",
+      "note": "The hull of the ED positions is 1.24 km2, 4% under the rounded 1.3 km2 (a disc of the stated 635 m radius is 1.27 km2; the hull of discrete points is a little smaller).",
+      "quote": "It contains 5216 electromagnetic particle detectors (EDs) and 1188 underground muon detectors (MDs), which are distributed in an area of 1.3 km2",
+      "sources": [
+        "src:geo-arrays-lhaaso-km2a-quality-2024"
+      ],
+      "tolerance": 0.05
+    },
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "1270 m",
+        "unit": "m",
+        "value": 1270
+      },
+      "kind": "span",
+      "locator": "LHAASO Science Book, chapter 1 (Chin. Phys. C 46, 030001), section I.A, p. 030001-2",
+      "note": "Diameter of the stated 635 m outer radius; the largest extent of the ED hull measures against it.",
+      "quote": "the guarding ring array consisting of 305 EDs with 30 m spacing surrounding the central one with outer radius of 635 m.",
+      "sources": [
+        "src:geo-lhaaso-cpc-2022-instruments"
+      ],
+      "tolerance": 0.02
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "site:lhaaso-haizi-mountain",
+  "feature_type": "array",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "convex hull of the ED markers of Science Book Fig. 1, PDF page 8; frame as described",
+    "note": "Confidence derived: the hull, the figure reading and the anchor are this work; the outline agrees with the stated radius and area.",
+    "sources": [
+      "src:geo-lhaaso-cpc-2022-instruments",
+      "src:cosmic-gamma-lhaaso-science-book-arxiv-2019",
+      "src:geo-arrays-lhaaso-km2a-crab-2024",
+      "src:geo-arrays-lhaaso-km2a-quality-2024"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            100.1323599,
+            29.3584773
+          ],
+          [
+            100.1323879,
+            29.3565231
+          ],
+          [
+            100.1326515,
+            29.3558836
+          ],
+          [
+            100.133184,
+            29.3548023
+          ],
+          [
+            100.1339887,
+            29.3538543
+          ],
+          [
+            100.1345249,
+            29.353345
+          ],
+          [
+            100.1347992,
+            29.353177
+          ],
+          [
+            100.1355949,
+            29.3527708
+          ],
+          [
+            100.1363974,
+            29.352373
+          ],
+          [
+            100.1366594,
+            29.3522669
+          ],
+          [
+            100.1374669,
+            29.3520909
+          ],
+          [
+            100.1382626,
+            29.3519652
+          ],
+          [
+            100.138791,
+            29.3519563
+          ],
+          [
+            100.1393433,
+            29.351972
+          ],
+          [
+            100.1401438,
+            29.3520914
+          ],
+          [
+            100.1412155,
+            29.3523644
+          ],
+          [
+            100.1420367,
+            29.3527716
+          ],
+          [
+            100.1425546,
+            29.3530418
+          ],
+          [
+            100.1436251,
+            29.3538549
+          ],
+          [
+            100.1441333,
+            29.3544022
+          ],
+          [
+            100.1444286,
+            29.3548026
+          ],
+          [
+            100.1446941,
+            29.3552177
+          ],
+          [
+            100.1449633,
+            29.3559028
+          ],
+          [
+            100.1452006,
+            29.3565665
+          ],
+          [
+            100.1452397,
+            29.3568504
+          ],
+          [
+            100.145247,
+            29.3576609
+          ],
+          [
+            100.1452283,
+            29.3581841
+          ],
+          [
+            100.14516,
+            29.3587579
+          ],
+          [
+            100.1449141,
+            29.3594444
+          ],
+          [
+            100.1444136,
+            29.3604869
+          ],
+          [
+            100.1436616,
+            29.3614286
+          ],
+          [
+            100.1430912,
+            29.361977
+          ],
+          [
+            100.1420199,
+            29.3625278
+          ],
+          [
+            100.1409475,
+            29.3630611
+          ],
+          [
+            100.1393419,
+            29.3633398
+          ],
+          [
+            100.1382701,
+            29.3633272
+          ],
+          [
+            100.1374678,
+            29.363196
+          ],
+          [
+            100.1364008,
+            29.3629246
+          ],
+          [
+            100.1361167,
+            29.3627894
+          ],
+          [
+            100.1353251,
+            29.3623967
+          ],
+          [
+            100.1348128,
+            29.3621144
+          ],
+          [
+            100.1339888,
+            29.3614366
+          ],
+          [
+            100.1334448,
+            29.360912
+          ],
+          [
+            100.1329218,
+            29.360079
+          ],
+          [
+            100.1323812,
+            29.35873
+          ],
+          [
+            100.1323599,
+            29.3584773
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:lhaaso-km2a-array-outline",
+  "level_id": "surface",
+  "license": {
+    "attribution": "LHAASO Collaboration, Chin. Phys. C 46, 030001 (2022), doi:10.1088/1674-1137/ac3fa6",
+    "name": "CC-BY-3.0",
+    "url": "https://creativecommons.org/licenses/by/3.0/"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:lhaaso-daocheng",
+  "method": "Convex hull of the 5216 ED positions read from the figure (45 vertices); a computed outline, not a published boundary. The individual EDs are not drawn: 5216 markers need 26 000 vertices and push the map bundle to 3.5 MB, over the 2 MB limit. Layout: the detector positions are read from the vector graphic of Fig. 1 of the LHAASO Science Book (Chin. Phys. C 46, 030001 (2022), arXiv:1905.02773 v4, PDF page 8; the figure carries a NORTH arrow pointing up and a 150 m scale bar), which plots 5216 EDs as red squares and 1188 MDs as blue circles. The figure was registered by a similarity transform onto a second published copy of the layout, the right panel of Fig. 1 of arXiv:2401.01038 (X (m), Y (m) axes read from the tick labels): 5215 of 5216 EDs match within 2 m (median 0.16 m), scale 4.33 m per point, no rotation; the pool sides then measure 150.1 m, 150.1 m and 300.2 m x 110.1 m against the stated 150 m, 150 m and 300 m x 110 m. Origin: the centre of the circular array, the mean of circle fits to the outer ED ring, the 575 m ED boundary and the outer MD ring. With it, 4911 EDs lie inside 575 m and 305 outside (stated: \"4911 EDs ... radius of 575 m\" and \"305 EDs\" in the guarding ring) and the farthest ED is 635.2 m from it (stated outer radius 635 m). Placement: the origin is put at the coordinate the Collaboration gives for LHAASO, 29 deg 21' 27.56\" N, 100 deg 08' 19.66\" E (Science Book abstract, same document), in an azimuthal-equidistant projection (WGS 84) with x east and y north. An independent check: the three pools traced in OpenStreetMap (ways 1046559931, 1046559932, 1046559933, Overpass extract 2026-10-25T11:28:50Z) lie 1 to 3 m east and 2 to 10 m north of the pool corners placed this way. It is not stated whether the figure shows design or as-built positions and what point the quoted coordinate marks; accuracy_m 30 covers the OpenStreetMap offset and that doubt; the older coordinate 29 21 31 N, 100 08 15 E of the 2016 papers lies 164 m away and is superseded. ",
+  "name": "LHAASO KM2A array outline (convex hull of the 5216 EDs)",
+  "notes": [
+    "Hull area 1.242 km2 against the stated 1.3 km2; largest extent 1270.2 m against twice the stated 635 m outer radius.",
+    "Check: 5216 EDs and 1188 MDs (stated 5216 and 1188); 4911 EDs inside 575 m and 305 outside (stated 4911 and 305); farthest ED 635.2 m (stated outer radius 635 m); EDs have a median nearest-neighbour distance of 13.6 m and an equivalent triangular spacing of 14.95 m against the stated 15 m, so the plotted layout is not an ideal lattice."
+  ],
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:lhaaso-haizi-mountain",
+  "sources": [
+    "src:geo-lhaaso-cpc-2022-instruments",
+    "src:cosmic-gamma-lhaaso-science-book-arxiv-2019",
+    "src:geo-arrays-lhaaso-km2a-crab-2024",
+    "src:geo-arrays-lhaaso-km2a-quality-2024"
+  ],
+  "summary": {
+    "plain": "The outline of the LHAASO kilometre-square array, a disc about 1.27 km across at 4410 m altitude."
+  },
+  "type": "geometry",
+  "valid": null
+}

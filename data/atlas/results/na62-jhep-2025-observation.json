@@ -1,8 +1,21 @@
 {
-  "aliases": [],
+  "aliases": [
+    "Observation of the K+ -> pi+ nu nubar decay and measurement of its branching ratio"
+  ],
+  "announced": {
+    "confidence": "verified",
+    "locator": "CERN news item dated 25 September 2024",
+    "note": "The seminar day is not given in the news item.",
+    "quote": "At a seminar held at CERN this week, the NA62 collaboration reported the unequivocal confirmation",
+    "sources": [
+      "src:rv-cern-news-na62-observes-2024"
+    ],
+    "value": "2024-09",
+    "verified_at": "2026-10-25"
+  },
   "claim": {
     "locator": "arXiv:2412.12015, title",
-    "quote": "Observation of the K+ -> pi+ nu nubar decay and measurement of its branching ratio",
+    "quote": "Observation of the $K^{+}\\rightarrowπ^{+}ν\\barν$ decay and measurement of its branching ratio",
     "sources": [
       "src:na62-jhep-2025-observation"
     ]
@@ -16,15 +29,17 @@
   },
   "date": {
     "confidence": "verified",
-    "locator": "arXiv:2412.12015, submitted 16 December 2024, revised 27 February 2025; published JHEP 02 (2025) 191",
-    "note": "date is the arXiv preprint submission date.",
+    "locator": "CERN news item dated 25 September 2024",
+    "note": "Announcement: a CERN news item dated 25 September 2024 says the result was reported 'at a seminar held at CERN this week'; the seminar day is not given, so the date is recorded to the month. The arXiv preprint (arXiv:2412.12015) was submitted on 16 December 2024 and published as JHEP 02 (2025) 191.",
+    "quote": "At a seminar held at CERN this week, the NA62 collaboration reported the unequivocal confirmation",
     "sources": [
+      "src:rv-cern-news-na62-observes-2024",
       "src:na62-jhep-2025-observation"
     ],
-    "value": "2024-12",
-    "verified_at": "2026-09-17"
+    "value": "2024-09",
+    "verified_at": "2026-10-25"
   },
-  "date_kind": "preprint",
+  "date_kind": "announcement",
   "detector_ids": [
     "detector:na62"
   ],
@@ -40,9 +55,9 @@
     "approx": false,
     "confidence": "verified",
     "dimension": "count",
-    "display": "(13.0+3.3-3.0) x 10^-11",
-    "note": "Branching ratio in units of 10^-11; stored as a bare count-like number because the ontology has no branching-ratio dimension. See key_value_text for the fully formatted value.",
-    "quote": "(13.0+3.3-3.0) x 10^-11",
+    "display": "(13.0+3.3−3.0) × 10⁻¹¹",
+    "note": "Branching ratio in units of 10⁻¹¹; the central value is shown as a bare number without a unit.",
+    "quote": "Combining NA62 data collected in 2016--2022, a measurement of $B(K^{+}\\rightarrow\\pi^{+}\\nu\\bar{\\nu}) = \\left( 13.0^{+ 3.3}_{- 3.0} \\right)\\times10^{-11}$ is reported.",
     "sources": [
       "src:na62-jhep-2025-observation"
     ],
@@ -53,17 +68,17 @@
   "key_value_text": {
     "confidence": "verified",
     "note": "",
-    "quote": "the smallest branching ratio measured with a signal significance above 5 sigma",
+    "quote": "Combining NA62 data collected in 2016--2022, a measurement of $B(K^{+}\\rightarrow\\pi^{+}\\nu\\bar{\\nu}) = \\left( 13.0^{+ 3.3}_{- 3.0} \\right)\\times10^{-11}$ is reported. With $51$ signal candidates observed and an expected background of $18^{+3}_{-2}$ events",
     "sources": [
       "src:na62-jhep-2025-observation"
     ],
-    "value": "B(K+ -> pi+ nu nubar) = (13.0+3.3-3.0) x 10^-11, from 51 signal candidates with an expected background of 18(+3/-2) events, combining data from 2016-2022",
+    "value": "B(K⁺ → π⁺ ν ν̄) = (13.0+3.3−3.0) × 10⁻¹¹, from 51 signal candidates with an expected background of 18(+3/−2) events, combining data from 2016-2022",
     "verified_at": "2026-09-17"
   },
   "links": {
     "website": null
   },
-  "name": "Observation of the K+ -> pi+ nu nubar decay and measurement of its branching ratio",
+  "name": "Observation of the K⁺ → π⁺νν̄ decay and measurement of its branching ratio",
   "notes": [],
   "official_url": null,
   "publication": {
@@ -76,20 +91,20 @@
   "schema": "hep-atlas/0.2",
   "significance": {
     "confidence": "verified",
-    "note": "The abstract text fetched gives the qualitative superlative claim ('smallest branching ratio measured with a signal significance above 5 sigma') rather than a single bare sigma number; recorded verbatim rather than invented as a precise numeral.",
+    "note": "The abstract gives the significance as 'above 5σ' rather than a precise numeral; the paper's text gives a background-only p-value of 2×10⁻⁷.",
     "quote": "the smallest branching ratio measured with a signal significance above 5 sigma",
     "sources": [
       "src:na62-jhep-2025-observation"
     ],
-    "value": "above 5 sigma",
-    "verified_at": "2026-09-17"
+    "value": "above 5σ",
+    "verified_at": "2026-10-25"
   },
   "sources": [
     "src:na62-jhep-2025-observation"
   ],
   "summary": {
-    "plain": "NA62's landmark result: the first firm observation of a positive kaon decaying into a pion and two invisible neutrinos, one of the rarest decays ever confirmed in particle physics, using data collected from 2016 to 2022.",
-    "technical": "First observation (>5 sigma) of K+ -> pi+ nu nubar: B(K+ -> pi+ nu nubar) = (13.0+3.3-3.0) x 10^-11, combining 2016-2022 data (including the higher-intensity 2021-2022 campaign after detector upgrades), 51 signal candidates with an expected background of 18(+3/-2) events -- described by the collaboration as the smallest branching ratio measured with a signal significance above 5 sigma."
+    "plain": "NA62 reports the observation of the very rare kaon decay K⁺→π⁺νν̄ (a positive kaon turning into a pion and two invisible neutrinos), using data from 2016 to 2022: 51 signal candidates over an expected background of 18 events. The paper says this marks the first observation of the decay, at a significance above 5σ.",
+    "technical": "Observation of K⁺ → π⁺ ν ν̄ (significance above 5σ; background-only p-value 2×10⁻⁷): B(K⁺ → π⁺ ν ν̄) = (13.0+3.3−3.0)×10⁻¹¹ combining 2016-2022 data, including the 2021-2022 data taken at higher beam intensity after modifications to the beamline and detectors; 51 signal candidates with an expected background of 18(+3/−2) events. The paper says the decay becomes the smallest branching ratio measured with a signal significance above 5σ."
   },
   "title": "Observation of the K+ -> pi+ nu nubar decay and measurement of its branching ratio",
   "topic_ids": [
@@ -97,5 +112,5 @@
     "topic:cp-violation"
   ],
   "type": "result",
-  "why_it_matters": "K+ -> pi+ nu nubar is among the theoretically cleanest probes of physics beyond the Standard Model in the quark-flavour sector; this is the first time the decay has been established at discovery-level (>5 sigma) significance, complementing the analogous KL -> pi0 nu nubar programme (e.g. KOTO)."
+  "why_it_matters": "The paper's introduction quotes Standard Model branching-ratio predictions of (8.4 ± 1.0)×10⁻¹¹ (from tree-level CKM inputs) and (7.86 ± 0.61)×10⁻¹¹ (from a full CKM parameter fit), with an intrinsic theoretical uncertainty of approximately 3%; the measured branching ratio is (13.0 +3.3 −3.0)×10⁻¹¹."
 }

@@ -1,91 +1,100 @@
 {
-  "accuracy_m": 30,
+  "accuracy_m": 10,
   "aliases": [],
   "checks": [],
   "coverage": {
     "researched": "partial",
-    "tier": "C"
+    "tier": "B"
   },
   "depth_m": null,
   "entity_id": "site:leibstadt-nuclear-power-plant-campus",
   "feature_type": "building",
   "geometry": {
     "confidence": "approximate",
-    "locator": "OSM way 567961020 as of 2026-06-01T08:52:28Z",
-    "note": "Unlike Brokdorf's explicitly-named 'Reaktorgebäude', no building near the Leibstadt plant is named or tagged as the reactor building in OpenStreetMap. This is the largest building (51 x 37 m footprint) closest (32 m) to the OSM node explicitly named 'Leibstadt Kernkraftwerk' (node/984029288); accuracy_m is set wide (30 m) to reflect that this identification is inferred from proximity and size, not a name match.",
+    "locator": "OSM way 608881797 (building:part, roof:shape=dome) as of 2026-10-25T11:13:24Z; node/257712288 (power=generator, BWR-1, 1220 MW) as of 2026-10-25T11:12:21Z",
+    "note": "Identification by tags, not by name: this is the only dome-roofed building part in the plant and the OSM generator node of the plant (generator:type BWR-1, 1220 MW, ref 'Leibstadt') lies 6 m from its centroid inside it. Replaces the earlier proximity pick (way 567961020, a 1319 m2 building 190 m SSW of the generator node), which is not the reactor building. Dome outline: area 1719 m2, circular part radius 23.0 m (diameter 46.0 m); its west side is flattened in the OSM tracing.",
     "sources": [
+      "src:geo-leibstadt-osm-extract-2026-10",
       "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
     ],
     "value": {
       "coordinates": [
         [
           [
-            8.1815668,
-            47.5994598
+            8.1825673,
+            47.6017859
           ],
           [
-            8.1815485,
-            47.5995243
+            8.1825817,
+            47.6017374
           ],
           [
-            8.1815352,
-            47.5995743
+            8.1826729,
+            47.6017933
           ],
           [
-            8.1814991,
-            47.5997018
+            8.1827485,
+            47.6018051
           ],
           [
-            8.1817452,
-            47.5997303
+            8.1828284,
+            47.6017996
           ],
           [
-            8.1817644,
-            47.5996605
+            8.1829173,
+            47.6017623
           ],
           [
-            8.1818268,
-            47.5996683
+            8.1829828,
+            47.6017072
           ],
           [
-            8.1818122,
-            47.5997215
+            8.1830175,
+            47.6016405
           ],
           [
-            8.1821331,
-            47.5997615
+            8.1830174,
+            47.6015699
           ],
           [
-            8.1821802,
-            47.5995825
+            8.1829825,
+            47.6015033
           ],
           [
-            8.1821548,
-            47.5995788
+            8.1829168,
+            47.6014483
           ],
           [
-            8.1821702,
-            47.5995322
+            8.182832,
+            47.6014123
           ],
           [
-            8.1819453,
-            47.5995036
+            8.1827346,
+            47.6013964
           ],
           [
-            8.1819547,
-            47.5994696
+            8.1826348,
+            47.6014022
           ],
           [
-            8.1816261,
-            47.5994285
+            8.1825429,
+            47.6014291
           ],
           [
-            8.1816183,
-            47.5994662
+            8.1824684,
+            47.6014743
           ],
           [
-            8.1815668,
-            47.5994598
+            8.1824192,
+            47.6015331
+          ],
+          [
+            8.1823561,
+            47.6017582
+          ],
+          [
+            8.1825673,
+            47.6017859
           ]
         ]
       ],
@@ -104,27 +113,26 @@
     "website": null
   },
   "map_id": "map:leibstadt-nuclear-power-plant",
-  "method": "OpenStreetMap way 567961020 (building=yes, unnamed), the largest building closest to node/984029288 'Leibstadt Kernkraftwerk'; nodes kept verbatim from an Overpass extract.",
-  "name": "Leibstadt Nuclear Power Plant reactor building (identified by proximity, not name)",
+  "method": "OpenStreetMap way 608881797 (building:part, roof:shape=dome, 18 vertices) kept verbatim. Identified as the reactor building because it is the only dome-roofed part of the plant and the plant's OSM power=generator node (node/257712288, BWR-1, 1220 MW) is 6 m from its centroid; no official outline or dimension of the reactor building was found, so there is no checks[] row and the shape stays 'approximate'.",
+  "name": "Leibstadt Nuclear Power Plant reactor building (dome-roofed OSM building part)",
   "notes": [
-    "Not independently confirmed as the reactor containment building by an OSM name/tag; see geometry note.",
-    "Integrator (2026-09-21): entity_id set to the plant campus site so the map accounts for the detector-hosting site; the reactor building is the structure the CONUS detectors sat in."
+    "entity_id is the plant campus site so the map accounts for the detector-hosting site; the reactor building is the structure the CONUS+ detector sits in."
   ],
   "osm": {
     "elements": [
-      "way/567961020",
-      "node/984029288"
+      "way/608881797"
     ],
-    "timestamp": "2026-06-01T08:52:28Z"
+    "timestamp": "2026-10-25T11:13:24Z"
   },
   "representation": "georeferenced",
   "schema": "hep-atlas/0.2",
   "site_id": null,
   "sources": [
+    "src:geo-leibstadt-osm-extract-2026-10",
     "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
   ],
   "summary": {
-    "plain": "A large building at the Leibstadt Nuclear Power Plant, close to the plant's own named location point, used as an approximate reactor-building position for the CONUS+ experiment."
+    "plain": "The dome-roofed reactor building of the Leibstadt Nuclear Power Plant, inside which the CONUS+ detector sits about 21 m from the reactor core."
   },
   "type": "geometry",
   "valid": null

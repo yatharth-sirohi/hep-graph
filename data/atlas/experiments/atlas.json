@@ -126,7 +126,7 @@
       "end": {
         "approx": true,
         "date": "2013",
-        "note": "Run 1 ended in early 2013 with Long Shutdown 1; no CERN or ATLAS page fetched in this session gives the exact date, so year precision only."
+        "note": "Run 1 ended in early 2013 with Long Shutdown 1; no CERN or ATLAS page consulted gives the exact date, so year precision only."
       },
       "kind": "run",
       "label": "Run 1",
@@ -211,37 +211,45 @@
       "confidence": "approximate",
       "end": {
         "approx": true,
-        "date": "2029",
+        "date": "2030",
+        "display": "mid-2030",
+        "note": "CERN schedule: the LHC resumes operation in mid-2030; the rest of the CERN complex restarts in stages from mid-2028.",
         "planned": true
       },
       "label": "Long Shutdown 3 / Phase-II upgrade",
-      "note": "Replacement of the inner tracker by the ITk, installation of the HGTD, new trigger/DAQ and new calorimeter and muon front-end electronics.",
-      "quote": "They will all be installed and commissioned during LS3 in time for the start of Run 4, currently planned for 2029.",
+      "locator": "home.cern/science/long-shutdown-3, item of 5 August 2026 \"The LHC is being warmed up from near absolute zero to room temperature\"",
+      "note": "Replacement of the inner tracker by the ITk, installation of the HGTD, new trigger/DAQ and new calorimeter and muon front-end electronics. Start and end are the LHC-wide Long Shutdown 3 dates. CERN's 5 August 2026 item says 'The cryogenics team has been running the warm-up sequence since LS3 began on 29 June 2026' and that the stored helium is kept 'ready to be used again once the accelerator resumes operation in mid-2030'; CERN's 29 June 2026 article says 'The HiLumi LHC, scheduled to begin operation in 2030'. The end is a schedule value, not a reported event. ATLAS's own page says the new detector technologies 'are being installed at CERN during the long shutdown period prior to 2030'. An earlier end of 2029 came from ATLAS's January 2023 feature article ('Run 4, currently planned for 2029'); that article predates CERN's October 2024 schedule revision, which moved the HL-LHC start-up to June 2030, so the 2029 date is superseded.",
+      "quote": "In the LHC caverns, the ATLAS and CMS experiments will undergo extensive upgrades, effectively becoming renewed detectors.",
       "sources": [
         "src:atlas-high-luminosity-feature",
         "src:cern-long-shutdown-3-page",
-        "src:cern-ls3-farewell-2026"
+        "src:cern-ls3-farewell-2026",
+        "src:rc-atlas-hilumi-upgrades-page"
       ],
-      "start": "2026-06",
+      "start": "2026-06-29",
       "status": "upgrade",
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
     },
     {
       "confidence": "approximate",
       "end": null,
       "label": "Run 4 (HL-LHC)",
-      "note": "Schedule value. CONFLICT: CERN's accelerator pages date the start of HL-LHC operation to 2030 (see accelerator:hl-lhc).",
-      "quote": "The high-luminosity phase of the LHC (HL-LHC) will provide an order of magnitude more data starting from 2029.",
+      "note": "Schedule value. CERN's 8 October 2024 article says 'The start-up of the HL-LHC (Run 4) is now planned for June 2030', and CERN's Long Shutdown 3 page (2026) gives mid-2030 for the accelerator's resumption. ATLAS's own January 2023 feature article still says 'starting from 2029' and 'currently planned for 2029'; it predates the revised schedule and is not used here. ATLAS's current HL-LHC page gives the HL-LHC era as 2030-2041.",
+      "quote": "The start-up of the HL-LHC (Run 4) is now planned for June 2030.",
       "sources": [
-        "src:atlas-high-luminosity-feature"
+        "src:cern-long-shutdown-3-page",
+        "src:rc-atlas-hilumi-upgrades-page",
+        "src:rc-cern-new-schedule-2024"
       ],
       "start": {
         "approx": true,
-        "date": "2029",
+        "date": "2030",
+        "display": "mid-2030",
+        "note": "CERN: 'once the accelerator resumes operation in mid-2030' (Long Shutdown 3 page, item of 5 August 2026).",
         "planned": true
       },
       "status": "planned",
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [
@@ -305,16 +313,16 @@
         "confidence": "verified",
         "dimension": "magnetic_field",
         "display": "2 T",
-        "locator": "2008 JINST 3 S08003, chapter 1",
+        "locator": "atlas.cern, Discover > Detector > Magnet System, Central Solenoid Magnet",
         "note": "",
-        "quote": "The inner detector is immersed in a 2 T solenoidal field.",
+        "quote": "It provides a 2 Tesla magnetic field in just 4.5 cm thickness.",
         "sources": [
           "src:atlas-detector-jinst-2008",
           "src:atlas-magnet-system-page"
         ],
         "unit": "T",
         "value": 2,
-        "verified_at": "2026-09-16"
+        "verified_at": "2026-10-25"
       }
     },
     {
@@ -352,14 +360,14 @@
   "name": "ATLAS",
   "notes": [
     "The 2008 JINST detector paper gives the detector length as 44 m; atlas.cern and home.cern give 46 m. Both are recorded (see detector:atlas).",
-    "ATLAS was formed from the merger of the ASCOT and EAGLE proposals; no page fetched in this session states that on the record, so it is not carried as a sourced value."
+    "ATLAS was formed from the merger of the ASCOT and EAGLE proposals; no page consulted states that on the record, so it is not carried as a sourced value."
   ],
   "physics_goals": [
     {
       "confidence": "verified",
       "locator": "atlas.cern, Physics, 'Higgs Boson and Electroweak Physics'",
       "note": "",
-      "quote": "Study of 'the Brout-Englert-Higgs field'",
+      "quote": "allow ATLAS to study fundamental questions such as the Brout-Englert-Higgs field or Dark Matter. ... What is the Higgs boson and why does it matter?",
       "sources": [
         "src:atlas-physics-page"
       ],
@@ -447,23 +455,25 @@
   "unique_capabilities": [
     {
       "confidence": "verified",
-      "note": "",
-      "quote": "The muon spectrometer defines the overall dimensions of the ATLAS detector.",
+      "note": "Muon deflection in the superconducting air-core toroids is stated in arXiv:2007.12539, section 2 (Run-2 detector description): \"to measure the deflection of muons in a magnetic field generated by the superconducting air-core toroids\". Value reworded from \"The only LHC detector using ... which sets its overall size\" because no source consulted states exclusivity or that the muon system sets the overall size; the official page calls the central toroid unique in particle physics.",
+      "quote": "At 25.3 m in length, the central toroid is the largest toroidal magnet ever constructed. It is unique in particle physics and an iconic element of ATLAS.",
       "sources": [
-        "src:atlas-detector-jinst-2008"
+        "src:atlas-magnet-system-page",
+        "src:rf02-atlas-trigger-run2-arxiv"
       ],
-      "value": "The only LHC detector using a large air-core toroid magnet system for muon measurement, which sets its overall size",
-      "verified_at": "2026-09-16"
+      "value": "A large air-core superconducting toroid magnet system for muon measurement; its central toroid is the largest toroidal magnet ever constructed and is described by the collaboration as unique in particle physics",
+      "verified_at": "2026-10-25"
     },
     {
       "confidence": "verified",
-      "note": "",
-      "quote": "The LAr forward calorimeters provide both electromagnetic and hadronic energy measurements, and extend the pseudorapidity coverage to |eta| = 4.9.",
+      "note": "Hermetic wording is from the official physics page: \"The hermetic construction of ATLAS, however, makes it possible to search for this “dark matter”.\" Value reworded from \"enabling missing-transverse-energy searches\" (no source consulted states that phrase) to what the sources state.",
+      "quote": "The calorimeter system covers the pseudorapidity range |η| < 4.9. ... The solid angle coverage is completed with forward copper/LAr and tungsten/LAr calorimeter modules optimised for electromagnetic and hadronic measurements respectively.",
       "sources": [
-        "src:atlas-detector-jinst-2008"
+        "src:rf02-atlas-trigger-run2-arxiv",
+        "src:atlas-physics-page"
       ],
-      "value": "Hermetic 4-pi coverage out to |eta| = 4.9 in calorimetry, enabling missing-transverse-energy searches",
-      "verified_at": "2026-09-16"
+      "value": "Hermetic calorimetry covering |η| < 4.9 (nearly the entire solid angle), which the collaboration says makes it possible to search for dark matter",
+      "verified_at": "2026-10-25"
     }
   ]
 }

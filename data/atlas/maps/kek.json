@@ -33,7 +33,7 @@
       "id": "underground",
       "kind": "underground",
       "name": "KEKB / SuperKEKB ring tunnel",
-      "note": "The ring is commonly described as roughly 11 m underground, but no official page fetched this session states a metre figure, so depth_m is left null per A17 rather than guessed."
+      "note": "The ring is commonly described as roughly 11 m underground, but no official page consulted states a metre figure, so the depth is left blank rather than guessed."
     }
   ],
   "linked_map_ids": [],
@@ -42,8 +42,7 @@
   },
   "name": "KEK — Tsukuba campus",
   "notes": [
-    "Linked maps: no map:kamioka-observatory exists yet in this atlas; linked_map_ids is left empty here and the build's automatic derivation (from beamline:kek-neutrino's far_detector_site_ids) will populate it once the Kamioka campus has its own map.",
-    "accelerator:kek-ps is drawn (geometry:kek-north-counter-hall) rather than listed in `unlocated[]`, but with an explicitly flagged, circumstantial identification -- see that record's own notes and the worklog's 'Conflicts and honesty calls' section. No source found this session gives the 12 GeV PS ring's own tunnel path; two targeted Overpass searches for tunnel/particle_accelerator/landuse ways near the historic PS site found none."
+    "accelerator:kek-ps is drawn (geometry:kek-north-counter-hall) rather than listed as not drawn, but the identification is circumstantial and marked as such; see that record's own notes. No source found gives the 12 GeV PS ring's own tunnel path; two targeted Overpass searches for tunnel/particle_accelerator/landuse ways near the historic PS site found none."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
@@ -52,7 +51,8 @@
   ],
   "sources": [
     "src:geo-kek-osm-kekb-ring",
-    "src:superkekb-collider-nima-2018"
+    "src:superkekb-collider-nima-2018",
+    "src:geo-kek-ps-pac1977"
   ],
   "summary": {
     "plain": "KEK's Tsukuba campus, Japan's oldest national particle-physics laboratory: the three-kilometre KEKB/SuperKEKB collider ring that has driven the Belle and Belle II experiments since 1998, and the site of the historic 12 GeV proton synchrotron that drove the world's first long-baseline accelerator neutrino beam, K2K.",
@@ -61,12 +61,13 @@
   "type": "map",
   "unlocated": [
     {
-      "backlog": "Find a KEK publication or site plan giving the 12 GeV PS ring position (339 m circumference) or its counter-hall layout, then digitise the ring against surveyed buildings.",
+      "backlog": "An official KEK site plan with a scale bar that labels the 12 GeV PS main ring and booster, georeferenced against the four KEKB halls drawn here (Fuji, Nikko, Tsukuba, Oho) and the linac building as control points, or a PS paper that gives a survey coordinate; with the sourced 54 m mean radius the ring would be derived (a four-superperiod machine, not a circle) once a centre and orientation are sourced.",
       "entity_id": "accelerator:kek-ps",
-      "reason": "No OpenStreetMap trace of the 12 GeV proton synchrotron ring was found in two targeted Overpass queries; the \"North Counter Hall\" building near the ring is drawn as context only, because its link to the PS rests on a name match and the K2K sources' wording (\"bent from the North hall\"), not on a published position.",
+      "reason": "No OpenStreetMap trace of the 12 GeV proton synchrotron ring was found in two targeted Overpass queries; the \"North Counter Hall\" building near the ring is drawn as context only, because its link to the PS rests on a name match and the K2K sources' wording (\"bent from the North hall\"), not on a published position. An OpenStreetMap extract of the whole Tsukuba campus taken on 2026-10-25 (OSM API, 4659 elements) holds no ring-shaped building or tunnel (a circle fit to every polygon with R between 20 and 120 m finds only a wood, a dormitory-sized round building of R 22 m and a 48 m building with R 47.6 m, none named as the PS) and no element named for the PS, its booster or its main-ring hall; the only published ring facts found are the 1977 design table (\"Average Radius 54 m\", \"Number of Superperiod 4\", PAC 1977), which size the ring but do not place it.",
       "sources": [
         "src:geo-kek-osm-north-counter-hall",
-        "src:k2k-tutorial-page"
+        "src:k2k-tutorial-page",
+        "src:geo-kek-ps-pac1977"
       ],
       "verified_at": "2026-09-18"
     }

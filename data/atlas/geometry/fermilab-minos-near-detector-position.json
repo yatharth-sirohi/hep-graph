@@ -1,0 +1,82 @@
+{
+  "accuracy_m": 5,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "1040 m",
+        "unit": "m",
+        "value": 1040
+      },
+      "kind": "distance",
+      "locator": "MINOS NIM paper (arXiv:0805.3170) section 6.1",
+      "quote": "The near detector is 1040 m from the primary target",
+      "sources": [
+        "src:minos-detector-paper-2008"
+      ],
+      "to_geometry_id": "geometry:fermilab-numi-target",
+      "tolerance": 0.01
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "depth_m": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "105 m",
+    "note": "",
+    "quote": "The near detector hall is located at the Fermi National Accelerator Laboratory, 105 m below the surface.",
+    "sources": [
+      "src:minos-detector-paper-2008"
+    ],
+    "unit": "m",
+    "value": 105,
+    "verified_at": "2026-10-25"
+  },
+  "entity_id": "detector:minos-near-detector",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "verified",
+    "locator": "NuMI Facility TDR (FERMILAB-DESIGN-1998-01) Appendix A, beam sheet 'Site coordinates for beamline: horn2.ces' (DUSAF x, y in ft; station along the beam in ft)",
+    "note": "Horizontal distance to the target 1038.9 m; the published 1040 m is the along-beam figure.",
+    "sources": [
+      "src:fermilab-geo-numi-tdr-1998",
+      "src:fermilab-geo-oshinowo-coordinate-systems-1997"
+    ],
+    "value": {
+      "coordinates": [
+        -88.2705958,
+        41.8405168
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:fermilab-minos-near-detector-position",
+  "level_id": "near-detector-caverns",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fermilab",
+  "method": "Published coordinates converted to WGS 84: beam-sheet row MIN_NO (station 4558.63744 ft), DUSAF x = 97314.757 ft, y = 99369.943 ft; this is 85.6 ft downstream of the upstream end of the MINOS enclosure (row MENCU), where the TDR (sec. 5.2.9) puts the upstream face of the assembled detector (\"85.5 ft. from the upstream end of the enclosure\"). Conversion of DUSAF to WGS 84: DUSAF x, y (ft) are the FSCS coordinates of Beams-doc-1148 (origin A0 = 41°50′14.312704″ N, 88°15′41.143123″ W, false x = y = 100000 ft, +y axis at geodetic azimuth 38°16′48.01429″, scale 1.000029251 at A0), applied as a rotated tangent plane on the GRS80 ellipsoid (difference to the double stereographic projection below 0.2 m within 1.5 km of A0). NAD83 and WGS 84 are taken as equal.",
+  "name": "MINOS near detector position (hall at 105 m)",
+  "notes": [],
+  "osm": null,
+  "representation": "surveyed",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:fermilab-geo-numi-tdr-1998",
+    "src:fermilab-geo-oshinowo-coordinate-systems-1997"
+  ],
+  "summary": {
+    "plain": "The surveyed position of the upstream face of the MINOS near detector, in its hall 105 m below the surface."
+  },
+  "type": "geometry",
+  "valid": null
+}

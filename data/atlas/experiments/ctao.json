@@ -35,26 +35,26 @@
       "end": null,
       "facility_id": "facility:roque-de-los-muchachos-observatory",
       "note": "CTAO-North.",
-      "quote": "The two array sites are in La Palma, Spain, and Paranal, Chile.",
+      "quote": "The CTAO’s activities related to infrastructure development and preparations for construction take place at the Observatory’s two array sites in La Palma, Spain, and Paranal, Chile.",
       "role": "host",
       "sources": [
         "src:cosmic-gamma-ctao-official-about-us-page"
       ],
       "start": null,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     {
       "confidence": "verified",
       "end": null,
       "facility_id": "facility:ctao-south-paranal",
       "note": "CTAO-South.",
-      "quote": "The two array sites are in La Palma, Spain, and Paranal, Chile.",
+      "quote": "The CTAO’s activities related to infrastructure development and preparations for construction take place at the Observatory’s two array sites in La Palma, Spain, and Paranal, Chile.",
       "role": "host",
       "sources": [
         "src:cosmic-gamma-ctao-official-about-us-page"
       ],
       "start": null,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "id": "experiment:ctao",
@@ -63,7 +63,7 @@
       "confidence": "uncertain",
       "end": null,
       "label": "construction",
-      "note": "2015 is a lower bound only (the year INSPIRE's CTA experiment record was created); no fetched source this session gives a construction-start date, a completion date, or a per-site percentage. CTAO's own wording implies construction and (partial) operation are concurrent, similar to how LST-1 and some MSTs are already reported elsewhere to be taking data on La Palma while the observatory as a whole is not complete. Status is kept at 'construction' pending a source that states otherwise.",
+      "note": "2015 is a lower bound only (the year INSPIRE's CTA experiment record was created). No source consulted (checked 2026-10-25) gives a construction-start date, a completion date or a per-site percentage. CTAO's own wording implies that construction and partial operation are concurrent: its press release of 15 October 2026 says the LST-1 prototype has produced results since 2020 even during its commissioning phase, while describing the completed LST sub-array as 'a crucial step toward the full scientific operation' of the observatory. Status is kept at 'construction' pending a source that states otherwise.",
       "quote": "The construction and operation of the CTAO is a global initiative",
       "sources": [
         "src:cosmic-gamma-ctao-official-about-us-page",
@@ -72,6 +72,20 @@
       "start": "2015",
       "status": "construction",
       "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2026-10-15",
+      "kind": "phase",
+      "label": "LST sub-array (LST-1 to LST-4, CTAO-North) completed and inaugurated",
+      "note": "CTAO press release, La Palma, 15 October 2026: 250 scientists \"celebrated the inauguration of the Large-Sized Telescope (LST) sub-array at the CTAO-North site\"; \"The completion of the four telescopes marks a significant milestone ... and represents a crucial step toward the full scientific operation\" of CTAO; \"With the three new LSTs (LST-2, LST-3, and LST-4) joining the existing LST-1, the four telescopes will become a true array\"; \"Over the coming years, the LSTs will undergo commissioning and integration into CTAO operations.\" LST-1, the prototype, has produced 'groundbreaking results since 2020', even during its commissioning phase. Recorded as a milestone annotation (kind phase) and not as a commissioning interval: the Atlas holds one aggregate record for the whole observatory (both sites, all telescope classes), not one per telescope, the article gives no commissioning dates for LST-2 to LST-4 and says commissioning is still ahead, and the rest of CTAO (MSTs, SSTs, CTAO-South) remains under construction. The observatory-level status stays `construction`.",
+      "quote": "celebrated the inauguration of the Large-Sized Telescope (LST) sub-array at the CTAO-North site",
+      "sources": [
+        "src:geo-arrays2-ctao-lst-inauguration-2026"
+      ],
+      "start": "2026-10-15",
+      "status": "construction",
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [
@@ -142,9 +156,9 @@
   },
   "name": "CTAO",
   "notes": [
-    "site_ids, detector_ids, document_ids, result_ids are deliberately not written (v0.2 A1 derived fields).",
-    "ctao.org's dedicated 'sites', 'arrays' and 'news' subpages returned 404 or empty JavaScript-shell content on every attempt this session; construction-phase details (e.g. LST-1's own commissioning date, per-site telescope counts already installed) were not sourced and are listed in missing_fields.",
-    "No results or technical documents were written in this pass (non-flagship experiment; mandatory bar only per the wave-3 brief)."
+    "Derived lists (site_ids, detector_ids, document_ids, result_ids) are not stored in this record; they are derived from the other records.",
+    "On 2026-10-25 ctao.org/sites/ and ctao.org/arrays/ returned HTTP 404 and ctao.org/news/ returned only a page title with no article list. The pages that could be read give no commissioning date for LST-1 and no count of installed Medium- or Small-Sized Telescopes at either site (the press release of 15 October 2026 reports only that the four-telescope LST sub-array at CTAO-North is complete), so these are not recorded.",
+    "No results or technical documents are recorded for CTAO yet."
   ],
   "physics_goals": [],
   "schema": "hep-atlas/0.2",
@@ -158,7 +172,7 @@
   "status": "construction",
   "summary": {
     "plain": "A next-generation gamma-ray observatory being built at two sites, one in Spain and one in Chile, using dozens of telescopes of three different sizes to see the whole sky and the widest range of gamma-ray energies of any single project.",
-    "technical": "Cherenkov Telescope Array Observatory: two-site (La Palma, Spain / Paranal, Chile) imaging-atmospheric-Cherenkov array using Large-, Medium- and Small-Sized Telescope classes (up to 4 LST + 23 MST north, up to 23 MST + 37 SST south, per the observatory's own technology page) to cover 20 GeV-300 TeV. Headquarters in Bologna, Italy; Science Data Management Centre in Zeuthen, Germany. Under construction as of the sources fetched this session."
+    "technical": "Cherenkov Telescope Array Observatory: two-site (La Palma, Spain / Paranal, Chile) imaging-atmospheric-Cherenkov array using Large-, Medium- and Small-Sized Telescope classes (up to 4 LST + 23 MST north, up to 23 MST + 37 SST south, per the observatory's own technology page) to cover 20 GeV-300 TeV. Headquarters in Bologna, Italy; Science Data Management Centre in Zeuthen, Germany. Under construction as of 2026-10-25 (CTAO press release of 2026-10-15 on the completed LST sub-array)."
   },
   "superseded_by": null,
   "topic_ids": [

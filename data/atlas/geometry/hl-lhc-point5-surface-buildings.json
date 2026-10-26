@@ -1,0 +1,217 @@
+{
+  "accuracy_m": 8,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "area",
+        "display": "3300 m²",
+        "unit": "m^2",
+        "value": 3300
+      },
+      "kind": "area",
+      "locator": "CERN Accelerating News issue 20, \"Civil engineering for the High-Luminosity LHC\"",
+      "note": "Per Point the article gives about 3300 m2 of buildings (the five buildings SD, SE, SU, SF, SHM); the official MapCERN outlines of the same five buildings sum to 3321 m2 at Point 1 and 3276 m2 at Point 5.",
+      "quote": "Per Point, the total surface corresponds to about 20’000 m 2 , including 3’300 m 2 of buildings.",
+      "sources": [
+        "src:geo-cern-hllhc-civil-engineering-2017"
+      ],
+      "tolerance": 0.03
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "accelerator:hl-lhc",
+  "feature_type": "building",
+  "geometry": {
+    "confidence": "verified",
+    "locator": "OSM ways as of 2026-10-25T21:07:06Z; MapCERN Facilities 3555, 3560, 3581, 3569 and 3577",
+    "note": "Verified by two official sources: the outlines sit within a few metres of the official MapCERN footprints, and the total area is within 1.5 % of the 3300 m2 CERN states per Point.",
+    "sources": [
+      "src:geo-cern-osm-hllhc-buildings",
+      "src:geo-cern-mapcern-facilities",
+      "src:geo-cern-hllhc-civil-engineering-2017",
+      "src:geo-cern-hllhc-point5-visit"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            [
+              6.0783114,
+              46.3090957
+            ],
+            [
+              6.0783675,
+              46.3092949
+            ],
+            [
+              6.0788045,
+              46.3092361
+            ],
+            [
+              6.0788155,
+              46.3092347
+            ],
+            [
+              6.0787594,
+              46.3090355
+            ],
+            [
+              6.0783114,
+              46.3090957
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              6.0784429,
+              46.309558
+            ],
+            [
+              6.0788801,
+              46.3094978
+            ],
+            [
+              6.0788045,
+              46.3092361
+            ],
+            [
+              6.0783675,
+              46.3092949
+            ],
+            [
+              6.0784429,
+              46.309558
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              6.0779467,
+              46.3088448
+            ],
+            [
+              6.0780484,
+              46.3087554
+            ],
+            [
+              6.07811,
+              46.3087873
+            ],
+            [
+              6.078167,
+              46.3087341
+            ],
+            [
+              6.0783735,
+              46.3088426
+            ],
+            [
+              6.0783088,
+              46.3089043
+            ],
+            [
+              6.0783704,
+              46.3089341
+            ],
+            [
+              6.0782672,
+              46.3090171
+            ],
+            [
+              6.0779467,
+              46.3088448
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              6.0778758,
+              46.3087587
+            ],
+            [
+              6.0780129,
+              46.3086363
+            ],
+            [
+              6.077486,
+              46.3083501
+            ],
+            [
+              6.0773489,
+              46.3084735
+            ],
+            [
+              6.0775415,
+              46.3085757
+            ],
+            [
+              6.0774875,
+              46.3086214
+            ],
+            [
+              6.0776632,
+              46.3087162
+            ],
+            [
+              6.0777125,
+              46.3086725
+            ],
+            [
+              6.0778758,
+              46.3087587
+            ]
+          ]
+        ]
+      ],
+      "type": "MultiPolygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:hl-lhc-point5-surface-buildings",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:cern",
+  "method": "OpenStreetMap ways 1525136503, 1525136504, 1371322442, 1371322439 used verbatim as one MultiPolygon. The five buildings of the HL-LHC Point 5 complex are MapCERN Facilities 3555, 3560, 3581, 3569 and 3577 (SD57, SE57, SU57, SF57 and SHM57); the CERN article gives the layout (a cluster of SD, SU and SE buildings at the head of the shaft, stand-alone SF and SHM buildings, about 3300 m2 of buildings per Point) and the project news names the PM57 shaft and these buildings at Point 5. OSM maps SE57 and SU57 as one polygon (1018 m2; the official outlines are 375 and 679 m2).",
+  "name": "HL-LHC Point 5 surface buildings (SD57, SE57, SU57, SF57 and SHM57)",
+  "notes": [
+    "The new PM57 shaft (9.7 m diameter, 80 m high), the US/UW service cavern, the 300 m UR gallery and the UA/UL galleries are underground and are not drawn: no source gives their plan position."
+  ],
+  "osm": {
+    "elements": [
+      "way/1525136503",
+      "way/1525136504",
+      "way/1371322442",
+      "way/1371322439"
+    ],
+    "timestamp": "2026-10-25T21:07:06Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-cern-osm-hllhc-buildings",
+    "src:geo-cern-mapcern-facilities",
+    "src:geo-cern-hllhc-civil-engineering-2017",
+    "src:geo-cern-hllhc-point5-visit"
+  ],
+  "summary": {
+    "plain": "The five new surface buildings of the High-Luminosity LHC upgrade at Point 5, standing over the new access shaft that feeds the new underground galleries."
+  },
+  "type": "geometry",
+  "valid": null
+}

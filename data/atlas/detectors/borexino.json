@@ -1,98 +1,120 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "detector:borexino",
-  "type": "detector",
-  "name": "Borexino detector",
   "aliases": [],
-  "experiment_ids": ["experiment:borexino"],
-  "parent_detector_id": null,
-  "technology": {
-    "value": "A nylon-sphere vessel of pseudocumene+PPO liquid scintillator viewed by photomultiplier tubes, surrounded by buffer liquid and a water-Cherenkov muon veto",
-    "sources": ["src:borexino-wikipedia"],
-    "verified_at": "2026-09-17",
-    "confidence": "approximate",
-    "quote": "The scintillator is pseudocumene and PPO which is held in place by a thin nylon sphere.",
-    "note": "Sourced from Wikipedia (rank 12) only this session."
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
   },
-  "technology_class": "liquid_scintillator",
-  "technology_classes": ["liquid_scintillator"],
-  "placements": [
-    {
-      "site_id": "site:lngs-hall-c",
-      "role": "main",
-      "start": "2007-05",
-      "end": "2021-10",
-      "sources": ["src:borexino-wikipedia"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "Started May 2007; the entire Borexino experiment was terminated in October 2021.",
-      "note": "Placed at site:lngs-hall-c (owned by the facilities workstream; not created here)."
-    }
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:borexino"
   ],
+  "id": "detector:borexino",
   "intervals": [
     {
-      "label": "data taking",
-      "status": "active",
-      "start": "2007-05",
-      "end": "2021-10",
-      "sources": ["src:borexino-wikipedia"],
-      "verified_at": "2026-09-17",
       "confidence": "approximate",
-      "quote": "Started May 2007; the entire Borexino experiment was terminated in October 2021.",
-      "note": "Dates sourced from Wikipedia (rank 12) only."
+      "end": "2021-10",
+      "label": "data taking",
+      "note": "Dates sourced from Wikipedia (rank 12) only.",
+      "quote": "by May 2007 the detector chamber had been filled and data taking began ... The entire Borexino experiment was terminated in October 2021.",
+      "sources": [
+        "src:borexino-wikipedia"
+      ],
+      "start": "2007-05",
+      "status": "active",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "shut down",
-      "status": "completed",
-      "start": "2021-10",
-      "end": null,
-      "sources": ["src:borexino-wikipedia"],
-      "verified_at": "2026-09-17",
       "confidence": "approximate",
+      "end": null,
+      "label": "shut down",
+      "note": "Terminal event date sourced from Wikipedia (rank 12) only.",
       "quote": "the entire Borexino experiment was terminated in October 2021",
-      "note": "Terminal event date sourced from Wikipedia (rank 12) only."
+      "sources": [
+        "src:borexino-wikipedia"
+      ],
+      "start": "2021-10",
+      "status": "completed",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "completed",
-  "specs": {
-    "target_mass": {
-      "value": 278,
-      "unit": "t",
-      "dimension": "mass",
-      "approx": false,
-      "display": "278 t",
-      "sources": ["src:borexino-wikipedia"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "278 tonnes of active mass (315 m³ volume)",
-      "note": "Sourced from Wikipedia (rank 12) only this session."
-    },
-    "fiducial_mass": {
-      "value": 100,
-      "unit": "t",
-      "dimension": "mass",
-      "approx": true,
-      "display": "~100 t fiducial",
-      "sources": ["src:borexino-cno-evidence-2020"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "few counts per day per 100 tonnes of target",
-      "note": ""
-    }
-  },
-  "subsystems": [],
-  "document_ids": [],
   "links": {
     "website": null
   },
+  "name": "Borexino detector",
   "notes": [],
-  "sources": ["src:borexino-wikipedia", "src:borexino-cno-evidence-2020"],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2021-10",
+      "note": "Placed at site:lngs-hall-c.",
+      "quote": "by May 2007 the detector chamber had been filled and data taking began ... The entire Borexino experiment was terminated in October 2021.",
+      "role": "main",
+      "site_id": "site:lngs-hall-c",
+      "sources": [
+        "src:borexino-wikipedia"
+      ],
+      "start": "2007-05",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:borexino-wikipedia",
+    "src:borexino-cno-evidence-2020",
+    "src:borexino-pp-first-detection-2014"
+  ],
+  "specs": {
+    "fiducial_mass": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "~100 t fiducial",
+      "note": "",
+      "quote": "few counts per day per 100 tonnes of target",
+      "sources": [
+        "src:borexino-cno-evidence-2020"
+      ],
+      "unit": "t",
+      "value": 100,
+      "verified_at": "2026-09-17"
+    },
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "278 t",
+      "note": "278 t is the active liquid-scintillator mass stated in the 2014 Nature pp-neutrino paper (Methods); Wikipedia's infobox gives the same figure with a 315 m³ volume.",
+      "quote": "The active neutrino target, 278 t of ultrapure liquid scintillator",
+      "sources": [
+        "src:borexino-pp-first-detection-2014",
+        "src:borexino-wikipedia"
+      ],
+      "unit": "t",
+      "value": 278,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
   "summary": {
     "plain": "A nylon sphere full of ultra-pure liquid, watched by photomultiplier tubes, that catches the faint flashes of light neutrinos leave behind as they pass through.",
     "technical": "Liquid-scintillator (pseudocumene+PPO) detector, 278 t active mass, ~100 t fiducial mass, in a nylon vessel with a water-Cherenkov muon veto; operated at LNGS Hall C from May 2007 to October 2021."
   },
-  "coverage": {
-    "tier": "D",
-    "researched": "partial"
-  }
+  "technology": {
+    "confidence": "approximate",
+    "note": "Sourced from the 2014 Nature pp-neutrino paper (Methods; journal, rank 10) and Wikipedia (rank 12). The same Methods paragraph describes the 2,212 PMTs on a stainless steel sphere and the 889 t non-scintillating buffer fluid.",
+    "quote": "pseudocumene (1,2,4-trimethylbenzene) solvent with 1.5 g l−1 2,5-diphenyloxazole (PPO) wavelength-shifting fluor), is contained inside a thin transparent nylon spherical vessel of 8.5 m diameter ... The sphere is immersed in a 2,100 t water Cherenkov detector for residual cosmic muons",
+    "sources": [
+      "src:borexino-pp-first-detection-2014",
+      "src:borexino-wikipedia"
+    ],
+    "value": "A nylon-sphere vessel of pseudocumene+PPO liquid scintillator viewed by photomultiplier tubes, surrounded by buffer liquid and a water-Cherenkov muon veto",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": [
+    "liquid_scintillator"
+  ],
+  "type": "detector"
 }

@@ -38,6 +38,16 @@ from typing import Any, Iterable
 
 from . import geo, load, schema
 
+
+def _bundle_text(value: Any) -> str:
+    """A generated bundle is read by browsers, not people: no indentation.
+
+    Canonical data records keep `load.dump_json`'s two-space indent; the
+    bundles drop it, which takes atlas.json from ~1.5 MB to ~0.9 MB.
+    """
+    return load.dump_json(value, indent=None)
+
+
 # ---------------------------------------------------------------------------
 # What goes where
 # ---------------------------------------------------------------------------
@@ -567,13 +577,13 @@ def build_atlas_bundle(ctx: _Context, coverage_flags: dict[str, dict]) -> tuple[
         for entity_id in sorted(ctx.atlas.by_type(entity_type)):
             table[entity_id] = _atlas_record(ctx, entity_type, entity_id, coverage_flags)
         bundle[plural] = table
-        sizes[plural] = len(load.dump_json(table).encode('utf-8'))
+        sizes[plural] = len(_bundle_text(table).encode('utf-8'))
     # A25: the maps table is built from its own shape (contract §3), not by
     # stripping a record, so it is not one of ATLAS_TYPES.  It is emitted even
     # when it is empty, so the browser can rely on the key existing.
     maps = build_maps_table(ctx)
     bundle['maps'] = maps
-    sizes['maps'] = len(load.dump_json(maps).encode('utf-8'))
+    sizes['maps'] = len(_bundle_text(maps).encode('utf-8'))
     return bundle, sizes
 
 
@@ -1277,10 +1287,13 @@ def _feature_segments(ctx: _Context, record: dict) -> tuple[list | None, Any]:
         start = schema.month_index(schema.lo(valid.get('start')))
         end = schema.month_index(schema.hi(valid.get('end')))
         build_month = schema.month_index(ctx.build_day)
-        if start is None:
-            start = build_month
         if end is None:
             end = build_month
+        if start is None:
+            # An open start means "as long as the entity goes back", not "from
+            # today": taking the build month made every window with only an end
+            # (the Tevatron ring, the CDF and D0 halls) empty, hence timeless.
+            start = min(entity_segments[0][0], end) if entity_segments else end
         if end < start:
             return None, None
         months: dict[int, tuple[str, str]] = {m: (schema.UNRECORDED, 'certain') for m in range(start, end + 1)}
@@ -1573,7 +1586,7 @@ def build_geometry_bundles(ctx: _Context) -> tuple[dict[str, dict], list[str]]:
             'entity_index': {key: entity_index[key] for key in sorted(entity_index)},
         }
         path = geometry_bundle_path(map_id)
-        size = len(load.dump_json(bundle).encode('utf-8'))
+        size = len(_bundle_text(bundle).encode('utf-8'))
         if size > schema.GEOMETRY_BUNDLE_MAX_BYTES:
             errors.append(
                 f'{path} is {size} bytes, over the {schema.GEOMETRY_BUNDLE_MAX_BYTES} byte limit; '
@@ -1723,20 +1736,20 @@ def build(data_dir: Path | str | None = None, out_dir: Path | str | None = None,
 
     # `atlas.json` repeats the data version, so the version must be computed
     # from the bundle text with the field blanked, then written back.
-    texts = {path: load.dump_json(value) for path, value in files.items()}
+    texts = {path: _bundle_text(value) for path, value in files.items()}
     version = content_version(texts)
     atlas_bundle['version'] = version
-    texts['atlas.json'] = load.dump_json(atlas_bundle)
+    texts['atlas.json'] = _bundle_text(atlas_bundle)
     # A geometry bundle loads on its own, long after atlas.json, so it repeats
     # the version the rest of the data was built at: a stale cached bundle is
     # then visibly stale rather than silently mixed with fresh records.
     for path, bundle in geometry_bundles.items():
         bundle['version'] = version
-        texts[path] = load.dump_json(bundle)
+        texts[path] = _bundle_text(bundle)
 
     manifest = build_manifest(ctx, texts, sizes)
     manifest['version'] = version
-    texts['manifest.json'] = load.dump_json(manifest)
+    texts['manifest.json'] = _bundle_text(manifest)
 
     result.files = texts
     result.manifest = manifest

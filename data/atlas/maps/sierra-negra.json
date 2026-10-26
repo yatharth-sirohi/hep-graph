@@ -1,24 +1,23 @@
 {
   "aliases": [],
   "center": {
-    "confidence": "verified",
+    "confidence": "derived",
     "kind": "campus",
-    "lat": 18.99,
-    "locator": "The HAWC Gamma-Ray Observatory: Design, Calibration, and Operation, site-description section",
-    "lon": -97.31,
-    "note": "Map centre only; not a claim about any structure. Uses the array's own published coordinate.",
-    "precision_m": 600,
-    "quote": "The geographical latitude of the site is 18.99 ... The geographical longitude of the HAWC site, 97.31 W.",
+    "lat": 18.9948,
+    "locator": "centroid of the convex hull of the 300 OSM tank footprints (geometry:hawc-tank-field-hull)",
+    "lon": -97.307674,
+    "note": "Map centre only; not a claim about any structure. Lies 0.6 km from the HAWC paper's rounded site coordinate (18.99 N, 97.31 W, good to 0.01 degree), as it should.",
+    "precision_m": 30,
     "sources": [
-      "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+      "src:geo-arrays2-hawc-osm-tank-field"
     ],
-    "verified_at": "2026-09-18"
+    "verified_at": "2026-10-25"
   },
   "coverage": {
     "researched": "partial",
     "tier": "B"
   },
-  "extent_m": 800,
+  "extent_m": 500,
   "facility_id": "facility:sierra-negra",
   "id": "map:sierra-negra",
   "levels": [
@@ -36,7 +35,10 @@
   },
   "name": "HAWC — Sierra Negra",
   "notes": [
-    "site:hawc-sierra-negra currently carries a coarser (precision_m 3000) Nominatim geocode of the Sierra Negra peak; the array's own coordinate found this session is reported as a site coordinate correction candidate in the worklog."
+    "Tank positions are OpenStreetMap footprints (300 ways traced together in 2017), read with the OSM API map call on 2026-10-25 because Overpass answered 502 at capacity. The tank count (300), the field area (hull 22.4 thousand m2 against the paper's 22,000 and 22,395 m2) and the summed tank area (13.1 thousand m2 against 12.6 thousand m2 for 300 circles of 7.3 m) all match the HAWC paper.",
+    "The 345 outrigger tanks (1.55 m diameter, 'concentric circular symmetric' around the main array, 12 to 18 m apart; arXiv:1908.06650) are not drawn: no fetched source gives their positions and OSM has none of them. Backlog: the outrigger layout table or GIS from the HAWC collaboration.",
+    "The HAWC Utility Building ('installed East to the tank array platform') and the counting house have no named OSM polygon; the LMT on the Sierra Negra summit is a separate facility about 1.3 km to the south-west and is not drawn.",
+    "site:hawc-sierra-negra carries the paper's coordinate rounded to 0.01 degree (precision_m 600); a tighter position could be derived from the layout of the tank field, but none is recorded."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
@@ -44,11 +46,13 @@
     "site:hawc-sierra-negra"
   ],
   "sources": [
-    "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+    "src:cosmic-gamma-hawc-design-paper-arxiv-2013",
+    "src:geo-arrays2-hawc-osm-tank-field",
+    "src:geo-arrays2-hawc-outrigger-2019"
   ],
   "summary": {
-    "plain": "The HAWC water-Cherenkov gamma-ray observatory of 300 tanks on the Sierra Negra volcano, Puebla, Mexico.",
-    "technical": "One local map for facility:sierra-negra. Drawn as a single reference point at the array's own published coordinate (18.99N, 97.31W), tighter than the existing site record's Nominatim peak-geocode point; the 300-tank footprint has no sourced overall outline shape this session."
+    "plain": "The HAWC water-Cherenkov gamma-ray observatory of 300 water tanks on the Sierra Negra volcano, Puebla, Mexico, drawn tank by tank.",
+    "technical": "The 300 tank footprints come from OpenStreetMap and are checked by summed area against 300 circles of the published 7.3 m diameter; the tank-field outline is their convex hull, checked against the published 22,000 m2 array area and the 22,395 m2 platform. Map centre is the hull centroid."
   },
   "type": "map",
   "unlocated": []

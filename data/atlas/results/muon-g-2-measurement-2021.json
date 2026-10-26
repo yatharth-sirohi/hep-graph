@@ -1,5 +1,16 @@
 {
   "aliases": [],
+  "announced": {
+    "confidence": "verified",
+    "locator": "Fermilab press release dated April 7, 2021",
+    "note": "",
+    "quote": "The new experimental world-average results announced by the Muon g-2 collaboration today are:",
+    "sources": [
+      "src:rv-fnal-news-muon-g-2-2021-first-results"
+    ],
+    "value": "2021-04-07",
+    "verified_at": "2026-10-25"
+  },
   "claim": {
     "locator": "title, arXiv:2104.03281 / Phys. Rev. Lett. 126, 141801 (2021)",
     "quote": "Measurement of the Positive Muon Anomalous Magnetic Moment to 0.46 ppm",
@@ -16,15 +27,17 @@
   },
   "date": {
     "confidence": "verified",
-    "locator": "title, arXiv:2104.03281 / Phys. Rev. Lett. 126, 141801 (2021)",
-    "note": "",
+    "locator": "Fermilab press release dated April 7, 2021",
+    "note": "Announcement date: Fermilab's press release of 7 April 2021 says the new experimental world-average results were 'announced by the Muon g-2 collaboration today'. The paper (arXiv:2104.03281v1) is also dated 7 April 2021 and was published as Phys. Rev. Lett. 126, 141801 (2021).",
+    "quote": "The new experimental world-average results announced by the Muon g-2 collaboration today are:",
     "sources": [
+      "src:rv-fnal-news-muon-g-2-2021-first-results",
       "src:muons-arxiv-2104-03281"
     ],
-    "value": "2021",
-    "verified_at": "2026-09-17"
+    "value": "2021-04-07",
+    "verified_at": "2026-10-25"
   },
-  "date_kind": "publication",
+  "date_kind": "announcement",
   "detector_ids": [],
   "experiment_ids": [
     "experiment:muon-g-2"
@@ -38,11 +51,11 @@
   "key_value_text": {
     "confidence": "verified",
     "note": "",
-    "quote": "The anomaly value is 116,592,040(54)x10^-11 with 0.46 ppm precision.",
+    "quote": "together with known fundamental constants, determines $a_\\mu({\\rm FNAL}) = 116\\,592\\,040(54)\\times 10^{-11}$ (0.46\\,ppm).",
     "sources": [
       "src:muons-arxiv-2104-03281"
     ],
-    "value": "a_mu = 116,592,040(54) x 10^-11 (0.46 ppm)",
+    "value": "aμ = 116,592,040(54) × 10⁻¹¹ (0.46 ppm)",
     "verified_at": "2026-09-17"
   },
   "links": {
@@ -56,29 +69,41 @@
     "url": "https://arxiv.org/abs/2104.03281"
   },
   "publication_source_id": "src:muons-arxiv-2104-03281",
+  "published": {
+    "confidence": "verified",
+    "locator": "arXiv:2104.03281 abstract page, journal reference",
+    "note": "",
+    "quote": "Journal reference: Phys. Rev. Lett. 126, 141801 (2021)",
+    "sources": [
+      "src:muons-arxiv-2104-03281"
+    ],
+    "value": "2021",
+    "verified_at": "2026-10-25"
+  },
   "result_type": "precision_measurement",
   "schema": "hep-atlas/0.2",
   "significance": {
     "confidence": "verified",
+    "locator": "arXiv:2104.03281, abstract",
     "note": "",
-    "quote": "3.3 standard deviations greater than the standard model prediction",
+    "quote": "The result is 3.3 standard deviations greater than the standard model prediction ... increases the tension between experiment and theory to 4.2 standard deviations",
     "sources": [
       "src:muons-arxiv-2104-03281"
     ],
-    "value": "3.3 standard deviations greater than the standard model prediction (combined with BNL E821: 4.2 standard deviations)",
-    "verified_at": "2026-09-17"
+    "value": "3.3σ above the Standard Model prediction (Fermilab result alone); 4.2σ tension for the experimental average combined with earlier measurements",
+    "verified_at": "2026-10-25"
   },
   "sources": [
     "src:muons-arxiv-2104-03281"
   ],
   "summary": {
-    "plain": "Fermilab's first result: the most precise measurement yet of a subtle property of the muon, agreeing with an earlier Brookhaven measurement and together pointing to a possible gap in our understanding of particle physics.",
-    "technical": "First Fermilab (E989) measurement of a_mu, combining Run-1 data with the BNL E821 result to a combined a_mu = 116,592,061(41)x10^-11, 4.2 sigma above the (2020 consensus) Standard Model prediction, per the paper's own reported significance."
+    "plain": "Fermilab's first result for the muon's magnetic anomaly, measured to 0.46 parts per million. The result is 3.3 standard deviations above the Standard Model prediction and in excellent agreement with the earlier Brookhaven measurement; combined with previous measurements, the tension between experiment and theory rises to 4.2 standard deviations.",
+    "technical": "First results of the Fermilab Muon g-2 Experiment: aμ(FNAL) = 116,592,040(54)×10⁻¹¹ (0.46 ppm), 3.3 standard deviations greater than the Standard Model prediction and in excellent agreement with BNL E821. Combined with previous measurements of both μ⁺ and μ⁻, the new experimental average is aμ(Exp) = 116,592,061(41)×10⁻¹¹ (0.35 ppm), which increases the tension between experiment and theory to 4.2 standard deviations."
   },
   "title": "Measurement of the Positive Muon Anomalous Magnetic Moment to 0.46 ppm",
   "topic_ids": [
     "topic:muon-precision-physics"
   ],
   "type": "result",
-  "why_it_matters": "The muon's anomalous magnetic moment is one of the most precisely predicted and measured quantities in physics; a persistent discrepancy between measurement and Standard Model prediction would be evidence of undiscovered particles or forces."
+  "why_it_matters": "The paper compares the measured muon anomaly with the Standard Model prediction recommended by the Muon g−2 Theory Initiative: the Fermilab result alone is 3.3 standard deviations above it, and the new experimental average increases the tension between experiment and theory to 4.2 standard deviations."
 }

@@ -24,13 +24,14 @@
       "end": null,
       "facility_id": "facility:hess-khomas-highland",
       "note": "",
-      "quote": "Since its first light in 2002, H.E.S.S. has provided groundbreaking insights",
+      "quote": "Since its first light in 2002, H.E.S.S. has provided groundbreaking insights ... The observatory is situated in the Khomas Highland of Namibia at an altitude of 1,800 m",
       "role": "host",
       "sources": [
-        "src:cosmic-gamma-hess-official-about-page"
+        "src:cosmic-gamma-hess-official-about-page",
+        "src:rf06-hess-about-wayback"
       ],
       "start": "2002",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "id": "experiment:h-e-s-s",
@@ -42,24 +43,26 @@
       "note": "",
       "quote": "Since its first light in 2002, H.E.S.S. has provided groundbreaking insights",
       "sources": [
-        "src:cosmic-gamma-hess-official-about-page"
+        "src:cosmic-gamma-hess-official-about-page",
+        "src:rf06-hess-about-wayback"
       ],
       "start": "2002",
       "status": "commissioning",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     {
       "confidence": "verified",
       "end": null,
       "label": "four-telescope (Phase I) operations",
-      "note": "Interval start reuses the first-light year; a distinct 'full four-telescope array complete' date was not separately stated by the source fetched.",
-      "quote": "Four 12-m telescopes surround a central 28-m telescope",
+      "note": "Interval start reuses the first-light year (About page: 'Since its first light in 2002'); the Telescopes page says CT1-4 were installed between 2001 and 2003, and no source consulted gives a distinct 'full four-telescope array complete' date.",
+      "quote": "four 12-meter telescopes, dubbed CT1-4 and installed between 2001 and 2003, are arranged in a square with 120 meter side length.",
       "sources": [
-        "src:cosmic-gamma-hess-official-about-page"
+        "src:cosmic-gamma-hess-official-about-page",
+        "src:rf06-hess-telescopes-wayback"
       ],
       "start": "2002",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [
@@ -69,15 +72,16 @@
         "approx": false,
         "confidence": "verified",
         "dimension": "count",
-        "display": "4 x 12 m telescopes",
+        "display": "4 × 12 m telescopes",
         "note": "",
-        "quote": "Four 12-m telescopes surround a central 28-m telescope",
+        "quote": "four 12-meter telescopes, dubbed CT1-4 and installed between 2001 and 2003, are arranged in a square with 120 meter side length.",
         "sources": [
-          "src:cosmic-gamma-hess-official-about-page"
+          "src:cosmic-gamma-hess-official-about-page",
+          "src:rf06-hess-telescopes-wayback"
         ],
         "unit": "",
         "value": 4,
-        "verified_at": "2026-09-17"
+        "verified_at": "2026-10-25"
       }
     },
     {
@@ -88,13 +92,14 @@
         "dimension": "length",
         "display": "28 m",
         "note": "",
-        "quote": "a central 28-m telescope — the largest of its kind",
+        "quote": "The fifth telescope, CT5, features a 28-meter mirror and is placed at the centre of the array.",
         "sources": [
-          "src:cosmic-gamma-hess-official-about-page"
+          "src:cosmic-gamma-hess-official-about-page",
+          "src:rf06-hess-telescopes-wayback"
         ],
         "unit": "m",
         "value": 28,
-        "verified_at": "2026-09-17"
+        "verified_at": "2026-10-25"
       }
     },
     {
@@ -107,11 +112,12 @@
         "note": "",
         "quote": "at about 1,800 m above sea level",
         "sources": [
-          "src:cosmic-gamma-hess-official-site-page"
+          "src:cosmic-gamma-hess-official-site-page",
+          "src:rf06-hess-site-wayback"
         ],
         "unit": "m",
         "value": 1800,
-        "verified_at": "2026-09-17"
+        "verified_at": "2026-10-25"
       }
     }
   ],
@@ -130,10 +136,10 @@
   },
   "name": "H.E.S.S.",
   "notes": [
-    "site_ids, detector_ids, document_ids, result_ids are deliberately not written (v0.2 A1 derived fields).",
-    "CT5 (H.E.S.S. II) commissioning date not sourced this session; left null rather than using the commonly cited 2012 date, which was not seen in a fetched source.",
-    "No results or technical documents were written in this pass (non-flagship experiment; mandatory bar only per the wave-3 brief).",
-    "H.E.S.S. II (the 28 m CT5 telescope) is part of the array per the official site, but no fetched source dated its inauguration; the undated interval was removed on 2026-09-18 verification rather than kept without a quote."
+    "Derived lists (site_ids, detector_ids, document_ids, result_ids) are not stored in this record; they are derived from the other records.",
+    "The collaboration's About, Telescopes and Site pages (Internet Archive captures of April-July 2026, read 2026-10-25) do not give the commissioning date of CT5 (H.E.S.S. II), so none is recorded. A Max Planck Society article dated 4 October 2012 (mpg.de/6373837) reports the first light of the 28 m telescope on 26 July; it is not a collaboration source and is not recorded as the commissioning date.",
+    "No results or technical documents are recorded for H.E.S.S. yet.",
+    "H.E.S.S. II (the 28 m CT5 telescope) is part of the array per the official site, but no collaboration source consulted gives the date of its inauguration, so no interval is recorded for it."
   ],
   "physics_goals": [],
   "schema": "hep-atlas/0.2",
@@ -146,7 +152,7 @@
   "status": "active",
   "summary": {
     "plain": "Five telescopes on a Namibian farm that watch the southern sky for gamma rays: four medium telescopes plus one giant 28-metre telescope, the largest of its kind, run by scientists from more than a dozen countries.",
-    "technical": "High Energy Stereoscopic System: hybrid array of four 12 m and one 28 m imaging atmospheric Cherenkov telescopes at 1800 m altitude in the Khomas Highland, Namibia. First light 2002; the 28 m CT5 telescope's commissioning date was not confirmed by a source fetched this session."
+    "technical": "High Energy Stereoscopic System: hybrid array of four 12 m and one 28 m imaging atmospheric Cherenkov telescopes at 1800 m altitude in the Khomas Highland, Namibia. First light 2002; the collaboration's About, Telescopes and Site pages (Internet Archive captures, read 2026-10-25) do not give the commissioning date of the 28 m CT5 telescope."
   },
   "superseded_by": null,
   "topic_ids": [
@@ -158,12 +164,13 @@
     {
       "confidence": "verified",
       "note": "",
-      "quote": "Four 12-m telescopes surround a central 28-m telescope — the largest of its kind",
+      "quote": "it is the only system of its kind that employs telescopes of two different sizes ... The use of two different telescope sizes enlarges the sensitive energy range of the system, which is approximately 0.1 – 100 TeV",
       "sources": [
-        "src:cosmic-gamma-hess-official-about-page"
+        "src:cosmic-gamma-hess-official-about-page",
+        "src:rf06-hess-telescopes-wayback"
       ],
-      "value": "A hybrid five-telescope stereoscopic array: four 12 m telescopes plus a central 28 m telescope, the largest Cherenkov telescope of its kind, giving both wide-field stereoscopic imaging and a low energy threshold.",
-      "verified_at": "2026-09-17"
+      "value": "A hybrid five-telescope stereoscopic array: four 12 m telescopes plus a central 28 m telescope; the only system of its kind employing telescopes of two different sizes, which enlarges its sensitive energy range (approximately 0.1-100 TeV).",
+      "verified_at": "2026-10-25"
     }
   ]
 }

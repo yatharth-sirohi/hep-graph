@@ -1,69 +1,139 @@
 {
-  "id": "detector:p-one",
-  "type": "detector",
-  "name": "P-ONE pathfinder instruments (STRAW / STRAW-b / P-ONE-1)",
-  "aliases": ["STRAW", "STRing for Absorption length in Water"],
-  "experiment_ids": ["experiment:p-one"],
-  "parent_detector_id": null,
-  "placements": [
-    {"site_id": "site:cascadia-basin-p-one", "role": "prototype", "start": "2018-04", "end": null,
-     "sources": ["src:astro-neutrino-p-one-straw-site-characterization-2021"], "verified_at": "2026-09-17", "confidence": "uncertain",
-     "quote": "An established ONC site, known as the Cascadia Basin, 2,660 m below sea level",
-     "note": "Placed at the nearest named coastal feature (Barkley Sound) as a coarse regional pointer only; see site:cascadia-basin-p-one for why no precise seafloor coordinate exists."}
+  "aliases": [
+    "STRAW",
+    "STRing for Absorption length in Water"
   ],
-  "technology": {
-    "value": "Deep-sea water Cherenkov pathfinder mooring lines instrumenting optical background and water-property measurements ahead of the full P-ONE array",
-    "sources": ["src:astro-neutrino-p-one-straw-site-characterization-2021"],
-    "verified_at": "2026-09-17", "confidence": "verified",
-    "quote": "An established ONC site, known as the Cascadia Basin, 2,660 m below sea level, provides an ideal environment for a large scale undersea neutrino telescope.",
-    "note": ""
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
   },
-  "technology_class": "sea_cherenkov",
-  "technology_classes": ["sea_cherenkov"],
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:p-one"
+  ],
+  "id": "detector:p-one",
   "intervals": [
     {
-      "label": "STRAW pathfinder deployed",
-      "status": "construction",
-      "start": {"date": "2018-04", "approx": true, "note": "Source says 'Spring 2018'."},
+      "confidence": "verified",
       "end": "2019-01",
-      "sources": ["src:astro-neutrino-p-one-straw-site-characterization-2021"],
-      "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "deployed in Spring 2018",
-      "note": ""
+      "label": "STRAW pathfinder deployed",
+      "note": "The 2021 EPJC site-characterization paper (arXiv:2108.04961) gives the more precise deployment date of June 2018, consistent with the Spring 2018 wording of the 2020 design paper.",
+      "quote": "was deployed in Spring 2018 and connected to the existing NEPTUNE node",
+      "sources": [
+        "src:astro-neutrino-p-one-nature-astronomy-2020",
+        "src:astro-neutrino-p-one-straw-site-characterization-2021"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2018-04",
+        "note": "Source says 'Spring 2018'."
+      },
+      "status": "construction",
+      "verified_at": "2026-09-17"
     },
     {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2023-07",
+        "display": "recovered in the summer 2023 ONC expedition (item dated 24 August 2023 says 'last month')"
+      },
       "label": "STRAW pathfinder operating",
-      "status": "active",
+      "note": "The source is a 2021 paper; the end is the recovery of the three STRAW moorings in the summer 2023 expedition (July 2023).",
+      "quote": "The three moorings (a 500-metre string and two 150 metre in length) were disconnected and recovered during last month’s summer 2023 #ONCAbyss expedition",
+      "sources": [
+        "src:astro-neutrino-p-one-straw-site-characterization-2021",
+        "src:currency2-pone-news-straw-recovery-2023"
+      ],
       "start": "2019-01",
+      "status": "active",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
       "end": null,
-      "sources": ["src:astro-neutrino-p-one-straw-site-characterization-2021"],
-      "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "works in near real-time with a duty cycle of 98% since completion of the commissioning phase in January 2019",
-      "note": "Source is a 2021 paper; current (2026) operating status of this specific pathfinder line was not re-confirmed by a more recent source this session."
+      "label": "P-ONE-1 first full-scale line: integrated 2026-04-28, wet-tested 2026-06-23, awaiting deployment",
+      "note": "The official P-ONE news page (checked 2026-10-25) lists as its newest items the wet test of 23 June 2026 and the integration of P-ONE-1 (assembled and integrated 28 April 2026); it reports no deployment, and no other source reporting a deployment was found, so the first line is recorded as awaiting deployment (a plan to deploy by the end of August 2026 is recorded as a planned phase). The STRAW pathfinder moorings (a 500 m string and two 150 m strings) were recovered in the summer 2023 ONC expedition (July 2023; ONC item of 24 August 2023), so nothing of P-ONE has been operating undersea since then.",
+      "quote": "the 1 km-long detector line P-ONE-1 was fully assembled and integrated (Figure 1), representing the culmination of nearly three years of coordinated international development and engineering efforts",
+      "sources": [
+        "src:currency2-pone-news-p-one-1-integration-2026",
+        "src:currency2-pone-news-p-one-1-wet-test-2026"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2023",
+        "display": "'nearly three years' of development before April 2026"
+      },
+      "status": "construction",
+      "verified_at": "2026-10-25"
     }
   ],
-  "status": "active",
-  "specs": {
-    "depth_max": {
-      "value": 2660, "unit": "m", "dimension": "length", "approx": false,
-      "display": "2660 m",
-      "sources": ["src:astro-neutrino-p-one-straw-site-characterization-2021"],
-      "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "An established ONC site, known as the Cascadia Basin, 2,660 m below sea level", "note": ""
-    }
+  "links": {
+    "website": null
   },
-  "subsystems": [],
-  "document_ids": [],
-  "links": {"website": null},
+  "name": "P-ONE pathfinder instruments (STRAW / STRAW-b / P-ONE-1)",
   "notes": [
-    "No numeric coordinate for the actual Cascadia Basin seafloor deployment point was found in any source fetched this session; the placement above points at the nearest named coastal feature (Barkley Sound, Vancouver Island) as a coarse regional pointer, not a surveyed seafloor position, per A17's fallback rule.",
+    "No numeric coordinate for the actual Cascadia Basin seafloor deployment point was found in any source consulted; the placement above points at the nearest named coastal feature (Barkley Sound, Vancouver Island) as a coarse regional pointer, not a surveyed seafloor position.",
     "This record models the pathfinder-stage hardware (STRAW/STRAW-b/P-ONE-1), not the full planned P-ONE array, which does not yet exist; experiment:p-one's own status remains 'proposed' for that reason."
   ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "note": "Placed at the nearest named coastal feature (Barkley Sound) as a coarse regional pointer only; see site:cascadia-basin-p-one for why no precise seafloor coordinate exists.",
+      "quote": "To fully qualify the Cascadia Basin as a site to host a multi-cubic-kilometer-scale neutrino telescope ... was deployed in Spring 2018 and connected to the existing NEPTUNE node",
+      "role": "prototype",
+      "site_id": "site:cascadia-basin-p-one",
+      "sources": [
+        "src:astro-neutrino-p-one-nature-astronomy-2020",
+        "src:astro-neutrino-p-one-straw-site-characterization-2021"
+      ],
+      "start": "2018-04",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:astro-neutrino-p-one-straw-site-characterization-2021",
+    "src:astro-neutrino-p-one-wikipedia-barkley-sound",
+    "src:astro-neutrino-p-one-nature-astronomy-2020"
+  ],
+  "specs": {
+    "depth_max": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "2660 m",
+      "note": "",
+      "quote": "An established ONC site, known as the Cascadia Basin (fig. 1), 2,660 m below sea level",
+      "sources": [
+        "src:astro-neutrino-p-one-straw-site-characterization-2021"
+      ],
+      "unit": "m",
+      "value": 2660,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "construction",
+  "subsystems": [],
   "summary": {
     "plain": "Small test strings of light and water sensors lowered into the deep Pacific to check the water and prove the technology before the full P-ONE telescope is built.",
     "technical": "STRAW pathfinder mooring line(s) at the Cascadia Basin ONC site (2660 m depth): deployed Spring 2018, operating with ~98% duty cycle since commissioning completed January 2019, characterizing optical background and water absorption/scattering ahead of the full P-ONE array."
   },
-  "coverage": {"researched": "partial", "tier": "B"},
-  "sources": ["src:astro-neutrino-p-one-straw-site-characterization-2021", "src:astro-neutrino-p-one-wikipedia-barkley-sound"],
-  "schema": "hep-atlas/0.2"
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "a pathfinder known as STRAW (STRings for Absorption length in Water) was developed and deployed in 2018 to measure the optical properties of the Cascadia Basin water as well as the ambient light levels ... STRAW consists of two 150 m long mooring lines spaced 37 m apart",
+    "sources": [
+      "src:astro-neutrino-p-one-straw-site-characterization-2021"
+    ],
+    "value": "Deep-sea water Cherenkov pathfinder mooring lines instrumenting optical background and water-property measurements ahead of the full P-ONE array",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "sea_cherenkov",
+  "technology_classes": [
+    "sea_cherenkov"
+  ],
+  "type": "detector"
 }

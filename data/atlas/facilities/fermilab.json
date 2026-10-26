@@ -50,29 +50,32 @@
   "links": {
     "website": {
       "confidence": "verified",
-      "note": "www.fnal.gov could not be retrieved in this session (HTTP 403); the LBNF/DUNE project site is the fetched official Fermilab page.",
+      "locator": "home page; page title \"Fermilab | Home\", headline \"Fermilab is America's particle physics and accelerator laboratory\"",
+      "note": "The laboratory's own site. Automated requests to www.fnal.gov are refused with HTTP 403, so the page was read in a web browser on 2026-10-25. The LBNF/DUNE project site (lbnf-dune.fnal.gov) is a separate project site and is not used as the laboratory's website.",
       "sources": [
-        "src:fermilab-lbnf-dune-site"
+        "src:rc-fermilab-official-site"
       ],
-      "value": "https://lbnf-dune.fnal.gov/",
-      "verified_at": "2026-09-16"
+      "value": "https://www.fnal.gov/",
+      "verified_at": "2026-10-25"
     }
   },
   "name": "Fermi National Accelerator Laboratory",
   "notes": [
-    "fnal.gov and history.fnal.gov returned HTTP 403 to every fetch attempt in this session; history and operator facts are taken from news.fnal.gov, lbnf-dune.fnal.gov, pip2.fnal.gov and the DUNE TDR."
+    "Automated requests to www.fnal.gov and history.fnal.gov were refused with HTTP 403 when first tried (2026-09-16), so history and operator facts are taken from news.fnal.gov, the LBNF/DUNE and PIP-II project sites, the laboratory's Leadership and Organization page and the DUNE TDR. The home page was read in a web browser on 2026-10-25."
   ],
   "operator_ids": [],
   "operator_text": {
     "confidence": "verified",
-    "locator": "Vol. I, acknowledgements",
-    "note": "Wording assembled from the TDR acknowledgement; the source names the DOE Office of Science as owner and FRA as manager.",
-    "quote": "Fermilab is managed by Fermi Research Alliance, LLC (FRA), acting under Contract No. DE-AC02-07CH11359.",
+    "locator": "page 'Leadership and Organization', first paragraph",
+    "note": "Current operator. DOE awarded the management and operating contract to Fermi Forward Discovery Group, LLC (FFDG): \"The successful offeror is Fermi Forward Discovery Group, LLC (FFDG).\" and \"The new contractor will assume operations effective January 1, 2025\" (DOE Office of Science, 1 October 2024). Before that date the contractor was Fermi Research Alliance, LLC (DUNE Far Detector TDR, Vol. I, acknowledgements, PDF p. 2: \"Fermilab is managed by Fermi Research Alliance, LLC (FRA), acting under Contract No. DE-AC02-07CH11359.\"). The DUNE TDR (2020) predates the change of contractor.",
+    "quote": "Fermilab is managed by Fermi Forward Discovery Group for the U.S. Department of Energy Office of Science.",
     "sources": [
+      "src:rv-fnal-leadership-organization",
+      "src:rv-doe-fermilab-mo-contract-2024",
       "src:dune-fd-tdr-vol-1"
     ],
-    "value": "Fermi Research Alliance, LLC for the U.S. Department of Energy",
-    "verified_at": "2026-09-16"
+    "value": "Fermi Forward Discovery Group, LLC (FermiForward) for the U.S. Department of Energy Office of Science (since 1 January 2025; Fermi Research Alliance, LLC before)",
+    "verified_at": "2026-10-25"
   },
   "primary_site_id": "site:fermilab-main-campus",
   "related_facility_ids": [
@@ -83,7 +86,8 @@
     "src:fermilab-lbnf-dune-site",
     "src:fermilab-news-birth-of-fermilab-2017",
     "src:dune-fd-tdr-vol-1",
-    "src:fermilab-ror-record"
+    "src:fermilab-ror-record",
+    "src:rc-fermilab-official-site"
   ],
   "specs": {},
   "status": "active",

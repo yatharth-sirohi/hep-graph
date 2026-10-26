@@ -16,16 +16,16 @@
   },
   "date": {
     "confidence": "verified",
-    "locator": "publication record, Phys. Rev. Lett. 129, 081801",
-    "note": "Published 2022-08-19; first submitted to arXiv 2021-10-14, revised 2022-06-02.",
-    "quote": "Measurement of the Coherent Elastic Neutrino-Nucleus Scattering Cross Section on CsI by COHERENT",
+    "locator": "arXiv:2110.07730, submission history",
+    "note": "First public posting (arXiv v1, 14 October 2021), before the journal publication (Phys. Rev. Lett. 129, 081801, DOI 10.1103/PhysRevLett.129.081801 as given by the arXiv abstract page); the display date is the earliest public date.",
+    "quote": "Submitted on 14 Oct 2021 (v1)",
     "sources": [
       "src:cevns-coherent-csi-2022-full-dataset"
     ],
-    "value": "2022",
-    "verified_at": "2026-09-17"
+    "value": "2021-10-14",
+    "verified_at": "2026-10-25"
   },
-  "date_kind": "publication",
+  "date_kind": "preprint",
   "detector_ids": [
     "detector:coherent-csi"
   ],
@@ -41,27 +41,27 @@
     "approx": false,
     "confidence": "verified",
     "dimension": "cross_section",
-    "display": "1.65e-38 cm^2 (+0.30e-38/-0.25e-38)",
+    "display": "1.65 × 10⁻³⁸ cm² (+0.30 × 10⁻³⁸/−0.25 × 10⁻³⁸)",
     "locator": "abstract",
-    "note": "Full CsI[Na] dataset before detector decommissioning; more than double the exposure of the 2017 observation, with an improved quenching model.",
+    "note": "All CsI[Na] data collected before detector decommissioning (the abstract says the dataset was more than doubled since the first observation), with an updated quenching model. Value derived from the quote: (165 +30/−25) × 10⁻⁴⁰ cm² = 1.65 × 10⁻³⁸ cm² (+0.30 × 10⁻³⁸/−0.25 × 10⁻³⁸).",
     "quote": "cross section to be (165^{+30}_{-25})x10^{-40} cm^2, consistent with the standard model",
     "sources": [
       "src:cevns-coherent-csi-2022-full-dataset"
     ],
     "unit": "cm^2",
     "value": 1.65e-38,
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "key_value_text": {
     "confidence": "verified",
     "locator": "abstract",
     "note": "",
-    "quote": "measuring the weak mixing angle as sin^2(theta_W) = 0.220^{+0.028}_{-0.026}",
+    "quote": "This result places leading constraints on neutrino non-standard interactions while testing lepton flavor universality ... and measures the weak mixing angle as sin2 θW = 0.220+0.028 −0.026 at Q ≈ (50 MeV)",
     "sources": [
       "src:cevns-coherent-csi-2022-full-dataset"
     ],
-    "value": "Weak mixing angle sin^2(theta_W) = 0.220 (+0.028/-0.026) at ~50 MeV^2 momentum transfer, alongside constraints on non-standard interactions and a test of lepton flavor universality using the neutrino beam's timing structure",
-    "verified_at": "2026-09-17"
+    "value": "Weak mixing angle sin²θW = 0.220 (+0.028/−0.026) at Q² ~ (50 MeV)², alongside constraints on non-standard interactions and a test of lepton flavor universality using the neutrino beam's timing structure",
+    "verified_at": "2026-10-25"
   },
   "links": {
     "website": null
@@ -80,7 +80,7 @@
   "significance": {
     "confidence": "uncertain",
     "locator": "abstract",
-    "note": "The abstract fetched this session does not restate a single overall significance figure for the full dataset (the original 2017 observation's 6.7 sigma is superseded but not re-quoted here); left uncertain rather than inferred.",
+    "note": "The abstract (read 2026-09-17) does not restate a single overall significance figure for the full dataset (the original 2017 observation's 6.7σ is superseded but not re-quoted here); left uncertain rather than inferred.",
     "sources": [
       "src:cevns-coherent-csi-2022-full-dataset"
     ],
@@ -91,13 +91,13 @@
     "src:cevns-coherent-csi-2022-full-dataset"
   ],
   "summary": {
-    "plain": "COHERENT's most precise look yet at neutrinos scattering off caesium-iodide nuclei, using the full dataset from the same crystal before it was retired, sharp enough to measure a key parameter of the Standard Model directly at low energy.",
-    "technical": "Full CsI[Na] dataset (13.99 GWhr integrated beam power) before detector decommissioning, more than double the exposure of the 2017 observation with an improved quenching model: cross section (165+30/-25)x10^-40 cm^2, weak mixing angle sin^2(theta_W)=0.220(+0.028/-0.026) at ~50 MeV^2, plus constraints on non-standard interactions and lepton flavor universality from the beam's timing structure."
+    "plain": "COHERENT re-measured the rate of neutrinos scattering coherently off caesium-iodide nuclei with more than twice the data of the first observation and a better model of nuclear recoils in the crystal. The collaboration calls it the most precise measurement of the process yet, and extracts the weak mixing angle at a momentum transfer near 50 MeV.",
+    "technical": "All CsI[Na] data collected before detector decommissioning (13.99 GWhr of integrated beam power passing the livetime criteria), more than doubling the dataset of the first observation, with an updated quenching model reducing systematic uncertainties: cross section (165 +30/−25)×10⁻⁴⁰ cm², consistent with the Standard Model and called the most precise measurement of CEvNS yet; weak mixing angle sin²θW = 0.220 +0.028/−0.026 at Q² ≈ (50 MeV)²; the collaboration reports leading constraints on neutrino non-standard interactions and a lepton-flavor-universality test using the beam's timing structure."
   },
   "title": "Measurement of the Coherent Elastic Neutrino-Nucleus Scattering Cross Section on CsI by COHERENT",
   "topic_ids": [
     "topic:cevns"
   ],
   "type": "result",
-  "why_it_matters": "A precision CEvNS cross-section measurement at low momentum transfer gives one of the cleanest low-energy determinations of the weak mixing angle and tightens constraints on non-standard neutrino interactions relevant to reactor and solar neutrino physics, dark matter direct detection backgrounds, and supernova-neutrino modeling."
+  "why_it_matters": "A CEvNS cross-section measurement on CsI with more than twice the data of the first observation. The abstract reports leading constraints on neutrino non-standard interactions, a test of lepton flavor universality using the timing structure of the neutrino beam, and the weak mixing angle at Q ≈ 50 MeV."
 }

@@ -12,10 +12,10 @@
   "geometry": {
     "confidence": "approximate",
     "locator": "OSM node 8719816444",
-    "note": "Context feature with no atlas entity of its own (entity_id null, per the contract's allowance for building/boundary/road/water-like context features); a mountain summit is not itself an accelerator, beamline, detector, site, experiment or facility.",
-    "quote": "man_made=survey_point, natural=peak, name='池ノ山', ele=1368.6",
+    "note": "Context feature not linked to an Atlas record: a mountain summit is not itself an accelerator, beamline, detector, site, experiment or facility.",
+    "quote": "ele 1368.6 man_made survey_point name 池ノ山 natural peak",
     "sources": [
-      "src:geo-kamioka-cjpl-osm-mine-entrance"
+      "src:geo-kamioka-osm-ikenoyama-survey-point"
     ],
     "value": {
       "coordinates": [
@@ -24,7 +24,7 @@
       ],
       "type": "Point"
     },
-    "verified_at": "2026-09-18"
+    "verified_at": "2026-10-25"
   },
   "id": "geometry:ikenoyama-peak-marker",
   "level_id": "surface",
@@ -50,7 +50,7 @@
   "schema": "hep-atlas/0.2",
   "site_id": null,
   "sources": [
-    "src:geo-kamioka-cjpl-osm-mine-entrance"
+    "src:geo-kamioka-osm-ikenoyama-survey-point"
   ],
   "summary": {
     "plain": "The summit of Mt. Ikenoyama, the mountain under which Super-Kamiokande sits."

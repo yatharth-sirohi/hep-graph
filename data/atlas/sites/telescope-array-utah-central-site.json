@@ -15,17 +15,18 @@
     "verified_at": "2026-09-17"
   },
   "coordinates": {
-    "confidence": "verified",
-    "kind": "detector",
-    "lat": 39.3,
-    "locator": "Telescope Array surface detector paper (arXiv:1201.4964), site description: \"centered at 39.3 N and 112.9 W in Millard County, Utah\"",
-    "lon": -112.9,
-    "note": "Published array centre at 0.1° precision, replacing a Nominatim geocode of the town of Delta 15 km wide; the array spans ~700 km², so 6 km precision is the honest figure. Previous record: campus point 39.3521777, -112.57717 at 15000 m precision, sources ['src:cosmic-gamma-ta-arxiv-2026-recent-findings', 'src:cosmic-gamma-nominatim-delta-utah']; moved 35967 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
-    "precision_m": 6000,
+    "confidence": "approximate",
+    "kind": "campus",
+    "lat": 39.296918,
+    "locator": "TA hybrid spectrum paper (arXiv:1410.3151), Sec. 5.1",
+    "lon": -112.908733,
+    "note": "The Central Laser Facility at the centre of the Telescope Array surface detector, the array's own reference point (the station table's origin). Replaces a 0.1°-rounded point with 6 km precision. Kept as an approximate campus point because the only fetched source is a collaboration preprint.",
+    "precision_m": 100,
+    "quote": "inside a circle of radius 25 km, centered at the CLF (39.296918 N Lat, 112.908733 W Long).",
     "sources": [
-      "src:geo-arrays-ta-site-paper"
+      "src:geo-arrays-ta-hybrid-spectrum-2014"
     ],
-    "verified_at": "2026-09-21"
+    "verified_at": "2026-10-25"
   },
   "countries": [
     "US"
@@ -46,7 +47,7 @@
   },
   "name": "Telescope Array central site, near Delta, Utah",
   "notes": [
-    "No per-station or per-fluorescence-site coordinates were recorded in this wave; only this single approximate campus point."
+    "The coordinates of individual stations and fluorescence sites are not recorded; only this single approximate campus point."
   ],
   "place": {
     "city": "Delta",
@@ -58,11 +59,12 @@
   "sources": [
     "src:cosmic-gamma-ta-arxiv-2026-recent-findings",
     "src:cosmic-gamma-nominatim-delta-utah",
-    "src:geo-arrays-ta-site-paper"
+    "src:geo-arrays-ta-site-paper",
+    "src:geo-arrays-ta-hybrid-spectrum-2014"
   ],
   "summary": {
     "plain": "The high desert near Delta, Utah, where the Telescope Array's hundreds of ground detectors and telescope stations are spread out to catch ultra-high-energy cosmic rays.",
-    "technical": "Approximate central/campus point (Delta, Utah, Millard County) for the Telescope Array observatory, at about 1400 m altitude; the actual detector footprint (507 scintillation counters over ~700 km^2, extended to ~3000 km^2 by TAx4, plus fluorescence stations at Middle Drum, Long Ridge and Black Rock Mesa) is spread around this point."
+    "technical": "Approximate central/campus point (Delta, Utah, Millard County) for the Telescope Array observatory, at about 1400 m altitude; the actual detector footprint (507 scintillation counters over ~700 km², extended to ~3000 km² by TAx4, plus fluorescence stations at Middle Drum, Long Ridge and Black Rock Mesa) is spread around this point."
   },
   "superseded_by": null,
   "type": "site"

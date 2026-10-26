@@ -1,0 +1,204 @@
+{
+  "accuracy_m": 15,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "52.11 km",
+        "locator": "arXiv:2104.02565 Table 1 (baselines in km, GPS-surveyed to 1 m)",
+        "note": "",
+        "quote": "The distances from the detector site to the Yangjiang and Taishan cores are surveyed with a Global Positioning System (GPS) to a precision of 1 meter. ... Baseline(km) ... YJ-5 2.9 52.11",
+        "sources": [
+          "src:juno-physics-detector-arxiv-2021"
+        ],
+        "unit": "m",
+        "value": 52110.0,
+        "verified_at": "2026-10-25"
+      },
+      "kind": "distance",
+      "locator": "arXiv:2104.02565 Table 1 (baselines in km, GPS-surveyed to 1 m)",
+      "sources": [
+        "src:juno-physics-detector-arxiv-2021"
+      ],
+      "to_geometry_id": "geometry:juno-baseline-hall-point",
+      "tolerance": 0.003
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": null,
+  "feature_type": "building",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way 1174744706 as of 2026-10-25T10:40:01Z; baseline in arXiv:2104.02565 Table 1",
+    "note": "OpenStreetMap alone yields at most 'approximate'. The baseline check (to the hall point of this map) is against an official GPS-surveyed figure but cannot make an OSM tracing 'verified' by itself; tolerance 0.3 % (~155 m at 52 km) is the combined error of the published coordinate and the tracing, see the hall record's notes.",
+    "sources": [
+      "src:geo-juno-osm-yangjiang-reactors",
+      "src:juno-physics-detector-arxiv-2021"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            112.263293,
+            21.7121989
+          ],
+          [
+            112.2632728,
+            21.7122339
+          ],
+          [
+            112.2632615,
+            21.7122723
+          ],
+          [
+            112.2632597,
+            21.712312
+          ],
+          [
+            112.2632674,
+            21.7123511
+          ],
+          [
+            112.2632842,
+            21.7123876
+          ],
+          [
+            112.2633094,
+            21.7124197
+          ],
+          [
+            112.2633417,
+            21.7124459
+          ],
+          [
+            112.2633794,
+            21.7124647
+          ],
+          [
+            112.2634207,
+            21.7124752
+          ],
+          [
+            112.2634635,
+            21.712477
+          ],
+          [
+            112.2635059,
+            21.7124697
+          ],
+          [
+            112.2635457,
+            21.7124538
+          ],
+          [
+            112.2635806,
+            21.7124299
+          ],
+          [
+            112.2636088,
+            21.7123993
+          ],
+          [
+            112.2636288,
+            21.7123636
+          ],
+          [
+            112.2636399,
+            21.7123245
+          ],
+          [
+            112.2636412,
+            21.7122873
+          ],
+          [
+            112.2636334,
+            21.7122482
+          ],
+          [
+            112.2636164,
+            21.7122116
+          ],
+          [
+            112.2635911,
+            21.7121795
+          ],
+          [
+            112.2635588,
+            21.7121534
+          ],
+          [
+            112.263521,
+            21.7121347
+          ],
+          [
+            112.2634797,
+            21.7121242
+          ],
+          [
+            112.263437,
+            21.7121225
+          ],
+          [
+            112.2633949,
+            21.7121298
+          ],
+          [
+            112.2633556,
+            21.7121455
+          ],
+          [
+            112.2633211,
+            21.7121689
+          ],
+          [
+            112.263293,
+            21.7121989
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:yangjiang-reactor-yj5",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:juno-reactor-baselines",
+  "method": "OpenStreetMap way 1174744706 (building=reactor, 29-vertex footprint, ~1216 m2) kept verbatim. Core label YJ-5 is assigned by matching the order of the six buildings' distances from the published hall coordinate to the order of the published baselines (the OSM ways carry no unit number); this is an assumption, stated here, not a sourced unit number.",
+  "name": "Yangjiang nuclear power station reactor building, core YJ-5 (OpenStreetMap)",
+  "notes": [
+    "Measured centroid-to-hall distance 52206 m against 52110 m published (+96 m)."
+  ],
+  "osm": {
+    "elements": [
+      "way/1174744706"
+    ],
+    "timestamp": "2026-10-25T10:40:01Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-juno-osm-yangjiang-reactors",
+    "src:juno-physics-detector-arxiv-2021"
+  ],
+  "summary": {
+    "plain": "One of the six reactor containment buildings of the Yangjiang nuclear power station, whose antineutrinos JUNO measures; the building is about 52.21 km from the hall."
+  },
+  "type": "geometry",
+  "valid": null
+}

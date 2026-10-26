@@ -20,3 +20,14 @@ Total: 39 facilities in the coverage set, 9 outside it. The coverage report's
 "Local map geometry" table is the record of which of the 39 have a map, how
 many of their features are to scale, and what remains unlocated. A map with
 only unlocated entries is not "covered": the report counts to-scale features.
+
+## Update for the 2026-10 release
+
+The release extended local maps to every facility, including the nine above that
+were outside the coverage set: Argonne, ISIS, ILL, KIT, MIT, Yale Wright Lab,
+CENPA, McMurdo LDB and Summit Station now each open a map of the buildings and
+structures their sources support at true scale (worklog
+`RELEASE_GEOMETRY_nine.md`, `RELEASE_GEOMETRY_accel2.md`). JUNO, the last
+coverage-set facility without a map, has two (the detector campus and the
+reactor baselines). The coverage report's "Facilities without a local map" list
+is now empty; what each map does not draw stays in its unlocated list.

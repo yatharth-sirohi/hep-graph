@@ -1,0 +1,75 @@
+{
+  "accuracy_m": 500,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "21 km",
+        "unit": "km",
+        "value": 21
+      },
+      "kind": "distance",
+      "locator": "arXiv:1801.09784 (ApJ 858, 76), section 2, p. 4 of the arXiv version",
+      "note": "The check measures this station's distance to geometry:ta-clf; both positions are read from the same figure, so it tests the figure reading against an independent statement, not the absolute position.",
+      "quote": "Each is located the same distance from a central laser facility (CLF) about 21 km away",
+      "sources": [
+        "src:geo-arrays-ta-hybrid-xmax-2018"
+      ],
+      "to_geometry_id": "geometry:ta-clf",
+      "tolerance": 0.03
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "detector:telescope-array",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "arXiv:1410.3151 Fig. 1 (page 2), triangle marker on the south-east of the array; registered to TASDPosition.dat",
+    "note": "Confidence derived: read from a published map, not a coordinate stated in any document.",
+    "sources": [
+      "src:geo-arrays-ta-hybrid-spectrum-2014",
+      "src:geo-arrays-ta-zenodo-sd-data-release",
+      "src:geo-arrays-ta-tax4-sd-2021",
+      "src:geo-arrays-ta-hybrid-xmax-2018"
+    ],
+    "value": {
+      "coordinates": [
+        -112.7115358,
+        39.1887614
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:ta-fd-black-rock-mesa",
+  "level_id": "surface",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:telescope-array-utah",
+  "method": "Fluorescence-detector station position read from the triangle marker in Fig. 1 of arXiv:1410.3151 (layout of the Telescope Array: 507 square SDs, three triangles for the FD sites, a circle for the CLF). The figure is a to-scale map: the 505 station squares it shows (all but 1327 and 1428) register one-to-one onto the station table with a 0.27 pt rms (about 56 m), scale 4.78 pt/km east-west and 4.87 pt/km north-south; the triangle bounding-box centre is then read in the table frame (origin CLF, true east and north: see geometry:ta-sd-stations-strip-01) and converted with the same projection. The three bounding-box centres are 20.84, 20.83 and 20.84 km from the CLF, matching the papers' statement that the stations are equidistant from it, which supports taking the box centre rather than the triangle centroid (the centroid would shift each marker 0.3 km and break the equidistance). Accuracy 500 m: reading a marker from a plot, anchor of a triangle, and the frame (about 100 m). It is an outline-free point, not the building. This station: x = 17.037 km, y = -11.989 km from the CLF, 20.83 km away.",
+  "name": "Telescope Array fluorescence station: Black Rock Mesa",
+  "notes": [
+    "No document fetched states the latitude and longitude of this station; the reading is good to about half a kilometre and no other source was used."
+  ],
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:telescope-array-utah-central-site",
+  "sources": [
+    "src:geo-arrays-ta-hybrid-spectrum-2014",
+    "src:geo-arrays-ta-hybrid-xmax-2018",
+    "src:geo-arrays-ta-zenodo-sd-data-release",
+    "src:geo-arrays-ta-tax4-sd-2021"
+  ],
+  "summary": {
+    "plain": "The Telescope Array fluorescence telescope station on its south-eastern border of the surface array, about 21 km from the central laser; position read from a published map, good to about half a kilometre."
+  },
+  "type": "geometry",
+  "valid": null
+}

@@ -1,0 +1,124 @@
+{
+  "accuracy_m": 100,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": null,
+  "feature_type": "boundary",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way 821080729 (version 11, last edited 2025-09-05T18:01:37Z), read from the OSM API 0.6 at 2026-10-25T11:05:40Z",
+    "note": "OpenStreetMap alone yields at most 'approximate'. The outline is an airfield boundary (5.4 km2, 4.2 km across), not the LDB camp: the camp's buildings are not mapped in any fetched source. The field stands on the floating Ross Ice Shelf, which moves, and its skiways are re-groomed each season, so the outline is a mapped position, not a fixed survey.",
+    "quote": "out to Williams (Willy) Field, where the balloon facility is",
+    "sources": [
+      "src:geo-mcmurdo-osm-williams-field-aerodrome",
+      "src:geo-mcmurdo-nasa-tiger-diary",
+      "src:astro-neutrino-anita-csbf-nasa-antarctica-payloads"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            167.0235062,
+            -77.872954
+          ],
+          [
+            167.0949629,
+            -77.8696559
+          ],
+          [
+            167.1213486,
+            -77.8860801
+          ],
+          [
+            167.1503521,
+            -77.884743
+          ],
+          [
+            167.1239664,
+            -77.868317
+          ],
+          [
+            167.1554985,
+            -77.8668612
+          ],
+          [
+            167.1492361,
+            -77.8608678
+          ],
+          [
+            167.1143237,
+            -77.8624805
+          ],
+          [
+            167.1068323,
+            -77.855308
+          ],
+          [
+            167.0178715,
+            -77.8594186
+          ],
+          [
+            167.0253629,
+            -77.8665887
+          ],
+          [
+            167.0003588,
+            -77.8677432
+          ],
+          [
+            167.0018896,
+            -77.8692076
+          ],
+          [
+            167.0235062,
+            -77.872954
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:mcmurdo-williams-field-aerodrome",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:mcmurdo-ldb",
+  "method": "OpenStreetMap way 821080729, name 'Williams Field', loc_name 'Willy Field', icao NZWD (aeroway=aerodrome, source=ADD), used verbatim as an airfield outline; its gns:DMS tags (77°52'03\"S 167°03'24\"E) lie 0.7 km from the polygon centroid, inside it. The NASA balloon team's own diary says the balloon facility is at 'Williams (Willy) Field'.",
+  "name": "Williams Field (Willy Field) aerodrome outline, site of the NASA LDB balloon facility",
+  "notes": [
+    "This outline is context: it depicts the aerodrome (an OpenStreetMap feature), not the balloon facility and not ANITA, so it is drawn in every year. The balloon facility (facility:mcmurdo-ldb) and the ANITA launch site (site:mcmurdo-ldb-launch-site) are tied to it by place only; the launch site's own record is active only in the years of ANITA flights, and a shape tied to it would have vanished between campaigns and after the programme ended in 2017. No source consulted dates the aerodrome's construction, so no lifetime window is given.",
+    "The atlas site record names Williams Field as the launch strip for ANITA-II and 'LDB Camp' for ANITA-LITE and ANITA-I; no fetched source separates the two, and NASA's diary places the balloon facility at Williams Field.",
+    "OpenStreetMap also has two runway lines named Williams Field (2949 m and 1944 m, source LINZ) and a taxiway; they are not drawn: skiway positions change with the season and the ice, and the 2949 m line is 3.2 % short of the 10 000 ft (3048 m) given in the same polygon's description tag, which is not an official source."
+  ],
+  "osm": {
+    "elements": [
+      "way/821080729"
+    ],
+    "timestamp": "2026-10-25T11:05:40Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:mcmurdo-ldb-launch-site",
+  "sources": [
+    "src:geo-mcmurdo-osm-williams-field-aerodrome",
+    "src:geo-mcmurdo-nasa-tiger-diary",
+    "src:astro-neutrino-anita-csbf-nasa-antarctica-payloads"
+  ],
+  "summary": {
+    "plain": "The mapped outline of Williams Field, the ice-shelf airfield about 10 kilometres east of McMurdo Station where NASA's long-duration balloon facility launches balloons such as ANITA's."
+  },
+  "type": "geometry",
+  "valid": null
+}

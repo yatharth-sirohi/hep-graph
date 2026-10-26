@@ -27,17 +27,37 @@
     },
     {
       "confidence": "verified",
-      "end": null,
+      "end": "2024-07",
       "label": "operating",
       "locator": "NOvA PRD 106, 032004, data-set description",
-      "note": "",
+      "note": "Mirrors experiment:nova: NuMI has had no beam since July 2024 (\"The MI has not operated since July 2024\", Fermilab PAC, April 2026 meeting).",
       "quote": "13.6×10²⁰ POT from 555.3 s of integrated beam-pulse time recorded between February 6, 2014, to March 20, 2020",
       "sources": [
-        "src:nova-prd-2022-oscillation-parameters"
+        "src:nova-prd-2022-oscillation-parameters",
+        "src:currency-fnal-pac-report-2026-04"
       ],
       "start": "2014-02-06",
       "status": "active",
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "derived",
+      "end": {
+        "date": "2026-10",
+        "display": "restart planned October 2026",
+        "planned": true
+      },
+      "label": "no NuMI beam (Main Injector transformer failures)",
+      "note": "Derived from the beam source, as for experiment:nova: NuMI has had no beam since July 2024 and the restart is only planned (Sept 2026 PAC: stable beam planned for 1 October 2026; no later source confirms it). CONFLICTING STATEMENT (left unresolved, status kept): Fermilab's 7 July 2026 feature says NOvA 'is the only currently operating long-baseline neutrino experiment in the United States' and 'is taking data' (https://news.fnal.gov/2026/07/fermilab-marks-70-years-of-neutrino-science-and-leads-next-generation-experiment/); the PAC reports (April and September 2026) are more specific that the Main Injector has not delivered NuMI beam since July 2024, and the feature does not say which data. Shutdown here means no NuMI beam data-taking, not that the detectors are powered down.",
+      "quote": "The MI has not operated since July 2024",
+      "sources": [
+        "src:currency-fnal-pac-report-2026-04",
+        "src:currency2-fnal-pac-report-2026-09",
+        "src:currency2-fnal-news-70-years-neutrino-2026-07"
+      ],
+      "start": "2024-07",
+      "status": "shutdown",
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -45,7 +65,7 @@
   },
   "name": "NOvA near detector",
   "notes": [
-    "Placed at site:fermilab-main-campus (owned by the fermilab-dune lead): no separately sourceable site record exists for this detector hall in this wave."
+    "Placed at site:fermilab-main-campus: no separately sourceable site record exists for this detector hall."
   ],
   "parent_detector_id": null,
   "placements": [
@@ -53,7 +73,7 @@
       "confidence": "verified",
       "end": null,
       "locator": "NOvA monopole search, detector description",
-      "note": "Placed at site:fermilab-main-campus (owned by the fermilab-dune lead): no separately sourceable site record exists for this detector hall in this wave.",
+      "note": "Placed at site:fermilab-main-campus: no separately sourceable site record exists for this detector hall.",
       "quote": "The 0.3 kt Near Detector is located 1 km downstream of the neutrino production target and 100 m underground at Fermilab",
       "role": "near",
       "site_id": "site:fermilab-main-campus",
@@ -135,7 +155,7 @@
       "verified_at": "2026-09-16"
     }
   },
-  "status": "active",
+  "status": "shutdown",
   "subsystems": [],
   "summary": {
     "plain": "A small copy of the NOvA far detector, about 300 tonnes, sitting underground at Fermilab a kilometre from where the neutrino beam is made. It measures the beam before the neutrinos have had time to change type.",

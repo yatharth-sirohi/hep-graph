@@ -20,7 +20,7 @@
     {
       "confidence": "verified",
       "facility_id": "facility:psi",
-      "note": "facility:psi is owned by the 'facilities' Wave-3 workstream and had not landed in data/atlas/facilities/ as of this session; this is an expected dangling reference (see worklog).",
+      "note": "",
       "quote": "using the world's most intense DC muon beam available at PSI",
       "role": "host",
       "sources": [
@@ -74,7 +74,7 @@
       "confidence": "verified",
       "end": "2013",
       "label": "data taking",
-      "note": "Operating interval; the single sourced row was split from its terminal event (A3, 2026-09-17).",
+      "note": "Operating interval; the terminal event is its end.",
       "quote": "the full dataset collected by the MEG experiment at the Paul Scherrer Institut in the period 2009--2013 and totalling 7.5x10^14 stopped muons on target",
       "sources": [
         "src:muons-arxiv-1605-05081"
@@ -87,7 +87,7 @@
       "confidence": "verified",
       "end": null,
       "label": "completed",
-      "note": "Terminal event derived from the end of the same sourced interval (A3, 2026-09-17).",
+      "note": "Terminal event: the end of the operating interval above.",
       "quote": "the full dataset collected by the MEG experiment at the Paul Scherrer Institut in the period 2009--2013 and totalling 7.5x10^14 stopped muons on target",
       "sources": [
         "src:muons-arxiv-1605-05081"
@@ -103,7 +103,7 @@
   "links": {
     "website": {
       "confidence": "verified",
-      "note": "meg.web.psi.ch returned HTTP 404 to a fetch attempt in this session; the ICEPP (University of Tokyo) mirror, an official collaboration site, was fetched successfully and lists both MEG and MEG II.",
+      "note": "meg.web.psi.ch returned HTTP 404 when fetched on 2026-09-17; the ICEPP (University of Tokyo) mirror, an official collaboration site, was reachable and lists both MEG and MEG II.",
       "sources": [
         "src:muons-meg-icepp-site"
       ],
@@ -113,8 +113,7 @@
   },
   "name": "MEG",
   "notes": [
-    "Superseded by experiment:meg-ii (upgrade_of lineage recorded on the successor record per v0.2 A1; the derived inverse 'upgraded_to' is not authored here).",
-    "facility_roles references facility:psi, which is owned by the 'facilities' Wave-3 workstream and was not yet present in data/atlas/facilities/ at the time this file was written -- an expected dangling reference, not an error to fix by creating a competing facility:psi record.",
+    "Superseded by experiment:meg-ii, which is recorded as its upgrade.",
     "external.inspire_experiment (1108527) is sourced from https://inspirehep.net/api/experiments?q=meg%20psi, confirmed at https://inspirehep.net/experiments/1108527."
   ],
   "physics_goals": [
@@ -125,7 +124,7 @@
       "sources": [
         "src:muons-inspire-experiment-meg"
       ],
-      "value": "Search for the charged-lepton-flavor-violating decay mu+ -> e+ gamma down to a branching ratio of 10^-13",
+      "value": "Search for the charged-lepton-flavor-violating decay μ⁺ → e⁺ γ down to a branching ratio of 10⁻¹³",
       "verified_at": "2026-09-17"
     }
   ],
@@ -139,7 +138,7 @@
   "status": "completed",
   "summary": {
     "plain": "An experiment at the Paul Scherrer Institute in Switzerland that looked for a muon turning directly into an electron and a burst of light -- a decay the Standard Model forbids. It ran from 2009 to 2013 and did not see the decay, setting a new best limit.",
-    "technical": "MEG (PSI-R-99-05): searched for mu+ -> e+ gamma using a liquid xenon calorimeter and a positron spectrometer (drift chamber + timing counter) on the PSI piE5 DC muon beamline. Data taking 2009-2013, 7.5x10^14 stopped muons on target; superseded by the upgraded MEG II. See result:meg-mu-to-e-gamma-limit-2016 for the final branching-ratio limit."
+    "technical": "MEG (PSI-R-99-05): searched for μ⁺ → e⁺ γ using a liquid xenon calorimeter and a positron spectrometer (drift chamber + timing counter) on the PSI piE5 DC muon beamline. Data taking 2009-2013, 7.5×10¹⁴ stopped muons on target; superseded by the upgraded MEG II. See result:meg-mu-to-e-gamma-limit-2016 for the final branching-ratio limit."
   },
   "topic_ids": [
     "topic:lepton-flavor-violation",
@@ -154,7 +153,7 @@
       "sources": [
         "src:muons-inspire-experiment-meg"
       ],
-      "value": "Combined a liquid xenon calorimeter with a positron spectrometer (drift chamber and timing counter) optimized on both the positron and gamma-ray sides for background-free operation at the 10^-13 branching-ratio level, using the world's most intense continuous (DC) muon beam at PSI",
+      "value": "Combined a liquid xenon calorimeter with a positron spectrometer (drift chamber and timing counter) optimized on both the positron and gamma-ray sides for background-free operation at the 10⁻¹³ branching-ratio level, using the world's most intense continuous (DC) muon beam at PSI",
       "verified_at": "2026-09-17"
     }
   ]

@@ -1,0 +1,847 @@
+/* phone.css — HEP Atlas at phone width.
+   Loaded after atlas.css on /atlas only. Everything is inside a max-width
+   query, so above 900 px nothing here applies and the desktop layout is
+   exactly atlas.css's. Behaviour (the sheet buttons, expand, focus) is in
+   js/phone.js; this file is the look.
+
+   The model: the globe or the local map fills the screen between a compact
+   header and a one-row timeline. Everything that used to be a column — the
+   filters/legend aside, the record panel, the Topics/Results/Documents list,
+   the map's layer list and its selection drawer — becomes a bottom sheet that
+   sits on top of the stage, above the timeline, so the timeline and the
+   footer links stay reachable while a sheet is open. */
+
+@media (max-width: 900px) {
+  :root {
+    --phone-touch: 44px;
+    --phone-sheet-radius: 16px;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  /* The page is exactly one screen: header, stage, timeline, footer. 100dvh
+     follows the browser's collapsing toolbar; 100vh is the fallback. */
+  body {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* ---------------------------------------------------------------- header */
+  .atlas-header {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 6px 12px 8px;
+    gap: 4px 8px;
+    align-items: center;
+  }
+  /* "← HEP Graph" shrinks to its arrow (the link keeps its aria-label). */
+  .brand {
+    font-size: 0;
+    width: var(--phone-touch);
+    height: var(--phone-touch);
+    margin-left: -12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .brand::before {
+    content: '\2190';
+    font-size: 22px;
+    line-height: 1;
+  }
+  .atlas-title {
+    font-size: 17px;
+  }
+  /* On a local map the facility's own name is the title; the Atlas heading
+     stays for assistive technology and the room goes to the two map buttons. */
+  body.phone-map .atlas-title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .phone-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+    min-width: 0;
+  }
+  .phone-action {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: var(--phone-touch);
+    padding: 0 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: var(--panel);
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .phone-action[hidden] {
+    display: none;
+  }
+  .phone-action[aria-expanded='true'] {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #06201d;
+  }
+  .phone-badge {
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: var(--amber);
+    color: #1c1204;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+  }
+  .phone-badge[hidden] {
+    display: none;
+  }
+  .search-wrap {
+    order: 5;
+    flex: 1 1 100%;
+    max-width: none;
+  }
+  /* 16 px stops iOS from zooming the page when the field is focused. */
+  #atlas-search {
+    height: var(--phone-touch);
+    padding: 0 12px;
+    font-size: 16px;
+  }
+  .search-results {
+    max-height: min(55vh, 360px);
+  }
+  .search-result {
+    display: flex;
+    align-items: center;
+    min-height: var(--phone-touch);
+    padding: 6px 12px;
+    font-size: 15px;
+  }
+  .search-empty {
+    padding: 12px;
+  }
+  .fixture-banner {
+    order: 6;
+    flex: 1 1 100%;
+    max-width: none;
+  }
+  .notice {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  /* ----------------------------------------------------------------- stage */
+  /* One cell; every panel below leaves the grid and floats over it. The
+     margin is the height of whatever sheet is open (set from phone.js) so the
+     globe or map is re-centred in the strip that is still visible. */
+  #atlas-main {
+    position: relative;
+    isolation: isolate;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-areas: 'globe';
+  }
+  /* The desktop rule that adds a detail track while a record is open is more
+     specific than the one above; match it so a phone stays one column. */
+  #atlas-main:not(.is-map-route):has(> .detail-panel:not(.hidden)) {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'globe';
+  }
+  .globe-stage {
+    min-height: 0;
+    margin-bottom: var(--sheet-h, 0px);
+  }
+  .map-stage {
+    min-height: 0;
+    margin-bottom: var(--sheet-h, 0px);
+  }
+  .map-view,
+  .map-view.drawer-open {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    overflow: hidden;
+  }
+
+  /* Marker captions: smaller, capped, and thinned out by phone.js. A tap
+     target is at least 44 px even where the glyph is 14. */
+  .atlas-marker-label {
+    font-size: 11px;
+    max-width: 13em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .atlas-marker.phone-label-off .atlas-marker-label {
+    visibility: hidden;
+  }
+  .atlas-marker::after {
+    content: '';
+    position: absolute;
+    inset: -12px;
+  }
+  /* atlas.css pads the 12 px site glyphs and the clusters by 12 and 10 px. */
+  .atlas-marker.is-site-tier::after {
+    inset: -16px;
+  }
+  .atlas-marker.tier-cluster::after {
+    inset: -14px;
+  }
+
+  /* ---------------------------------------------------------------- sheets */
+  .filters-panel,
+  .mode-panel,
+  .detail-panel,
+  .map-layers,
+  .map-drawer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 0 16px 20px;
+    border: 0;
+    border-top: 1px solid var(--line-strong);
+    border-radius: var(--phone-sheet-radius) var(--phone-sheet-radius) 0 0;
+    box-shadow: 0 -10px 28px #00000080;
+    background: var(--panel);
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    max-height: 50%;
+    /* Above Leaflet's panes and controls (up to 1100 here). */
+    z-index: 1300;
+  }
+  /* The record opens over the list it came from. */
+  .detail-panel,
+  .map-drawer {
+    z-index: 1400;
+  }
+  .filters-panel:focus,
+  .map-layers:focus {
+    outline: none;
+  }
+  /* atlas.css gives .mode-panel a grid area and justify-self:start, which on
+     an absolutely positioned grid child means "shrink to fit the content" —
+     806 px wide with the Results controls in it. Stretch it instead. */
+  .mode-panel {
+    justify-self: stretch;
+    align-self: stretch;
+    height: 60%;
+    max-height: none;
+    /* One scroll for the whole sheet: the controls scroll away and the list
+       gets every pixel, instead of a 45 px window under five dropdowns. */
+    display: block;
+  }
+  .filters-panel,
+  .map-layers {
+    max-height: 46%;
+  }
+  /* Opened by a header button; shut sheets are out of the tab order and the
+     accessibility tree (visibility), and fade/slide in. */
+  .filters-panel,
+  .map-layers {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(18px);
+    pointer-events: none;
+    transition: transform 0.2s ease, opacity 0.2s ease, visibility 0s linear 0.2s;
+  }
+  .filters-panel.is-open,
+  .map-layers.is-open {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    transition: transform 0.2s ease, opacity 0.2s ease, visibility 0s;
+  }
+  .detail-panel,
+  .mode-panel,
+  .map-drawer {
+    animation: phone-sheet-in 0.2s ease-out;
+  }
+  @keyframes phone-sheet-in {
+    from {
+      transform: translateY(24px);
+      opacity: 0;
+    }
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .filters-panel,
+    .map-layers,
+    .filters-panel.is-open,
+    .map-layers.is-open {
+      transition: none;
+    }
+    .detail-panel,
+    .mode-panel,
+    .map-drawer {
+      animation: none;
+    }
+  }
+  .filters-panel.is-expanded,
+  .map-layers.is-expanded,
+  .detail-panel.is-expanded,
+  .map-drawer.is-expanded,
+  .mode-panel.is-expanded {
+    height: 100%;
+    max-height: 100%;
+  }
+
+  /* The grab bar: expand/collapse on the left, close on the right. It sticks
+     to the top of a sheet that scrolls. */
+  .sheet-bar {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    flex: none;
+    margin: 0 -16px 4px;
+    padding: 0 6px 0 4px;
+    background: var(--panel);
+    border-radius: var(--phone-sheet-radius) var(--phone-sheet-radius) 0 0;
+  }
+  .sheet-expand {
+    appearance: none;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: var(--phone-touch);
+    padding: 0 12px;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .sheet-grip {
+    width: 36px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--line-strong);
+  }
+  .sheet-close {
+    appearance: none;
+    width: var(--phone-touch);
+    height: var(--phone-touch);
+    border: 0;
+    background: none;
+    color: var(--white);
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .phone-sheet-heading {
+    margin: 0 0 6px;
+    font-size: 20px;
+  }
+  /* The sheet's own bar closes it; the module's × would be a second one. */
+  .detail-panel .close-btn,
+  .map-drawer .close-btn {
+    display: none;
+  }
+
+  /* ------------------------------------------------- filters / legend sheet */
+  .filters-panel details {
+    margin-bottom: 4px;
+    padding-bottom: 4px;
+  }
+  .filters-panel summary,
+  .phone-section > summary {
+    padding: 12px 0;
+    font-size: 16px;
+  }
+  .mode-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding-bottom: 8px;
+  }
+  .mode-toggle {
+    min-height: var(--phone-touch);
+    padding: 8px 12px;
+    font-size: 15px;
+  }
+  .option-row {
+    min-height: var(--phone-touch);
+    font-size: 15px;
+    gap: 10px;
+  }
+  .option-row input,
+  .filter-option input {
+    width: 22px;
+    height: 22px;
+    flex: none;
+  }
+  .filter-chips {
+    gap: 8px;
+  }
+  .filter-chip {
+    min-height: var(--phone-touch);
+    padding: 0 14px;
+    font-size: 14px;
+  }
+  .filter-group summary {
+    padding: 12px 0;
+    font-size: 15px;
+  }
+  /* Sticks just under the sheet's own bar rather than behind it. */
+  .filter-clear-row {
+    top: calc(var(--phone-touch) + 2px);
+  }
+  .filter-clear-all {
+    min-height: var(--phone-touch);
+    font-size: 15px;
+  }
+  /* One scroll, the sheet's, not a list inside a list. */
+  .filter-options,
+  .filter-options.is-long {
+    max-height: none;
+    gap: 0;
+  }
+  .filter-option {
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    min-height: var(--phone-touch);
+  }
+  .filter-option label {
+    flex: 1;
+    padding: 10px 0;
+  }
+  .marker-legend {
+    font-size: 14px;
+  }
+  .phone-section-body {
+    font-size: 14px;
+    color: var(--muted);
+    padding-bottom: 8px;
+  }
+  .phone-section-body .timeline-legend {
+    width: auto;
+    font-size: 14px;
+    gap: 6px 12px;
+  }
+  .phone-section-body .data-version-label {
+    display: block;
+  }
+
+  /* ------------------------------------------------------------ record sheet */
+  .detail-panel h2 {
+    padding-right: 0;
+    margin-top: 6px;
+    font-size: 21px;
+    line-height: 1.25;
+  }
+  .panel-section {
+    padding: 4px 0;
+  }
+  .panel-section summary {
+    padding: 12px 0;
+    font-size: 16px;
+  }
+  .panel-section-body {
+    padding-top: 4px;
+  }
+  .entity-list {
+    gap: 0;
+  }
+  .entity-list > li,
+  .people-list > li {
+    padding: 0;
+  }
+  .entity-list a,
+  .people-list a,
+  .source-list a,
+  .claim-source a {
+    display: inline-block;
+    padding: 11px 0;
+    overflow-wrap: anywhere;
+  }
+  .role-btn {
+    min-height: var(--phone-touch);
+    padding: 0 14px;
+    font-size: 14px;
+  }
+  .panel-actions .primary-btn,
+  .primary-btn,
+  .text-btn,
+  .jump-year-btn {
+    min-height: var(--phone-touch);
+    padding: 0 14px;
+    font-size: 14px;
+  }
+  .detail-panel,
+  .map-drawer {
+    overflow-wrap: anywhere;
+  }
+
+  /* ---------------------------------------- Topics / Results / Documents sheet */
+  .mode-panel h2 {
+    margin: 4px 0 6px;
+    font-size: 20px;
+  }
+  .mode-body {
+    display: block;
+  }
+  .mode-scroll {
+    overflow: visible;
+  }
+  /* ---- review F8 (rv-maps): the Results controls wrap, nothing scrolls sideways.
+     They used to be one 800 px strip per row, scrolled sideways with no cue, so
+     "All facility", the topic and type filters and "Group by experiment" sat
+     off-screen where a reader never found them. Two dropdowns share a row, the
+     sort takes its own, and the two group buttons split the last. */
+  /* ---- review F18: the controls are a "Filters" disclosure, shut by default,
+     so the sheet opens on the list of results and not on seven controls. */
+  .results-controls > summary {
+    display: flex;
+    align-items: center;
+    min-height: var(--phone-touch);
+    margin: 0 0 8px;
+    padding: 0 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    background: var(--panel-2);
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .results-controls > summary::marker {
+    color: var(--muted);
+  }
+  .results-controls:not([open]) > summary {
+    margin-bottom: 10px;
+  }
+  /* ---- end review F18 ---- */
+  .results-filters,
+  .mode-toolbar {
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 8px;
+    padding: 0;
+    overflow: visible;
+  }
+  /* The odd fifth dropdown grows to fill its row instead of leaving a gap. */
+  .results-filters select {
+    flex: 1 1 calc(50% - 4px);
+    width: auto;
+    min-width: 0;
+    min-height: var(--phone-touch);
+    padding: 0 10px;
+    font-size: 16px;
+    text-overflow: ellipsis;
+  }
+  .mode-panel input[type='search'] {
+    flex: 1 1 100%;
+    min-width: 0;
+    min-height: var(--phone-touch);
+    padding: 0 10px;
+    font-size: 16px;
+  }
+  #results-sort {
+    flex: 1 1 100%;
+    width: auto;
+    min-width: 0;
+    min-height: var(--phone-touch);
+    padding: 0 10px;
+    font-size: 16px;
+    background: var(--panel-2);
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    color: var(--white);
+  }
+  .group-toggle-row {
+    flex: 1 1 100%;
+    gap: 8px;
+  }
+  .group-toggle-row .text-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    white-space: normal;
+    line-height: 1.2;
+  }
+  /* ---- end review F8 ---- */
+  .result-row {
+    flex-wrap: wrap;
+    gap: 2px 8px;
+    padding-bottom: 8px;
+  }
+  .result-date {
+    flex-basis: 100%;
+    min-width: 0;
+    font-size: 12px;
+  }
+  .result-main {
+    flex: 1 1 100%;
+  }
+  .result-main a {
+    display: inline-block;
+    padding: 6px 0;
+    font-size: 15px;
+  }
+  .jump-year-btn {
+    margin-left: 0;
+  }
+  .topic-link,
+  .document-row a {
+    display: inline-block;
+    padding: 11px 0;
+  }
+  .topic-tree-children {
+    padding-left: 12px;
+  }
+  .document-row {
+    padding: 0 0 4px;
+  }
+
+  /* --------------------------------------------------------------- local map */
+  /* The Leaflet zoom buttons are 30 px by default. */
+  .map-canvas .leaflet-bar a,
+  .map-canvas.leaflet-touch .leaflet-bar a {
+    width: var(--phone-touch);
+    height: var(--phone-touch);
+    line-height: var(--phone-touch);
+    font-size: 22px;
+  }
+  /* The attribution links must stay legible and visible; their tap area grows
+     without the control growing. */
+  .map-canvas .leaflet-control-attribution a {
+    position: relative;
+  }
+  .map-canvas .leaflet-control-attribution a::after {
+    content: '';
+    position: absolute;
+    inset: -16px -4px;
+  }
+  .map-tile-notice {
+    left: 64px;
+  }
+  .map-gap-notice.on-stage {
+    left: 10px;
+    max-width: calc(100% - 20px);
+  }
+  .map-depth {
+    width: calc(100% - 20px);
+  }
+  .map-layers,
+  .map-drawer {
+    border-left: 0;
+  }
+  /* The header carries a "Back to globe" that is always on screen; this is
+     the sheet's own, at the top of its list. */
+  .map-layers .map-back-btn {
+    min-height: var(--phone-touch);
+    margin-bottom: 8px;
+    font-size: 15px;
+  }
+  .map-title {
+    font-size: 19px;
+  }
+  .map-section > summary {
+    padding: 12px 0;
+    font-size: 16px;
+  }
+  .map-toggle,
+  .map-feature-row {
+    min-height: var(--phone-touch);
+    justify-content: center;
+    padding: 8px 10px;
+  }
+  .map-feature-name,
+  .map-toggle-name {
+    font-size: 15px;
+  }
+  .map-feature-meta,
+  .map-toggle-meta,
+  .map-note,
+  .map-subtitle {
+    font-size: 13px;
+  }
+  .map-drawer-title {
+    padding-right: 0;
+    font-size: 19px;
+  }
+  .map-layers a.entity-link,
+  .map-linked-list a {
+    display: inline-block;
+    padding: 11px 0;
+  }
+
+  /* --------------------------------------------------------------- timeline */
+  /* One row: Date | Range | play, the slider, the year. */
+  .timeline-bar {
+    padding: 2px 12px;
+    gap: 0 8px;
+    flex-wrap: wrap;
+    min-height: 52px;
+  }
+  .timeline-modes {
+    flex: none;
+    gap: 4px;
+  }
+  .timeline-modes .mode-btn {
+    position: relative;
+    min-width: var(--phone-touch);
+    min-height: var(--phone-touch);
+    padding: 0 10px;
+    font-size: 13px;
+  }
+  .tl-short[hidden] {
+    display: inline;
+  }
+  .tl-long,
+  .tl-play-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .tl-glyph {
+    font-size: 15px;
+  }
+  .timeline-sliders {
+    flex: 1 1 96px;
+    min-width: 96px;
+  }
+  .timeline-sliders input[type='range'] {
+    height: var(--phone-touch);
+    margin: 0;
+  }
+  .timeline-range-wrap {
+    gap: 0;
+  }
+  /* Range mode has two sliders; they take a row of their own. */
+  .timeline-bar:has(.timeline-range-wrap:not(.hidden)) .timeline-sliders {
+    order: 5;
+    flex-basis: 100%;
+  }
+  .timeline-readout {
+    flex: none;
+    min-width: 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  /* The colour key lives in the filters sheet on a phone. */
+  .timeline-bar .timeline-legend {
+    display: none;
+  }
+
+  /* ----------------------------------------------------------------- footer */
+  .atlas-footer {
+    position: relative;
+    justify-content: space-around;
+    gap: 0;
+    padding: 0 8px;
+    min-height: var(--phone-touch);
+    font-size: 13px;
+  }
+  .atlas-footer .data-version-label {
+    display: none;
+  }
+  /* The data-version sentence lives in the filters sheet here, so the honesty
+     statement it carries keeps a short form in the footer: a row of its own
+     above the links (the footer wraps instead of squeezing four targets, the
+     long one included, into 390 px). */
+  .atlas-footer {
+    flex-wrap: wrap;
+  }
+  .atlas-footer .footer-link,
+  .atlas-footer .text-btn {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--phone-touch);
+    padding: 0 8px;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    color: var(--teal);
+    font-size: 13px;
+    text-decoration: underline;
+  }
+  .atlas-footer .footer-link.footer-coverage {
+    display: flex;
+    justify-content: center;
+    flex: 1 1 100%;
+    min-height: 32px;
+    padding: 0 8px;
+    font-size: 12px;
+    white-space: normal;
+    text-align: center;
+  }
+  .share-status:empty {
+    display: none;
+  }
+  /* ---- rv-panels: share-link fallback -- begin ---- */
+  .share-status.is-fallback {
+    left: 12px;
+    right: 12px;
+    width: auto;
+  }
+  .share-url {
+    min-height: var(--phone-touch);
+    padding: 6px 10px;
+    font-size: 14px;
+    -webkit-user-select: all;
+    user-select: all;
+  }
+  .share-status .share-done {
+    margin: 6px 0 0;
+    min-height: var(--phone-touch);
+  }
+  /* ---- rv-panels -- end ---- */
+  .share-status {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 56px;
+    z-index: 2000;
+    padding: 10px 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: var(--panel);
+    color: var(--white);
+    font-size: 13px;
+    overflow-wrap: anywhere;
+    box-shadow: var(--shadow);
+  }
+}
+
+/* Small phones: the header's two map buttons and the three footer links have
+   to fit in 320-360 px, so the buttons give up their padding first. */
+@media (max-width: 420px) {
+  .phone-action {
+    padding: 0 10px;
+    gap: 5px;
+    font-size: 13px;
+  }
+  .atlas-footer .footer-link,
+  .atlas-footer .text-btn {
+    padding: 0 4px;
+    font-size: 12px;
+  }
+}

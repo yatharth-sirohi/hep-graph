@@ -12,7 +12,7 @@
   "geometry": {
     "confidence": "approximate",
     "locator": "OpenStreetMap way/26309158, way/26309159, timestamp_osm_base 2026-09-18T22:23:35Z",
-    "note": "OpenStreetMap alone (source type openstreetmap, rank 11) yields at most `approximate` confidence (contract Sec1.2); the shape is also an incomplete, unclosed ring-road proxy for the buried beam tunnel, not the tunnel itself.",
+    "note": "OpenStreetMap alone supports at most 'approximate' confidence; the shape is also an incomplete, unclosed ring-road proxy for the buried beam tunnel, not the tunnel itself.",
     "sources": [
       "src:geo-slac-osm-pep-ring-road",
       "src:geo-slac-pepii-cdr-osti"
@@ -430,7 +430,7 @@
   "method": "Two OpenStreetMap ways named 'PEP Ring Road' (access=private, highway=unclassified), kept as two separate LineStrings because their endpoints do not meet: together they trace only part of the collider ring's circumference, not a closed loop. A ring road is not the buried beam tunnel itself (docs/HEP_ATLAS_GEOMETRY.md Sec1.2); accuracy_m is widened to the ring-road-proxy tier and feature_type is 'beamline' rather than 'ring' because the shape is neither closed nor a claim about the tunnel's exact path.",
   "name": "PEP-II ring, partially-traced surface access road",
   "notes": [
-    "PEP-II's circumference is officially 2,200 m (src:geo-slac-pepii-cdr-osti, the PEP-II Conceptual Design Report: 'each with a circumference of 2200 m'), but the two mapped road segments together measure only 1,320.2 m + 699.0 m = 2,019.2 m and do not close into a loop, so no `checks[]` length row is asserted here (a check against an incomplete, unclosed shape would not be a meaningful circumference measurement). See the worklog for this residual.",
+    "PEP-II's circumference is officially 2,200 m (PEP-II Conceptual Design Report: 'each with a circumference of 2200 m'), but the two mapped road segments together measure only 1,320.2 m + 699.0 m = 2,019.2 m and do not close into a loop, so no length check is asserted (a check against an incomplete, unclosed shape would not be a meaningful circumference measurement).",
     "This ring-road proxy stands in the SLAC Research Yard around which the PEP-II (and originally PEP) storage rings ran; the five 'PEP Interaction Region' buildings (620, 640, 660, 680, 720) sit along its inferred path, of which IR-2 (620) is drawn separately as the BaBar hall."
   ],
   "osm": {

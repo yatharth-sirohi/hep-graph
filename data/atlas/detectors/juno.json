@@ -16,7 +16,7 @@
       "confidence": "verified",
       "end": "2021-12-19",
       "label": "civil construction of underground laboratory",
-      "note": "Closes a gap the original pass explicitly left uncovered ('no source... states an explicit approval date between the 2015 CDR and the 2021 start of detector installation'); the JUNO Collaboration's own performance paper gives this date directly. End date is the day the detector's Stainless Steel support-structure installation began, per the same source.",
+      "note": "End = 19 December 2021, the day installation of the detector's Stainless Steel support structure began, per the JUNO Collaboration's own performance paper.",
       "quote": "The civil construction of the JUNO underground lab started in January 2015.",
       "sources": [
         "src:reactor-solar-verify-juno-cpc-2026-arxiv"
@@ -30,7 +30,7 @@
       "end": "2024-12-17",
       "label": "detector support-structure, acrylic-vessel and PMT installation",
       "note": "Replaces the earlier single 'installation' interval (2021-2024-12, confidence approximate, sourced only to a search-engine summary of an IHEP report) with day-precision dates verified directly in the JUNO Collaboration's own paper.",
-      "quote": "The installation of the Stainless Steel support structure started on 19 December 2021. The installation of the photomultiplier tube (PMT) modules and electronics boxes started on 23 October 2022 and finished on 17 December 2024.",
+      "quote": "The installation of the Stainless Steel support structure started on 19 December 2021 ... The installation of the photomultiplier tube (PMT) modules and electronics boxes started on 23 October 2022 and finished on 17 December 2024.",
       "sources": [
         "src:reactor-solar-verify-juno-cpc-2026-arxiv"
       ],
@@ -97,7 +97,7 @@
   "specs": {
     "energy_resolution": {
       "confidence": "verified",
-      "note": "CORRECTED 2026-09-18: prior quote ('anticipated energy resolution of \"3.02%/√E (MeV)\"') was not verbatim -- the abstract says 'effective energy resolution', not 'anticipated'. This is the pre-operation design target. The first measured performance (Chin. Phys. C 50, 043001 (2026)) reports 3.4% at 0.511 MeV -- see result:juno-initial-performance-2026.",
+      "note": "This is the pre-operation design target: the 2021 design paper's abstract gives an \"effective energy resolution\" of 3.02%/√E (MeV) in simulations. The first measured performance (Chin. Phys. C 50, 043001 (2026)) reports 3.4% at 0.511 MeV; see result:juno-initial-performance-2026.",
       "quote": "we expect a yield of 1345 p.e. per MeV and an effective energy resolution of 3.02%/\\sqrt{E (MeV)}$ in simulations",
       "sources": [
         "src:juno-physics-detector-arxiv-2021"
@@ -110,7 +110,7 @@
       "confidence": "verified",
       "dimension": "count",
       "display": "17596 (4939 dynode-PMTs + 12657 MCP-PMTs)",
-      "note": "CORRECTED 2026-09-18: the prior value (20000) was the 2015 design target/2024 IHEP press-release rounding, not the as-built count. The JUNO Collaboration's own Initial performance results paper (arXiv:2511.14590 = Chin. Phys. C 50, 043001 (2026)) gives the actual installed count: 17596 20-inch PMTs (4939 Hamamatsu R12860-50 dynode-PMTs + 12657 NNVT GDB6201 MCP-PMTs). A separate array of 25587 3-inch PMTs (per the same source; IHEP's press release rounds this to 25,000, the 2021 design paper projected 25,600) forms a complementary double-calorimeter system; recorded in `subsystems` rather than as a second `pmt_count` (not an Appendix A key for a second array).",
+      "note": "The as-built count comes from the JUNO Collaboration's own Initial performance results paper (arXiv:2511.14590 = Chin. Phys. C 50, 043001 (2026)): 17596 20-inch PMTs (4939 Hamamatsu R12860-50 dynode-PMTs + 12657 NNVT GDB6201 MCP-PMTs). The figure of 20000 is the 2015 design target, also the rounding in the 2024 IHEP press release. A separate array of 25587 3-inch PMTs (same source; IHEP's press release rounds this to 25,000, the 2021 design paper projected 25,600) forms a complementary double-calorimeter system and is listed under subsystems rather than as a second PMT count.",
       "quote": "The main system consists of 17596 20-inch PMTs, (referred in the following as 'large PMTs') installed on the SS structure. Two types of PMTs have been employed: 4939 dynode-PMTs ... and 12657 Micro-Channel Plate photomultipliers, MCP-PMTs",
       "sources": [
         "src:reactor-solar-verify-juno-cpc-2026-arxiv"
@@ -140,7 +140,7 @@
       "description": [
         {
           "confidence": "verified",
-          "note": "CORRECTED 2026-09-18: the as-built count (25587) replaces the earlier IHEP press-release rounding (25,000).",
+          "note": "The count is the as-built figure (25587); an IHEP press release rounds it to 25,000.",
           "quote": "In addition, 25587 3-inch PMTs (referred in the following as 'small PMTs') have been produced from Hainan Zhanchuang Photonics Technology (China) and installed in the space between the 20-inch PMTs.",
           "sources": [
             "src:reactor-solar-verify-juno-cpc-2026-arxiv"

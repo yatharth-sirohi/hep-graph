@@ -39,6 +39,34 @@
       "start": "2019-01",
       "status": "active",
       "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2021",
+      "kind": "phase",
+      "label": "SNOLAB: SENSEI apparatus installed",
+      "note": "arXiv:2312.13342 gives the year the SENSEI apparatus was installed at SNOLAB. The SNOLAB installation is recorded here as a timeline entry only; no SNOLAB detector placement is recorded.",
+      "quote": "The SENSEI apparatus at SNOLAB was installed in 2021.",
+      "sources": [
+        "src:currency2-sensei-snolab-first-results-arxiv-2312-13342"
+      ],
+      "start": "2021",
+      "status": "construction",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "verified",
+      "end": "2023-04-10",
+      "kind": "run",
+      "label": "SNOLAB Run 1 (first science run)",
+      "note": "First SNOLAB science run (arXiv:2312.13342). The same paper says \"The SNOLAB setup has been upgraded with additional detectors for another science run\"; no source consulted (checked 2026-10-25) dates that later run or says whether it is taking data now. The Fermilab MINOS-cavern operation (the open Fermilab interval above) is still reported as ongoing in an arXiv paper of 15 October 2026 (arXiv:2610.22418, 'a SENSEI sensor placed underground in the MINOS cavern at Fermilab').",
+      "quote": "based on data taken from September 9, 2022 to April 10, 2023",
+      "sources": [
+        "src:currency2-sensei-snolab-first-results-arxiv-2312-13342"
+      ],
+      "start": "2022-09-09",
+      "status": "active",
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -46,7 +74,7 @@
   },
   "name": "SENSEI Skipper-CCD detector",
   "notes": [
-    "The device changed generations over the experiment's history (0.0947 g protoSENSEI in 2019 to a ~2 g Skipper-CCD from 2020); no single 'current' mass/pixel count as of 2026 was found in the sources fetched."
+    "The device changed generations over the experiment's history (0.0947 g protoSENSEI in 2019 to a ~2 g Skipper-CCD from 2020); none of the sources consulted (checked 2026-10-25) gives a single 'current' mass or pixel count for 2026."
   ],
   "parent_detector_id": null,
   "placements": [
@@ -54,7 +82,7 @@
       "confidence": "approximate",
       "end": null,
       "locator": "arXiv:1901.10478 (ar5iv)",
-      "note": "Placed at the existing site:fermilab-main-campus (owned by fermilab-dune), which that lead's own notes already use as the campus-precision placement for the Fermilab MINOS near-detector hall (kind: detector, precision_m 3000); no source fetched this session gives a more precise coordinate for this specific cavern.",
+      "note": "Placed at the existing campus-level site site:fermilab-main-campus, which is also used for the Fermilab MINOS near-detector hall (kind detector, precision 3000 m); no source consulted (checked 2026-10-25) gives a more precise coordinate for this specific cavern.",
       "quote": "a prototype Skipper-CCD placed in the MINOS cavern, ... at the Fermi National Accelerator Laboratory (FNAL)",
       "role": "main",
       "site_id": "site:fermilab-main-campus",
@@ -78,7 +106,7 @@
       "dimension": "mass",
       "display": "0.0947 g",
       "locator": "arXiv:1901.10478 (ar5iv)",
-      "note": "This is the protoSENSEI (2019) device's mass; the 2020 device was ~2 g (see notes). No mass figure for the current (2026) detector was found in the papers fetched this session.",
+      "note": "This is the protoSENSEI (2019) device's mass; the 2020 device was ~2 g (see notes). No mass figure for the current (2026) Fermilab detector is given in the papers consulted (checked 2026-10-25).",
       "quote": "a total active mass (before masking) of 0.0947 gram",
       "sources": [
         "src:sensei-shallow-underground-2019-arxiv"
@@ -91,23 +119,23 @@
       "approx": true,
       "confidence": "verified",
       "dimension": "count",
-      "display": "~898,000 pixels (4 x 624 x 362)",
+      "display": "~904,000 pixels (4 × 624 × 362)",
       "locator": "arXiv:1901.10478 (ar5iv)",
-      "note": "Computed from the quoted quadrant geometry (4 quadrants x 624 rows x 362 pixels), not stated as a single total in the source.",
-      "quote": "each consisting of 624 rows of 362 pixels",
+      "note": "Computed as 4 × 624 × 362 = 903,552 from the quoted quadrant geometry; not stated as a single total in the source. Cross-check: the source gives an active area of 1.086 cm × 1.872 cm and 15 μm × 15 μm pixels (724 × 1248 pixels), and 0.0947 g total active mass at 1.0476 × 10⁻⁷ g per pixel (about 904,000 pixels).",
+      "quote": "The four amplifiers allow the Skipper-CCD to be divided into four equal-sized quadrants, each consisting of 624 rows of 362 pixels.",
       "sources": [
         "src:sensei-shallow-underground-2019-arxiv"
       ],
       "unit": "",
-      "value": 898048,
-      "verified_at": "2026-09-17"
+      "value": 903552,
+      "verified_at": "2026-10-25"
     }
   },
   "status": "active",
   "subsystems": [],
   "summary": {
     "plain": "A tiny silicon chip called a skipper CCD, sensitive enough to count single electrons, sitting in a shielded underground hall at Fermilab to catch the faint signal of a very light dark matter particle.",
-    "technical": "Skipper-CCD detector operated in the MINOS cavern at Fermilab; protoSENSEI (2018-2019) had 0.0947 g active mass across ~898,000 pixels in four amplifier quadrants, superseded by a ~2 g high-resistivity Skipper-CCD from 2020, with operations continuing as of 2026."
+    "technical": "Skipper-CCD detector operated in the MINOS cavern at Fermilab; protoSENSEI (2018-2019) had 0.0947 g active mass across ~904,000 pixels in four amplifier quadrants, superseded by a ~2 g high-resistivity Skipper-CCD from 2020, with operations continuing as of the May 2026 spurious-charge paper (arXiv:2605.30281)."
   },
   "technology": {
     "confidence": "verified",

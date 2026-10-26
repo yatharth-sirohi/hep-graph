@@ -32,31 +32,56 @@
   "intervals": [
     {
       "confidence": "verified",
-      "end": null,
+      "end": {
+        "approx": true,
+        "date": "2025",
+        "display": "until commissioning began in 2025"
+      },
       "label": "background characterization / pre-construction",
       "locator": "abstract",
-      "note": "",
+      "note": "END SET 2026-10-25 to the start of the 2025 commissioning interval so that the open-ended construction status does not resurface after the planned end of the first science phase.",
       "quote": "will deploy a kg-scale low-energy-threshold detector array combining Ge and Zn target crystals 8.8 meters away from the 58 MW research nuclear reactor core",
       "sources": [
         "src:cevns-ricochet-fast-neutron-2022"
       ],
       "start": "2022",
       "status": "construction",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     {
       "confidence": "verified",
-      "end": null,
+      "end": "2025-07",
       "label": "commissioning (mini-CryoCube module)",
-      "locator": "abstract",
-      "note": "Status independently verified against this fetched primary source rather than taken from the brief's secondhand description; a 2026 status paper ('Status of the Ricochet experiment at the ILL', PoS EPS-HEP2025:150) was found in the literature search but not separately fetched/cited as a source in this pass.",
+      "locator": "end: TAUP 2025 slides (27 Aug 2025); RJP 2026 abstract",
+      "note": "Status taken from the primary source rather than a secondary description. A 2026 status paper ('Status of the Ricochet experiment at the ILL', PoS EPS-HEP2025:150) was found but is not cited as a source. The interval ends in July 2025, when the first science run with the full 18-detector payload started: \"The installation and phased commissioning are completed.\" (TAUP 2025 slides).",
       "quote": "the detector performance achieved during its commissioning with a mini-CryoCube module",
       "sources": [
-        "src:cevns-ricochet-commissioning-2025"
+        "src:cevns-ricochet-commissioning-2025",
+        "src:currency-ricochet-taup2025-slides"
       ],
       "start": "2025",
       "status": "commissioning",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2026",
+        "display": "end of 2026",
+        "planned": true
+      },
+      "label": "first science run / science phase",
+      "locator": "RJP 2026 abstract (24 April 2026); TAUP 2025 slides",
+      "note": "The end is a plan (\"foreseen to complete at the end of 2026\"), not a reported event.",
+      "quote": "RICOCHET began its first science phase in July 2025 with 18 detectors installed, and is foreseen to complete at the end of 2026.",
+      "sources": [
+        "src:currency-ricochet-rjp2026-abstract",
+        "src:currency-ricochet-taup2025-slides"
+      ],
+      "start": "2025-07",
+      "status": "active",
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [
@@ -86,9 +111,8 @@
   },
   "name": "Ricochet",
   "notes": [
-    "No INSPIRE experiment-registry search turned up a dedicated Ricochet experiment record (a literature search found many Ricochet papers but no `experiments` collection record) in this pass; external.inspire_experiment left null rather than guessed.",
-    "No official Ricochet website was located/fetched in this pass; links.website left null.",
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1)."
+    "No INSPIRE experiment record for Ricochet was found (a literature search found many Ricochet papers but no record in the INSPIRE experiments collection), so none is recorded.",
+    "No official Ricochet website was found; none is recorded."
   ],
   "physics_goals": [
     {
@@ -111,10 +135,10 @@
     "src:cevns-ricochet-fast-neutron-2022",
     "src:cevns-ricochet-commissioning-2025"
   ],
-  "status": "commissioning",
+  "status": "active",
   "summary": {
     "plain": "A reactor-neutrino experiment at a French research reactor, using ultra-cold germanium and zinc crystals just a few metres from the reactor core to catch antineutrinos bouncing off whole atomic nuclei.",
-    "technical": "Ricochet: reactor CEvNS experiment at the ILL research reactor (Grenoble, France), 8.8 m from the 58 MW reactor core, using a planned kg-scale CryoCube array of Ge and Zn cryogenic calorimeters; a 126 g (3 x 42 g Ge) mini-CryoCube commissioning module was operated and characterized in 2025."
+    "technical": "Ricochet: reactor CEvNS experiment at the ILL research reactor (Grenoble, France), 8.8 m from the 58 MW reactor core, using a planned kg-scale CryoCube array of Ge and Zn cryogenic calorimeters; a 126 g (3 × 42 g Ge) mini-CryoCube commissioning module was operated and characterized in 2025."
   },
   "topic_ids": [
     "topic:cevns",

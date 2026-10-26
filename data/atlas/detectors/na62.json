@@ -24,16 +24,33 @@
     },
     {
       "confidence": "verified",
-      "end": null,
+      "end": "2026-08-31",
       "label": "operating",
-      "note": "Physics data taking from Run 1 (2016-2018) through the ongoing Run 2 (2021-present); see experiment:na62 for the full run-by-run breakdown.",
+      "locator": "end: home.cern, \"All CERN accelerators now on the road to HiLumi\", 31 August 2026",
+      "note": "Physics data taking from Run 1 (2016-2018) through the ongoing Run 2 (2021-present); see experiment:na62 for the full run-by-run breakdown. End capped at 2026-08-31, when the SPS beams stopped for LS3 (see the shutdown interval below).",
       "sources": [
         "src:na62-jhep-2021-measurement",
-        "src:na62-cern-news-2026-refined-measurement"
+        "src:na62-cern-news-2026-refined-measurement",
+        "src:currency-cern-all-accelerators-2026-08-31"
       ],
       "start": "2015",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "derived",
+      "end": null,
+      "label": "no SPS beam: Long Shutdown 3",
+      "note": "Derived, not an experiment-specific report: the SPS and the whole injector complex stopped on 31 August 2026 (CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.) and the North Area, which hosts this experiment, is being consolidated during LS3 (\"the consolidation of the Super Proton Synchrotron (SPS) North Area\", CERN, 29 June 2026). No NA62/NA64 statement about its own last day of data taking was fetched, so the end is set to the date beams stopped and confidence is derived.",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31",
+        "src:cern-long-shutdown-3-page",
+        "src:currency-cern-accelerator-report-2026-08-20"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -41,8 +58,7 @@
   },
   "name": "NA62 detector",
   "notes": [
-    "Placed at site:cern-ecn3-north-area, created by this same workstream.",
-    "Detector-paper PDF (cds.cern.ch mirror) was blocked by a bot-detection challenge in this session; specs beyond the GigaTracker figures confirmed via a separate arXiv subsystem paper were not independently re-verified against the full JINST text and are therefore limited to what the abstract/search-indexed text stated."
+    "The detector paper PDF (cds.cern.ch mirror) could not be read (blocked by a bot-detection challenge); specs beyond the GigaTracker figures confirmed via a separate arXiv subsystem paper were not independently re-verified against the full JINST text and are therefore limited to what the abstract/search-indexed text stated."
   ],
   "parent_detector_id": null,
   "placements": [
@@ -72,7 +88,7 @@
       "confidence": "verified",
       "dimension": "time",
       "display": "0.065 ns (65 ps)",
-      "note": "GigaTracker beam-spectrometer timing resolution on reconstructed tracks (single-hit resolution is below 200 ps). Display leads with the stored unit (ns) to satisfy the A21 display/value cross-check, with the source's own wording (65 ps) alongside it.",
+      "note": "GigaTracker beam-spectrometer timing resolution on reconstructed tracks (single-hit resolution is below 200 ps). The display gives the value in ns, the unit it is stored in, with the source's own wording (65 ps) alongside it.",
       "quote": "65 ps time resolution on tracks",
       "sources": [
         "src:na62-gigatracker-arxiv-2019"
@@ -82,7 +98,7 @@
       "verified_at": "2026-09-17"
     }
   },
-  "status": "active",
+  "status": "shutdown",
   "subsystems": [
     {
       "description": [
@@ -93,7 +109,7 @@
           "sources": [
             "src:na62-gigatracker-arxiv-2019"
           ],
-          "value": "Low-mass, high-intensity silicon-pixel beam spectrometer providing 4D (position + time) tracking of individual beam particles at flux up to 2.0 MHz/mm^2, with 65 ps time resolution on tracks",
+          "value": "Low-mass, high-intensity silicon-pixel beam spectrometer providing 4D (position + time) tracking of individual beam particles at flux up to 2.0 MHz/mm², with 65 ps time resolution on tracks",
           "verified_at": "2026-09-17"
         }
       ],
@@ -102,7 +118,7 @@
   ],
   "summary": {
     "plain": "The NA62 detector is a long chain of instruments in an underground hall at CERN, built to spot a positive kaon turning into a pion and two invisible neutrinos. A precise beam tracker, a ring-shaped light detector and a calorimeter work together to reject almost everything else.",
-    "technical": "Decay-in-flight spectrometer in the ECN3 cavern: GigaTracker beam-timing spectrometer (65 ps track time resolution, up to 2.0 MHz/mm^2 flux), RICH counter, LKr electromagnetic calorimeter, straw trackers and hermetic photon/particle veto systems, built 2009-2014 and operating since 2015."
+    "technical": "Decay-in-flight spectrometer in the ECN3 cavern: GigaTracker beam-timing spectrometer (65 ps track time resolution, up to 2.0 MHz/mm² flux), RICH counter, LKr electromagnetic calorimeter, straw trackers and hermetic photon/particle veto systems, built 2009-2014 and operating since 2015."
   },
   "technology": {
     "confidence": "verified",

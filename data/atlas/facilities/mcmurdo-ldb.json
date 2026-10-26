@@ -1,49 +1,88 @@
 {
-  "id": "facility:mcmurdo-ldb",
-  "type": "facility",
-  "name": "McMurdo Long Duration Balloon Facility",
-  "aliases": ["LDB Camp", "NASA CSBF Antarctica LDB site", "Williams Field balloon launch site"],
-  "kind": "polar_station",
-  "operator": null,
-  "operator_text": {
-    "value": "NASA / Columbia Scientific Balloon Facility (CSBF)",
-    "sources": ["src:astro-neutrino-anita-csbf-nasa-antarctica-payloads"],
-    "verified_at": "2026-09-17", "confidence": "verified",
-    "quote": "NASA Long Duration Balloon (LDB) site at LDB Camp, McMurdo Station.", "note": ""
-  },
-  "operator_ids": [],
-  "country": ["AQ"],
-  "countries": ["AQ"],
-  "primary_site_id": "site:mcmurdo-ldb-launch-site",
-  "site_ids": [],
   "accelerator_ids": [],
-  "beamline_ids": [],
-  "intervals": [
-    {
-      "label": "used for ANITA balloon launches", "status": "active", "start": "2003-12", "end": null,
-      "sources": ["src:astro-neutrino-anita-campaign-anita-lite", "src:astro-neutrino-anita-csbf-nasa-antarctica-payloads"],
-      "verified_at": "2026-09-17", "confidence": "approximate",
-      "quote": "ANITA-LITE launched December 17, 2003 and flew for ~18.5 days onboard a NASA LDB scientific balloon during the 2003 Austral Summer from McMurdo Base, Antarctica",
-      "note": "This facility record covers only the NASA LDB launch operations relevant to ANITA; it is not a full model of the wider McMurdo Station complex."
-    }
+  "aliases": [
+    "LDB Camp",
+    "NASA CSBF Antarctica LDB site",
+    "Williams Field balloon launch site"
   ],
-  "status": "active",
-  "specs": {},
-  "topic_ids": ["topic:high-energy-astrophysical-neutrinos", "topic:cosmic-rays"],
-  "related_facility_ids": [],
-  "institution_id": null,
+  "beamline_ids": [],
+  "countries": [
+    "AQ"
+  ],
+  "country": [
+    "AQ"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
   "document_ids": [],
   "experiment_ids": [],
-  "links": {"website": {"value": "https://www.csbf.nasa.gov/antarctica/payloads.htm", "sources": ["src:astro-neutrino-anita-csbf-nasa-antarctica-payloads"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
-  "notes": [
-    "This is the NASA long-duration-balloon launch facility used to fly ANITA, not a detector site: ANITA takes data at float altitude (~37 km) over the Antarctic ice sheet, not at the launch point. Different ANITA flights launched from slightly different pads near McMurdo Station (LDB Camp for ANITA-LITE and ANITA-I; Williams Field for ANITA-II per the collaboration's own campaign pages); both are modelled as one facility here since no source distinguishes them as administratively separate.",
-    "Derived fields (site_ids, accelerator_ids, beamline_ids, institution_id, document_ids, experiment_ids) are deliberately not written (v0.2 A1)."
+  "id": "facility:mcmurdo-ldb",
+  "institution_id": null,
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "used for ANITA balloon launches",
+      "note": "This facility record covers only the NASA LDB launch operations relevant to ANITA; it is not a full model of the wider McMurdo Station complex.",
+      "quote": "Launch Date: December 17, 2003 A prototype to the full ANITA experiment, ANITA-LITE, was flown for ~18.5 days onboard a NASA LDB scientific balooon during the 2003 Austral Summer from McMurdo Base, Antarctica.",
+      "sources": [
+        "src:astro-neutrino-anita-campaign-anita-lite",
+        "src:astro-neutrino-anita-csbf-nasa-antarctica-payloads"
+      ],
+      "start": "2003-12",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
   ],
+  "kind": "polar_station",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:astro-neutrino-anita-csbf-nasa-antarctica-payloads"
+      ],
+      "value": "https://www.csbf.nasa.gov/antarctica/payloads.htm",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "McMurdo Long Duration Balloon Facility",
+  "notes": [
+    "This is the NASA long-duration-balloon launch facility used to fly ANITA, not a detector site: ANITA takes data at float altitude (~37 km) over the Antarctic ice sheet, not at the launch point. Different ANITA flights launched from slightly different pads near McMurdo Station (LDB Camp for ANITA-LITE and ANITA-I; Williams Field for ANITA-II per the collaboration's own campaign pages); both are modelled as one facility here since no source distinguishes them as administratively separate."
+  ],
+  "operator": null,
+  "operator_ids": [],
+  "operator_text": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "NASA Long Duration Balloon (LDB) site at LDB Camp, McMurdo Station.",
+    "sources": [
+      "src:astro-neutrino-anita-csbf-nasa-antarctica-payloads"
+    ],
+    "value": "NASA / Columbia Scientific Balloon Facility (CSBF)",
+    "verified_at": "2026-09-17"
+  },
+  "primary_site_id": "site:mcmurdo-ldb-launch-site",
+  "related_facility_ids": [],
+  "schema": "hep-atlas/0.2",
+  "site_ids": [],
+  "sources": [
+    "src:astro-neutrino-anita-csbf-nasa-antarctica-payloads",
+    "src:astro-neutrino-anita-campaign-anita-lite",
+    "src:astro-neutrino-anita-campaign-anita-i",
+    "src:astro-neutrino-anita-campaign-anita-ii"
+  ],
+  "specs": {},
+  "status": "active",
   "summary": {
     "plain": "The NASA balloon-launch site near McMurdo Station, Antarctica, where the ANITA neutrino instrument was launched on each of its long, high-altitude balloon flights.",
     "technical": "NASA Columbia Scientific Balloon Facility (CSBF) long-duration-balloon launch operations near McMurdo Station, Antarctica, used to launch ANITA-LITE (2003), ANITA-I (2006), ANITA-II (2008, from Williams Field), ANITA-III (2014) and ANITA-IV (2016)."
   },
-  "coverage": {"researched": "partial", "tier": "B"},
-  "sources": ["src:astro-neutrino-anita-csbf-nasa-antarctica-payloads", "src:astro-neutrino-anita-campaign-anita-lite", "src:astro-neutrino-anita-campaign-anita-i", "src:astro-neutrino-anita-campaign-anita-ii"],
-  "schema": "hep-atlas/0.2"
+  "topic_ids": [
+    "topic:high-energy-astrophysical-neutrinos",
+    "topic:cosmic-rays"
+  ],
+  "type": "facility"
 }

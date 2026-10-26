@@ -10,32 +10,66 @@
   "id": "detector:haystac",
   "intervals": [
     {
-      "confidence": "approximate",
-      "end": null,
+      "confidence": "verified",
+      "end": "2024-08",
       "label": "built and in operation",
-      "locator": "haystac.yale.edu/haloscope-yale-sensitive-axion-cdm, publications list (Phase I result accepted to Physical Review D, April 2018)",
-      "note": "INSPIRE experiment record gives date_proposed 2010 and date_approved 2011 for the experiment as a whole (see experiment:haystac); no separate detector commissioning date fetched this session, so start is left unknown per A3. Start approximated to 2018, the earliest operational milestone (Phase I result accepted to Physical Review D) found on HAYSTAC's own page this session; true commissioning date may be earlier and is not separately sourced.",
-      "quote": "The detector was built and is in operation at Yale University's Wright laboratory.",
+      "locator": "arXiv:2510.15848v3 introduction: phases I (2016-01 to 2017-07) and II(a) to II(e); end = 'phase II(c) and II(d) (September 2022–August 2024)'",
+      "note": "HAYSTAC's own 2026 paper (arXiv:2510.15848v3) dates data-taking: phase I January 2016 to July 2017; phase II in sub-phases (II(a) September 2019-April 2020, II(b) July 2021-November 2021, II(c)/(d) September 2022-August 2024, II(e) July 2022). No data-taking is dated after August 2024, and an APS abstract of 19 March 2026 says the experiment is upgrading for Phase III (see the Phase III upgrade interval). The sub-phase gaps between runs are not separate intervals.",
+      "quote": "phase I (January 2016–July 2017) scanned axion masses from 23.15 µeV–24.0 µeV",
       "sources": [
-        "src:axions-haystac-inspire-experiment"
+        "src:axions-haystac-inspire-experiment",
+        "src:currency2-haystac-arxiv-2510-15848"
       ],
-      "start": "2018",
+      "start": "2016-01",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "verified",
+      "end": "2024-08",
+      "kind": "run",
+      "label": "Phase II squeezed-state run",
+      "note": "Phase II ran in sub-phases from September 2019 to August 2024 (arXiv:2510.15848v3).",
+      "quote": "phase II(c) and II(d) (September 2022–August 2024) which scanned 17.28 µeV–18.44 µeV and 18.71 µeV–19.46 µeV",
+      "sources": [
+        "src:axions-haystac-prl-2025-phase-ii",
+        "src:currency2-haystac-arxiv-2510-15848"
+      ],
+      "start": "2019-09",
+      "status": "active",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "verified",
+      "end": "2017-07",
+      "kind": "run",
+      "label": "Phase I data-taking",
+      "note": "From arXiv:2510.15848v3 (\"HAYSTAC has run thus far in two unique phases. phase I (January 2016–July 2017)\").",
+      "quote": "phase I (January 2016–July 2017) scanned axion masses from 23.15 µeV–24.0 µeV",
+      "sources": [
+        "src:currency2-haystac-arxiv-2510-15848"
+      ],
+      "start": "2016-01",
+      "status": "active",
+      "verified_at": "2026-10-25"
     },
     {
       "confidence": "approximate",
       "end": null,
-      "kind": "run",
-      "label": "Phase II squeezed-state run",
-      "note": "Start approximated from the paper's 2024-09-13 arXiv submission date.",
-      "quote": "This Letter reports new results from the HAYSTAC experiment's search for dark matter axions in our galactic halo. It represents the widest search to date that utilizes squeezing to realize sub-quantum limited noise.",
+      "label": "Phase III upgrade (multi-rod cavity) and commissioning at Yale",
+      "note": "APS Global Physics Summit abstract, 19 March 2026: \"In preparation for Phase III, HAYSTAC is currently upgrading to a multi-rod cavity ... summarize the Phase III testing and commissioning at Yale\" (7-rod cavity, 5.5-7.3 GHz); a second abstract says the new high-resolution channel \"will be commissioned for HAYSTAC Phase III\". Phase II data-taking ended in August 2024 (arXiv:2510.15848v3). No source dated after March 2026 says whether Phase III data-taking has started, so the upgrade is kept open at 2026-10-25; a conference listing for November 2026 whose text a search showed (\"for Phase III, HAYSTAC upgraded to a multi-rod cavity\") could not be opened, and is not used.",
+      "quote": "In preparation for Phase III, HAYSTAC is currently upgrading to a multi-rod cavity that can perform high-frequency searches with a high FOM",
       "sources": [
-        "src:axions-haystac-prl-2025-phase-ii"
+        "src:currency2-haystac-aps-2026-abstract",
+        "src:currency2-haystac-arxiv-2510-15848"
       ],
-      "start": "2024",
-      "status": "active",
-      "verified_at": "2026-09-17"
+      "start": {
+        "approx": true,
+        "date": "2024-08",
+        "display": "after Phase II data-taking ended in August 2024; start of the upgrade not separately dated"
+      },
+      "status": "upgrade",
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -48,7 +82,7 @@
     {
       "confidence": "verified",
       "end": null,
-      "note": "Exact commissioning date not sourced this session.",
+      "note": "No source consulted gives the exact commissioning date.",
       "quote": "The detector was built and is in operation at Yale University's Wright laboratory.",
       "role": "main",
       "site_id": "site:yale-wright-lab-campus",
@@ -66,7 +100,7 @@
     "src:axions-haystac-inspire-experiment"
   ],
   "specs": {},
-  "status": "active",
+  "status": "upgrade",
   "subsystems": [],
   "summary": {
     "plain": "The HAYSTAC detector uses a strong magnet and a tunable metal cavity, plus quantum-noise-reducing electronics, to search for faint signals from dark-matter axions converting into radio photons.",

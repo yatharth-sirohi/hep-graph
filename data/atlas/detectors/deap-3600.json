@@ -29,26 +29,29 @@
     },
     {
       "confidence": "verified",
-      "end": null,
-      "label": "science operations",
-      "locator": "Astropart. Phys. 108 (2019) 1-23, Sec. 3.2",
-      "note": "Open interval; see experiment:deap-3600 for the corresponding 'detector upgrade (third fill)' interval describing the current hardware phase.",
+      "end": "2020-03",
+      "label": "second fill: science operations",
+      "locator": "end: PASCOS 2025 slides \"3 Year Dataset (Nov 2016 to March 2020)\"; CAP 2026: \"since the end of the second fill run in 2020\"",
+      "note": "The collaboration states that the second-fill data set ran from November 2016 to March 2020 (PASCOS 2025 slides) and that upgrades have been ongoing \"since the end of the second fill run in 2020\".",
       "quote": "has been stably maintained since completing the second fill in November 2016",
       "sources": [
         "src:dm-noble-liquid-deap-3600-detector-paper",
         "src:dm-noble-liquid-deap-3600-official-site",
-        "src:dm-noble-liquid-deap-3600-status-2026"
+        "src:dm-noble-liquid-deap-3600-status-2026",
+        "src:currency-deap3600-pascos2025-slides",
+        "src:currency-deap3600-cap2026-abstract"
       ],
       "start": "2016-11",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     {
       "confidence": "uncertain",
       "end": null,
+      "kind": "phase",
       "label": "detector upgrade (third fill)",
       "locator": "snolab.ca, DEAP-3600 experiment page, status field",
-      "note": "SNOLAB's own experiment page (accessed 2026-09-17) states current status 'Upgrading'; no source fetched this session gives the true start date of this phase. Start is set to 2026-09, the month this status was confirmed, as the earliest defensible anchor rather than an invented date; see experiment:deap-3600 for the same reasoning.",
+      "note": "SNOLAB's experiment page (read 2026-09-17; an Internet Archive capture of 25 May 2026 shows the same status) gives the current status 'Upgrading'; no source consulted (checked 2026-10-25) gives the true start date of this phase. The start is set to 2026-09, the month this status was first read, as the earliest defensible anchor rather than an invented date; see experiment:deap-3600 for the same reasoning. The collaboration's abstracts of 22 June and 21 September 2026 describe a \"just-started\" / \"newly initiated third fill run\" with preliminary third-fill results, which conflicts with reading SNOLAB's \"Upgrading\" label as a current absence of data taking; this interval is therefore a phase annotation and not the detector's current state. The SNOLAB page no longer loads (HTTP 404 on 2026-10-25). A 2025 plan said third-fill data taking would end \"~ summer 2026\" with decommissioning to make room for ARGOlite; no source consulted says whether that happened.",
       "quote": "Upgrading",
       "sources": [
         "src:dm-noble-liquid-deap-3600-snolab-page",
@@ -56,21 +59,56 @@
       ],
       "start": "2026-09",
       "status": "upgrade",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2025-02",
+      "label": "detector upgrades (neck flow guides, particulate removal system)",
+      "locator": "CAP 2025 abstract (9 June 2025); CAP 2026 abstract",
+      "note": "Start = end of the second-fill data set (March 2020, month from the PASCOS slide); end = installation finished in February 2025. The fill and dust-removal procedures followed (\"Upgrade done 2025-April / Filling continue 2025-July / Dust removal 2025-September\" on the PASCOS 2025 timeline).",
+      "quote": "The installation of these upgrades was finished in February 2025",
+      "sources": [
+        "src:currency-deap3600-cap2025-abstract",
+        "src:currency-deap3600-cap2026-abstract"
+      ],
+      "start": "2020-03",
+      "status": "upgrade",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "third fill: science operations",
+      "locator": "Light Dark World 2026 talk (30 July 2026), summary slide; outline slide: 'Now taking data with detector in the upgraded configuration'; slide 'WIMP search': 'New data taking with upgraded detector to mitigate backgrounds (2025 – present)'",
+      "note": "Start month not found: the 2025 plan had \"Data taking 2025-November\" and the CAP 2025 abstract expected the fill to complete in August 2025; the 2026 abstracts call it \"just-started\" / \"newly initiated\". Whether third-fill data taking is still running on 2026-10-25 is not stated (the 2025 plan ended it \"~ summer 2026\"; SNOLAB lists \"Upgrading\"). The newest dated statement is a 30 July 2026 talk by a DEAP collaboration member: \"Now taking data with detector in the upgraded configuration\", \"New data taking with upgraded detector to mitigate backgrounds (2025 – present)\", \"New data collection in progress with upgraded DEAP-3600 at SNOLAB\". That shows third-fill running at the end of July 2026 and gives the start year (2025) but not the month; the 21 September 2026 abstract (\"newly initiated third fill run\", preliminary results) is consistent. No source dated after 21 September reports the end of the run, so the 2025 plan's \"~ summer 2026\" end is not confirmed. Confidence is 'approximate': a talk is a rank-12 source and the start year is approximate.",
+      "quote": "New data collection in progress with upgraded DEAP-3600 at SNOLAB",
+      "sources": [
+        "src:currency2-deap3600-ldw-viel-2026-07-30",
+        "src:currency-deap3600-lrt2026-abstract",
+        "src:currency-deap3600-cap2026-abstract",
+        "src:currency-deap3600-pascos2025-slides"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2025"
+      },
+      "status": "active",
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {},
   "name": "DEAP-3600 detector",
   "notes": [
-    "DEAP-3600 is a single-phase liquid argon scintillation detector, not a two-phase TPC: it has no drift field and no ionization/charge readout, and detects only scintillation light via its 255 PMTs (see the sourced 'technology' field above). technology_classes carries 'noble_liquid_tpc'/'argon_tpc' only because the ontology enum has no dedicated scintillator-only class, following the convention set by docs/atlas-worklog/dark-matter.md for LZ; this is a taxonomy accommodation, not a claim that DEAP-3600 has TPC charge readout.",
-    "Energy threshold: not recorded. No source fetched this session states a single nuclear-recoil analysis energy threshold for DEAP-3600."
+    "DEAP-3600 is a single-phase liquid argon scintillation detector, not a two-phase TPC: it has no drift field and no ionization/charge readout, and detects only scintillation light via its 255 PMTs (see the sourced 'technology' field above). Its technology classes list 'noble_liquid_tpc'/'argon_tpc' only because the available classes have no dedicated scintillator-only class; this is a classification accommodation, not a claim that DEAP-3600 has TPC charge readout.",
+    "Energy threshold: not recorded as a spec. The detector paper's design table (Table 1) gives a nominal analysis threshold of 15 keVee (electron-equivalent) for a 3 tonne-year exposure, not a nuclear-recoil energy; no source consulted (checked 2026-10-25) states a single nuclear-recoil analysis energy threshold for DEAP-3600."
   ],
   "placements": [
     {
       "confidence": "verified",
       "end": null,
       "locator": "Astropart. Phys. 108 (2019) 1-23, Sec. 3.2",
-      "note": "site:snolab-underground-lab is owned by the 'facilities' workstream and had not been created in this session; dangling reference, expected per the Wave 3 brief and ID registry.",
+      "note": "",
       "quote": "has been stably maintained since completing the second fill in November 2016",
       "role": "main",
       "site_id": "site:snolab-underground-lab",
@@ -125,14 +163,14 @@
       "dimension": "mass",
       "display": "1000 kg (55 cm radius)",
       "locator": "Astropart. Phys. 108 (2019) 1-23, Table 1",
-      "note": "",
-      "quote": "Fiducial mass, radius: 1000 kg, 55 cm",
+      "note": "Design specification from Table 1 of the detector paper (design parameters for a 3-tonne-year exposure), not a measured fiducial mass of a particular analysis. The table's row label and value are separated in the extracted text.",
+      "quote": "DEAP-3600 detector design parameters for a 3-tonne-year exposure. ... Fiducial mass, radius ... 1000 kg, 55 cm",
       "sources": [
         "src:dm-noble-liquid-deap-3600-detector-paper"
       ],
       "unit": "t",
       "value": 1.0,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     "phase": {
       "confidence": "verified",
@@ -152,7 +190,7 @@
       "display": "255 PMTs",
       "locator": "Astropart. Phys. 108 (2019) 1-23, Sec. 1.1",
       "note": "",
-      "quote": "The target volume is viewed by 255 8-inch-diameter Hamamatsu R5912-HQE high quantum efficiency (HQE) PMTs",
+      "quote": "The target volume is viewed by 255 8-inch-diameter ... Hamamatsu R5912-HQE high quantum efficiency (HQE) PMTs",
       "sources": [
         "src:dm-noble-liquid-deap-3600-detector-paper",
         "src:dm-noble-liquid-deap-3600-official-site"
@@ -163,14 +201,15 @@
     },
     "shielding": {
       "confidence": "verified",
-      "locator": "deap3600.ca, experiment description",
-      "note": "",
-      "quote": "a deep underground laboratory which uses the 2 km of rock overburden to filter out cosmic-ray muons",
+      "locator": "Astropart. Phys. 108 (2019) 1-23 (arXiv:1712.01982), Sec. 1 and Sec. 1.1 (Detector Overview)",
+      "note": "The rock-overburden clause is also stated on deap3600.ca ('a deep underground laboratory which uses the 2 km of rock overburden to filter out cosmic-ray muons'); the water shield tank and muon veto are described in the detector paper.",
+      "quote": "2 km underground (6000 meters water equivalent overburden) at SNOLAB in Sudbury, Ontario ... The outer steel shell is immersed in a 7.8-m-diameter shield tank filled with ultra-pure water and instrumented with 48 Hamamatsu R1408 PMTs serving as a muon veto.",
       "sources": [
+        "src:dm-noble-liquid-deap-3600-detector-paper",
         "src:dm-noble-liquid-deap-3600-official-site"
       ],
-      "value": "2 km of rock overburden (6000 m.w.e.) at SNOLAB; no additional water or scintillator veto shield is described for DEAP-3600 in the sources fetched this session.",
-      "verified_at": "2026-09-17"
+      "value": "2 km of rock overburden (6000 m.w.e.) at SNOLAB; the detector sits inside a 7.8 m diameter shield tank of ultra-pure water instrumented with 48 PMTs that serve as a muon veto.",
+      "verified_at": "2026-10-25"
     },
     "target_medium": {
       "confidence": "verified",
@@ -199,7 +238,7 @@
       "verified_at": "2026-09-17"
     }
   },
-  "status": "upgrade",
+  "status": "active",
   "subsystems": [
     {
       "description": {

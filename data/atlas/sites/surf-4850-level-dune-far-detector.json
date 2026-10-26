@@ -7,18 +7,17 @@
   "altitude": null,
   "coordinates": {
     "confidence": "approximate",
-    "kind": "underground_lab",
-    "lat": 44.3474397,
-    "locator": "ProtoDUNE-SP performance paper, §1 Introduction",
-    "lon": -103.7548247,
-    "note": "REVIEW REQUIRED: no geodetic coordinate for the 4850 Level caverns could be retrieved. This is the surface position of the SURF site from OpenStreetMap (kept as src:surf-osm-nominatim in the record's top-level sources for provenance, but not cited on this coordinate because A17 forbids a geocoder backing an `underground_lab`-kind point), used as a proxy; the DUNE publication and the facility site establish only that the far detector is at the 4850 ft level at Lead, South Dakota.",
-    "precision_m": 2000,
-    "quote": "a far detector located at the 4850 ft level of Sanford Underground Research Facility (SURF), in Lead, South Dakota, USA",
+    "kind": "campus",
+    "lat": 44.3455559,
+    "locator": "Heise 2026 (arXiv:2603.06504), Table 4, rows FD1–FD4 (the table's latitude/longitude headings are swapped; values carry hemisphere letters)",
+    "lon": -103.7552387,
+    "note": "Mean of the four DUNE far-detector module positions, i.e. the centre of the north and south caverns on the 4850 Level. Kept as an approximate campus point because the source is a preprint.",
+    "precision_m": 100,
+    "quote": "4850L LBNF Campus FD1 (NE) 103.7546341 W FD2 (SE) 103.7548042 W FD3 (NW) 103.7556732 W FD4 (SW) 103.7558433 W ... 44.3459914 N 44.3450261 N 44.3460857 N 44.3451204 N",
     "sources": [
-      "src:surf-official-site",
-      "src:dune-protodune-sp-performance-2020"
+      "src:geo-surf-heise-2026-review"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "countries": [
     "US"
@@ -29,19 +28,23 @@
     "tier": "A"
   },
   "depth": {
-    "approx": true,
+    "approx": false,
     "confidence": "verified",
     "dimension": "length",
-    "display": "1500 m of rock",
-    "locator": "abstract",
-    "note": "Rock overburden of the 4850-foot level; a 2024 paper by the same author gives 1490 m.",
-    "quote": "campuses at the 4850-foot level (1500 m, 4300 m.w.e.)",
+    "display": "1478 m (4850-foot level); sources round this to about 1500 m",
+    "locator": "page 'The MAJORANA Demonstrator Project at the 4850 Level Davis Campus', paragraph on the shield and the underground location (the page states the level and its metric value)",
+    "note": "The 4850 Level is named for its depth in feet: 4850 ft x 0.3048 m/ft = 1478.3 m, the figure SURF itself gives ('4850 Level (1478 m)') and the one the local map uses. SURF's scientific director rounds it to 1500 m in the Snowmass 2022 paper (\"campuses at the 4850-foot level (1500 m, 4300 m.w.e.)\"); the same author gives 1490 m in a 2024 paper, and DUNE TDR Vol. I says \"approximately 1.5 km underground\". The water-equivalent overburden is the separate 4300 m.w.e. value. The far-detector caverns are on the 4850 Level. The value recorded is 1478 m rather than the rounded 1500 m so that it agrees with the level on the map. Placement of the DUNE far detector at this level: DUNE TDR Vol. I, §1.1.2 and Fig. 1.4 (arXiv PDF p. 25): \"the SURF underground area, also referred to as the 4850 (foot) level or 4850L\"; ProtoDUNE-SP paper (arXiv:2007.06722, PDF p. 12): \"a far detector located at the 4850 ft level of Sanford Underground Research Facility (SURF)\". The quote above is SURF's statement for the 4850 Level itself.",
+    "quote": "The entire experiment will be located at the 4850 Level (1478 m) Davis Campus at the Sanford Lab Underground Research Facility (SURF).",
     "sources": [
-      "src:surf-heise-snowmass-2022"
+      "src:majorana-demonstrator-surf-news",
+      "src:surf-heise-snowmass-2022",
+      "src:dune-fd-tdr-vol-1",
+      "src:rf04-protodune-sp-performance-arxiv",
+      "src:surf-heise-opportunities-2024"
     ],
     "unit": "m",
-    "value": 1500,
-    "verified_at": "2026-09-16"
+    "value": 1478,
+    "verified_at": "2026-10-25"
   },
   "depth_mwe": {
     "approx": false,
@@ -59,19 +62,23 @@
     "verified_at": "2026-09-16"
   },
   "depth_rock": {
-    "approx": true,
+    "approx": false,
     "confidence": "verified",
     "dimension": "length",
-    "display": "1500 m",
-    "locator": "abstract",
-    "note": "4850-foot level. DUNE TDR Vol. I says \"approximately 1.5 km underground\"; Heise 2024 gives 1490 m.",
-    "quote": "campuses at the 4850-foot level (1500 m, 4300 m.w.e.)",
+    "display": "1478 m (4850-foot level); sources round this to about 1500 m",
+    "locator": "page 'The MAJORANA Demonstrator Project at the 4850 Level Davis Campus', paragraph on the shield and the underground location (the page states the level and its metric value)",
+    "note": "The 4850 Level is named for its depth in feet: 4850 ft x 0.3048 m/ft = 1478.3 m, the figure SURF itself gives ('4850 Level (1478 m)') and the one the local map uses. SURF's scientific director rounds it to 1500 m in the Snowmass 2022 paper (\"campuses at the 4850-foot level (1500 m, 4300 m.w.e.)\"); the same author gives 1490 m in a 2024 paper, and DUNE TDR Vol. I says \"approximately 1.5 km underground\". The water-equivalent overburden is the separate 4300 m.w.e. value. The far-detector caverns are on the 4850 Level. The value recorded is 1478 m rather than the rounded 1500 m so that it agrees with the level on the map. Placement of the DUNE far detector at this level: DUNE TDR Vol. I, §1.1.2 and Fig. 1.4 (arXiv PDF p. 25): \"the SURF underground area, also referred to as the 4850 (foot) level or 4850L\"; ProtoDUNE-SP paper (arXiv:2007.06722, PDF p. 12): \"a far detector located at the 4850 ft level of Sanford Underground Research Facility (SURF)\". The quote above is SURF's statement for the 4850 Level itself.",
+    "quote": "The entire experiment will be located at the 4850 Level (1478 m) Davis Campus at the Sanford Lab Underground Research Facility (SURF).",
     "sources": [
-      "src:surf-heise-snowmass-2022"
+      "src:majorana-demonstrator-surf-news",
+      "src:surf-heise-snowmass-2022",
+      "src:dune-fd-tdr-vol-1",
+      "src:rf04-protodune-sp-performance-arxiv",
+      "src:surf-heise-opportunities-2024"
     ],
     "unit": "m",
-    "value": 1500,
-    "verified_at": "2026-09-16"
+    "value": 1478,
+    "verified_at": "2026-10-25"
   },
   "facility_id": "facility:surf",
   "id": "site:surf-4850-level-dune-far-detector",
@@ -93,11 +100,13 @@
     "src:surf-heise-snowmass-2022",
     "src:dune-fd-tdr-vol-1",
     "src:surf-official-site",
-    "src:surf-osm-nominatim"
+    "src:surf-osm-nominatim",
+    "src:lz-surf-heise-2015",
+    "src:geo-surf-heise-2026-review"
   ],
   "summary": {
     "plain": "Caverns nearly a mile underground at the Sanford laboratory, excavated to hold the huge liquid-argon detectors of the DUNE experiment.",
-    "technical": "LBNF far-site campus on the 4850-foot level of SURF: two detector caverns and a central utility cavern, about 1500 m of rock (4300 m.w.e.) overburden, hosting the DUNE far detector modules."
+    "technical": "LBNF far-site campus on the 4850-foot level of SURF: two detector caverns and a central utility cavern, at 1478 m below the surface (the 4850 Level; sources round this to about 1500 m), 4300 m.w.e. overburden, hosting the DUNE far detector modules."
   },
   "type": "site"
 }

@@ -1,0 +1,161 @@
+{
+  "accuracy_m": 10,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "84.85 m (= 120 m / sqrt 2)",
+        "unit": "m",
+        "value": 84.85
+      },
+      "kind": "distance",
+      "locator": "derived from 'square with 120 m side length' (H.E.S.S. Telescopes page) and CT5 'at the center of the array' (same page): half the square's 169.7 m diagonal = 120 m / sqrt(2) = 84.85 m, to the north corner telescope",
+      "quote": "arranged in form of a square with 120 m side length ... an single huge dish with about 600 m2 mirror area was added at the center of the array",
+      "sources": [
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006"
+      ],
+      "to_geometry_id": "geometry:hess-ct-north",
+      "tolerance": 0.03
+    },
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "84.85 m (= 120 m / sqrt 2)",
+        "unit": "m",
+        "value": 84.85
+      },
+      "kind": "distance",
+      "locator": "derived from 'square with 120 m side length' (H.E.S.S. Telescopes page) and CT5 'at the center of the array' (same page): half the square's 169.7 m diagonal = 120 m / sqrt(2) = 84.85 m, to the east corner telescope",
+      "quote": "arranged in form of a square with 120 m side length ... an single huge dish with about 600 m2 mirror area was added at the center of the array",
+      "sources": [
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006"
+      ],
+      "to_geometry_id": "geometry:hess-ct-east",
+      "tolerance": 0.03
+    },
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "84.85 m (= 120 m / sqrt 2)",
+        "unit": "m",
+        "value": 84.85
+      },
+      "kind": "distance",
+      "locator": "derived from 'square with 120 m side length' (H.E.S.S. Telescopes page) and CT5 'at the center of the array' (same page): half the square's 169.7 m diagonal = 120 m / sqrt(2) = 84.85 m, to the south corner telescope",
+      "quote": "arranged in form of a square with 120 m side length ... an single huge dish with about 600 m2 mirror area was added at the center of the array",
+      "sources": [
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006"
+      ],
+      "to_geometry_id": "geometry:hess-ct-south",
+      "tolerance": 0.03
+    },
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "84.85 m (= 120 m / sqrt 2)",
+        "unit": "m",
+        "value": 84.85
+      },
+      "kind": "distance",
+      "locator": "derived from 'square with 120 m side length' (H.E.S.S. Telescopes page) and CT5 'at the center of the array' (same page): half the square's 169.7 m diagonal = 120 m / sqrt(2) = 84.85 m, to the west corner telescope",
+      "quote": "arranged in form of a square with 120 m side length ... an single huge dish with about 600 m2 mirror area was added at the center of the array",
+      "sources": [
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006"
+      ],
+      "to_geometry_id": "geometry:hess-ct-west",
+      "tolerance": 0.03
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "experiment:h-e-s-s",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way/171900953 v5 (2026-10-08T06:07:50Z); extract: OSM API map call, bbox 16.485,-23.285,16.515,-23.258, fetched 2026-10-25T10:35:43Z",
+    "note": "OpenStreetMap trace (rank 11) caps confidence at approximate. The footprint's span is 29.7 m against a 24 m x 32 m reflector (28 m circular equivalent, Puhlhofer 2024), so it is the telescope structure, not a surveyed mirror outline.",
+    "quote": "an single huge dish with about 600 m2 mirror area was added at the center of the array",
+    "sources": [
+      "src:geo-arrays2-hess-osm-ct5",
+      "src:geo-arrays-hess-telescopes-page",
+      "src:geo-arrays2-hess-puhlhofer-2024"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            16.4999567,
+            -23.2714283
+          ],
+          [
+            16.5000748,
+            -23.271362
+          ],
+          [
+            16.5002058,
+            -23.2714249
+          ],
+          [
+            16.5002081,
+            -23.2715624
+          ],
+          [
+            16.50009,
+            -23.2716287
+          ],
+          [
+            16.4999589,
+            -23.2715658
+          ],
+          [
+            16.4999567,
+            -23.2714283
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:hess-ct5",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:hess-khomas-highland",
+  "method": "OpenStreetMap way 171900953 (building=yes, man_made=telescope, name='H.E.S.S. 2'), a closed 7-node polygon used verbatim, no simplification. Replaces the earlier point that re-used the array's published coordinate. Four distance checks measure its centroid to each corner telescope's centroid against 120 m / sqrt(2), the centre-to-corner distance of the published 120 m square with CT5 at its centre.",
+  "name": "H.E.S.S. CT5 telescope (28 m, centre of the array)",
+  "notes": [
+    "The OSM tag on this way gives telescope:diameter=25m, but the Puhlhofer 2024 review states a reflector diameter of 28 m; the OSM tag is not used."
+  ],
+  "osm": {
+    "elements": [
+      "way/171900953"
+    ],
+    "timestamp": "2026-10-25T10:35:43Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:khomas-highland-hess",
+  "sources": [
+    "src:geo-arrays2-hess-osm-ct5"
+  ],
+  "summary": {
+    "plain": "H.E.S.S.'s large 28-metre central telescope, added in 2012 at the middle of the original four-telescope square."
+  },
+  "type": "geometry",
+  "valid": null
+}

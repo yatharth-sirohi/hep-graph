@@ -19,7 +19,7 @@
       "confidence": "verified",
       "end": null,
       "label": "founded",
-      "note": "Year-precision founding date; no official page fetched in this session gives a month or day.",
+      "note": "Year-precision founding date; no official page consulted (checked 2026-09-17) gives a month or day.",
       "quote": "Brookhaven National Laboratory was established in 1947 on the eastern end of Long Island at the former site of the U.S. Army's Camp Upton.",
       "sources": [
         "src:bnl-about-history-page"
@@ -33,7 +33,7 @@
   "links": {
     "website": {
       "confidence": "verified",
-      "note": "www.bnl.gov's top-level '/' was not itself fetched in this session; '/about/' was fetched directly and is the laboratory's own official page.",
+      "note": "The top-level page www.bnl.gov was not itself fetched (checked 2026-09-17); /about/ was fetched directly and is the laboratory's own official page.",
       "sources": [
         "src:bnl-about-page"
       ],
@@ -44,19 +44,19 @@
   "name": "Brookhaven National Laboratory",
   "notes": [
     "kind is set to `accelerator_laboratory` (matching the value used for Fermilab in this atlas) because BNL's own history page centers the laboratory's identity on its accelerator complex (Cosmotron, then the Alternating Gradient Synchrotron, then RHIC; src:bnl-about-history-accelerators-page); BNL's own '/about/' page instead calls it a 'multidisciplinary laboratory', and BNL also runs non-accelerator user facilities (e.g. the National Synchrotron Light Source II) that this single-valued `kind` field does not capture. No `underground_laboratory`/`research_laboratory` framing was found that fit better given RHIC and the AGS are its historically defining machines.",
-    "The laboratory's ROR id (02ex6cf31, src:bnl-ror-record) and INSPIRE institution recid (902689, confirmed via https://inspirehep.net/api/institutions/902689 in this session) were both found, but `hepgraph/atlas/schema.py` defines no `external` field for the `facility` entity type (only `institution`, `experiment` and `person` carry `external`), so neither id is embedded on this record. The ROR id is used instead on `site:bnl-upton-campus`'s coordinates. The INSPIRE institution record was not otherwise cited and its source file was therefore not created (an uncited source is a build warning under A12).",
-    "RHIC (owned by this facility) ended its 25th and final run on 2026-02-06 and is being converted into the Electron-Ion Collider (src:bnl-newsroom-eic-transformation-2026); this facility record's own `status` remains `active` because the laboratory as a whole continues to operate (AGS, other user facilities, and the EIC construction project)."
+    "The laboratory's ROR id (02ex6cf31, src:bnl-ror-record) and INSPIRE institution recid (902689, confirmed via https://inspirehep.net/api/institutions/902689 on 2026-09-17) were both found, but facility records have no external-identifier field, so neither id is shown on this record. The ROR id is used instead on the coordinates of site:bnl-upton-campus. The INSPIRE institution record is not otherwise cited, so no source entry was created for it.",
+    "RHIC, a machine of this laboratory, ended its 25th and final run on 2026-02-06 and is being converted into the Electron-Ion Collider (src:bnl-newsroom-eic-transformation-2026). The laboratory's status stays 'active' because the laboratory as a whole continues to operate (AGS, other user facilities, and the EIC construction project)."
   ],
   "operator_ids": [],
   "operator_text": {
     "confidence": "verified",
-    "note": "Quote assembled from two adjacent sentences of the same official page describing the managing partnership and its role for DOE.",
-    "quote": "Brookhaven Science Associates, a partnership between Stony Brook University and Battelle, and six core universities: Columbia, Cornell, Harvard, Massachusetts Institute of Technology, Princeton, and Yale [manages and operates the laboratory for the DOE's Office of Science].",
+    "note": "Single verbatim sentence of the official page (the page also states that the laboratory is one of 10 national laboratories overseen and primarily funded by the U.S. Department of Energy's Office of Science).",
+    "quote": "Brookhaven Lab is managed for the Office of Science by Brookhaven Science Associates, a partnership between Stony Brook University and Battelle, and six core universities: Columbia, Cornell, Harvard, Massachusetts Institute of Technology, Princeton, and Yale.",
     "sources": [
       "src:bnl-about-page"
     ],
-    "value": "Brookhaven Science Associates, LLC (a partnership of Stony Brook University and Battelle, with six core universities) for the U.S. Department of Energy's Office of Science",
-    "verified_at": "2026-09-17"
+    "value": "Brookhaven Science Associates (a partnership of Stony Brook University and Battelle, with six core universities) for the U.S. Department of Energy's Office of Science",
+    "verified_at": "2026-10-25"
   },
   "primary_site_id": "site:bnl-upton-campus",
   "related_facility_ids": [],

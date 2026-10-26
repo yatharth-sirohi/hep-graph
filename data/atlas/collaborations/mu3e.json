@@ -20,29 +20,51 @@
   "intervals": [
     {
       "confidence": "verified",
-      "end": null,
+      "end": "2013-01",
       "label": "collaboration proposed",
-      "locator": "INSPIRE experiment record 1114537, metadata.date_proposed",
-      "note": "Mirrors experiment:mu3e's proposed interval; fixes the same 14-year false-absence gap at the collaboration level. Left open-ended for the same reason (see experiment:mu3e's note).",
+      "locator": "start: INSPIRE experiment record 1114537, metadata.date_proposed; end: PSI Mu3e news archive, 16. January 2013",
+      "note": "Mirrors experiment:mu3e. The collaboration formation date itself is still unsourced (see formation).",
+      "quote": "The international research committee for particle physics at the ring cyclotron under the chairmanship of Dr. Cyrus Hoffman acknowledged the scientific case and approved the proposal.",
       "sources": [
-        "src:muons-inspire-experiment-mu3e"
+        "src:muons-inspire-experiment-mu3e",
+        "src:currency-mu3e-psi-news-archive"
       ],
       "start": "2012-01-23",
       "status": "proposed",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "research proposal approved by the PSI research committee",
+      "locator": "PSI Mu3e news archive, 16. January 2013",
+      "note": "Mirrors experiment:mu3e.",
+      "quote": "The international research committee for particle physics at the ring cyclotron under the chairmanship of Dr. Cyrus Hoffman acknowledged the scientific case and approved the proposal.",
+      "sources": [
+        "src:currency-mu3e-psi-news-archive"
+      ],
+      "start": "2013-01",
+      "status": "approved",
+      "verified_at": "2026-10-25"
     },
     {
       "confidence": "approximate",
-      "end": "2026-09",
-      "label": "collaboration active (construction phase)",
-      "note": "Anchored to the most recent dated construction milestone found (see experiment:mu3e); start of the collaboration itself is unknown.",
-      "quote": "The third layer of the Mu3e pixel detector was sucessfully installed.",
+      "end": null,
+      "label": "collaboration active (Phase I construction)",
+      "note": "Mirrors experiment:mu3e (same lower-bound reasoning); the collaboration is older than this date but its formation is not dated by any fetched source.",
+      "quote": "The first phase of the Mu3e experiment is under construction at PSI",
       "sources": [
-        "src:muons-psi-mu3e-site"
+        "src:currency-mu3e-arxiv-1812-06540",
+        "src:currency-mu3e-pisa-2026-abstract",
+        "src:currency-mu3e-psi-news-layer3"
       ],
-      "start": "2026-09",
+      "start": {
+        "approx": true,
+        "date": "2018-12",
+        "display": "by December 2018 (earliest dated \"under construction\")"
+      },
       "status": "construction",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "leadership": [],
@@ -83,19 +105,18 @@
   },
   "name": "Mu3e Collaboration",
   "notes": [
-    "Leadership is left empty in the structured field (person records are out of scope for this workstream); named in the summary.technical prose only, from src:muons-psi-mu3e-site.",
-    "host_facility_id/host_site_id reference facility:psi/site:psi-villigen, owned by the 'facilities' Wave-3 workstream and not yet present in data/atlas/ at the time this file was written -- expected dangling references.",
-    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+    "No leadership list is recorded in the Atlas for this collaboration; the leaders are named in the technical summary only, from src:muons-psi-mu3e-site."
   ],
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:muons-inspire-experiment-mu3e",
-    "src:muons-psi-mu3e-site"
+    "src:muons-psi-mu3e-site",
+    "src:currency-mu3e-arxiv-1812-06540"
   ],
   "status": "construction",
   "summary": {
     "plain": "The scientists building Mu3e, the search for a muon splitting into three particles, at the Paul Scherrer Institute.",
-    "technical": "Collaboration building Mu3e on the PSI HiMB/piE5 beamline; led per the official site by Prof. Andre Schoning and Dr. Stefan Ritt (not recorded as structured leadership rows since person records are out of scope for this workstream). Membership counts were not found in any source fetched this session."
+    "technical": "Collaboration building Mu3e on the PSI HiMB/piE5 beamline; led per the official site by Prof. Andre Schoning and Dr. Stefan Ritt. Membership counts were not found in any source consulted."
   },
   "type": "collaboration"
 }

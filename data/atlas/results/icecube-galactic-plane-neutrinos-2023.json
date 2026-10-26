@@ -1,5 +1,16 @@
 {
   "aliases": [],
+  "announced": {
+    "confidence": "verified",
+    "locator": "IceCube press release \"Our galaxy seen through a new lens: neutrinos detected by IceCube\", posted 2023-06-29",
+    "note": "IceCube press release of 29 June 2023, a day before the Science issue date (30 June 2023); the arXiv posting (10 July 2023) came later.",
+    "quote": "Our galaxy seen through a new lens: neutrinos detected by IceCube Posted on June 29, 2023 by Staff",
+    "sources": [
+      "src:rv-r2-icecube-pr-galactic-2023"
+    ],
+    "value": "2023-06-29",
+    "verified_at": "2026-10-25"
+  },
   "claim": {
     "locator": "abstract (arXiv:2307.04427)",
     "quote": "We identify neutrino emission from the Galactic plane at the 4.5$\\sigma$ level of significance, by comparing diffuse emission models to a background-only hypothesis.",
@@ -16,15 +27,16 @@
   },
   "date": {
     "confidence": "verified",
-    "note": "arXiv v1 submission date. Published as Science 380, 6652, 1338-1343 (2023).",
-    "quote": "[Submitted on 10 Jul 2023]",
+    "locator": "IceCube press release \"Our galaxy seen through a new lens: neutrinos detected by IceCube\", posted 2023-06-29",
+    "note": "IceCube press release of 29 June 2023, a day before the Science issue date (30 June 2023); the arXiv posting (10 July 2023) came later.",
+    "quote": "Our galaxy seen through a new lens: neutrinos detected by IceCube Posted on June 29, 2023 by Staff",
     "sources": [
-      "src:icecube-result-galactic-plane-science-2023"
+      "src:rv-r2-icecube-pr-galactic-2023"
     ],
-    "value": "2023-07-10",
-    "verified_at": "2026-09-16"
+    "value": "2023-06-29",
+    "verified_at": "2026-10-25"
   },
-  "date_kind": "preprint",
+  "date_kind": "announcement",
   "detector_ids": [
     "detector:icecube"
   ],
@@ -57,6 +69,17 @@
     "arxiv": "2307.04427",
     "url": "https://arxiv.org/abs/2307.04427"
   },
+  "published": {
+    "confidence": "verified",
+    "locator": "arXiv journal reference",
+    "note": "",
+    "quote": "Science 380, 6652, 1338-1343 (2023)",
+    "sources": [
+      "src:icecube-result-galactic-plane-science-2023"
+    ],
+    "value": "2023",
+    "verified_at": "2026-10-25"
+  },
   "result_type": "observation",
   "schema": "hep-atlas/0.2",
   "significance": {
@@ -66,14 +89,14 @@
     "sources": [
       "src:icecube-result-galactic-plane-science-2023"
     ],
-    "value": "4.5σ",
+    "value": "4.5σ (Galactic-plane emission against a background-only hypothesis)",
     "verified_at": "2026-09-16"
   },
   "sources": [
     "src:icecube-result-galactic-plane-science-2023"
   ],
   "summary": {
-    "plain": "Using machine learning on ten years of data, IceCube saw our own Milky Way glowing in neutrinos — the first picture of our galaxy made with particles instead of light.",
+    "plain": "Using machine learning on ten years of data, IceCube identified neutrino emission from the plane of our own Milky Way at the 4.5σ level of significance. The signal is consistent with modelled diffuse emission from the Galactic plane, but could also arise from a population of unresolved point sources.",
     "technical": "Machine-learning cascade selection applied to ten years of IceCube data identifies diffuse Galactic-plane neutrino emission at 4.5σ against a background-only hypothesis; consistent with modelled diffuse emission but also compatible with unresolved point sources."
   },
   "title": "Observation of high-energy neutrinos from the Galactic plane",
@@ -83,5 +106,5 @@
     "topic:multimessenger-astrophysics"
   ],
   "type": "result",
-  "why_it_matters": "First observation of neutrinos from the Milky Way, connecting Galactic cosmic rays to their interactions with interstellar matter."
+  "why_it_matters": "The abstract says cosmic rays from the Milky Way arrive at Earth from random directions because of deflection in interstellar magnetic fields, but near their sources and during propagation they interact with matter and produce high-energy neutrinos; the paper searches for that neutrino emission from the Galactic plane."
 }

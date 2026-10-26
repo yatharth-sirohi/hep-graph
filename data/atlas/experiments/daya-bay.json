@@ -39,7 +39,7 @@
       "end": "2012-07-28",
       "label": "six-AD configuration (includes the 2012 discovery)",
       "locator": "arXiv:2211.14988 = PRL 130, 161802 (2023)",
-      "note": "CORRECTED 2026-09-18: replaces the earlier null-dated interval (sourced only to a 55-day exposure figure in the 2012 discovery paper's abstract, with no calendar dates) with day-precision dates from the Daya Bay Collaboration's own final-result paper.",
+      "note": "Day-precision dates from the Daya Bay Collaboration's own final-result paper; the 2012 discovery paper's abstract gives only a 55-day exposure figure, with no calendar dates.",
       "quote": "From 24 December 2011 to 28 July 2012 (217 days), the experiment ran in an initial six-AD configuration",
       "sources": [
         "src:reactor-solar-verify-daya-bay-final-prl-2023"
@@ -53,7 +53,7 @@
       "end": "2016-12-20",
       "label": "eight-AD full configuration operation",
       "locator": "arXiv:2211.14988 = PRL 130, 161802 (2023)",
-      "note": "CORRECTED 2026-09-18: replaces the earlier approximate '2012'-'2020' interval (sourced to Wikipedia and a detector-assembly paper abstract, with no exact dates) with day-precision dates from the Daya Bay Collaboration's own final-result paper. The prior interval conflated the eight-AD and seven-AD configurations into one row; they are now split (next interval).",
+      "note": "Day-precision dates from the Daya Bay Collaboration's own final-result paper. The eight-AD and seven-AD configurations are separate intervals; the seven-AD configuration follows in the next interval.",
       "quote": "this eight-AD configuration was operated from 19 October 2012 until 20 December 2016 (1524 days)",
       "sources": [
         "src:reactor-solar-verify-daya-bay-final-prl-2023"
@@ -67,7 +67,7 @@
       "end": "2020-12-12",
       "label": "seven-AD configuration (one AD re-purposed for JUNO-related R&D)",
       "locator": "arXiv:2211.14988 = PRL 130, 161802 (2023)",
-      "note": "CORRECTED 2026-09-18: new interval, split out from the prior single '8-AD' row. Final day of data taking (12 December 2020) is the source for the 'completed' interval below.",
+      "note": "Day-precision dates from the Daya Bay Collaboration's own final-result paper. The last day of data taking (12 December 2020) is also the start of the 'completed' interval below.",
       "quote": "Seven-AD operation occurred from 26 January 2017 until 12 December 2020 (1417 days) with one AD in EH1 re-purposed for liquid scintillator R&D for the JUNO experiment",
       "sources": [
         "src:reactor-solar-verify-daya-bay-final-prl-2023"
@@ -81,7 +81,7 @@
       "end": null,
       "label": "completed",
       "locator": "arXiv:2211.14988 = PRL 130, 161802 (2023)",
-      "note": "CORRECTED 2026-09-18: prior value ('2020', confidence approximate) was sourced only to Wikipedia; now day-precision and verified directly against the Daya Bay Collaboration's own final-result paper, which confirms the last day of data taking was 12 December 2020.",
+      "note": "Day-precision date from the Daya Bay Collaboration's own final-result paper, which gives 12 December 2020 as the last day of data taking. Wikipedia, also cited, gives only the year 2020.",
       "quote": "Seven-AD operation occurred from 26 January 2017 until 12 December 2020 (1417 days)",
       "sources": [
         "src:reactor-solar-verify-daya-bay-final-prl-2023",
@@ -101,7 +101,7 @@
         "dimension": "length",
         "display": "470 m and 576 m",
         "note": "Two near halls (Daya Bay near and Ling Ao near); the shorter of the two flux-weighted baselines is recorded as `value` and both are given in `display`.",
-        "quote": "flux-weighted baselines of 470 m and 576 m",
+        "quote": "two near (flux-weighted baseline 470 m and 576 m) and one far (1648 m) underground experimental halls",
         "sources": [
           "src:daya-bay-discovery-2012"
         ],
@@ -118,7 +118,7 @@
         "dimension": "length",
         "display": "1648 m",
         "note": "",
-        "quote": "far hall ... at 1648 m",
+        "quote": "two near (flux-weighted baseline 470 m and 576 m) and one far (1648 m) underground experimental halls",
         "sources": [
           "src:daya-bay-discovery-2012"
         ],
@@ -135,7 +135,7 @@
         "dimension": "power",
         "display": "2.9 GW_th (x6 reactors)",
         "note": "",
-        "quote": "six 2.9 GW_th reactors",
+        "quote": "Antineutrinos from six 2.9 GWth reactors were detected in six antineutrino detectors",
         "sources": [
           "src:daya-bay-discovery-2012"
         ],
@@ -152,8 +152,7 @@
   },
   "name": "Daya Bay Reactor Neutrino Experiment",
   "notes": [
-    "The official experiment site (dayabay.ihep.ac.cn) timed out on every fetch attempt this session; `links.website` is left null rather than guessed.",
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not authored (v0.2 A1)."
+    "The official experiment site (dayabay.ihep.ac.cn) timed out on every access attempt, so no website is recorded rather than a guessed one."
   ],
   "physics_goals": [
     {
@@ -163,7 +162,7 @@
       "sources": [
         "src:daya-bay-discovery-2012"
       ],
-      "value": "Measure the neutrino mixing angle theta_13 using reactor antineutrino disappearance",
+      "value": "Measure the neutrino mixing angle θ₁₃ using reactor antineutrino disappearance",
       "verified_at": "2026-09-17"
     }
   ],
@@ -180,7 +179,7 @@
   "status": "completed",
   "summary": {
     "plain": "An experiment in southern China that used clusters of detectors near and far from nuclear reactors to discover that one type of neutrino oscillation, long searched for, really happens.",
-    "technical": "Reactor-antineutrino oscillation experiment using up to eight functionally identical Gd-doped liquid-scintillator antineutrino detectors at near (470 m, 576 m) and far (1648 m) underground halls from six 2.9 GW_th reactor cores at the Daya Bay/Ling Ao nuclear power complex, Guangdong, China. Its 2012 result was the first observation of a non-zero theta_13 mixing angle via reactor antineutrino disappearance."
+    "technical": "Reactor-antineutrino oscillation experiment using up to eight functionally identical Gd-doped liquid-scintillator antineutrino detectors at near (470 m, 576 m) and far (1648 m) underground halls from six 2.9 GW_th reactor cores at the Daya Bay/Ling Ao nuclear power complex, Guangdong, China. Its 2012 result was the first observation of a non-zero θ₁₃ mixing angle via reactor antineutrino disappearance."
   },
   "topic_ids": [
     "topic:reactor-neutrinos",

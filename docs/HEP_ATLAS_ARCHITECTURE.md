@@ -311,10 +311,15 @@ Each rebuild:
 * **Label budget (§70, "do not show 5,000 labels simultaneously").**
   `LABEL_BUDGET` (40) caps simultaneously visible marker *labels* — glyphs
   and click/focus targets are never hidden by the budget, only the text
-  caption (`.atlas-marker.no-label .atlas-marker-label { display: none }`).
-  Cluster badges (the count *is* the label) always count toward the budget
-  first; individual markers fill the remainder in facility → site →
-  institution priority order.
+  caption. It is applied by `declutterLabels` (globe.js) to the captions that
+  are actually on screen, after overlap removal: that pass measures every
+  marker box after each (throttled) camera change and hides — as
+  `.atlas-marker.is-label-hidden`, `visibility: hidden` — the caption of any
+  marker that would overlap a higher-priority one (selected > hovered or
+  focused > cluster badge > facilities hosting more experiments), cover another
+  facility's glyph, or run past the stage edge. A hidden caption returns on
+  hover or keyboard focus. Cluster badges (the count *is* the label), the
+  selected marker and the hovered marker always count toward the budget first.
 * **Filters** (`static/atlas/js/filters.js`) are pure predicate functions —
   `facilityMatches`, `siteMatches`, `experimentMatches`,
   `collaborationMatches`, `institutionMatches` — shared verbatim by

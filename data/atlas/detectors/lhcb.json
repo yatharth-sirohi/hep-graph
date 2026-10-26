@@ -17,7 +17,7 @@
       "end": "2008-09",
       "label": "construction and installation",
       "locator": "INSPIRE experiment record 1110643, fields date_approved and date_completed",
-      "note": "Mirrors experiment:lhcb's construction interval. VERIFIER NOTE (2026-09-17): confidence downgraded to 'uncertain' -- see experiment:lhcb's matching interval note for why INSPIRE's date_completed field (verbatim '2008-09', re-fetched and confirmed) should not be trusted at face value for an active, non-terminal experiment (contrast ATLAS/LHCf, whose date_completed is the honest INSPIRE placeholder '9999').",
+      "note": "Mirrors experiment:lhcb's construction interval. Confidence is 'uncertain': experiment:lhcb's matching interval note explains why INSPIRE's date_completed field ('2008-09') should not be taken at face value for an active, non-terminal experiment (ATLAS's and LHCf's records show the placeholder '9999' in the same field).",
       "sources": [
         "src:colliders-lhc-lhcb-inspire-experiment-record"
       ],
@@ -30,7 +30,7 @@
       "end": {
         "approx": true,
         "date": "2026-06",
-        "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary (see the added interval below); previously open-ended (end: null), which made detector:lhcb derive as permanently 'active' during LS3, contradicting experiment:lhcb's own 'shutdown' status at the same date."
+        "note": "Ends at the LHC-wide start of Long Shutdown 3 (June 2026); LHCb cannot record collisions the LHC is not delivering."
       },
       "label": "operating",
       "locator": "INSPIRE experiment record 1110643, field date_started",
@@ -43,17 +43,27 @@
       "verified_at": "2026-09-17"
     },
     {
-      "confidence": "verified",
-      "end": null,
-      "label": "Long Shutdown 3",
-      "locator": "reused from experiment:lhcb's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
-      "note": "VERIFIER-ADDED (2026-09-17): mirrors experiment:lhcb's Long Shutdown 3 interval so the detector-level derived status agrees with the experiment-level one; ongoing at verified_at.",
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2030",
+        "display": "mid-2030",
+        "note": "CERN schedule: the LHC resumes operation in mid-2030; the rest of the CERN complex restarts in stages from mid-2028.",
+        "planned": true
+      },
+      "label": "Long Shutdown 3 / ECAL and RICH enhancements",
+      "locator": "home.cern/science/long-shutdown-3, item of 5 August 2026 \"The LHC is being warmed up from near absolute zero to room temperature\"",
+      "note": "The inner part of the electromagnetic calorimeter is replaced and the RICH electronics are upgraded during Long Shutdown 3. The bounds and the sources' wording are those of experiment:lhcb, whose interval note also records that the 2024 LHCb page gives older LS3 dates than CERN's mid-2030 schedule.",
+      "quote": "The LHCb experiment will upgrade the inner part of the Electromagnetic Calorimeter and the electronics of the Ring Imaging Cherenkov detectors in the next LHC Long Shutdown (LS3).",
       "sources": [
+        "src:rc-lhcb-ecal-rich-enhancements-2024",
+        "src:rc-lhcb-ecal-ls3-jinst-2026",
+        "src:cern-long-shutdown-3-page",
         "src:cern-ls3-farewell-2026"
       ],
-      "start": "2026-06",
-      "status": "shutdown",
-      "verified_at": "2026-09-17"
+      "start": "2026-06-29",
+      "status": "upgrade",
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -61,17 +71,17 @@
   },
   "name": "LHCb detector",
   "notes": [
-    "Placed at site:cern-point-8-lhcb (created in this pass). The detector paper (2008 JINST 3 S08005) was found but its full text was blocked by CERN's document-server bot protection (cds.cern.ch) and exceeded the fetch size limit at the SISSA mirror; only its abstract (via the INSPIRE literature API) is cited. Pseudorapidity coverage, dipole bending power, RICH/VELO/calorimeter/muon-system specs are left unsourced (missing_fields) rather than guessed from memory.",
-    "VERIFIER FIX (2026-09-17): status corrected 'active' -> 'shutdown' and a Long Shutdown 3 interval added (mirroring experiment:lhcb), because the prior record's open-ended 'operating' interval made the detector derive as permanently active even while CERN's LHC -- LHCb's only beam source -- is in Long Shutdown 3, contradicting experiment:lhcb's own status."
+    "Placed at site:cern-point-8-lhcb. The detector paper (2008 JINST 3 S08005) was found but its full text was blocked by CERN's document-server bot protection (cds.cern.ch) and exceeded the fetch size limit at the SISSA mirror; only its abstract (via the INSPIRE literature API) is cited. Pseudorapidity coverage, dipole bending power and the RICH/VELO/calorimeter/muon-system specs are left unsourced rather than guessed.",
+    "The detector record carries the same Long Shutdown 3 interval and status as experiment:lhcb, so that the two agree."
   ],
   "parent_detector_id": null,
   "placements": [
     {
       "confidence": "verified",
       "end": null,
-      "locator": "INSPIRE experiment record 1110643, field description",
+      "locator": "home.cern LHCb experiment page, paragraph beginning \"The 5600-tonne LHCb detector\"",
       "note": "",
-      "quote": "sits 100 metres below ground near the village of Ferney-Voltaire, France",
+      "quote": "sits 100 metres below ground near the town of Ferney-Voltaire, France",
       "role": "main",
       "site_id": "site:cern-point-8-lhcb",
       "sources": [
@@ -79,7 +89,7 @@
         "src:lep-cern-lhcb-experiment-page"
       ],
       "start": "1998-09-17",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "schema": "hep-atlas/0.2",
@@ -112,7 +122,7 @@
       "dimension": "mass",
       "display": "5600 t",
       "locator": "INSPIRE experiment record 1110643, field description",
-      "note": "CONFLICT: lhcb-outreach.web.cern.ch's own detector page gives '4,500 tonne'; see experiment:lhcb key_specs note. The 5600 t figure is used here for the same reason (independent corroboration with a verbatim quote from two sources).",
+      "note": "Sources disagree: lhcb-outreach.web.cern.ch's own detector page gives '4,500 tonne'; see the experiment:lhcb key_specs note. The 5600 t figure is used because it is corroborated by a verbatim quote from two sources.",
       "quote": "The 5600-tonne LHCb detector is made up of a forward spectrometer and planar detectors.",
       "sources": [
         "src:colliders-lhc-lhcb-inspire-experiment-record",
@@ -123,11 +133,11 @@
       "verified_at": "2026-09-17"
     }
   },
-  "status": "shutdown",
+  "status": "upgrade",
   "subsystems": [],
   "summary": {
     "plain": "The LHCb detector is a single forward-pointing spectrometer, 21 metres long, 5600 tonnes, sitting 100 metres underground at CERN. Instead of surrounding the collision point on all sides like ATLAS or CMS, it stacks its sub-detectors one behind another to catch particles thrown forward by the collision.",
-    "technical": "Single-arm forward spectrometer at LHC Point 8: VELO, dipole magnet, two RICH detectors, tracking stations, calorimeters and a muon system arranged sequentially along the outgoing beam direction over ~20 m; 5600 t (per INSPIRE/home.cern; lhcb-outreach states 4500 t, unresolved conflict), 21 m x 10 m x 13 m."
+    "technical": "Single-arm forward spectrometer at LHC Point 8: VELO, dipole magnet, two RICH detectors, tracking stations, calorimeters and a muon system arranged sequentially along the outgoing beam direction over ~20 m; 5600 t (per INSPIRE/home.cern; lhcb-outreach states 4500 t, unresolved conflict), 21 m × 10 m × 13 m."
   },
   "technology": {
     "confidence": "verified",
