@@ -14,11 +14,10 @@
 // DOM nodes than are actually going to be visible.
 
 import {
-  facilityShape, statusAtMonth, statusInRange, statusColor, DIMMED_STATUSES,
+  facilityShape, statusAtMonth, statusInRange, statusColor, timelineAbsenceReason, DIMMED_STATUSES,
 } from './model.js';
 import * as filtersModule from './filters.js';
-
-const SVG_NS = 'http://www.w3.org/2000/svg';
+import { buildGlyph } from './globeicons.js';
 
 function reducedMotion() {
   return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -72,6 +71,9 @@ const FOCUS_ALTITUDE = 0.5;
 const FOCUS_ALTITUDE_WIDE = 1.1;
 const FOCUS_WIDE_SPREAD_DEG = 18;
 const FOCUS_FLIGHT_MS = 1000;
+// The range showView accepts: just above the surface to well clear of the globe.
+const MIN_VIEW_ALTITUDE = 0.05;
+const MAX_VIEW_ALTITUDE = 4;
 // Throttles (ms). Camera moves fire per animation frame; rebuilding every DOM
 // marker or re-measuring every label that often would cost more than the
 // frame itself.
@@ -82,13 +84,70 @@ const DECLUTTER_DELAY_MS = 120;
 // atmosphere glow, its name would only add noise. Beyond the horizon itself the
 // marker is not drawn at all.
 const LIMB_LABEL_FRACTION = 0.9;
-// Scenery drawn after the first paint (see loadBorders).
+// Scenery drawn after the first paint (see loadBorders, loadEarthTexture).
 const BORDERS_URL = '/atlas/vendor/countries-borders-110m.json';
-const BORDER_COLOR = 'rgba(176, 216, 204, 0.42)';
-const COAST_COLOR = 'rgba(190, 228, 216, 0.7)';
+const BORDER_COLOR = 'rgba(176, 216, 204, 0.34)';
+const COAST_COLOR = 'rgba(190, 228, 216, 0.62)';
 // Just above the land polygons (polygonAltitude 0.006) so the lines never
 // z-fight with the fill, and below every marker layer.
 const BORDER_ALTITUDE = 0.0075;
+// The shaded-relief Earth (static/atlas/vendor/README.md has its source and
+// recipe). It replaces the flat land polygons once it has loaded; until then, or
+// if it never does, the globe keeps its original look.
+const EARTH_URL = '/atlas/vendor/earth-dark-4096.webp';
+const ATMOSPHERE_COLOR = '#2f9c96';
+const ATMOSPHERE_ALTITUDE = 0.09;
+
+// ---- facility glyph size -----------------------------------------------------
+// A facility's marker grows with how many experiments it hosts (square root, so
+// the area follows the count), clamped so CERN and Fermilab read as major
+// without hiding a one-experiment site beside them.
+const FACILITY_SIZE_MIN = 19;
+const FACILITY_SIZE_MAX = 38;
+const FACILITY_SIZE_BASE = 14.5;
+const FACILITY_SIZE_SLOPE = 5.4;
+export function facilityGlyphSize(experimentCount) {
+  const n = Math.max(0, Number(experimentCount) || 0);
+  return Math.round(clamp(FACILITY_SIZE_BASE + FACILITY_SIZE_SLOPE * Math.sqrt(n), FACILITY_SIZE_MIN, FACILITY_SIZE_MAX));
+}
+
+// ---- beams -------------------------------------------------------------------
+// A long-baseline beam is drawn as an animated arc from its source to each far
+// detector, labelled at mid-arc. A baseline shorter than this is a near-detector
+// distance (BNB, NuMI's near hall): on the globe it would be a dot, so it is
+// left to the to-scale local map.
+export const BEAM_MIN_KM = 15;
+const KM_PER_DEG = 111.195;
+const BEAM_FLOW_MS = 2800;
+const BEAM_COLOR = ['rgba(150,244,255,0.98)', 'rgba(70,180,255,0.88)'];
+const BEAM_COLOR_SELECTED = ['rgba(255,255,255,1)', 'rgba(110,205,255,0.9)'];
+// Beam arcs are drawn as tubes whose thickness is in degrees of arc on the globe,
+// so a fixed value is a hair on the opening overview and a 20 px smear one zoom in.
+// styleBeamArc turns these on-screen widths (px) into degrees for the camera
+// altitude of the moment.
+const BEAM_PX = 3;
+const BEAM_PX_SELECTED = 4.6;
+// A live beam also gets a wide, faint, solid arc underneath: a glow the tube
+// geometry cannot give.
+const BEAM_GLOW_PX = 9;
+const BEAM_GLOW_PX_SELECTED = 13;
+const BEAM_GLOW_COLOR = ['rgba(90,200,255,0.2)', 'rgba(60,150,255,0.1)'];
+const BEAM_GLOW_COLOR_SELECTED = ['rgba(150,225,255,0.34)', 'rgba(90,180,255,0.2)'];
+// A beam that is not running (under construction, shut down, completed): the same
+// hue family, but fine static dashes instead of a flowing stream, and dimmer.
+const BEAM_COLOR_QUIET = ['rgba(155,195,228,0.88)', 'rgba(135,175,212,0.74)'];
+const BEAM_COLOR_QUIET_SELECTED = ['rgba(235,246,255,1)', 'rgba(160,200,232,0.9)'];
+const BEAM_PX_QUIET = 2.4;
+const BEAM_PX_QUIET_SELECTED = 3.2;
+// A beam selection flies to show the whole baseline: about this many degrees of
+// altitude per degree of baseline (a 295 km beam fills a third of the stage).
+const BEAM_FOCUS_ALTITUDE_PER_DEG = 0.062;
+const BEAM_FOCUS_ALTITUDE_MIN = 0.16;
+// An unselected beam's label needs its arc on screen to be at least as long as
+// the label's shortest form (the distance alone, ~50 px) and never under this many
+// pixels: a pill with no arc beside it is only noise. The full name needs the arc
+// to be nearly as long as the name.
+const BEAM_LABEL_MIN_PX = 26;
 
 function clamp(v, lo, hi) {
   return Math.min(hi, Math.max(lo, v));
@@ -112,6 +171,81 @@ function greatCircleDeg(aLat, aLon, bLat, bLon) {
   const h = Math.sin(dLat / 2) ** 2
     + Math.cos(aLat * rad) * Math.cos(bLat * rad) * Math.sin(dLon / 2) ** 2;
   return (2 * Math.asin(Math.min(1, Math.sqrt(h)))) / rad;
+}
+
+// ---- beam helpers --------------------------------------------------------------
+// A baseline row is `{ from_site_id, to_site_id, distance: { value, unit, display,
+// approx }, status? }`. The globe never invents a distance: the label formats the
+// recorded value (the full `display`, with its uncertainty, is in the panel and the
+// tooltip), and a row without a value is labelled with its endpoints alone.
+
+/** The baseline's length in km, or null when no usable value is recorded. */
+export function baselineKm(distance) {
+  if (!distance || typeof distance.value !== 'number' || !Number.isFinite(distance.value)) return null;
+  const unit = String(distance.unit || 'km').toLowerCase();
+  if (unit === 'km') return distance.value;
+  if (unit === 'm') return distance.value / 1000;
+  if (unit === 'mi' || unit === 'mile' || unit === 'miles') return distance.value * 1.609344;
+  return null;
+}
+
+/** "295 km", "1,285 km", "~810 km" for an approximate figure. */
+export function formatBaselineKm(km, approx) {
+  const rounded = km >= 100 ? Math.round(km) : Math.round(km * 10) / 10;
+  return `${approx ? '~' : ''}${rounded.toLocaleString('en-US')} km`;
+}
+
+const ENDED_STATUSES = new Set(['completed', 'decommissioned', 'cancelled']);
+
+// How a lifecycle status reads in a beam's label and tooltip. `active` is the only
+// status drawn as a live, flowing beam; every other one is drawn quieter.
+const BEAM_STATUS_PHRASE = {
+  construction: 'under construction',
+  commissioning: 'commissioning',
+  approved: 'approved, not built',
+  proposed: 'proposed',
+  planned: 'planned',
+  completed: 'completed',
+  decommissioned: 'decommissioned',
+  shutdown: 'shut down',
+  upgrade: 'in upgrade shutdown',
+  cancelled: 'cancelled',
+};
+export function beamStatusPhrase(status) {
+  if (!status || status === 'active') return '';
+  return BEAM_STATUS_PHRASE[status] || String(status).replace(/_/g, ' ');
+}
+
+function stripParen(text) {
+  return String(text || '').replace(/\s*\([^)]*\)/g, '').trim();
+}
+
+/** A short name for a facility or site: its own name when it fits, else the first
+ * alias that does ("Fermi National Accelerator Laboratory" -> "Fermilab"). */
+export function shortPlaceName(record, max = 20) {
+  if (!record) return '';
+  const name = stripParen(record.name);
+  if (name && name.length <= max) return name;
+  for (const alias of record.aliases || []) {
+    const short = stripParen(alias);
+    if (short.length >= 3 && short.length <= max) return short;
+  }
+  return name.length > max ? `${name.slice(0, max - 1).trimEnd()}…` : name;
+}
+
+/** A detector's short name: "Super-Kamiokande detector" -> "Super-K" through its
+ * aliases, "MINOS far detector" -> "MINOS". */
+export function shortDetectorName(record) {
+  const clean = (text) => stripParen(text).replace(/\s+((far|near)\s+)?detector$/i, '').trim();
+  const candidates = [record.name, ...(record.aliases || [])].map(clean).filter((t) => t.length >= 4);
+  candidates.sort((a, b) => a.length - b.length);
+  return candidates[0] || stripParen(record.name);
+}
+
+function escapeHtml(text) {
+  return String(text).replace(/[&<>"']/g, (c) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  }[c]));
 }
 
 // ---- fitting the camera to a set of places ---------------------------------
@@ -268,84 +402,6 @@ function coordsOf(record) {
   return { lat, lon, approximate: !!(c && c.approximate) };
 }
 
-let hatchCounter = 0;
-
-function svgEl(name, attrs) {
-  const el = document.createElementNS(SVG_NS, name);
-  for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
-  return el;
-}
-
-/** Builds a small inline-SVG glyph for a marker. `shape` selects the outline,
- * `hollow` draws a stroke-only shape, `hatched` fills with a diagonal hatch
- * pattern (certainty === "possible"), `approximate` draws a dashed outline
- * (A23 — the coordinate itself is a campus-grade stand-in, not a pin on the
- * actual hall/cavern) in the same colour family as the precise marker. */
-function buildGlyph({
-  shape, color, size, hollow, hatched, approximate,
-}) {
-  const svg = svgEl('svg', {
-    viewBox: '0 0 24 24', width: size, height: size, 'aria-hidden': 'true',
-  });
-  let fill = (hollow || approximate) ? 'none' : color;
-  const stroke = color;
-  if (hatched && !hollow && !approximate) {
-    hatchCounter += 1;
-    const patternId = `atlas-hatch-${hatchCounter}`;
-    const defs = svgEl('defs', {});
-    const pattern = svgEl('pattern', {
-      id: patternId, width: '4', height: '4', patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)',
-    });
-    pattern.appendChild(svgEl('rect', { width: '4', height: '4', fill: 'rgba(0,0,0,0.35)' }));
-    pattern.appendChild(svgEl('line', {
-      x1: '0', y1: '0', x2: '0', y2: '4', stroke: color, 'stroke-width': '2',
-    }));
-    defs.appendChild(pattern);
-    svg.appendChild(defs);
-    fill = `url(#${patternId})`;
-  }
-  const strokeWidth = (hollow || approximate) ? 2.4 : hatched ? 1.5 : 1;
-  const dash = approximate ? '2,2' : (hatched && hollow ? '3,2' : null);
-  const common = { fill, stroke, 'stroke-width': strokeWidth };
-  if (dash) common['stroke-dasharray'] = dash;
-  switch (shape) {
-    case 'ring':
-      svg.appendChild(svgEl('circle', {
-        cx: 12, cy: 12, r: 8, fill: 'none', stroke, 'stroke-width': 3, ...(dash ? { 'stroke-dasharray': dash } : {}),
-      }));
-      if (!hollow && !approximate) svg.appendChild(svgEl('circle', { cx: 12, cy: 12, r: 8, fill, opacity: 0.25 }));
-      break;
-    case 'triangle-down':
-      svg.appendChild(svgEl('polygon', { points: '3,4 21,4 12,21', ...common }));
-      break;
-    case 'hexagon':
-      svg.appendChild(svgEl('polygon', { points: '12,2 21,7 21,17 12,22 3,17 3,7', ...common }));
-      break;
-    case 'diamond':
-      svg.appendChild(svgEl('polygon', { points: '12,2 22,12 12,22 2,12', ...common }));
-      break;
-    case 'snowflake':
-      for (const angle of [0, 60, 120]) {
-        svg.appendChild(svgEl('line', {
-          x1: 12, y1: 3, x2: 12, y2: 21, stroke, 'stroke-width': 2,
-          transform: `rotate(${angle} 12 12)`,
-        }));
-      }
-      break;
-    case 'square':
-      svg.appendChild(svgEl('rect', {
-        x: 3, y: 3, width: 18, height: 18, ...common,
-      }));
-      break;
-    case 'cluster':
-      svg.appendChild(svgEl('circle', { cx: 12, cy: 12, r: 10, fill: 'rgba(15,34,49,0.92)', stroke, 'stroke-width': 2 }));
-      break;
-    default:
-      svg.appendChild(svgEl('circle', { cx: 12, cy: 12, r: 9, ...common }));
-  }
-  return svg;
-}
-
 /**
  * Creates the globe inside `container`.
  * `atlas` is the parsed atlas.json. `index` maps any id -> its record.
@@ -364,8 +420,8 @@ export function createGlobe(container, {
   const globe = Globe({ animateIn: !reducedMotion() })(container)
     .backgroundColor('rgba(0,0,0,0)')
     .showAtmosphere(true)
-    .atmosphereColor('#6fa8dc')
-    .atmosphereAltitude(0.18)
+    .atmosphereColor(ATMOSPHERE_COLOR)
+    .atmosphereAltitude(ATMOSPHERE_ALTITUDE)
     .polygonCapColor(() => 'rgba(70,120,100,0.55)')
     .polygonSideColor(() => 'rgba(0,0,0,0)')
     .polygonStrokeColor(() => 'rgba(40,80,66,0.9)')
@@ -381,17 +437,25 @@ export function createGlobe(container, {
     .arcStartLng((d) => d.startLng)
     .arcEndLat((d) => d.endLat)
     .arcEndLng((d) => d.endLng)
-    .arcColor((d) => d.color)
-    .arcStroke((d) => d.stroke)
+    .arcColor((d) => (d.selected ? d.colorSelected : d.color))
+    .arcStroke((d) => (d.selected ? d.strokeSelected : d.stroke))
+    .arcAltitude((d) => (d.altitude == null ? null : d.altitude))
     .arcLabel((d) => d.label)
     .arcAltitudeAutoScale(0.35)
-    // Dash motion re-animates every arc's material on every rendered frame
+    // Dash motion re-animates an arc's material on every rendered frame
     // regardless of user interaction; with a couple hundred institution arcs
-    // this was a standing, avoidable cost (REVIEW_performance.md P1-3). A
-    // static dash still reads as directional without the continuous redraw.
-    .arcDashLength(0.4)
-    .arcDashGap(0.18)
-    .arcDashAnimateTime(0)
+    // this was a standing, avoidable cost (REVIEW_performance.md P1-3), so only
+    // the handful of beam arcs flow — and not at all for a reader who asked for
+    // reduced motion, who gets the same dashes standing still. An institution
+    // arc's static dash still reads as directional without the redraw.
+    .arcDashLength((d) => (d.beamline ? d.dashLength : 0.4))
+    .arcDashGap((d) => (d.beamline ? d.dashGap : 0.18))
+    .arcDashAnimateTime((d) => (d.beamline && d.flow && !reducedMotion() ? BEAM_FLOW_MS : 0))
+    .onArcClick((d) => {
+      // A beam arc opens its beamline, like its label does.
+      if (d && d.beamline && onSelect) onSelect({ type: 'beamline', slug: d.beamline.id.split(':')[1] });
+    })
+    .arcsTransitionDuration(0)
     // Country borders and coastlines (static/atlas/vendor/countries-borders-
     // 110m.json): 1px lines, low contrast, loaded after the first paint.
     .pathsData([])
@@ -447,6 +511,7 @@ export function createGlobe(container, {
     motionQuery.addEventListener('change', () => {
       if (reducedMotion()) stopAutoRotate();
       globe.htmlTransitionDuration(reducedMotion() ? 0 : 1000);
+      rebuildVisibleLayer(); // re-reads each beam arc's flow
     });
   }
 
@@ -454,9 +519,68 @@ export function createGlobe(container, {
     globe.polygonsData(land.features || []);
   }).catch(() => {});
 
-  // Country borders + coastlines. Fetched only after the globe has painted, so
-  // they never delay the first frame; any failure leaves the globe exactly as
-  // it was (the land fill keeps its own coast stroke).
+  // ---- scenery: the shaded-relief Earth and the country lines ------------------
+  // Both are fetched only after the globe has painted, so neither delays the
+  // first frame, and either failing leaves the globe as it was: the flat land
+  // polygons stay until the Earth image is in place, and keep their own coast
+  // stroke until the line work is.
+  let earthApplied = false;
+  let bordersApplied = false;
+  function syncScenery() {
+    if (earthApplied) {
+      // The picture is the land now: no flat fill over it. Its coasts come from
+      // the line layer, or, if that never arrives, from the polygons' outline.
+      globe.polygonCapColor(() => 'rgba(0,0,0,0)');
+      if (bordersApplied) globe.polygonsData([]);
+      else globe.polygonStrokeColor(() => COAST_COLOR);
+    } else if (bordersApplied) {
+      // The coastline now comes from the path layer; drop the land polygons' own
+      // (dark, doubled) outline.
+      globe.polygonStrokeColor(() => null);
+    }
+  }
+
+  let earthRequested = false;
+  function loadEarthTexture() {
+    if (earthRequested) return;
+    earthRequested = true;
+    fetch(EARTH_URL)
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.blob();
+      })
+      .then((blob) => new Promise((resolve, reject) => {
+        // Decode it here first: a corrupt or truncated file is found out before
+        // the globe is told to use it. The blob URL (an object of this page, so
+        // inside the CSP's img-src) also spares three.js a second request.
+        const url = URL.createObjectURL(blob);
+        const image = new Image();
+        image.onload = () => resolve(url);
+        image.onerror = () => { URL.revokeObjectURL(url); reject(new Error('earth image did not decode')); };
+        image.src = url;
+      }))
+      .then((url) => {
+        globe.globeImageUrl(url);
+        // three-globe attaches the texture when its own loader finishes (a frame
+        // or two later); swap the scenery when it has, not before, so the globe
+        // never shows a bare sphere.
+        let tries = 0;
+        const wait = () => {
+          let ready = false;
+          try { ready = !!globe.globeMaterial().map; } catch (error) { ready = false; }
+          if (ready) {
+            earthApplied = true;
+            syncScenery();
+            URL.revokeObjectURL(url);
+          } else if ((tries += 1) < 120) {
+            window.requestAnimationFrame(wait);
+          }
+        };
+        window.requestAnimationFrame(wait);
+      })
+      .catch(() => {});
+  }
+
   let bordersRequested = false;
   function loadBorders() {
     if (bordersRequested) return;
@@ -477,9 +601,8 @@ export function createGlobe(container, {
         }
         if (!paths.length) return;
         globe.pathsData(paths);
-        // The coastline now comes from the path layer; drop the land polygons'
-        // own (dark, doubled) outline.
-        globe.polygonStrokeColor(() => null);
+        bordersApplied = true;
+        syncScenery();
       })
       .catch(() => {});
   }
@@ -487,6 +610,7 @@ export function createGlobe(container, {
   // --- marker model -------------------------------------------------
   const markerEls = new Map(); // id -> element
   const markerMeta = new Map(); // id -> { segments, tier, route }
+  const beamEls = new Map(); // arc id -> { outer, pill, leader, arc, text, shortText }
   let arcsEnabled = false;
   let arcsForcedOff = false; // true once a collaboration exceeds INSTITUTION_ARC_THRESHOLD
   let beamArcs = [];
@@ -495,13 +619,15 @@ export function createGlobe(container, {
   // What the open panel is about: the entity id, the globe markers that stand
   // for it (highlighted, kept out of clusters, always captioned) and, for an
   // institution, its id (its markers are ids of the form `<collab>::<id>`).
-  let selection = { id: null, markerIds: new Set(), institutionId: null, anchor: null, altitude: FOCUS_ALTITUDE };
+  let selection = {
+    id: null, markerIds: new Set(), beamlineIds: new Set(), institutionId: null, anchor: null, altitude: FOCUS_ALTITUDE,
+  };
   let filterState = filtersModule.emptyFilterState();
   const topicIndex = filtersModule.buildTopicIndex(atlas.topics || {});
   const siteExperimentIndex = filtersModule.buildSiteExperimentIndex(atlas);
 
   function makeInteractiveElement({
-    id, name, ariaLabel, size, shape, color, hollow, hatched, approximate, tier, extraClass, onActivate,
+    id, name, ariaLabel, size, shape, kind, color, hollow, hatched, approximate, tier, extraClass, onActivate,
   }) {
     const el = document.createElement('div');
     el.className = `atlas-marker tier-${tier}${extraClass ? ` ${extraClass}` : ''}`;
@@ -524,12 +650,18 @@ export function createGlobe(container, {
     // Read by the selected-marker halo in atlas.css so the ring clears the glyph.
     el.style.setProperty('--marker-size', `${size}px`);
     el.appendChild(buildGlyph({
-      shape, color, size, hollow, hatched, approximate,
+      shape, kind, color, size, hollow, hatched, approximate,
     }));
     const label = document.createElement('span');
     label.className = 'atlas-marker-label';
     label.textContent = name;
     el.appendChild(label);
+    // A selected caption that had to move off its marker (see declutterLabels) is
+    // tied back to it by this line.
+    const leader = document.createElement('span');
+    leader.className = 'atlas-marker-leader';
+    leader.setAttribute('aria-hidden', 'true');
+    el.appendChild(leader);
     el.addEventListener('click', onActivate);
     el.addEventListener('keydown', (event) => {
       if (event.key === 'Enter' || event.key === ' ') {
@@ -541,13 +673,14 @@ export function createGlobe(container, {
   }
 
   function makeMarkerElement({
-    id, name, route, size, shape, color, hollow, hatched, approximate, tier,
+    id, name, route, size, shape, kind, color, hollow, hatched, approximate, tier,
   }) {
     return makeInteractiveElement({
       id,
       name,
       size,
       shape,
+      kind,
       color,
       hollow,
       hatched,
@@ -643,27 +776,211 @@ export function createGlobe(container, {
     return out;
   }
 
+  // ---- beams: one arc per baseline row ------------------------------------------
+  // The far end of a beam is named for the detector there when the site holds a
+  // single far (else main) detector — "Super-K", "MINOS" — and for the facility
+  // when it holds several (LNGS Hall C, the DUNE caverns): never a guess.
+  const detectorsBySite = new Map();
+  for (const detector of Object.values(atlas.detectors || {})) {
+    for (const placement of detector.placements || []) {
+      if (!placement.site_id) continue;
+      const list = detectorsBySite.get(placement.site_id) || [];
+      list.push({ record: detector, role: placement.role });
+      detectorsBySite.set(placement.site_id, list);
+    }
+  }
+  function siteFacility(siteId, fallbackFacilityId) {
+    const site = atlas.sites && atlas.sites[siteId];
+    const facilityId = (site && site.facility_id) || fallbackFacilityId;
+    return (atlas.facilities && atlas.facilities[facilityId]) || null;
+  }
+  function farEndName(siteId, beamlineFacilityId) {
+    const placed = detectorsBySite.get(siteId) || [];
+    let pool = placed.filter((p) => p.role === 'far');
+    if (!pool.length) pool = placed.filter((p) => p.role === 'main');
+    if (pool.length === 1) return shortDetectorName(pool[0].record);
+    return shortPlaceName(siteFacility(siteId, beamlineFacilityId)) || shortPlaceName(atlas.sites && atlas.sites[siteId]);
+  }
+
   function buildBeamArcs() {
     const out = [];
     for (const beamline of Object.values(atlas.beamlines || {})) {
-      for (const baseline of beamline.baselines || []) {
+      (beamline.baselines || []).forEach((baseline, row) => {
         const from = siteCoords(baseline.from_site_id);
         const to = siteCoords(baseline.to_site_id);
-        if (!from || !to) continue;
+        if (!from || !to) return;
+        const spanDeg = greatCircleDeg(from.lat, from.lon, to.lat, to.lon);
+        const recordedKm = baselineKm(baseline.distance);
+        // Under BEAM_MIN_KM (BNB's 110 m, NuMI's near hall) the arc would be a dot
+        // on top of its own marker: those baselines belong on the local map.
+        // Coordinates that fall on the same point cannot be drawn at all.
+        if ((recordedKm != null && recordedKm < BEAM_MIN_KM) || spanDeg * KM_PER_DEG < BEAM_MIN_KM / 3) return;
+        const approx = !!(baseline.distance && baseline.distance.approx);
+        const km = recordedKm;
+        const sites = atlas.sites || {};
+        const fromName = (sites[baseline.from_site_id] || {}).name || baseline.from_site_id;
+        const toName = (sites[baseline.to_site_id] || {}).name || baseline.to_site_id;
+        const source = shortPlaceName(siteFacility(baseline.from_site_id, beamline.facility_id))
+          || shortPlaceName(sites[baseline.from_site_id]);
+        const far = farEndName(baseline.to_site_id, beamline.facility_id);
+        const distanceText = km == null ? '' : formatBaselineKm(km, approx);
+        const mid = centreOf([{ lat: from.lat, lon: from.lon }, { lat: to.lat, lon: to.lon }]);
         out.push({
-          id: `${beamline.id}:${baseline.from_site_id}:${baseline.to_site_id}`,
+          id: `${beamline.id}:${baseline.from_site_id}:${baseline.to_site_id}:${row}`,
+          kind: 'beam',
+          beamline,
+          baselineStatus: baseline.status || null,
           startLat: from.lat,
           startLng: from.lon,
           endLat: to.lat,
           endLng: to.lon,
-          color: ['rgba(84,198,186,0.85)', 'rgba(84,198,186,0.15)'],
-          stroke: 0.5,
-          label: `${beamline.name}: ${baseline.distance ? baseline.distance.display : ''} baseline`,
-          kind: 'beam',
+          spanDeg,
+          mid: { lat: mid.lat, lng: mid.lon },
+          rank: 0,
+          fromName,
+          toName,
+          distanceDisplay: baseline.distance ? baseline.distance.display || distanceText : '',
+          nameText: `${source} → ${far}`,
+          distanceText,
         });
+      });
+    }
+    // Baselines that begin and end at (nearly) the same places — T2K's Super-K and
+    // T2HK's Hyper-K arcs leave J-PARC together and land 8 km apart — would be drawn
+    // on top of each other. Each further arc in such a bundle rides higher.
+    const SAME_PLACE_DEG = 0.3;
+    out.sort((a, b) => (a.id < b.id ? -1 : 1));
+    for (let i = 0; i < out.length; i += 1) {
+      for (let j = 0; j < i; j += 1) {
+        const a = out[j];
+        const b = out[i];
+        if (greatCircleDeg(a.startLat, a.startLng, b.startLat, b.startLng) <= SAME_PLACE_DEG
+          && greatCircleDeg(a.endLat, a.endLng, b.endLat, b.endLng) <= SAME_PLACE_DEG) {
+          b.rank = Math.max(b.rank, a.rank + 1);
+        }
       }
     }
+    for (const arc of out) {
+      // three-globe's arc rises to 1.125 x its `altitude` at mid-span.
+      arc.altitude = clamp(0.42 * (arc.spanDeg * Math.PI) / 180, 0.012, 0.3) * (1 + 0.6 * arc.rank);
+      arc.apex = 1.125 * arc.altitude;
+    }
     return out;
+  }
+
+  /** The beam arc's state for the current timeline selection: null when its
+   * beamline had not yet begun then (the arc is not drawn), else the status it is
+   * drawn in. A beam that has ended stays on the globe as a completed one — CNGS
+   * and K2K are history, not absent — while a baseline row's own status wins over
+   * its beamline's: the Hyper-K arm is under construction while the beamline it
+   * hangs from is running. */
+  function beamStatus(arc) {
+    const { beamline } = arc;
+    let status = beamline.status || 'active';
+    if (timelineMode && beamline.state_segments && beamline.state_segments.length) {
+      const present = segmentsPresence(beamline.state_segments);
+      if (present) {
+        status = present.status;
+      } else if (timelineAbsenceReason(beamline.state_segments, filterTimelineState()) === 'ended') {
+        status = ENDED_STATUSES.has(beamline.status) ? beamline.status : 'completed';
+      } else {
+        // Not yet built in the selected year: drawn only for the beam a panel is
+        // open on, which the panel itself explains.
+        return selection.beamlineIds.has(beamline.id) ? 'absent' : null;
+      }
+    }
+    if (arc.baselineStatus) status = arc.baselineStatus;
+    return status;
+  }
+
+  /** The tube diameter, in degrees of arc, that shows `px` pixels at the current
+   * camera altitude (the vertical field of view is 50 degrees). */
+  function beamStrokeDeg(px) {
+    const height = Math.max(200, container.clientHeight || 700);
+    return Math.max(0.004, (px * 2 * Math.tan((25 * Math.PI) / 180) * Math.max(currentAltitude, 0.05) * (180 / Math.PI)) / height);
+  }
+
+  /** Styles one arc for its status and selection, in place (three-globe reads
+   * these back through the accessors set up with the globe). Returns the arc. */
+  function styleBeamArc(arc, status) {
+    const quiet = status !== 'active';
+    const phrase = status === 'absent' ? 'not yet built in the selected year' : beamStatusPhrase(status);
+    arc.status = status;
+    arc.quiet = quiet;
+    arc.statusPhrase = phrase;
+    arc.selected = selection.beamlineIds.has(arc.beamline.id);
+    arc.flow = !quiet;
+    arc.dashLength = quiet ? 0.03 : 0.1;
+    arc.dashGap = quiet ? 0.05 : 0.07;
+    arc.color = quiet ? BEAM_COLOR_QUIET : BEAM_COLOR;
+    arc.colorSelected = quiet ? BEAM_COLOR_QUIET_SELECTED : BEAM_COLOR_SELECTED;
+    arc.stroke = beamStrokeDeg(quiet ? BEAM_PX_QUIET : BEAM_PX);
+    arc.strokeSelected = beamStrokeDeg(quiet ? BEAM_PX_QUIET_SELECTED : BEAM_PX_SELECTED);
+    // The glow under a live beam shares its geometry, tooltip and click.
+    if (!quiet) {
+      const glow = arc.glow || (arc.glow = {
+        kind: 'beam-glow', beamline: arc.beamline, dashLength: 1, dashGap: 0, flow: false,
+      });
+      Object.assign(glow, {
+        startLat: arc.startLat,
+        startLng: arc.startLng,
+        endLat: arc.endLat,
+        endLng: arc.endLng,
+        altitude: arc.altitude,
+        selected: arc.selected,
+        color: BEAM_GLOW_COLOR,
+        colorSelected: BEAM_GLOW_COLOR_SELECTED,
+        stroke: beamStrokeDeg(BEAM_GLOW_PX),
+        strokeSelected: beamStrokeDeg(BEAM_GLOW_PX_SELECTED),
+      });
+    }
+    const lines = [`${escapeHtml(arc.beamline.name)}`, `${escapeHtml(arc.fromName)} → ${escapeHtml(arc.toName)}`];
+    if (arc.distanceDisplay) lines.push(`${escapeHtml(arc.distanceDisplay)} baseline`);
+    if (phrase) lines.push(`<em>${escapeHtml(phrase)}</em>`);
+    arc.label = lines.join('<br>');
+    if (arc.glow) arc.glow.label = arc.label;
+    return arc;
+  }
+
+  function makeBeamLabelElement(arc) {
+    const outer = document.createElement('div');
+    outer.className = 'atlas-beam-label';
+    const pill = document.createElement('div');
+    pill.className = 'bl-pill';
+    pill.setAttribute('role', 'button');
+    pill.setAttribute('tabindex', '0');
+    const phrase = arc.statusPhrase ? `, ${arc.statusPhrase}` : '';
+    const text = `${arc.nameText}${arc.distanceText ? ` · ${arc.distanceText}` : ''}${arc.statusPhrase ? ` · ${arc.statusPhrase}` : ''}`;
+    const aria = `${arc.beamline.name}: ${arc.fromName} to ${arc.toName}`
+      + `${arc.distanceDisplay ? `, ${arc.distanceDisplay} baseline` : ''}${phrase}. Press Enter to open the beamline.`;
+    pill.setAttribute('aria-label', aria);
+    pill.title = aria.replace(/\. Press Enter.*$/, '');
+    const long = document.createElement('span');
+    long.className = 'bl-long';
+    long.textContent = text;
+    const short = document.createElement('span');
+    short.className = 'bl-short';
+    short.textContent = arc.distanceText || arc.nameText;
+    pill.appendChild(long);
+    pill.appendChild(short);
+    const leader = document.createElement('span');
+    leader.className = 'bl-leader';
+    leader.setAttribute('aria-hidden', 'true');
+    outer.appendChild(leader);
+    outer.appendChild(pill);
+    const open = () => {
+      if (onSelect) onSelect({ type: 'beamline', slug: arc.beamline.id.split(':')[1] });
+    };
+    pill.addEventListener('click', open);
+    pill.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        open();
+      }
+    });
+    return {
+      outer, pill, leader, arc, text, shortText: short.textContent,
+    };
   }
 
   // --- timeline filtering ---------------------------------------------
@@ -787,8 +1104,11 @@ export function createGlobe(container, {
           id: record.id,
           name: record.name,
           route: { type: 'facility', slug: record.id.split(':')[1] },
-          size: 26,
+          // Sized by how many experiments the facility hosts, so the major
+          // laboratories read first.
+          size: facilityGlyphSize((record.experiment_ids || []).length),
           shape: info.shape,
+          kind: record.kind,
           color: info.color,
           hollow: false,
           hatched: uncertain,
@@ -963,7 +1283,28 @@ export function createGlobe(container, {
 
     for (const d of htmlLayer) markerMeta.get(d.id).pos = { lat: d.lat, lng: d.lng };
 
-    globe.htmlElementsData(htmlLayer);
+    // ---- beams: an arc per baseline row, its label riding at mid-arc ------------
+    const arcs = [];
+    beamEls.clear();
+    const beamLayer = [];
+    for (const arc of beamArcs) {
+      const status = beamStatus(arc);
+      if (status == null) continue; // the beamline did not exist in the selected year
+      styleBeamArc(arc, status);
+      if (!arc.quiet) arcs.push(arc.glow); // under the beam itself
+      arcs.push(arc);
+      const parts = makeBeamLabelElement(arc);
+      if (arc.selected) parts.outer.classList.add('is-selected');
+      if (arc.quiet) parts.outer.classList.add('is-quiet');
+      const wasHidden = labelHidden.get(`beam:${arc.id}`);
+      if (!arc.selected && wasHidden !== false) parts.outer.classList.add('is-label-hidden');
+      beamEls.set(arc.id, parts);
+      beamLayer.push({
+        id: `beam:${arc.id}`, lat: arc.mid.lat, lng: arc.mid.lng, altitude: arc.apex, el: parts.outer,
+      });
+    }
+
+    globe.htmlElementsData(htmlLayer.concat(beamLayer));
     // Marker boxes only get their screen positions on the next rendered frame,
     // so caption decluttering waits for it.
     scheduleDeclutter(DECLUTTER_DELAY_MS);
@@ -974,7 +1315,6 @@ export function createGlobe(container, {
     // app.js resetting the `arcs` URL/UI state when a large collaboration is
     // first entered (isArcsForcedOff()); the toggle itself always reflects
     // and controls what's actually drawn here, so it never lies to the user.
-    const arcs = [...beamArcs];
     if (arcsEnabled) arcs.push(...instArcs);
     globe.arcsData(arcs);
   }
@@ -1045,9 +1385,107 @@ export function createGlobe(container, {
   function overlaps(a, b) {
     return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
   }
+  function boxAt(cx, cy, w, h) {
+    return padded({
+      left: cx - w / 2, top: cy - h / 2, right: cx + w / 2, bottom: cy + h / 2,
+    });
+  }
+  /** A rectangle against a circle (a selection ring). */
+  function hitsCircle(rect, cx, cy, radius) {
+    const nx = Math.min(Math.max(cx, rect.left), rect.right);
+    const ny = Math.min(Math.max(cy, rect.top), rect.bottom);
+    return (nx - cx) ** 2 + (ny - cy) ** 2 < radius * radius;
+  }
+
+  // The selection halo reaches this far past the glyph's edge (atlas.css).
+  const RING_REACH = 12;
+
+  /** Centres, relative to an anchor, at which a `w` x `h` caption can sit clear of
+   * a circle of radius `r` around it: the usual place first, then the other sides,
+   * the corners, and finally columns stacked further out. */
+  function captionOffsets(r, w, h, preferAbove) {
+    const gap = 2;
+    const step = h + 3;
+    const down = r + gap + h / 2;
+    const up = -down;
+    const side = r + gap + w / 2;
+    const diagX = r * 0.72 + w / 2;
+    const diagY = r * 0.72 + h / 2;
+    const list = preferAbove
+      ? [[0, up], [0, down], [side, 0], [-side, 0], [diagX, -diagY], [-diagX, -diagY], [diagX, diagY], [-diagX, diagY]]
+      : [[0, down], [0, up], [side, 0], [-side, 0], [diagX, diagY], [-diagX, diagY], [diagX, -diagY], [-diagX, -diagY]];
+    for (let k = 1; k <= 6; k += 1) {
+      const lift = k * step;
+      const above = [[0, up - lift], [side, -lift], [-side, -lift]];
+      const below = [[0, down + lift], [side, lift], [-side, lift]];
+      list.push(...(preferAbove ? [...above, ...below] : [...below, ...above]));
+    }
+    return list;
+  }
+
+  /** Where the caption of a selected marker or beam goes: the first of the
+   * candidate places that is on the stage and clear of every caption already
+   * placed and every selection ring; a first pass also keeps clear of the other
+   * facilities' glyphs, a second gives that up before giving up the caption. */
+  function placeCaption({
+    cx, cy, radius, w, h, preferAbove, stage, placed, rings, glyphs,
+  }) {
+    const inStage = (r) => r.left >= stage.left + 2 && r.right <= stage.right - 2
+      && r.top >= stage.top + 2 && r.bottom <= stage.bottom - 2;
+    const offsets = captionOffsets(radius, w, h, preferAbove);
+    for (const clearOfGlyphs of [true, false]) {
+      for (let i = 0; i < offsets.length; i += 1) {
+        let [dx, dy] = offsets[i];
+        let box = boxAt(cx + dx, cy + dy, w, h);
+        // A caption wider than the room beside its marker (a phone) slides along
+        // the row until it is on the stage; its leader line ties it back.
+        let slid = false;
+        if (box.left < stage.left + 2 && w <= stage.width - 4) {
+          dx += stage.left + 2 - box.left;
+          slid = true;
+        } else if (box.right > stage.right - 2 && w <= stage.width - 4) {
+          dx -= box.right - (stage.right - 2);
+          slid = true;
+        }
+        if (slid) box = boxAt(cx + dx, cy + dy, w, h);
+        if (!inStage(box)) continue;
+        if (placed.some((r) => overlaps(box, r))) continue;
+        if (rings.some((ring) => hitsCircle(box, ring.cx, ring.cy, ring.r))) continue;
+        if (clearOfGlyphs && glyphs.some((g) => overlaps(box, g))) continue;
+        return {
+          dx, dy, index: i, moved: i > 0 || slid, box,
+        };
+      }
+    }
+    return null;
+  }
+
+  // Width of a beam label's text, to choose between its two forms without
+  // touching the DOM. The font is read once, from the first label built.
+  let beamFont = null;
+  let measureContext = null;
+  const widthCache = new Map();
+  function beamTextWidth(text, pill) {
+    if (!beamFont) {
+      const css = window.getComputedStyle(pill);
+      beamFont = `${css.fontWeight} ${css.fontSize} ${css.fontFamily}`;
+    }
+    const key = `${beamFont}|${text}`;
+    if (widthCache.has(key)) return widthCache.get(key);
+    if (!measureContext) measureContext = document.createElement('canvas').getContext('2d');
+    let width = text.length * 6.4;
+    if (measureContext) {
+      measureContext.font = beamFont;
+      width = measureContext.measureText(text).width;
+    }
+    widthCache.set(key, width);
+    return width;
+  }
+  const BEAM_PILL_PAD = 16; // horizontal padding + border of .bl-pill
+  const BEAM_PILL_HEIGHT = 21;
 
   function declutterLabels() {
-    if (!markerEls.size) return;
+    if (!markerEls.size && !beamEls.size) return;
     const stage = container.getBoundingClientRect();
     if (!stage.width || !stage.height) return;
     const items = [];
@@ -1071,15 +1509,52 @@ export function createGlobe(container, {
       const nearLimb = !!meta.pos
         && greatCircleDeg(pov.lat, pov.lng, meta.pos.lat, meta.pos.lng) > limbDeg;
       items.push({
+        type: 'marker',
         nearLimb,
         el, selected, hovered, cluster, meta, glyph: padded(glyph),
+        cx: glyph.left + glyph.width / 2,
+        cy: glyph.top + glyph.height / 2,
+        half: glyph.width / 2,
         // A hidden caption keeps its box (visibility), so it can be re-measured.
         label: label ? padded(label.getBoundingClientRect()) : null,
+        // Natural size, unaffected by where the caption currently sits.
+        labelSize: label ? { w: label.offsetWidth, h: label.offsetHeight } : null,
+        leader: selected ? el.querySelector('.atlas-marker-leader') : null,
         name: el.dataset.id,
       });
     }
+    for (const [id, parts] of beamEls) {
+      if (!parts.pill.getClientRects().length) continue; // far side of the globe
+      const anchor = parts.outer.getBoundingClientRect();
+      const { arc } = parts;
+      const a = globe.getScreenCoords(arc.startLat, arc.startLng, 0);
+      const b = globe.getScreenCoords(arc.endLat, arc.endLng, 0);
+      const lengthPx = Math.hypot(a.x - b.x, a.y - b.y);
+      const hovered = parts.pill.matches(':hover') || parts.pill === document.activeElement;
+      const longW = beamTextWidth(parts.text, parts.pill) + BEAM_PILL_PAD;
+      const shortW = beamTextWidth(parts.shortText, parts.pill) + BEAM_PILL_PAD;
+      items.push({
+        type: 'beam',
+        name: `beam:${id}`,
+        parts,
+        selected: arc.selected,
+        hovered,
+        cluster: false,
+        meta: { weight: 1e6 - arc.rank },
+        cx: anchor.left,
+        cy: anchor.top,
+        lengthPx,
+        longW,
+        shortW,
+        label: null,
+        glyph: null,
+      });
+    }
     // ---- decide ------------------------------------------------------------
-    const rank = (it) => (it.selected ? (it.meta.tier === 'facility' ? 0 : 0.5) : it.hovered ? 1 : it.cluster ? 2 : 3);
+    const rank = (it) => {
+      if (it.type === 'beam') return it.selected ? -1 : it.hovered ? 1 : 2.5;
+      return it.selected ? (it.meta.tier === 'facility' ? 0 : 0.5) : it.hovered ? 1 : it.cluster ? 2 : 3;
+    };
     const order = items.slice().sort((a, b) => (
       rank(a) - rank(b)
       || (b.meta.weight || 0) - (a.meta.weight || 0)
@@ -1088,23 +1563,88 @@ export function createGlobe(container, {
     // A caption also keeps clear of the glyph of any facility or cluster that
     // outranks its own marker (a lesser facility's pin may sit under it; the
     // caption never covers a more important one).
-    const obstacles = items.filter((it) => it.cluster || it.meta.tier === 'facility' || it.selected);
+    const markerItems = items.filter((it) => it.type === 'marker');
+    const obstacles = markerItems.filter((it) => it.cluster || it.meta.tier === 'facility' || it.selected);
+    const glyphBoxes = obstacles.map((o) => o.glyph);
+    const rings = markerItems.filter((it) => it.selected).map((it) => ({
+      cx: it.cx, cy: it.cy, r: it.half + RING_REACH,
+    }));
     const orderIndex = new Map(order.map((it, i) => [it, i]));
     const placed = [];
-    const hide = new Map();
+    const hide = new Map(); // element -> true/false (marker) or { hidden, ... } (beam)
+    const moves = new Map(); // element -> placement of a selected caption
     // LABEL_BUDGET (spec §70) caps how many captions are on screen at once;
     // clusters, the selection and the hovered marker are always inside it.
     let budgetLeft = LABEL_BUDGET;
+    const beamDecisions = [];
+    const beamIsSubject = items.some((it) => it.type === 'beam' && it.selected);
     for (const it of order) {
-      if (!it.label) continue;
-      if (it.selected || it.hovered || it.cluster) {
-        // The hovered marker and cluster badges are never hidden. Selected
-        // captions (an experiment selects every site and facility it uses) only
-        // yield to each other, in rank order: facility before site.
-        if (it.selected && !it.hovered && placed.some((r) => overlaps(it.label, r))) {
-          hide.set(it.el, true);
-          continue;
+      if (it.type === 'beam') {
+        const decision = { it, hidden: true, short: true };
+        beamDecisions.push(decision);
+        const idle = !it.selected && !it.hovered;
+        // While a beam is the subject, the other beams' labels stay out of its way
+        // (hover or focus still brings one up).
+        if (idle && (it.lengthPx < Math.max(BEAM_LABEL_MIN_PX, it.shortW * 0.9) || budgetLeft <= 0 || beamIsSubject)) continue;
+        // The full name when the arc is long enough to carry it (or the beam is the
+        // one a panel is open for), else the distance alone: a short label is tried
+        // before a long one is given up.
+        const forms = [];
+        if (it.selected || it.lengthPx >= it.longW * 0.85) forms.push({ short: false, w: it.longW });
+        forms.push({ short: true, w: it.shortW });
+        for (const form of forms) {
+          const spot = placeCaption({
+            cx: it.cx,
+            cy: it.cy,
+            radius: 5,
+            w: form.w,
+            h: BEAM_PILL_HEIGHT,
+            preferAbove: true,
+            stage,
+            placed,
+            // The halo of a selected marker is decoration: a beam label may lie over
+            // it, but never over a glyph.
+            rings: [],
+            glyphs: glyphBoxes,
+          });
+          // An unselected label keeps to its own place (above, below or beside its arc) or is
+          // dropped; only a selected one is moved about to find room.
+          if (!spot || (idle && spot.index > 3)) continue;
+          decision.hidden = false;
+          decision.short = form.short;
+          decision.spot = spot;
+          placed.push(spot.box);
+          budgetLeft -= 1;
+          break;
         }
+        continue;
+      }
+      if (!it.label) continue;
+      if (it.selected) {
+        // Selected captions (an experiment selects every site and facility it
+        // uses) never overlap: each takes the first free place around its ring,
+        // joined to it by a leader line when it is not the usual one below.
+        const spot = placeCaption({
+          cx: it.cx,
+          cy: it.cy,
+          radius: it.half + RING_REACH,
+          w: it.labelSize.w,
+          h: it.labelSize.h,
+          preferAbove: false,
+          stage,
+          placed,
+          rings,
+          glyphs: glyphBoxes.filter((g) => g !== it.glyph),
+        });
+        if (!spot) { hide.set(it.el, true); continue; }
+        placed.push(spot.box);
+        moves.set(it.el, { it, spot });
+        hide.set(it.el, false);
+        budgetLeft -= 1;
+        continue;
+      }
+      if (it.hovered || it.cluster) {
+        // The hovered marker and cluster badges are never hidden.
         placed.push(it.label);
         hide.set(it.el, false);
         budgetLeft -= 1;
@@ -1126,6 +1666,43 @@ export function createGlobe(container, {
       labelHidden.set(el.dataset.id, hidden);
       if (el.classList.contains('is-label-hidden') !== hidden) el.classList.toggle('is-label-hidden', hidden);
     }
+    for (const [el, { it, spot }] of moves) {
+      el.style.setProperty('--label-x', `${spot.dx.toFixed(1)}px`);
+      el.style.setProperty('--label-y', `${spot.dy.toFixed(1)}px`);
+      applyLeader(el, it.leader, spot, it.half + RING_REACH - 3, it.cx, it.cy);
+    }
+    for (const { it, hidden, short, spot } of beamDecisions) {
+      const { outer, pill, leader } = it.parts;
+      labelHidden.set(it.name, hidden);
+      if (outer.classList.contains('is-label-hidden') !== hidden) outer.classList.toggle('is-label-hidden', hidden);
+      if (outer.classList.contains('is-short') !== short) outer.classList.toggle('is-short', short);
+      if (spot) {
+        pill.style.setProperty('--bx', `${spot.dx.toFixed(1)}px`);
+        pill.style.setProperty('--by', `${spot.dy.toFixed(1)}px`);
+        applyLeader(outer, leader, spot, 4, it.cx, it.cy);
+      }
+    }
+  }
+
+  /** Draws (or clears) the leader line from an anchor out to the caption placed at
+   * `spot`, starting `start` px out from the anchor along the way. */
+  function applyLeader(host, leader, spot, start, cx, cy) {
+    if (!leader) return;
+    const nx = Math.min(Math.max(cx, spot.box.left + LABEL_PAD), spot.box.right - LABEL_PAD);
+    const ny = Math.min(Math.max(cy, spot.box.top + LABEL_PAD), spot.box.bottom - LABEL_PAD);
+    const dx = nx - cx;
+    const dy = ny - cy;
+    const distance = Math.hypot(dx, dy);
+    const length = distance - start;
+    // The caption sits in its usual place (or touches the ring): no line needed.
+    if (!spot.moved || length < 5) {
+      host.classList.remove('has-label-offset');
+      return;
+    }
+    const angle = Math.atan2(dy, dx);
+    leader.style.width = `${length.toFixed(1)}px`;
+    leader.style.transform = `translate(${(Math.cos(angle) * start).toFixed(1)}px, ${(Math.sin(angle) * start).toFixed(1)}px) rotate(${angle.toFixed(4)}rad)`;
+    host.classList.add('has-label-offset');
   }
 
   // ---- selection: which markers an open panel stands for, and where to look
@@ -1166,10 +1743,20 @@ export function createGlobe(container, {
    * the glyph a person can actually see there. */
   function resolveSelection(id) {
     const out = {
-      id, markerIds: new Set(), institutionId: null, anchor: null, altitude: FOCUS_ALTITUDE,
+      id, markerIds: new Set(), beamlineIds: new Set(), institutionId: null, anchor: null, altitude: FOCUS_ALTITUDE,
     };
     if (!id) return out;
     const record = index.get(id);
+    // The beams a panel is about: a beamline's own, or those an experiment uses
+    // (the link is stored on both records, so either one counts).
+    if (id.startsWith('beamline:') && atlas.beamlines && atlas.beamlines[id]) out.beamlineIds.add(id);
+    if (id.startsWith('experiment:')) {
+      for (const beamline of Object.values(atlas.beamlines || {})) {
+        if ((beamline.experiment_ids || []).includes(id) || (record && (record.beamline_ids || []).includes(beamline.id))) {
+          out.beamlineIds.add(beamline.id);
+        }
+      }
+    }
     const addSite = (siteId) => {
       if (!siteId || !atlas.sites || !atlas.sites[siteId]) return;
       out.markerIds.add(siteId);
@@ -1232,6 +1819,27 @@ export function createGlobe(container, {
       }
       default:
         break;
+    }
+    // A beam selection frames the whole baseline, centred between its ends.
+    if (out.beamlineIds.size) {
+      const ends = [];
+      for (const beamlineId of out.beamlineIds) {
+        for (const baseline of atlas.beamlines[beamlineId].baselines || []) {
+          const from = siteCoords(baseline.from_site_id);
+          const to = siteCoords(baseline.to_site_id);
+          const km = baselineKm(baseline.distance);
+          if (!from || !to || (km != null && km < BEAM_MIN_KM)) continue;
+          ends.push({ lat: from.lat, lon: from.lon }, { lat: to.lat, lon: to.lon });
+        }
+      }
+      if (ends.length) {
+        const middle = centreOf(ends);
+        let span = 0;
+        for (const a of ends) for (const b of ends) span = Math.max(span, greatCircleDeg(a.lat, a.lon, b.lat, b.lon));
+        out.anchor = { lat: middle.lat, lon: middle.lon };
+        out.altitude = clamp(span * BEAM_FOCUS_ALTITUDE_PER_DEG, BEAM_FOCUS_ALTITUDE_MIN, FOCUS_ALTITUDE_WIDE);
+        return out;
+      }
     }
     if (out.anchor) {
       let spread = 0;
@@ -1325,8 +1933,31 @@ export function createGlobe(container, {
       siteEntities = buildSiteEntities();
       beamArcs = buildBeamArcs();
       rebuildVisibleLayer();
-      // After the first frame has painted, bring in the country borders.
-      window.requestAnimationFrame(() => window.setTimeout(loadBorders, 0));
+      // After the first frame has painted, bring in the Earth and the country lines.
+      window.requestAnimationFrame(() => window.setTimeout(() => {
+        loadEarthTexture();
+        loadBorders();
+      }, 0));
+    },
+    /** Points the camera at `{ lat, lng, altitude }` (altitude in globe radii; 2.4
+     * is the opening overview, 0.5 a country). Animated by default, instant when
+     * `animate` is false or under prefers-reduced-motion. Ends auto-rotation, like
+     * any other deliberate camera move, so the framed view stays framed. */
+    showView(view, { animate = true } = {}) {
+      const lat = Number(view && view.lat);
+      const lng = Number(view && view.lng);
+      const altitude = Number(view && view.altitude);
+      if (!Number.isFinite(lat) || !Number.isFinite(lng) || !Number.isFinite(altitude)) return;
+      stopAutoRotate();
+      const target = {
+        lat: clamp(lat, -90, 90),
+        lng: ((((lng + 180) % 360) + 360) % 360) - 180,
+        altitude: clamp(altitude, MIN_VIEW_ALTITUDE, MAX_VIEW_ALTITUDE),
+      };
+      const instant = !animate || reducedMotion();
+      if (instant) currentAltitude = target.altitude;
+      globe.pointOfView(target, instant ? 0 : FOCUS_FLIGHT_MS);
+      if (instant) rebuildVisibleLayer(); // markers cluster for the new altitude at once
     },
     setYear(year) {
       timelineMode = { kind: 'year', year, month: Math.round((year - 1950) * 12 + 6) };

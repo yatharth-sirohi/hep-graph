@@ -14,6 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 STYLESHEETS = [
     ROOT / "static" / "atlas" / "atlas.css",
+    ROOT / "static" / "atlas" / "globe.css",
     ROOT / "static" / "atlas" / "phone.css",
 ]
 
