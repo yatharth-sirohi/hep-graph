@@ -35,7 +35,7 @@
       "confidence": "uncertain",
       "facility_id": "facility:fermilab",
       "locator": "Wikipedia, DONUT (opening sentence)",
-      "note": "Corrected from a non-verbatim paraphrase ('operated at Fermilab') to the actual opening-sentence wording; sole fetched source is Wikipedia (rank 12), fnal.gov returned HTTP 403 to every fetch attempt.",
+      "note": "The quote is the opening-sentence wording of the Wikipedia article (rank 12), the only source consulted; fnal.gov returned HTTP 403 to every access attempt.",
       "quote": "was an experiment at Fermilab dedicated to the search for tau neutrino interactions",
       "role": "host",
       "sources": [
@@ -114,7 +114,7 @@
         "dimension": "count",
         "display": "4 candidate events",
         "locator": "abstract",
-        "note": "A later (2008) final analysis reported 9 tau-neutrino events in a larger 578-event sample per Wikipedia (rank 12, not used as the primary figure here); this key_spec records the number from the primary 2001 observation paper actually fetched.",
+        "note": "A later (2008) final analysis reported 9 tau-neutrino events in a larger 578-event sample per Wikipedia (rank 12, not used as the primary figure here); this key_spec records the number from the primary 2001 observation paper.",
         "quote": "A decay search has found evidence of four tau neutrino interactions with an estimated background of 0.34 events.",
         "sources": [
           "src:donut-plb-2001-observation"
@@ -132,11 +132,10 @@
   },
   "name": "DONUT",
   "notes": [
-    "kind is set to 'accelerator_neutrino' with secondary_kinds 'fixed_target': DONUT is structurally a fixed-target beam-dump experiment, but its defining physics purpose -- direct detection of tau-neutrino interactions from an accelerator-produced neutrino beam -- matches the accelerator_neutrino kind used for this lead's other experiments (KARMEN, LSND, OPERA).",
-    "No official DONUT/Fermilab website was reachable in this session (fnal.gov returned HTTP 403 to every fetch attempt, matching the note already on facility:fermilab); links.website left null rather than guessed.",
-    "external.inspire_experiment left null: no INSPIRE experiment-registry lookup was performed in this session (the INSPIRE literature record fetched did not render usable content, and DONUT is tier D so this is not mandatory per the brief).",
-    "Detector placement site is site:fermilab-main-campus, an existing record owned by the 'fermilab-dune' lead (already used for several other Fermilab short-baseline experiments' near detectors); referenced here rather than duplicated, per A20's warning against two sites of one facility within 100 m.",
-    "summary.technical previously stated an '800 GeV-class' Tevatron beam energy; this figure was not supported by any fetched source (energy_regime deliberately carries no specific beam-energy number, confidence: uncertain, Wikipedia-only) and has been removed as an unsourced from-memory value per A17."
+    "DONUT is structurally a fixed-target beam-dump experiment, but its defining physics purpose -- direct detection of tau-neutrino interactions from an accelerator-produced neutrino beam -- matches the accelerator-neutrino category used for KARMEN, LSND and OPERA, so it is classed as an accelerator-neutrino experiment with fixed-target as a secondary kind.",
+    "No official DONUT/Fermilab website was reachable (fnal.gov returned HTTP 403 to every access attempt, as also noted on facility:fermilab), so no website is recorded rather than a guessed one.",
+    "No INSPIRE experiment lookup was performed for DONUT, so external.inspire_experiment is left empty (the INSPIRE literature record that was opened did not render usable content).",
+    "The detector placement site is site:fermilab-main-campus, an existing record already used for several other Fermilab short-baseline experiments' near detectors; it is referenced here rather than duplicated, because two sites of one facility within 100 m would be redundant."
   ],
   "physics_goals": [
     {

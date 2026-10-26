@@ -1,66 +1,78 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "collaboration:double-chooz",
-  "type": "collaboration",
-  "name": "Double Chooz Collaboration",
   "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
   "formation": {
-    "value": null,
-    "sources": ["src:double-chooz-inspire-experiment-record"],
-    "verified_at": "2026-09-17",
     "confidence": "uncertain",
     "locator": "INSPIRE experiment record 1108278",
-    "note": "No fetched source states an explicit collaboration formation date."
+    "note": "No fetched source states an explicit collaboration formation date.",
+    "sources": [
+      "src:double-chooz-inspire-experiment-record"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
   },
-  "intervals": [
-    {
-      "label": "collaboration active",
-      "status": "active",
-      "start": "2011",
-      "end": "2017-12",
-      "sources": ["src:rf04-double-chooz-detectors-2022", "src:double-chooz-wikipedia"],
-      "verified_at": "2026-10-25",
-      "confidence": "uncertain",
-      "quote": "its data taking started first, in April 2011 ... Both detectors ran in parallel for about three years, until the end of 2017, when neutrino data taking was stopped.",
-      "note": "Start (2011) is a lower bound: the April 2011 start of far-detector data taking in the collaboration's detector paper, not a collaboration formation date. End is the end of neutrino data taking ('end of 2017' in that paper; Wikipedia gives 'late December 2017', hence the month 2017-12)."
-    },
-    {
-      "label": "collaboration completed",
-      "status": "completed",
-      "start": "2017-12",
-      "end": null,
-      "sources": ["src:rf04-double-chooz-detectors-2022", "src:double-chooz-wikipedia"],
-      "verified_at": "2026-10-25",
-      "confidence": "approximate",
-      "quote": "Both detectors ran in parallel for about three years, until the end of 2017, when neutrino data taking was stopped.",
-      "note": "Terminal event: end of neutrino data taking ('end of 2017' in the collaboration's detector paper; the month, December, is from Wikipedia's 'late December 2017')."
-    }
-  ],
-  "status": "completed",
-  "membership": {
-    "as_of": null,
-    "evidence_class": "institutional_page",
-    "institution_count": null,
-    "country_count": null,
-    "member_count": null,
-    "roster_source_ids": []
-  },
-  "leadership": [],
   "host_facility_id": "facility:chooz",
   "host_site_id": "site:double-chooz-far-detector",
+  "id": "collaboration:double-chooz",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2017-12",
+      "label": "collaboration active",
+      "note": "Start (2011) is a lower bound: the April 2011 start of far-detector data taking in the collaboration's detector paper, not a collaboration formation date. End is the end of neutrino data taking ('end of 2017' in that paper; Wikipedia gives 'late December 2017', hence the month 2017-12).",
+      "quote": "its data taking started first, in April 2011 ... Both detectors ran in parallel for about three years, until the end of 2017, when neutrino data taking was stopped.",
+      "sources": [
+        "src:rf04-double-chooz-detectors-2022",
+        "src:double-chooz-wikipedia"
+      ],
+      "start": "2011",
+      "status": "active",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "collaboration completed",
+      "note": "Terminal event: end of neutrino data taking ('end of 2017' in the collaboration's detector paper; the month, December, is from Wikipedia's 'late December 2017').",
+      "quote": "Both detectors ran in parallel for about three years, until the end of 2017, when neutrino data taking was stopped.",
+      "sources": [
+        "src:rf04-double-chooz-detectors-2022",
+        "src:double-chooz-wikipedia"
+      ],
+      "start": "2017-12",
+      "status": "completed",
+      "verified_at": "2026-10-25"
+    }
+  ],
+  "leadership": [],
   "links": {
     "website": null
   },
+  "membership": {
+    "as_of": null,
+    "country_count": null,
+    "evidence_class": "institutional_page",
+    "institution_count": null,
+    "member_count": null,
+    "roster_source_ids": []
+  },
+  "name": "Double Chooz Collaboration",
   "notes": [
-    "No membership counts (scientists/institutions/countries) were found in a source fetched this session; Wikipedia states only that the collaboration was 'international' without a count."
+    "No membership counts (scientists/institutions/countries) were found in any source consulted (checked 2026-09-17); Wikipedia states only that the collaboration was 'international' without a count."
   ],
-  "sources": ["src:double-chooz-inspire-experiment-record", "src:double-chooz-wikipedia", "src:rf04-double-chooz-detectors-2022"],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:double-chooz-inspire-experiment-record",
+    "src:double-chooz-wikipedia",
+    "src:rf04-double-chooz-detectors-2022"
+  ],
+  "status": "completed",
   "summary": {
     "plain": "The international team of scientists who built and ran the Double Chooz reactor-neutrino experiment in France.",
-    "technical": "International collaboration operating Double Chooz at the Chooz reactor site, France; membership counts not found in a source fetched this session."
+    "technical": "International collaboration operating Double Chooz at the Chooz reactor site, France; membership counts not found in the sources consulted."
   },
-  "coverage": {
-    "tier": "B",
-    "researched": "partial"
-  }
+  "type": "collaboration"
 }

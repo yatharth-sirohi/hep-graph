@@ -1,62 +1,73 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "collaboration:sno-plus",
-  "type": "collaboration",
-  "name": "SNO+ Collaboration",
   "aliases": [],
-  "distinct_from": ["collaboration:sno"],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [
+    "collaboration:sno"
+  ],
   "formation": {
-    "value": null,
-    "sources": ["src:sno-plus-inspire-experiment-record"],
-    "verified_at": "2026-09-17",
     "confidence": "uncertain",
     "locator": "INSPIRE experiment record 1108233",
-    "note": "No fetched source states an explicit collaboration formation date."
+    "note": "No fetched source states an explicit collaboration formation date.",
+    "sources": [
+      "src:sno-plus-inspire-experiment-record"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
   },
+  "host_facility_id": "facility:snolab",
+  "host_site_id": "site:snolab-underground-lab",
+  "id": "collaboration:sno-plus",
   "intervals": [
     {
-      "label": "collaboration",
-      "status": "active",
-      "start": "2017",
-      "end": null,
-      "sources": ["src:sno-plus-wikipedia"],
-      "verified_at": "2026-09-17",
       "confidence": "uncertain",
+      "end": null,
+      "label": "collaboration",
+      "note": "Start taken as a lower bound (start of detector commissioning); true formation date not sourced.",
       "quote": "The detector underwent a water-filled commissioning phase from 2017 to 2019",
-      "note": "Start taken as a lower bound (start of detector commissioning); true formation date not sourced."
+      "sources": [
+        "src:sno-plus-wikipedia"
+      ],
+      "start": "2017",
+      "status": "active",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "active",
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:sno-plus-official-site"
+      ],
+      "value": "https://snoplus.phy.queensu.ca/",
+      "verified_at": "2026-09-17"
+    }
+  },
   "membership": {
     "as_of": null,
+    "country_count": null,
     "evidence_class": "institutional_page",
     "institution_count": null,
-    "country_count": null,
     "member_count": null,
     "roster_source_ids": []
   },
-  "leadership": [],
-  "host_facility_id": "facility:snolab",
-  "host_site_id": "site:snolab-underground-lab",
-  "links": {
-    "website": {
-      "value": "https://snoplus.phy.queensu.ca/",
-      "sources": ["src:sno-plus-official-site"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": ""
-    }
-  },
+  "name": "SNO+ Collaboration",
   "notes": [
     "The official homepage mentions the University of Oxford and UC Berkeley as affiliated institutions but does not provide a full institution list or a count; no membership counts were recorded rather than guessed from a partial mention."
   ],
-  "sources": ["src:sno-plus-official-site", "src:sno-plus-inspire-experiment-record"],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:sno-plus-official-site",
+    "src:sno-plus-inspire-experiment-record"
+  ],
+  "status": "active",
   "summary": {
     "plain": "The international team of scientists who run the SNO+ experiment in Sudbury, Canada, searching for a rare nuclear decay and studying solar and reactor neutrinos.",
-    "technical": "Collaboration operating SNO+ at SNOLAB; membership counts not found in a source fetched this session (only Oxford and UC Berkeley are named on the homepage, without a full list)."
+    "technical": "Collaboration operating SNO+ at SNOLAB; membership counts not found in the sources consulted (only Oxford and UC Berkeley are named on the homepage, without a full list)."
   },
-  "coverage": {
-    "tier": "B",
-    "researched": "partial"
-  }
+  "type": "collaboration"
 }

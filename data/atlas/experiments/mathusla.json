@@ -40,7 +40,7 @@
       "end": null,
       "label": "proposed",
       "locator": "arXiv:1811.00927, abstract (submitted 2 Nov 2018)",
-      "note": "2026-09-17 fixed-target verification: anchored on the MATHUSLA Letter of Intent, arXiv:1811.00927 ('A Letter of Intent for MATHUSLA: a dedicated displaced vertex detector above ATLAS or CMS', submitted 2 Nov 2018), which is the collaboration's first public proposal document. Previously `start: null`, which made the interval cover no year at all (A3: 'start: null covers only [lo(end), hi(end))'), so the derived state at the build date was `unrecorded` (None) rather than `proposed`, and `status` was written as `null` to match -- masking that MATHUSLA has, in fact, been an actively proposed experiment since 2018.",
+      "note": "The interval start is anchored on the MATHUSLA Letter of Intent, arXiv:1811.00927 ('A Letter of Intent for MATHUSLA: a dedicated displaced vertex detector above ATLAS or CMS', submitted 2 Nov 2018), the collaboration's first public proposal document. MATHUSLA has been an actively proposed experiment since 2018.",
       "quote": "we propose the construction of MATHUSLA",
       "sources": [
         "src:fixed-target-verify-mathusla-loi-arxiv-1811-00927",
@@ -102,10 +102,9 @@
   },
   "name": "MATHUSLA",
   "notes": [
-    "No new site created, per the brief: the official page states only that the surface location shields it from ATLAS/CMS backgrounds, without naming a specific interaction point (e.g. Point 5); no detector placement/site_id is recorded rather than guessing which LHC point.",
-    "accelerator_ids references accelerator:lhc (owned by the cern-atlas workstream) since MATHUSLA is explicitly tied to HL-LHC collisions as its particle source, not the SPS fixed-target programme; kept in this file despite being outside the classic 'fixed-target' sense because MATHUSLA is assigned to this workstream by the ID_REGISTRY.",
-    "No collaboration membership counts found on the official site.",
-    "2026-09-17 fixed-target verification: `status` was `null` because the sole 'proposed' interval had `start: null`, so no interval covered the build date and A3's derived state was `unrecorded`. A dated Letter of Intent (arXiv:1811.00927, 2 Nov 2018) anchors the interval's start, so the derived state -- and `status` -- is now `proposed`, honestly reflecting that MATHUSLA has been a standing proposal since 2018, not an unknown/unrecorded entity."
+    "No site is recorded: the official page states only that the surface location shields the detector from ATLAS/CMS backgrounds, without naming a specific interaction point (for example Point 5), so no placement is given rather than guessing which LHC point.",
+    "The accelerator listed is the LHC, because MATHUSLA is explicitly tied to HL-LHC collisions as its particle source, not to the SPS fixed-target programme.",
+    "No collaboration membership counts found on the official site."
   ],
   "physics_goals": [
     {

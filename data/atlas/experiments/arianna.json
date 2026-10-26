@@ -51,7 +51,7 @@
       "confidence": "uncertain",
       "end": null,
       "label": "expanded to 8 stations",
-      "note": "The official research page is undated (no explicit publication date fetched) and its 'currently' may predate the 'decommissioned' statement on the official home page; both are recorded and the conflict is noted in the worklog. Verification note (2026-09-18): the dated 2023 collaboration results paper (arXiv:2304.07179) refers to the HRA throughout as 'an array of seven identical radio detector stations', never eight; this further supports treating the research page's '8 stations, currently taking data' wording as stale, pre-decommissioning copy rather than a current fact.",
+      "note": "The official research page is undated and its 'currently' may predate the 'decommissioned' statement on the official home page; both are recorded. The dated 2023 collaboration results paper (arXiv:2304.07179, checked 2026-09-18) refers to the HRA throughout as 'an array of seven identical radio detector stations', never eight; this further supports treating the research page's '8 stations, currently taking data' wording as stale, pre-decommissioning copy rather than a current fact.",
       "quote": "Currently, eight ARIANNA stations are taking data on the Ross Ice-shelf, in a prototype experiment called the Hexagonal Radio Array (HRA)",
       "sources": [
         "src:astro-neutrino-arianna-official-research-page"
@@ -64,7 +64,7 @@
       "confidence": "approximate",
       "end": null,
       "label": "decommissioned",
-      "note": "No exact decommissioning date is stated by any source fetched this session; start is set to the last confirmed data-collection month (February 2019, from the testbed paper's data range) as a lower bound, not a sourced decommissioning date itself. A truly null start/end pair would leave this interval covering no time in the derived-state model, which would misrepresent an experiment the collaboration's own page calls decommissioned as 'unrecorded' at the current build date. Verification fix (2026-09-18): the 2023 collaboration results paper (rank 10, dated, peer-reviewed) independently and explicitly states the array 'was decommissioned', corroborating the undated home page and giving a dated, authoritative confirmation that supersedes the weaker 'home page vs. inner page' reasoning originally used.",
+      "note": "No exact decommissioning date is stated by any source consulted (checked 2026-09-18); the start is set to the last confirmed data-collection month (February 2019, from the testbed paper's data range) as a lower bound, not a sourced decommissioning date. The 2023 collaboration results paper (dated, peer-reviewed) explicitly states the array 'was decommissioned', corroborating the undated home page.",
       "quote": "The array was completed in 2015 and operated successfully until it was decommissioned.",
       "sources": [
         "src:astro-neutrino-arianna-official-home-page",
@@ -144,9 +144,9 @@
   },
   "name": "ARIANNA",
   "notes": [
-    "External INSPIRE experiment recid 1108245 confirmed via the INSPIRE experiment API record fetched this session.",
+    "External INSPIRE experiment recid 1108245 confirmed against the INSPIRE experiment API record.",
     "Conflict: the official home page (undated, fetched 2026-09-17) calls ARIANNA 'the now decommissioned ARIANNA pilot experiment'; the official research page (also undated, same domain) says 'Currently, eight ARIANNA stations are taking data'. Both are official-tier sources but cannot both be true today; the home page's explicit 'decommissioned' wording is treated as the more current/authoritative statement (home pages are typically kept more current than inner content pages), so status is set to decommissioned, but the research page's 8-station claim is kept as a separate interval for the historical record rather than discarded.",
-    "The 2023 results paper (arXiv:2304.07179) mentions RNO-G in Greenland as ARIANNA's larger planned successor array ('a larger array of autonomous radio detector stations is being constructed in Greenland (RNO-G)'); this workstream models RNO-G as its own experiment (experiment:rno-g), not as ARIANNA's lineage, since no source frames it as a formal predecessor/successor relationship rather than a separate, related programme.",
+    "The 2023 results paper (arXiv:2304.07179) mentions RNO-G in Greenland as ARIANNA's larger planned successor array ('a larger array of autonomous radio detector stations is being constructed in Greenland (RNO-G)'); the Atlas models RNO-G as its own experiment (experiment:rno-g), not as part of ARIANNA's lineage, since no source frames it as a formal predecessor/successor relationship rather than a separate, related programme.",
     "The general Wikipedia article on ARIANNA is kept only as a pointer corroborating the 7-station prototype array as of 2016, never as the sole source of a critical value."
   ],
   "physics_goals": [

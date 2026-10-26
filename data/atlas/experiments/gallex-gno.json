@@ -26,7 +26,7 @@
       "confidence": "uncertain",
       "end": null,
       "facility_id": "facility:lngs",
-      "note": "facility:lngs already exists (owned by the dark-matter/facilities workstreams) and is referenced here, not edited. Confidence kept uncertain because the only source cited here is Wikipedia (rank 12), below the rank<=10 bar A17 requires for `verified`.",
+      "note": "Confidence kept uncertain because the only source cited here is Wikipedia (rank 12); a verified claim needs a source of rank 10 or better.",
       "role": "host",
       "sources": [
         "src:gallex-wikipedia"
@@ -85,7 +85,7 @@
         "confidence": "approximate",
         "dimension": "mass",
         "display": "30.3 t gallium (101 t GaCl3-HCl solution)",
-        "note": "Sourced from Wikipedia (rank 12) only this session.",
+        "note": "Sourced from Wikipedia (rank 12) only.",
         "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
         "sources": [
           "src:gallex-wikipedia"
@@ -103,14 +103,14 @@
   },
   "name": "GALLEX",
   "notes": [
-    "GALLEX (1991-1997) and its successor GNO (1998-2003) are modelled as ONE experiment record with GNO as an alias, per this workstream's brief ('one experiment record with alias'); no separate experiment:gno record is created.",
-    "No official GALLEX/GNO site was found/fetched this session (a dedicated official site does not appear to exist independently of the MPIK Heidelberg host institution, which was not fetched); all facts here rely on Wikipedia and INSPIRE."
+    "GALLEX (1991-1997) and its successor GNO (1998-2003) are recorded as ONE experiment, with GNO as an alias; there is no separate GNO record.",
+    "No official GALLEX/GNO site was found (a dedicated official site does not appear to exist independently of the MPIK Heidelberg host institution, which was not consulted); all facts here rely on Wikipedia and INSPIRE."
   ],
   "physics_goals": [
     {
       "confidence": "uncertain",
       "locator": "Wikipedia",
-      "note": "Sourced from Wikipedia (rank 12) only this session.",
+      "note": "Sourced from Wikipedia (rank 12) only.",
       "quote": "It was designed to detect solar neutrinos and prove theories related to the Sun's energy creation mechanism.",
       "sources": [
         "src:gallex-wikipedia"
@@ -140,7 +140,7 @@
     {
       "confidence": "uncertain",
       "locator": "Wikipedia",
-      "note": "Sourced from Wikipedia (rank 12) only this session. Note for the ontology: there is no `radiochemical` value in the EXPERIMENT_KINDS or TECHNOLOGY_CLASSES enums (checked hepgraph/atlas/schema.py directly); `kind` is recorded as `solar_neutrino` (matching this workstream's own coverage-file category) and the detector's `technology_class` is `other`, with the radiochemical gallium technique described here and in detector:gallex-gno.technology.",
+      "note": "Sourced from Wikipedia (rank 12) only. The radiochemical gallium technique has no technology class of its own in the Atlas; it is described in detector:gallex-gno.technology.",
       "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
       "sources": [
         "src:gallex-wikipedia"

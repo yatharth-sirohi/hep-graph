@@ -19,7 +19,7 @@
       "confidence": "verified",
       "facility_id": "facility:chooz",
       "locator": "abstract",
-      "note": "facility:chooz is owned by the reactor-solar-neutrino workstream (ID_REGISTRY Wave 3, Double Chooz row) and does not exist yet in this repo as of 2026-09-17; dangling reference until that lead lands.",
+      "note": "",
       "quote": "operated at the Chooz nuclear power plant in France",
       "role": "host",
       "sources": [
@@ -63,7 +63,7 @@
       "end": null,
       "label": "commissioning (technical run)",
       "locator": "abstract",
-      "note": "Status independently verified against this fetched primary source rather than taken from the brief's secondhand description; commissioning is ongoing as of verified_at, with a Physics Run projected for the future.",
+      "note": "Status taken from the primary source rather than a secondary description; commissioning is ongoing as of 2026-09-17, with a Physics Run projected for the future.",
       "quote": "incorporating a data-driven treatment of the low-energy excess (LEE) observed during commissioning",
       "sources": [
         "src:cevns-nucleus-prospect-2026"
@@ -118,10 +118,10 @@
   },
   "name": "NUCLEUS",
   "notes": [
-    "'nu-cleus' (the experiment's original spelling) is not encoded as a formal `aliases` entry: the validator's A20 duplicate-name check strips non-alphanumeric characters before comparing, so 'nu-cleus' normalises to the same string as the name 'NUCLEUS' and is rejected as a redundant alias.",
-    "Distance from the Chooz reactor core is not recorded: no source fetched in this pass gives it precisely (see site:chooz-very-near-nucleus notes); the collaboration's own wording is only 'very near' the core, closer than Double Chooz's near detector.",
-    "No INSPIRE experiment-registry search was performed for NUCLEUS in this pass (time budget prioritised primary-literature status/spec verification); external.inspire_experiment left null rather than guessed.",
-    "No official NUCLEUS website was located/fetched in this pass; links.website left null."
+    "The experiment's original spelling was 'nu-cleus'; it is not listed as an alias because it differs from 'NUCLEUS' only in punctuation.",
+    "Distance from the Chooz reactor core is not recorded: no source consulted gives it precisely; the collaboration's own wording is only 'very near' the core, closer than Double Chooz's near detector.",
+    "No INSPIRE experiment identifier is recorded for this experiment.",
+    "No official NUCLEUS website was found; none is recorded."
   ],
   "physics_goals": [
     {

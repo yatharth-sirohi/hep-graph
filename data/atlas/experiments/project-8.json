@@ -20,7 +20,7 @@
       "confidence": "uncertain",
       "facility_id": "facility:university-of-washington-cenpa",
       "locator": "DOE Office of Science highlight, 2015-11",
-      "note": "facility:university-of-washington-cenpa is owned by the 'axions' Wave 3 lead (which also uses this facility for ADMX); it was a dangling reference for most of this session and has since been created (not duplicated here). This role covers the Phase I CRES demonstration, which a DOE Office of Science highlight places at the University of Washington (the project8.org pages fetched do not state where the Phase I apparatus was built); later phases (II, III) involve multiple institutions (e.g. Case Western, Mainz, MIT, Yale, PNNL) and are not all located at UW.",
+      "note": "This role covers the Phase I CRES demonstration, which a DOE Office of Science highlight (2015-11) places at the University of Washington (the project8.org pages consulted do not state where the Phase I apparatus was built); later phases (II, III) involve multiple institutions (e.g. Case Western, Mainz, MIT, Yale, PNNL) and are not all located at UW.",
       "quote": "constructed a prototype instrument at the University of Washington to demonstrate a new electron spectroscopy technique",
       "role": "prototype_host",
       "sources": [
@@ -118,7 +118,7 @@
         "dimension": "mass_energy",
         "display": "~0.04 eV/c² (40 meV)",
         "locator": "Project 8 About page, section \"Current Experiment status\"",
-        "note": "This is the long-term Phase IV design goal using atomic tritium, not a current achieved sensitivity. The ontology's `mass_energy` dimension does not define a meV unit, so value/unit are recorded in eV/c² (0.04) while `display` keeps the source's own wording (40 meV).",
+        "note": "This is the long-term Phase IV design goal using atomic tritium, not a current achieved sensitivity. The value is stored in eV/c² (0.04); the display keeps the source's own wording (40 meV).",
         "quote": "The final phase, Phase IV, will use atomic tritium to measure the neutrino mass with a sensitivity of approximately 40 meV.",
         "sources": [
           "src:currency2-project8-about-page",
@@ -145,11 +145,10 @@
   },
   "name": "Project 8",
   "notes": [
-    "Scope note: this record covers Project 8 overall, with particular attention to the University of Washington / CENPA phase (Phase I CRES demonstration, and CENPA's continuing lead role in atomic-tritium R&D for later phases), per the domain lead's brief.",
-    "facility:university-of-washington-cenpa is owned by the 'axions' Wave 3 lead (also used there for ADMX); it now exists (created by that lead during this session) and is referenced here, not duplicated.",
-    "Status is recorded PHASE BY PHASE rather than as a single blob, per the brief's caution that early demonstrators must not be called 'active' in the mature-experiment sense: Phase I is `commissioning` (R&D demonstration), Phase II is `active` (physics-relevant CRES measurements on molecular tritium under way), Phase III is `proposed` (atomic-tritium source still in R&D). The record's top-level `status` reflects the most advanced confirmed phase (Phase II, active).",
-    "No INSPIRE experiment-registry lookup was performed in this session; external.inspire_experiment is left null with this note rather than guessed.",
-    "Collaboration formation date not sourced in this session."
+    "This record covers Project 8 overall, with particular attention to the University of Washington / CENPA phase (the Phase I CRES demonstration, and CENPA's continuing lead role in atomic-tritium R&D for later phases).",
+    "Status is recorded phase by phase, because early demonstrators should not be called 'active' in the mature-experiment sense: Phase I is commissioning (R&D demonstration), Phase II is active (CRES measurements on molecular tritium), Phase III is upgrade (apparatus R&D, no data taking). The overall status follows the current phase.",
+    "No INSPIRE experiment identifier is recorded for this experiment.",
+    "The collaboration formation date is not recorded."
   ],
   "physics_goals": [
     {

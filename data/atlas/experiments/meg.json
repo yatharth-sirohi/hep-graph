@@ -20,7 +20,7 @@
     {
       "confidence": "verified",
       "facility_id": "facility:psi",
-      "note": "facility:psi is owned by the 'facilities' Wave-3 workstream and had not landed in data/atlas/facilities/ as of this session; this is an expected dangling reference.",
+      "note": "",
       "quote": "using the world's most intense DC muon beam available at PSI",
       "role": "host",
       "sources": [
@@ -103,7 +103,7 @@
   "links": {
     "website": {
       "confidence": "verified",
-      "note": "meg.web.psi.ch returned HTTP 404 to a fetch attempt in this session; the ICEPP (University of Tokyo) mirror, an official collaboration site, was fetched successfully and lists both MEG and MEG II.",
+      "note": "meg.web.psi.ch returned HTTP 404 when fetched on 2026-09-17; the ICEPP (University of Tokyo) mirror, an official collaboration site, was reachable and lists both MEG and MEG II.",
       "sources": [
         "src:muons-meg-icepp-site"
       ],
@@ -113,8 +113,7 @@
   },
   "name": "MEG",
   "notes": [
-    "Superseded by experiment:meg-ii (upgrade_of lineage recorded on the successor record per v0.2 A1; the derived inverse 'upgraded_to' is not authored here).",
-    "facility_roles references facility:psi, which is owned by the 'facilities' Wave-3 workstream and was not yet present in data/atlas/facilities/ at the time this file was written -- an expected dangling reference, not an error to fix by creating a competing facility:psi record.",
+    "Superseded by experiment:meg-ii, which is recorded as its upgrade.",
     "external.inspire_experiment (1108527) is sourced from https://inspirehep.net/api/experiments?q=meg%20psi, confirmed at https://inspirehep.net/experiments/1108527."
   ],
   "physics_goals": [

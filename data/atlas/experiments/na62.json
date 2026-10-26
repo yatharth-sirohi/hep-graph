@@ -89,7 +89,7 @@
       "confidence": "uncertain",
       "end": "2021",
       "label": "long shutdown / detector upgrades before Run 2",
-      "note": "No source fetched this session gives explicit shutdown start/end dates; 2019-2021 is inferred as the gap between the end of the sourced Run 1 data set (2018) and the sourced start of the higher-intensity 2021-2022 campaign reported in arXiv:2412.12015. Left as uncertain rather than a precisely-dated interval.",
+      "note": "No source consulted (checked 2026-09-17) gives explicit shutdown start/end dates; 2019-2021 is inferred as the gap between the end of the sourced Run 1 data set (2018) and the start of the higher-intensity 2021-2022 campaign reported in arXiv:2412.12015. Recorded as uncertain rather than as a precisely dated interval.",
       "sources": [
         "src:na62-jhep-2025-observation"
       ],
@@ -102,7 +102,7 @@
       "end": "2026-08-31",
       "kind": "run",
       "label": "Run 2",
-      "note": "Ongoing as of the most recent source fetched this session, arXiv:2607.16413 (submitted 17 July 2026), reporting a combined 2016-2024 measurement that includes 2023-2024 data first previewed at the 2026 La Thuile conference (src:na62-cern-news-2026-refined-measurement). End capped at 2026-08-31, when the SPS beams stopped for LS3 (see the shutdown interval below).",
+      "note": "The most recent source consulted is arXiv:2607.16413 (submitted 17 July 2026), reporting a combined 2016-2024 measurement that includes 2023-2024 data first previewed at the 2026 La Thuile conference (src:na62-cern-news-2026-refined-measurement). End is 2026-08-31, when the SPS beams stopped for LS3 (see the shutdown interval below).",
       "quote": "using data collected in 2021 and 2022. This dataset was recorded, after modifications to the beamline and detectors, at a higher instantaneous beam intensity with respect to the 2016–2018 data taking",
       "sources": [
         "src:na62-jhep-2025-observation",
@@ -139,7 +139,7 @@
         "dimension": "energy",
         "display": "400 GeV/c",
         "locator": "na62.web.cern.ch/Home/Aim.html",
-        "note": "Momentum of the SPS proton beam incident on the NA62 target; the ontology's `energy` dimension is used for this momentum value per the exemplar convention (GeV).",
+        "note": "Momentum of the SPS proton beam incident on the NA62 target, given in GeV (the source states 400 GeV/c).",
         "sources": [
           "src:na62-aim-page"
         ],
@@ -155,7 +155,7 @@
         "confidence": "verified",
         "dimension": "time",
         "display": "0.065 ns (65 ps)",
-        "note": "Converted from ps (not a recognised unit in the ontology's time dimension) to ns for storage; display leads with the stored unit to satisfy the A21 display/value cross-check and keeps the source's own wording (65 ps) alongside it.",
+        "note": "Converted from the source's 65 ps to 0.065 ns; the source's own wording (65 ps) is kept in the display.",
         "quote": "65 ps time resolution on tracks",
         "sources": [
           "src:na62-gigatracker-arxiv-2019"
@@ -190,15 +190,15 @@
   },
   "name": "NA62",
   "notes": [
-    "external.greybook is the CERN Greybook experiment code as used in the URL greybook.cern.ch/greybook/experiment/detail?id=NA62; the Greybook page itself is a client-rendered app and could not be fetched for a verbatim quote this session.",
-    "Membership counts (institutions/countries/participants) are deliberately left off both here and on collaboration:na62: the official collaboration page (na62.web.cern.ch/Collaboration/organisationalStructure.html) links to the Greybook for the member list but states no headline number itself, and a per-brief rule requires the collaboration's own page as the source for any membership count. A widely repeated figure (~300 participants, ~33 institutions, ~16 countries) appears in secondary aggregations but was not confirmed on a page fetched this session, so it is not recorded.",
-    "The 2026-03-04 CERN news article (src:na62-cern-news-2026-refined-measurement) first previewed a refined branching-ratio value from the 2026 La Thuile conference; a full arXiv preprint restating the identical value, arXiv:2607.16413 ('Measurement of the branching ratio of the K+ -> pi+ nu nubar decay', submitted 17 July 2026, CERN-EP-2026-214), was found during 2026-09-17 verification and is now used to source result:na62-2026-refined-measurement's claim, since A16 forbids sourcing a result claim to a press release."
+    "The Greybook entry is NA62, as in the URL greybook.cern.ch/greybook/experiment/detail?id=NA62; the Greybook page is a client-rendered app, so no verbatim quote could be taken from it.",
+    "Membership counts (institutions, countries, participants) are not recorded here or on collaboration:na62: the official collaboration page (na62.web.cern.ch/Collaboration/organisationalStructure.html) links to the Greybook for the member list but states no headline number itself, and the Atlas takes a membership count only from the collaboration's own page. A widely repeated figure (~300 participants, ~33 institutions, ~16 countries) appears in secondary aggregations but was not confirmed on a page consulted, so it is not recorded.",
+    "The 2026-03-04 CERN news article (src:na62-cern-news-2026-refined-measurement) first previewed a refined branching-ratio value from the 2026 La Thuile conference; a full arXiv preprint restating the identical value, arXiv:2607.16413 ('Measurement of the branching ratio of the K+ -> pi+ nu nubar decay', submitted 17 July 2026, CERN-EP-2026-214), was found on 2026-09-17 and now sources the claim of result:na62-2026-refined-measurement, because a result claim is not sourced to a press release alone."
   ],
   "physics_goals": [
     {
       "confidence": "verified",
       "locator": "na62.web.cern.ch/Home/Aim.html",
-      "note": "2026-09-17 fixed-target verification: the previous quote dropped the page's leading 'NA62 initially proposed to' and capitalised 'measure' as if it opened the sentence, which is a spliced, non-verbatim quote (A15 requires the exact text seen). Corrected to the full sentence; note that the page itself frames the 10% figure as the *initial* proposed precision, not a claim about the precision actually achieved.",
+      "note": "The page itself frames the 10% figure as the initial proposed precision, not as the precision actually achieved.",
       "quote": "NA62 initially proposed to measure the very rare kaon decay K+ -> pi+ nu nubar at the CERN SPS to extract a 10% measurement of the CKM parameter |Vtd|.",
       "sources": [
         "src:na62-aim-page"
@@ -239,7 +239,7 @@
     {
       "confidence": "verified",
       "locator": "arXiv:1904.12837, abstract",
-      "note": "The 750 MHz beam-rate figure is the widely-cited design value; it is NOT included as a key_spec because no source fetched this session states it verbatim, only the GigaTracker's flux-handling and timing figures were confirmed by direct fetch.",
+      "note": "The 750 MHz beam-rate figure is the widely cited design value; it is not listed among the key specifications because no source consulted (checked 2026-09-17) states it verbatim. Only the GigaTracker's flux-handling and timing figures were confirmed in a source read directly.",
       "quote": "65 ps time resolution on tracks",
       "sources": [
         "src:na62-gigatracker-arxiv-2019"

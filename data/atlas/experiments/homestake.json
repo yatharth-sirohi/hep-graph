@@ -24,7 +24,7 @@
       "confidence": "uncertain",
       "end": null,
       "facility_id": "facility:surf",
-      "note": "facility:surf already exists (owned by the fermilab-dune workstream) and is referenced here, not edited. The experiment ran in the Homestake Gold Mine, the same mine the later Sanford Underground Research Facility (facility:surf) was built in after the mine's 2001 closure; facility:surf's own record already documents this predecessor relationship. Confidence kept uncertain because the only source cited here is Wikipedia (rank 12), below the rank<=10 bar A17 requires for `verified`.",
+      "note": "The experiment ran in the Homestake Gold Mine, the same mine the later Sanford Underground Research Facility (facility:surf) was built in after the mine's 2001 closure; facility:surf's own record documents this predecessor relationship. Confidence kept uncertain because the only source cited here is Wikipedia (rank 12); a verified claim needs a source of rank 10 or better.",
       "role": "host",
       "sources": [
         "src:homestake-wikipedia"
@@ -39,7 +39,7 @@
       "confidence": "approximate",
       "end": "1994",
       "label": "continuous operation",
-      "note": "Sourced from Wikipedia (rank 12) only this session; the 1998 results paper (src:homestake-1998-flux-measurement) confirms the detector 'operated continuously since 1970' without independently restating the 1994 end date in the text fetched.",
+      "note": "Sourced from Wikipedia (rank 12) only; the 1998 results paper (src:homestake-1998-flux-measurement) confirms the detector 'operated continuously since 1970' without independently restating the 1994 end date in the text consulted.",
       "quote": "The experiment operated continuously from 1970 until 1994.",
       "sources": [
         "src:homestake-wikipedia"
@@ -70,7 +70,7 @@
         "confidence": "approximate",
         "dimension": "volume",
         "display": "380 m³ (100,000 gallons) perchloroethylene",
-        "note": "Sourced from Wikipedia (rank 12) only this session.",
+        "note": "Sourced from Wikipedia (rank 12) only.",
         "quote": "a 380 cubic meter (100,000 gallon) tank of perchloroethylene",
         "sources": [
           "src:homestake-wikipedia"
@@ -87,7 +87,7 @@
         "confidence": "approximate",
         "dimension": "length",
         "display": "1478 m (4850 ft)",
-        "note": "Depth stated in Raymond Davis Jr.'s Nobel lecture as the 4850-foot (1478 m) level of the Homestake mine (quote) and, as a rank-12 cross-check, on Wikipedia; this is the same 4850-foot level of the Homestake mine that facility:surf's 4850 Level (dedicated 2009, per that facility's own sourced interval) later reused, but the Davis chlorine tank's specific chamber within that level is not separately geolocated by any source fetched this session -- see site note below.",
+        "note": "Depth stated in Raymond Davis Jr.'s Nobel lecture as the 4850-foot (1478 m) level of the Homestake mine (quote) and, as a rank-12 cross-check, on Wikipedia; this is the same 4850-foot level of the Homestake mine that facility:surf's 4850 Level (dedicated 2009, per that facility's own sourced interval) later reused, but the Davis chlorine tank's specific chamber within that level is not separately geolocated by any source consulted -- see the note on site placement.",
         "quote": "A large chamber and a smaller control room were excavated at the 4850-foot (1478 m) level of the mine.",
         "sources": [
           "src:rf06-davis-nobel-lecture-2002",
@@ -106,7 +106,7 @@
   },
   "name": "Homestake chlorine experiment",
   "notes": [
-    "Per this workstream's brief: no distinct sourced coordinate for the Davis chlorine-tank chamber (as opposed to the mine/facility generally) was found in this session, so no new `site:` record is created for it. `facility_roles` references the EXISTING `facility:surf` (its own record already carries the pre-SURF 'Homestake gold mine' interval, sourced by the fermilab-dune workstream, and its `site:surf-surface-campus` campus point, `kind: campus`/`confidence: approximate`). This is NOT the same physical location as `site:surf-4850-level-dune-far-detector` (the DUNE far-detector cavern), which this record deliberately does not reference, per the explicit instruction not to conflate the two."
+    "No distinct sourced coordinate for the Davis chlorine-tank chamber (as opposed to the mine/facility generally) was found, so no site record is created for it. `facility_roles` references the existing facility:surf (its own record carries the pre-SURF 'Homestake gold mine' interval and its site:surf-surface-campus point, a campus-grade point shown as approximate). This is NOT the same physical location as site:surf-4850-level-dune-far-detector (the DUNE far-detector cavern), which is deliberately not referenced here."
   ],
   "physics_goals": [
     {
@@ -141,7 +141,7 @@
     {
       "confidence": "approximate",
       "locator": "Wikipedia",
-      "note": "Sourced from Wikipedia (rank 12) only this session.",
+      "note": "Sourced from Wikipedia (rank 12) only.",
       "quote": "Davis's experiment turned up only one third of this figure",
       "sources": [
         "src:homestake-wikipedia"
