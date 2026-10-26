@@ -1,0 +1,118 @@
+{
+  "accelerator_ids": [
+    "accelerator:sis100"
+  ],
+  "aliases": [
+    "Compressed Baryonic Matter experiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:cbm"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:gsi-fair",
+      "locator": "arXiv:2506.20545 abstract",
+      "note": "",
+      "quote": "The Compressed Baryonic Matter (CBM) experiment is a next-generation heavy-ion experiment under development at the future FAIR facility in Darmstadt, Germany.",
+      "role": "host",
+      "sources": [
+        "src:hadron2-cbm-detectors-electronics-arxiv-2025"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:gsi-fair",
+      "locator": "arXiv:2506.20545 abstract",
+      "note": "Beams from the SIS100 (accelerator:sis100, under construction).",
+      "quote": "Operating in fixed-target mode with a continuous beam of up to 11 AGeV for heavy ions and 26 GeV for protons, CBM will investigate rare probes such as multi-strange hyperons, hypernuclei, and dileptons",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-cbm-detectors-electronics-arxiv-2025"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:cbm",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "construction of the experiment at the FAIR site",
+      "locator": "arXiv:2506.20545 abstract (\"under development at the future FAIR facility\"); arXiv:2004.11762: FAIR \"is under construction\"",
+      "note": "FAIR sources say FAIR \"is under construction\"; the 2025 CBM paper calls CBM \"a next-generation heavy-ion experiment under development at the future FAIR facility\". No source states when CBM construction began; April 2020 is the date of the earliest status paper read (arXiv:2004.11762), whose 2025 first-beam expectation has since slipped, and the 2025 commissioning of SIS100 is scheduled for 2H 2027 (arXiv:2510.14948).",
+      "quote": "The Compressed Baryonic Matter (CBM) experiment is a next-generation heavy-ion experiment under development at the future FAIR facility in Darmstadt, Germany.",
+      "sources": [
+        "src:hadron2-cbm-status-arxiv-2020",
+        "src:hadron2-cbm-detectors-electronics-arxiv-2025"
+      ],
+      "start": "2020-04",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "heavy_ion",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "CBM",
+  "notes": [
+    "Status as the sources state it: the 2025 CBM paper describes the experiment as \"under development at the future FAIR facility\" and FAIR pages say FAIR \"is under construction\"; recorded as construction with uncertain start.",
+    "FAIR schedule (arXiv:2510.14948): SIS100 beam commissioning in the second half of 2027; CBM is in the later \"First Science +\" stage per a GSI planning talk found by search and not read, so no CBM start date is recorded.",
+    "The official CBM website cbm.gsi.de did not respond when fetched; links.website is null.",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2506.20545 abstract",
+      "note": "",
+      "quote": "Operating in fixed-target mode with a continuous beam of up to 11 AGeV for heavy ions and 26 GeV for protons, CBM will investigate rare probes such as multi-strange hyperons, hypernuclei, and dileptons",
+      "sources": [
+        "src:hadron2-cbm-detectors-electronics-arxiv-2025"
+      ],
+      "value": "Explore the QCD phase diagram at high net-baryon densities with rare probes: multi-strange hyperons, hypernuclei and dileptons, aiming at signatures of a first-order phase transition and the QCD critical point",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "fixed_target"
+  ],
+  "sources": [
+    "src:hadron2-cbm-detectors-electronics-arxiv-2025",
+    "src:hadron2-cbm-status-arxiv-2020"
+  ],
+  "status": "construction",
+  "summary": {
+    "plain": "CBM (Compressed Baryonic Matter) is a planned heavy-ion experiment at the future FAIR facility in Darmstadt. It will record collisions at the highest interaction rates to study matter at densities like those in neutron-star cores, searching for a first-order phase transition and the QCD critical point.",
+    "technical": "Compressed Baryonic Matter experiment: fixed-target heavy-ion experiment with a free-streaming, self-triggered readout (silicon vertexing and tracking, RICH, TRD, TOF, ECAL, muon system) for interaction rates up to 10 MHz, beams of up to 11 AGeV (Au) and 26 GeV protons from the SIS100; rare probes (multi-strange hyperons, hypernuclei, dileptons); components tested at SIS18 in mCBM."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:heavy-ion-physics-qgp",
+    "topic:qcd",
+    "topic:nuclear-and-heavy-ion"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}
