@@ -1,0 +1,109 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:chooz"
+  ],
+  "id": "detector:chooz-detector",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1998-07-20",
+      "label": "data taking",
+      "locator": "EPJ C 27, 331 (2003) = hep-ex/0301017, section on data taking",
+      "note": "Day precision from the experiment's final article. The first reactor reached full power in May 1997 and the second in August 1997; data taking stopped five months after the last reactor shut-down (8 February 1998).",
+      "quote": "The data acquisition period extended over 450 days, from 12 March 1997 till 20 July 1998",
+      "sources": [
+        "src:chooz-hepex0301017"
+      ],
+      "start": "1997-03-12",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "EPJ C 27, 331 (2003) = hep-ex/0301017, section on data taking",
+      "note": "Terminal event: end of data taking.",
+      "quote": "The data acquisition period extended over 450 days, from 12 March 1997 till 20 July 1998",
+      "sources": [
+        "src:chooz-hepex0301017"
+      ],
+      "start": "1998-07-20",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CHOOZ detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "Double Chooz proposal/TDR (src:geo-chooz-dc-tdr-2006), project description",
+      "note": "The existing site record for the Double Chooz far hall is reused: the Double Chooz document states the far detector went to the former experimental site of CHOOZ. Whether the CHOOZ detector stood exactly at the Double Chooz far-hall position is not stated, so the placement is approximate.",
+      "quote": "far detector located at the former experimental site of the CHOOZ experiment",
+      "role": "main",
+      "site_id": "site:double-chooz-far-detector",
+      "sources": [
+        "src:geo-chooz-dc-tdr-2006",
+        "src:chooz-hepex0301017"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:chooz-hepex9711002",
+    "src:chooz-hepex9907037",
+    "src:chooz-hepex0301017"
+  ],
+  "specs": {
+    "target_mass": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "about 5 tons",
+      "locator": "section 3.3",
+      "note": "",
+      "quote": "About 5 tons of Gd-loaded scintillator and 107 tons of unloaded scintillator were used in the experiment",
+      "sources": [
+        "src:chooz-hepex0301017"
+      ],
+      "unit": "t",
+      "value": 5,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A tank of liquid scintillator doped with gadolinium and viewed by photomultiplier tubes, placed in a tunnel under a hill about a kilometre from the reactors.",
+    "technical": "Three-region liquid-scintillator calorimeter: ~5 t Gd-loaded (0.09 % by weight) target, unloaded-scintillator gamma catcher and outer veto, about 112 t of scintillator in all, read out by photomultipliers; delayed positron/neutron-capture coincidence."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "section 2",
+    "note": "",
+    "quote": "The target material is a Hydrogen-rich (free protons) paraffin–based liquid scintillator loaded with Gadolinium",
+    "sources": [
+      "src:chooz-hepex0301017"
+    ],
+    "value": "Gd-loaded paraffin-based liquid scintillator target with surrounding unloaded scintillator regions and PMTs",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": [
+    "liquid_scintillator"
+  ],
+  "type": "detector"
+}

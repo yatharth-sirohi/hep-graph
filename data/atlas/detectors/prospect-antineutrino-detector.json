@@ -1,0 +1,122 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:prospect"
+  ],
+  "id": "detector:prospect-antineutrino-detector",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2018-10",
+      "label": "PROSPECT-I data taking",
+      "locator": "arXiv:2406.10408 analysis section",
+      "note": "",
+      "quote": "PROSPECT-I detector data acquired between March and October 2018",
+      "sources": [
+        "src:prospect-prl-2025-final-sterile-search"
+      ],
+      "start": "2018-03",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:2406.10408 analysis section",
+      "note": "End of the dated data-taking period; removal date not found.",
+      "quote": "PROSPECT-I detector data acquired between March and October 2018",
+      "sources": [
+        "src:prospect-prl-2025-final-sterile-search"
+      ],
+      "start": "2018-10",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "PROSPECT antineutrino detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "NIM A 922 (2019) 287, section 4.1",
+      "note": "Site point is campus-grade (see the site record).",
+      "quote": "PROSPECT is installed in the HFIR Experiment Room at ground level",
+      "role": "main",
+      "site_id": "site:ornl-hfir",
+      "sources": [
+        "src:prospect-nim-2019-detector"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:prospect-nim-2019-detector",
+    "src:prospect-prl-2018-first-search"
+  ],
+  "specs": {
+    "pmt_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "308 PMTs",
+      "locator": "section 10.1",
+      "note": "",
+      "quote": "readout the 308 PMTs",
+      "sources": [
+        "src:prospect-nim-2019-detector"
+      ],
+      "unit": "",
+      "value": 308,
+      "verified_at": "2026-10-26"
+    },
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "4 ton",
+      "locator": "abstract",
+      "note": "",
+      "quote": "a segmented 4 ton 6 Li-doped liquid scintillator detector",
+      "sources": [
+        "src:prospect-prl-2018-first-search"
+      ],
+      "unit": "t",
+      "value": 4,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A movable tank of liquid scintillator divided into a grid of 154 long cells, read out by photomultiplier tubes at both ends, which records antineutrinos from the reactor at several distances.",
+    "technical": "Segmented 6Li-doped (0.1 % by mass) liquid-scintillator detector: an 11 x 14 array of 154 optically isolated segments (14.5 cm x 14.5 cm x 117.6 cm) read out by 308 PMTs; pulse-shape discrimination separates electron-like from neutron-capture signals."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "abstract",
+    "note": "",
+    "quote": "a segmented 4 ton 6 Li-doped liquid scintillator detector",
+    "sources": [
+      "src:prospect-prl-2018-first-search"
+    ],
+    "value": "Segmented 6Li-doped liquid scintillator with double-ended PMT readout and pulse-shape discrimination",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": [
+    "liquid_scintillator"
+  ],
+  "type": "detector"
+}
