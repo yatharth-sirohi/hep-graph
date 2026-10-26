@@ -1,0 +1,181 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:whipple-10m"
+  ],
+  "id": "detector:whipple-10m",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1968",
+      "label": "construction",
+      "locator": "A Timeline to VERITAS, \"1966-68\"",
+      "note": "The timeline dates the installation of the telescope at Mt. Hopkins to 1966-68; the Whipple page dates operation from 1968.",
+      "quote": "1966-68 Fazio and Weekes: Installation of SAO's Whipple 10m telescope at Mt. Hopkins; first purpose-built large reflector for TeV Gamma-ray Astronomy",
+      "sources": [
+        "src:cosmic-gamma-veritas-official-history-timeline-page"
+      ],
+      "start": "1966",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2013",
+      "label": "operation",
+      "locator": "Whipple page",
+      "note": "Operating span of the telescope. The gamma-ray programme was closed down in 1976-82 (separate interval); the first TeV source (the Crab Nebula) was detected in 1989 with the imaging camera installed in 1984.",
+      "quote": "this telescope was in operation from 1968 until its decommissioning in 2013",
+      "sources": [
+        "src:c2-gr-whipple-official-page"
+      ],
+      "start": "1968",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1982",
+      "label": "gamma-ray programme closed down",
+      "locator": "A Timeline to VERITAS, \"1976-82\"",
+      "note": "The timeline says the Whipple/SAO gamma-ray programme closed down 1976-82 and that TeV gamma-ray astronomy then entered the \"Dark Ages\"; the gamma-ray programme was constituted again as the Whipple Collaboration in 1982.",
+      "quote": "1976-82 Whipple/SAO gamma-ray program closed down",
+      "sources": [
+        "src:cosmic-gamma-veritas-official-history-timeline-page"
+      ],
+      "start": "1976",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "telescope decommissioned",
+      "locator": "Whipple page",
+      "note": "",
+      "quote": "this telescope was in operation from 1968 until its decommissioning in 2013",
+      "sources": [
+        "src:c2-gr-whipple-official-page"
+      ],
+      "start": "2013",
+      "status": "decommissioned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Whipple 10 m reflector",
+  "notes": [
+    "Camera history: 37 pixels installed in 1984 (VERITAS timeline), 109 photomultipliers in the mid-1990s (arXiv:astro-ph/9602068), 379 in the final camera (Whipple page)."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2013",
+      "locator": "Whipple page",
+      "note": "Operating span from the Whipple page; the site coordinate is a site-level point.",
+      "quote": "The Whipple 10 m gamma-ray telescope was located at the Fred Lawrence Whipple Observatory in Southern Arizona in the United States.",
+      "role": "main",
+      "site_id": "site:mount-hopkins-whipple-10m",
+      "sources": [
+        "src:c2-gr-whipple-official-page"
+      ],
+      "start": "1968",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-gr-whipple-official-page",
+    "src:cosmic-gamma-veritas-official-history-timeline-page",
+    "src:c2-gr-whipple-mrk421-arxiv-1996"
+  ],
+  "specs": {
+    "altitude": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "2300 m",
+      "locator": "arXiv:astro-ph/9602068, section 2",
+      "note": "",
+      "quote": "alt = 2300 m",
+      "sources": [
+        "src:c2-gr-whipple-mrk421-arxiv-1996"
+      ],
+      "unit": "m",
+      "value": 2300,
+      "verified_at": "2026-10-26"
+    },
+    "energy_range": {
+      "confidence": "verified",
+      "locator": "Whipple page",
+      "note": "",
+      "quote": "The telescope operated between 300 GeV and 10 TeV.",
+      "sources": [
+        "src:c2-gr-whipple-official-page"
+      ],
+      "value": "300 GeV - 10 TeV",
+      "verified_at": "2026-10-26"
+    },
+    "mirror_area": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "area",
+      "display": "75 m2",
+      "locator": "Whipple page",
+      "note": "",
+      "quote": "The Davies-Cotton reflector held 248 hexagonal mirrors and provided a total reflecting area of 75 m^2.",
+      "sources": [
+        "src:c2-gr-whipple-official-page"
+      ],
+      "unit": "m^2",
+      "value": 75,
+      "verified_at": "2026-10-26"
+    },
+    "telescope_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "1 telescope",
+      "locator": "Whipple page",
+      "note": "",
+      "quote": "The Whipple 10 m gamma-ray telescope was located at the Fred Lawrence Whipple Observatory in Southern Arizona in the United States.",
+      "sources": [
+        "src:c2-gr-whipple-official-page"
+      ],
+      "unit": "",
+      "value": 1,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "decommissioned",
+  "subsystems": [],
+  "summary": {
+    "plain": "A single 10 metre dish of 248 small mirrors that focused the faint blue flash of air showers onto a camera of photomultiplier tubes.",
+    "technical": "Davies-Cotton reflector, 248 hexagonal mirrors, 75 m2; camera at the focal point (37-pixel imaging camera from 1984, 109 tubes in the mid-1990s, 379 PMTs finally; 2.6 deg field of view, 0.117 deg angular resolution)."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "Whipple page",
+    "note": "",
+    "quote": "The Davies-Cotton reflector held 248 hexagonal mirrors and provided a total reflecting area of 75 m^2.",
+    "sources": [
+      "src:c2-gr-whipple-official-page"
+    ],
+    "value": "Single 10 m Davies-Cotton reflector of 248 hexagonal mirrors imaging Cherenkov light onto a photomultiplier camera.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "imaging_atmospheric_cherenkov",
+  "technology_classes": [
+    "imaging_atmospheric_cherenkov"
+  ],
+  "type": "detector"
+}

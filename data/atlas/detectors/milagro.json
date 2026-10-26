@@ -1,0 +1,183 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:milagro"
+  ],
+  "id": "detector:milagro",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "1999",
+        "display": "early 1999"
+      },
+      "label": "construction",
+      "locator": "arXiv:astro-ph/0110513, section III",
+      "note": "The start of construction is not given in any source fetched; the pond was completed in early 1999.",
+      "quote": "The construction of the Milagro pond was completed in early 1999, and operations began in mid 1999.",
+      "sources": [
+        "src:c2-gr-milagro-status-arxiv-2001"
+      ],
+      "start": null,
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2008",
+      "label": "operation",
+      "locator": "arXiv:astro-ph/0110513, section III; arXiv:1110.0409",
+      "note": "Start: the status paper says operations began in mid 1999 and the pond has operated continuously since January 2000; the 2011 Crab paper and the HAWC design paper state \"operated from 2000 to 2008\". The 1999 start is kept; the end is 2008 in both.",
+      "quote": "The construction of the Milagro pond was completed in early 1999, and operations began in mid 1999.",
+      "sources": [
+        "src:c2-gr-milagro-status-arxiv-2001",
+        "src:c2-gr-milagro-crab-spectrum-arxiv-2011"
+      ],
+      "start": {
+        "approx": true,
+        "date": "1999",
+        "display": "mid 1999"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "data taking ended",
+      "locator": "arXiv:1110.0409, section 2",
+      "note": "The central reservoir was operated alone from 2000 to 2004, after which the outrigger array was added (arXiv:1110.0409).",
+      "quote": "operated from 2000 to 2008",
+      "sources": [
+        "src:c2-gr-milagro-crab-spectrum-arxiv-2011"
+      ],
+      "start": "2008",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Milagro water-Cherenkov pond and outriggers",
+  "notes": [
+    "The water-tank outrigger count varies between sources (170 in the 2001 status paper); it is not recorded here."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2008",
+      "locator": "arXiv:1110.0409, section 2",
+      "note": "Site-level coordinate only; see the site record.",
+      "quote": "The detector was located at 106.68o W longitude, 35.88o N latitude in northern New Mexico at an altitude of 2630 m above sea level",
+      "role": "main",
+      "site_id": "site:lanl-fenton-hill-milagro",
+      "sources": [
+        "src:c2-gr-milagro-crab-spectrum-arxiv-2011"
+      ],
+      "start": {
+        "approx": true,
+        "date": "1999",
+        "display": "mid 1999"
+      },
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-gr-milagro-status-arxiv-2001",
+    "src:c2-gr-milagro-crab-spectrum-arxiv-2011",
+    "src:c2-gr-milagro-official-page-wayback"
+  ],
+  "specs": {
+    "altitude": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "2630 m",
+      "locator": "arXiv:1110.0409, section 2",
+      "note": "",
+      "quote": "at an altitude of 2630 m above sea level",
+      "sources": [
+        "src:c2-gr-milagro-crab-spectrum-arxiv-2011"
+      ],
+      "unit": "m",
+      "value": 2630,
+      "verified_at": "2026-10-26"
+    },
+    "energy_range": {
+      "confidence": "verified",
+      "locator": "arXiv:1110.0409, abstract",
+      "note": "",
+      "quote": "was sensitive to approximately 100 GeV - 100 TeV gamma ray air showers",
+      "sources": [
+        "src:c2-gr-milagro-crab-spectrum-arxiv-2011"
+      ],
+      "value": "about 100 GeV - 100 TeV gamma-ray air showers",
+      "verified_at": "2026-10-26"
+    },
+    "pmt_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "723 PMTs in the pond",
+      "locator": "arXiv:astro-ph/0110513, abstract",
+      "note": "",
+      "quote": "The core of the detector is a 60m x 80m x 8m pond instrumented with 723 PMTs deployed in two layers.",
+      "sources": [
+        "src:c2-gr-milagro-status-arxiv-2001"
+      ],
+      "unit": "",
+      "value": 723,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [
+    {
+      "description": [
+        {
+          "confidence": "verified",
+          "locator": "arXiv:1110.0409, section 2",
+          "note": "",
+          "quote": "The sensitive area of the detector comprised two parts: a central water reservoir and an “outrigger” array of water tanks",
+          "sources": [
+            "src:c2-gr-milagro-crab-spectrum-arxiv-2011"
+          ],
+          "value": "An outrigger array of water tanks, instrumented with 8-inch PMTs, surrounding the central reservoir.",
+          "verified_at": "2026-10-26"
+        }
+      ],
+      "name": "Outrigger tank array"
+    }
+  ],
+  "summary": {
+    "plain": "A covered pond of purified water lined with 723 light sensors in two layers, plus a ring of outlying water tanks, that sensed the faint blue flashes from air showers.",
+    "technical": "Central 60 m x 80 m x 8 m water reservoir with 723 8-inch PMTs in two layers (top layer for direction, bottom layer for gamma/hadron discrimination) and an outrigger array of water tanks instrumented with the same PMTs."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:astro-ph/0110513, abstract",
+    "note": "",
+    "quote": "The core of the detector is a 60m x 80m x 8m pond instrumented with 723 PMTs deployed in two layers.",
+    "sources": [
+      "src:c2-gr-milagro-status-arxiv-2001"
+    ],
+    "value": "Water-Cherenkov air-shower array: a covered 60 m x 80 m x 8 m pond with 723 PMTs in two layers, plus an outrigger array of water tanks.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "water_cherenkov",
+  "technology_classes": [
+    "water_cherenkov",
+    "air_shower_array"
+  ],
+  "type": "detector"
+}
