@@ -1,0 +1,141 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:neos"
+  ],
+  "id": "detector:neos-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2016-05",
+      "label": "NEOS phase I data taking",
+      "locator": "Applied Antineutrino Physics 2018 proceedings, \"Status of NEOS experiment\"",
+      "note": "Season precision for the start (\"summer 2015\"); the end follows the next interval (May 2016 removal). The PRL gives an eight-month data-taking period and 180 reactor-on and 46 reactor-off days.",
+      "quote": "NEOS phase I data taken from summer 2015 to spring 2016 at Hanbit power plant in ROK",
+      "sources": [
+        "src:neos-aap2018-proceedings"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2015-07",
+        "display": "summer 2015",
+        "earliest": "2015-06",
+        "latest": "2015-08"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2018-09",
+      "label": "detector removed during reactor inspection",
+      "locator": "AAP 2018 proceedings, \"Status of NEOS Phase II\"",
+      "note": "Between NEOS-I and NEOS-II the detector was out of the gallery; the end is the resumption of data taking in September 2018.",
+      "quote": "In May 2016, NEOS detector was paused and removed from tendon gallery due to reactor regular inspection.",
+      "sources": [
+        "src:neos-aap2018-proceedings"
+      ],
+      "start": "2016-05",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2020-10",
+      "label": "NEOS-II data taking (one full fuel cycle)",
+      "locator": "IAEA Technical Meeting talk, January 2023, slide \"NEOS-II\"",
+      "note": "Month precision; the AAP 2018 proceedings independently say the NEOS-II run resumed in September 2018.",
+      "quote": "NEOS-II (Sept. 2018 – Oct. 2020)",
+      "sources": [
+        "src:neos-iaea-2023-neos-ii-status"
+      ],
+      "start": "2018-09",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "IAEA Technical Meeting talk, January 2023, slide \"NEOS-II\"",
+      "note": "End of the NEOS-II period as quoted; the talk (January 2023) describes the analysis as still being finalised.",
+      "quote": "NEOS-II (Sept. 2018 – Oct. 2020)",
+      "sources": [
+        "src:neos-iaea-2023-neos-ii-status"
+      ],
+      "start": "2020-10",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "NEOS detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "section 1",
+      "note": "Site point is the Hanbit plant centre (campus-grade, ~700 m); see the site record.",
+      "quote": "The NEOS detector was installed in the tendon gallery of reactor unit 5 of the Hanbit Nuclear Power Complex in Yeonggwang, Korea.",
+      "role": "main",
+      "site_id": "site:hanbit-neos-tendon-gallery",
+      "sources": [
+        "src:neos-prl-2017-sterile-search"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:neos-prl-2017-sterile-search",
+    "src:neos-prd-2022-neos-ii"
+  ],
+  "specs": {
+    "pmt_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "38 PMTs",
+      "locator": "section 1",
+      "note": "",
+      "quote": "The waveforms of all 38 PMTs are digitized and recorded",
+      "sources": [
+        "src:neos-prl-2017-sterile-search"
+      ],
+      "unit": "",
+      "value": 38,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A tank holding about a tonne of gadolinium-doped liquid scintillator with photomultiplier tubes, installed in a gallery next to a Korean power-reactor containment building.",
+    "technical": "About one tonne of Gd-loaded liquid scintillator read out by PMTs (trigger on >= 30 PMT signals above 6 mV), with pulse-shape discrimination and muon veto, in the tendon gallery of Hanbit unit 5."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "abstract",
+    "note": "",
+    "quote": "a detector consisting of a ton of Gd-loaded liquid scintillator in a tendon gallery approximately 24 m from the reactor core",
+    "sources": [
+      "src:neos-prl-2017-sterile-search"
+    ],
+    "value": "Gd-loaded liquid scintillator with PMT readout and pulse-shape discrimination",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": [
+    "liquid_scintillator"
+  ],
+  "type": "detector"
+}

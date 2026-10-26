@@ -1,0 +1,93 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:juno-tao"
+  ],
+  "id": "detector:juno-tao-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "construction (assembly in the plant)",
+      "locator": "IAEA TM talk (April 2025), slide \"Assembling in Taishan\"",
+      "note": "April 2025 talk: liquid-scintillator filling was to start in late April 2025 and commissioning data taking in May 2025 (both planned). No fetched source confirms that commissioning has begun or that data taking has started, so the experiment stays at `construction`.",
+      "quote": "Assembling in Taishan • Started from Sept. 2024",
+      "sources": [
+        "src:juno-tao-iaea-2025-status"
+      ],
+      "start": "2024-09",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "JUNO-TAO detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "slide 2",
+      "note": "Campus-grade plant point; the basement position is not published.",
+      "quote": "Location: • 44 m from Taishan NPP core (4.6 GW)",
+      "role": "main",
+      "site_id": "site:taishan-npp-tao-basement",
+      "sources": [
+        "src:juno-tao-iaea-2025-status"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:juno-tao-cdr-2020",
+    "src:juno-tao-iaea-2025-status"
+  ],
+  "specs": {
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "2.8 ton",
+      "locator": "abstract",
+      "note": "",
+      "quote": "A spherical acrylic vessel containing 2.8 ton gadolinium-doped liquid scintillator",
+      "sources": [
+        "src:juno-tao-cdr-2020"
+      ],
+      "unit": "t",
+      "value": 2.8,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "construction",
+  "subsystems": [],
+  "summary": {
+    "plain": "A sphere of gadolinium-doped liquid scintillator, cooled to minus 50 degrees and covered almost entirely with silicon light sensors, inside layers of shielding in a basement at the reactor.",
+    "technical": "Central detector: 2.8 t GdLS in a 1.8 m inner-diameter acrylic vessel, ~10 m^2 SiPM tiles on a 1.882 m copper shell, LAB buffer, cryogenic stainless-steel tank, water and HDPE shield, top muon veto; operates at -50 C."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "abstract",
+    "note": "",
+    "quote": "A spherical acrylic vessel containing 2.8 ton gadolinium-doped liquid scintillator will be viewed by 10 m^2 Silicon Photomultipliers (SiPMs) of >50% photon detection efficiency with almost full coverage.",
+    "sources": [
+      "src:juno-tao-cdr-2020"
+    ],
+    "value": "Gd-doped liquid scintillator viewed by ~10 m^2 of silicon photomultipliers at -50 C",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": [
+    "liquid_scintillator"
+  ],
+  "type": "detector"
+}

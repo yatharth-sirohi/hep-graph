@@ -1,0 +1,108 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:bugey"
+  ],
+  "id": "detector:bugey-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1995",
+      "label": "Bugey-4 and Bugey-3 measurements (dates of data taking not found)",
+      "locator": "arXiv:nucl-ex/0005002, introduction",
+      "note": "Start unknown: no fetchable source dates the start or end of data taking. The end is an upper bound: the year the Bugey group reported its oscillation search (Nucl. Phys. B 434, 1995), the primary papers not being retrievable. The integral (Bugey-4) result is labelled 1994 in the same review's table.",
+      "quote": "results from the reactors at ILL ... in 1981, at Goesgen ... in 1986, and at Bugey ... in 1995 have found no evidence for neutrino oscillations",
+      "sources": [
+        "src:bugey-review-2000-reactor-oscillations"
+      ],
+      "start": null,
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:nucl-ex/0005002, introduction",
+      "note": "Upper bound on the end of data taking (year of the final oscillation result); not a sourced end date.",
+      "quote": "results from the reactors at ILL ... in 1981, at Goesgen ... in 1986, and at Bugey ... in 1995 have found no evidence for neutrino oscillations",
+      "sources": [
+        "src:bugey-review-2000-reactor-oscillations"
+      ],
+      "start": "1995",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Bugey-3 detectors",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "section 3.2",
+      "note": "Campus-grade plant point; hall positions are not published in the sources read.",
+      "quote": "A high statistics search for neutrino oscillations at the 2,800 MW Bugey reactor with the detectors at 15, 40, and 95m",
+      "role": "main",
+      "site_id": "site:bugey-npp-detector-halls",
+      "sources": [
+        "src:bugey-review-2000-reactor-oscillations"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:bugey-review-2000-reactor-oscillations",
+    "src:bugey-rmp-2002-reactor-oscillation-experiments",
+    "src:bugey-mention-2011-reactor-antineutrino-anomaly"
+  ],
+  "specs": {
+    "sensitive_volume": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "volume",
+      "display": "600 l per detector",
+      "locator": "section 3.2",
+      "note": "",
+      "quote": "three identical 600 l segmented detectors were used",
+      "sources": [
+        "src:bugey-review-2000-reactor-oscillations"
+      ],
+      "unit": "L",
+      "value": 600,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "Three identical tanks of liquid scintillator, each split into 98 cells, placed at 15, 40 and 95 metres from a reactor core so their antineutrino spectra could be compared.",
+    "technical": "Three identical 600 l segmented detectors of 98 prismatic cells viewed by 3-inch PMTs on each side, filled with 6Li-loaded (0.15 %) liquid scintillator; pulse-shape discrimination separates neutron-capture products from positrons."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "section 3.2",
+    "note": "",
+    "quote": "Each detector consisted of 98 prismatic cells viewed by a 3-inch PM on each side. The cells were filled with 6 Li loaded (0.15%) scintillator.",
+    "sources": [
+      "src:bugey-review-2000-reactor-oscillations"
+    ],
+    "value": "Segmented 6Li-loaded (0.15 %) liquid-scintillator detectors, 98 cells each, with pulse-shape discrimination",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": [
+    "liquid_scintillator"
+  ],
+  "type": "detector"
+}

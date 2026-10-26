@@ -1,0 +1,177 @@
+{
+  "accelerator_ids": [],
+  "aliases": [],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:neutrino-4"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:sm-3-reactor-dimitrovgrad",
+      "locator": "abstract",
+      "note": "",
+      "quote": "The experiment has been carried out on the SM-3 reactor having a compact active zone",
+      "role": "host",
+      "sources": [
+        "src:neutrino-4-jetpl-2019-first-observation"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:neutrino-4",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2016",
+      "label": "detector model measurements",
+      "locator": "arXiv:2005.05301 abstract",
+      "note": "Year precision: a 400 l test model was used first; the end is the year the full-scale detector replaced it (\"The model of the detector was replaced with the full-scale detector in 2016\").",
+      "quote": "The experiment Neutrino-4 had started in 2014 with a detector model and then was continued with a full-scale detector in 2016 - 2021.",
+      "sources": [
+        "src:neutrino-4-prd-2021-search"
+      ],
+      "start": "2014",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2021",
+      "label": "full-scale detector data taking",
+      "locator": "arXiv:2003.03199, section 3",
+      "note": "Start is month precision from the 2020 analysis paper; the end is year precision from the PRD abstract (\"2016 - 2021\"). The reactor-on measurements ran until June 2019; background measurements followed from June 2019 to January 2020 and the 2021 paper reports data to 2021.",
+      "quote": "The measurements with reactor under operation have started in June 2016 and were continued till June 2019, when reactor was stopped for renovation.",
+      "sources": [
+        "src:neutrino-4-prd-2021-results"
+      ],
+      "start": "2016-06",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:2005.05301 abstract",
+      "note": "Terminal event at the end of the stated 2016-2021 period; the same paper announces plans for an improved or completely new setup, whose construction was not found in the sources.",
+      "quote": "The experiment Neutrino-4 had started in 2014 with a detector model and then was continued with a full-scale detector in 2016 - 2021.",
+      "sources": [
+        "src:neutrino-4-prd-2021-search"
+      ],
+      "start": "2021",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Distance range from the reactor core",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "6 - 12 m",
+        "locator": "abstract",
+        "note": "Lower end of the range recorded as `value`.",
+        "quote": "measurements of reactor antineutrino flux and spectrum dependence on the distance in the range 6-12 meters from the center of the reactor core",
+        "sources": [
+          "src:neutrino-4-jetpl-2019-first-observation"
+        ],
+        "unit": "m",
+        "value": 6,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Reactor thermal power",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "power",
+        "display": "90 MW",
+        "locator": "abstract",
+        "note": "",
+        "quote": "operating on the highly enriched uranium-235 at 90 MW thermal power",
+        "sources": [
+          "src:neutrino-4-jetpl-2019-first-observation"
+        ],
+        "unit": "MW",
+        "value": 90,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Liquid-scintillator volume",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "volume",
+        "display": "1.8 m^3",
+        "locator": "section IX",
+        "note": "",
+        "quote": "The total volume of the scintillator is 1.8 m3.",
+        "sources": [
+          "src:neutrino-4-prd-2021-search"
+        ],
+        "unit": "m^3",
+        "value": 1.8,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "reactor_neutrino",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "Neutrino-4",
+  "notes": [
+    "No official Neutrino-4 website was found; none recorded.",
+    "The reported oscillation signal was challenged by PROSPECT, whose final analysis (PRL 134, 151802) states that the Neutrino-4 best-fit point is ruled out at more than five standard deviations; that is PROSPECT's statement, not a retraction by Neutrino-4."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "We present the results of the Neutrino-4 experiment on search for a sterile neutrino.",
+      "sources": [
+        "src:neutrino-4-jetpl-2019-first-observation"
+      ],
+      "value": "Search for a sterile neutrino through the dependence of the reactor antineutrino flux and spectrum on distance (6-12 m) from the core of a compact highly enriched uranium reactor",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:neutrino-4-jetpl-2019-first-observation",
+    "src:neutrino-4-prd-2021-search",
+    "src:neutrino-4-prd-2021-results"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A movable detector on rails beside a compact research reactor in Dimitrovgrad, Russia, used to look for a hypothetical sterile neutrino. Its team reported an oscillation signal of about three standard deviations, which other experiments, including PROSPECT, later disfavoured.",
+    "technical": "Reactor antineutrino experiment at the SM-3 reactor (90 MW_th, highly enriched 235U, 42 x 42 x 35 cm^3 core): a 1.8 m^3 Gd-doped (0.1 %) liquid-scintillator detector in 50 sections, moved between 6 and 12 m from the core. Model-independent coherent-sum analysis claims an oscillation effect near delta m^2_14 ~ 7.3 eV^2, sin^2(2 theta_14) ~ 0.26-0.38 (2.9-3.5 sigma)."
+  },
+  "topic_ids": [
+    "topic:reactor-neutrinos",
+    "topic:sterile-neutrinos",
+    "topic:neutrino-oscillations"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

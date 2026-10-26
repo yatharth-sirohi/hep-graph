@@ -1,0 +1,164 @@
+{
+  "accelerator_ids": [
+    "accelerator:fermilab-main-injector"
+  ],
+  "aliases": [
+    "Argon Neutrino Test",
+    "Fermilab T962"
+  ],
+  "beamline_ids": [
+    "beamline:numi"
+  ],
+  "collaboration_ids": [
+    "collaboration:argoneut"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:fermilab",
+      "locator": "abstract",
+      "note": "",
+      "quote": "ArgoNeuT operated in the NuMI low-energy beam line directly upstream of the MINOS Near Detector",
+      "role": "host",
+      "sources": [
+        "src:argoneut-analysis-muons-2012"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:argoneut",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2009-09",
+      "label": "commissioning in the MINOS near-detector hall",
+      "locator": "JINST 7 P10019 (arXiv:1205.6747), section 4",
+      "note": "\"Spring 2009\" (season precision, start month March); the first neutrino candidate was recorded on 27 May 2009 and the physics run began in September 2009.",
+      "quote": "The ArgoNeuT detector was commissioned for the physics run in the MINOS-ND hall at Fermilab in spring 2009.",
+      "sources": [
+        "src:argoneut-jinst-2012-detector"
+      ],
+      "start": "2009-03",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2010-02",
+      "label": "physics run in the NuMI low-energy beam",
+      "locator": "arXiv:1205.6702, abstract",
+      "note": "Month precision; the detector paper says the run lasted until late February 2010 and collected 1.335e20 protons on target.",
+      "quote": "ArgoNeuT operated in the NuMI low-energy beam line directly upstream of the MINOS Near Detector from September 2009 to February 2010",
+      "sources": [
+        "src:argoneut-analysis-muons-2012"
+      ],
+      "start": "2009-09",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:1205.6702, abstract",
+      "note": "Terminal event: end of the physics run; no source consulted dates the removal of the detector.",
+      "quote": "ArgoNeuT operated in the NuMI low-energy beam line directly upstream of the MINOS Near Detector from September 2009 to February 2010",
+      "sources": [
+        "src:argoneut-analysis-muons-2012"
+      ],
+      "start": "2010-02",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Liquid-argon active volume",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "volume",
+        "display": "~170 L (40 x 47 x 90 cm^3)",
+        "locator": "section 3",
+        "note": "",
+        "quote": "The active volume is 40 h × 47 w × 90 l cm3 , corresponding to about ∼170 liters of LAr.",
+        "sources": [
+          "src:argoneut-jinst-2012-detector"
+        ],
+        "unit": "L",
+        "value": 170,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Protons on target (physics run)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "1.335e20 POT",
+        "locator": "section 4",
+        "note": "",
+        "quote": "the NuMI accelerator delivered 1.335 × 1020 protons on target with the “lowenergy” configuration",
+        "sources": [
+          "src:argoneut-jinst-2012-detector"
+        ],
+        "unit": "",
+        "value": 1.335e+20,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "accelerator_neutrino",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "ArgoNeuT",
+  "notes": [
+    "No official ArgoNeuT website resolved (t962.fnal.gov did not resolve)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "Though ArgoNeuT is primarily an R&D project, the data collected provide a unique opportunity to measure neutrino cross sections in the 0.1-10 GeV energy range.",
+      "sources": [
+        "src:argoneut-analysis-muons-2012"
+      ],
+      "value": "Operate a liquid-argon TPC in the NuMI low-energy beam as an R&D project and measure neutrino cross sections on argon in the 0.1-10 GeV range",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:argoneut-jinst-2012-detector",
+    "src:argoneut-analysis-muons-2012",
+    "src:argoneut-prl-2012-cc-cross-sections"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A small liquid-argon detector, about 170 litres, that sat in front of the MINOS near detector at Fermilab in 2009-10 to catch neutrinos from the NuMI beam. It showed that liquid-argon chambers work in a neutrino beam and made the first neutrino cross-section measurements on argon.",
+    "technical": "Argon Neutrino Test: 170 L liquid-argon TPC (40 x 47 x 90 cm^3, horizontal drift of 47 cm, two instrumented wire planes) in the NuMI low-energy beam just upstream of the MINOS near detector, which served as a muon range stack; physics run September 2009 - February 2010 (1.335e20 POT); first inclusive nu_mu CC differential cross sections on argon (PRL 108, 161802)."
+  },
+  "topic_ids": [
+    "topic:neutrino-interactions",
+    "topic:detector-rd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

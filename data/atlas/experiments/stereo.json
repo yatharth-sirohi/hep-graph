@@ -1,0 +1,165 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "STEREO experiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:stereo"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:ill-grenoble",
+      "locator": "abstract",
+      "note": "",
+      "quote": "research nuclear reactor of the Institut Laue Langevin in Grenoble, France",
+      "role": "host",
+      "sources": [
+        "src:stereo-jinst-2018-experiment"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:stereo",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2020-11",
+      "label": "installation and phase-I data taking",
+      "locator": "JINST 13 P07009 (arXiv:1804.09052), section 2.4 \"Stereo run periods\"",
+      "note": "Month precision. One interval spans phases I-III: phase I (from installation, November 2016), repairs in summer 2017, phase II from October 2017 and phase III to shutdown; the end comes from the Nature paper (next source).",
+      "quote": "After its installation in November 2016, the Stereo detector recorded data over 2 reactor cycles",
+      "sources": [
+        "src:stereo-jinst-2018-experiment"
+      ],
+      "start": "2016-11",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "Nature 613, 257 (arXiv:2210.07664), main text",
+      "note": "Terminal event: \"the experiment was shut down in November 2020\".",
+      "quote": "until the experiment was shut down in November 2020",
+      "sources": [
+        "src:stereo-nature-2023-235u-spectrum"
+      ],
+      "start": "2020-11",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Mean baseline",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "10 m",
+        "locator": "introduction",
+        "note": "",
+        "quote": "Installed at 10 m from the compact core research reactor of the Institut Laue Langevin (ILL) in Grenoble (France)",
+        "sources": [
+          "src:stereo-jinst-2018-experiment"
+        ],
+        "unit": "m",
+        "value": 10,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Reactor thermal power",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "power",
+        "display": "58.3 MWth",
+        "locator": "section 2.1",
+        "note": "",
+        "quote": "the nominal reactor power of 58.3 MWth is substantially lower than that of commercial nuclear power reactors",
+        "sources": [
+          "src:stereo-jinst-2018-experiment"
+        ],
+        "unit": "MW",
+        "value": 58.3,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Detector cells",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "six identical cells",
+        "locator": "introduction",
+        "note": "",
+        "quote": "the detector is segmented in six identical cells to measure the energy spectrum at different distances from the compact core",
+        "sources": [
+          "src:stereo-jinst-2018-experiment"
+        ],
+        "unit": "",
+        "value": 6,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "reactor_neutrino",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "STEREO",
+  "notes": [
+    "No official STEREO collaboration website was found (the LAPP news page that would list the member institutions is offline); no website is recorded.",
+    "Site reused from the committed ILL records: site:ill-grenoble-reactor-hall (coordinates from a campus-level point)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "aiming at testing the hypothesis of light sterile neutrinos as an explanation of the deficit of the observed neutrino interaction rate with respect to the predicted rate",
+      "sources": [
+        "src:stereo-jinst-2018-experiment"
+      ],
+      "value": "Test whether a light sterile neutrino explains the Reactor Antineutrino Anomaly by comparing antineutrino spectra of six cells at 9-11 m from a compact 235U-enriched reactor core",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:stereo-jinst-2018-experiment",
+    "src:stereo-prd-2020-179-days",
+    "src:stereo-nature-2023-235u-spectrum"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A detector divided into six cells, ten metres from the compact core of the research reactor at the Institut Laue-Langevin in Grenoble, built to test whether the missing reactor antineutrinos turned into a hypothetical sterile neutrino. It ran from 2016 to 2020 and rejected that explanation.",
+    "technical": "Very-short-baseline (9-11 m) reactor antineutrino experiment: six optically separated Gd-loaded liquid-scintillator cells at the 58.3 MWth, highly 235U-enriched ILL research reactor, comparing cell-to-cell spectra largely independently of flux predictions. Data 2016-2020; rejects the Reactor Antineutrino Anomaly best fit (>99.9 % CL) and measures the 235U spectrum."
+  },
+  "topic_ids": [
+    "topic:reactor-neutrinos",
+    "topic:sterile-neutrinos",
+    "topic:neutrino-oscillations"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

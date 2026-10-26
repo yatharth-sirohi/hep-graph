@@ -1,0 +1,117 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:connie"
+  ],
+  "id": "detector:connie-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2016-06",
+        "display": "mid 2016"
+      },
+      "label": "engineering run with a 4 g prototype",
+      "locator": "arXiv:1906.02200, section II",
+      "note": "Year precision for the start (\"late 2014\"); the end is the full sensor upgrade in \"mid 2016\" (next interval). The engineering run paper (arXiv:1604.01343) reports the first year of operation of the 4 g prototype.",
+      "quote": "The engineering prototype of the experiment was installed at the reactor site in late 2014",
+      "sources": [
+        "src:connie-prd-2019-exploring-low-energy"
+      ],
+      "start": "2014",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "data taking with the upgraded CCD array",
+      "locator": "arXiv:1906.02200, section II",
+      "note": "Open-ended: later papers report 2019 data and a skipper-CCD update (2021-22, conference abstract only), and the 2022 paper says the experiment \"is taking data\". No source consulted states that data taking has ended.",
+      "quote": "A complete upgrade of the sensors was performed in mid 2016",
+      "sources": [
+        "src:connie-prd-2019-exploring-low-energy"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2016-06",
+        "display": "mid 2016"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CONNIE CCD array",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "section II",
+      "note": "Campus-grade plant point; the container position is not published.",
+      "quote": "in a temporary laboratory space, built inside a standard shipping container located outside of the main reactor building",
+      "role": "main",
+      "site_id": "site:angra-npp-connie-container",
+      "sources": [
+        "src:connie-jinst-2016-engineering-run"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:connie-jinst-2016-engineering-run",
+    "src:connie-prd-2019-exploring-low-energy",
+    "src:connie-jhep-2022-2019-data",
+    "src:connie-jhep-2020-light-mediators"
+  ],
+  "specs": {
+    "active_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "47.6 g active (8 CCDs)",
+      "locator": "abstract",
+      "note": "",
+      "quote": "considering an active mass 47.6 g (8 CCDs)",
+      "sources": [
+        "src:connie-prd-2019-exploring-low-energy"
+      ],
+      "unit": "g",
+      "value": 47.6,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A cooled array of silicon camera sensors, so quiet that a single nuclear recoil of about a thousand electronvolts shows up, inside a thick lead and polyethylene shield.",
+    "technical": "Cryogenic array of low-noise fully depleted scientific CCDs (readout noise < 2 e- RMS) in a vacuum vessel inside a 30 cm polyethylene / 15 cm lead / 30 cm polyethylene shield; 8 CCDs analysed in 2016 and 2019; skipper-CCDs added in 2021."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "abstract",
+    "note": "",
+    "quote": "The Coherent Neutrino-Nucleus Interaction Experiment (CONNIE) uses low-noise fully depleted charge-coupled devices (CCDs)",
+    "sources": [
+      "src:connie-prd-2019-exploring-low-energy"
+    ],
+    "value": "Array of low-noise fully depleted charge-coupled devices (CCDs) operated cryogenically",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

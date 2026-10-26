@@ -1,0 +1,192 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Search for Oscillations with a Lithium-6 detector"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:solid"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:sck-cen-mol",
+      "locator": "introduction",
+      "note": "",
+      "quote": "SoLid is operated next to the BR2 reactor at SCK CEN in Mol, Belgium.",
+      "role": "host",
+      "sources": [
+        "src:solid-prd-2025-vsb-oscillation-search"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:solid",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2018-02",
+      "label": "construction of the 1.6 t detector",
+      "locator": "arXiv:2002.05914, introduction",
+      "note": "Year precision for the start (the paper dates construction as 2016-2017); the end is the month installation was completed.",
+      "quote": "proceeding to the construction of a 1.6 ton detector in 2016-2017",
+      "sources": [
+        "src:solid-jinst-2021-detector"
+      ],
+      "start": "2016",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2018-04-11",
+      "label": "installation and commissioning",
+      "locator": "arXiv:2002.05914, introduction",
+      "note": "Commissioning is dated \"spring 2018\"; the end is the first day of the physics data set (next interval).",
+      "quote": "The SoLid detector installation was completed in February 2018 and was successfully commissioned near the BR2 reactor in spring 2018.",
+      "sources": [
+        "src:solid-jinst-2021-detector"
+      ],
+      "start": "2018-02",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2020-07-02",
+      "label": "data taking",
+      "locator": "arXiv:2407.14382, analysis section",
+      "note": "Day precision: the span of the data set analysed in the 2024 paper. The 2021 detector paper says the experiment \"has collected data up to june 2020\".",
+      "quote": "The dataset on which this analysis is based spans data taken between 11th April 2018 to 2nd July 2020.",
+      "sources": [
+        "src:solid-prd-2025-vsb-oscillation-search"
+      ],
+      "start": "2018-04-11",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:2407.14382, analysis section",
+      "note": "Terminal event at the end of the data set; the 2021 detector paper confirms data collection \"up to june 2020\". No source states the detector was switched off on that date.",
+      "quote": "The dataset on which this analysis is based spans data taken between 11th April 2018 to 2nd July 2020.",
+      "sources": [
+        "src:solid-prd-2025-vsb-oscillation-search"
+      ],
+      "start": "2020-07-02",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Distance to the reactor core",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "6.3-8.9 m",
+        "locator": "abstract",
+        "note": "Lower end of the range recorded as `value`.",
+        "quote": "operates over a very short 6.3--8.9 m baseline from the reactor core",
+        "sources": [
+          "src:solid-prd-2025-vsb-oscillation-search"
+        ],
+        "unit": "m",
+        "value": 6.3,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Reactor thermal power",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "power",
+        "display": "40-100 MW",
+        "locator": "introduction",
+        "max": 100,
+        "min": 40,
+        "note": "",
+        "quote": "BR2 is an open-pool research reactor that burns highly enriched uranium (93.5% 235U) at 40–100 MW thermal power",
+        "sources": [
+          "src:solid-prd-2025-vsb-oscillation-search"
+        ],
+        "unit": "MW",
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Detector voxels",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "12800 voxels",
+        "locator": "abstract",
+        "note": "",
+        "quote": "The full-scale detector comprises 12800 voxels",
+        "sources": [
+          "src:solid-prd-2025-vsb-oscillation-search"
+        ],
+        "unit": "",
+        "value": 12800,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "reactor_neutrino",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "SoLid",
+  "notes": [
+    "The official SoLid website (www.solid-experiment.org) refused the connection; none recorded."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "The primary goal of the SoLid experiment is to perform a precise measurement of the electron antineutrino energy spectrum and flux and to search for very short distance neutrino oscillations as a probe of eV-scale sterile neutrinos.",
+      "sources": [
+        "src:solid-jinst-2021-detector"
+      ],
+      "value": "Measure the electron-antineutrino energy spectrum and flux very close to a research-reactor core and search for very-short-distance oscillations as a probe of eV-scale sterile neutrinos",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:solid-jinst-2021-detector",
+    "src:solid-prd-2025-vsb-oscillation-search"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A detector built from thousands of small plastic-scintillator cubes, placed just metres from the compact core of the BR2 research reactor in Belgium, to look for sterile neutrinos. It collected data from 2018 to 2020 and has published constraints on the reactor antineutrino anomaly.",
+    "technical": "Search for Oscillations with a Lithium-6 detector: 12,800 voxels (PVT cubes with 6LiF:ZnS(Ag) screens, MPPC readout, 3D imaging) in a shipping container at 6.3-8.9 m from the BR2 core (40-100 MW_th, 93.5 % 235U) under ~8 m.w.e. Data April 2018 - July 2020: 280 reactor-on and 172 reactor-off days, 29,479 antineutrino candidates; model-dependent fits constrain the RAA allowed region."
+  },
+  "topic_ids": [
+    "topic:reactor-neutrinos",
+    "topic:sterile-neutrinos",
+    "topic:neutrino-oscillations"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

@@ -1,0 +1,164 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "CHOOZ long-baseline reactor neutrino experiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:chooz"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:chooz",
+      "locator": "section 3",
+      "note": "",
+      "quote": "The detector was located in an underground laboratory about 1 km from the neutrino source",
+      "role": "host",
+      "sources": [
+        "src:chooz-hepex0301017"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:chooz",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1998-07-20",
+      "label": "data taking",
+      "locator": "EPJ C 27, 331 (2003) = hep-ex/0301017, section on data taking",
+      "note": "Day precision from the experiment's final article. The first reactor reached full power in May 1997 and the second in August 1997; data taking stopped five months after the last reactor shut-down (8 February 1998).",
+      "quote": "The data acquisition period extended over 450 days, from 12 March 1997 till 20 July 1998",
+      "sources": [
+        "src:chooz-hepex0301017"
+      ],
+      "start": "1997-03-12",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "EPJ C 27, 331 (2003) = hep-ex/0301017, section on data taking",
+      "note": "Terminal event: end of data taking.",
+      "quote": "The data acquisition period extended over 450 days, from 12 March 1997 till 20 July 1998",
+      "sources": [
+        "src:chooz-hepex0301017"
+      ],
+      "start": "1998-07-20",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Baseline",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "~1 km",
+        "locator": "section 3",
+        "note": "\"about 1 km\"; the two reactors lay at 1115 m and 998 m according to the Double Chooz TDR geometry record, not used here.",
+        "quote": "The detector was located in an underground laboratory about 1 km from the neutrino source",
+        "sources": [
+          "src:chooz-hepex0301017"
+        ],
+        "unit": "km",
+        "value": 1,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Overburden",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "depth_mwe",
+        "display": "300 MWE",
+        "locator": "section 3",
+        "note": "",
+        "quote": "The 300 MWE rock overburden reduced the external cosmic ray muon flux by a factor of ∼ 300",
+        "sources": [
+          "src:chooz-hepex0301017"
+        ],
+        "unit": "m.w.e.",
+        "value": 300,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Gd-loaded scintillator target",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "about 5 tons",
+        "locator": "section 3.3",
+        "note": "",
+        "quote": "About 5 tons of Gd-loaded scintillator and 107 tons of unloaded scintillator were used in the experiment",
+        "sources": [
+          "src:chooz-hepex0301017"
+        ],
+        "unit": "t",
+        "value": 5,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "reactor_neutrino",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "CHOOZ",
+  "notes": [
+    "The original CHOOZ experiment (1997-98). Double Chooz (experiment:double-chooz) is a separate experiment on the same site; a lineage row (CHOOZ as predecessor of Double Chooz) would have to be added to the committed experiment:double-chooz record and is listed for the integrator in the log.",
+    "No official CHOOZ website exists (the experiment ended in 1998); no website is recorded."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "Initial results are presented from CHOOZ, a long-baseline reactor-neutrino vacuum-oscillation experiment.",
+      "sources": [
+        "src:chooz-hepex9711002"
+      ],
+      "value": "Search for electron-antineutrino disappearance (neutrino oscillations) over a ~1 km reactor baseline, in particular to test the atmospheric-neutrino anomaly in the electron channel",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:chooz-hepex9711002",
+    "src:chooz-hepex9907037",
+    "src:chooz-hepex0301017"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "The first reactor experiment to hunt for neutrino oscillations over about one kilometre: a liquid-scintillator detector inside a hill near the Chooz nuclear power station in France. In 1997-98 it saw no disappearance of antineutrinos, which put the first tight upper limit on the mixing angle later called theta-13.",
+    "technical": "Long-baseline (~1 km) reactor electron-antineutrino disappearance experiment with a ~5 t Gd-loaded liquid-scintillator target in an underground laboratory (300 m.w.e.) at the Chooz-B plant, two reactors at different distances; data March 1997 - July 1998. No oscillation signal: sin^2(2theta) < 0.10 (90 % CL) for large delta m^2."
+  },
+  "topic_ids": [
+    "topic:reactor-neutrinos",
+    "topic:neutrino-oscillations"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

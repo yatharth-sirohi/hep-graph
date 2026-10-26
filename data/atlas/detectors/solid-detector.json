@@ -1,0 +1,135 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:solid"
+  ],
+  "id": "detector:solid-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2018-02",
+      "label": "construction of the 1.6 t detector",
+      "locator": "arXiv:2002.05914, introduction",
+      "note": "Year precision for the start (the paper dates construction as 2016-2017); the end is the month installation was completed.",
+      "quote": "proceeding to the construction of a 1.6 ton detector in 2016-2017",
+      "sources": [
+        "src:solid-jinst-2021-detector"
+      ],
+      "start": "2016",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2018-04-11",
+      "label": "installation and commissioning",
+      "locator": "arXiv:2002.05914, introduction",
+      "note": "Commissioning is dated \"spring 2018\"; the end is the first day of the physics data set (next interval).",
+      "quote": "The SoLid detector installation was completed in February 2018 and was successfully commissioned near the BR2 reactor in spring 2018.",
+      "sources": [
+        "src:solid-jinst-2021-detector"
+      ],
+      "start": "2018-02",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2020-07-02",
+      "label": "data taking",
+      "locator": "arXiv:2407.14382, analysis section",
+      "note": "Day precision: the span of the data set analysed in the 2024 paper. The 2021 detector paper says the experiment \"has collected data up to june 2020\".",
+      "quote": "The dataset on which this analysis is based spans data taken between 11th April 2018 to 2nd July 2020.",
+      "sources": [
+        "src:solid-prd-2025-vsb-oscillation-search"
+      ],
+      "start": "2018-04-11",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:2407.14382, analysis section",
+      "note": "Terminal event at the end of the data set; the 2021 detector paper confirms data collection \"up to june 2020\". No source states the detector was switched off on that date.",
+      "quote": "The dataset on which this analysis is based spans data taken between 11th April 2018 to 2nd July 2020.",
+      "sources": [
+        "src:solid-prd-2025-vsb-oscillation-search"
+      ],
+      "start": "2020-07-02",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "SoLid detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "introduction",
+      "note": "Building-level OpenStreetMap point for BR2; the container position beside the reactor is not published.",
+      "quote": "SoLid is operated next to the BR2 reactor at SCK CEN in Mol, Belgium.",
+      "role": "main",
+      "site_id": "site:sck-cen-br2-reactor-hall",
+      "sources": [
+        "src:solid-prd-2025-vsb-oscillation-search"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:solid-jinst-2021-detector",
+    "src:solid-prd-2025-vsb-oscillation-search"
+  ],
+  "specs": {
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "1.6 ton",
+      "locator": "introduction",
+      "note": "",
+      "quote": "the construction of a 1.6 ton detector in 2016-2017",
+      "sources": [
+        "src:solid-jinst-2021-detector"
+      ],
+      "unit": "t",
+      "value": 1.6,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A block of about 12,800 small plastic cubes, each paired with a thin screen that flashes when it catches a neutron, read out by light fibres, giving a three-dimensional picture of each antineutrino interaction.",
+    "technical": "Highly 3D-segmented detector: voxels of PVT plastic scintillator with 6LiF:ZnS(Ag) neutron screens read out by wavelength-shifting fibres and MPPCs; 1.6 t, in a lightproof shipping container with 50 cm HDPE and water-wall shielding."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "abstract",
+    "note": "",
+    "quote": "whose basic detection unit combines two scintillators, PVT and 6LiF:ZnS(Ag), to measure antineutrinos via their inverse-beta-decay products",
+    "sources": [
+      "src:solid-prd-2025-vsb-oscillation-search"
+    ],
+    "value": "Highly granular detector whose basic unit combines two scintillators, PVT and 6LiF:ZnS(Ag), read out by MPPCs",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

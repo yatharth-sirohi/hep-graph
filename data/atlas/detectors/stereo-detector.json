@@ -1,0 +1,92 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:stereo"
+  ],
+  "id": "detector:stereo-detector",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2020-11",
+      "label": "installation and phase-I data taking",
+      "locator": "JINST 13 P07009 (arXiv:1804.09052), section 2.4 \"Stereo run periods\"",
+      "note": "Month precision. One interval spans phases I-III: phase I (from installation, November 2016), repairs in summer 2017, phase II from October 2017 and phase III to shutdown; the end comes from the Nature paper (next source).",
+      "quote": "After its installation in November 2016, the Stereo detector recorded data over 2 reactor cycles",
+      "sources": [
+        "src:stereo-jinst-2018-experiment"
+      ],
+      "start": "2016-11",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "Nature 613, 257 (arXiv:2210.07664), main text",
+      "note": "Terminal event: \"the experiment was shut down in November 2020\".",
+      "quote": "until the experiment was shut down in November 2020",
+      "sources": [
+        "src:stereo-nature-2023-235u-spectrum"
+      ],
+      "start": "2020-11",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "STEREO detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "abstract",
+      "note": "The existing ILL reactor-hall site record is a campus-grade point; the position of the STEREO hall relative to it is not sourced (the detector centre is 10 m from the reactor core).",
+      "quote": "The detector center is located 10 m away from the compact",
+      "role": "main",
+      "site_id": "site:ill-grenoble-reactor-hall",
+      "sources": [
+        "src:stereo-jinst-2018-experiment"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:stereo-jinst-2018-experiment",
+    "src:stereo-prd-2020-179-days",
+    "src:stereo-nature-2023-235u-spectrum"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A tank of gadolinium-loaded liquid scintillator split into six identical cells in a row, read out by photomultipliers, which sat next to the reactor under heavy shielding.",
+    "technical": "Acrylic target aquarium (2.233 m x 0.889 m x 1.230 m) divided longitudinally into six identical optically separated cells filled with Gd-loaded liquid scintillator, surrounded by a gamma catcher, veto and passive shielding; PMT readout with pulse-shape discrimination."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "section 3.1",
+    "note": "",
+    "quote": "It is longitudinally divided in six identical and optically separated cells.",
+    "sources": [
+      "src:stereo-jinst-2018-experiment"
+    ],
+    "value": "Six-cell Gd-loaded liquid-scintillator antineutrino detector with PMT readout",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": [
+    "liquid_scintillator"
+  ],
+  "type": "detector"
+}
