@@ -1,0 +1,113 @@
+{
+  "accelerator_ids": [
+    "accelerator:sps"
+  ],
+  "aliases": [
+    "Underground Area 4",
+    "UA4 experiment",
+    "COULOMB"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:ua4"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "Greybook record for UA4 (beam LSS4, SPS programme)",
+      "note": "",
+      "quote": "\"beam\" : \"LSS4\", \"email\" : \"Grey.Book@cern.ch\"",
+      "role": "host",
+      "sources": [
+        "src:colliders2-greybook-ua4"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:ua4",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1981",
+      "label": "approval",
+      "locator": "Greybook record for UA4 (JSON, experiment details)",
+      "note": "Approval date as recorded in Greybook. The interval ends when the SPS began proton-antiproton collisions (summer 1981).",
+      "quote": "\"approvalDate\" : \"18-01-1979\"",
+      "sources": [
+        "src:colliders2-greybook-ua4"
+      ],
+      "start": "1979-01-18",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "derived",
+      "end": "1985-06-17",
+      "label": "SppS data taking",
+      "locator": "Greybook record for UA4, status history (Data Taking row); start bounded by the first SppS collisions",
+      "note": "Greybook's Data Taking row runs from the approval date (18 January 1979) to 17 June 1985, so its start is not a first-data date. The start is taken as 1981, the year the SPS first collided protons and antiprotons (\"In summer 1981 the first collision ... was recorded\", CERN Archives guide for UA1).",
+      "quote": "\"endDate\" : \"17-06-1985\", \"startDate\" : \"18-01-1979\", \"statusCode\" : \"DT\", \"statusDescription\" : \"Data Taking\"",
+      "sources": [
+        "src:colliders2-greybook-ua4",
+        "src:ua1-cern-archives-guide"
+      ],
+      "start": "1981",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "data taking completed",
+      "locator": "Greybook record for UA4, status history (Completed row)",
+      "note": "Greybook then marks the experiment Finished from 18 June 1995.",
+      "quote": "\"endDate\" : \"17-06-1995\", \"startDate\" : \"18-06-1985\", \"statusCode\" : \"CM\"",
+      "sources": [
+        "src:colliders2-greybook-ua4"
+      ],
+      "start": "1985-06-18",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "collider",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "UA4",
+  "notes": [
+    "No UA4 website exists. Greybook gives no institute list for UA4. Data taking is bounded by Greybook's Data Taking status end (17 June 1985) and the first SppS collisions (1981)."
+  ],
+  "physics_goals": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:colliders2-greybook-ua4",
+    "src:colliders2-ua4-elastic-total-cross-section-plb-1982"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "An experiment at CERN's proton-antiproton collider (SppS) that measured elastic scattering of protons and antiprotons at very small angles, in the Coulomb-interference region. It reported the elastic and total cross sections at 540 GeV and took data until June 1985.",
+    "technical": "UA4 at the CERN SppS (LSS4): 'Measurement of elastic scattering in the Coulomb interference region at the CERN pbarp collider' (Greybook; alias COULOMB); approved 18 January 1979; spokesperson G. Matthiae; data taking until 17 June 1985; published the p̄p elastic and total cross section at √s = 540 GeV (Phys. Lett. B 117 (1982) 126)."
+  },
+  "topic_ids": [
+    "topic:collider-physics",
+    "topic:qcd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

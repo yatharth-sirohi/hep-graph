@@ -1,0 +1,81 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:ua4"
+  ],
+  "id": "detector:ua4",
+  "intervals": [
+    {
+      "confidence": "derived",
+      "end": "1985-06-17",
+      "label": "SppS data taking",
+      "locator": "Greybook record for UA4, status history (Data Taking row); start bounded by the first SppS collisions",
+      "note": "Greybook's Data Taking row runs from the approval date (18 January 1979) to 17 June 1985, so its start is not a first-data date. The start is taken as 1981, the year the SPS first collided protons and antiprotons (\"In summer 1981 the first collision ... was recorded\", CERN Archives guide for UA1).",
+      "quote": "\"endDate\" : \"17-06-1985\", \"startDate\" : \"18-01-1979\", \"statusCode\" : \"DT\", \"statusDescription\" : \"Data Taking\"",
+      "sources": [
+        "src:colliders2-greybook-ua4",
+        "src:ua1-cern-archives-guide"
+      ],
+      "start": "1981",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "data taking completed",
+      "locator": "Greybook record for UA4, status history (Completed row)",
+      "note": "Greybook then marks the experiment Finished from 18 June 1995.",
+      "quote": "\"endDate\" : \"17-06-1995\", \"startDate\" : \"18-06-1985\", \"statusCode\" : \"CM\"",
+      "sources": [
+        "src:colliders2-greybook-ua4"
+      ],
+      "start": "1985-06-18",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "UA4 detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "1985-06-17",
+      "locator": "Greybook record for UA4",
+      "note": "Placement follows Greybook, which lists the beam as LSS4 (the long straight section that also housed UA2); the existing site point is the SPS access building BA4 and does not locate the UA4/UA5 apparatus itself, so the placement is approximate.",
+      "quote": "\"beam\" : \"LSS4\", \"email\" : \"Grey.Book@cern.ch\"",
+      "role": "main",
+      "site_id": "site:cern-sps-lss4-ua2",
+      "sources": [
+        "src:colliders2-greybook-ua4"
+      ],
+      "start": "1981",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders2-greybook-ua4"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The UA4 apparatus for detecting protons and antiprotons scattered at very small angles in CERN's SppS collider.",
+    "technical": "UA4 detector system for elastic scattering at the SppS; a published technical description was not retrieved for this record."
+  },
+  "technology": null,
+  "technology_class": "forward_spectrometer",
+  "technology_classes": [
+    "forward_spectrometer"
+  ],
+  "type": "detector"
+}
