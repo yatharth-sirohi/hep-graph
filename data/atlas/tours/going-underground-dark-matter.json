@@ -20,7 +20,7 @@
       },
       "claims": [
         {
-          "covers": "CDMS II searched for dark matter at the Soudan Underground Laboratory",
+          "covers": "The Cryogenic Dark Matter Search (CDMS II) experiment was located at the Soudan Underground Laboratory",
           "field": "key_specs.Germanium detectors",
           "ref": "experiment:cdms-ii"
         },
@@ -42,7 +42,7 @@
       ],
       "id": "soudan",
       "select": "experiment:cdms-ii",
-      "text": "CDMS II searched for dark matter at the Soudan Underground Laboratory, which lies 705 m underground (2070 meters-water-equivalent). It used 19 germanium and 11 silicon particle detectors, operated below 50 mK.",
+      "text": "The Cryogenic Dark Matter Search (CDMS II) experiment was located at the Soudan Underground Laboratory, which lies 705 m underground (2070 meters-water-equivalent). It used 19 germanium and 11 silicon particle detectors, operated below 50 mK.",
       "title": "Soudan: 705 m down",
       "year": 2008
     },
@@ -195,7 +195,7 @@
           "ref": "result:lz-first-wimp-search-2022"
         },
         {
-          "covers": "rejected spin-independent WIMP-nucleon cross sections above 9.2×10⁻⁴⁸ cm² at the 90% confidence level",
+          "covers": "rejected spin-independent WIMP-nucleon cross sections above 9.2×10⁻⁴⁸ cm² at a WIMP mass of 36 GeV/c² at the 90% confidence level",
           "field": "key_value_text",
           "ref": "result:lz-first-wimp-search-2022"
         }
@@ -274,7 +274,7 @@
         "prompt": "LUX's first result used 85.3 live days with a 118 kg fiducial volume. Suppose LZ runs its planned 1000 live days with a 5.5 t fiducial mass. How many times larger is LZ's exposure (mass × live days)?"
       },
       "select": "experiment:lz",
-      "text": "LZ is located at the 4850-foot level of the Sanford Underground Research Facility in Lead, South Dakota (4300 m.w.e.), and monitors 7 active tonnes of liquid xenon. Its first results, released on 7 July 2022, were consistent with a background-only hypothesis and rejected spin-independent WIMP-nucleon cross sections above 9.2×10⁻⁴⁸ cm² at the 90% confidence level.",
+      "text": "LZ is located at the 4850-foot level of the Sanford Underground Research Facility in Lead, South Dakota (4300 m.w.e.), and monitors 7 active tonnes of liquid xenon. Its first results, released on 7 July 2022, were consistent with a background-only hypothesis and rejected spin-independent WIMP-nucleon cross sections above 9.2×10⁻⁴⁸ cm² at a WIMP mass of 36 GeV/c² at the 90% confidence level.",
       "title": "SURF: the LZ experiment",
       "year": 2022
     },
@@ -315,13 +315,13 @@
       },
       "claims": [
         {
-          "covers": "Soudan has 705 m of rock overhead",
+          "covers": "Soudan lies 705 m underground",
           "field": "specs.depth",
           "ref": "facility:soudan-underground-laboratory"
         },
         {
           "confidence": "verified",
-          "covers": "Gran Sasso 1400 m",
+          "covers": "Gran Sasso has a 1400 metre-rock thickness above it",
           "locator": "LNGS Overview page, paragraph on the halls",
           "quote": "The 1400 metre-rock thickness above the Laboratory represents a natural coverage that provides a cosmic ray flux reduction by one million times",
           "sources": [
@@ -330,12 +330,12 @@
           "verified_at": "2026-10-26"
         },
         {
-          "covers": "SURF 1478 m",
+          "covers": "SURF is 1478 m down",
           "field": "specs.depth",
           "ref": "facility:surf"
         },
         {
-          "covers": "SNOLAB 2 km",
+          "covers": "SNOLAB has 2 km of rock overburden",
           "field": "facility_roles.facility:snolab",
           "ref": "experiment:deap-3600"
         },
@@ -347,7 +347,7 @@
       ],
       "id": "five-labs",
       "question": {
-        "answer": "Soudan: 2070 ÷ 705 ≈ 2.9. SURF: 4300 ÷ 1478 ≈ 2.9. SNOLAB: 6000 ÷ 2039 ≈ 2.9. At all three laboratories each metre of rock counts for about 2.9 m.w.e.",
+        "answer": "Soudan: 2070 ÷ 705 ≈ 2.9. SURF: 4300 ÷ 1478 ≈ 2.9. SNOLAB: 6000 ÷ 2039 ≈ 2.9. At all three sites each metre of depth counts for about 2.9 m.w.e.",
         "calculation": [
           {
             "field": "specs.depth",
@@ -409,13 +409,13 @@
         ],
         "claims": [
           {
-            "covers": "Soudan has 705 m of rock and 2070 m.w.e.",
+            "covers": "Soudan is 705 m underground, at 2070 m.w.e.",
             "field": "specs.depth",
             "in": "prompt",
             "ref": "facility:soudan-underground-laboratory"
           },
           {
-            "covers": "SURF has 1478 m of rock",
+            "covers": "SURF is 1478 m down",
             "field": "specs.depth",
             "in": "prompt",
             "ref": "facility:surf"
@@ -427,7 +427,7 @@
             "ref": "facility:surf"
           },
           {
-            "covers": "SNOLAB has 2039 m of rock",
+            "covers": "the SNO detector vessel at SNOLAB is 2039 m below the surface",
             "field": "depth",
             "in": "prompt",
             "ref": "site:snolab-underground-lab"
@@ -439,10 +439,10 @@
             "ref": "site:snolab-underground-lab"
           }
         ],
-        "prompt": "Soudan has 705 m of rock and 2070 m.w.e.; SURF has 1478 m of rock and 4300 m.w.e.; SNOLAB has 2039 m of rock and about 6000 m.w.e. For each laboratory, divide the m.w.e. figure by the depth in metres. What do you notice?"
+        "prompt": "Soudan is 705 m underground, at 2070 m.w.e.; SURF is 1478 m down, at 4300 m.w.e.; the SNO detector vessel at SNOLAB is 2039 m below the surface, at about 6000 m.w.e. For each, divide the m.w.e. figure by the depth in metres. What do you notice?"
       },
       "select": "topic:direct-dark-matter-detection",
-      "text": "Soudan has 705 m of rock overhead, Gran Sasso 1400 m, SURF 1478 m, SNOLAB 2 km and Jinping 2400 m.",
+      "text": "Soudan lies 705 m underground, Gran Sasso has a 1400 metre-rock thickness above it, SURF is 1478 m down, SNOLAB has 2 km of rock overburden and Jinping 2400 m.",
       "title": "Five laboratories, five depths",
       "year": 2022
     }

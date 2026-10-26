@@ -512,6 +512,46 @@ fails when one exceeds 2 MB.
   drawer can highlight every shape of one machine at once.  Context features
   depict nothing and are absent from it.
 
+## `tours.json` (A28)
+
+Lazy: the player loads it when a tour is opened, never at first paint. One file
+(about 130 KB for the six launch tours; every claim carries its quote so a step
+needs no other bundle).
+
+```json
+{
+  "schema": "hep-atlas/0.2",
+  "build_date": "2026-10-26",
+  "order": ["tour:neutrino-oscillation-story", "..."],
+  "tours": {
+    "tour:neutrino-oscillation-story": {
+      "id": "tour:neutrino-oscillation-story", "name": "...", "summary": "...",
+      "audience": "...", "estimated_minutes": 12,
+      "sources": ["src:..."],
+      "steps": [{
+        "id": "t2k", "title": "...", "text": "one or two sentences",
+        "year": 2014, "select": "experiment:t2k", "camera": {"lat": 36.4, "lng": 139.0, "altitude": 0.4},
+        "href": "?y=2014#/experiment/t2k",
+        "claims": [
+          {"covers": "295 km away", "ref": "experiment:t2k", "field": "key_specs.Baseline",
+           "value": "295 km", "sources": ["src:t2k-nim-2011"], "quote": "...", "locator": "...", "confidence": "verified"},
+          {"covers": "...", "quote": "...", "locator": "...", "sources": ["src:..."], "confidence": "verified", "verified_at": "2026-10-26"}
+        ],
+        "question": {"prompt": "...", "answer": "...", "claims": [], "calculation": [
+          {"name": "L", "ref": "experiment:t2k", "field": "key_specs.Baseline", "unit": "m", "value": 295000.0, "display": "295 km"},
+          {"name": "t", "expression": "L / c", "unit": "s", "digits": 3, "value": 0.000984}]}
+      }]
+    }
+  }
+}
+```
+
+`select`, `map`, `view` and `year` are optional and omitted when absent;
+`href` is omitted when a step names none of them. `covers` is a verbatim phrase of
+`text` (or of the question's `prompt`/`answer`, then with `"in"`). It is not in
+`provenance.json` or the sources' `cited_by`: a tour walks through entities, it
+does not cite them. Rules: `docs/HEP_ATLAS_ONTOLOGY.md` A28.
+
 ## `search.json`
 
 ```json
