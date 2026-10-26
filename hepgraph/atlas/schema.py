@@ -191,6 +191,7 @@ FACILITY_KINDS: tuple[str, ...] = (
     'accelerator_laboratory', 'underground_laboratory', 'neutrino_observatory',
     'astroparticle_observatory', 'reactor_site', 'spallation_source',
     'research_laboratory', 'polar_station', 'deep_sea_site',
+    'astronomical_observatory',  # A26
 )
 SITE_SETTINGS: tuple[str, ...] = ('surface', 'underground', 'ice', 'sea', 'lake', 'balloon', 'mountain')
 ACCELERATOR_KINDS: tuple[str, ...] = ('synchrotron', 'linac', 'storage_ring', 'collider', 'cyclotron', 'booster')
@@ -199,6 +200,9 @@ EXPERIMENT_KINDS: tuple[str, ...] = (
     'atmospheric_neutrino', 'astrophysical_neutrino', 'direct_dark_matter', 'axion',
     'double_beta_decay', 'neutrino_mass', 'muon_precision', 'rare_kaon', 'long_lived_particle',
     'cosmic_ray', 'gamma_ray', 'heavy_ion', 'cevns', 'other',
+    # A26: the coverage wave (all of HEP, ground-based).
+    'cmb', 'dark_energy_survey', 'nucleon_decay', 'hadron_structure',
+    'electroweak_precision', 'antimatter', 'neutron_precision',
 )
 # A21: kinds for which a far site is expected and the 50 km warning is muted.
 LONG_BASELINE_KINDS: frozenset[str] = frozenset({

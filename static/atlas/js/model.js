@@ -138,6 +138,7 @@ export const FACILITY_KIND_SHAPE = {
   reactor_site: { shape: 'square', color: '#e0c25c', label: 'Reactor site' },
   research_laboratory: { shape: 'flask', color: '#d98bb2', label: 'Research laboratory' },
   spallation_source: { shape: 'starburst', color: '#ffa65c', label: 'Spallation source' },
+  astronomical_observatory: { shape: 'telescope', color: '#9ccf7a', label: 'Astronomical observatory' },
 };
 
 export function facilityShape(kind) {
@@ -167,6 +168,10 @@ export const KIND_LABELS = {
   cevns: 'CEvNS',
   long_lived_particle: 'Long-Lived Particle (LLP)',
   gamma_ray: 'Gamma-Ray',
+  cmb: 'Cosmic Microwave Background (CMB)',
+  dark_energy_survey: 'Dark-Energy Survey',
+  hadron_structure: 'Hadron Structure & Spectroscopy',
+  neutron_precision: 'Neutron Precision',
   // technology classes
   lar_tpc: 'Liquid-Argon TPC',
   xenon_tpc: 'Liquid-Xenon TPC',

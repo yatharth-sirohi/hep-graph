@@ -11,6 +11,7 @@
 //   reactor_site               a cooling tower
 //   research_laboratory        a flask
 //   spallation_source          a shattering target (starburst)
+//   astronomical_observatory   a telescope on its mount
 // Kind decides shape and hue; status only ever dims (globe.js / atlas.css).
 //
 // Every glyph is built from the same few primitives so the meanings that the
@@ -117,6 +118,11 @@ const ICONS = {
   starburst: [ // spallation source
     { t: 'polygon', a: { points: starPoints(8, 10.4, 4.6) }, r: 'body' },
     { t: 'circle', a: { cx: 12, cy: 12, r: 2 }, r: 'ink' },
+  ],
+  telescope: [ // astronomical observatory: a telescope on its mount
+    { t: 'polygon', a: { points: '2.8,12.6 17.6,3.4 20.4,7.8 5.6,17' }, r: 'body' },
+    { t: 'line', a: { x1: 11.6, y1: 12.4, x2: 7.2, y2: 21.4 }, r: 'line', w: 1.7, solid: true },
+    { t: 'line', a: { x1: 11.6, y1: 12.4, x2: 16, y2: 21.4 }, r: 'line', w: 1.7, solid: true },
   ],
   circle: [
     { t: 'circle', a: { cx: 12, cy: 12, r: 8.6 }, r: 'body' },

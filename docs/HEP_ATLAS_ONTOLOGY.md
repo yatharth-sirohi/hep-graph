@@ -319,6 +319,17 @@ otherwise). Build: `atlas.json.maps`, derived `facility.map_id`,
 lazy `geometry/<slug>.json` per map. Full contract, validator rule table and
 bundle shapes: `docs/HEP_ATLAS_GEOMETRY.md`.
 
+**A26. Coverage of the whole field (2026-10-26).** The Atlas aims to cover
+ground-based, underground and underwater experimental high-energy physics:
+the energy, neutrino, rare-process and cosmic frontiers, with high-energy
+nuclear physics where it shares facilities and methods. Space missions (no
+fixed site) and gravitational-wave observatories stay out of scope. Added
+`facility.kind` `astronomical_observatory` (CMB and dark-energy telescopes)
+and `experiment.kind` values `cmb`, `dark_energy_survey`, `nucleon_decay`,
+`hadron_structure`, `electroweak_precision` (parity violation and weak-charge
+measurements), `antimatter` and `neutron_precision` (EDM, lifetime, decay
+correlations).
+
 ## 0. Ground rules
 
 1. **Canonical data is JSON under `data/atlas/`**, one file per entity, human
