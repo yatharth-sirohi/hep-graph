@@ -114,6 +114,7 @@ function parseSearch(search) {
     state.cmp = params.get('cmp');
     const at = /^(-?\d{1,2}(?:\.\d+)?),(-?\d{1,3}(?:\.\d+)?)$/.exec(params.get('cmpc') || '');
     if (at && Math.abs(Number(at[1])) <= 90 && Math.abs(Number(at[2])) <= 180) state.cmpc = [Number(at[1]), Number(at[2])];
+  }
   if (params.has('proton')) {
     const step = parseInt(params.get('proton'), 10);
     if (step >= 1) state.proton = step;
