@@ -510,14 +510,14 @@ Collected from the coverage rows (`missing_fields`); the common gaps are:
 * `facility:psi`, `facility:ill-grenoble` and `facility:oak-ridge-national-laboratory` could add `topic:neutron-physics` to their `topic_ids` (owned elsewhere).
 * PUMA will move to ISOLDE; the Atlas has no ISOLDE site, so the placement is the AD hall only.
 * No `accelerator:triumf` record exists; PiENu, TWIST and TUCAN therefore list no accelerator, which is the cause of two of the intrinsic `experiment-without-active-beam` warnings.
-* Bundle size: `atlas.json` is 1,137,570 bytes after this stream alone (budget warning at 400 KB, build failure above 1.5 MB); merging the other coverage-wave streams may approach the limit.
+* Bundle size: `atlas.json` is 1,143,964 bytes after this stream alone (budget warning at 400 KB, build failure above 1.5 MB); merging the other coverage-wave streams may approach the limit.
 * The Atlas has no source type for a conference abstract; the BL3 and UCNtau CIPANP 2025 abstracts are typed `project_document` (rank 9).
 * The coordinates of `site:cern-antiproton-decelerator-hall` and `site:j-parc-mlf` rest on OpenStreetMap (rank 11) and those of TRIUMF and the NCNR on Nominatim (rank 8); all are `approximate` campus points and none is the sole support of a `verified` value.
 
 ## Checks run
 
 * `python -m hepgraph.atlas.validate`: 0 errors on the whole Atlas; this stream's files carry the 10 intrinsic warnings listed above and nothing else.
-* `python -m hepgraph.atlas.build`: succeeded (81 files, atlas.json 1,137,570 bytes); `static/atlas/generated` was reverted before every commit.
+* `python -m hepgraph.atlas.build`: succeeded (81 files, atlas.json 1,143,964 bytes); `static/atlas/generated` was reverted before every commit.
 * Quote check: every `quote` in every new file was confirmed verbatim, or as `segments` for quotes joined by an ellipsis, against the page it cites, by `scripts/atlas_quote_check.py` run over the files this branch changed (about 425 quotes, none failing); every source excerpt was checked against its page by a companion script. The only items not fetched are geocoder and OpenStreetMap sources (skipped by the checker); their coordinates carry a `locator`, and the geocoder records quote the Nominatim result line.
 * `pytest -q`: 689 passed, 139 skipped (PostgreSQL-backed tests skip without a throwaway database).
 
