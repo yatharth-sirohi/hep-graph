@@ -75,5 +75,15 @@
     "technical": "One local map for facility:brookhaven-national-laboratory spanning the RHIC and AGS ring footprints and the adjoining accelerator-complex buildings on the Upton campus. Geometry sourced from OpenStreetMap (way 50074088 for the RHIC ring, tagged tunnel=yes/indoor=yes; way 289305285 for the AGS ring, tagged place=locality) cross-checked against BNL's published RHIC circumference (2.4 mi) and the AGS's 1960 design-specification mean radius (421.5 ft), plus OSM building footprints for the STAR (1006/1006A) and PHENIX/sPHENIX (1008/1008A) halls corroborated against BNL's own central-campus-map building-number key."
   },
   "type": "map",
-  "unlocated": []
+  "unlocated": [
+    {
+      "backlog": "Find a historical BNL site plan that places the Cosmotron building, and georeference it under docs/HEP_ATLAS_GEOMETRY.md.",
+      "entity_id": "accelerator:cosmotron",
+      "reason": "The Cosmotron (1952-1966) was dismantled; no source fetched gives its ring's position or outline on the present BNL site, so it is not drawn.",
+      "sources": [
+        "src:bnl-about-history-accelerators-page"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ]
 }
