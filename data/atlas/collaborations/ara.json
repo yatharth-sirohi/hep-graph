@@ -1,38 +1,72 @@
 {
-  "id": "collaboration:ara",
-  "type": "collaboration",
-  "name": "ARA Collaboration",
   "aliases": [],
-  "formation": {
-    "value": null,
-    "sources": ["src:astro-neutrino-ara-overview-paper-2024"],
-    "verified_at": "2026-09-17", "confidence": "uncertain",
-    "locator": "ARA overview paper, arXiv:2411.01761 (no formation date stated)",
-    "note": "No fetched source states an explicit formation date."
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
   },
-  "intervals": [
-    {"label": "collaboration", "status": "active", "start": "2012", "end": null,
-     "sources": ["src:astro-neutrino-ara-overview-paper-2024"], "verified_at": "2026-09-17", "confidence": "approximate",
-     "quote": "deployed at a depth of 100-200 m over the period 2012-2018",
-     "note": "Start is a lower bound taken from the first station deployment year."}
-  ],
-  "status": "active",
-  "membership": {"as_of": null, "evidence_class": "official_institution_list", "institution_count": null, "country_count": null, "member_count": null, "roster_source_ids": []},
-  "leadership": [],
+  "document_ids": [],
+  "formation": {
+    "confidence": "uncertain",
+    "locator": "ARA overview paper, arXiv:2411.01761 (no formation date stated)",
+    "note": "No fetched source states an explicit formation date.",
+    "sources": [
+      "src:astro-neutrino-ara-overview-paper-2024"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
+  },
   "host_facility_id": "facility:amundsen-scott-south-pole-station",
   "host_site_id": "site:south-pole-ara",
-  "document_ids": [],
-  "links": {"website": {"value": "https://wipac.wisc.edu/science/projects/ara/", "sources": ["src:astro-neutrino-ara-wipac-project-page"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "id": "collaboration:ara",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "collaboration",
+      "note": "Start is a lower bound taken from the first station deployment year.",
+      "quote": "deployed at a depth of 100-200 m over the period 2012-2018",
+      "sources": [
+        "src:astro-neutrino-ara-overview-paper-2024"
+      ],
+      "start": "2012",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:astro-neutrino-ara-wipac-project-page"
+      ],
+      "value": "https://wipac.wisc.edu/science/projects/ara/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "membership": {
+    "as_of": null,
+    "country_count": null,
+    "evidence_class": "official_institution_list",
+    "institution_count": null,
+    "member_count": null,
+    "roster_source_ids": []
+  },
+  "name": "ARA Collaboration",
   "notes": [
     "No dedicated ARA collaboration site was found this session; WIPAC (UW-Madison) is a named lead institution for ARA's field operations per its own project page. Membership counts not found; left null rather than derived from an author list.",
-    "Institution-level membership rows and leadership are owned by the membership-lead workstream and are not written here.",
-    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+    "Institution-level membership rows and leadership are owned by the membership-lead workstream and are not written here."
   ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:astro-neutrino-ara-wipac-project-page",
+    "src:astro-neutrino-ara-overview-paper-2024"
+  ],
+  "status": "active",
   "summary": {
     "plain": "The team of scientists, including the group at UW-Madison's IceCube centre, who built and continue to run the ARA radio-antenna stations near the South Pole.",
     "technical": "Collaboration operating the Askaryan Radio Array near the South Pole; WIPAC (University of Wisconsin-Madison) is a named lead institution for field operations; no published total membership count found this session."
   },
-  "coverage": {"researched": "partial", "tier": "B"},
-  "sources": ["src:astro-neutrino-ara-wipac-project-page", "src:astro-neutrino-ara-overview-paper-2024"],
-  "schema": "hep-atlas/0.2"
+  "type": "collaboration"
 }

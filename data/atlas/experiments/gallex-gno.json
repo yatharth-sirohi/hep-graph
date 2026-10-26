@@ -1,131 +1,152 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "experiment:gallex-gno",
-  "type": "experiment",
-  "name": "GALLEX",
+  "accelerator_ids": [],
   "aliases": [
     "GALLEX/GNO",
     "GNO",
     "Gallium Experiment",
     "Gallium Neutrino Observatory"
   ],
-  "kind": "solar_neutrino",
-  "secondary_kinds": [],
-  "collaboration_ids": ["collaboration:gallex-gno"],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:gallex-gno"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "document_ids": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1109244,
+    "wikidata": null
+  },
   "facility_roles": [
     {
-      "facility_id": "facility:lngs",
-      "role": "host",
-      "start": null,
-      "end": null,
-      "sources": ["src:gallex-wikipedia"],
-      "verified_at": "2026-09-17",
       "confidence": "uncertain",
-      "note": "facility:lngs already exists (owned by the dark-matter/facilities workstreams) and is referenced here, not edited. Confidence kept uncertain because the only source cited here is Wikipedia (rank 12), below the rank<=10 bar A17 requires for `verified`."
+      "end": null,
+      "facility_id": "facility:lngs",
+      "note": "facility:lngs already exists (owned by the dark-matter/facilities workstreams) and is referenced here, not edited. Confidence kept uncertain because the only source cited here is Wikipedia (rank 12), below the rank<=10 bar A17 requires for `verified`.",
+      "role": "host",
+      "sources": [
+        "src:gallex-wikipedia"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
     }
   ],
-  "beamline_ids": [],
-  "accelerator_ids": [],
-  "topic_ids": ["topic:solar-neutrinos"],
+  "id": "experiment:gallex-gno",
   "intervals": [
     {
-      "label": "GALLEX operation",
-      "status": "active",
-      "start": "1991",
+      "confidence": "approximate",
       "end": "1997",
-      "sources": ["src:rf05-gno-complete-results-arxiv"],
-      "verified_at": "2026-10-25",
-      "confidence": "approximate",
+      "label": "GALLEX operation",
+      "note": "Start from the May 14, 1991 start of gallium observations at LNGS and end year 1997 from 'The GALLEX recordings (till 1997)', both in the GNO collaboration's final paper; stored at year precision.",
       "quote": "gallium based solar observations at LNGS (first in GALLEX, later in GNO) lasted from May 14, 1991 ... The GALLEX recordings (till 1997)",
-      "note": "Start from the May 14, 1991 start of gallium observations at LNGS and end year 1997 from 'The GALLEX recordings (till 1997)', both in the GNO collaboration's final paper; stored at year precision."
-    },
-    {
-      "label": "GNO operation (successor phase, same collaboration/target)",
+      "sources": [
+        "src:rf05-gno-complete-results-arxiv"
+      ],
+      "start": "1991",
       "status": "active",
-      "start": "1998-05",
-      "end": "2003-04",
-      "sources": ["src:rf05-gno-complete-results-arxiv"],
-      "verified_at": "2026-10-25",
-      "confidence": "approximate",
-      "quote": "58 solar exposure runs that were performed between May 20, 1998 and April 9, 2003",
-      "note": "GNO solar runs were performed between May 20, 1998 and April 9, 2003 (GNO collaboration's final paper); stored at month precision."
+      "verified_at": "2026-10-25"
     },
     {
-      "label": "completed",
-      "status": "completed",
-      "start": "2003-04",
-      "end": null,
-      "sources": ["src:rf05-gno-complete-results-arxiv"],
-      "verified_at": "2026-10-25",
       "confidence": "approximate",
+      "end": "2003-04",
+      "label": "GNO operation (successor phase, same collaboration/target)",
+      "note": "GNO solar runs were performed between May 20, 1998 and April 9, 2003 (GNO collaboration's final paper); stored at month precision.",
+      "quote": "58 solar exposure runs that were performed between May 20, 1998 and April 9, 2003",
+      "sources": [
+        "src:rf05-gno-complete-results-arxiv"
+      ],
+      "start": "1998-05",
+      "status": "active",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "note": "Terminal event from the GNO collaboration's final paper (GNO terminated after solar runs performed between May 20, 1998 and April 9, 2003); stored at month precision.",
       "quote": "The GNO experiment is now terminated after altogether 58 solar exposure runs that were performed between May 20, 1998 and April 9, 2003.",
-      "note": "Terminal event from the GNO collaboration's final paper (GNO terminated after solar runs performed between May 20, 1998 and April 9, 2003); stored at month precision."
+      "sources": [
+        "src:rf05-gno-complete-results-arxiv"
+      ],
+      "start": "2003-04",
+      "status": "completed",
+      "verified_at": "2026-10-25"
     }
   ],
-  "physics_goals": [
-    {
-      "value": "Detect low-energy (pp-chain) solar neutrinos via the radiochemical gallium-to-germanium reaction and measure the total solar neutrino capture rate",
-      "sources": ["src:gallex-wikipedia"],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "quote": "It was designed to detect solar neutrinos and prove theories related to the Sun's energy creation mechanism.",
-      "locator": "Wikipedia",
-      "note": "Sourced from Wikipedia (rank 12) only this session."
-    }
-  ],
-  "unique_capabilities": [
-    {
-      "value": "Radiochemical gallium target sensitive to the lowest-energy (pp) solar neutrinos, below the threshold of water-Cherenkov or chlorine-based detectors",
-      "sources": ["src:gallex-wikipedia"],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
-      "locator": "Wikipedia",
-      "note": "Sourced from Wikipedia (rank 12) only this session. Note for the ontology: there is no `radiochemical` value in the EXPERIMENT_KINDS or TECHNOLOGY_CLASSES enums (checked hepgraph/atlas/schema.py directly); `kind` is recorded as `solar_neutrino` (matching this workstream's own coverage-file category) and the detector's `technology_class` is `other`, with the radiochemical gallium technique described here and in detector:gallex-gno.technology."
-    }
-  ],
-  "energy_regime": null,
   "key_specs": [
     {
       "label": "Gallium target mass",
       "quantity": {
-        "value": 30.3,
-        "unit": "t",
-        "dimension": "mass",
         "approx": false,
-        "display": "30.3 t gallium (101 t GaCl3-HCl solution)",
-        "sources": ["src:gallex-wikipedia"],
-        "verified_at": "2026-09-17",
         "confidence": "approximate",
+        "dimension": "mass",
+        "display": "30.3 t gallium (101 t GaCl3-HCl solution)",
+        "note": "Sourced from Wikipedia (rank 12) only this session.",
         "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
-        "note": "Sourced from Wikipedia (rank 12) only this session."
+        "sources": [
+          "src:gallex-wikipedia"
+        ],
+        "unit": "t",
+        "value": 30.3,
+        "verified_at": "2026-09-17"
       }
     }
   ],
+  "kind": "solar_neutrino",
   "lineage": [],
-  "external": {
-    "inspire_experiment": 1109244,
-    "greybook": null,
-    "wikidata": null
-  },
-  "document_ids": [],
-  "result_ids": [],
   "links": {
     "website": null
   },
+  "name": "GALLEX",
   "notes": [
     "GALLEX (1991-1997) and its successor GNO (1998-2003) are modelled as ONE experiment record with GNO as an alias, per this workstream's brief ('one experiment record with alias'); no separate experiment:gno record is created.",
-    "No official GALLEX/GNO site was found/fetched this session (a dedicated official site does not appear to exist independently of the MPIK Heidelberg host institution, which was not fetched); all facts here rely on Wikipedia and INSPIRE.",
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not authored (v0.2 A1)."
+    "No official GALLEX/GNO site was found/fetched this session (a dedicated official site does not appear to exist independently of the MPIK Heidelberg host institution, which was not fetched); all facts here rely on Wikipedia and INSPIRE."
   ],
-  "sources": ["src:gallex-inspire-experiment-record", "src:gallex-wikipedia", "src:rf05-gno-complete-results-arxiv"],
+  "physics_goals": [
+    {
+      "confidence": "uncertain",
+      "locator": "Wikipedia",
+      "note": "Sourced from Wikipedia (rank 12) only this session.",
+      "quote": "It was designed to detect solar neutrinos and prove theories related to the Sun's energy creation mechanism.",
+      "sources": [
+        "src:gallex-wikipedia"
+      ],
+      "value": "Detect low-energy (pp-chain) solar neutrinos via the radiochemical gallium-to-germanium reaction and measure the total solar neutrino capture rate",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:gallex-inspire-experiment-record",
+    "src:gallex-wikipedia",
+    "src:rf05-gno-complete-results-arxiv"
+  ],
   "status": "completed",
   "summary": {
     "plain": "An experiment in an Italian mountain lab that used tonnes of liquid gallium to catch the Sun's lowest-energy neutrinos, the ones from its very first fusion step.",
     "technical": "Radiochemical gallium solar-neutrino experiment at LNGS: 30.3 t gallium (as 101 t GaCl3-HCl solution), sensitive to pp-chain neutrinos via the 71Ga→71Ge reaction. Ran as GALLEX 1991-1997 (73.1 SNU capture rate) then as GNO 1998-2003 (62.9 SNU), led by the Max-Planck-Institut für Kernphysik, Heidelberg, with French, German, Italian, Israeli, Polish and American participation."
   },
-  "coverage": {
-    "tier": "D",
-    "researched": "partial"
-  }
+  "topic_ids": [
+    "topic:solar-neutrinos"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "uncertain",
+      "locator": "Wikipedia",
+      "note": "Sourced from Wikipedia (rank 12) only this session. Note for the ontology: there is no `radiochemical` value in the EXPERIMENT_KINDS or TECHNOLOGY_CLASSES enums (checked hepgraph/atlas/schema.py directly); `kind` is recorded as `solar_neutrino` (matching this workstream's own coverage-file category) and the detector's `technology_class` is `other`, with the radiochemical gallium technique described here and in detector:gallex-gno.technology.",
+      "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
+      "sources": [
+        "src:gallex-wikipedia"
+      ],
+      "value": "Radiochemical gallium target sensitive to the lowest-energy (pp) solar neutrinos, below the threshold of water-Cherenkov or chlorine-based detectors",
+      "verified_at": "2026-09-17"
+    }
+  ]
 }

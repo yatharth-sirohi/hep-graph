@@ -1,180 +1,199 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "experiment:sno",
-  "type": "experiment",
-  "name": "Sudbury Neutrino Observatory",
-  "aliases": ["SNO"],
-  "kind": "solar_neutrino",
-  "secondary_kinds": [],
-  "collaboration_ids": ["collaboration:sno"],
-  "facility_roles": [
-    {
-      "facility_id": "facility:snolab",
-      "role": "host",
-      "start": null,
-      "end": null,
-      "sources": ["src:sno-official-site"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": "SNO occupied the original excavated cavern that SNOLAB (owned by the facilities workstream) later expanded around; referenced here, not created."
-    }
+  "accelerator_ids": [],
+  "aliases": [
+    "SNO"
   ],
   "beamline_ids": [],
-  "accelerator_ids": [],
-  "topic_ids": ["topic:solar-neutrinos", "topic:neutrino-oscillations"],
+  "collaboration_ids": [
+    "collaboration:sno"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "document_ids": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1109110,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:snolab",
+      "note": "SNO occupied the original excavated cavern that SNOLAB (owned by the facilities workstream) later expanded around; referenced here, not created.",
+      "role": "host",
+      "sources": [
+        "src:sno-official-site"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:sno",
   "intervals": [
     {
-      "label": "cavity excavation",
-      "status": "construction",
-      "start": "1990-03",
+      "confidence": "verified",
       "end": "1993-05",
-      "sources": ["src:sno-milestones"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
+      "label": "cavity excavation",
+      "note": "",
       "quote": "Mar 1990 -- Start of cavity excavation ... May 1993 -- End of cavity excavation",
-      "note": ""
-    },
-    {
-      "label": "detector construction (clean room, acrylic vessel, PMT support, water fill)",
+      "sources": [
+        "src:sno-milestones"
+      ],
+      "start": "1990-03",
       "status": "construction",
-      "start": "1994-11",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
       "end": "1999-04",
-      "sources": ["src:sno-milestones"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
+      "label": "detector construction (clean room, acrylic vessel, PMT support, water fill)",
+      "note": "",
       "quote": "Nov 1994 -- Start of clean room assembly phase ... Apr 1999 -- Water fill complete",
-      "note": ""
+      "sources": [
+        "src:sno-milestones"
+      ],
+      "start": "1994-11",
+      "status": "construction",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "commissioning (first neutrinos)",
-      "status": "commissioning",
-      "start": "1999-05",
+      "confidence": "verified",
       "end": "1999-11",
-      "sources": ["src:sno-milestones"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
+      "label": "commissioning (first neutrinos)",
+      "note": "",
       "quote": "May 1999 -- First neutrinos found ... Nov 1999 -- Production data taking begins",
-      "note": ""
+      "sources": [
+        "src:sno-milestones"
+      ],
+      "start": "1999-05",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "phase 1: pure D2O",
-      "status": "active",
-      "start": "1999-11",
+      "confidence": "verified",
       "end": "2001-05",
-      "sources": ["src:sno-milestones"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
+      "label": "phase 1: pure D2O",
+      "note": "",
       "quote": "Nov 1999 -- Production data taking begins ... May 2001 -- Start of 2nd phase of data taking (salt fill)",
-      "note": ""
+      "sources": [
+        "src:sno-milestones"
+      ],
+      "start": "1999-11",
+      "status": "active",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "phase 2: NaCl-doped D2O (salt phase)",
-      "status": "active",
-      "start": "2001-05",
+      "confidence": "verified",
       "end": "2003-09",
-      "sources": ["src:sno-milestones"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
+      "label": "phase 2: NaCl-doped D2O (salt phase)",
+      "note": "End date (salt removal, Sept 2003) per the awa/queensu milestones summary; the phase 3 start (Feb 2004) follows a several-month gap for NCD array installation.",
       "quote": "May 2001 -- Start of 2nd phase of data taking (salt fill)",
-      "note": "End date (salt removal, Sept 2003) per the awa/queensu milestones summary; the phase 3 start (Feb 2004) follows a several-month gap for NCD array installation."
-    },
-    {
-      "label": "phase 3: NCD array",
+      "sources": [
+        "src:sno-milestones"
+      ],
+      "start": "2001-05",
       "status": "active",
-      "start": "2004-02",
-      "end": "2006-11",
-      "sources": ["src:sno-milestones"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "Feb 2004 -- Start of 3rd phase of data taking (with NCD detectors) ... Nov 2006 -- End of datataking for 3rd phase",
-      "note": ""
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "shut down / drained",
-      "status": "completed",
-      "start": "2006-11",
+      "confidence": "verified",
+      "end": "2006-11",
+      "label": "phase 3: NCD array",
+      "note": "",
+      "quote": "Feb 2004 -- Start of 3rd phase of data taking (with NCD detectors) ... Nov 2006 -- End of datataking for 3rd phase",
+      "sources": [
+        "src:sno-milestones"
+      ],
+      "start": "2004-02",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
       "end": null,
-      "sources": ["src:sno-milestones"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
+      "label": "shut down / drained",
+      "note": "D2O was drained from the acrylic vessel in May 2007, after which the cavern was converted for SNO+.",
       "quote": "Nov 2006 -- End of datataking for 3rd phase",
-      "note": "D2O was drained from the acrylic vessel in May 2007, after which the cavern was converted for SNO+."
+      "sources": [
+        "src:sno-milestones"
+      ],
+      "start": "2006-11",
+      "status": "completed",
+      "verified_at": "2026-09-17"
     }
   ],
-  "physics_goals": [
-    {
-      "value": "Detect solar neutrinos via charged-current, neutral-current and elastic-scattering reactions on heavy water to test the neutrino-oscillation solution to the solar neutrino problem in a solar-model-independent way",
-      "sources": ["src:sno-nim-detector-paper-2000"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "a solar model-independent test of the neutrino oscillation hypothesis by comparison of the charged- and neutral-current interaction rates",
-      "locator": "arXiv:nucl-ex/9910016, abstract"
-    }
-  ],
-  "unique_capabilities": [
-    {
-      "value": "A heavy-water (D2O) Cherenkov detector, uniquely sensitive to the neutral-current reaction that counts all active solar-neutrino flavours, not just electron neutrinos",
-      "sources": ["src:sno-2002-nc-evidence"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "Observations of neutral current neutrino interactions on deuterium in the Sudbury Neutrino Observatory are reported.",
-      "locator": "arXiv:nucl-ex/0204008, abstract"
-    }
-  ],
-  "energy_regime": null,
   "key_specs": [
     {
       "label": "Heavy water target mass",
       "quantity": {
-        "value": 1000,
-        "unit": "t",
-        "dimension": "mass",
         "approx": false,
-        "display": "1000 t D2O",
-        "sources": ["src:sno-official-site"],
-        "verified_at": "2026-09-17",
         "confidence": "verified",
+        "dimension": "mass",
+        "display": "1000 t D2O",
+        "note": "",
         "quote": "1000 tonnes of heavy water",
-        "note": ""
+        "sources": [
+          "src:sno-official-site"
+        ],
+        "unit": "t",
+        "value": 1000,
+        "verified_at": "2026-09-17"
       }
     },
     {
       "label": "Depth",
       "quantity": {
-        "value": 2039,
-        "unit": "m",
-        "dimension": "length",
         "approx": false,
-        "display": "2039 m (detector vessel centre)",
-        "sources": ["src:sno-nim-detector-paper-2000"],
-        "verified_at": "2026-09-17",
         "confidence": "verified",
+        "dimension": "length",
+        "display": "2039 m (detector vessel centre)",
+        "note": "Same source already cited by facility:snolab's site record (site:snolab-underground-lab), re-verified directly in this session.",
         "quote": "The center of the detector vessel is 2039 m below the surface in a cavity excavated from the \"6800-foot\" level of the mine.",
-        "note": "Same source already cited by facility:snolab's site record (site:snolab-underground-lab), re-verified directly in this session."
+        "sources": [
+          "src:sno-nim-detector-paper-2000"
+        ],
+        "unit": "m",
+        "value": 2039,
+        "verified_at": "2026-09-17"
       }
     }
   ],
+  "kind": "solar_neutrino",
   "lineage": [],
-  "external": {
-    "inspire_experiment": 1109110,
-    "greybook": null,
-    "wikidata": null
-  },
-  "document_ids": [],
-  "result_ids": [],
   "links": {
     "website": {
-      "value": "https://sno.phy.queensu.ca/",
-      "sources": ["src:sno-official-site"],
-      "verified_at": "2026-09-17",
       "confidence": "verified",
-      "note": ""
+      "note": "",
+      "sources": [
+        "src:sno-official-site"
+      ],
+      "value": "https://sno.phy.queensu.ca/",
+      "verified_at": "2026-09-17"
     }
   },
+  "name": "Sudbury Neutrino Observatory",
   "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not authored (v0.2 A1).",
     "experiment:sno-plus (owned by this same workstream) carries the canonical `upgrade_of` lineage row pointing back at this experiment; not authored here (the inverse `upgraded_to` is derived, v0.2 A1)."
   ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:nucl-ex/9910016, abstract",
+      "quote": "a solar model-independent test of the neutrino oscillation hypothesis by comparison of the charged- and neutral-current interaction rates",
+      "sources": [
+        "src:sno-nim-detector-paper-2000"
+      ],
+      "value": "Detect solar neutrinos via charged-current, neutral-current and elastic-scattering reactions on heavy water to test the neutrino-oscillation solution to the solar neutrino problem in a solar-model-independent way",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
   "sources": [
     "src:sno-official-site",
     "src:sno-milestones",
@@ -189,8 +208,21 @@
     "plain": "A detector two kilometres underground in a Canadian nickel mine, filled with 1000 tonnes of heavy water, that solved the decades-old mystery of the Sun's missing neutrinos by showing they change type on the way to Earth.",
     "technical": "Heavy-water Cherenkov solar-neutrino detector 2039 m underground in Vale's Creighton mine, Sudbury, Ontario, run 1999-2006 in three phases (pure D2O; NaCl-doped D2O; D2O with an array of neutral-current detectors). Its neutral-current measurement gave solar-model-independent, direct evidence of solar neutrino flavour transformation."
   },
-  "coverage": {
-    "tier": "D",
-    "researched": "partial"
-  }
+  "topic_ids": [
+    "topic:solar-neutrinos",
+    "topic:neutrino-oscillations"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:nucl-ex/0204008, abstract",
+      "quote": "Observations of neutral current neutrino interactions on deuterium in the Sudbury Neutrino Observatory are reported.",
+      "sources": [
+        "src:sno-2002-nc-evidence"
+      ],
+      "value": "A heavy-water (D2O) Cherenkov detector, uniquely sensitive to the neutral-current reaction that counts all active solar-neutrino flavours, not just electron neutrinos",
+      "verified_at": "2026-09-17"
+    }
+  ]
 }
