@@ -92,6 +92,12 @@ const SHEETS = {
     get: () => document.getElementById('start-card'),
     dialogLabel: () => 'Start here',
   },
+  // The guided-tour card (tours.js) is a bottom sheet too: listed so the stage above it
+  // shrinks to the strip it leaves (the card steps aside while the record sheet is open).
+  tour: {
+    get: () => document.getElementById('tour-card'),
+    dialogLabel: () => 'Guided tour',
+  },
 };
 
 function headingText(el) {

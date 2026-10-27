@@ -41,7 +41,7 @@
 //: section) has a name of its own and few rivals for it, so when it matches as well as a record does,
 //: "energy frontier" and "going underground" lead to the chart and not to a topic of the same words.
 export const TYPE_ORDER = ['view', 'experiment', 'facility', 'collaboration', 'site', 'detector',
-  'accelerator', 'beamline', 'topic', 'result', 'document', 'institution'];
+  'accelerator', 'beamline', 'topic', 'tour', 'result', 'document', 'institution'];
 
 // Question words and fillers: "where was the Higgs discovered" is about the
 // Higgs and a discovery. Dropped only while some other word remains.

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/atlas/atlas.css" />
     <link rel="stylesheet" href="/atlas/globe.css" />
     <link rel="stylesheet" href="/atlas/views.css" />
+    <link rel="stylesheet" href="/atlas/tours.css" />
     <link rel="stylesheet" href="/atlas/research.css" />
     <link rel="stylesheet" href="/atlas/phone.css" />
     <link rel="stylesheet" href="/atlas/export.css" />
@@ -33,6 +34,8 @@
         <button type="button" class="mode-toggle" data-mode="topic" aria-pressed="false">Topics</button>
         <button type="button" class="mode-toggle" data-mode="results" aria-pressed="false">Results</button>
         <button type="button" class="mode-toggle" data-mode="docs" aria-pressed="false">Documents</button>
+        <!-- Guided tours (js/tours.js). Hidden by app.js when the data build has no tours.json. -->
+        <button type="button" class="mode-toggle" id="tours-mode-btn" data-mode="tours" aria-pressed="false" hidden>Tours</button>
       </div>
       <div class="search-wrap">
         <label for="atlas-search" class="visually-hidden">Search the atlas</label>
@@ -132,6 +135,10 @@
 
       <section id="detail-panel" class="detail-panel hidden" aria-live="polite"></section>
 
+      <!-- The guided-tour player (js/tours.js): a compact, non-modal card over the left of
+           the stage on a laptop, a bottom sheet on a phone. It is empty until a tour opens. -->
+      <section id="tour-card" class="tour-card" tabindex="-1" hidden></section>
+
       <!-- The Start-here card (js/start.js): shown unasked on a first visit to a bare
            /atlas, reopened by the footer's "Start here". Every link is a real deep link. -->
       <section
@@ -149,6 +156,18 @@
         <p id="start-lede" class="start-lede">
           Particle-physics facilities on to-scale maps, with every fact traced to its source.
         </p>
+        <!-- Shown by start.js only when the data build carries tours. -->
+        <div class="start-tours" id="start-tours" hidden>
+          <h3 class="start-heading">Take a tour</h3>
+          <ul class="start-questions">
+            <li>
+              <a class="start-question" data-start-link href="?m=tours">
+                <span class="start-question-text">Follow a guided tour</span>
+                <span class="start-question-hint" id="start-tours-hint">Short, sourced walks through the Atlas, with a question or two on the way</span>
+              </a>
+            </li>
+          </ul>
+        </div>
         <h3 class="start-heading">Ask a question</h3>
         <ul class="start-questions">
           <li>

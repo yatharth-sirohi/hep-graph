@@ -7,6 +7,9 @@
 // and anyone arriving through a shared link — which always carries a hash or a query
 // — never see it unasked.
 //
+// A "Take a tour" row leads the options when the data build carries guided tours (js/tours.js):
+// it opens the Tours list. The row is hidden otherwise, and its text counts the tours.
+//
 // The card is a non-modal dialog: labelled, described, focused when it opens,
 // dismissed by Escape or its close button. Dismissing it by any route remembers that
 // (localStorage, wrapped in try/catch: a private window or blocked storage just means
@@ -50,8 +53,18 @@ export function isFirstVisit(loc = window.location) {
  * Wires the card. `getGlobe()` returns the globe API once it exists (or null).
  * Returns { openFirstVisit, open, close }.
  */
-export function createStartHere({ card, reopenButton, searchInput, getGlobe, firstVisit }) {
+export function createStartHere({
+  card, reopenButton, searchInput, getGlobe, firstVisit, tours = false, tourCount = null,
+}) {
   if (!card) return { openFirstVisit() {}, open() {}, close() {} };
+  const toursRow = document.getElementById('start-tours');
+  if (toursRow) {
+    toursRow.hidden = !tours;
+    const hint = document.getElementById('start-tours-hint');
+    if (hint && tourCount) {
+      hint.textContent = `${tourCount} short, sourced walk${tourCount === 1 ? '' : 's'} through the Atlas, each with a question or two on the way`;
+    }
+  }
   let opener = null;
   let lastRoute = null;
 

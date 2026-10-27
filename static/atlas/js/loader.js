@@ -197,6 +197,22 @@ export async function getDocuments() {
   return documentsCache;
 }
 
+/** The guided tours (A28): `{ list, byId }` in the authored order, or `null` when this
+ * data build has no `tours.json` (the manifest does not list it: the fixtures). The
+ * file is lazy: nothing asks for it until a tour, the Tours list or a topic panel is
+ * opened. A listed file that fails to load throws; that is an error, not "no tours". */
+let toursCache = null;
+export async function getTours() {
+  if (toursCache) return toursCache;
+  if (!(await isBundleListed('tours.json'))) return null;
+  const raw = await fetchJSON('tours.json');
+  const table = raw.tours || {};
+  const order = Array.isArray(raw.order) ? raw.order.filter((id) => table[id]) : Object.keys(table).sort();
+  const list = order.map((id) => table[id]);
+  toursCache = { list, byId: new Map(list.map((tour) => [tour.id, tour])) };
+  return toursCache;
+}
+
 let sourcesCache = null;
 export async function getSources() {
   if (sourcesCache) return sourcesCache;

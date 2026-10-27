@@ -17,6 +17,7 @@ import * as classroom from './classroom.js';
 import * as startModule from './start.js';
 import { createViewHost } from './views/host.js';
 import { mountTray } from './research/compare-tray.js';
+import * as tourModule from './tours.js';
 import { viewSearchEntries } from './views/registry.js';
 import * as exportModule from './export.js';
 import {
@@ -243,6 +244,11 @@ async function main() {
 
   const index = buildIndex(atlas);
 
+  // Guided tours (js/tours.js) are only offered when the data build carries tours.json
+  // (the fixture tree does not): the header's Tours button, the Start card's row.
+  const hasTours = await loader.isBundleListed('tours.json');
+  const tourRows = searchEntries.filter((entry) => entry.type === 'tour').length;
+
   // ---- filters (docs/HEP_ATLAS_ARCHITECTURE.md "Clustering and filters")
   const topicIndex = filtersModule.buildTopicIndex(atlas.topics);
   // Built once and reused (mirrors topicIndex above), rather than inside the
@@ -266,6 +272,8 @@ async function main() {
     searchInput: els.searchInput,
     getGlobe: () => globeApi,
     firstVisit,
+    tours: hasTours,
+    tourCount: tourRows || null,
   });
   const hasGL2 = globeModule.supportsWebGL2();
   // "Take it to a slide": the header's Export image control and the facility sheet.
@@ -294,8 +302,26 @@ async function main() {
     state.navigate({ entity: { type: 'collaboration', slug }, mode: 'collab', collab: slug });
   }
 
+  // The guided-tour player. It is created before the Escape handler below, so a tour takes
+  // Escape first (it closes presenter mode, then the record beside the card, then the tour).
+  const tourPlayer = tourModule.createPlayer({
+    card: document.getElementById('tour-card'),
+    main: document.getElementById('atlas-main'),
+    getGlobe: () => globeApi,
+    getState: state.get,
+    navigate: state.navigate,
+    refresh: () => applyState(state.get()),
+    index,
+    searchInput: els.searchInput,
+  });
+  // The record panel's × means "close the record" while a tour is open, not "leave the tour".
+  const panelNavigate = (patch, options) => {
+    if (tourPlayer.interceptPanelNavigate(patch)) return;
+    state.navigate(patch, options);
+  };
+
   panels.init({
-    el: els.detailPanel, atlas, index, navigate: state.navigate, focusGlobe, viewOnGlobe,
+    el: els.detailPanel, atlas, index, navigate: panelNavigate, focusGlobe, viewOnGlobe,
   });
 
   // The compare tray (js/research/compare-tray.js): the experiments chosen with "Add to
@@ -356,16 +382,29 @@ async function main() {
   }
 
   // ---- timeline -------------------------------------------------------
+  // The globe and the filter panel follow the timeline position. The slider announces
+  // its own moves (onChange below); a position that arrives with the address instead
+  // (Back and Forward, or a tour step's year) reaches the same two places from
+  // applyState, and only when it differs from what they were last given.
+  let appliedTimeline = null;
+  function applyTimelineToGlobe(timelineState) {
+    const key = timelineState.range ? `r${timelineState.range[0]}-${timelineState.range[1]}`
+      : timelineState.year != null ? `y${timelineState.year}` : null;
+    if (key === null || key === appliedTimeline) return;
+    appliedTimeline = key;
+    if (globeApi) {
+      if (timelineState.range) globeApi.setRange(timelineState.range[0], timelineState.range[1]);
+      else globeApi.setYear(timelineState.year);
+    }
+    filterPanel.updateForTimeline(timelineState);
+  }
   const timeline = createTimeline(els.timelineBar, {
     minYear: (manifest.timeline && manifest.timeline.min_year) || 1950,
     maxYear: (manifest.timeline && manifest.timeline.max_year) || new Date().getFullYear() + 10,
     defaultYear: (manifest.timeline && manifest.timeline.default_year) || new Date().getFullYear(),
     onChange: (t) => {
-      if (globeApi) {
-        if (t.mode === 'year') globeApi.setYear(t.year); else globeApi.setRange(t.range[0], t.range[1]);
-      }
       const timelineState = t.mode === 'year' ? { year: t.year } : { range: t.range };
-      filterPanel.updateForTimeline(timelineState);
+      applyTimelineToGlobe(timelineState);
       state.navigate(t.mode === 'year' ? { year: t.year, range: null } : { year: null, range: t.range }, { replace: true });
     },
   });
@@ -383,6 +422,9 @@ async function main() {
   els.arcsToggle.addEventListener('change', () => {
     state.navigate({ arcs: els.arcsToggle.checked }, { replace: true });
   });
+  // The Tours button appears once its click is wired (and only when the build has tours).
+  const toursButton = document.getElementById('tours-mode-btn');
+  if (toursButton) toursButton.hidden = !hasTours;
 
   // ---- Escape closes the open panel (§23) -------------------------------
   // The detail panel and the topic/results/docs mode panel are the only two
@@ -491,7 +533,29 @@ async function main() {
   let lastCollabShown = null;
   // Which topic the globe is currently highlighting for (or null).
   let highlightedTopic = null;
-  async function applyState(current) {
+
+  // A tour route (`#/tour/<slug>?step=<n>`) is drawn as the state its current step names (a
+  // selection beside the globe, a local map or a view), by the code that draws each of
+  // those; the player holds the card. `#/view/tour/<slug>` is the same route by another name.
+  async function applyState(raw) {
+    if (raw.entity && raw.entity.type === 'view' && raw.entity.slug.startsWith('tour/')) {
+      state.navigate({
+        entity: { type: 'tour', slug: raw.entity.slug.slice('tour/'.length) }, step: raw.step, present: raw.present,
+      }, { replace: true });
+      return;
+    }
+    let current = raw;
+    if (raw.entity && raw.entity.type === 'tour') {
+      current = await tourPlayer.resolve(raw);
+      if (!current) return;
+    } else {
+      tourPlayer.leave();
+    }
+    await applyEffective(current);
+    tourPlayer.settle(current);
+  }
+
+  async function applyEffective(current) {
     for (const btn of els.modeButtons.querySelectorAll('.mode-toggle')) {
       const on = (btn.dataset.mode || null) === (current.mode || null);
       btn.classList.toggle('is-active', on);
@@ -518,8 +582,9 @@ async function main() {
         highlightedTopic = topicId;
         const markers = topicId ? topicMarkerIds(atlas, topicId) : null;
         globeApi.setHighlight(markers && markers.size ? markers : null);
-        // The camera goes to what is lit: the places the topic is about.
-        if (markers && markers.size) frameTopic(markers);
+        // The camera goes to what is lit: the places the topic is about (a tour step names
+        // its own camera).
+        if (markers && markers.size && !tourPlayer.ownsCamera()) frameTopic(markers);
       }
     }
 
@@ -530,10 +595,11 @@ async function main() {
       const entity = selectionFor(current.entity);
       const cameraOwnedByCollaboration = current.mode === 'collab'
         && !!current.entity && current.entity.type === 'collaboration';
-      globeApi.select(entity, { fly: !cameraOwnedByCollaboration });
+      globeApi.select(entity, { fly: !cameraOwnedByCollaboration && !tourPlayer.ownsCamera() });
     }
 
     timeline.syncFromState(current);
+    applyTimelineToGlobe(current.range ? { range: current.range } : { year: current.year });
 
     // A shared institution link carries its collaboration in `c`.
     if (current.collab) panels.setCollaborationContext(`collaboration:${current.collab}`);
@@ -601,7 +667,7 @@ async function main() {
       if (localmap.isOpen()) {
         localmap.hide();
         panels.init({
-          el: els.detailPanel, atlas, index, navigate: state.navigate, focusGlobe, viewOnGlobe,
+          el: els.detailPanel, atlas, index, navigate: panelNavigate, focusGlobe, viewOnGlobe,
         });
       }
       await views.show(current);
@@ -635,13 +701,15 @@ async function main() {
       await localmap.show(current, {
         atlas, index, navigate: state.navigate, panels, timelineState: mapTimeline,
         loaderBase: loader.base(),
+        // A tour step's map frames its own subject (js/tours.js), not the whole campus.
+        ...(tourPlayer.mapFraming(current) || {}),
       });
       return;
     }
     if (localmap.isOpen()) {
       localmap.hide();
       panels.init({
-        el: els.detailPanel, atlas, index, navigate: state.navigate, focusGlobe, viewOnGlobe,
+        el: els.detailPanel, atlas, index, navigate: panelNavigate, focusGlobe, viewOnGlobe,
       });
     }
     // ---- local map view -- end ------------------------------------------
@@ -651,6 +719,12 @@ async function main() {
     // setYear/setRange split), so the detail panel's status badge always
     // reflects exactly what's currently selected.
     const timelineState = current.range ? { range: current.range } : { year: current.year };
+    if (tourPlayer.active()) {
+      // The globe stage is showing: the step's camera, then its record beside the card.
+      tourPlayer.frame(current);
+      await panels.render(tourPlayer.panelRoute(current), timelineState, { focus: tourPlayer.takePanelFocus() });
+      return;
+    }
     await panels.render(current.entity, timelineState);
   }
 

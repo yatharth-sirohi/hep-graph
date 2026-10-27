@@ -949,6 +949,15 @@ def build_search_bundle(ctx: _Context) -> dict:
             aliases = [alias for alias in stripped.get('aliases') or [] if isinstance(alias, str)]
             entries.append([entity_type, entity_id, record.get('name'), sorted(aliases),
                             _subtitle(ctx, entity_type, record, stripped)])
+    # A28: a guided tour is found by name, and by the words of its summary (matched, not
+    # shown), so "Higgs", "oscillation" or "Gargamelle" reaches the tour that tells it. A
+    # tour is kept out of `ctx.stripped` (its evidence travels in tours.json), so its row is
+    # written here rather than by the loop above.
+    for tour_id in sorted(ctx.atlas.by_type('tour')):
+        tour = ctx.atlas.by_type('tour')[tour_id]
+        steps = len(tour.get('steps') or [])
+        entries.append(['tour', tour_id, tour.get('name'), [],
+                        _join(['Guided tour', f'{steps} steps', tour.get('summary')])])
     entries.sort(key=lambda entry: (entry[0], entry[1]))
     return {'schema': schema.SCHEMA_TAG, 'entries': entries}
 

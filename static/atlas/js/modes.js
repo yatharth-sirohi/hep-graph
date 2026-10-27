@@ -1,8 +1,10 @@
-// modes.js — the three browsing modes that sit beside the default globe
-// view: a research-topic tree, a filterable results list, and the document
-// library. Each renders into the #mode-panel container.
+// modes.js — the browsing modes that sit beside the default globe view: a
+// research-topic tree, a filterable results list, the document library and the
+// list of guided tours. Each renders into the #mode-panel container.
 
 import { titleCase, fmtDate, buildIndex } from './model.js';
+import * as loader from './loader.js';
+import { tourMeta, tourSlug } from './tour-data.js';
 import { exportBar } from './research/list-export.js';
 
 let ctx = null; // { container, atlas, results, documents, navigate, getState, setTimelineYear }
@@ -542,7 +544,73 @@ function renderDocsMode() {
   ]);
 }
 
-const MODE_RENDERERS = { topic: renderTopicMode, results: renderResultsMode, docs: renderDocsMode };
+// -------------------------------------------------------------- tours mode
+// The guided tours (js/tours.js): each with what it is, how long it takes and a way in.
+// tours.json is fetched when this list opens (never at first paint), and a failure says
+// so with a Retry: an empty list would read as "this Atlas has no tours".
+function renderToursMode() {
+  const body = h('div', { class: 'mode-body tours-mode' });
+  const scroll = h('div', { class: 'mode-scroll' });
+
+  function startTour(slug, present) {
+    ctx.navigate({ entity: { type: 'tour', slug }, step: 1, present, mode: null });
+  }
+
+  function row(tour) {
+    const slug = tourSlug(tour.id);
+    const start = h('a', { href: `#/tour/${slug}?step=1`, class: 'primary-btn tour-start' }, 'Start the tour');
+    start.addEventListener('click', (event) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      startTour(slug, false);
+    });
+    const present = h('a', { href: `#/tour/${slug}?step=1&present=1`, class: 'text-btn tour-start-present' }, 'Present it');
+    present.addEventListener('click', (event) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      startTour(slug, true);
+    });
+    const steps = h('ol', { class: 'tour-steps' }, (tour.steps || []).map((s) => h('li', {}, s.title)));
+    return h('li', { class: 'tour-row' }, [
+      h('h3', { class: 'tour-row-title' }, tour.name),
+      h('p', { class: 'tour-row-meta' }, tourMeta(tour)),
+      tour.summary ? h('p', { class: 'tour-row-summary' }, tour.summary) : null,
+      tour.audience ? h('p', { class: 'tour-row-audience' }, tour.audience) : null,
+      h('details', { class: 'tour-row-steps' }, [h('summary', {}, 'The steps'), steps]),
+      h('div', { class: 'tour-row-actions' }, [start, present]),
+    ]);
+  }
+
+  async function fill() {
+    scroll.replaceChildren(h('p', { class: 'loading-note', role: 'status' }, 'Loading the tours…'));
+    try {
+      const data = await loader.getTours();
+      if (!scroll.isConnected) return;
+      if (!data || !data.list.length) {
+        scroll.replaceChildren(h('p', { class: 'empty-note' }, 'This data build has no guided tours.'));
+        return;
+      }
+      scroll.replaceChildren(h('ul', { class: 'tour-list' }, data.list.map(row)));
+    } catch (error) {
+      if (!scroll.isConnected) return;
+      const retry = h('button', { type: 'button', class: 'text-btn' }, 'Retry');
+      retry.addEventListener('click', fill);
+      scroll.replaceChildren(h('p', { class: 'error-note', role: 'alert' }, `The tours could not be loaded: ${error.message}.`), retry);
+    }
+  }
+
+  body.append(
+    h('h2', {}, 'Guided tours'),
+    h('p', { class: 'mode-hint' }, 'Short walks through the Atlas, one story each. Every sentence is sourced; open Sources on a step to see where.'),
+    scroll,
+  );
+  fill();
+  return body;
+}
+
+const MODE_RENDERERS = {
+  topic: renderTopicMode, results: renderResultsMode, docs: renderDocsMode, tours: renderToursMode,
+};
 
 // §23 "focus returning to the trigger" — same contract as panels.js's
 // openerElement: capture whatever was focused (the Topics/Results/Documents
