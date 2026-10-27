@@ -1,0 +1,153 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:elegant-v-nai"
+  ],
+  "id": "detector:elegant-v-nai",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "kind": "phase",
+      "label": "NaI modules deployed at the Kamioka underground laboratory (first configuration)",
+      "locator": "arXiv:2607.24448, Sec. 2.3.3",
+      "note": "Per the 2026 review, nine of the 20 NaI modules of ELEGANT V were assembled in 1992 and deployed at Kamioka; the central 36.5 kg detector was used for the dark matter search and the others as active shielding. The sources do not say when this configuration ended.",
+      "quote": "9 were assembled in 1992 and deployed at Kamioka Underground Laboratory.",
+      "sources": [
+        "src:nai-dark-matter-review-2026"
+      ],
+      "start": "1992",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "phase",
+      "label": "ELEGANT V in the Oto Cosmo Observatory (16 NaI scintillators, 0.76 tons)",
+      "locator": "RCNP Annual Report 2001, p. 1",
+      "note": "Start of the experimental room's use for ELEGANT V at Oto; 'ELEGANT V consists of 16 NaI scintillators. The large volumes (0.76 tons) NaI in ELEGANT V are used for study of Dark Matter(DM) problem.'",
+      "quote": "is used for ELEGANT V [3] from April in 1997.",
+      "sources": [
+        "src:rcnp-annual-report-2001-oto-cosmo-observatory"
+      ],
+      "start": "1997-04",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed (no end date published)",
+      "locator": "arXiv:astro-ph/0611700, Sec. 4",
+      "note": "The 2006 PICO-LON paper speaks of the old lead 'which was used for the shield of ELEGANT V' (past tense). The latest source that shows ELEGANT V running is the 2001 annual report; its Oto limits are shown in a 2005 paper (arXiv:astro-ph/0506329). No shutdown date is published.",
+      "quote": "thick old lead, which was used for the shield of ELEGANT V.",
+      "sources": [
+        "src:pico-lon-multilayer-thin-nai-2006"
+      ],
+      "start": "2006",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "ELEGANT V NaI array",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "RCNP Annual Report 2001, p. 1",
+      "note": "Oto Cosmo Observatory: the experimental room 3 km from the Oto entrance (RCNP Annual Report 2001).",
+      "quote": "is used for ELEGANT V [3] from April in 1997.",
+      "role": "main",
+      "site_id": "site:oto-cosmo-observatory",
+      "sources": [
+        "src:rcnp-annual-report-2001-oto-cosmo-observatory"
+      ],
+      "start": "1997-04",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": "1997-04",
+      "locator": "arXiv:2607.24448, Sec. 2.3.3",
+      "note": "Kamioka Underground Laboratory; the review names no hall or mine area, so the Observatory's primary site (Mozumi) is used. End inferred; see the facility role.",
+      "quote": "9 were assembled in 1992 and deployed at Kamioka Underground Laboratory.",
+      "role": "prototype",
+      "site_id": "site:kamioka-mozumi-mine-super-kamiokande",
+      "sources": [
+        "src:nai-dark-matter-review-2026"
+      ],
+      "start": "1992",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:rcnp-annual-report-2001-oto-cosmo-observatory",
+    "src:rcnp-lepton-nuclear-physics-oto-page",
+    "src:wimp-direct-searches-overview-2002",
+    "src:wimps-highly-segmented-scintillator-2005",
+    "src:pico-lon-multilayer-thin-nai-2006",
+    "src:nai-dark-matter-review-2026"
+  ],
+  "specs": {
+    "module_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "16",
+      "locator": "RCNP Annual Report 2001, p. 1",
+      "note": "",
+      "quote": "ELEGANT V consists of 16 NaI scintillators.",
+      "sources": [
+        "src:rcnp-annual-report-2001-oto-cosmo-observatory"
+      ],
+      "unit": "",
+      "value": 16,
+      "verified_at": "2026-10-26"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "0.76 tons",
+      "locator": "RCNP Annual Report 2001, p. 1",
+      "note": "",
+      "quote": "The large volumes (0.76 tons) NaI in ELEGANT V",
+      "sources": [
+        "src:rcnp-annual-report-2001-oto-cosmo-observatory"
+      ],
+      "unit": "t",
+      "value": 0.76,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "ELEGANT V was a 0.76-ton array of sodium iodide crystals in Japan's Oto Cosmo Observatory, an underground laboratory in Nara, used to search for dark matter alongside double-beta-decay studies. Its crystals and lead shield later served the PICO-LON dark matter project.",
+    "technical": "ELEGANT V (ELEctron GAmma-ray Neutrino Telescope V) at the Oto Cosmo Observatory: 16 NaI(Tl) scintillators (0.76 tons) inside lead and copper shields with drift chambers and plastic scintillators around a 100Mo double-beta source; the NaI array was used for dark matter searches (spin-dependent limits and an annual modulation search per the 2002 overview). An earlier configuration with nine NaI modules (central 36.5 kg detector) was deployed at Kamioka in 1992 (threshold 4 keV, background ~5.1 cpd/kg/keV at 5 keV)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "RCNP Annual Report 2001, p. 1",
+    "note": "",
+    "quote": "ELEGANT V consists of 16 NaI scintillators.",
+    "sources": [
+      "src:rcnp-annual-report-2001-oto-cosmo-observatory"
+    ],
+    "value": "Array of 16 NaI(Tl) scintillators (0.76 tons) inside lead and copper shields",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "scintillating_crystal",
+  "technology_classes": [
+    "scintillating_crystal"
+  ],
+  "type": "detector"
+}

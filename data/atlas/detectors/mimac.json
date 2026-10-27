@@ -1,0 +1,129 @@
+{
+  "aliases": [
+    "MIMAC-35cm"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:mimac"
+  ],
+  "id": "detector:mimac",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2012-06",
+      "kind": "lifecycle",
+      "label": "project initiated at LPSC Grenoble; prototype development",
+      "locator": "arXiv:1504.05865, introduction",
+      "note": "Start verified (2007). End = installation of the bi-chamber prototype at the Laboratoire Souterrain de Modane in June 2012 (arXiv:1311.0616, Sec. 3).",
+      "quote": "The MIMAC experiment is a directional detection project initiated in 2007 at the Laboratoire de Physique Subatomique et de Cosmologie (LPSC Grenoble-France) [22] in collaboration with IRFU-Saclay, CPPM- Marseille, IRSN and recently the Tsinghua University.",
+      "sources": [
+        "src:mimac-radon-progeny-tracks-2015",
+        "src:mimac-bichamber-modane-2013"
+      ],
+      "start": "2007",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "bi-chamber module operating at the Laboratoire Souterrain de Modane",
+      "locator": "arXiv:1311.0616, Sec. 3",
+      "note": "Start verified (June 2012, upgrades June 2013 and June 2014 per arXiv:1607.08765). Open interval: arXiv:2607.23527 (July 2026) analyses a multi-year data set from the two chambers and announces future campaigns with the upgraded MIMAC-35cm detector; no source states whether the Modane run is still taking data.",
+      "quote": "The MIMAC bi-chamber prototype was installed at the Laboratoire Souterrain de Modane (LSM) in June 2012",
+      "sources": [
+        "src:mimac-bichamber-modane-2013",
+        "src:mimac-first-directional-limits-2026"
+      ],
+      "start": "2012-06",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2012-10-12",
+      "kind": "run",
+      "label": "first available bi-chamber data set at Modane",
+      "locator": "arXiv:1311.0616, Sec. 4",
+      "note": "Gas circulation was shut down on 2012-10-03 (same section).",
+      "quote": "The first available data set of the bi-chamber prototype was started on July 5th 2012 and finished on October 12th 2012.",
+      "sources": [
+        "src:mimac-bichamber-modane-2013"
+      ],
+      "start": "2012-07-05",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "MIMAC bi-chamber micro-TPC module",
+  "notes": [
+    "The MIMAC-35cm detector (35 x 35 x 29 cm^3, measured in a surface laboratory per arXiv:2602.17880) is the planned upgrade and is not a separate record."
+  ],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "arXiv:1311.0616, Sec. 3",
+      "note": "The hall within the Laboratoire Souterrain de Modane is not named in the sources read; the LSM laboratory point (approximate, OpenStreetMap-georeferenced) is referenced.",
+      "quote": "The MIMAC bi-chamber prototype was installed at the Laboratoire Souterrain de Modane (LSM) in June 2012",
+      "role": "main",
+      "site_id": "site:lsm-frejus",
+      "sources": [
+        "src:mimac-bichamber-modane-2013"
+      ],
+      "start": "2012-06",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:mimac-bichamber-modane-2013",
+    "src:mimac-radon-progeny-tracks-2015",
+    "src:mimac-first-directional-limits-2026",
+    "src:mimac-kev-proton-carbon-directionality-2023"
+  ],
+  "specs": {
+    "active_volume": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "volume",
+      "display": "6 L",
+      "locator": "arXiv:2607.23527, abstract",
+      "note": "Active volume as stated in the abstract for the detector with two independent chambers; the text gives 10.8 x 10.8 x 25 cm^3 per chamber.",
+      "quote": "the detector allows the reconstruction of the 3D tracks of nuclear recoils produced in the 6 liter active volume",
+      "sources": [
+        "src:mimac-first-directional-limits-2026"
+      ],
+      "unit": "L",
+      "value": 6,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "MIMAC is a French dark matter experiment in the Modane underground laboratory. Its low-pressure gas chambers record the three-dimensional track of the nucleus a particle knocks, aiming to show which direction a dark matter particle came from. In 2026 it published its first directional limit.",
+    "technical": "MIcro-tpc MAtrix of Chambers: low-pressure (30 mbar) micro-TPCs, gas 50% i-C4H10 + 50% CHF3, pixelated Micromegas anode (424 um pitch) read every 20 ns by self-triggered electronics; bi-chamber module (two 10.8 x 10.8 x 25 cm^3 chambers) at the Laboratoire Souterrain de Modane since June 2012, unshielded. 2026: no excess towards Cygnus, sigma_SD-p < 6.65e-36 cm^2 (90% CL) from 495.1 and 354.2 day exposures. Next: MIMAC-35cm (twelve times the active volume, 100 eV threshold)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2607.23527, introduction",
+    "note": "",
+    "quote": "The MIMAC detector is a micro-Time Projection Chamber (µ-TPC) designed to measure both the kinetic energy and the 3D track of a recoiling nucleus.",
+    "sources": [
+      "src:mimac-first-directional-limits-2026"
+    ],
+    "value": "Low-pressure (30 mbar) gaseous micro-TPC with pixelated Micromegas anode and fast self-triggered electronics",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "gaseous_tpc",
+  "technology_classes": [
+    "gaseous_tpc"
+  ],
+  "type": "detector"
+}

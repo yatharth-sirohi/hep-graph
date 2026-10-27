@@ -1,0 +1,204 @@
+{
+  "aliases": [
+    "Transition Edge Sensors with Sub-eV Resolution And Cryogenic Targets",
+    "TESSERACT@LSM"
+  ],
+  "collaboration_ids": [
+    "collaboration:tesseract"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:modane-underground-laboratory",
+      "locator": "Nucl. Phys. B 1003 (2024) 116465, Sec. 1.2",
+      "note": "Proposed, not approved by a source read: the Modane host proposal is documented (Nucl. Phys. B 2024; TAUP 2025 slides titled 'Proposed experiment at LSM'). Start is the beginning of the discussions about hosting at LSM ('early 2022'); the US-based TESSERACT R&D is older.",
+      "quote": "Since early 2022, the French CNRS-IN2P3 laboratories IP2I, LPSC, and IJCLab are discussing with the USA-based TESSERACT collaboration in order to 1) install a dedicated cryostat for TESSERACT at the underground Modane Laboratory (LSM)",
+      "role": "host",
+      "sources": [
+        "src:tesseract-modane-proposal-nuclphysb-2024"
+      ],
+      "start": "2022",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:tesseract",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "proposed experiment with a dedicated cryostat at LSM",
+      "locator": "Nucl. Phys. B 1003 (2024) 116465, Sec. 1.2",
+      "note": "Proposed, not approved by a source read: the Modane host proposal is documented (Nucl. Phys. B 2024; TAUP 2025 slides titled 'Proposed experiment at LSM'). Start is the beginning of the discussions about hosting at LSM ('early 2022'); the US-based TESSERACT R&D is older.",
+      "quote": "Since early 2022, the French CNRS-IN2P3 laboratories IP2I, LPSC, and IJCLab are discussing with the USA-based TESSERACT collaboration in order to 1) install a dedicated cryostat for TESSERACT at the underground Modane Laboratory (LSM)",
+      "sources": [
+        "src:tesseract-modane-proposal-nuclphysb-2024"
+      ],
+      "start": "2022",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2028",
+        "planned": true
+      },
+      "label": "planned installation of the two TESSERACT setups at LSM",
+      "locator": "TAUP 2025 slide 15",
+      "note": "A schedule, not a report. Earlier schedules were earlier (NPB 2024: first searches 2026; LBNL 2025: construction from 2025, online ~2029); the most recent sources (Oct 2025, June 2026) say 2028.",
+      "quote": "The two setups will be in LSM between 2027 and 2028",
+      "sources": [
+        "src:tesseract-taup2025-slides"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2027",
+        "display": "between 2027 and 2028",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "planned full integration of the TESSERACT setup at LSM",
+      "locator": "IDM 2026 talk abstract",
+      "note": "June 2026 abstract; a plan, not a report.",
+      "quote": "Full integration of the TESSERACT setup at the Modane Underground Laboratory (LSM) is planned for 2028.",
+      "sources": [
+        "src:tesseract-idm2026-abstract"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2028",
+        "display": "planned for 2028",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Lowest dark matter mass aimed at (design)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass_energy",
+        "display": "10 MeV",
+        "locator": "Nucl. Phys. B 1003 (2024) 116465, abstract",
+        "note": "",
+        "quote": "Currently TESSERACT is in a design phase aiming to produce fully defined detector technologies that will explore DM masses down to 10 MeV.",
+        "sources": [
+          "src:tesseract-modane-proposal-nuclphysb-2024"
+        ],
+        "unit": "MeV/c^2",
+        "value": 10,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Overburden at the proposed host (LSM)",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "depth_mwe",
+        "display": "about 4800 m water equivalent",
+        "locator": "Nucl. Phys. B 1003 (2024) 116465, Sec. 3",
+        "note": "",
+        "quote": "The mean rock thickness of 1700 m (about 4800 m water equivalent)",
+        "sources": [
+          "src:tesseract-modane-proposal-nuclphysb-2024"
+        ],
+        "unit": "m.w.e.",
+        "value": 4800,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Surface prototype baseline energy resolution",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "258.5 meV",
+        "locator": "arXiv:2505.16092, abstract",
+        "note": "Silicon prototype, 1 mm thick, operated above ground at UC Berkeley.",
+        "quote": "In our final dataset, we report a world-leading energy resolution of 258.5$\\pm$0.4 meV in the 1 mm thick detector.",
+        "sources": [
+          "src:tesseract-phonon-bursts-2025-arxiv"
+        ],
+        "unit": "meV",
+        "value": 258.5,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "home page",
+      "note": "",
+      "quote": "The TESSERACT Collaboration is developing two experiments, SPICE and HeRALD, to search to low mass particle dark matter.",
+      "sources": [
+        "src:tesseract-official-site"
+      ],
+      "value": "https://tesseract.lbl.gov/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "TESSERACT",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Status 'proposed' (not 'approved' or 'construction'): sources read speak of 'Proposed experiment at LSM' (TAUP 2025 slides) and 'a period of targeted R&D' (IDM 2026 abstract). Slides of an earlier talk say 'Selected for DOE funding starting FY25' (not cited as an interval: the scope of the funding decision is not stated).",
+    "SPICE and HeRALD are the experiment's detector technologies; they also have their own records (experiment:spice, experiment:herald) because the collaboration's site calls them 'two experiments'. The third French Ge/Si bolometer module has no record: it is a proposal inside the TESSERACT payload.",
+    "Schedules conflict over time: NPB 2024 'first competitive ultra-light DM searches starting in 2026'; LBNL March 2025 'Construction is slated to begin in 2025, with the experiment coming online around 2029'; TAUP 2025 'between 2027 and 2028'; IDM 2026 'full integration ... planned for 2028'. The latest two are recorded as planned intervals."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "Nucl. Phys. B 1003 (2024) 116465, Sec. 1.2",
+      "note": "",
+      "quote": "The future TESSERACT (Transition Edge Sensors with Sub-eV Resolution And Cryogenic Targets) experiment aims at detecting light dark matter, from the proton mass down to a fraction of an electronvolt",
+      "sources": [
+        "src:tesseract-modane-proposal-nuclphysb-2024"
+      ],
+      "value": "Search for sub-GeV dark matter, from the proton mass down to a fraction of an electronvolt, through nuclear and electron recoils",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:tesseract-modane-proposal-nuclphysb-2024",
+    "src:tesseract-official-site",
+    "src:tesseract-papers-page",
+    "src:tesseract-lbnl-news-2025",
+    "src:tesseract-idm2026-abstract",
+    "src:tesseract-cpad2025-abstract",
+    "src:tesseract-taup2025-slides"
+  ],
+  "status": "proposed",
+  "summary": {
+    "plain": "TESSERACT is a planned dark matter experiment that uses ultra-sensitive superconducting sensors to look for particles far lighter than a proton. Its detectors are proposed for the deep Modane underground laboratory in the French Alps. A surface prototype at Berkeley has already set new limits.",
+    "technical": "Proposed multi-target cryogenic experiment for sub-GeV dark matter (nuclear and electron recoils) with transition-edge-sensor athermal-phonon readout: SPICE (Al2O3, SiO2 polar crystals and GaAs scintillator), HeRALD (superfluid 4He) and a proposed French Ge/Si bolometer module, 10 g to 1 kg of each target, aiming at masses down to 10 MeV/c^2. Proposed host: LSM (about 4800 m.w.e.), in the former EDELWEISS-III area, with two similar cryostats. First result: 2025 above-ground limits from a 0.233 g Si detector (44-87 MeV/c^2). Schedule per June 2026: full integration at LSM planned for 2028."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

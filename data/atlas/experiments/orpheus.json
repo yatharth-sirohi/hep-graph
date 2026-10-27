@@ -1,0 +1,192 @@
+{
+  "aliases": [
+    "ORPHEUS dark matter detector"
+  ],
+  "collaboration_ids": [
+    "collaboration:orpheus"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": "2005",
+      "facility_id": "facility:bern-underground-laboratory",
+      "locator": "arXiv:hep-ex/9911028, Sec. on ORPHEUS",
+      "note": "Start: the 1999 review, which says the collaboration is setting up the detector in the Bern underground laboratory; end: last evidence of operation (2005). The ORPHEUS acronym is not expanded in the sources read.",
+      "quote": "in the Bern Underground Laboratory at 70 m.w.e.",
+      "role": "host",
+      "sources": [
+        "src:pretzl-cryogenic-calorimeters-1999"
+      ],
+      "start": "1999",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:orpheus",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2002",
+      "label": "set-up of the 1 kg SSG detector",
+      "locator": "arXiv:hep-ex/9911028, Sec. on ORPHEUS",
+      "note": "Start: year of the review that says the collaboration 'is setting up' the detector. End: the first data taking reported, in 2002 (arXiv:astro-ph/0404311, Sec. 3). Neither date is published as such.",
+      "quote": "the ORPHEUS collaboration is setting up a 1kg SSG detector",
+      "sources": [
+        "src:pretzl-cryogenic-calorimeters-1999"
+      ],
+      "start": "1999",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2005",
+      "label": "operation of the 0.45 kg SSG detector",
+      "locator": "arXiv:astro-ph/0404311, abstract",
+      "note": "Start: first data taking in 2002; the 2004 abstract says the detector 'is operating'; the February 2005 review lists it as 'in operation'. The end is the last evidence of operation, not a shutdown date.",
+      "quote": "The ORPHEUS dark matter detector is operating at our underground laboratory in Bern (70 m.w.e.).",
+      "sources": [
+        "src:orpheus-first-results-2004"
+      ],
+      "start": "2002",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2002",
+      "kind": "run",
+      "label": "run of two months at 170 mK",
+      "locator": "arXiv:astro-ph/0404311, Sec. 3",
+      "note": "Year precision; the paper gives no start month.",
+      "quote": "We were able to take data continuously during two months in 2002 at a temperature of 170 mK",
+      "sources": [
+        "src:orpheus-first-results-2004"
+      ],
+      "start": "2002",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2003",
+      "kind": "run",
+      "label": "run of three weeks at 115 mK",
+      "locator": "arXiv:astro-ph/0404311, Sec. 3",
+      "note": "Year precision; the paper gives no start month. This run used an upgraded acquisition system.",
+      "quote": "and during 3 weeks in 2003 at 115 mK",
+      "sources": [
+        "src:orpheus-first-results-2004"
+      ],
+      "start": "2003",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed (no later activity found)",
+      "locator": "arXiv:physics/0502065, Sec. 5",
+      "note": "No source read shows ORPHEUS running after February 2005 and none gives a shutdown date; the completed status is inferred from that silence and marked uncertain.",
+      "quote": "and with SSG of 0.5 kg (ORPHEUS) are in operation",
+      "sources": [
+        "src:pretzl-calorimeters-review-2005"
+      ],
+      "start": "2005",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Tin granule mass (initial phase)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "0.45 kg of tin granules",
+        "locator": "arXiv:astro-ph/0404311, abstract",
+        "note": "",
+        "quote": "In an initial phase, 0.45 kg of tin granules in a segmented detector volume have been used.",
+        "sources": [
+          "src:orpheus-first-results-2004"
+        ],
+        "unit": "kg",
+        "value": 0.45,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Overburden",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "depth_mwe",
+        "display": "70 m.w.e.",
+        "locator": "arXiv:astro-ph/0404311, abstract",
+        "note": "",
+        "quote": "operating at our underground laboratory in Bern (70 m.w.e.)",
+        "sources": [
+          "src:orpheus-first-results-2004"
+        ],
+        "unit": "m.w.e.",
+        "value": 70,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Detector base temperature",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "temperature",
+        "display": "115 mK",
+        "locator": "arXiv:astro-ph/0404311, Sec. 2.3",
+        "note": "",
+        "quote": "The detector chamber is kept at a base temperature of 115 mK",
+        "sources": [
+          "src:orpheus-first-results-2004"
+        ],
+        "unit": "mK",
+        "value": 115,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "ORPHEUS",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Inclusion: named experiment at a fixed underground site with published physics results (Astropart. Phys. 22, 199 (2004)); tier C because only one data paper exists and the abstract states no numerical limit.",
+    "The first-results paper says results of the 2002 run were published earlier in conference papers (its refs 16-18); those were not read."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:orpheus-first-results-2004",
+    "src:orpheus-ssg-nuclear-recoils-1995",
+    "src:pretzl-cryogenic-calorimeters-1999",
+    "src:pretzl-calorimeters-review-2005"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "ORPHEUS searched for dark matter with a cloud of tiny tin grains kept just below the point where they stop being superconducting, in the University of Bern's shallow underground laboratory. A particle hit can flip one grain, which a coil senses as a magnetic change. It took data in 2002 and 2003 and published first results in 2004.",
+    "technical": "Superheated superconducting granule (SSG) detector: 0.45 kg of Sn granules (mean diameters 27.7 and 36.6 um, 10% volume filling in Teflon powder) in 56 pick-up coils at a base temperature of 115 mK; a WIMP recoil heats a granule above its superheated state and the lost Meissner effect is read as a flux change. Shielding of 15 cm lead, 4 cm copper and 18 cm borated polyethylene plus a plastic-scintillator muon veto at 70 m.w.e. Runs of two months (2002) and three weeks (2003); the paper derives a 90% C.L. spin-independent exclusion plot, lying above those of other experiments because of the relatively high background."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

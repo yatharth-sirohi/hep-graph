@@ -1,0 +1,102 @@
+{
+  "aliases": [
+    "KSNL",
+    "Kuo-Sheng Laboratory"
+  ],
+  "country": [
+    "TW"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "id": "facility:kuo-sheng-reactor-neutrino-laboratory",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2000",
+      "label": "design and construction of the laboratory",
+      "locator": "arXiv:1608.00306, Sec. 3.1",
+      "note": "Year precision; 2000 is the year the Academia Sinica news item says the laboratory was built and commissioned.",
+      "quote": "Conceptual design discussions were initiated in 1997.",
+      "sources": [
+        "src:texono-history-status-prospects-2016"
+      ],
+      "start": "1997",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2001-07",
+      "label": "laboratory built and commissioned",
+      "locator": "Academia Sinica E-news No. 324",
+      "note": "Year precision for the start; the end is the start of first physics data taking (July 2001).",
+      "quote": "It built and commissioned the “Kuo-Sheng Reactor Neutrino Laboratory” at Nuclear Power Station II on the northern coast of Taiwan in 2000.",
+      "sources": [
+        "src:texono-academia-sinica-enews-2013"
+      ],
+      "start": "2000",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating (first physics data July 2001; operational in 2026)",
+      "locator": "arXiv:1608.00306, Sec. 3.1",
+      "note": "The 2026 TEXONO paper says: 'Through special arrangements, KSNL remains operational.' even though the host reactor (Kuo-Sheng Nuclear Power Station) was decommissioned in March 2023, so reactor-ON neutrino running ended; the laboratory is kept for background studies and detector R&D.",
+      "quote": "First physics data taking started in July 2001.",
+      "sources": [
+        "src:texono-history-status-prospects-2016",
+        "src:texono-final-nuael-ksnl-2026"
+      ],
+      "start": "2001-07",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "kind": "reactor_site",
+  "links": {
+    "website": null
+  },
+  "name": "Kuo-Sheng Reactor Neutrino Laboratory",
+  "notes": [
+    "Kind `reactor_site` (as for Daya Bay and Chooz): the laboratory is inside the reactor building at a nuclear power station, 28 m from the core; it is also a shallow underground laboratory (~30 m.w.e.), but the reactor is what defines it.",
+    "The neutrino-physics programme of TEXONO (neutrino-electron scattering, magnetic moment, CEvNS searches) shares this facility; the dark-matter stream records only the germanium dark-matter work."
+  ],
+  "operator_ids": [],
+  "operator_text": {
+    "confidence": "approximate",
+    "locator": "arXiv:1608.00306, Sec. 3.1",
+    "note": "The source names the power station's operator; it does not say who operates the laboratory itself, which is run by the TEXONO Collaboration (led by Academia Sinica, Taipei).",
+    "quote": "The Kuo-Sheng Reactor Neutrino Laboratory (KSNL) is located at a distance of 28 m from the core #1 of the Kuo-Sheng Nuclear Power Station operated by the Taiwan Power Company at the northern shore of Taiwan.",
+    "sources": [
+      "src:texono-history-status-prospects-2016"
+    ],
+    "value": "Taiwan Power Company (operator of the Kuo-Sheng Nuclear Power Station that hosts the laboratory)",
+    "verified_at": "2026-10-26"
+  },
+  "primary_site_id": "site:ksnl-kuo-sheng-nuclear-power-station",
+  "related_facility_ids": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:texono-history-status-prospects-2016",
+    "src:texono-academia-sinica-enews-2013",
+    "src:ksnl-nominatim-kuosheng-npp",
+    "src:texono-final-nuael-ksnl-2026"
+  ],
+  "specs": {},
+  "status": "active",
+  "summary": {
+    "plain": "A small physics laboratory built next to a reactor core inside the Kuo-Sheng nuclear power plant on the northern coast of Taiwan. Under about thirty metres of water-equivalent shielding from the building, it hosts the TEXONO germanium detectors used for reactor-neutrino and light dark matter searches.",
+    "technical": "Laboratory on the ground floor of the reactor building of the Kuo-Sheng Nuclear Power Station (2.9 GW thermal; Taiwan Power Company), 28 m from core #1, ~12 m below sea level with ~30 m.w.e. overburden; 4-pi passive shielding (5 cm Cu, 25 cm boron-loaded polyethylene, 5 cm steel, 15 cm Pb) plus cosmic-ray veto panels. First physics data July 2001. The power station was decommissioned in March 2023."
+  },
+  "topic_ids": [
+    "topic:reactor-neutrinos",
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection",
+    "topic:cevns"
+  ],
+  "type": "facility"
+}

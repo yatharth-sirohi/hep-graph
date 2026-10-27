@@ -1,0 +1,141 @@
+{
+  "aliases": [
+    "Indian Dark matter search Experiment"
+  ],
+  "collaboration_ids": [
+    "collaboration:index-dm"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:jaduguda-underground-science-laboratory",
+      "locator": "arXiv:2501.02833, abstract",
+      "note": "Open interval; see the experiment interval note.",
+      "quote": "installed at the 555m deep underground laboratory, JUSL during July to Dec 2022",
+      "role": "host",
+      "sources": [
+        "src:index-run1-jusl-2025"
+      ],
+      "start": "2022-07",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:index-dm",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2022-12",
+      "label": "installation and first run (JUSL)",
+      "locator": "arXiv:2501.02833, abstract",
+      "note": "'during July to Dec 2022'; run 1 lasted an effective 48.6 days.",
+      "quote": "installed at the 555m deep underground laboratory, JUSL during July to Dec 2022",
+      "sources": [
+        "src:index-run1-jusl-2025"
+      ],
+      "start": "2022-07",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "InDEx runs (run 1 and run 2)",
+      "locator": "arXiv:2510.06921, abstract",
+      "note": "Open interval: run 2 is published (October 2025); the proceedings say InDEx with larger exposures is under development. No source read says whether data taking continues in 2026.",
+      "quote": "The Indian Dark matter search Experiment (InDEx) has been initiated at Jaduguda Underground Science Laboratory (JUSL) to explore the low mass region of dark matter.",
+      "sources": [
+        "src:index-run2-jusl-2025"
+      ],
+      "start": "2022-12",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Run 1 exposure",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "exposure",
+        "display": "2.47 kg-days",
+        "locator": "arXiv:2501.02833, abstract",
+        "note": "",
+        "quote": "an exposure of 2.47 kg-days",
+        "sources": [
+          "src:index-run1-jusl-2025"
+        ],
+        "unit": "kg d",
+        "value": 2.47,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Run 2 threshold",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "1.95 keV",
+        "locator": "arXiv:2510.06921, abstract",
+        "note": "",
+        "quote": "the detectors were set at 1.95 keV thresholds with an active liquid mass of 70.4 g",
+        "sources": [
+          "src:index-run2-jusl-2025"
+        ],
+        "unit": "keV",
+        "value": 1.95,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "InDEx",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "The detector was fabricated at the collaboration's laboratory and installed at JUSL (arXiv:2501.02833)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2510.06921, abstract",
+      "note": "",
+      "quote": "to explore the low mass region of dark matter",
+      "sources": [
+        "src:index-run2-jusl-2025"
+      ],
+      "value": "Search for light WIMPs with superheated droplet detectors",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:index-run1-jusl-2025",
+    "src:index-run2-jusl-2025",
+    "src:index-jusl-proceedings-2025"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "InDEx is an Indian dark matter search using small superheated droplet detectors, 555 metres underground at Jaduguda in Jharkhand. Its first two runs found no dark matter and set limits on how strongly light WIMPs could interact.",
+    "technical": "Indian Dark matter search Experiment: superheated emulsion droplet detectors with C2H2F4 (tetrafluoroethane), acoustic readout. Run 1: 500 ml, 48.6 effective days at a 5.87 keV threshold, 2.47 kg d; Run 2: 1.95 keV threshold, 70.4 g active liquid, 102.48 days, constraints on spin-independent (20.4 GeV/c^2) and spin-dependent (21.0 GeV/c^2) WIMP-nucleus interactions."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

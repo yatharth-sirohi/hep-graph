@@ -1,0 +1,196 @@
+{
+  "aliases": [
+    "Heidelberg Dark Matter Search"
+  ],
+  "collaboration_ids": [
+    "collaboration:hdms"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": "2006",
+      "facility_id": "facility:lngs",
+      "locator": "arXiv:astro-ph/0008339, Sec. IV",
+      "note": "Start: installation of the prototype; end: bound by the last report read (2006), see the experiment intervals. The hall is not named in the sources read; the Atlas holds three LNGS hall records that share one approximate point (site:lngs-hall-b is the one the DAMA records use).",
+      "quote": "The HDMS prototype was installed at LNGS in March 1998",
+      "role": "host",
+      "sources": [
+        "src:hdms-first-results-prototype-2001"
+      ],
+      "start": "1998-03",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:hdms",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1999-07",
+      "kind": "phase",
+      "label": "prototype detector (natural Ge crystals) at LNGS",
+      "locator": "arXiv:astro-ph/0008339, Sec. IV",
+      "note": "Start: the installation month; data taking followed it. End: July 1999, as stated. 'About 15 month' of data taking.",
+      "quote": "The HDMS prototype was installed at LNGS in March 1998 and successfully took data over a period of about 15 month, until July 1999",
+      "sources": [
+        "src:hdms-first-results-prototype-2001"
+      ],
+      "start": "1998-03",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2000-08",
+      "kind": "phase",
+      "label": "inner crystal replaced by enriched 73Ge; final setup installed",
+      "locator": "arXiv:hep-ph/0206151, abstract",
+      "note": "Bounds: the end of the prototype run (July 1999) and the installation of the final setup (August 2000: 'The final setup of the HDMS was installed at the LNGS in August 2000', arXiv:hep-ph/0206151, Sec. 2.2).",
+      "quote": "the inner crystal of the detector has been replaced with a HPGe crystal of enriched 73 Ge",
+      "sources": [
+        "src:hdms-first-results-final-setup-2003"
+      ],
+      "start": "1999-07",
+      "status": "upgrade",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2006",
+      "kind": "run",
+      "label": "final setup (enriched 73Ge inner crystal) taking data",
+      "locator": "arXiv:hep-ph/0206151, abstract",
+      "note": "Start: August 2000 as stated. End: bounded by the last report read, a May 2006 conference paper that says the setup 'operates the first enriched 73Ge detector worldwide' (Physica Scripta T127, 2006); no source read gives a shutdown date.",
+      "quote": "The final setup started data taking in Gran Sasso in August 2000.",
+      "sources": [
+        "src:hdms-first-results-final-setup-2003",
+        "src:hdms-genius-tf-lessons-physica-scripta-2006"
+      ],
+      "start": "2000-08",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed (no shutdown date published)",
+      "locator": "OSTI ETDEWEB record 20829911, abstract",
+      "note": "Year of the last source read that reports HDMS operating (a conference paper of May 2006). No source read states when, or whether formally, HDMS stopped; the year is a bound on the latest evidence, not a published end date.",
+      "quote": "The HDMS (Heidelberg Dark Matter Search) setup at LNGS, operates the first enriched {sup 73}Ge detector worldwide",
+      "sources": [
+        "src:hdms-genius-tf-lessons-physica-scripta-2006"
+      ],
+      "start": "2006",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Energy threshold (final setup)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "5 keV",
+        "locator": "arXiv:hep-ph/0206151, Sec. 2.3",
+        "note": "Final setup, inner detector.",
+        "quote": "the energy threshold of 5 keV has been obtained for this measurement",
+        "sources": [
+          "src:hdms-first-results-final-setup-2003"
+        ],
+        "unit": "keV",
+        "value": 5,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Exposure of the 2002 final-setup analysis",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "exposure",
+        "display": "26.74 kg d",
+        "locator": "arXiv:hep-ph/0206151, Sec. 3",
+        "note": "132.4 days of final-setup data analysed in 2002.",
+        "quote": "It took data for 132.4 days corresponding to 26.74 kg days",
+        "sources": [
+          "src:hdms-first-results-final-setup-2003"
+        ],
+        "unit": "kg d",
+        "value": 26.74,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Exposure of the spin-dependent WIMP-neutron limit",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "exposure",
+        "display": "85.48 kg d",
+        "locator": "OSTI ETDEWEB record 20829911, abstract",
+        "note": "Exposure of the spin-dependent analysis quoted from the 2006 paper, which cites Phys. Lett. B 609 (2005) 226.",
+        "quote": "The results (85.48 kg d) improve the best present existing limits on the WIMP-neutron spin-dependent cross-section",
+        "sources": [
+          "src:hdms-genius-tf-lessons-physica-scripta-2006"
+        ],
+        "unit": "kg d",
+        "value": 85.48,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "HDMS",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "No official HDMS website was found (the project page lived on the Max-Planck-Institut fuer Kernphysik site and no capture could be read).",
+    "Two set-ups under one name: the prototype with natural Ge crystals (March 1998 to July 1999) and the final set-up with an enriched 73Ge inner crystal (from August 2000); both are phases of this record.",
+    "A conference paper of May 2006 is the latest source read that has HDMS in operation; its end is therefore recorded as 'completed' with low confidence and no end date.",
+    "The 2005 Phys. Lett. B 609, 226 paper (spin-dependent WIMP-neutron limits from HDMS) could not be read; the limit is recorded from the 2006 paper that cites it.",
+    "Placement: The hall is not named in the sources read; the Atlas holds three LNGS hall records that share one approximate point (site:lngs-hall-b is the one the DAMA records use)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:hep-ph/0206151, Sec. 3",
+      "note": "",
+      "quote": "HDMS should be able to test the DAMA evidence region within about three years",
+      "sources": [
+        "src:hdms-first-results-final-setup-2003"
+      ],
+      "value": "Search for WIMP dark matter with a low-background germanium detector, designed to test the evidence region of DAMA",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hdms-first-results-prototype-2001",
+    "src:hdms-first-results-final-setup-2003",
+    "src:hdms-genius-tf-lessons-physica-scripta-2006",
+    "src:hdms-genius-status-2001"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "HDMS, the Heidelberg Dark Matter Search, was a germanium experiment under the Gran Sasso mountain in Italy. A small germanium crystal sat inside a larger one that vetoed stray radiation, so it could look for dark matter particles recoiling off germanium nuclei. It reported limits on how strongly such particles can interact.",
+    "technical": "Two concentric HPGe detectors in one cryostat: a small p-type inner crystal (202 g in the prototype; later replaced by a crystal of enriched 73Ge, which adds spin-dependent sensitivity) is the WIMP target; a 2.1 kg well-type outer crystal is the anticoincidence shield. Prototype at LNGS March 1998 to July 1999 (natural Ge; 9.9 kg d, 2 keV threshold); final setup from August 2000 (5 keV threshold; 26.74 kg d in 2002; 85.48 kg d in a spin-dependent WIMP-neutron analysis cited in 2006)."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

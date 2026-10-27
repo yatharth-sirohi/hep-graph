@@ -1,0 +1,166 @@
+{
+  "aliases": [],
+  "collaboration_ids": [
+    "collaboration:gadmc"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:snolab",
+      "locator": "arXiv:2603.27372, Sec. 1",
+      "note": "Prospective host only: the document says the Cube Hall 'has been selected as the prospective site'; the 2025 SNOLAB report says 'preferably at SNOLAB'. No approval or funding decision was found. Start = date of the proceedings (March 2026).",
+      "quote": "SNOLAB’s Cube Hall has been selected as the prospective site.",
+      "role": "host",
+      "sources": [
+        "src:dm-noble-liquid-deap-3600-status-2026"
+      ],
+      "start": "2026-03",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:argo",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "proposed",
+      "locator": "arXiv:2507.11368, Sec. 5.5 (Summary)",
+      "note": "Start = SNOLAB Future Projects Workshop community report (July 2025), the earliest source read that names ARGO together with a host site ('preferably at SNOLAB'). ARGO was already named as a future GADMC experiment in arXiv:2001.08106 (January 2020, 'any future experiment of the GADMC, such as ARGO') without a host site. The 2026 DEAP/GADMC proceedings (arXiv:2603.27372) say the Cube Hall 'has been selected as the prospective site'.",
+      "quote": "Late 2030s: Construction of ARGO, preferably at SNOLAB.",
+      "sources": [
+        "src:damic-2025-snolab-workshop-status",
+        "src:dm-noble-liquid-deap-3600-status-2026"
+      ],
+      "start": "2025-07",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Fiducial liquid argon mass (design)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "300-tonne",
+        "locator": "arXiv:2603.27372, abstract",
+        "note": "",
+        "quote": "featuring a 300-tonne fiducial LAr mass",
+        "sources": [
+          "src:dm-noble-liquid-deap-3600-status-2026"
+        ],
+        "unit": "t",
+        "value": 300,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Liquid argon target (design)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "400-tonne",
+        "locator": "arXiv:2603.27372, Sec. 1",
+        "note": "",
+        "quote": "ARGO will contain a 400-tonne LAr target",
+        "sources": [
+          "src:dm-noble-liquid-deap-3600-status-2026"
+        ],
+        "unit": "t",
+        "value": 400,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:darkside-20k",
+      "locator": "arXiv:2603.27372, Sec. 4",
+      "note": "Both are GADMC experiments: ARGO is its 'final milestone'; DarkSide-20k 'represents the present goal of the Global Argon Dark Matter Collaboration program' (arXiv:2402.07566, abstract). Relation stored here because 'experiment:argo' sorts first.",
+      "quote": "The ARGO experiment is envisioned as the final milestone of the Global Argon Dark Matter Collaboration (GADMC).",
+      "relation": "same_program",
+      "sources": [
+        "src:dm-noble-liquid-deap-3600-status-2026",
+        "src:dm-noble-liquid-darkside-20k-jinst-2024"
+      ],
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "experiment_id": "experiment:deap-3600",
+      "locator": "arXiv:2603.27372, abstract",
+      "note": "Programme membership, not an upgrade: the proceedings are 'on behalf of GADMC and DEAP collaborations' and are titled 'Updates on the DEAP-3600 experiment and steps towards the ARGO experiment'; ARGO builds on DEAP-3600 analyses and studies (arXiv:2507.11368, Sec. 5.5).",
+      "quote": "As a part of Global Argon Dark Matter Collaboration (GADMC), the next-generation ARGO detector, featuring a 300-tonne fiducial LAr mass, is under development to significantly enhance sensitivity to rare dark matter interactions.",
+      "relation": "same_program",
+      "sources": [
+        "src:dm-noble-liquid-deap-3600-status-2026"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "ARGO",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Status 'proposed' rests on a collaboration document (arXiv:2603.27372: 'SNOLAB’s Cube Hall has been selected as the prospective site'; the detector is 'under development') and the 2025 SNOLAB report ('Construction of ARGO, preferably at SNOLAB', late 2030s). No approval, funding or construction date was found, and no result exists.",
+    "The ARGOlite prototype (1 t of underground argon in the DEAP-3600 water tank after its decommissioning, about 2028-2031; funding requested in the 2025 CFI application) is not recorded as an experiment: it has no results, no approval and no design report, only plans in the SNOLAB community report and a conference abstract (see the log).",
+    "No official ARGO website was found; website left null."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2507.11368, Sec. 5.5 (Summary)",
+      "note": "",
+      "quote": "ultimately aiming to discover or exclude WIMPs interacting with argon",
+      "sources": [
+        "src:damic-2025-snolab-workshop-status"
+      ],
+      "value": "Discover or exclude WIMPs interacting with argon",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2507.11368, Sec. 5.5",
+      "note": "",
+      "quote": "Besides providing the ultimate answer on WIMPs in argon, ARGO will showcase a broader physics program, including non-WIMP searches and ultra-heavy DM candidates",
+      "sources": [
+        "src:damic-2025-snolab-workshop-status"
+      ],
+      "value": "Non-WIMP searches, ultra-heavy dark matter, solar and supernova neutrinos",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:dm-noble-liquid-deap-3600-status-2026",
+    "src:damic-2025-snolab-workshop-status",
+    "src:argo-cap2025-global-argon-search-abstract",
+    "src:dart-in-ardm-design-2020"
+  ],
+  "status": "proposed",
+  "summary": {
+    "plain": "ARGO is a proposed 400-tonne liquid argon detector (300 tonnes fiducial) for the very large dark matter search planned as the last step of the Global Argon Dark Matter Collaboration. SNOLAB's Cube Hall in Canada has been selected as the prospective site. It aims to search for WIMPs down to the neutrino fog.",
+    "technical": "Next-generation argon detector under development by GADMC: 400 t of low-radioactivity underground argon (300 t fiducial) viewed by digital silicon photomultipliers (about 250 m^2), single-phase or dual-phase TPC depending on DarkSide-20k results, in a vacuum cryostat with a water shield; goal of fewer than one background event in the WIMP region over ten years (3000 t yr). Design studies in the SNOLAB Cube Hall (Geometry B); the 2025 SNOLAB report plans construction in the late 2030s, preceded by the ARGOlite prototype (about 2028-2031). No approval or funding decision was found."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

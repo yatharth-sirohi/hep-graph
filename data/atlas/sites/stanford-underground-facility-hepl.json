@@ -1,0 +1,84 @@
+{
+  "aliases": [
+    "SUF tunnel"
+  ],
+  "altitude": null,
+  "coordinates": {
+    "confidence": "approximate",
+    "kind": "campus",
+    "lat": 37.4282257,
+    "locator": "HEPL Maps & Directions page; geocode of 452 Lomita Mall",
+    "lon": -122.1726725,
+    "note": "Campus-grade point, not the tunnel itself: no source gives coordinates for SUF. The CDMS paper says the tunnel is 'in the Hansen Experimental Physics Laboratory, on the Stanford University campus'; HEPL's own page gives its address as 452 Lomita Mall, which Nominatim geocodes to the Physics and Astrophysics building. HEPL's present address may differ from the building that housed the 1990s tunnel, so a 500 m precision is stated.",
+    "precision_m": 500,
+    "quote": "Physics/Astrophysics Building (Varian II) at 452 Lomita Mall",
+    "sources": [
+      "src:stanford-hepl-directions",
+      "src:stanford-hepl-nominatim",
+      "src:cdms-i-exclusion-limits-2002"
+    ],
+    "verified_at": "2026-10-26"
+  },
+  "country": "US",
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "10.6 m",
+    "locator": "arXiv:astro-ph/0203500, Sec. II.C",
+    "note": "Depth of the tunnel below ground level; rock/earth overburden.",
+    "quote": "The Stanford Underground Facility (SUF) is a tunnel 10.6 meters below ground level",
+    "sources": [
+      "src:cdms-i-exclusion-limits-2002"
+    ],
+    "unit": "m",
+    "value": 10.6,
+    "verified_at": "2026-10-26"
+  },
+  "depth_mwe": {
+    "approx": true,
+    "confidence": "verified",
+    "dimension": "depth_mwe",
+    "display": "17 meters water-equivalent",
+    "locator": "arXiv:astro-ph/9712343, Sec. 2",
+    "note": "Other CDMS papers say ~16 m of water (arXiv:astro-ph/0203500: 'the overburden is equivalent to ~ 16 meters of water'); arXiv:1010.4290 and astro-ph/0405033 say ~17 m.w.e.",
+    "quote": "a depth of 17 meters water-equivalent (mwe)",
+    "sources": [
+      "src:cdms-i-preliminary-limits-1997"
+    ],
+    "unit": "m.w.e.",
+    "value": 17,
+    "verified_at": "2026-10-26"
+  },
+  "facility_id": "facility:stanford-underground-facility",
+  "id": "site:stanford-underground-facility-hepl",
+  "links": {
+    "website": null
+  },
+  "name": "Stanford Underground Facility tunnel (Stanford campus)",
+  "notes": [
+    "Coordinate is campus-grade (A17/A23), kind `campus`, confidence approximate; it is not relabelled as a detector position."
+  ],
+  "place": {
+    "city": "Stanford",
+    "country": "US",
+    "region": "California"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "underground",
+  "sources": [
+    "src:cdms-i-exclusion-limits-2002",
+    "src:cdms-i-preliminary-limits-1997",
+    "src:stanford-hepl-directions",
+    "src:stanford-hepl-nominatim"
+  ],
+  "summary": {
+    "plain": "The shallow tunnel under the Stanford University campus, about ten metres down, that housed the first Cryogenic Dark Matter Search detectors.",
+    "technical": "Tunnel 10.6 m below ground level (~17 m.w.e., muon flux reduced by a factor ~5) in the Hansen Experimental Physics Laboratory, Stanford campus; hosted CDMS I and the first CDMS II tower."
+  },
+  "type": "site"
+}

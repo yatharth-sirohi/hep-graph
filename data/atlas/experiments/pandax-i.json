@@ -1,0 +1,142 @@
+{
+  "aliases": [
+    "PandaX stage I"
+  ],
+  "collaboration_ids": [
+    "collaboration:pandax-4t"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": "2014-10-16",
+      "facility_id": "facility:cjpl",
+      "locator": "arXiv:1408.5114, abstract",
+      "note": "PandaX-I's data-taking period is from the full-exposure paper; commissioning/construction dates before May 2014 are not given in the papers read.",
+      "quote": "PandaX-I, a low threshold dual-phase xenon experiment operating at the China Jinping Underground Laboratory",
+      "role": "host",
+      "sources": [
+        "src:pandax-i-first-results-2014"
+      ],
+      "start": "2014-05-26",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:pandax-i",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2014-10-16",
+      "kind": "run",
+      "label": "WIMP search run (80.1 live days)",
+      "locator": "arXiv:1505.00771, Sec. 1",
+      "note": "",
+      "quote": "the full PandaX-I data set, starting from May 26, 2014 to Oct. 16, 2014, with a total of 80.1 live-day exposure",
+      "sources": [
+        "src:pandax-i-low-mass-full-exposure-2015"
+      ],
+      "start": "2014-05-26",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:1505.00771, Sec. 1",
+      "note": "Month precision: the end of the full data set. No source read states a shutdown date; the second-stage PandaX-II construction 'commenced after PandaX-I' (arXiv:1602.06563).",
+      "quote": "the full PandaX-I data set, starting from May 26, 2014 to Oct. 16, 2014, with a total of 80.1 live-day exposure",
+      "sources": [
+        "src:pandax-i-low-mass-full-exposure-2015"
+      ],
+      "start": "2014-10",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Fiducial liquid xenon (full exposure)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "54.0 kg",
+        "locator": "arXiv:1505.00771, abstract",
+        "note": "",
+        "quote": "With a fiducial liquid xenon target mass of 54.0\\,kg",
+        "sources": [
+          "src:pandax-i-low-mass-full-exposure-2015"
+        ],
+        "unit": "kg",
+        "value": 54.0,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Exposure",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "time",
+        "display": "80.1 live-days",
+        "locator": "arXiv:1505.00771, abstract",
+        "note": "",
+        "quote": "using the full 80.1\\;live-day exposure of the first stage of the PandaX experiment",
+        "sources": [
+          "src:pandax-i-low-mass-full-exposure-2015"
+        ],
+        "unit": "d",
+        "value": 80.1,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "PandaX-I",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Placement on site:cjpl-i: the PandaX-I papers say 'China Jinping Underground Laboratory' and give 2,400 m of marble; the facility's first-phase (CJPL-I) site record is referenced."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1405.2882, abstract",
+      "note": "",
+      "quote": "PandaX is a large upgradable liquid-xenon detector system that can be used for both direct dark-matter detection and $^{136}$Xe double-beta decay search.",
+      "sources": [
+        "src:pandax-i-detector-2014"
+      ],
+      "value": "Direct detection of dark matter with a staged liquid xenon detector; also 136Xe double-beta decay",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:pandax-i-detector-2014",
+    "src:pandax-i-first-results-2014",
+    "src:pandax-i-low-mass-full-exposure-2015"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "PandaX-I was the first stage of the Chinese PandaX liquid xenon dark matter programme, in the Jinping underground laboratory in Sichuan. It ran for about five months in 2014 with a few tens of kilograms of xenon, saw no dark matter, and ruled out several low-mass claims.",
+    "technical": "Low-threshold dual-phase xenon TPC (stage I of a staged programme, about 120 kg target mass) at CJPL under 2,400 m of marble (6,800 m.w.e.). Full 80.1 live-day exposure (26 May - 16 Oct 2014) with a 54.0 kg fiducial target: no excess; the data disfavour the positive low-mass WIMP signals in the literature; first results (17.4 live days, 37 kg) gave 3.7e-44 cm^2 at 49 GeV/c^2."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

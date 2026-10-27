@@ -1,0 +1,162 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:pico-40l"
+  ],
+  "id": "detector:pico-40l",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2020",
+      "label": "construction at SNOLAB",
+      "locator": "PICO-40L page (Internet Archive capture of 14 January 2026)",
+      "note": "",
+      "quote": "The detector began construction at SNOLAB in 2019 and was finished in 2020.",
+      "sources": [
+        "src:pico-official-site-pico-40l"
+      ],
+      "start": "2019",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2022",
+      "label": "updates after the first phase",
+      "locator": "PICO-40L page",
+      "note": "",
+      "quote": "Based on lessons from that first phase, updates were made to the detector in 2021-2022.",
+      "sources": [
+        "src:pico-official-site-pico-40l"
+      ],
+      "start": "2021",
+      "status": "upgrade",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2023",
+      "label": "commissioning",
+      "locator": "PICO-40L page",
+      "note": "Year precision; the month is not published.",
+      "quote": "The next phase of PICO-40L began commissioning in 2023 and operations later that year.",
+      "sources": [
+        "src:pico-official-site-pico-40l"
+      ],
+      "start": "2023",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operations",
+      "locator": "DPF 2026 slides, slide 8 (20-24 July 2026)",
+      "note": "'Operations later that year' (official page, 2023); the PICO home page (capture of 31 December 2025) says the collaboration is 'operating the PICO-40L instrument' and the DPF 2026 talk (July 2026) says 'running since 2023'. Month not published.",
+      "quote": "Located at SNOLAB, running since 2023",
+      "sources": [
+        "src:pico-dpf2026-talk",
+        "src:pico-official-site-pico-40l",
+        "src:pico-official-site-home"
+      ],
+      "start": "2023",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "PICO-40L bubble chamber",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "PICO-40L page (Internet Archive capture of 14 January 2026)",
+      "note": "Ladder Labs area of SNOLAB (the PICO-60 water tank and location are reused); SNOLAB underground-lab point.",
+      "quote": "The detector began construction at SNOLAB in 2019 and was finished in 2020.",
+      "role": "main",
+      "site_id": "site:snolab-underground-lab",
+      "sources": [
+        "src:pico-official-site-pico-40l"
+      ],
+      "start": "2019",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:pico-official-site-pico-40l",
+    "src:pico-official-site-home",
+    "src:pico-dpf2026-talk",
+    "src:pico-buffer-free-prototype-2019"
+  ],
+  "specs": {
+    "depth": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "depth_mwe",
+      "display": "6010 m.w.e.",
+      "locator": "DPF 2026 slides, slide 3",
+      "note": "",
+      "quote": "Located at SNOLAB: 6800 ft depth (6010 m.w.e.), one of the deepest labs",
+      "sources": [
+        "src:pico-dpf2026-talk"
+      ],
+      "unit": "m.w.e.",
+      "value": 6010,
+      "verified_at": "2026-10-26"
+    },
+    "target_mass": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "approximately 70 kg",
+      "locator": "PICO home page (Internet Archive capture of 31 December 2025)",
+      "note": "",
+      "quote": "Presently, the collaboration is operating the PICO-40L instrument, a bubble chamber filled with approximately 70 kg of C3F8.",
+      "sources": [
+        "src:pico-official-site-home"
+      ],
+      "unit": "kg",
+      "value": 70,
+      "verified_at": "2026-10-26"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "PICO home page (Internet Archive capture of 31 December 2025)",
+      "note": "",
+      "quote": "a bubble chamber filled with approximately 70 kg of C3F8",
+      "sources": [
+        "src:pico-official-site-home"
+      ],
+      "value": "C3F8 (superheated)",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A bubble chamber with two nested quartz jars, upright above its bellows so that no water touches the dark-matter target; cameras and microphones record each bubble.",
+    "technical": "Right-side-up design: two concentric nested quartz jars, bellows, mineral-oil hydraulic fluid, ~70 kg C3F8, a thermal system with a temperature gradient across the bellows, 4 cameras, 12 piezoelectric transducers, 2 Dytran pressure transducers; in the water tank of the former PICO-60 location at SNOLAB."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "PICO-40L page (Internet Archive capture of 14 January 2026)",
+    "note": "",
+    "quote": "The new system involves two, concentric, nested quartz jars (see illustration below), oriented “right-side-up”, when compared to PICO-60.",
+    "sources": [
+      "src:pico-official-site-pico-40l"
+    ],
+    "value": "Right-side-up superheated C3F8 bubble chamber with two nested quartz jars, bellows and a temperature-graded thermal system",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,154 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:amore-pilot"
+  ],
+  "id": "detector:amore-pilot",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2018-12",
+      "label": "AMoRE-Pilot data taking at Y2L",
+      "locator": "CUP 'Double Beta Decay' page, section 'AMoRE-Pilot Experiment'",
+      "note": "Start: 'since summer 2015' (the page); end: 'the end of 2018' (arXiv:2005.05567). The 2024 background paper says 'from 2015 to 2018'; five data-taking runs between 2015 and 2017 are described in arXiv:1903.09483.",
+      "quote": "AMoRE-Pilot, the pilot phase of the AMoRE project, is an experiment that has been running in the 700-m-deep Yangyang underground Laboratory (Y2L) since summer 2015",
+      "sources": [
+        "src:cup-ibs-double-beta-decay"
+      ],
+      "start": {
+        "date": "2015-07",
+        "display": "summer 2015",
+        "earliest": "2015-06",
+        "latest": "2015-08"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed (run ended)",
+      "locator": "arXiv:2005.05567, abstract",
+      "note": "Month precision: 'the end of 2018'.",
+      "quote": "After completion of the AMoRE-Pilot run at the end of 2018",
+      "sources": [
+        "src:amore-overview-jinst-2020"
+      ],
+      "start": "2018-12",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "AMoRE-Pilot detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2018-12",
+      "locator": "arXiv:1903.09483, abstract",
+      "note": "The TDR places AMoRE-Pilot's cryostat in the A5 area of Y2L; AMoRE at Y2L was built in the A5 tunnel in 2015 (CUP page).",
+      "quote": "This stage of the project is carried out in the Yangyang underground laboratory at a depth of 700 m.",
+      "role": "main",
+      "site_id": "site:y2l-yangyang",
+      "sources": [
+        "src:amore-pilot-first-results-2019"
+      ],
+      "start": "2015-07",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:amore-pilot-first-results-2019",
+    "src:amore-overview-jinst-2020",
+    "src:amore-pilot-background-study-2024",
+    "src:cup-ibs-double-beta-decay",
+    "src:amore-technical-design-report-2015"
+  ],
+  "specs": {
+    "depth": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "700 m",
+      "locator": "arXiv:1903.09483, abstract",
+      "note": "",
+      "quote": "This stage of the project is carried out in the Yangyang underground laboratory at a depth of 700 m.",
+      "sources": [
+        "src:amore-pilot-first-results-2019"
+      ],
+      "unit": "m",
+      "value": 700,
+      "verified_at": "2026-10-26"
+    },
+    "exposure": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "exposure",
+      "display": "111 kg d",
+      "locator": "arXiv:1903.09483, abstract",
+      "note": "Live exposure of the first-results analysis.",
+      "quote": "a 111 kg$\\cdot$d live exposure",
+      "sources": [
+        "src:amore-pilot-first-results-2019"
+      ],
+      "unit": "kg d",
+      "value": 111,
+      "verified_at": "2026-10-26"
+    },
+    "isotope": {
+      "confidence": "verified",
+      "locator": "arXiv:1903.09483, abstract",
+      "note": "",
+      "quote": "neutrinoless double beta decay (0$\\nu\\beta\\beta$) of $^{100}$Mo",
+      "sources": [
+        "src:amore-pilot-first-results-2019"
+      ],
+      "value": "100Mo",
+      "verified_at": "2026-10-26"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "1.9 kg",
+      "locator": "arXiv:1903.09483, abstract",
+      "note": "Total crystal mass of the six 48depl-Ca100MoO4 crystals.",
+      "quote": "six calcium molybdate crystals with a total mass of 1.9 kg",
+      "sources": [
+        "src:amore-pilot-first-results-2019"
+      ],
+      "unit": "kg",
+      "value": 1.9,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "AMoRE-Pilot was the first, small stage of the AMoRE experiment: six calcium-molybdate crystals (1.9 kg) cooled to a few thousandths of a degree above absolute zero, run at the Yangyang laboratory from 2015 to 2018 to look for neutrinoless double beta decay of molybdenum-100. It found no such decay and set a limit.",
+    "technical": "Six 48depl-Ca100MoO4 crystals (1.9 kg total), phonon and scintillation readout with metallic magnetic calorimeters at mK temperatures (dilution refrigerator), in the A5 area of Y2L (700 m). First results from 111 kg d: T1/2(0vbb, 100Mo) > 9.5e22 yr (90% C.L.); a later background study sets T1/2 >= 3.0e23 yr."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:1903.09483, abstract",
+    "note": "",
+    "quote": "The simultaneous detection of heat(phonon) and scintillation (photon) signals is realized with high resolution metallic magnetic calorimeter sensors that operate at milli-Kelvin temperatures.",
+    "sources": [
+      "src:amore-pilot-first-results-2019"
+    ],
+    "value": "Cryogenic calcium-molybdate scintillating crystals with metallic-magnetic-calorimeter heat and light readout at mK temperatures",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "cryogenic_bolometer",
+  "technology_classes": [
+    "cryogenic_bolometer",
+    "scintillating_crystal"
+  ],
+  "type": "detector"
+}

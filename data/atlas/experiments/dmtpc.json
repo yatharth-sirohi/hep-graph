@@ -1,0 +1,178 @@
+{
+  "aliases": [
+    "Dark Matter Time Projection Chamber"
+  ],
+  "collaboration_ids": [
+    "collaboration:dmtpc"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:wipp",
+      "locator": "arXiv:1006.2928, conclusions",
+      "note": "Start verified (October 2010); open interval and uncertain end, see the experiment's interval note.",
+      "quote": "The 10L detector described here began running underground at the Waste Isolation Pilot Plant outside Carlsbad, NM in October 2010. The depth of the WIPP site is 1.6 km water-equivalent.",
+      "role": "host",
+      "sources": [
+        "src:dmtpc-10l-surface-run-limit-2010"
+      ],
+      "start": "2010-10",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:mit",
+      "locator": "arXiv:1111.0220, text (surface commissioning run)",
+      "note": "Surface (basement laboratory) commissioning run of the 10-L detector; MIT also hosts the collaboration's website; dates of the run are not stated.",
+      "quote": "To study detector backgrounds, a commissioning run was taken in a surface laboratory at MIT.",
+      "role": "prototype_host",
+      "sources": [
+        "src:dmtpc-status-prospects-2011"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:dmtpc",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2010-10",
+      "kind": "lifecycle",
+      "label": "development and surface-laboratory commissioning (10-L detector at MIT)",
+      "locator": "arXiv:1111.0220, text (surface commissioning run)",
+      "note": "Start year = the earliest DMTPC collaboration paper read (arXiv:0708.2370, August 2007: 'developed by the DMTPC collaboration'); the collaboration's own start is not published. End = the start of the underground run at WIPP (October 2010). The dates of the MIT surface run itself are not stated.",
+      "quote": "To study detector backgrounds, a commissioning run was taken in a surface laboratory at MIT.",
+      "sources": [
+        "src:dmtpc-status-prospects-2011",
+        "src:dmtpc-head-tail-observation-2007",
+        "src:dmtpc-10l-surface-run-limit-2010"
+      ],
+      "start": "2007",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "10-L detector running underground at WIPP",
+      "locator": "arXiv:1006.2928, conclusions",
+      "note": "Start verified (October 2010). Open interval: no source read states when the WIPP run ended or that it continues. The latest DMTPC paper read is arXiv:1705.05965 (2017), a model of directional sensitivity of two DMTPC laboratory detectors; no WIPP dark matter result was found. The 2021 Annual Review (arXiv:2102.04596) describes DMTPC only in the past tense and says 'A 1 m3 detector was constructed, but to our knowledge not deployed'. The collaboration website's last Internet Archive capture is 2019-07-29.",
+      "quote": "The 10L detector described here began running underground at the Waste Isolation Pilot Plant outside Carlsbad, NM in October 2010. The depth of the WIPP site is 1.6 km water-equivalent.",
+      "sources": [
+        "src:dmtpc-10l-surface-run-limit-2010",
+        "src:dmtpc-status-prospects-2011",
+        "src:dmtpc-directional-sensitivity-overview-2010",
+        "src:directional-recoil-detection-review-2021"
+      ],
+      "start": "2010-10",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Detector volume (10-liter prototype)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "volume",
+        "display": "10 L",
+        "locator": "arXiv:1012.3912, Sec. 1",
+        "note": "Detector volume of the 10-liter DMTPC prototype (the 20-liter detector was commissioning at MIT in 2010).",
+        "quote": "The Dark Matter Time Projection Chamber (DMTPC) collaboration has developed and operated a 10-liter gas-based directional dark matter detector.",
+        "sources": [
+          "src:dmtpc-directional-sensitivity-overview-2010"
+        ],
+        "unit": "L",
+        "value": 10,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "CF4 target mass (75 Torr)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "3.3 g",
+        "locator": "arXiv:1012.3912, Sec. 1",
+        "note": "CF4 target mass of the 10-liter detector at 75 Torr.",
+        "quote": "The current instrument consists of a dual TPC, filled with CF4 gas at 75 Torr (3.3 g target mass).",
+        "sources": [
+          "src:dmtpc-directional-sensitivity-overview-2010"
+        ],
+        "unit": "g",
+        "value": 3.3,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "uncertain",
+      "locator": "home page (Internet Archive capture 2019-07-29)",
+      "note": "Live site did not respond (2026-10-26); read from the Internet Archive. The site's latest capture is 2019-07-29.",
+      "quote": "This is a web portal for a dark matter search experiment DMTPC",
+      "sources": [
+        "src:dmtpc-official-site"
+      ],
+      "value": "http://dmtpc.mit.edu/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "DMTPC",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Status is uncertain: nothing read after 2017 shows DMTPC running. 'active' (open) follows the DRIFT record's convention of not inventing an end date.",
+    "The WIPP detector's hall is not named; the WIPP site record is a surface-campus point (approximate), so it is only a campus-grade location for the underground run (1.6 km water-equivalent depth per the papers)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1012.3912, abstract",
+      "note": "",
+      "quote": "The Dark Matter Time Projection Chamber (DMTPC) experiment uses CF_4 gas at low pressure (0.1 atm) to search for the directional signature of Galactic WIMP dark matter.",
+      "sources": [
+        "src:dmtpc-directional-sensitivity-overview-2010"
+      ],
+      "value": "Directional detection of WIMP dark matter with a low-pressure CF4 gas TPC",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:dmtpc-head-tail-observation-2007",
+    "src:dmtpc-10l-surface-run-limit-2010",
+    "src:dmtpc-directional-sensitivity-overview-2010",
+    "src:dmtpc-status-prospects-2011",
+    "src:dmtpc-charge-signal-background-rejection-2011",
+    "src:dmtpc-directional-sensitivity-model-2017",
+    "src:directional-recoil-detection-review-2021",
+    "src:dmtpc-official-site"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "DMTPC (Dark Matter Time Projection Chamber) is a directional dark matter experiment led from MIT. A low-pressure CF4 gas chamber with camera readout images the tracks of recoiling nuclei, which could reveal the direction a dark matter particle came from. A 10-litre detector ran at MIT and then underground at WIPP.",
+    "technical": "Low-pressure (75 Torr) CF4 dual back-to-back TPC with CCD (proportional scintillation) and charge readout, 10-liter detector with a 3.3 g CF4 target. MIT surface run (35.7 g d, 80-200 keV): spin-dependent WIMP-proton limit 2.0e-33 cm^2 at 115 GeV/c^2 (90% CL). Moved to the Waste Isolation Pilot Plant (1.6 km w.e.) in October 2010; a 20-liter detector was commissioned at MIT. 2017: model of the directional response of two detectors at 30-60 torr."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

@@ -1,0 +1,122 @@
+{
+  "aliases": [
+    "CoGeNT-4",
+    "C-4 Dark Matter Experiment"
+  ],
+  "collaboration_ids": [
+    "collaboration:cogent"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:soudan-underground-laboratory",
+      "locator": "arXiv:1210.6282, Sec. 2",
+      "note": "The design paper names the proton-decay hall of Soudan; the Atlas's only Soudan site is the MINOS far-detector cavern. CoGeNT sat in the Soudan-2 (proton-decay) hall: the PRD paper says its shield rests on 'base I-beams that once supported the Soudan-2 proton decay experiment' at 2090 m.w.e., whereas the Atlas's only Soudan site is the MINOS far-detector cavern (2070 m.w.e.). They are different halls of the same mine level; no source read gives the Soudan-2 hall's coordinates, so the MINOS-cavern point stands for the laboratory.",
+      "quote": "The present plan is to locate the C-4 dark matter experiment in the proton-decay hall of the Soudan Underground Laboratory (2800 m.w.e. overburden), the same location as the CoGeNT and CDMS-II experiments.",
+      "role": "host",
+      "sources": [
+        "src:cogent-c4-design-2013"
+      ],
+      "start": "2012-10",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:c-4",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "design of the C-4 expansion",
+      "locator": "arXiv:1210.6282, abstract",
+      "note": "Start: arXiv submission of the NIM A 712 (2013) design paper (23 October 2012). The January 2014 CoGeNT paper calls C-4 'the ongoing CoGeNT upgrade', but no approval, construction or first-data date was found in the sources read (a 2016 paper describes a 1.2 kg PPC crystal and cryostat 'intended for use in a direct detection search for low mass, WIMP dark matter'). Status 'proposed' is the last documented state and may be stale in 2026.",
+      "quote": "We describe the experimental design of C-4, an expansion of the CoGeNT dark matter search to four identical detectors each approximately three times the mass of the p-type point contact germanium diode presently taking data at the Soudan Underground Laboratory.",
+      "sources": [
+        "src:cogent-c4-design-2013"
+      ],
+      "start": "2012-10",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Target mass (design)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "4.1 kg",
+        "locator": "arXiv:1210.6282, Sec. 5",
+        "note": "",
+        "quote": "C-4 operation with a 4.1 kg target mass",
+        "sources": [
+          "src:cogent-c4-design-2013"
+        ],
+        "unit": "kg",
+        "value": 4.1,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:cogent",
+      "locator": "arXiv:1210.6282, abstract",
+      "note": "",
+      "quote": "We describe the experimental design of C-4, an expansion of the CoGeNT dark matter search to four identical detectors each approximately three times the mass of the p-type point contact germanium diode presently taking data at the Soudan Underground Laboratory.",
+      "relation": "upgrade_of",
+      "sources": [
+        "src:cogent-c4-design-2013"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "C-4",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Status 'proposed': a published design report names the Soudan proton-decay hall; no later source read reports approval, construction or data. C-4's 2800 m.w.e. figure differs from the 2090 m.w.e. in the CoGeNT paper for the same laboratory (both recorded in their own papers' words)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1210.6282, Sec. 1",
+      "note": "",
+      "quote": "The C-4 dark matter experiment is intended to test recent results from the CoGeNT experiment",
+      "sources": [
+        "src:cogent-c4-design-2013"
+      ],
+      "value": "Test the CoGeNT low-energy excess and annual modulation with four detectors, lower background and larger mass",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cogent-c4-design-2013",
+    "src:cogent-three-years-modulation-2014"
+  ],
+  "status": "proposed",
+  "summary": {
+    "plain": "C-4 was designed as a bigger version of CoGeNT: four germanium detectors, each about three times heavier, in a better-shielded setup in the Soudan mine, to test CoGeNT's low-energy excess. Only the design paper was read; no result or start of data taking was found.",
+    "technical": "Design for four identical p-type point-contact germanium detectors (up to ~1.3 kg each, ~4.1 kg total) in one low-background shield with a plastic-scintillator veto, in the proton-decay hall of Soudan (2800 m.w.e. quoted), aiming at ~0.5 keVee thresholds, ~5x lower background than CoGeNT and sensitivity to ~1e-42 cm^2 at 10 GeV/c^2 after 8 months."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

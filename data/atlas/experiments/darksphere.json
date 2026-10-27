@@ -1,0 +1,140 @@
+{
+  "aliases": [],
+  "collaboration_ids": [
+    "collaboration:news-g"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:boulby-underground-laboratory",
+      "locator": "arXiv:2301.05183, abstract",
+      "note": "Proposed host (the paper: 'the Boulby Underground Laboratory is presented as a proposed host of the DarkSPHERE experiment').",
+      "quote": "We present the conceptual design and the physics potential of DarkSPHERE, a proposed 3 m in diameter spherical proportional counter electroformed underground at the Boulby Underground Laboratory.",
+      "role": "host",
+      "sources": [
+        "src:geo-boulby-darksphere-2023"
+      ],
+      "start": "2023-01",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:darksphere",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "conceptual design (proposed experiment)",
+      "locator": "arXiv:2301.05183, abstract",
+      "note": "Start is the arXiv submission of the conceptual design (12 Jan 2023). Later talks (IOP April 2026, IDM June 2026) say the detector 'is planned to be fully electroformed underground at the Boulby Underground Laboratory' and describe a 30 cm version in preparation; no approval or construction start is stated.",
+      "quote": "We present the conceptual design and the physics potential of DarkSPHERE, a proposed 3 m in diameter spherical proportional counter electroformed underground at the Boulby Underground Laboratory.",
+      "sources": [
+        "src:geo-boulby-darksphere-2023"
+      ],
+      "start": "2023-01",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Sphere diameter (2023 conceptual design)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "3 m",
+        "locator": "arXiv:2301.05183, abstract",
+        "note": "Later talks describe a 30 cm version being prepared.",
+        "quote": "a proposed 3 m in diameter spherical proportional counter",
+        "sources": [
+          "src:geo-boulby-darksphere-2023"
+        ],
+        "unit": "m",
+        "value": 3,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Projected spin-independent sensitivity at 1 GeV",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "cross_section",
+        "display": "2 x 10^-43 cm^2",
+        "locator": "arXiv:2301.05183, abstract",
+        "note": "Projection: 2e-41 cm^2 at 0.1 GeV and 2e-43 cm^2 at 1 GeV for the 3 m conceptual design.",
+        "quote": "$2\\times 10^{-41} (2\\times 10^{-43})$ cm$^2$ for a dark matter mass of $0.1 (1)$ GeV",
+        "sources": [
+          "src:geo-boulby-darksphere-2023"
+        ],
+        "unit": "cm^2",
+        "value": 2e-43,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:news-g",
+      "locator": "arXiv:2301.05183, abstract",
+      "note": "'Builds on the R&D and experience of NEWS-G': a looser relation than a formal upgrade.",
+      "quote": "This effort builds on the R&D performed and experience acquired by the NEWS-G Collaboration.",
+      "relation": "same_program",
+      "sources": [
+        "src:geo-boulby-darksphere-2023"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "DarkSPHERE",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Collaboration: the conceptual design is authored by the NEWS-G Collaboration with Boulby and other participants; DarkSPHERE has no separate collaboration record.",
+    "Not NEWS-G3 (the 140 cm detector at SNOLAB inside experiment:news-g): DarkSPHERE is the proposed larger, Boulby-based next step.",
+    "No physics result exists."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2301.05183, abstract",
+      "note": "",
+      "quote": "DarkSPHERE is primarily designed to search for nuclear recoils from light dark matter in the 0.05--10 GeV mass range.",
+      "sources": [
+        "src:geo-boulby-darksphere-2023"
+      ],
+      "value": "Search for nuclear recoils from light dark matter in the 0.05-10 GeV mass range",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:geo-boulby-darksphere-2023",
+    "src:darksphere-idm2026-abstract",
+    "src:darksphere-iop2026-abstract"
+  ],
+  "status": "proposed",
+  "summary": {
+    "plain": "DarkSPHERE is a proposed detector for light dark matter: a hollow copper sphere filled with gas, made from copper grown underground at the Boulby laboratory in England. It builds on the NEWS-G experiments and aims to reach the level where neutrinos become the main background.",
+    "technical": "Proposed next-generation spherical proportional counter electroformed underground at Boulby, a conceptual design of a 3 m diameter helium-isobutane detector inside a 2.5 m water shield in the Large Experimental Cavern (background below 0.01 dru; SI sensitivity 2e-41 cm^2 at 0.1 GeV and 2e-43 cm^2 at 1 GeV; 0.05-10 GeV mass range; also spin-dependent, MeV DM-electron and super-heavy DM tracks). 2026 talk abstracts describe a high-purity copper electroforming facility being commissioned at Boulby and the preparation of a 30 cm version."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

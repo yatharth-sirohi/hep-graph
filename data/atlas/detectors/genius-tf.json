@@ -1,0 +1,138 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:genius-tf"
+  ],
+  "id": "detector:genius-tf",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2001-03",
+      "label": "test facility proposed for LNGS",
+      "locator": "arXiv:hep-ex/0012022, abstract",
+      "note": "Start: the month of the proposal paper (arXiv v1, December 2000); the proposal itself is dated within the GENIUS project of 1997. End: the approval below.",
+      "quote": "a small test version, the GENIUS test facility, will be build up at the Laboratorio Nazionale del Gran Sasso (LNGS).",
+      "sources": [
+        "src:genius-tf-test-facility-2002"
+      ],
+      "start": "2000-12",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2003-05-05",
+      "label": "approved by the Gran Sasso Scientific Committee; funded; built",
+      "locator": "arXiv:hep-ph/0309170, Sec. 1",
+      "note": "Approval in March 2001. A June 2002 paper says 'A GENIUS Test Facility has just been funded and will come into operation by end of 2002' (arXiv:hep-ph/0206250); the first four detectors were installed on 5 May 2003. Construction dates are not published.",
+      "quote": "A small scale version of GENIUS, the GENIUS-Test-Facility has been approved by the Gran Sasso Scientific Committee in March 2001.",
+      "sources": [
+        "src:genius-tf-first-10-kg-2003"
+      ],
+      "start": "2001-03",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2006",
+      "kind": "run",
+      "label": "operation with four, then six, naked Ge detectors in liquid nitrogen",
+      "locator": "OSTI ETDEWEB record 20565502, abstract",
+      "note": "Start: the first four detectors were installed in liquid nitrogen on 5 May 2003. Six detectors from October 2004 (TF-II). End: the PhD thesis (arXiv:0812.1206) gives 2003-2006 for the whole run, at year precision; the external shielding was completed in November (thesis) or December (NIMA 530 abstract) 2003.",
+      "quote": "Since then the experiment has been running continuously, testing for the first time the novel technique in an underground laboratory and for a long-lasting period.",
+      "sources": [
+        "src:genius-tf-radon-background-2004",
+        "src:genius-tf-gerda-hdm-thesis-2008"
+      ],
+      "start": "2003-05-05",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:0812.1206, Chap. 5",
+      "note": "Year precision, from the thesis: 'three years (2003-2006)'. The 2006 status paper says none of the six detectors was still running with the nominal leakage current after three years.",
+      "quote": "the Genius-TF setup has run a total of six HPGe detectors during three years (2003–2006)",
+      "sources": [
+        "src:genius-tf-gerda-hdm-thesis-2008"
+      ],
+      "start": "2006",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "GENIUS-TF detector (naked Ge diodes in liquid nitrogen)",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2006",
+      "locator": "arXiv:hep-ph/0309170, Sec. 1",
+      "note": "'Between halls A and B' (arXiv:hep-ph/0309170); recorded on site:lngs-hall-b, the Atlas LNGS records share one approximate point.",
+      "quote": "After installation of the GENIUS-TF setup between halls A and B in Gran Sasso",
+      "role": "main",
+      "site_id": "site:lngs-hall-b",
+      "sources": [
+        "src:genius-tf-first-10-kg-2003"
+      ],
+      "start": "2003-05-05",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:genius-tf-test-facility-2002",
+    "src:genius-tf-first-10-kg-2003",
+    "src:genius-tf-radon-background-2004",
+    "src:genius-tf-ii-iii-status-2006",
+    "src:genius-tf-gerda-hdm-thesis-2008",
+    "src:genius-tf-search-dark-matter-2002"
+  ],
+  "specs": {
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "15 kg",
+      "locator": "OSTI ETDEWEB record 20867538, abstract",
+      "note": "Six detectors from October 2004.",
+      "quote": "GENIUS-TF-II is a setup of six naked high purity Ge detectors (15kg) in liquid nitrogen in Gran Sasso.",
+      "sources": [
+        "src:genius-tf-ii-iii-status-2006"
+      ],
+      "unit": "kg",
+      "value": 15,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "GENIUS-TF was a small test version of the GENIUS idea, bare germanium crystals dipped in liquid nitrogen. It ran in the Gran Sasso laboratory in Italy from 2003 to about 2006 to prove the technique and, along the way, to look for the yearly dark matter signal reported by DAMA.",
+    "technical": "Test facility between halls A and B of LNGS: first four naked HPGe diodes (10.52 kg total) installed in liquid nitrogen on 5 May 2003, six (15 kg) from October 2004 (GENIUS-TF-II); planned 40 kg of natural Ge to test the DAMA annual-modulation signature. Found a 222Rn-daughter background about 200 times the simulation and limited long-term stability (rising leakage currents)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:hep-ph/0309170, abstract",
+    "note": "",
+    "quote": "The first four naked high purity Germanium detectors were installed successfully in liquid nitrogen in the GENIUS-Test-Facility (GENIUS-TF)",
+    "sources": [
+      "src:genius-tf-first-10-kg-2003"
+    ],
+    "value": "Naked high-purity germanium diodes operated directly in liquid nitrogen, which is both coolant and shield",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "germanium",
+  "technology_classes": [
+    "germanium"
+  ],
+  "type": "detector"
+}

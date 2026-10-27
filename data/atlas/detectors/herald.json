@@ -1,0 +1,115 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:herald"
+  ],
+  "id": "detector:herald",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "concept proposed (superfluid helium, calorimetric readout) and R&D",
+      "locator": "arXiv:1810.06283, Sec. 1",
+      "note": "Start is the arXiv submission of the concept paper (15 Oct 2018); the proposal to host HeRALD at LSM as part of TESSERACT dates from 2022.",
+      "quote": "We name this concept “HeRALD”, helium roton apparatus for light dark matter.",
+      "sources": [
+        "src:herald-concept-2018-arxiv"
+      ],
+      "start": "2018-10",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2028",
+        "planned": true
+      },
+      "label": "planned installation of the TESSERACT setups (including HeRALD) at LSM",
+      "locator": "TAUP 2025 slide 15",
+      "note": "A schedule; the setups are the two TESSERACT cryostats hosting SPICE, HeRALD and Ge/Si modules.",
+      "quote": "The two setups will be in LSM between 2027 and 2028",
+      "sources": [
+        "src:tesseract-taup2025-slides"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2027",
+        "display": "between 2027 and 2028",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "HeRALD superfluid helium detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "Nucl. Phys. B 1003 (2024) 116465, Sec. 4",
+      "note": "Proposed placement: the HeRALD module of the TESSERACT payload at LSM; the prototype work was done at UC Berkeley and UMass Amherst (not Atlas sites).",
+      "quote": "Combined with the US-based SPICE and HeRALD technologies, the TESSERACT at LSM experiment will then allow to probe DM candidates over 12 orders of magnitude in mass",
+      "role": "main",
+      "site_id": "site:lsm-frejus",
+      "sources": [
+        "src:tesseract-modane-proposal-nuclphysb-2024"
+      ],
+      "start": "2024-01",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:tesseract-herald-page",
+    "src:tesseract-modane-proposal-nuclphysb-2024",
+    "src:herald-concept-2018-arxiv",
+    "src:herald-first-demonstration-2023-arxiv",
+    "src:tesseract-taup2025-slides",
+    "src:tesseract-cpad2025-abstract",
+    "src:lowmass-commphys-review-2026"
+  ],
+  "specs": {
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "CPAD 2025 talk abstract",
+      "note": "",
+      "quote": "HeRALD will use sensors with silicon or sapphire substrates to image radiative and quasiparticle emission from a target of superfluid helium-4 .",
+      "sources": [
+        "src:tesseract-cpad2025-abstract"
+      ],
+      "value": "Superfluid helium-4",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "proposed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A cell of superfluid helium viewed from above by superconducting sensors that register the flash of light and the helium atoms knocked out of the liquid surface by a dark matter collision.",
+    "technical": "Superfluid 4He cell (HeRALD v0.1: 2.75 cm high, 6 cm diameter, ~10 g He) facing a photon/4He TES calorimeter wafer; a Cs-coated film stopper blocks superfluid film flow so the sensor stays dry."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "official HeRALD page",
+    "note": "",
+    "quote": "The experiment consists of a superfluid helium target where DM particles would undergo nuclear recoil interactions.",
+    "sources": [
+      "src:tesseract-herald-page"
+    ],
+    "value": "Superfluid helium-4 target read out by TES calorimeters (scintillation and quantum-evaporation channels)",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "cryogenic_phonon_detector",
+  "technology_classes": [
+    "cryogenic_phonon_detector",
+    "other"
+  ],
+  "type": "detector"
+}

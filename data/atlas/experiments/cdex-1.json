@@ -1,0 +1,197 @@
+{
+  "aliases": [
+    "CDEX-1B",
+    "CDEX phase I"
+  ],
+  "collaboration_ids": [
+    "collaboration:cdex"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": "2018-12",
+      "facility_id": "facility:cjpl",
+      "locator": "arXiv:1306.4135, abstract",
+      "note": "Years/month as for the experiment intervals.",
+      "quote": "at the China Jinping underground Laboratory where the rock overburden is more than 2400 m",
+      "role": "host",
+      "sources": [
+        "src:cdex-1-first-results-2013"
+      ],
+      "start": "2010",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:cdex-1",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2018-12",
+      "label": "CDEX-1 / CDEX-1B operation",
+      "locator": "arXiv:2309.01843, Sec. 1",
+      "note": "Start: 'installed and started operation in 2010' (year only). End: the last CDEX-1B data (2 December 2018) in the annual-modulation paper; no shutdown date is stated.",
+      "quote": "The first phase of the experiment, CDEX-1 [6], was installed and started operation in 2010 using a 1-kg single element pPCGe detector cooled by a cold-finger system.",
+      "sources": [
+        "src:cdex-50-projected-sensitivity-2024"
+      ],
+      "start": "2010",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2018-12-02",
+      "kind": "run",
+      "label": "CDEX-1B annual-modulation data (Run 1 and Run 2)",
+      "locator": "arXiv:1904.12889, Sec. 2",
+      "note": "",
+      "quote": "from September 27, 2014 to August 2, 2017 (Run 1), and subsequently without NaI(Tl) (replaced by passive copper shielding) from August 4, 2017 till December 2, 2018 (Run 2)",
+      "sources": [
+        "src:cdex-1b-annual-modulation-2019"
+      ],
+      "start": "2014-09-27",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed (end of CDEX-1B data taking)",
+      "locator": "arXiv:1904.12889, Sec. 2",
+      "note": "Month precision: end of the data set analysed. The CDEX-10 upgrade began in 2016 and CDEX-1B continued in parallel until the end of 2018.",
+      "quote": "from September 27, 2014 to August 2, 2017 (Run 1), and subsequently without NaI(Tl) (replaced by passive copper shielding) from August 4, 2017 till December 2, 2018 (Run 2)",
+      "sources": [
+        "src:cdex-1b-annual-modulation-2019"
+      ],
+      "start": "2018-12",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Crystal mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "994 g",
+        "locator": "arXiv:1306.4135, abstract",
+        "note": "",
+        "quote": "14.6 kg-day of data taken with a 994 g p-type point-contact germanium detector",
+        "sources": [
+          "src:cdex-1-first-results-2013"
+        ],
+        "unit": "kg",
+        "value": 0.994,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Analysis threshold (2018)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "160 eVee",
+        "locator": "arXiv:1710.06650, abstract",
+        "note": "",
+        "quote": "with a physics threshold of 160 eVee",
+        "sources": [
+          "src:cdex-1-160-evee-2018"
+        ],
+        "unit": "eV",
+        "value": 160,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:cogent",
+      "locator": "arXiv:1404.4946, abstract",
+      "note": "Both are point-contact germanium experiments; the abstract states the comparison.",
+      "quote": "Independent of interaction channels, this result contradicts the interpretation that the anomalous excesses of the CoGeNT experiment are induced by Dark Matter, since identical detector techniques are used in both experiments.",
+      "relation": "complementary",
+      "sources": [
+        "src:cdex-1-limits-light-wimps-2014"
+      ],
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:dama-libra",
+      "locator": "arXiv:1904.12889, abstract",
+      "note": "A direct test of the DAMA/LIBRA claim with its own detector; the quoted abstract states the comparison in the collaboration's own words.",
+      "quote": "Within the context of the standard halo model, the 90\\% C.L. allowed regions implied by the DAMA/LIBRA and CoGeNT AM-based analysis are excluded at $>$99.99\\% and 98\\% C.L., respectively.",
+      "relation": "complementary",
+      "sources": [
+        "src:cdex-1b-annual-modulation-2019"
+      ],
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "experiment_id": "experiment:texono",
+      "locator": "arXiv:1608.00306, Sec. 1",
+      "note": "The same overview calls TEXONO 'a founding partner of the CDEX program' and says the KSNL germanium experiments were the baseline design for CDEX-1.",
+      "quote": "The efforts of the starting decade catalyzed and laid the foundation to the establishment of the China Jinping Underground Laboratory (CJPL) in China, together with its first generation China Dark matter EXperiment (CDEX).",
+      "relation": "predecessor",
+      "sources": [
+        "src:texono-history-status-prospects-2016"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CDEX-1",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "CDEX-1A and CDEX-1B are recorded as one experiment (one 1-kg-scale pPCGe phase); the sources call the whole phase 'CDEX-1'.",
+    "Placement on site:cjpl-i: 'China Jinping underground Laboratory ... rock overburden more than 2400 m' (first-phase CJPL-I)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1303.0601, abstract",
+      "note": "",
+      "quote": "The China Dark Matter Experiment (CDEX) experiment is going to directly detect the WIMP flux with high sensitivity in the low mass region.",
+      "sources": [
+        "src:cdex-introduction-2013"
+      ],
+      "value": "Direct detection of light WIMPs with sub-keV germanium detectors",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cdex-1-first-results-2013",
+    "src:cdex-50-projected-sensitivity-2024",
+    "src:cdex-1b-annual-modulation-2019",
+    "src:cdex-program-overview-2016",
+    "src:cdex-texono-jinping-germanium-2012"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "CDEX-1 was the first stage of the CDEX programme: a single 1 kg germanium crystal in the Jinping underground laboratory in China, tuned to notice the tiny energy of very light dark matter particles. It saw no dark matter, and its results disfavoured earlier claimed signals.",
+    "technical": "p-type point-contact germanium (pPCGe) detector, 994 g crystal (CDEX-1A) then CDEX-1B, at CJPL (>2400 m rock). First limit from 14.6 kg d with a 400 eVee threshold; later 737.1 kg d at 160 eVee; a 3.2 yr annual-modulation analysis excludes the DAMA/LIBRA and CoGeNT modulation regions at >99.99% and 98% C.L. in the standard halo model."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

@@ -1,0 +1,232 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:xmass"
+  ],
+  "id": "detector:xmass",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2010-09",
+      "label": "detector construction",
+      "locator": "arXiv:1301.2815, Sec. 1",
+      "note": "",
+      "quote": "Construction of the detector started in April 2007 and was completed in September 2010.",
+      "sources": [
+        "src:xmass-detector-paper-2013"
+      ],
+      "start": "2007-04",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2012-06",
+      "label": "commissioning runs",
+      "locator": "arXiv:1301.2815, Sec. 1 ('Commissioning runs were conducted ...')",
+      "note": "",
+      "quote": "were conducted from October 2010 to June 2012",
+      "sources": [
+        "src:xmass-detector-paper-2013"
+      ],
+      "start": "2010-10",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2013-11",
+      "label": "refurbishment (copper covers on PMT window seals)",
+      "locator": "arXiv:1511.04807, Sec. 2",
+      "note": "Start: no source gives the start of the refurbishment; it is set to the end of the commissioning runs. End: data taking resumed in November 2013.",
+      "quote": "In November 2013, after refurbishing the detector to reduce the radioactive background from the aluminum seal of the",
+      "sources": [
+        "src:xmass-annual-modulation-2016"
+      ],
+      "start": "2012-06",
+      "status": "upgrade",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2019-02-01",
+      "kind": "run",
+      "label": "stable data taking (1590.9 live days)",
+      "locator": "arXiv:2211.06204, abstract",
+      "note": "The abstract dates the stable-data-taking period; the final shutdown date is not given in the sources read.",
+      "quote": "Stable XMASS-I data taking accumulated a total live time of 1590.9 days between November 20, 2013 and February 1, 2019",
+      "sources": [
+        "src:xmass-full-dataset-2023"
+      ],
+      "start": "2013-11-20",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed (data taking ended)",
+      "locator": "arXiv:2211.06204, abstract",
+      "note": "Month precision: the end of stable data taking, 1 February 2019. No source read states a later shutdown or decommissioning date; the 2023 paper describes the data set as the 'full data set'.",
+      "quote": "Stable XMASS-I data taking accumulated a total live time of 1590.9 days between November 20, 2013 and February 1, 2019",
+      "sources": [
+        "src:xmass-full-dataset-2023"
+      ],
+      "start": "2019-02",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "XMASS-I detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2019-02",
+      "locator": "arXiv:1301.2815, Sec. 1",
+      "note": "Start = start of detector construction; end = end of stable data taking.",
+      "quote": "The XMASS detector is located at the Kamioka Observatory of the Institute for Cosmic Ray Research, the University of Tokyo, Japan.",
+      "role": "main",
+      "site_id": "site:kamioka-mozumi-mine-super-kamiokande",
+      "sources": [
+        "src:xmass-detector-paper-2013"
+      ],
+      "start": "2007-04",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:xmass-official-site",
+    "src:xmass-detector-paper-2013",
+    "src:xmass-annual-modulation-2016",
+    "src:xmass-full-dataset-2023"
+  ],
+  "specs": {
+    "active_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "832 kg",
+      "locator": "arXiv:2211.06204, abstract",
+      "note": "",
+      "quote": "containing 832 kg of liquid xenon",
+      "sources": [
+        "src:xmass-full-dataset-2023"
+      ],
+      "unit": "kg",
+      "value": 832,
+      "verified_at": "2026-10-26"
+    },
+    "depth": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "depth_mwe",
+      "display": "2,700 m water equivalent",
+      "locator": "arXiv:1511.04807, Sec. 2",
+      "note": "",
+      "quote": "The XMASS detector is located at the Kamioka Observatory (overburden 2700 m.w.e) in Japan.",
+      "sources": [
+        "src:xmass-annual-modulation-2016"
+      ],
+      "unit": "m.w.e.",
+      "value": 2700,
+      "verified_at": "2026-10-26"
+    },
+    "fiducial_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "97 kg",
+      "locator": "arXiv:1804.02180, abstract",
+      "note": "",
+      "quote": "a fiducial volume containing 97 kg of liquid xenon at the center of the detector",
+      "sources": [
+        "src:xmass-direct-search-705-days-2019"
+      ],
+      "unit": "kg",
+      "value": 97,
+      "verified_at": "2026-10-26"
+    },
+    "phase": {
+      "confidence": "verified",
+      "locator": "arXiv:1511.04807, abstract",
+      "note": "",
+      "quote": "a single-phase liquid xenon detector",
+      "sources": [
+        "src:xmass-annual-modulation-2016"
+      ],
+      "value": "single-phase",
+      "verified_at": "2026-10-26"
+    },
+    "pmt_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "642 PMTs",
+      "locator": "arXiv:1301.2815, Sec. 1",
+      "note": "",
+      "quote": "642 inward-facing photomultiplier tubes (PMTs)",
+      "sources": [
+        "src:xmass-detector-paper-2013"
+      ],
+      "unit": "",
+      "value": 642,
+      "verified_at": "2026-10-26"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "arXiv:1511.04807, abstract",
+      "note": "",
+      "quote": "a single-phase liquid xenon detector",
+      "sources": [
+        "src:xmass-annual-modulation-2016"
+      ],
+      "value": "liquid xenon",
+      "verified_at": "2026-10-26"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "835 kg",
+      "locator": "arXiv:1301.2815, Sec. 1",
+      "note": "Mass of xenon in the sensitive region of the inner detector.",
+      "quote": "xenon in the sensitive region is 835 kg",
+      "sources": [
+        "src:xmass-detector-paper-2013"
+      ],
+      "unit": "kg",
+      "value": 835,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "XMASS was a detector holding 832 kg of liquid xenon in the Kamioka mine in Japan, built to look for dark matter by watching for its faint flashes of light. It ran from 2013 to 2019, saw no dark matter, and set limits on several kinds of dark matter.",
+    "technical": "Single-phase liquid xenon scintillation detector: 642 PMTs viewing 835 kg of xenon in a copper vessel, inside a 72-PMT water-Cherenkov muon veto, at 2700 m.w.e. Stable data taking Nov 2013 - Feb 2019 (1590.9 live days); 97 kg fiducial volume. Full-dataset WIMP-nucleon limit 1.4e-44 cm^2 at 60 GeV/c^2; annual-modulation, Migdal and bremsstrahlung searches for lighter WIMPs."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:1301.2815, Sec. 1",
+    "note": "",
+    "quote": "642 inward-facing photomultiplier tubes (PMTs) in an approximate spherical shape in a copper vessel filled with pure liquid xenon",
+    "sources": [
+      "src:xmass-detector-paper-2013"
+    ],
+    "value": "Single-phase liquid xenon scintillation detector viewed by 642 photomultiplier tubes",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "noble_liquid_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "xenon_tpc"
+  ],
+  "type": "detector"
+}

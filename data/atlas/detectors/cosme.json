@@ -1,0 +1,137 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:cosme"
+  ],
+  "id": "detector:cosme",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1992",
+      "kind": "phase",
+      "label": "first operation of the COSME detector (Canfranc tunnel)",
+      "locator": "arXiv:hep-ex/0101037, Sec. 3.1",
+      "note": "The 2002 paper compares its data with 'the previous set of data from 1990 to 1992' and says the detector 'was formerly used in the Canfranc tunnel in one of the first dedicated searches for WIMPs'. The tunnel point is not dated further and no depth is given for it.",
+      "quote": "compared to the previous set of data from 1990 to 1992",
+      "sources": [
+        "src:cosme-dark-matter-axion-searches-2002"
+      ],
+      "start": "1990",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2002",
+      "kind": "phase",
+      "label": "second operation in the deeper, IGEX-type shield (2450 m.w.e.)",
+      "locator": "arXiv:hep-ex/0101037, Sec. 3.1",
+      "note": "Data from 1998 and 1999 (72.7 kg d). A proceedings paper of November 2000 still says the detector is 'currently operating'. End: bounded by the November 2002 IGEX status talk, which lists COSME among detectors since removed from the shield.",
+      "quote": "The COSME detector has been running during the years 1998 and 1999 in these new conditions",
+      "sources": [
+        "src:cosme-dark-matter-axion-searches-2002",
+        "src:cosme-canfranc-recent-results-2001"
+      ],
+      "start": "1998",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed (detector removed from the shield; no end date published)",
+      "locator": "arXiv:astro-ph/0211535, Sec. 2",
+      "note": "Latest evidence only: the November 2002 talk says the other detectors (RG-I, RG-III and COSME) have been removed from the shield; no end date is published.",
+      "quote": "removal of the other detectors (RG-I, RG-III and COSME)",
+      "sources": [
+        "src:igex-dm-status-2002"
+      ],
+      "start": "2002",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "COSME germanium detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2002",
+      "locator": "arXiv:hep-ex/0101037, abstract",
+      "note": "Canfranc tunnel (first run) and the deeper IGEX-type shield (second run); the Atlas site record is one approximate point for the laboratory.",
+      "quote": "A small, natural abundance, germanium detector (COSME) has been operating recently at the Canfranc Underground Laboratory (Spanish Pyrenees)",
+      "role": "main",
+      "site_id": "site:lsc-canfranc",
+      "sources": [
+        "src:cosme-dark-matter-axion-searches-2002"
+      ],
+      "start": "1990",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cosme-dark-matter-axion-searches-2002",
+    "src:cosme-canfranc-recent-results-2001",
+    "src:igex-dm-status-2002"
+  ],
+  "specs": {
+    "overburden": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "depth_mwe",
+      "display": "2450 m.w.e.",
+      "locator": "arXiv:hep-ex/0101037, Sec. 2",
+      "note": "",
+      "quote": "which has an overburden of 2450 m.w.e.",
+      "sources": [
+        "src:cosme-dark-matter-axion-searches-2002"
+      ],
+      "unit": "m.w.e.",
+      "value": 2450,
+      "verified_at": "2026-10-26"
+    },
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "234 g",
+      "locator": "arXiv:hep-ex/0101037, Sec. 2",
+      "note": "Natural-abundance p-type coaxial HPGe crystal, 22 mm x 52.5 mm.",
+      "quote": "a mass of 234 g",
+      "sources": [
+        "src:cosme-dark-matter-axion-searches-2002"
+      ],
+      "unit": "g",
+      "value": 234,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "COSME was a small germanium crystal, about a quarter of a kilogram, in the Canfranc underground laboratory in the Spanish Pyrenees. It was used in two runs, in the 1990s, to look for dark matter particles and for axions from the Sun, and set limits on both.",
+    "technical": "234 g natural-abundance p-type coaxial HPGe crystal (0.43 keV FWHM at 10.37 keV; 2.5 keV threshold), in a PNNL electroformed-copper cryostat inside the IGEX archaeological-lead shield with muon veto at 2450 m.w.e. 72.7 kg d (1998-1999) give WIMP exclusion plots for low masses and a 95% C.L. limit g < 2.8e-9 GeV^-1 on the axion-photon coupling (Primakoff conversion with Bragg scattering)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:hep-ex/0101037, Sec. 2",
+    "note": "",
+    "quote": "The detector was specially built for dark matter searches",
+    "sources": [
+      "src:cosme-dark-matter-axion-searches-2002"
+    ],
+    "value": "A 234 g natural germanium p-type coaxial HPGe crystal in a copper cryostat, built specially for low threshold and low background",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "germanium",
+  "technology_classes": [
+    "germanium"
+  ],
+  "type": "detector"
+}

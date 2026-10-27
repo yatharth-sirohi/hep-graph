@@ -1,0 +1,196 @@
+{
+  "aliases": [
+    "Helium Roton Apparatus for Light Dark Matter"
+  ],
+  "collaboration_ids": [
+    "collaboration:tesseract"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:modane-underground-laboratory",
+      "locator": "Nucl. Phys. B 1003 (2024) 116465, Sec. 4",
+      "note": "First document read that places HeRALD in the proposed TESSERACT experiment at LSM (Nucl. Phys. B, received 9 January 2024); the TAUP 2025 slides repeat it ('Commissioning at Laboratoire Souterrain de Modane'). HeRALD itself is an R&D programme at US institutions until then.",
+      "quote": "Combined with the US-based SPICE and HeRALD technologies, the TESSERACT at LSM experiment will then allow to probe DM candidates over 12 orders of magnitude in mass",
+      "role": "host",
+      "sources": [
+        "src:tesseract-modane-proposal-nuclphysb-2024"
+      ],
+      "start": "2024-01",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:herald",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "concept proposed (superfluid helium, calorimetric readout) and R&D",
+      "locator": "arXiv:1810.06283, Sec. 1",
+      "note": "Start is the arXiv submission of the concept paper (15 Oct 2018); the proposal to host HeRALD at LSM as part of TESSERACT dates from 2022.",
+      "quote": "We name this concept “HeRALD”, helium roton apparatus for light dark matter.",
+      "sources": [
+        "src:herald-concept-2018-arxiv"
+      ],
+      "start": "2018-10",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2028",
+        "planned": true
+      },
+      "label": "planned installation of the TESSERACT setups (including HeRALD) at LSM",
+      "locator": "TAUP 2025 slide 15",
+      "note": "A schedule; the setups are the two TESSERACT cryostats hosting SPICE, HeRALD and Ge/Si modules.",
+      "quote": "The two setups will be in LSM between 2027 and 2028",
+      "sources": [
+        "src:tesseract-taup2025-slides"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2027",
+        "display": "between 2027 and 2028",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Prototype target mass (HeRALD v0.1)",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "~10 g",
+        "locator": "arXiv:2307.11877, abstract",
+        "note": "",
+        "quote": "which we implemented in a prototype \"HeRALD v0.1\" detector of ~10 g target mass",
+        "sources": [
+          "src:herald-first-demonstration-2023-arxiv"
+        ],
+        "unit": "g",
+        "value": 10,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Prototype energy threshold (5 sigma)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "145 eV",
+        "locator": "arXiv:2307.11877, abstract",
+        "note": "",
+        "quote": "the HeRALD detector reported here has an energy threshold of 145 eV at 5 sigma",
+        "sources": [
+          "src:herald-first-demonstration-2023-arxiv"
+        ],
+        "unit": "eV",
+        "value": 145,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Lowest mass reachable with the prototype threshold",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass_energy",
+        "display": "220 MeV/c^2",
+        "locator": "arXiv:2307.11877, abstract",
+        "note": "",
+        "quote": "which would be sensitive to dark matter masses down to 220 MeV/c$^2$",
+        "sources": [
+          "src:herald-first-demonstration-2023-arxiv"
+        ],
+        "unit": "MeV/c^2",
+        "value": 220,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:tesseract",
+      "locator": "arXiv:2307.11877, Sec. 1",
+      "note": "HeRALD is one detector technology of the TESSERACT programme.",
+      "quote": "The SPICE portion of the TESSERACT program uses substrates with strong optical phonon modes, while ‘HeRALD’ (Helium Roton",
+      "relation": "same_program",
+      "sources": [
+        "src:herald-first-demonstration-2023-arxiv"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "HeRALD page",
+      "note": "",
+      "quote": "HeRALD stands for Helium Roton Apparatus for Light Dark matter.",
+      "sources": [
+        "src:tesseract-herald-page"
+      ],
+      "value": "https://tesseract.lbl.gov/home/herald/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "HeRALD",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Separate from experiment:tesseract because the collaboration's own site calls SPICE and HeRALD 'two experiments' and a Comm. Phys. 2026 review writes 'the HeRALD experiment'; other sources (CPAD 2025, LBNL 2025) call them 'detector modules' of TESSERACT.",
+    "An April 2026 APS abstract ('Status Update on the HeRALD Experiment': R&D continues, moving underground at Modane in 2028) could not be fetched (HTTP 403) and is not cited."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1810.06283, abstract",
+      "note": "",
+      "quote": "A promising technology concept for sub-GeV dark matter detection is described, in which low-temperature microcalorimeters serve as the sensors and superfluid $^4$He serves as the target material.",
+      "sources": [
+        "src:herald-concept-2018-arxiv"
+      ],
+      "value": "Direct detection of sub-GeV dark matter with a superfluid helium target and calorimetric readout",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:tesseract-herald-page",
+    "src:tesseract-modane-proposal-nuclphysb-2024",
+    "src:herald-concept-2018-arxiv",
+    "src:herald-first-demonstration-2023-arxiv",
+    "src:tesseract-taup2025-slides",
+    "src:tesseract-cpad2025-abstract",
+    "src:lowmass-commphys-review-2026"
+  ],
+  "status": "proposed",
+  "summary": {
+    "plain": "HeRALD is a dark matter detector that uses a small bath of superfluid helium, cooled to near absolute zero, and superconducting sensors that detect both flashes of light and individual helium atoms boiled off the surface. It is part of TESSERACT and is proposed for the Modane underground laboratory.",
+    "technical": "Helium Roton Apparatus for Light Dark matter: superfluid 4He target (nuclear recoils of sub-GeV dark matter) read out by TES calorimeters sensing prompt and triplet scintillation and quasiparticles (phonons and rotons) via quantum evaporation of helium atoms and their van der Waals adsorption on the sensor; Cs film stopping keeps the sensor dry. Prototype HeRALD v0.1 (~10 g): 145 eV threshold (5 sigma), sensitivity to masses down to 220 MeV/c^2. Proposed host: LSM as a TESSERACT module."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

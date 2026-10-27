@@ -1,0 +1,76 @@
+{
+  "aliases": [
+    "SUF"
+  ],
+  "country": [
+    "US"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "id": "facility:stanford-underground-facility",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2002-06",
+      "label": "hosting the CDMS I and first-tower CDMS II detectors",
+      "locator": "arXiv:astro-ph/0203500, Sec. II",
+      "note": "Start: the earliest source read (the TAUP97 CDMS proceedings, arXiv Dec 1997) already reports data runs at the Stanford site, so the true start is 1997 or earlier. End: the last run there, 'between December 2001 and June 2002' (arXiv:1010.4290). No source read states when the tunnel itself was built or closed.",
+      "quote": "The first stage of the Cryogenic Dark Matter Search (CDMS I) operates at the Stanford Underground Facility, a tunnel 10.6 m beneath the Stanford University campus.",
+      "sources": [
+        "src:cdms-i-exclusion-limits-2002",
+        "src:cdms-ii-low-threshold-shallow-site-2010"
+      ],
+      "start": "1997",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "scientific use of the tunnel by CDMS ended",
+      "locator": "arXiv:1010.4290, abstract",
+      "note": "Month precision. The same detectors moved to the Soudan Underground Laboratory in 2003 (arXiv:astro-ph/0405033: 'Tower 1 was operated previously in an identical configuration at the Stanford Underground Facility'). No source says whether the SUF tunnel still exists or is used by other experiments; 'completed' records only the end of its use for CDMS.",
+      "quote": "Four ~224 g germanium and two ~105 g silicon detectors were operated at the Stanford Underground Facility (SUF) between December 2001 and June 2002",
+      "sources": [
+        "src:cdms-ii-low-threshold-shallow-site-2010"
+      ],
+      "start": "2002-06",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "kind": "underground_laboratory",
+  "links": {
+    "website": null
+  },
+  "name": "Stanford Underground Facility",
+  "notes": [
+    "The CDMS papers place the facility 'in the Hansen Experimental Physics Laboratory, on the Stanford University campus', not at SLAC; SLAC's Menlo Park site (site:slac-menlo-park-campus) is a different location, so a separate facility is recorded.",
+    "No operator is stated in the CDMS papers; operator_text is left null rather than inferred.",
+    "Overburden: the CDMS papers give ~16 m.w.e. (arXiv:astro-ph/0203500, astro-ph/0002471) and ~17 m.w.e. (arXiv:astro-ph/9712343, astro-ph/0405033, 1010.4290); 17 is recorded (three sources, latest paper)."
+  ],
+  "operator_ids": [],
+  "operator_text": null,
+  "primary_site_id": "site:stanford-underground-facility-hepl",
+  "related_facility_ids": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cdms-i-exclusion-limits-2002",
+    "src:cdms-i-preliminary-limits-1997",
+    "src:cdms-ii-low-threshold-shallow-site-2010",
+    "src:stanford-hepl-directions"
+  ],
+  "specs": {},
+  "status": "completed",
+  "summary": {
+    "plain": "A shallow tunnel, about ten metres below the Stanford University campus in California, where the first stages of the Cryogenic Dark Matter Search ran in the late 1990s and early 2000s before moving to the deeper Soudan mine.",
+    "technical": "Shallow underground facility (10.6 m below ground level, ~17 m.w.e.) in the Hansen Experimental Physics Laboratory on the Stanford campus; housed the CDMS I Ge/Si bolometers and the first tower of CDMS II ZIP detectors behind a 15 cm lead / 25 cm polyethylene shield with a scintillator muon veto. Separate from SLAC (Menlo Park)."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "facility"
+}

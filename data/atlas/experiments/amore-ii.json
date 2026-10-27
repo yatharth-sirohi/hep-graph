@@ -1,0 +1,152 @@
+{
+  "aliases": [
+    "AMoRE Phase II"
+  ],
+  "collaboration_ids": [
+    "collaboration:amore"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:yemilab",
+      "locator": "arXiv:2406.09698, abstract",
+      "note": "Placement in the AMoRE Hall of Yemilab (the deepest hall, floor at 1,029 m; Front. Phys. 12:1323991, Sec. 4.2).",
+      "quote": "AMoRE-II is currently being installed at the Yemi Underground Laboratory, located approximately 1000 meters deep in Jeongseon, Korea.",
+      "role": "host",
+      "sources": [
+        "src:amore-ii-projected-background-2024"
+      ],
+      "start": "2024-06",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:amore-ii",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "AMoRE-II installation at Yemilab",
+      "locator": "arXiv:2406.09698, abstract",
+      "note": "Start = the earliest dated source read that says AMoRE-II is being installed (arXiv:2406.09698, June 2024); the actual start of construction is earlier (the Yemilab AMoRE Hall exists since 2022 and the 2023 papers speak of preparations) but no source gives it. Still 'upcoming' in July 2026 (arXiv:2607.08039: 'the AMoRE-II experiment, which will soon become operational'); no source reports commissioning or physics data.",
+      "quote": "AMoRE-II is currently being installed at the Yemi Underground Laboratory, located approximately 1000 meters deep in Jeongseon, Korea.",
+      "sources": [
+        "src:amore-ii-projected-background-2024"
+      ],
+      "start": "2024-06",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "100Mo isotope mass",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "about 90 kg",
+        "locator": "arXiv:2407.12227, abstract",
+        "note": "",
+        "quote": "featuring a large detector array with about 90 kg of $^{100}$Mo isotope",
+        "sources": [
+          "src:amore-ii-lmo-calorimeters-2025"
+        ],
+        "unit": "kg",
+        "value": 90,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Number of Li2 100MoO4 crystals",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "423 crystals",
+        "locator": "arXiv:2406.09698, abstract",
+        "note": "",
+        "quote": "an array of 423 Li$_2$$^{100}$MoO$_4$ crystals",
+        "sources": [
+          "src:amore-ii-projected-background-2024"
+        ],
+        "unit": "",
+        "value": 423,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "double_beta_decay",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:amore-i",
+      "locator": "arXiv:2406.09698, abstract",
+      "note": "",
+      "quote": "AMoRE has been planned to operate in three phases: AMoRE-pilot, AMoRE-I, and AMoRE-II.",
+      "relation": "predecessor",
+      "sources": [
+        "src:amore-ii-projected-background-2024"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "approximate",
+      "locator": "CUP 'Double Beta Decay' research page",
+      "note": "No dedicated AMoRE website was found; the Center for Underground Physics page describes the experiment.",
+      "quote": "The AMoRE Experiment",
+      "sources": [
+        "src:cup-ibs-double-beta-decay"
+      ],
+      "value": "https://centers.ibs.re.kr/html/cup/research/research_0303.html",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "AMoRE-II",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Status 'construction' with approximate start; the experiment was scheduled to begin in Q2 2024 (AAPPS Bull.), but a July 2026 AMoRE paper still calls it upcoming."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2406.09698, abstract",
+      "note": "",
+      "quote": "The goal of AMoRE-II is to reach up to $T^{0\\nu\\beta\\beta}_{1/2}$ $\\sim$ 6 $\\times$ 10$^{26}$ years, corresponding to an effective Majorana mass of 15 - 29 meV, covering all the inverted mass hierarchy regions.",
+      "sources": [
+        "src:amore-ii-projected-background-2024"
+      ],
+      "value": "Reach a 100Mo 0vbb half-life sensitivity of about 6e26 yr, an effective Majorana mass of 15-29 meV covering all inverted-hierarchy regions",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:amore-ii-projected-background-2024",
+    "src:amore-ii-lmo-calorimeters-2025",
+    "src:yemilab-construction-frontiers-2024",
+    "src:yemilab-aapps-bulletin-2024",
+    "src:amore-i-ca40-double-electron-capture-2026"
+  ],
+  "status": "construction",
+  "summary": {
+    "plain": "AMoRE-II is the main, full-size stage of AMoRE, being installed at Yemilab: about 90 kg of molybdenum-100 in hundreds of lithium-molybdate crystals cooled to a few thousandths of a degree above absolute zero. It aims to probe the whole range of neutrino masses expected if neutrino masses follow the so-called inverted ordering.",
+    "technical": "Array of 423 Li2 100MoO4 crystals (about 90 kg of 100Mo) as MMC-read cryogenic calorimeters in a dilution refrigerator (Leiden, three pulse tubes) with 26 cm lead, boric-acid rubber, 70 cm polyethylene and a water-Cherenkov and plastic-scintillator muon veto, in the AMoRE Hall of Yemilab (about 1,000 m); target background 1e-4 counts/keV/kg/yr, sensitivity T1/2 ~ 6e26 yr (m_bb 15-29 meV, the whole inverted-hierarchy region). Status: under construction; 'upcoming' in July 2026."
+  },
+  "topic_ids": [
+    "topic:neutrinoless-double-beta-decay",
+    "topic:neutrino-physics"
+  ],
+  "type": "experiment"
+}

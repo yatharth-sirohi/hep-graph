@@ -1,0 +1,153 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:sabre-south"
+  ],
+  "id": "detector:sabre-south",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2024",
+      "label": "proposal (twin NaI(Tl) detectors at LNGS and SUPL)",
+      "locator": "arXiv:1605.03299, abstract",
+      "note": "Year of the earliest SABRE South paper read (May 2016). No approval date is published in the sources read; the end is the start of installation in SUPL (early 2024).",
+      "quote": "I will discuss the status of the proposed SABRE experiment, which will be comprised of a pair of high purity 50-60 kg NaI crystal detectors with active veto shielding to be located in labs in the Northern and Southern Hemispheres respectively.",
+      "sources": [
+        "src:sabre-southern-hemisphere-hunt-supl-2016"
+      ],
+      "start": "2016",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "installation and assembly of SABRE South in SUPL",
+      "locator": "arXiv:2411.13889, Sec. 2",
+      "note": "Installation began in early 2024 (the muon veto was commissioned in 'telescope mode' then). Assembly of the full detector slipped repeatedly: 'commissioning ... expected to occur in 2023' (arXiv:2211.03016), 'ready to take data ... by 2025' (arXiv:2205.13849), 'full commissioning ... planned for the first quarter of 2026' (TIPP 2026 abstract), 'assembly ... will take place this year' (COSMO-26 abstract, August 2026). The March 2026 muon paper still calls it 'the upcoming SABRE South experiment'.",
+      "quote": "The construction of SUPL was completed in 2023, with the first access for SABRE South installation activities in early 2024.",
+      "sources": [
+        "src:sabre-south-tdr-executive-summary-2025"
+      ],
+      "start": "2024",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "planned stable physics data taking",
+      "locator": "abstract of the talk of 9 November 2026",
+      "note": "Planned date from a talk abstract for the 21st Patras Workshop (9-13 November 2026); not an achieved milestone.",
+      "quote": "Once stable data taking begins in January 2027, SABRE South will deliver a definitive test of the DAMA/LIBRA annual modulation signal at high statistical significance.",
+      "sources": [
+        "src:sabre-south-patras-2026-abstract"
+      ],
+      "start": {
+        "date": "2027-01",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "SABRE South detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "arXiv:2411.13889, Sec. 2",
+      "note": "Hall not named. The Atlas site record's coordinate is the surface mine area (campus-grade), not the laboratory.",
+      "quote": "The SABRE South detector is hosted at the Stawell Underground Physics Laboratory (SUPL), which",
+      "role": "main",
+      "site_id": "site:stawell-underground-physics-laboratory",
+      "sources": [
+        "src:sabre-south-tdr-executive-summary-2025"
+      ],
+      "start": "2024",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:sabre-south-tdr-executive-summary-2025",
+    "src:sabre-south-experiment-supl-2022",
+    "src:sabre-south-simulation-2023",
+    "src:sabre-south-muon-flux-supl-2026"
+  ],
+  "specs": {
+    "instrumented_volume": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "volume",
+      "display": "11600 L (11.6 kL)",
+      "locator": "arXiv:2411.13889, abstract",
+      "note": "Liquid-scintillator veto volume (design value).",
+      "quote": "The active veto system consists of 11.6 kL of linear alkylbenzene (LAB)",
+      "sources": [
+        "src:sabre-south-tdr-executive-summary-2025"
+      ],
+      "unit": "L",
+      "value": 11600,
+      "verified_at": "2026-10-26"
+    },
+    "module_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "7",
+      "locator": "arXiv:2411.13889, abstract",
+      "note": "Design value (technical design report).",
+      "quote": "SABRE South uses seven ultra-high purity NaI(Tl) crystals (with a total target mass of either 35 kg or 50 kg)",
+      "sources": [
+        "src:sabre-south-tdr-executive-summary-2025"
+      ],
+      "unit": "",
+      "value": 7,
+      "verified_at": "2026-10-26"
+    },
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "50 kg",
+      "locator": "arXiv:2411.13889, abstract",
+      "note": "Upper of the two design options (the other is 35 kg).",
+      "quote": "with a total target mass of either 35 kg or 50 kg",
+      "sources": [
+        "src:sabre-south-tdr-executive-summary-2025"
+      ],
+      "unit": "kg",
+      "value": 50,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "construction",
+  "subsystems": [],
+  "summary": {
+    "plain": "SABRE South is the Australian half of a twin pair of sodium-iodide dark matter detectors, being assembled 1 km underground in the Stawell gold mine, Victoria. Being in the Southern Hemisphere helps tell a real dark matter signal from seasonal effects, when tested against DAMA/LIBRA's yearly signal. Its twin, SABRE North, is in Italy.",
+    "technical": "Seven ultra-high-purity NaI(Tl) crystals (35 kg or 50 kg in all) in oxygen-free copper enclosures, with Hamamatsu R11065 photomultipliers at both ends, suspended in an 11.6 kL linear alkylbenzene liquid-scintillator veto (at least 18 R5912 photomultipliers) inside steel and polyethylene shielding, with a muon veto of eight EJ-200 plastic scintillator panels. Expected background 0.72 cpd/kg/keV in 1-6 keV; 5 sigma discovery or 3 sigma exclusion of a DAMA/LIBRA-like modulation after two years. Muon flux at SUPL measured at (6.33 +- 0.04 +- 0.35) x 10^-8 cm^-2 s^-1 with the veto panels (2026)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2211.03016, abstract",
+    "note": "",
+    "quote": "Ultra-high purity NaI(Tl) crystals are immersed in a linear alkyl benzene (LAB) based liquid scintillator veto, further surrounded by passive steel and polyethylene shielding and a plastic scintillator muon veto.",
+    "sources": [
+      "src:sabre-south-experiment-supl-2022"
+    ],
+    "value": "Ultra-high-purity NaI(Tl) crystals read by photomultipliers inside a linear-alkylbenzene liquid-scintillator veto and a plastic-scintillator muon veto",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "scintillating_crystal",
+  "technology_classes": [
+    "scintillating_crystal"
+  ],
+  "type": "detector"
+}

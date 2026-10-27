@@ -1,0 +1,109 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:argo"
+  ],
+  "id": "detector:argo",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "proposed",
+      "locator": "arXiv:2507.11368, Sec. 5.5 (Summary)",
+      "note": "Start = SNOLAB Future Projects Workshop community report (July 2025), the earliest source read that names ARGO together with a host site ('preferably at SNOLAB'). ARGO was already named as a future GADMC experiment in arXiv:2001.08106 (January 2020, 'any future experiment of the GADMC, such as ARGO') without a host site. The 2026 DEAP/GADMC proceedings (arXiv:2603.27372) say the Cube Hall 'has been selected as the prospective site'.",
+      "quote": "Late 2030s: Construction of ARGO, preferably at SNOLAB.",
+      "sources": [
+        "src:damic-2025-snolab-workshop-status",
+        "src:dm-noble-liquid-deap-3600-status-2026"
+      ],
+      "start": "2025-07",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "ARGO detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "arXiv:2603.27372, Sec. 1",
+      "note": "Prospective site: the Cube Hall of SNOLAB (Geometry B design figure in arXiv:2603.27372).",
+      "quote": "SNOLAB’s Cube Hall has been selected as the prospective site.",
+      "role": "main",
+      "site_id": "site:snolab-underground-lab",
+      "sources": [
+        "src:dm-noble-liquid-deap-3600-status-2026"
+      ],
+      "start": "2026-03",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:dm-noble-liquid-deap-3600-status-2026",
+    "src:damic-2025-snolab-workshop-status",
+    "src:argo-cap2025-global-argon-search-abstract",
+    "src:dart-in-ardm-design-2020"
+  ],
+  "specs": {
+    "fiducial_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "300-tonne",
+      "locator": "arXiv:2603.27372, abstract",
+      "note": "",
+      "quote": "featuring a 300-tonne fiducial LAr mass",
+      "sources": [
+        "src:dm-noble-liquid-deap-3600-status-2026"
+      ],
+      "unit": "t",
+      "value": 300,
+      "verified_at": "2026-10-26"
+    },
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "400-tonne",
+      "locator": "arXiv:2603.27372, Sec. 1",
+      "note": "",
+      "quote": "ARGO will contain a 400-tonne LAr target",
+      "sources": [
+        "src:dm-noble-liquid-deap-3600-status-2026"
+      ],
+      "unit": "t",
+      "value": 400,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "proposed",
+  "subsystems": [],
+  "summary": {
+    "plain": "ARGO is a proposed 400-tonne liquid argon detector (300 tonnes fiducial) for the very large dark matter search planned as the last step of the Global Argon Dark Matter Collaboration. SNOLAB's Cube Hall in Canada has been selected as the prospective site. It aims to search for WIMPs down to the neutrino fog.",
+    "technical": "Next-generation argon detector under development by GADMC: 400 t of low-radioactivity underground argon (300 t fiducial) viewed by digital silicon photomultipliers (about 250 m^2), single-phase or dual-phase TPC depending on DarkSide-20k results, in a vacuum cryostat with a water shield; goal of fewer than one background event in the WIMP region over ten years (3000 t yr). Design studies in the SNOLAB Cube Hall (Geometry B); the 2025 SNOLAB report plans construction in the late 2030s, preceded by the ARGOlite prototype (about 2028-2031). No approval or funding decision was found."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2603.27372, Sec. 1",
+    "note": "The 2025 SNOLAB report says the main detector 'will be either a single-phase chamber or a double-phase TPC' depending on DarkSide-20k results.",
+    "quote": "ARGO will contain a 400-tonne LAr target instrumented with digital silicon photomultipliers (SiPMs).",
+    "sources": [
+      "src:dm-noble-liquid-deap-3600-status-2026"
+    ],
+    "value": "Liquid argon detector (single-phase or dual-phase TPC, design open) with digital SiPM light readout",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "noble_liquid_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "argon_tpc"
+  ],
+  "type": "detector"
+}

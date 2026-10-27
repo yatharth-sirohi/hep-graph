@@ -1,0 +1,164 @@
+{
+  "aliases": [
+    "LIME",
+    "CYGNO-04"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:cygno"
+  ],
+  "id": "detector:cygno",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2025-10",
+      "kind": "lifecycle",
+      "label": "proposal (CDR 2019, TDR 2023) and prototype R&D (LIME)",
+      "locator": "arXiv:1901.04190, abstract",
+      "note": "Start = the arXiv submission of the proposal paper (14 January 2019), which names LNGS as the host; the Conceptual Design Report is dated 20 March 2019 and the CYGNO-04 Technical Design Report 27 February 2023. End = the first source stating that CYGNO-04 is under construction (arXiv:2510.23229, October 2025); the actual start of construction is not published. No approval date is published.",
+      "quote": "CYGNO is a new proposal supported by INFN, the Italian National Institute for Nuclear Physics",
+      "sources": [
+        "src:cygno-1m3-module-proposal-2019",
+        "src:cygno-conceptual-design-report-2019",
+        "src:cygno-04-technical-design-report-2023"
+      ],
+      "start": "2019-01",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "derived",
+      "end": "2024-05",
+      "kind": "run",
+      "label": "LIME 50 L prototype (PHASE 0 R&D): underground data taking at LNGS (five periods)",
+      "locator": "arXiv:2306.16856, abstract",
+      "note": "Start verified (installed underground in February 2022). End is derived: February 2022 plus the 'around 27 months' of the underground campaign (arXiv:2603.22595, Sec. 2: 'The underground data taking campaign lasted around 27 months'); the paper does not state an end date.",
+      "quote": "that has been installed in underground Laboratori Nazionali del Gran Sasso in February 2022.",
+      "sources": [
+        "src:cygno-lime-prototype-2023",
+        "src:cygno-gaseous-tpc-optical-readout-2026"
+      ],
+      "start": "2022-02",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "CYGNO-04 (0.4 m^3) demonstrator under construction in LNGS Hall F",
+      "locator": "arXiv:2510.23229, abstract",
+      "note": "Start = the date of the first source stating 'is constructing' (arXiv:2510.23229 v1, 23 October 2025); the true start is earlier or unpublished. The March 2026 paper says the demonstrator is 'to be completed in 2026'; no source read says it has been completed.",
+      "quote": "Currently, the CYGNO Collaboration is constructing the detector demonstrator, CYGNO-04, in Hall F at Laboratori Nazionali del Gran Sasso (LNGS).",
+      "sources": [
+        "src:cygno-field-cage-cathode-2025",
+        "src:cygno-gaseous-tpc-optical-readout-2026",
+        "src:cygno-04-technical-design-report-2023"
+      ],
+      "start": "2025-10",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "CYGNO optical-readout TPC (LIME and CYGNO-04)",
+  "notes": [
+    "One record for the PHASE 0 prototype (LIME, 50 L) and the PHASE 1 demonstrator (CYGNO-04, 0.4 m^3, under construction); the volumes are separate specs."
+  ],
+  "placements": [
+    {
+      "confidence": "derived",
+      "end": "2024-05",
+      "locator": "arXiv:2306.16856, abstract",
+      "note": "LIME, installed underground at LNGS; the hall is not named in the sources read. End derived from the ~27-month campaign (see the experiment's interval note).",
+      "quote": "that has been installed in underground Laboratori Nazionali del Gran Sasso in February 2022.",
+      "role": "prototype",
+      "site_id": "site:lngs-hall-b",
+      "sources": [
+        "src:cygno-lime-prototype-2023",
+        "src:cygno-gaseous-tpc-optical-readout-2026"
+      ],
+      "start": "2022-02",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "TDR CYGNO-04/INITIUM, abstract",
+      "note": "CYGNO-04 is under construction in Hall F of LNGS (arXiv:2510.23229). Hall F has no site record; Hall B (the facility's primary site, the same approximate coordinate as the other halls) is referenced. Installation date unpublished (planned completion 2026).",
+      "quote": "the technical choices, procedures and the executive drawings of CYGNO-04 in the Hall F of the LNGS",
+      "role": "main",
+      "site_id": "site:lngs-hall-b",
+      "sources": [
+        "src:cygno-04-technical-design-report-2023",
+        "src:cygno-field-cage-cathode-2025"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cygno-lime-prototype-2023",
+    "src:cygno-gaseous-tpc-optical-readout-2026",
+    "src:cygno-field-cage-cathode-2025",
+    "src:cygno-04-technical-design-report-2023"
+  ],
+  "specs": {
+    "active_volume": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "volume",
+      "display": "50 L",
+      "locator": "arXiv:2603.22595, Sec. 2",
+      "note": "LIME prototype, the largest prototype built in the R&D phase.",
+      "quote": "LIME is a 50 L active volume TPC",
+      "sources": [
+        "src:cygno-gaseous-tpc-optical-readout-2026"
+      ],
+      "unit": "L",
+      "value": 50,
+      "verified_at": "2026-10-26"
+    },
+    "demonstrator_volume": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "volume",
+      "display": "0.4 m^3",
+      "locator": "arXiv:2603.22595, abstract",
+      "note": "Sensitive volume of the CYGNO-04 demonstrator (back-to-back TPC).",
+      "quote": "the next step is the deployment of a 0.4 m3 demonstrator, CYGNO-04, to be completed in 2026.",
+      "sources": [
+        "src:cygno-gaseous-tpc-optical-readout-2026"
+      ],
+      "unit": "m^3",
+      "value": 0.4,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "construction",
+  "subsystems": [],
+  "summary": {
+    "plain": "CYGNO is a directional dark matter project at Gran Sasso. A gas chamber of helium and CF4 turns particle tracks into light that cameras photograph, giving 3D tracks and their direction. A 50-litre prototype ran underground; a 0.4 cubic-metre demonstrator is being built.",
+    "technical": "CYGNus module with Optical readout: He:CF4 (60:40) atmospheric-pressure TPC with triple-GEM amplification and optical readout (sCMOS camera for X-Y, PMTs for the drift coordinate). PHASE 0: 50 L LIME prototype, commissioned overground at LNF and installed underground at LNGS in February 2022 (about 27 months of data in five shielding configurations). PHASE 1: CYGNO-04, a 0.4 m^3 back-to-back TPC in LNGS Hall F, under construction; PHASE 2 aims at O(30) m^3. Part of the CYGNUS proto-collaboration; INITIUM ERC grant."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2603.22595, Sec. 2",
+    "note": "",
+    "quote": "CYGNO [1] employs a TPC filled with He:CF4 (60:40) at ambient pressure.",
+    "sources": [
+      "src:cygno-gaseous-tpc-optical-readout-2026"
+    ],
+    "value": "He:CF4 (60:40) atmospheric-pressure gas TPC with triple-GEM amplification and optical readout (sCMOS camera and PMTs)",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "gaseous_tpc",
+  "technology_classes": [
+    "gaseous_tpc"
+  ],
+  "type": "detector"
+}

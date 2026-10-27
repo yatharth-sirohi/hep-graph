@@ -1,0 +1,117 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:kims-nai"
+  ],
+  "id": "detector:kims-nai",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2015-01",
+      "label": "NaI(Tl) data taking for the published limits",
+      "locator": "arXiv:1806.06499, Sec. 2",
+      "note": "Month precision. Earlier NaI(Tl) crystal tests at Y2L are described in arXiv:1407.1586 and arXiv:1511.00023 (six crystals tested); their dates were not read.",
+      "quote": "The data were collected between November 2013 and January 2015 with configurations described in Ref. [25].",
+      "sources": [
+        "src:kims-nai-limits-2018"
+      ],
+      "start": "2013-11",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed (succeeded by COSINE-100)",
+      "locator": "arXiv:1710.05299, Sec. 1",
+      "note": "Atlas inference: no source gives an end date for KIMS-NaI; COSINE-100 (KIMS and DM-Ice) was assembled in early 2016 in the same Y2L shield design lineage. The planned 200 kg KIMS-NaI array was never recorded as built.",
+      "quote": "KIMS and DM-Ice have joined to construct and operate a single experiment, named COSINE, at the Yangyang underground laboratory (Y2L) in Korea.",
+      "sources": [
+        "src:cosine-100-initial-performance-2018"
+      ],
+      "start": "2016",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "KIMS-NaI crystals",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2016",
+      "locator": "arXiv:1806.06499, Sec. 2",
+      "note": "Start = first data of the published limits; end is an approximate year (see the completed interval).",
+      "quote": "The assembled detector modules are installed in the shielding structure that was used for the KIMS CsI(Tl) detector measurements at the Yangyang Underground Laboratory (Y2L)",
+      "role": "main",
+      "site_id": "site:y2l-yangyang",
+      "sources": [
+        "src:kims-nai-limits-2018"
+      ],
+      "start": "2013-11",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:kims-nai-internal-backgrounds-2016",
+    "src:kims-nai-status-2015",
+    "src:kims-nai-limits-2018",
+    "src:cosine-100-initial-performance-2018"
+  ],
+  "specs": {
+    "exposure": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "exposure",
+      "display": "2967.4 kg d",
+      "locator": "arXiv:1806.06499, abstract",
+      "note": "",
+      "quote": "obtained with a 2967.4 kg*day data exposure",
+      "sources": [
+        "src:kims-nai-limits-2018"
+      ],
+      "unit": "kg d",
+      "value": 2967.4,
+      "verified_at": "2026-10-26"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "arXiv:1806.06499, abstract",
+      "note": "",
+      "quote": "NaI(Tl) detectors at the Yangyang Underground Laboratory",
+      "sources": [
+        "src:kims-nai-limits-2018"
+      ],
+      "value": "NaI(Tl)",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "KIMS-NaI was the sodium-iodide stage of the Korean KIMS programme: the team grew its own low-radioactivity crystals, tested them underground at Yangyang and set dark-matter limits with two of them. A planned 200 kg array became, together with a US group, the COSINE-100 experiment.",
+    "technical": "NaI(Tl) crystal development and WIMP search at Y2L in the shield previously used for KIMS-CsI: two crystals (8.26 kg and 9.15 kg), 2967.4 kg d (November 2013 - January 2015), pulse-shape discrimination of nuclear recoils; limits partially exclude the DAMA/LIBRA allowed region for WIMP-sodium scattering. A 200 kg array was planned (arXiv:1510.04519)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:1806.06499, Sec. 2",
+    "note": "",
+    "quote": "The crystals are encapsulated in a cylindrical copper structure with quartz windows at each end.",
+    "sources": [
+      "src:kims-nai-limits-2018"
+    ],
+    "value": "Low-background NaI(Tl) scintillating crystals read by two photomultiplier tubes, with pulse-shape discrimination",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "scintillating_crystal",
+  "technology_classes": [
+    "scintillating_crystal"
+  ],
+  "type": "detector"
+}

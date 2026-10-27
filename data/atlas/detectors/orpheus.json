@@ -1,0 +1,180 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:orpheus"
+  ],
+  "id": "detector:orpheus",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2002",
+      "label": "set-up of the 1 kg SSG detector",
+      "locator": "arXiv:hep-ex/9911028, Sec. on ORPHEUS",
+      "note": "Start: year of the review that says the collaboration 'is setting up' the detector. End: the first data taking reported, in 2002 (arXiv:astro-ph/0404311, Sec. 3). Neither date is published as such.",
+      "quote": "the ORPHEUS collaboration is setting up a 1kg SSG detector",
+      "sources": [
+        "src:pretzl-cryogenic-calorimeters-1999"
+      ],
+      "start": "1999",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2005",
+      "label": "operation of the 0.45 kg SSG detector",
+      "locator": "arXiv:astro-ph/0404311, abstract",
+      "note": "Start: first data taking in 2002; the 2004 abstract says the detector 'is operating'; the February 2005 review lists it as 'in operation'. The end is the last evidence of operation, not a shutdown date.",
+      "quote": "The ORPHEUS dark matter detector is operating at our underground laboratory in Bern (70 m.w.e.).",
+      "sources": [
+        "src:orpheus-first-results-2004"
+      ],
+      "start": "2002",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2002",
+      "kind": "run",
+      "label": "run of two months at 170 mK",
+      "locator": "arXiv:astro-ph/0404311, Sec. 3",
+      "note": "Year precision; the paper gives no start month.",
+      "quote": "We were able to take data continuously during two months in 2002 at a temperature of 170 mK",
+      "sources": [
+        "src:orpheus-first-results-2004"
+      ],
+      "start": "2002",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2003",
+      "kind": "run",
+      "label": "run of three weeks at 115 mK",
+      "locator": "arXiv:astro-ph/0404311, Sec. 3",
+      "note": "Year precision; the paper gives no start month. This run used an upgraded acquisition system.",
+      "quote": "and during 3 weeks in 2003 at 115 mK",
+      "sources": [
+        "src:orpheus-first-results-2004"
+      ],
+      "start": "2003",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed (no later activity found)",
+      "locator": "arXiv:physics/0502065, Sec. 5",
+      "note": "No source read shows ORPHEUS running after February 2005 and none gives a shutdown date; the completed status is inferred from that silence and marked uncertain.",
+      "quote": "and with SSG of 0.5 kg (ORPHEUS) are in operation",
+      "sources": [
+        "src:pretzl-calorimeters-review-2005"
+      ],
+      "start": "2005",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "ORPHEUS superheated superconducting granule detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2005",
+      "locator": "arXiv:hep-ex/9911028, Sec. on ORPHEUS",
+      "note": "The papers name only 'our underground laboratory in Bern' (70 m.w.e.); no room or building is named.",
+      "quote": "in the Bern Underground Laboratory at 70 m.w.e.",
+      "role": "main",
+      "site_id": "site:bern-underground-laboratory",
+      "sources": [
+        "src:pretzl-cryogenic-calorimeters-1999"
+      ],
+      "start": "1999",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:orpheus-first-results-2004",
+    "src:orpheus-ssg-nuclear-recoils-1995",
+    "src:pretzl-cryogenic-calorimeters-1999",
+    "src:pretzl-calorimeters-review-2005"
+  ],
+  "specs": {
+    "active_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "0.45 kg of tin granules",
+      "locator": "arXiv:astro-ph/0404311, abstract",
+      "note": "",
+      "quote": "In an initial phase, 0.45 kg of tin granules in a segmented detector volume have been used.",
+      "sources": [
+        "src:orpheus-first-results-2004"
+      ],
+      "unit": "kg",
+      "value": 0.45,
+      "verified_at": "2026-10-26"
+    },
+    "depth": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "depth_mwe",
+      "display": "70 m.w.e.",
+      "locator": "arXiv:astro-ph/0404311, abstract",
+      "note": "",
+      "quote": "operating at our underground laboratory in Bern (70 m.w.e.)",
+      "sources": [
+        "src:orpheus-first-results-2004"
+      ],
+      "unit": "m.w.e.",
+      "value": 70,
+      "verified_at": "2026-10-26"
+    },
+    "temperature": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "temperature",
+      "display": "115 mK",
+      "locator": "arXiv:astro-ph/0404311, Sec. 2.3",
+      "note": "",
+      "quote": "The detector chamber is kept at a base temperature of 115 mK",
+      "sources": [
+        "src:orpheus-first-results-2004"
+      ],
+      "unit": "mK",
+      "value": 115,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A bundle of pick-up coils filled with tiny tin grains mixed with Teflon powder, cooled to about 0.1 kelvin in a magnetic field and surrounded by lead, copper, plastic and scintillator shielding.",
+    "technical": "56 pick-up coils (1.8 cm diameter, 6.8 cm long) filled with SSG; flip signals read by RLC circuits with a signal-to-noise ratio of 10 to 20; dilution refrigerator of 300 uW cooling power with an L-shaped side access (arXiv:astro-ph/0404311)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:astro-ph/0404311, abstract",
+    "note": "",
+    "quote": "micron-sized superheated superconducting tin granules (SSG)",
+    "sources": [
+      "src:orpheus-first-results-2004"
+    ],
+    "value": "Superheated superconducting tin granules (SSG) read by pick-up coils",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

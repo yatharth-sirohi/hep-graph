@@ -1,0 +1,215 @@
+{
+  "aliases": [
+    "XMASS-I",
+    "XMASS-1"
+  ],
+  "collaboration_ids": [
+    "collaboration:xmass"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": "2019-02",
+      "facility_id": "facility:kamioka-observatory",
+      "locator": "arXiv:1301.2815, Sec. 1",
+      "note": "Start = start of detector construction; end = end of stable data taking.",
+      "quote": "The XMASS detector is located at the Kamioka Observatory of the Institute for Cosmic Ray Research, the University of Tokyo, Japan.",
+      "role": "host",
+      "sources": [
+        "src:xmass-detector-paper-2013"
+      ],
+      "start": "2007-04",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:xmass",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2010-09",
+      "label": "detector construction",
+      "locator": "arXiv:1301.2815, Sec. 1",
+      "note": "",
+      "quote": "Construction of the detector started in April 2007 and was completed in September 2010.",
+      "sources": [
+        "src:xmass-detector-paper-2013"
+      ],
+      "start": "2007-04",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2012-06",
+      "label": "commissioning runs",
+      "locator": "arXiv:1301.2815, Sec. 1 ('Commissioning runs were conducted ...')",
+      "note": "",
+      "quote": "were conducted from October 2010 to June 2012",
+      "sources": [
+        "src:xmass-detector-paper-2013"
+      ],
+      "start": "2010-10",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2013-11",
+      "label": "refurbishment (copper covers on PMT window seals)",
+      "locator": "arXiv:1511.04807, Sec. 2",
+      "note": "Start: no source gives the start of the refurbishment; it is set to the end of the commissioning runs. End: data taking resumed in November 2013.",
+      "quote": "In November 2013, after refurbishing the detector to reduce the radioactive background from the aluminum seal of the",
+      "sources": [
+        "src:xmass-annual-modulation-2016"
+      ],
+      "start": "2012-06",
+      "status": "upgrade",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2019-02-01",
+      "kind": "run",
+      "label": "stable data taking (1590.9 live days)",
+      "locator": "arXiv:2211.06204, abstract",
+      "note": "The abstract dates the stable-data-taking period; the final shutdown date is not given in the sources read.",
+      "quote": "Stable XMASS-I data taking accumulated a total live time of 1590.9 days between November 20, 2013 and February 1, 2019",
+      "sources": [
+        "src:xmass-full-dataset-2023"
+      ],
+      "start": "2013-11-20",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed (data taking ended)",
+      "locator": "arXiv:2211.06204, abstract",
+      "note": "Month precision: the end of stable data taking, 1 February 2019. No source read states a later shutdown or decommissioning date; the 2023 paper describes the data set as the 'full data set'.",
+      "quote": "Stable XMASS-I data taking accumulated a total live time of 1590.9 days between November 20, 2013 and February 1, 2019",
+      "sources": [
+        "src:xmass-full-dataset-2023"
+      ],
+      "start": "2019-02",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Liquid xenon target",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "832 kg",
+        "locator": "arXiv:2211.06204, abstract",
+        "note": "",
+        "quote": "containing 832 kg of liquid xenon",
+        "sources": [
+          "src:xmass-full-dataset-2023"
+        ],
+        "unit": "kg",
+        "value": 832,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Fiducial volume (WIMP search)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "97 kg",
+        "locator": "arXiv:1804.02180, abstract",
+        "note": "",
+        "quote": "a fiducial volume containing 97 kg of liquid xenon at the center of the detector",
+        "sources": [
+          "src:xmass-direct-search-705-days-2019"
+        ],
+        "unit": "kg",
+        "value": 97,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Overburden",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "depth_mwe",
+        "display": "2,700 m water equivalent",
+        "locator": "arXiv:1511.04807, Sec. 2",
+        "note": "",
+        "quote": "The XMASS detector is located at the Kamioka Observatory (overburden 2700 m.w.e) in Japan.",
+        "sources": [
+          "src:xmass-annual-modulation-2016"
+        ],
+        "unit": "m.w.e.",
+        "value": 2700,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "uncertain",
+      "locator": "home page (Internet Archive capture of 4 January 2024)",
+      "note": "Read through an Internet Archive capture; the live site returned HTTP 503 on 2026-10-26.",
+      "quote": "XMASS",
+      "sources": [
+        "src:xmass-official-site"
+      ],
+      "value": "https://www-sk.icrr.u-tokyo.ac.jp/xmass/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "XMASS",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Placement: XMASS sits in its own cavern in the Kamioka mine; no source read gives a coordinate for it, so the Atlas's Mozumi-mine (Super-Kamiokande) point is referenced. Hall position is not published in the papers read.",
+    "XMASS-1.5 (a larger successor) is named only as a plan in the project description; no design report naming it was read, so it is not recorded as an experiment."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1301.2815, abstract",
+      "note": "",
+      "quote": "The XMASS project aims to detect dark matter, pp and $^{7}$Be solar neutrinos, and neutrinoless double beta decay using ultra pure liquid xenon. The first phase of the XMASS experiment searches for dark matter.",
+      "sources": [
+        "src:xmass-detector-paper-2013"
+      ],
+      "value": "Detect dark matter, pp and 7Be solar neutrinos and neutrinoless double beta decay with ultra-pure liquid xenon; the first phase searches for dark matter",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:xmass-official-site",
+    "src:xmass-detector-paper-2013",
+    "src:xmass-annual-modulation-2016",
+    "src:xmass-full-dataset-2023"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "XMASS was a detector holding 832 kg of liquid xenon in the Kamioka mine in Japan, built to look for dark matter by watching for its faint flashes of light. It ran from 2013 to 2019, saw no dark matter, and set limits on several kinds of dark matter.",
+    "technical": "Single-phase liquid xenon scintillation detector: 642 PMTs viewing 835 kg of xenon in a copper vessel, inside a 72-PMT water-Cherenkov muon veto, at 2700 m.w.e. Stable data taking Nov 2013 - Feb 2019 (1590.9 live days); 97 kg fiducial volume. Full-dataset WIMP-nucleon limit 1.4e-44 cm^2 at 60 GeV/c^2; annual-modulation, Migdal and bremsstrahlung searches for lighter WIMPs."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

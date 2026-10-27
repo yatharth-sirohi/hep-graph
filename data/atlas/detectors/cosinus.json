@@ -1,0 +1,199 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:cosinus"
+  ],
+  "id": "detector:cosinus",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2021",
+      "label": "R&D project and proposed NaI cryogenic calorimeter at LNGS",
+      "locator": "arXiv:1603.02214, Sec. 3",
+      "note": "Year of the first COSINUS paper read (March 2016), which describes the R&D project and the planned proof-of-principle detector, tested in dilution refrigerators at LNGS; 'The construction of the experimental facility is foreseen to start by 2021 at the INFN Gran Sasso National Laboratory (LNGS)' (arXiv:2106.07390). No approval date is published in the sources read.",
+      "quote": "Both refrigerators are located in the LNGS underground site for obvious reasons of shielding against cosmic radiation.",
+      "sources": [
+        "src:cosinus-project-perspectives-2016"
+      ],
+      "start": "2016",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2024",
+      "label": "construction of the experimental facility at LNGS",
+      "locator": "arXiv:2507.02429, Sec. 1",
+      "note": "'The step-by-step installation and commissioning of the main components of the experimental facility at LNGS (water tank, cleanroom, control building, electrical infrastructure) began in 2021 and was completed in 2023'; the dilution refrigerator was installed from spring 2024 (arXiv:2507.02429).",
+      "quote": "COSINUS was constructed from 2021 to 2024 in the Laboratori Nazionali del Gran Sasso (LNGS) underground laboratories in central Italy.",
+      "sources": [
+        "src:cosinus-facility-dama-challenge-2025"
+      ],
+      "start": "2021",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2022-06",
+      "kind": "phase",
+      "label": "underground run of a 3.67 g NaI remoTES prototype at LNGS",
+      "locator": "arXiv:2307.11139, Sec. 2",
+      "note": "Prototype detector in a dilution refrigerator at LNGS (hall not named), separate from the COSINUS-1pi cryostat; its data gave the first underground COSINUS limit (11.6 g d, 76 h of background data).",
+      "quote": "In total about ten days of stream data were taken over the first two weeks of June, 2022.",
+      "sources": [
+        "src:cosinus-deep-underground-prototype-2024"
+      ],
+      "start": "2022-06",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "commissioning of the cryostat and facility; first physics run (COSINUS-1pi Run1) awaited",
+      "locator": "arXiv:2507.02429, Sec. 3",
+      "note": "The cryostat was first cooled to 9.3 mK in spring 2024 and the experiment was inaugurated on 18 April 2024 (MPP news). Run 1 with eight NaI modules was planned for 'late 2025' (arXiv:2507.02429) and then 'mid 2026' (undated Heidelberg seminar abstract, probably 2026); the July 2026 review still says 'The experiment is currently being commissioned at the LNGS' (arXiv:2607.24448, Sec. 4.2). No source read reports physics data taking.",
+      "quote": "In a second commissioning run in July 2024, the system was equipped with internal passive shielding: a 190 kg block of ultra-pure copper mounted on the Still plate at approximately 800 mK.",
+      "sources": [
+        "src:cosinus-facility-dama-challenge-2025",
+        "src:cosinus-tevpa2025-abstract",
+        "src:nai-dark-matter-review-2026"
+      ],
+      "start": "2024",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "COSINUS-1pi detector",
+  "notes": [
+    "Design values of the first configuration: eight modules (COSINUS-1pi Run 1)."
+  ],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "arXiv:2507.02429, Sec. 1",
+      "note": "Hall B, as stated on the official site.",
+      "quote": "COSINUS was constructed from 2021 to 2024 in the Laboratori Nazionali del Gran Sasso (LNGS) underground laboratories in central Italy.",
+      "role": "main",
+      "site_id": "site:lngs-hall-b",
+      "sources": [
+        "src:cosinus-facility-dama-challenge-2025"
+      ],
+      "start": "2021",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cosinus-facility-dama-challenge-2025",
+    "src:cosinus-official-infrastructure",
+    "src:cosinus-deep-underground-prototype-2024"
+  ],
+  "specs": {
+    "depth": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "depth_mwe",
+      "display": "3600 m water equivalent",
+      "locator": "Infrastructure page",
+      "note": "",
+      "quote": "The experiment is based in Hall B of LNGS, Italy under a rock overburden equivalent to 3,600 meters of water.",
+      "sources": [
+        "src:cosinus-official-infrastructure"
+      ],
+      "unit": "m.w.e.",
+      "value": 3600,
+      "verified_at": "2026-10-26"
+    },
+    "exposure": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "exposure",
+      "display": "100 kg d",
+      "locator": "arXiv:2507.02429, Sec. 1",
+      "note": "Exposure goal of COSINUS-1pi Run 1 (design).",
+      "quote": "The goal for this run is to collect 100 kg d of exposure to cross-check a standard-scenariolike",
+      "sources": [
+        "src:cosinus-facility-dama-challenge-2025"
+      ],
+      "unit": "kg d",
+      "value": 100,
+      "verified_at": "2026-10-26"
+    },
+    "module_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "eight",
+      "locator": "arXiv:2507.02429, abstract",
+      "note": "Planned number of NaI modules of COSINUS-1pi Run 1 (design).",
+      "quote": "Data taking with eight NaI detector modules (COSINUS1$\\pi$ Run1) is planned to begin in late 2025.",
+      "sources": [
+        "src:cosinus-facility-dama-challenge-2025"
+      ],
+      "unit": "",
+      "value": 8,
+      "verified_at": "2026-10-26"
+    },
+    "tank_height": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "7 m",
+      "locator": "Infrastructure page",
+      "note": "",
+      "quote": "A 7m tall, 7m wide instrumented water tank, designed to moderate the extenal neutron flux.",
+      "sources": [
+        "src:cosinus-official-infrastructure"
+      ],
+      "unit": "m",
+      "value": 7,
+      "verified_at": "2026-10-26"
+    },
+    "temperature": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "temperature",
+      "display": "9.3 mK",
+      "locator": "arXiv:2507.02429, Sec. 3",
+      "note": "",
+      "quote": "During the first cooldown, the cryostat successfully reached a base temperature of 9.3 mK and demonstrated the required cooling power.",
+      "sources": [
+        "src:cosinus-facility-dama-challenge-2025"
+      ],
+      "unit": "mK",
+      "value": 9.3,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "commissioning",
+  "subsystems": [],
+  "summary": {
+    "plain": "COSINUS is a dark matter detector being commissioned at the Gran Sasso laboratory in Italy. It uses sodium iodide crystals, the DAMA/LIBRA material, cooled to a few thousandths of a degree above absolute zero so that it senses both heat and light, to test whether DAMA's yearly signal is dark matter.",
+    "technical": "Undoped NaI crystals operated as cryogenic scintillating calorimeters: phonon channel read by transition edge sensors on a carrier crystal (remoTES) and light channel by a silicon beaker detector, giving event-by-event e/gamma versus nuclear-recoil discrimination and a low nuclear-recoil threshold; dry dilution refrigerator (9.3 mK reached) in a 7 m water tank with a Cherenkov muon veto of about 30 PMTs, in Hall B of LNGS (3600 m.w.e.). COSINUS-1pi Run 1: eight modules, goal 100 kg d; Run 2: up to 1000 kg d. Prototype: 441 eV nuclear-recoil baseline resolution (3.67 g crystal); O(pb) spin-independent sensitivity with 11.6 g d (underground, 2023)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2607.24448, Sec. 4.2",
+    "note": "",
+    "quote": "The detectors must be cooled to milli-Kelvin temperatures in order to operate as bolometers.",
+    "sources": [
+      "src:nai-dark-matter-review-2026"
+    ],
+    "value": "Undoped NaI crystals operated as cryogenic scintillating calorimeters (phonon and light read-out) in a dry dilution refrigerator inside a water-tank shield and muon veto",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "cryogenic_bolometer",
+  "technology_classes": [
+    "cryogenic_bolometer",
+    "scintillating_crystal"
+  ],
+  "type": "detector"
+}

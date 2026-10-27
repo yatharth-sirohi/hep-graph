@@ -1,0 +1,97 @@
+{
+  "aliases": [
+    "Y2L"
+  ],
+  "country": [
+    "KR"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "id": "facility:yangyang-underground-laboratory",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "Y2L-A6 laboratory completed and operated",
+      "locator": "CUP 'Underground Labs' page, section 'Y2L-A5 underground facility'",
+      "note": "Start is sourced (2003, Y2L-A6 by Seoul National University's Dark Matter Research Center). The open end is NOT confirmed: KIMS ended in 2012, COSINE-100 and AMoRE-I took data until March/April 2023 and the laboratory's equipment was being relocated to Yemilab from August 2023 (src:y2l-20-years-yemilab-slides: '2023.08 - 2024.09 Y2L relocation to Yemilab'); no source read says that Y2L itself closed or is still used after 2024.",
+      "quote": "In 2003, when the Yangyang power plat was constructed, the Dark Matter Research Center (DMRC) of Seoul National University completed construction of the Y2L-A6 lab site having about 100 m2 area and located at ~700 m depth.",
+      "sources": [
+        "src:cup-ibs-underground-labs"
+      ],
+      "start": "2003",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2014-12",
+      "kind": "phase",
+      "label": "Y2L-A5 (~200 m2) built by IBS CUP",
+      "locator": "CUP 'Underground Labs' page, section 'Y2L-A5 underground facility'",
+      "note": "Start month is when construction began (July 2013); end is 'the end of 2014' (month precision, December 2014).",
+      "quote": "In July 2013, as soon as the Center for Underground Physics(CUP) was started as one of research centers of the IBS, the construction of another small underground experiment facility in the A5 tunnel was started, reaching completion at the end of 2014.",
+      "sources": [
+        "src:cup-ibs-underground-labs"
+      ],
+      "start": "2013-07",
+      "status": "upgrade",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "kind": "underground_laboratory",
+  "links": {
+    "website": {
+      "confidence": "approximate",
+      "locator": "CUP 'Underground Labs' page, section 'Y2L'",
+      "note": "No dedicated Y2L website was found; this is the operating centre's page describing Y2L and Yemilab.",
+      "quote": "The Yangyang pumped storage power plant (Yangyang plant) located in Yangyang-gun, Gangwon-do is the biggest energy storage plant in Korea.",
+      "sources": [
+        "src:cup-ibs-underground-labs"
+      ],
+      "value": "https://centers.ibs.re.kr/html/cup/equipment/equipment_0401.html",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "Yangyang Underground Laboratory",
+  "notes": [
+    "primary_site_id points at site:y2l-yangyang, one point for the whole laboratory (A5 and A6 are separate tunnels; the COSINE-100 muon-detector paper, arXiv:1712.02011, puts the KIMS site about 200 m from the COSINE site).",
+    "Depth in m.w.e. differs between papers (about 1800, 2000 and 2400 m.w.e. are all quoted); see the site record's note. The overburden (700 m) is consistent across papers, but one 2023 IBS slide deck says 600 m."
+  ],
+  "operator_text": {
+    "confidence": "approximate",
+    "locator": "CUP home page, welcome text",
+    "note": "IBS CUP operates the laboratory (home page); the KIMS papers thank Korea Midland Power Co. and the COSINE-100/AMoRE papers thank Korea Hydro and Nuclear Power (KHNP) 'for providing underground laboratory space at Yangyang'. The CUP page was written during Yemilab construction (it says the new laboratory is scheduled for the fall of 2020).",
+    "quote": "CUP operates a 700-meter deep underground laboratory at Yangyang",
+    "sources": [
+      "src:cup-ibs-home"
+    ],
+    "value": "Center for Underground Physics (CUP), Institute for Basic Science (IBS), Korea; the space is provided by the operator of the Yangyang pumped-storage power plant (thanked in the papers as Korea Midland Power Co. and Korea Hydro and Nuclear Power, KHNP)",
+    "verified_at": "2026-10-26"
+  },
+  "primary_site_id": "site:y2l-yangyang",
+  "related_facility_ids": [
+    "facility:yemilab"
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cup-ibs-underground-labs",
+    "src:cup-ibs-home",
+    "src:cosine-100-initial-performance-2018",
+    "src:y2l-20-years-yemilab-slides"
+  ],
+  "specs": {},
+  "status": "active",
+  "summary": {
+    "plain": "A small underground laboratory in the tunnels beside a pumped-storage hydroelectric power plant under Mount Jumbong in Yangyang, South Korea, about 700 metres below the surface. Korean teams ran the KIMS, COSINE-100 and AMoRE experiments here before moving to the new, deeper Yemilab.",
+    "technical": "Y2L: experimental areas in the A5 and A6 work tunnels next to the underground generators of the Yangyang pumped-storage plant, reached by a 2 km horizontal access tunnel; minimum granite overburden 700 m (muon flux 3.8e-7 /cm2/s in A5, 2.7e-7 /cm2/s in A6). A6 (~100 m2) was completed in 2003 for the KIMS CsI(Tl) experiment; A5 (~200 m2) was added by the IBS Center for Underground Physics in 2013-14 for AMoRE and COSINE. Equipment was being relocated to Yemilab from 2023."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection",
+    "topic:neutrinoless-double-beta-decay"
+  ],
+  "type": "facility"
+}

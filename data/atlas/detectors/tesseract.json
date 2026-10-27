@@ -1,0 +1,170 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:tesseract"
+  ],
+  "id": "detector:tesseract",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "proposed experiment with a dedicated cryostat at LSM",
+      "locator": "Nucl. Phys. B 1003 (2024) 116465, Sec. 1.2",
+      "note": "Proposed, not approved by a source read: the Modane host proposal is documented (Nucl. Phys. B 2024; TAUP 2025 slides titled 'Proposed experiment at LSM'). Start is the beginning of the discussions about hosting at LSM ('early 2022'); the US-based TESSERACT R&D is older.",
+      "quote": "Since early 2022, the French CNRS-IN2P3 laboratories IP2I, LPSC, and IJCLab are discussing with the USA-based TESSERACT collaboration in order to 1) install a dedicated cryostat for TESSERACT at the underground Modane Laboratory (LSM)",
+      "sources": [
+        "src:tesseract-modane-proposal-nuclphysb-2024"
+      ],
+      "start": "2022",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2028",
+        "planned": true
+      },
+      "label": "planned installation of the two TESSERACT setups at LSM",
+      "locator": "TAUP 2025 slide 15",
+      "note": "A schedule, not a report. Earlier schedules were earlier (NPB 2024: first searches 2026; LBNL 2025: construction from 2025, online ~2029); the most recent sources (Oct 2025, June 2026) say 2028.",
+      "quote": "The two setups will be in LSM between 2027 and 2028",
+      "sources": [
+        "src:tesseract-taup2025-slides"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2027",
+        "display": "between 2027 and 2028",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "planned full integration of the TESSERACT setup at LSM",
+      "locator": "IDM 2026 talk abstract",
+      "note": "June 2026 abstract; a plan, not a report.",
+      "quote": "Full integration of the TESSERACT setup at the Modane Underground Laboratory (LSM) is planned for 2028.",
+      "sources": [
+        "src:tesseract-idm2026-abstract"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2028",
+        "display": "planned for 2028",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "TESSERACT detector payload (proposed LSM setup)",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "Nucl. Phys. B 1003 (2024) 116465, Sec. 1.2",
+      "note": "Proposed installation at LSM (Nucl. Phys. B names the former EDELWEISS-III experimental space). The first result came from a surface prototype in the sub-basement of Birge Hall, UC Berkeley, which is not an Atlas site.",
+      "quote": "Since early 2022, the French CNRS-IN2P3 laboratories IP2I, LPSC, and IJCLab are discussing with the USA-based TESSERACT collaboration in order to 1) install a dedicated cryostat for TESSERACT at the underground Modane Laboratory (LSM)",
+      "role": "main",
+      "site_id": "site:lsm-frejus",
+      "sources": [
+        "src:tesseract-modane-proposal-nuclphysb-2024"
+      ],
+      "start": "2022",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:tesseract-modane-proposal-nuclphysb-2024",
+    "src:tesseract-official-site",
+    "src:tesseract-papers-page",
+    "src:tesseract-lbnl-news-2025",
+    "src:tesseract-idm2026-abstract",
+    "src:tesseract-cpad2025-abstract",
+    "src:tesseract-taup2025-slides"
+  ],
+  "specs": {},
+  "status": "proposed",
+  "subsystems": [
+    {
+      "description": [
+        {
+          "confidence": "verified",
+          "locator": "Nucl. Phys. B 1003 (2024) 116465, Sec. 2.3.1",
+          "note": "",
+          "quote": "SPICE aims at developing an array of 1 cm3 Al2O3 and SiO2 detectors, instrumented on one face with athermal phonon sensors",
+          "sources": [
+            "src:tesseract-modane-proposal-nuclphysb-2024"
+          ],
+          "value": "Polar (Al2O3, SiO2) and scintillating (GaAs) crystal detectors read out with athermal-phonon TES sensors, for electromagnetically coupled dark matter",
+          "verified_at": "2026-10-26"
+        }
+      ],
+      "name": "SPICE"
+    },
+    {
+      "description": [
+        {
+          "confidence": "verified",
+          "locator": "official HeRALD page",
+          "note": "",
+          "quote": "The experiment consists of a superfluid helium target where DM particles would undergo nuclear recoil interactions.",
+          "sources": [
+            "src:tesseract-herald-page"
+          ],
+          "value": "Superfluid helium-4 target read out by TES calorimeters detecting scintillation and evaporated helium atoms (quantum evaporation)",
+          "verified_at": "2026-10-26"
+        }
+      ],
+      "name": "HeRALD"
+    },
+    {
+      "description": [
+        {
+          "confidence": "verified",
+          "locator": "Nucl. Phys. B 1003 (2024) 116465, abstract",
+          "note": "Quote reproduces the extracted text of the PDF ('Frenchbased': the hyphen is lost in extraction).",
+          "quote": "add a third Frenchbased cryogenic semiconducting (Ge, Si) detector technology to the TESSERACT payload",
+          "sources": [
+            "src:tesseract-modane-proposal-nuclphysb-2024"
+          ],
+          "value": "Proposed French cryogenic germanium (and silicon) bolometers with heat and ionization readout, adding a third technology to the payload",
+          "verified_at": "2026-10-26"
+        }
+      ],
+      "name": "Ge/Si bolometers"
+    }
+  ],
+  "summary": {
+    "plain": "The planned TESSERACT payload: several small cryogenic detectors (crystals and superfluid helium) read out by superconducting transition-edge sensors, sitting inside one shielded cryostat at Modane.",
+    "technical": "Proposed LSM setup: central cryostat in nested shielding (outer HDPE neutron shield, lead, inner polyethylene, mu-metal), ISO-6 clean room and radon suppression, in the former EDELWEISS-III area; payload of SPICE, HeRALD and Ge/Si modules sharing TES phonon readout; two similar cryostats are envisioned."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "CPAD 2025 talk abstract",
+    "note": "",
+    "quote": "The TESSERACT experiment will deploy 3 unique detector modules based on a common transition edge sensor-based readout to search for sub-GeV dark matter.",
+    "sources": [
+      "src:tesseract-cpad2025-abstract"
+    ],
+    "value": "Multi-target cryogenic detectors read out by transition-edge-sensor athermal-phonon sensors",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "cryogenic_phonon_detector",
+  "technology_classes": [
+    "cryogenic_phonon_detector"
+  ],
+  "type": "detector"
+}

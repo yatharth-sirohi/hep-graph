@@ -1,0 +1,215 @@
+{
+  "aliases": [],
+  "collaboration_ids": [
+    "collaboration:xenon"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": "2016",
+      "facility_id": "facility:lngs",
+      "locator": "History page, 'General Information'",
+      "note": "Years only. The detector sat in the interferometer tunnel at LNGS, not in a main hall (XENON100 instrument paper: 'at the same site as XENON10, in the interferometer tunnel away from the main experimental halls'); the Atlas has no site record for the tunnel, so the LNGS site record used for the XENON experiments is referenced.",
+      "quote": "first XENON100 operated with roughly 160 kg of xenon from 2008 until 2016",
+      "role": "host",
+      "sources": [
+        "src:dm-noble-liquid-xenon-official-history"
+      ],
+      "start": "2008",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:xenon100",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2009-10",
+      "label": "installation and commissioning at LNGS",
+      "locator": "arXiv:0902.4253, abstract (read as of February 2009)",
+      "note": "Start: the history page's 'from 2008' (year only). The February 2009 status paper says the detector 'has been installed at the Gran Sasso Underground Laboratory and is currently in commissioning phase'. End: first science data were acquired in October and November 2009 (arXiv:1005.0380).",
+      "quote": "is currently in commissioning phase",
+      "sources": [
+        "src:xenon100-status-2009",
+        "src:dm-noble-liquid-xenon-official-history"
+      ],
+      "start": "2008",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2016",
+      "label": "science operations",
+      "locator": "History page, 'General Information'",
+      "note": "Start: first science data 'acquired in October and November 2009' (arXiv:1005.0380). End: the history page says the experiment operated until 2016 (year only); the last data in the 477-live-day combination end in January 2014.",
+      "quote": "first XENON100 operated with roughly 160 kg of xenon from 2008 until 2016",
+      "sources": [
+        "src:dm-noble-liquid-xenon-official-history",
+        "src:xenon100-first-results-2010"
+      ],
+      "start": "2009-10",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2009-11",
+      "kind": "run",
+      "label": "first science run (11.17 live days)",
+      "locator": "arXiv:1005.0380, abstract",
+      "note": "",
+      "quote": "11.17 live days of non-blind data, acquired in October and November 2009",
+      "sources": [
+        "src:xenon100-first-results-2010"
+      ],
+      "start": "2009-10",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2010-06",
+      "kind": "run",
+      "label": "second run (100.9 live days)",
+      "locator": "arXiv:1104.2549, abstract",
+      "note": "",
+      "quote": "In 100.9 live days of data, acquired between January and June 2010",
+      "sources": [
+        "src:xenon100-100-live-days-2011"
+      ],
+      "start": "2010-01",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2012",
+      "kind": "run",
+      "label": "third run (224.6 live days)",
+      "locator": "arXiv:1207.5988, abstract",
+      "note": "",
+      "quote": "operated at the Laboratori Nazionali del Gran Sasso (LNGS) for 13 months during 2011 and 2012",
+      "sources": [
+        "src:xenon100-225-live-days-2012"
+      ],
+      "start": "2011",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "History page, 'General Information'",
+      "note": "Year only.",
+      "quote": "first XENON100 operated with roughly 160 kg of xenon from 2008 until 2016",
+      "sources": [
+        "src:dm-noble-liquid-xenon-official-history"
+      ],
+      "start": "2016",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Active liquid xenon",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "62 kg",
+        "locator": "arXiv:1107.2155, abstract/introduction",
+        "note": "",
+        "quote": "The active target of XENON100 contains 62 kg of LXe, surrounded by an LXe veto of 99 kg",
+        "sources": [
+          "src:xenon100-instrument-paper-2012"
+        ],
+        "unit": "kg",
+        "value": 62,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Total liquid xenon",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "161 kg",
+        "locator": "arXiv:1107.2155, Sec. 1",
+        "note": "",
+        "quote": "A total amount of 161 kg of LXe is necessary to",
+        "sources": [
+          "src:xenon100-instrument-paper-2012"
+        ],
+        "unit": "kg",
+        "value": 161,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:xenon10",
+      "locator": "arXiv:0902.4253, abstract",
+      "note": "The history page and the XENON100 instrument paper place both detectors at the same LNGS site and describe XENON100 as the next, larger XENON TPC; the quoted abstract names the common programme.",
+      "quote": "The XENON experimental program aims to detect cold dark matter particles via their elastic collisions with xenon nuclei in two-phase time projection chambers (TPCs).",
+      "relation": "predecessor",
+      "sources": [
+        "src:xenon100-status-2009"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "XENON100",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Placement: The detector sat in the interferometer tunnel at LNGS, not in a main hall (XENON100 instrument paper: 'at the same site as XENON10, in the interferometer tunnel away from the main experimental halls'); the Atlas has no site record for the tunnel, so the LNGS site record used for the XENON experiments is referenced."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1107.2155, abstract",
+      "note": "",
+      "quote": "uses liquid xenon (LXe) in a time projection chamber (TPC) to search for Xe nuclear recoils resulting from the scattering of dark matter Weakly Interacting Massive Particles (WIMPs)",
+      "sources": [
+        "src:xenon100-instrument-paper-2012"
+      ],
+      "value": "Search for WIMP nuclear recoils in a dual-phase xenon time projection chamber",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:dm-noble-liquid-xenon-official-history",
+    "src:xenon100-instrument-paper-2012",
+    "src:xenon100-status-2009",
+    "src:xenon100-225-live-days-2012",
+    "src:xenon100-477-live-days-2016"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "XENON100 was a detector holding about 160 kg of liquid xenon in a tunnel at the Gran Sasso underground laboratory in Italy. It looked for flashes of light from dark matter particles hitting xenon atoms, found none, and for a time set the tightest limits then known.",
+    "technical": "Dual-phase xenon TPC: 62 kg active target inside a 99 kg LXe veto (161 kg total). Science runs of 11.2, 100.9 and 224.6 live days; the 477-live-day combination (Jan 2010 - Jan 2014, 48 kg yr) set a spin-independent limit with a minimum of 1.1e-45 cm^2 at 50 GeV/c^2. Successor of XENON10, predecessor of XENON1T."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

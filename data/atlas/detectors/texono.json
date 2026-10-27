@@ -1,0 +1,156 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:texono"
+  ],
+  "id": "detector:texono",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2000",
+      "label": "conceptual design and construction of the Kuo-Sheng laboratory",
+      "locator": "arXiv:1608.00306, Sec. 3.1",
+      "note": "Year precision; the research programme itself was initiated in 1996 (same paper, Sec. 1).",
+      "quote": "Conceptual design discussions were initiated in 1997.",
+      "sources": [
+        "src:texono-history-status-prospects-2016"
+      ],
+      "start": "1997",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2001-07",
+      "label": "laboratory built and commissioned",
+      "locator": "Academia Sinica E-news No. 324",
+      "note": "Year precision for the start; the end is the start of first physics data taking.",
+      "quote": "It built and commissioned the “Kuo-Sheng Reactor Neutrino Laboratory” at Nuclear Power Station II on the northern coast of Taiwan in 2000.",
+      "sources": [
+        "src:texono-academia-sinica-enews-2013"
+      ],
+      "start": "2000",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "operation at Kuo-Sheng (neutrino physics from July 2001; germanium dark-matter programme added 2004)",
+      "locator": "arXiv:1608.00306, Sec. 3.1",
+      "note": "The Academia Sinica news item says TEXONO 'launched an additional dark matter research program in 2004'; the first dark-matter limits came from a 2006-07 data set (arXiv:0712.1645). The final reactor-ON neutrino data end in April 2023 (the Kuo-Sheng power station was decommissioned in March 2023); the 2026 paper says KSNL 'remains operational' for background studies and detector R&D and that the programme will continue at the Sanmen Reactor Neutrino Laboratory (RECODE). Recorded as active on that basis; no source states whether dark-matter-oriented germanium data taking continues.",
+      "quote": "First physics data taking started in July 2001.",
+      "sources": [
+        "src:texono-history-status-prospects-2016",
+        "src:texono-final-nuael-ksnl-2026",
+        "src:texono-academia-sinica-enews-2013"
+      ],
+      "start": "2001-07",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "TEXONO germanium detectors",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "arXiv:1608.00306, Sec. 3.1",
+      "note": "The laboratory is 28 m from core #1 of the Kuo-Sheng Nuclear Power Station; the host reactor was decommissioned in March 2023 (arXiv:2606.16864).",
+      "quote": "The Kuo-Sheng Reactor Neutrino Laboratory (KSNL) is located at a distance of 28 m from the core #1 of the Kuo-Sheng Nuclear Power Station operated by the Taiwan Power Company at the northern shore of Taiwan.",
+      "role": "main",
+      "site_id": "site:ksnl-kuo-sheng-nuclear-power-station",
+      "sources": [
+        "src:texono-history-status-prospects-2016"
+      ],
+      "start": "2001-07",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:texono-history-status-prospects-2016",
+    "src:texono-academia-sinica-enews-2013",
+    "src:texono-ulege-220ev-wimp-limits-2008",
+    "src:texono-pcge-wimp-limits-2013",
+    "src:texono-bosonic-dm-npcge-2019",
+    "src:texono-ge-detector-characterization-2016",
+    "src:texono-final-nuael-ksnl-2026",
+    "src:texono-bulk-surface-differentiation-2014"
+  ],
+  "specs": {
+    "depth": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "depth_mwe",
+      "display": "30 meter-water-equivalence",
+      "locator": "arXiv:0712.1645, p. 1",
+      "note": "Reactor-building concrete overburden; about 12 m below sea level.",
+      "quote": "with an overburden of about 30 meter-water-equivalence",
+      "sources": [
+        "src:texono-ulege-220ev-wimp-limits-2008"
+      ],
+      "unit": "m.w.e.",
+      "value": 30,
+      "verified_at": "2026-10-26"
+    },
+    "fiducial_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "840 g",
+      "locator": "arXiv:1303.0925, abstract",
+      "note": "p-type point-contact germanium detector (crystal mass 926 g).",
+      "quote": "39.5 kg-days of data taken with a p-type point-contact germanium detector of 840 g fiducial mass",
+      "sources": [
+        "src:texono-pcge-wimp-limits-2013"
+      ],
+      "unit": "kg",
+      "value": 0.84,
+      "verified_at": "2026-10-26"
+    },
+    "threshold": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "220 eV",
+      "locator": "arXiv:0712.1645, abstract",
+      "note": "Analysis threshold of the first (4 x 5 g ULEGe) dark-matter data set, at 50% efficiency; the 2013 pPCGe analysis used a sub-keV threshold.",
+      "quote": "An energy threshold of (220+-10) eV was achieved at an efficiency of 50% with a four-channel ultra-low-energy germanium detector each with an active mass of 5 g.",
+      "sources": [
+        "src:texono-ulege-220ev-wimp-limits-2008"
+      ],
+      "unit": "eV",
+      "value": 220,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "TEXONO is a Taiwan-led experiment at a nuclear power plant that uses germanium detectors sensitive to energies of a few hundred electron-volts. Besides studying reactor neutrinos, it set limits on very light dark matter and tested the claim by the CoGeNT experiment.",
+    "technical": "Sub-keV germanium detectors at the Kuo-Sheng Reactor Neutrino Laboratory (30 m.w.e., 28 m from a 2.9 GW reactor core): 4-channel 5 g ULEGe array at 220 eV threshold (0.338 kg d; limits for 3-6 GeV WIMPs), 840 g fiducial p-type point-contact Ge at 39.5 kg d (spin-independent limits that probe the CoGeNT region), and an n-type point-contact Ge (314.15 kg d) for bosonic super-WIMPs. The same detectors serve reactor-neutrino and CEvNS searches; CDEX adopted the KSNL design."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:1411.4802, abstract",
+    "note": "",
+    "quote": "Germanium ionization detectors with sensitivities as low as 100 eVee (electron-equivalent energy) open new windows for studies on neutrino and dark matter physics.",
+    "sources": [
+      "src:texono-ge-detector-characterization-2016"
+    ],
+    "value": "Sub-keV-threshold germanium ionization detectors (ultra-low-energy Ge arrays; p-type and n-type point-contact Ge) at a reactor site",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "germanium",
+  "technology_classes": [
+    "germanium"
+  ],
+  "type": "detector"
+}

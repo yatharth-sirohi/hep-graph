@@ -1,0 +1,190 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:lux"
+  ],
+  "id": "detector:lux",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2013-04",
+      "label": "commissioning",
+      "locator": "arXiv:1310.8214, abstract",
+      "note": "End is set where the first WIMP search dataset begins in April 2013.",
+      "quote": "was cooled and filled in February 2013",
+      "sources": [
+        "src:lux-prl-first-results-2014"
+      ],
+      "start": "2013-02",
+      "status": "commissioning",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2013-08",
+      "kind": "run",
+      "label": "WIMP search run WS2013",
+      "locator": "arXiv:1310.8214, abstract",
+      "note": "85.3 live days, 118 kg fiducial volume.",
+      "quote": "taken during the period April to August 2013",
+      "sources": [
+        "src:lux-prl-first-results-2014"
+      ],
+      "start": "2013-04",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2016-05-02",
+      "kind": "run",
+      "label": "WIMP search run WS2014-16",
+      "locator": "arXiv:1608.07648, run description",
+      "note": "332.0 live days; combined with WS2013 this is the complete LUX exposure.",
+      "quote": "ran from September 11, 2014 until May 2, 2016",
+      "sources": [
+        "src:lux-prl-complete-exposure-2017"
+      ],
+      "start": "2014-09-11",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2016-05-02",
+      "label": "completed",
+      "locator": "arXiv:1608.07648",
+      "note": "Data taking ended with the WS2014-16 run; lz.lbl.gov states the Davis Laboratory \"was occupied by the LUX experiment until 2016\". The gap between August 2013 and September 2014 (detector work and calibration) is not covered by a sourced interval.",
+      "quote": "ran from September 11, 2014 until May 2, 2016",
+      "sources": [
+        "src:lux-prl-complete-exposure-2017",
+        "src:lz-official-site-laboratory"
+      ],
+      "start": "2016-05-02",
+      "status": "completed",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {},
+  "name": "LUX detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2016-05-02",
+      "locator": "arXiv:1310.8214, abstract",
+      "note": "Davis Cavern, 4850 ft level (the LZ site record is the Davis Campus point).",
+      "quote": "a dual-phase xenon time-projection chamber operating at the Sanford Underground Research Facility (Lead, South Dakota), was cooled and filled in February 2013",
+      "role": "main",
+      "site_id": "site:surf-davis-campus-lz",
+      "sources": [
+        "src:lux-prl-first-results-2014",
+        "src:lz-official-site-laboratory"
+      ],
+      "start": "2013-02",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:lux-detector-paper-nima",
+    "src:lux-prl-first-results-2014",
+    "src:lux-prl-complete-exposure-2017"
+  ],
+  "specs": {
+    "active_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "250 kg",
+      "locator": "arXiv:1608.07648, abstract",
+      "note": "",
+      "quote": "A dual-phase xenon time projection chamber with 250 kg of active mass is operated at the Sanford Underground Research Facility",
+      "sources": [
+        "src:lux-prl-complete-exposure-2017"
+      ],
+      "unit": "kg",
+      "value": 250,
+      "verified_at": "2026-09-16"
+    },
+    "fiducial_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "118 kg",
+      "locator": "arXiv:1310.8214, abstract",
+      "note": "",
+      "quote": "the analysis of 85.3 live-days of data with a fiducial volume of 118 kg",
+      "sources": [
+        "src:lux-prl-first-results-2014"
+      ],
+      "unit": "kg",
+      "value": 118,
+      "verified_at": "2026-09-16"
+    },
+    "phase": {
+      "confidence": "verified",
+      "locator": "arXiv:1608.07648, abstract",
+      "note": "",
+      "quote": "A dual-phase xenon time projection chamber with 250 kg of active mass",
+      "sources": [
+        "src:lux-prl-complete-exposure-2017"
+      ],
+      "value": "dual-phase",
+      "verified_at": "2026-10-26"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "arXiv:1608.07648, abstract",
+      "note": "",
+      "quote": "A dual-phase xenon time projection chamber with 250 kg of active mass",
+      "sources": [
+        "src:lux-prl-complete-exposure-2017"
+      ],
+      "value": "liquid xenon",
+      "verified_at": "2026-10-26"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "370 kg",
+      "locator": "arXiv:1211.3788, abstract",
+      "note": "",
+      "quote": "the inner 100-kg fiducial volume (FV) of the 370-kg detector",
+      "sources": [
+        "src:lux-detector-paper-nima"
+      ],
+      "unit": "kg",
+      "value": 370,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A tank holding about a third of a tonne of liquid xenon, with light sensors above and below it, in the Davis Cavern a mile underground in South Dakota. It looked for the flash of light from dark matter hitting a xenon nucleus.",
+    "technical": "Dual-phase xenon TPC, 370 kg total xenon, 250 kg active, 118 kg fiducial in WS2013, in the Davis Cavern at SURF; its cavern was reused for LZ."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:1608.07648, abstract",
+    "note": "",
+    "quote": "A dual-phase xenon time projection chamber with 250 kg of active mass is operated at the Sanford Underground Research Facility",
+    "sources": [
+      "src:lux-prl-complete-exposure-2017"
+    ],
+    "value": "Dual-phase xenon time projection chamber",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "noble_liquid_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "xenon_tpc"
+  ],
+  "type": "detector"
+}

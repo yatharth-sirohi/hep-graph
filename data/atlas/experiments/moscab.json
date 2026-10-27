@@ -1,0 +1,137 @@
+{
+  "aliases": [
+    "Materia OSCura A Bolle"
+  ],
+  "collaboration_ids": [
+    "collaboration:moscab"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "uncertain",
+      "end": "2021-06",
+      "facility_id": "facility:lngs",
+      "locator": "arXiv:2106.13654, Introduction",
+      "note": "The paper says only that the apparatus was moved to the INFN Gran Sasso National Laboratories; the move is undated (between the July 2017 and June 2021 papers) and no hall is named. The role ends with the June 2021 paper, the last source read.",
+      "quote": "the apparatus was moved underground to the INFN Gran Sasso National Laboratories (LNGS)",
+      "role": "host",
+      "sources": [
+        "src:moscab-fast-neutron-detector-2021"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2021-06",
+        "display": "between August 2017 and June 2021",
+        "earliest": "2017-08",
+        "latest": "2021-06"
+      },
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:moscab",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2017-07",
+      "label": "construction and surface commissioning at Milano-Bicocca",
+      "locator": "ICHEP 2014 contribution, abstract",
+      "note": "Start: the year of the ICHEP 2014 contribution (the year is inferred from the conference identifier in the file name, 'ICHEP14'; the text itself gives no date and says the detector 'will be operated at the Gran Sasso National Laboratory in 2015'). End: the July 2017 paper reports 56 surface test runs in May and June 2017 and says the team is 'ready to move underground'.",
+      "quote": "Here, we report as well in the construction and commissioning of the big detector of 40 kg at the Milano-Bicocca University.",
+      "sources": [
+        "src:moscab-ichep2014-article"
+      ],
+      "start": "2014",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": "2021-06",
+      "label": "background and neutron-sensitivity measurements underground at LNGS",
+      "locator": "arXiv:2106.13654, Introduction",
+      "note": "The move to LNGS is reported in the June 2021 paper without a date: it happened after the July 2017 paper ('ready to move underground') and before June 2021. The paper describes two configurations (a 2 L vessel with 1.2 L of C3F8 and an 18 L vessel with 13 L of C3F8) but no dark matter physics run.",
+      "quote": "the apparatus was moved underground to the INFN Gran Sasso National Laboratories (LNGS)",
+      "sources": [
+        "src:moscab-fast-neutron-detector-2021"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2021-06",
+        "display": "between August 2017 and June 2021",
+        "earliest": "2017-08",
+        "latest": "2021-06"
+      },
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed as a dark matter search (equipment repurposed for fast neutrons)",
+      "locator": "arXiv:2106.13654, abstract",
+      "note": "Inferred from the 2021 paper, which says the equipment, 'originally thought for the search of dark matter', is employed for the detection of fast neutrons. No source states that the dark matter search was abandoned or gives a date; no dark matter result was found.",
+      "quote": "MOSCAB equipment, a geyser-concept bubble-chamber originally thought for the search of dark matter in the form of WIMPs",
+      "sources": [
+        "src:moscab-fast-neutron-detector-2021"
+      ],
+      "start": "2021-06",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Target liquid in the 18 L vessel (LNGS)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "volume",
+        "display": "13L",
+        "locator": "arXiv:2106.13654, Introduction",
+        "note": "",
+        "quote": "a 18L vessel filled with 13L of C3 F8",
+        "sources": [
+          "src:moscab-fast-neutron-detector-2021"
+        ],
+        "unit": "L",
+        "value": 13,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "MOSCAB",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Inclusion is borderline and rests on the published detector paper (arXiv:1708.00101), which names LNGS as the planned host and calls the device a dark matter detector; no dark matter result exists and the underground phase is only reported in a 2021 paper on fast-neutron detection. Tier C.",
+    "The 2014 contribution planned a 40 kg detector at Milano-Bicocca to be operated at LNGS in 2015; nothing read confirms that."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:moscab-geyser-bubble-chamber-2017",
+    "src:moscab-ichep2014-article",
+    "src:moscab-fast-neutron-detector-2021"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "MOSCAB (Materia OSCura A Bolle, 'dark matter with bubbles') is a bubble chamber of superheated fluorine-rich liquid, built to look for dark matter and tested at Milano-Bicocca and then at Gran Sasso. No dark matter result was published; in 2021 the equipment was reported as used to detect fast neutrons.",
+    "technical": "Geyser-concept bubble chamber: a closed quartz vessel holding a target liquid (octafluoropropane C3F8) and its vapour, separated by a buffer liquid, in a thermal bath; designed for spin-dependent WIMP-proton sensitivity. Surface tests with 0.7 L of C3F8, then a 2 L scale-up (56 test runs, about 400 h, May-June 2017); underground at LNGS with a 2 L vessel (1.2 L C3F8) and an 18 L vessel (13 L C3F8)."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

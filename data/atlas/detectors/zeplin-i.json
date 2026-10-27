@@ -1,0 +1,144 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:zeplin-i"
+  ],
+  "id": "detector:zeplin-i",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2006",
+      "label": "ZEPLIN-I operation (shared with ZEPLIN-II)",
+      "locator": "arXiv:1112.0080, Sec. 1",
+      "note": "The source gives one period, 2001-2006, for ZEPLIN-I and ZEPLIN-II together; ZEPLIN-I's own start and end are not stated separately in the sources read.",
+      "quote": "After 3 kg single phase ZEPLIN-I [1] and 31 kg double phase ZEPLIN-II [2] running between 2001 and 2006, ZEPLIN-III was the third generation of liquid xenon experiments deployed at Boulby.",
+      "sources": [
+        "src:zeplin-iii-second-run-performance-2012"
+      ],
+      "start": "2001",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:1112.0080, Sec. 1",
+      "note": "Same shared period as above: the end year is the end of the 2001-2006 running of ZEPLIN-I and ZEPLIN-II together.",
+      "quote": "After 3 kg single phase ZEPLIN-I [1] and 31 kg double phase ZEPLIN-II [2] running between 2001 and 2006, ZEPLIN-III was the third generation of liquid xenon experiments deployed at Boulby.",
+      "sources": [
+        "src:zeplin-iii-second-run-performance-2012"
+      ],
+      "start": "2006",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "ZEPLIN-I detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2006",
+      "locator": "journal abstract (repository record)",
+      "note": "Facility and depth (2800 mwe) from the abstract; years from the shared 2001-2006 statement.",
+      "quote": "The detector is located in the 2800 mwe depth UK Boulby Mine, and is surrounded by a liquid scintillator Compton veto and passive lead shielding.",
+      "role": "main",
+      "site_id": "site:boulby-mine",
+      "sources": [
+        "src:zeplin-i-first-limits-2005"
+      ],
+      "start": "2001",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:zeplin-i-first-limits-2005",
+    "src:zeplin-i-critical-revision-2006",
+    "src:zeplin-i-reply-2006",
+    "src:boulby-dark-matter-experiments-2004"
+  ],
+  "specs": {
+    "depth": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "depth_mwe",
+      "display": "2800 mwe",
+      "locator": "journal abstract (repository record)",
+      "note": "",
+      "quote": "The detector is located in the 2800 mwe depth UK Boulby Mine, and is surrounded by a liquid scintillator Compton veto and passive lead shielding.",
+      "sources": [
+        "src:zeplin-i-first-limits-2005"
+      ],
+      "unit": "m.w.e.",
+      "value": 2800,
+      "verified_at": "2026-10-26"
+    },
+    "fiducial_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "3.2 kg",
+      "locator": "journal abstract (repository record)",
+      "note": "",
+      "quote": "a liquid xenon target of 3.2 kg fiducial mass",
+      "sources": [
+        "src:zeplin-i-first-limits-2005"
+      ],
+      "unit": "kg",
+      "value": 3.2,
+      "verified_at": "2026-10-26"
+    },
+    "phase": {
+      "confidence": "verified",
+      "locator": "journal abstract (repository record)",
+      "note": "No drift field or charge readout in this design; classified with the noble-liquid class for lack of a scintillator-only class.",
+      "quote": "based on measurement of scintillation pulse shapes in a liquid xenon target",
+      "sources": [
+        "src:zeplin-i-first-limits-2005"
+      ],
+      "value": "single-phase",
+      "verified_at": "2026-10-26"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "journal abstract (repository record)",
+      "note": "",
+      "quote": "a liquid xenon target of 3.2 kg fiducial mass",
+      "sources": [
+        "src:zeplin-i-first-limits-2005"
+      ],
+      "value": "liquid xenon",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "ZEPLIN-I was the first of the ZEPLIN liquid xenon dark matter detectors, with about 3 kg of liquid xenon, run in the Boulby mine in north-east England in the early 2000s. It found no dark matter and set limits; the strength of its method was later disputed.",
+    "technical": "Single-phase liquid xenon scintillation detector with pulse-shape discrimination, 3.2 kg fiducial mass, 2800 m.w.e. at Boulby, with a liquid-scintillator Compton veto and lead shield. Three runs totalling 293 kg d fiducial exposure; spin-independent limit minimum 1.1e-6 pb. Predecessor of ZEPLIN-II and ZEPLIN-III."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "journal abstract (repository record)",
+    "note": "",
+    "quote": "based on measurement of scintillation pulse shapes in a liquid xenon target of 3.2 kg fiducial mass",
+    "sources": [
+      "src:zeplin-i-first-limits-2005"
+    ],
+    "value": "Single-phase liquid xenon scintillation detector with pulse-shape discrimination",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "noble_liquid_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "xenon_tpc"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,190 @@
+{
+  "aliases": [
+    "SBC"
+  ],
+  "collaboration_ids": [
+    "collaboration:sbc"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:snolab",
+      "locator": "arXiv:2207.12400, abstract",
+      "note": "Host of SBC's dark-matter search (SBC-SNOLAB, under construction). Start is the date of the Snowmass white paper that says the chamber 'is being built'; the construction start is not published.",
+      "quote": "A second functionally-identical detector with a focus on radiopure construction is being built for SBC's first dark matter search at SNOLAB.",
+      "role": "host",
+      "sources": [
+        "src:sbc-snowmass-2021-white-paper-2022",
+        "src:sbc-snolab-scintillation-system-2023"
+      ],
+      "start": "2022-07",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:fermilab",
+      "locator": "PoS ICHEP2020 (632), abstract",
+      "note": "SBC-LAr10, the calibration chamber, was built at Fermilab and moved to the MINOS underground tunnel in May 2024 (SBC talk, 17 March 2026); the site record is the Fermilab surface campus point.",
+      "quote": "In this paper, we will present the overall design of the SBC experiment and provide an update on the ongoing construction at the Fermilab site.",
+      "role": "prototype_host",
+      "sources": [
+        "src:sbc-ichep2020-proceedings",
+        "src:sbc-taup2023-proceedings",
+        "src:sbc-aps-global-summit-2026-talk"
+      ],
+      "start": "2021-02",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:sbc",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "construction (SBC-LAr10 at Fermilab; SBC-SNOLAB for the dark-matter search)",
+      "locator": "PoS ICHEP2020 (632), abstract",
+      "note": "Start: earliest dated source describing construction (PoS pre-publication 9 February 2021). The dark-matter-search chamber at SNOLAB is still under construction (arXiv:2310.00442 in 2023: 'is constructing'; SBC talk of March 2026: 'SBC-LAr10 SNOLAB: Functionally identical radiopure chamber'), so the experiment's lifecycle state is construction.",
+      "quote": "In this paper, we will present the overall design of the SBC experiment and provide an update on the ongoing construction at the Fermilab site.",
+      "sources": [
+        "src:sbc-ichep2020-proceedings",
+        "src:sbc-snolab-scintillation-system-2023",
+        "src:sbc-aps-global-summit-2026-talk"
+      ],
+      "start": "2021-02",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "phase",
+      "label": "SBC-LAr10 calibration chamber operating at Fermilab (MINOS tunnel)",
+      "locator": "SBC talk, APS Global Summit 2026-03-17, slide 5",
+      "note": "'First fill with LAr and LCF4' in 2025-09, followed by about six months of continuous operation and data taking (talk of 17 March 2026). Calibration data only; the dark-matter search has not started.",
+      "quote": "10kg calibration chamber currently operating in MINOS underground tunnel",
+      "sources": [
+        "src:sbc-aps-global-summit-2026-talk"
+      ],
+      "start": "2025-09",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Target mass per chamber",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "10-kg",
+        "locator": "arXiv:2207.12400, abstract",
+        "note": "",
+        "quote": "The first physics-scale demonstrator of this technique, a 10-kg liquid argon bubble chamber dubbed SBC-LAr10, is now being commissioned at Fermilab.",
+        "sources": [
+          "src:sbc-snowmass-2021-white-paper-2022"
+        ],
+        "unit": "kg",
+        "value": 10,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Target nuclear-recoil threshold",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "100 eV",
+        "locator": "arXiv:2207.12400, abstract",
+        "note": "A design target for SBC-LAr10, not a measured threshold.",
+        "quote": "This device will calibrate the background discrimination power and sensitivity of superheated argon to nuclear recoils at energies down to 100 eV.",
+        "sources": [
+          "src:sbc-snowmass-2021-white-paper-2022"
+        ],
+        "unit": "eV",
+        "value": 100,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Projected SNOLAB sensitivity (spin-independent, 1 GeV/c^2)",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "cross_section",
+        "display": "1 x 10^-43 cm^2",
+        "locator": "arXiv:2207.12400, abstract",
+        "note": "A projection quoted in the 2022 Snowmass white paper.",
+        "quote": "The projected spin-independent sensitivity of this search is approximately $10^{-43}$ cm$^2$ at 1 GeV$/c^2$ dark matter particle mass.",
+        "sources": [
+          "src:sbc-snowmass-2021-white-paper-2022"
+        ],
+        "unit": "cm^2",
+        "value": 1e-43,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "Scintillating Bubble Chamber (SBC)",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "No official SBC website was found; the Institute of Particle Physics (Canada) project page lists SNOLAB as the laboratory. The website link is therefore empty.",
+    "The 30-g xenon bubble chamber (operated at Northwestern University in 2016 and later) is a precursor device, not an SBC detector at either laboratory; its two papers are recorded as technology-milestone results. A CEvNS version at a reactor site is a stated future option, not a proposal with a named host, so it has no record.",
+    "SNOLAB's 26 May 2026 laboratory layout slide lists SBC under 'Ladder Labs'; whether that marks a current or a future allocation is not stated, so no hall is asserted."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2207.12400, abstract",
+      "note": "",
+      "quote": "The Scintillating Bubble Chamber (SBC) Collaboration is developing liquid-noble bubble chambers for the quasi-background-free detection of low-mass (GeV-scale) dark matter and coherent scattering of low-energy (MeV-scale) neutrinos (CE$\\nu$NS).",
+      "sources": [
+        "src:sbc-snowmass-2021-white-paper-2022"
+      ],
+      "value": "Quasi-background-free detection of low-mass (GeV-scale) dark matter and coherent scattering of MeV-scale neutrinos (CEvNS)",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "cevns"
+  ],
+  "sources": [
+    "src:sbc-snowmass-2021-white-paper-2022",
+    "src:sbc-snolab-scintillation-system-2023",
+    "src:sbc-taup2023-proceedings",
+    "src:sbc-aps-global-summit-2026-talk",
+    "src:sbc-ichep2020-proceedings",
+    "src:sbc-xenon-bubble-chamber-low-threshold-2025",
+    "src:sbc-ipp-project-page"
+  ],
+  "status": "construction",
+  "summary": {
+    "plain": "SBC builds bubble chambers filled with superheated liquid argon that give both bubbles and light when something hits them. A 10-kg test chamber operates in a Fermilab tunnel; an identical, cleaner copy for a low-mass dark matter search is being built at SNOLAB.",
+    "technical": "Scintillating bubble chambers: 10-kg liquid-argon (doped ~10-100 ppm Xe) bubble chambers with cameras, SiPMs and piezo sensors, aiming at ~100 eV nuclear-recoil thresholds for 1-10 GeV/c^2 WIMPs and reactor CEvNS. SBC-LAr10 (Fermilab, MINOS tunnel) calibrates the response; a functionally identical SBC-SNOLAB chamber is under construction for the first dark-matter search (projected spin-independent sensitivity ~1e-43 cm^2 at 1 GeV/c^2). Technology demonstrated with a 30-g xenon bubble chamber at Northwestern (2016-17) and extended to 0.50 keV (2025). No dark-matter or CEvNS physics result was found in the sources read."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection",
+    "topic:cevns",
+    "topic:detector-rd"
+  ],
+  "type": "experiment"
+}

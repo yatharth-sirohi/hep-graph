@@ -1,0 +1,135 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:cdex-10"
+  ],
+  "id": "detector:cdex-10",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2017-02",
+      "label": "upgrade of CDEX-1 to CDEX-10",
+      "locator": "arXiv:2309.01843, Sec. 1",
+      "note": "Year only for the start; the end is the start of the first physics data.",
+      "quote": "In 2016, the experiment was upgraded to the second phase, CDEX-10 [7].",
+      "sources": [
+        "src:cdex-50-projected-sensitivity-2024"
+      ],
+      "start": "2016",
+      "status": "upgrade",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "CDEX-10 operation",
+      "locator": "arXiv:1802.09016, Sec. 2",
+      "note": "Open interval: the first physics data began 26 Feb 2017 (C10-B1 data February 2017 - August 2018). No source read states whether data taking continues in 2026: papers through 2026 analyse the 2017-18 data set (205.4 kg day). The 2018 paper planned a move into a 1700 m^3 liquid-nitrogen tank at CJPL-II by the end of 2018; no source read confirms it.",
+      "quote": "Data taking with C10B-Ge1 was performed from February 26, 2017 to November 7, 2017.",
+      "sources": [
+        "src:cdex-10-first-results-2018"
+      ],
+      "start": "2017-02-26",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "CDEX-10 detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "locator": "arXiv:2209.00861, Sec. 2",
+      "note": "Open interval; see the experiment's interval note.",
+      "quote": "The LN cryostat and data acquisition (DAQ) systems are placed inside a polyethylene room at CJPL-I [23].",
+      "role": "main",
+      "site_id": "site:cjpl-i",
+      "sources": [
+        "src:cdex-10-exotic-dm-2022"
+      ],
+      "start": "2016",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cdex-10-first-results-2018",
+    "src:cdex-10-exotic-dm-2022",
+    "src:cdex-50-projected-sensitivity-2024"
+  ],
+  "specs": {
+    "exposure": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "exposure",
+      "display": "205.4 kg day",
+      "locator": "arXiv:2510.21458, abstract",
+      "note": "",
+      "quote": "Analysis of 205.4 kg$\\cdot$day exposure in the 0.16--4.16 keVee range",
+      "sources": [
+        "src:cdex-10-ultraheavy-dm-2026"
+      ],
+      "unit": "kg d",
+      "value": 205.4,
+      "verified_at": "2026-10-26"
+    },
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "10 kg",
+      "locator": "arXiv:1802.09016, abstract",
+      "note": "",
+      "quote": "a 10 kg germanium detector array immersed in liquid nitrogen",
+      "sources": [
+        "src:cdex-10-first-results-2018"
+      ],
+      "unit": "kg",
+      "value": 10,
+      "verified_at": "2026-10-26"
+    },
+    "threshold": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "160 eVee",
+      "locator": "arXiv:1802.09016, abstract",
+      "note": "Electron-equivalent analysis threshold.",
+      "quote": "At an analysis threshold of 160 eVee",
+      "sources": [
+        "src:cdex-10-first-results-2018"
+      ],
+      "unit": "eV",
+      "value": 160,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "CDEX-10 is the second stage of the CDEX programme: ten kilograms of germanium crystals bathed in liquid nitrogen in the Jinping underground laboratory in China. It searches for very light dark matter and has set limits down to a few MeV.",
+    "technical": "Array of 10 kg of p-type point-contact germanium detectors (triple-element strings) immersed directly in liquid nitrogen; physics data from 26 Feb 2017 (C10-B1: Feb 2017 - Aug 2018, 160 eVee threshold). First results 102.8 kg d: SI 8e-42 cm^2 and SD 3e-36 cm^2 at 5 GeV/c^2; 205 kg d later used for sub-GeV, exotic and ultraheavy dark matter searches."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:1802.09016, abstract",
+    "note": "",
+    "quote": "a 10 kg germanium detector array immersed in liquid nitrogen at the China Jinping Underground Laboratory",
+    "sources": [
+      "src:cdex-10-first-results-2018"
+    ],
+    "value": "Array of p-type point-contact germanium detectors immersed in liquid nitrogen",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "germanium",
+  "technology_classes": [
+    "germanium"
+  ],
+  "type": "detector"
+}

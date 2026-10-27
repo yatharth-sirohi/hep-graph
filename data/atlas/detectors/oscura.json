@@ -1,0 +1,122 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:oscura"
+  ],
+  "id": "detector:oscura",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "R&D, conceptual design and design stage (not yet funded for construction)",
+      "locator": "arXiv:2202.10518, abstract",
+      "note": "Start is fiscal year 2020 (the paper says the R&D 'began in FY20'). The 2022 plan to start construction in late 2024 was not met: the SNOLAB 2025 report says the design stage is finished, the experiment 'is technically ready to begin construction, but a clear funding path for the full-scale experiment has not yet been secured' (arXiv:2507.11368, Sec. 4.5). No source read gives an approval or a construction start.",
+      "quote": "The R&D effort, which began in FY20, is currently entering the design phase with the goal of being ready to start construction in late 2024.",
+      "sources": [
+        "src:oscura-experiment-white-paper-2022-arxiv"
+      ],
+      "start": "2020",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "Oscura skipper-CCD array (10 kg)",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "arXiv:2304.04401, abstract",
+      "note": "Planned at SNOLAB, site record 'snolab-underground-lab'; the paper gives no specific lab area.",
+      "quote": "Oscura is planning to operate at SNOLAB with 2070 m overburden",
+      "role": "main",
+      "site_id": "site:snolab-underground-lab",
+      "sources": [
+        "src:oscura-skipper-ccd-sensors-jinst-2023-arxiv"
+      ],
+      "start": "2023-04",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:oscura-experiment-white-paper-2022-arxiv",
+    "src:oscura-skipper-ccd-sensors-jinst-2023-arxiv",
+    "src:oscura-fermilab-page",
+    "src:damic-2025-snolab-workshop-status"
+  ],
+  "specs": {
+    "depth": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "2070 m overburden",
+      "locator": "arXiv:2304.04401, abstract",
+      "note": "",
+      "quote": "Oscura is planning to operate at SNOLAB with 2070 m overburden",
+      "sources": [
+        "src:oscura-skipper-ccd-sensors-jinst-2023-arxiv"
+      ],
+      "unit": "m",
+      "value": 2070,
+      "verified_at": "2026-10-26"
+    },
+    "exposure": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "exposure",
+      "display": "30 kg-yr",
+      "locator": "arXiv:2202.10518, abstract",
+      "note": "",
+      "quote": "with a total exposure of 30 kg-yr",
+      "sources": [
+        "src:oscura-experiment-white-paper-2022-arxiv"
+      ],
+      "unit": "kg yr",
+      "value": 30,
+      "verified_at": "2026-10-26"
+    },
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "10 kg",
+      "locator": "arXiv:2304.04401, abstract",
+      "note": "",
+      "quote": "with its 10 kg detector array",
+      "sources": [
+        "src:oscura-skipper-ccd-sensors-jinst-2023-arxiv"
+      ],
+      "unit": "kg",
+      "value": 10,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "proposed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A planned array of silicon CCD sensors that can count single electrons, kept cold in liquid nitrogen inside heavy shielding.",
+    "technical": "About 28 gigapixels of skipper-CCDs (15 um pixels) in 1500 multi-chip modules arranged in 100 supermodules of 16, read out by cold electronics, in a liquid-nitrogen pressure vessel inside a lead and polyethylene shield."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2304.04401, abstract",
+    "note": "",
+    "quote": "Oscura is a proposed multi-kg skipper-CCD experiment designed for a dark matter (DM) direct detection search",
+    "sources": [
+      "src:oscura-skipper-ccd-sensors-jinst-2023-arxiv"
+    ],
+    "value": "Skipper-CCD silicon array with sub-electron readout noise",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "skipper_ccd",
+  "technology_classes": [
+    "skipper_ccd"
+  ],
+  "type": "detector"
+}

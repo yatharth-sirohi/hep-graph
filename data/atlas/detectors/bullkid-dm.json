@@ -1,0 +1,128 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:bullkid-dm"
+  ],
+  "id": "detector:bullkid-dm",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "BULLKID-DM experiment planned for LNGS",
+      "locator": "arXiv:2510.17682, Introduction",
+      "note": "Earliest document read that names LNGS as the host (arXiv 20 Oct 2025); BULLKID detector R&D is older (2022). No approval is stated in the sources read.",
+      "quote": "While the final experiment with the full-scale detector will be located at the Gran Sasso underground laboratory in Italy for a minimized background activity",
+      "sources": [
+        "src:bullkid-dm-readout-2025-arxiv"
+      ],
+      "start": "2025-10",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "planned installation of the 3-detector demonstrator at the LNGS cryo-platform",
+      "locator": "arXiv:2601.13766, Sec. 2",
+      "note": "A plan (January 2026), not a report that it happened.",
+      "quote": "Installation of the demonstrator at the cryo-platform of Laboratori Nazionali del Gran Sasso (LNGS), with a background rate around 104 DRU, by the end of 2026.",
+      "sources": [
+        "src:bullkid-dm-projected-sensitivity-2026-arxiv"
+      ],
+      "start": {
+        "date": "2026-12",
+        "display": "by the end of 2026",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "planned installation of the final experiment at the LNGS cryo-platform",
+      "locator": "arXiv:2601.13766, Conclusions",
+      "note": "A plan (January 2026).",
+      "quote": "The plan is to install the final experiment at the cryo-platform of LNGS in 2027, after previous technological steps",
+      "sources": [
+        "src:bullkid-dm-projected-sensitivity-2026-arxiv"
+      ],
+      "start": {
+        "date": "2027",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "BULLKID-DM silicon-dice KID array",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "arXiv:2510.17682, Introduction",
+      "note": "The papers name 'the cryo-platform of LNGS' and give no hall; hall A is used only as the Atlas's approximate LNGS point (all three LNGS hall records share one coordinate). The prototype and demonstrator surface runs are in the cryogenic laboratory of the Physics Department of Sapienza University of Rome (not an Atlas site).",
+      "quote": "While the final experiment with the full-scale detector will be located at the Gran Sasso underground laboratory in Italy for a minimized background activity",
+      "role": "main",
+      "site_id": "site:lngs-hall-a",
+      "sources": [
+        "src:bullkid-dm-readout-2025-arxiv"
+      ],
+      "start": "2025-10",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:bullkid-dm-projected-sensitivity-2026-arxiv",
+    "src:bullkid-dm-readout-2025-arxiv",
+    "src:bullkid-concept-apl-2022-arxiv",
+    "src:bullkid-surface-spectrum-2024-arxiv",
+    "src:bullkid-moderate-shield-2026-arxiv"
+  ],
+  "specs": {
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "800 g",
+      "locator": "arXiv:2601.13766, abstract",
+      "note": "",
+      "quote": "The target will amount to 800 g subdivided in more than 2000 silicon dice",
+      "sources": [
+        "src:bullkid-dm-projected-sensitivity-2026-arxiv"
+      ],
+      "unit": "g",
+      "value": 800,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "proposed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A stack of thin silicon wafers, each carved into hundreds of tiny blocks, with a superconducting sensor on each wafer that notices the heat of a particle hitting any block.",
+    "technical": "Stack of 16 diced silicon wafers (about 2300 dice, 800 g in total) sensed by multiplexed phonon-mediated kinetic inductance detectors on a thin common disk; segmentation gives fiducialisation and background veto; cryogenic scintillating veto under development."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2601.13766, abstract",
+    "note": "",
+    "quote": "The detector consists of a stack of diced silicon wafers, acting as arrays of particle absorbers, sensed by multiplexed Kinetic Inductance Detectors.",
+    "sources": [
+      "src:bullkid-dm-projected-sensitivity-2026-arxiv"
+    ],
+    "value": "Diced silicon wafers read out by multiplexed phonon-mediated kinetic inductance detectors",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "cryogenic_phonon_detector",
+  "technology_classes": [
+    "cryogenic_phonon_detector"
+  ],
+  "type": "detector"
+}

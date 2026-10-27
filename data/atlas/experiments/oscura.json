@@ -1,0 +1,158 @@
+{
+  "aliases": [
+    "Observatory of Skipper CCDs Unveiling Recoiling Atoms"
+  ],
+  "collaboration_ids": [
+    "collaboration:oscura"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:snolab",
+      "locator": "arXiv:2304.04401, abstract",
+      "note": "Earliest document read that names SNOLAB as the planned host (JINST paper, arXiv 10 Apr 2023); the SNOLAB 2025 report repeats it ('a next-generation skipper-CCD detector at SNOLAB'). The 2022 white paper says only that part of the mass might be deployed 'at an underground facility for early science'. A 1 kg prototype payload is being built at Fermilab (surface); not an Atlas site.",
+      "quote": "Oscura is planning to operate at SNOLAB with 2070 m overburden",
+      "role": "host",
+      "sources": [
+        "src:oscura-skipper-ccd-sensors-jinst-2023-arxiv"
+      ],
+      "start": "2023-04",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:oscura",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "R&D, conceptual design and design stage (not yet funded for construction)",
+      "locator": "arXiv:2202.10518, abstract",
+      "note": "Start is fiscal year 2020 (the paper says the R&D 'began in FY20'). The 2022 plan to start construction in late 2024 was not met: the SNOLAB 2025 report says the design stage is finished, the experiment 'is technically ready to begin construction, but a clear funding path for the full-scale experiment has not yet been secured' (arXiv:2507.11368, Sec. 4.5). No source read gives an approval or a construction start.",
+      "quote": "The R&D effort, which began in FY20, is currently entering the design phase with the goal of being ready to start construction in late 2024.",
+      "sources": [
+        "src:oscura-experiment-white-paper-2022-arxiv"
+      ],
+      "start": "2020",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Target mass (design)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "10 kg",
+        "locator": "arXiv:2304.04401, abstract",
+        "note": "",
+        "quote": "with its 10 kg detector array",
+        "sources": [
+          "src:oscura-skipper-ccd-sensors-jinst-2023-arxiv"
+        ],
+        "unit": "kg",
+        "value": 10,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Exposure goal",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "exposure",
+        "display": "30 kg-yr",
+        "locator": "arXiv:2202.10518, abstract",
+        "note": "",
+        "quote": "with a total exposure of 30 kg-yr",
+        "sources": [
+          "src:oscura-experiment-white-paper-2022-arxiv"
+        ],
+        "unit": "kg yr",
+        "value": 30,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Planned overburden at SNOLAB",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "2070 m overburden",
+        "locator": "arXiv:2304.04401, abstract",
+        "note": "",
+        "quote": "Oscura is planning to operate at SNOLAB with 2070 m overburden",
+        "sources": [
+          "src:oscura-skipper-ccd-sensors-jinst-2023-arxiv"
+        ],
+        "unit": "m",
+        "value": 2070,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "approximate",
+      "locator": "Fermilab Cosmic Physics Center project page",
+      "note": "No standalone Oscura site was found; this is the Fermilab project page (partly dated: it still quotes 2020-2023 plans of SENSEI-100 and DAMIC-M).",
+      "quote": "The goal of this project is the development of a 10-kg skipper-CCD experiment for low mass dark matter search.",
+      "sources": [
+        "src:oscura-fermilab-page"
+      ],
+      "value": "https://astro.fnal.gov/science/dark-matter/oscura/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "Oscura",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Status 'proposed': a design stage finished (SNOLAB 2025) but no source read reports construction approval or funding for the full 10 kg experiment ('a clear funding path ... has not yet been secured'). The 2022 plan (construction start late 2024, four more years to complete) has therefore slipped.",
+    "No physics result exists. Name expansion from the Fermilab page: Observatory of Skipper CCDs Unveiling Recoiling Atoms.",
+    "Cross-links not written (other agents' records): the SNOLAB 2025 report says Oscura 'unifies the expertise and infrastructure developed through DAMIC, SENSEI, and DAMIC-M' (suggested lineage: complementary, to live on the smaller ids)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2202.10518, abstract",
+      "note": "",
+      "quote": "Oscura will have unprecedented sensitivity to sub-GeV dark matter particles that interact with electrons, probing dark matter-electron scattering for masses down to ∼500 keV and dark matter being absorbed by electrons for masses down to ∼1 eV.",
+      "sources": [
+        "src:oscura-experiment-white-paper-2022-arxiv"
+      ],
+      "value": "Search for sub-GeV dark matter interacting with electrons: scattering down to about 500 keV and absorption down to about 1 eV",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:oscura-experiment-white-paper-2022-arxiv",
+    "src:oscura-skipper-ccd-sensors-jinst-2023-arxiv",
+    "src:oscura-fermilab-page",
+    "src:damic-2025-snolab-workshop-status"
+  ],
+  "status": "proposed",
+  "summary": {
+    "plain": "Oscura is a proposed dark matter experiment that would use about 10 kilograms of ultra-quiet silicon CCD sensors to look for particles lighter than a proton. It is planned for SNOLAB, deep underground in Canada. Its design stage is finished, but funding for the full experiment has not been secured.",
+    "technical": "Proposed 10 kg skipper-CCD array (about 28 Gpixel, ~1500 multi-chip modules in 100 supermodules, ~24,000 readout channels) in a liquid-nitrogen-cooled pressure vessel at 120-140 K inside lead and polyethylene shielding; goal 2-electron threshold, 30 kg-yr exposure and less than one event per electron bin in 2-10 e-, i.e. 0.01 dru; DM-electron scattering down to ~500 keV and absorption down to ~1 eV. Planned at SNOLAB (2070 m overburden). A 1 kg payload is being built at Fermilab as an integration test, followed by a low-background cryostat at SNOLAB that could take a 10 kg payload."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

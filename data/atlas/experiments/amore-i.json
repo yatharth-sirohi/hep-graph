@@ -1,0 +1,181 @@
+{
+  "aliases": [
+    "AMoRE Phase I"
+  ],
+  "collaboration_ids": [
+    "collaboration:amore"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": "2023-04",
+      "facility_id": "facility:yangyang-underground-laboratory",
+      "locator": "arXiv:2407.05618, Sec. 1",
+      "note": "Placement in the A5 tunnel of Y2L (the CUP page builds the AMoRE detector in Y2L-A5).",
+      "quote": "The first two, AMoRE-Pilot and AMoRE-I, were completed at the 700-meter-deep Yangyang Underground Laboratory (Y2L).",
+      "role": "host",
+      "sources": [
+        "src:amore-i-improved-limit-2025"
+      ],
+      "start": "2019",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:amore-i",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2023",
+      "label": "AMoRE-I operation at Y2L",
+      "locator": "arXiv:2407.05618, Sec. 'AMoRE-I experiment'",
+      "note": "Year precision as stated: 'we operated AMoRE-I from 2019 to 2023'. The 2020 JINST paper says AMoRE-I was then 'being assembled and installed at Y2L'.",
+      "quote": "we operated AMoRE-I from 2019 to 2023",
+      "sources": [
+        "src:amore-i-improved-limit-2025"
+      ],
+      "start": "2019",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2023-04",
+      "kind": "run",
+      "label": "DAQ with the full 18-crystal array",
+      "locator": "arXiv:2407.05618, Sec. 'AMoRE-I experiment'",
+      "note": "A 2026 AMoRE-I paper (arXiv:2607.08039) gives the data of the 40Ca analysis as December 2020 to May 2023.",
+      "quote": "data acquisition (DAQ) with the full eighteen-crystal detector array started in December 2020 and ended in April 2023",
+      "sources": [
+        "src:amore-i-improved-limit-2025"
+      ],
+      "start": "2020-12",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed (AMoRE-I data taking ended)",
+      "locator": "arXiv:2407.05618, Sec. 'AMoRE-I experiment'",
+      "note": "Month precision: end of DAQ, April 2023 (May 2023 in arXiv:2607.08039).",
+      "quote": "data acquisition (DAQ) with the full eighteen-crystal detector array started in December 2020 and ended in April 2023",
+      "sources": [
+        "src:amore-i-improved-limit-2025"
+      ],
+      "start": "2023-04",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Crystal mass (18 crystals)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "6.2 kg",
+        "locator": "arXiv:2211.02825, abstract",
+        "note": "",
+        "quote": "for a total crystal mass of 6.2 kg",
+        "sources": [
+          "src:amore-i-status-2022"
+        ],
+        "unit": "kg",
+        "value": 6.2,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Exposure",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "exposure",
+        "display": "8.02 kg yr",
+        "locator": "arXiv:2407.05618, abstract",
+        "note": "",
+        "quote": "The exposure was 8.02 kg$\\cdot$year",
+        "sources": [
+          "src:amore-i-improved-limit-2025"
+        ],
+        "unit": "kg yr",
+        "value": 8.02,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "double_beta_decay",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:amore-pilot",
+      "locator": "arXiv:2211.02825, abstract",
+      "note": "",
+      "quote": "Data collection has begun for the current AMORE-I phase of the project, an upgrade from the previous pilot phase.",
+      "relation": "upgrade_of",
+      "sources": [
+        "src:amore-i-status-2022"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "approximate",
+      "locator": "CUP 'Double Beta Decay' research page",
+      "note": "No dedicated AMoRE website was found; the Center for Underground Physics page describes the experiment.",
+      "quote": "The AMoRE Experiment",
+      "sources": [
+        "src:cup-ibs-double-beta-decay"
+      ],
+      "value": "https://centers.ibs.re.kr/html/cup/research/research_0303.html",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "AMoRE-I",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "A conference proceeding (PoS ICHEP2024) quotes the AMoRE-I limit as 3.0e24 yr; the PRL abstract (2.9e24 yr) is followed."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2407.05618, abstract",
+      "note": "",
+      "quote": "As a demonstration of the full-scale AMoRE, we conducted AMoRE-I, a pre-experiment with 18 molybdate crystals, at the Yangyang Underground Laboratory for over two years.",
+      "sources": [
+        "src:amore-i-improved-limit-2025"
+      ],
+      "value": "Demonstrate the full-scale AMoRE technique and background level with a pre-experiment before AMoRE-II",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:amore-i-status-2022",
+    "src:amore-i-improved-limit-2025",
+    "src:amore-overview-jinst-2020",
+    "src:amore-ii-projected-background-2024",
+    "src:yemilab-aapps-bulletin-2024"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "AMoRE-I was the second stage of AMoRE: eighteen molybdate crystals (6.2 kg), cooled to about 12 thousandths of a degree above absolute zero, run at the Yangyang laboratory from 2019 to 2023. It saw no sign of neutrinoless double beta decay of molybdenum-100 and set a lower limit of 2.9 x 10^24 years on its half-life.",
+    "technical": "13 48depl-Ca100MoO4 + 5 Li2 100MoO4 crystals (6.2 kg) with MMC readout at ~12 mK in the A5 tunnel of Y2L (700 m); full 18-crystal DAQ December 2020 - April 2023 at 93% live time; exposure 8.02 kg yr (3.89 kg yr of 100Mo), background 0.025 +/- 0.002 counts/keV/kg/yr near Q; T1/2(0vbb, 100Mo) > 2.9e24 yr (90% C.L.), m_bb < 210-610 meV."
+  },
+  "topic_ids": [
+    "topic:neutrinoless-double-beta-decay",
+    "topic:neutrino-physics"
+  ],
+  "type": "experiment"
+}

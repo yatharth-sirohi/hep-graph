@@ -1,0 +1,100 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:spice"
+  ],
+  "id": "detector:spice",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "SPICE/HeRALD R&D; proposed for LSM as a TESSERACT module",
+      "locator": "arXiv:2108.02176, author list",
+      "note": "Earliest dated paper read carrying the combined collaboration tag; the proposal to host SPICE at LSM dates from 2022 (Nucl. Phys. B 2024). SPICE itself has no separately dated founding in the sources read.",
+      "quote": "(SPICE/HeRALD Collaboration)",
+      "sources": [
+        "src:herald-scintillation-yield-2021-arxiv"
+      ],
+      "start": "2021-08",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2028",
+        "planned": true
+      },
+      "label": "planned installation of the TESSERACT setups (including SPICE) at LSM",
+      "locator": "TAUP 2025 slide 15",
+      "note": "A schedule.",
+      "quote": "The two setups will be in LSM between 2027 and 2028",
+      "sources": [
+        "src:tesseract-taup2025-slides"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2027",
+        "display": "between 2027 and 2028",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "SPICE polar-crystal detectors",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "Nucl. Phys. B 1003 (2024) 116465, Sec. 4",
+      "note": "Proposed placement: the SPICE module of the TESSERACT payload at LSM.",
+      "quote": "Combined with the US-based SPICE and HeRALD technologies, the TESSERACT at LSM experiment will then allow to probe DM candidates over 12 orders of magnitude in mass",
+      "role": "main",
+      "site_id": "site:lsm-frejus",
+      "sources": [
+        "src:tesseract-modane-proposal-nuclphysb-2024"
+      ],
+      "start": "2024-01",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:tesseract-spice-page",
+    "src:tesseract-modane-proposal-nuclphysb-2024",
+    "src:tesseract-taup2025-slides",
+    "src:tesseract-cpad2025-abstract",
+    "src:lowmass-commphys-review-2026"
+  ],
+  "specs": {},
+  "status": "proposed",
+  "subsystems": [],
+  "summary": {
+    "plain": "Small crystals of sapphire, quartz or gallium arsenide, each carrying superconducting sensors on one face that register vibrations caused by a dark matter interaction.",
+    "technical": "1 cm^3 Al2O3 and SiO2 crystals and GaAs cubes instrumented on one face with TES athermal-phonon sensors (two independent arrays per pixel); GaAs also read out through an optical cavity with an instrumented Ge photon collector."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "Nucl. Phys. B 1003 (2024) 116465, Sec. 2.3.1",
+    "note": "",
+    "quote": "SPICE aims at developing an array of 1 cm3 Al2O3 and SiO2 detectors, instrumented on one face with athermal phonon sensors",
+    "sources": [
+      "src:tesseract-modane-proposal-nuclphysb-2024"
+    ],
+    "value": "Polar and scintillating crystals read out by TES athermal-phonon sensors",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "cryogenic_phonon_detector",
+  "technology_classes": [
+    "cryogenic_phonon_detector"
+  ],
+  "type": "detector"
+}

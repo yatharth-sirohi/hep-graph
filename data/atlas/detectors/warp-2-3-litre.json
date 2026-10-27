@@ -1,0 +1,110 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:warp"
+  ],
+  "id": "detector:warp-2-3-litre",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2008",
+      "label": "operated underground at LNGS",
+      "locator": "arXiv:0804.1222, Sec. 2",
+      "note": "Start: installed at LNGS by November 2004 (arXiv:astro-ph/0411491, Sec. 3), upper bound. End: last source read that describes it as operating (April 2008).",
+      "quote": "The WArP prototype is operated underground at the Gran Sasso INFN Laboratory (LNGS), in the tunnel connecting HallA to HallB.",
+      "sources": [
+        "src:warp-oxygen-contamination-2008",
+        "src:warp-idm2004-proceedings"
+      ],
+      "start": "2004",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed (end of operation not published)",
+      "locator": "arXiv:0804.1222, Sec. 2",
+      "note": "No source after April 2008 was found that shows the prototype running; the date is the last documented operation, not a published end.",
+      "quote": "The WArP prototype is operated underground at the Gran Sasso INFN Laboratory (LNGS), in the tunnel connecting HallA to HallB.",
+      "sources": [
+        "src:warp-oxygen-contamination-2008"
+      ],
+      "start": "2008",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "WArP 2.3-litre prototype",
+  "notes": [
+    "Technology wording from the first-results abstract; the same abstract describes a 2.3 litre test chamber."
+  ],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2008",
+      "locator": "arXiv:0804.1222, Sec. 2",
+      "note": "The paper says the prototype is operated 'in the tunnel connecting HallA to HallB'; no site record exists for that tunnel, so the Hall B site record is used.",
+      "quote": "The WArP prototype is operated underground at the Gran Sasso INFN Laboratory (LNGS), in the tunnel connecting HallA to HallB.",
+      "role": "prototype",
+      "site_id": "site:lngs-hall-b",
+      "sources": [
+        "src:warp-oxygen-contamination-2008"
+      ],
+      "start": "2004",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:warp-first-results-2008",
+    "src:warp-ar39-activity-2007",
+    "src:warp-idm2004-proceedings",
+    "src:warp-oxygen-contamination-2008"
+  ],
+  "specs": {
+    "active_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "2.6 kg",
+      "locator": "arXiv:astro-ph/0701286, Sec. 4",
+      "note": "",
+      "quote": "The sensitive volume of the chamber is 1.87 litres, corresponding to 2.6 kg.",
+      "sources": [
+        "src:warp-first-results-2008"
+      ],
+      "unit": "kg",
+      "value": 2.6,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The small 2.3-litre two-phase argon chamber that WArP ran at Gran Sasso; it produced the programme's first dark matter results from about 100 kg-days of data.",
+    "technical": "Two-phase argon chamber with a 1.87 l sensitive volume (2.6 kg) viewed from above by PMTs, inside a lead and polyethylene passive shield; results from 52.76 live days (96.5 kg d). Operated at LNGS from 2004 or earlier; still operating in April 2008 (arXiv:0804.1222)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:astro-ph/0701286, abstract",
+    "note": "",
+    "quote": "A new method of searching for dark matter in the form of weakly interacting massive particles (WIMP) has been developed with the direct detection of the low energy nuclear recoils observed in a massive target (ultimately many tons) of ultra pure Liquid Argon at 87 K.",
+    "sources": [
+      "src:warp-first-results-2008"
+    ],
+    "value": "Two-phase (liquid and gas) argon chamber with PMT readout",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "noble_liquid_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "argon_tpc"
+  ],
+  "type": "detector"
+}

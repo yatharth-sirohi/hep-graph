@@ -1,0 +1,125 @@
+{
+  "aliases": [],
+  "collaboration_ids": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": "1994-12",
+      "facility_id": "facility:canfranc-underground-laboratory",
+      "locator": "arXiv:2607.24448, Sec. 2.3.2",
+      "note": "Months of first and last data (see the experiment intervals). Hall not named: the Canfranc laboratory of that time was the old tunnel laboratory.",
+      "quote": "assembled and carried out the DM32 Experiment at Canfranc Underground Laboratory (LSC).",
+      "role": "host",
+      "sources": [
+        "src:nai-dark-matter-review-2026"
+      ],
+      "start": "1993-05",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:dm32",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1994-12",
+      "kind": "run",
+      "label": "data taking with three NaI(Tl) modules",
+      "locator": "arXiv:2607.24448, Sec. 2.3.2",
+      "note": "Months of the first and last data as stated by the 2026 review; the primary papers (Phys. Lett. B 386, 458; Phys. Rev. D 56, 1856) were not read.",
+      "quote": "4,613.6 kg·day of data taken between May 1993 and December 1994, DM32 set competitive limits on SI and SD coupling between DM particles and target nuclei",
+      "sources": [
+        "src:nai-dark-matter-review-2026"
+      ],
+      "start": "1993-05",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed (data taking ended)",
+      "locator": "arXiv:2607.24448, Sec. 2.3.2",
+      "note": "Taken as the month of the last data; no shutdown date is published in the source read. The review says the detectors had been deployed as an active veto for a germanium double-beta experiment.",
+      "quote": "4,613.6 kg·day of data taken between May 1993 and December 1994, DM32 set competitive limits on SI and SD coupling between DM particles and target nuclei",
+      "sources": [
+        "src:nai-dark-matter-review-2026"
+      ],
+      "start": "1994-12",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "NaI(Tl) mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "32.1 kg",
+        "locator": "arXiv:2607.24448, Sec. 2.3.2",
+        "note": "",
+        "quote": "10.7 kg NaI(Tl) modules with a total mass of 32.1 kg.",
+        "sources": [
+          "src:nai-dark-matter-review-2026"
+        ],
+        "unit": "kg",
+        "value": 32.1,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Exposure",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "exposure",
+        "display": "4613.6 kg d",
+        "locator": "arXiv:2607.24448, Sec. 2.3.2",
+        "note": "",
+        "quote": "4,613.6 kg·day of data taken between May 1993 and December 1994",
+        "sources": [
+          "src:nai-dark-matter-review-2026"
+        ],
+        "unit": "kg d",
+        "value": 4613.6,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "DM32",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "Sourced from the 2026 Annual Reviews overview only: the primary DM32 papers (Phys. Lett. B 386, 458 (1996); Phys. Rev. D 56, 1856 (1997)) were not readable, so there is no result record (tier C).",
+    "DM32 was run by members of the University of Zaragoza Nuclear and Astroparticle Physics Group, the group of the later ANAIS experiment; the review does not call it ANAIS's predecessor, so no lineage row is written.",
+    "Placement: the Canfranc laboratory of 1993-1994 is the old tunnel laboratory; the Atlas LSC record is one approximate point for the laboratory."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:nai-dark-matter-review-2026"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "DM32 was an early dark matter search with three sodium iodide crystals (32 kg) run by a Zaragoza group in the Canfranc underground laboratory, Spain, from 1993 to 1994. It set competitive limits and looked for a yearly modulation.",
+    "technical": "Three 10.7 kg NaI(Tl) modules (32.1 kg in all), originally an active veto of a germanium double-beta experiment, at Canfranc; 4613.6 kg d of data (May 1993 - December 1994) analysed for an excess in the total rate and for annual modulation; competitive spin-independent and spin-dependent limits, with the modulation analysis improving the excluded parameter space by about two orders of magnitude (per the 2026 review)."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

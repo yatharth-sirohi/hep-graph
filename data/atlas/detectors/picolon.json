@@ -1,0 +1,136 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:picolon"
+  ],
+  "id": "detector:picolon",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2015",
+      "kind": "phase",
+      "label": "R&D: thin multilayer NaI(Tl) detectors and radiopure crystals; first low-background measurement at Oto Cosmo Observatory (from September 2007)",
+      "locator": "arXiv:astro-ph/0611700, abstract",
+      "note": "Year of the first PICO-LON paper (November 2006); the project start is not dated more precisely. The first underground measurement was at the Oto Cosmo Observatory from September 2007 (arXiv:0711.3053); from 2015 the measurements are at Kamioka. The end of this phase is the start of the Kamioka measurement.",
+      "quote": "The WIMPs search project PICO-LON has been started with multilayer thin NaI(Tl) crystals.",
+      "sources": [
+        "src:pico-lon-multilayer-thin-nai-2006"
+      ],
+      "start": "2006",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "kind": "run",
+      "label": "low-background measurements in the KamLAND area of the Kamioka underground laboratory",
+      "locator": "arXiv:1512.04645, Sec. 3",
+      "note": "Small-crystal measurements (7 d x 1.2 kg in 2015; 156.0 d x 1.34 kg in 2021-2022) are the only data so far; the 250 kg experiment is planned, not built (arXiv:2607.24448). The experiment is recorded as active because measurements were still being made in 2021-2024 (arXiv:2402.08786) and a 2025 paper reports them; no source gives a stop date.",
+      "quote": "The low background measurement was started in the summer of 2015 in Kamioka underground laboratory",
+      "sources": [
+        "src:pico-lon-dark-matter-search-project-2016"
+      ],
+      "start": "2015",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "PICOLON NaI(Tl) detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "arXiv:1512.04645, Sec. 3",
+      "note": "The KamLAND area of the Kamioka mine; the 2016 paper gives the laboratory at 36 deg 25' N, 137 deg 18' E (the Atlas KamLAND record carries a Wikipedia-derived point, not edited here).",
+      "quote": "The low background measurement was started in the summer of 2015 in Kamioka underground laboratory",
+      "role": "main",
+      "site_id": "site:kamioka-kamland",
+      "sources": [
+        "src:pico-lon-dark-matter-search-project-2016"
+      ],
+      "start": "2015",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": "2015",
+      "locator": "arXiv:0711.3053, Sec. 3",
+      "note": "End inferred: the project's measurements moved to Kamioka in summer 2015 (arXiv:1512.04645); no source says when the Oto measurements stopped.",
+      "quote": "The low background measurement was started in September 2007 at Oto Cosmo Observatory.",
+      "role": "prototype",
+      "site_id": "site:oto-cosmo-observatory",
+      "sources": [
+        "src:pico-lon-project-wimps-2008"
+      ],
+      "start": "2007-09",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:picolon-background-stability-annual-modulation-2025",
+    "src:pico-lon-dark-matter-search-project-2016",
+    "src:pico-lon-project-wimps-2008"
+  ],
+  "specs": {
+    "depth": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "depth_mwe",
+      "display": "2700 meters water equivalent",
+      "locator": "arXiv:2509.22021, Sec. 3",
+      "note": "",
+      "quote": "The PICOLON experimental room is located at the KamLAND area in Kamioka Underground Laboratory at a depth of 2700 meters water equivalent (m.w.e).",
+      "sources": [
+        "src:picolon-background-stability-annual-modulation-2025"
+      ],
+      "unit": "m.w.e.",
+      "value": 2700,
+      "verified_at": "2026-10-26"
+    },
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "1.34 kg",
+      "locator": "arXiv:2509.22021, Sec. 4",
+      "note": "",
+      "quote": "The exposure time was 156.0 d×1.34 kg (realtime: 192.6 d), from 2021 Nov. 11–2022 May 24 (JST).",
+      "sources": [
+        "src:picolon-background-stability-annual-modulation-2025"
+      ],
+      "unit": "kg",
+      "value": 1.34,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "PICOLON is a Japanese search for dark matter with ultra-pure sodium iodide crystals, measured so far with a small crystal deep in the Kamioka mine. It aims to test the yearly signal reported by DAMA/LIBRA with crystals as clean as DAMA's, and plans a 250 kg detector.",
+    "technical": "Ultra-pure NaI(Tl) crystals made by hybrid purification (recrystallisation plus ion-exchange resins; natural K below 20 ppb, 210Pb below 5.7 uBq/kg), read by a 3-inch low-background Hamamatsu R11065-20 PMT, in a lead and copper shield in the KamLAND area of Kamioka (2700 m.w.e.). Ingot #94 (1.34 kg, ~10 photoelectrons/keV): background ~1.5 /d/kg/keV in 2-6 keVee; first six-month modulation test (2021-2022 data) finds a finite amplitude attributed to non-physical causes. A 250 kg array in the KamLAND area is planned."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2509.22021, Sec. 3",
+    "note": "",
+    "quote": "The assembled NaI(Tl) crystal was read using a 3-inch low-background Hamamatsu R11065-20 photomultiplier tube (PMT).",
+    "sources": [
+      "src:picolon-background-stability-annual-modulation-2025"
+    ],
+    "value": "Ultra-pure NaI(Tl) crystal read by a low-background PMT in a lead and copper shield",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "scintillating_crystal",
+  "technology_classes": [
+    "scintillating_crystal"
+  ],
+  "type": "detector"
+}
