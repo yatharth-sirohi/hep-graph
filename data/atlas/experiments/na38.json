@@ -1,0 +1,174 @@
+{
+  "accelerator_ids": [
+    "accelerator:sps"
+  ],
+  "aliases": [],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:na38"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": "NA38",
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "Z. Phys. C 38 (1988) 117, Introduction",
+      "note": "",
+      "quote": "NA38 is a dedicated experiment for the study of muon pairs produced in interactions of ultra-relativistic ions with dense matter.",
+      "role": "host",
+      "sources": [
+        "src:hadron2-na38-jpsi-o-u-zpc-1988-lip"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "arXiv:hep-ph/0412158, Section 7",
+      "note": "Proton, oxygen and sulphur beams from the SPS (accelerator:sps); H10 beam line per Greybook.",
+      "quote": "At first, the pioneering experiment NA38 [113] collected data with light ions (oxygen and sulphur) at 200 GeV/nucleon and with proton beams at 450 GeV, using the NA10 dimuon spectrometer and an electromagnetic calorimeter as a centrality detector.",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-heavy-quarkonium-wg-arxiv-2004"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:na38",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1986",
+      "label": "approval",
+      "locator": "Greybook record for NA38 (JSON, experiment details)",
+      "note": "Approval date as recorded in Greybook; Specht (2014 slides) lists NA38 as approved 09/1985. The interval ends when NA38 first took data (autumn 1986).",
+      "quote": "\"approvalDate\" : \"12-09-1985\"",
+      "sources": [
+        "src:hadron2-greybook-na38",
+        "src:hadron2-specht-sps-heavy-ion-roots-slides-2014"
+      ],
+      "start": "1985-09-12",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": "1992",
+      "label": "data taking (proton, oxygen and sulphur beams)",
+      "locator": "arXiv:2603.10835, Section 5; arXiv:hep-ph/0412158, Section 7",
+      "note": "The start is stated (data taken from the fall of 1986: first 200 GeV protons on uranium, then oxygen ions; the 1988 NA38 paper). The end year is inferred: the last NA38 heavy-ion sample named in the fetched sources is the large S+U sample of 1992 (Table 7.2 of arXiv:hep-ph/0412158: '1992 200 20.5% S+U 8 × 107 113'); the years of NA38's 450 GeV proton-nucleus runs are not given.",
+      "quote": "It had started its data taking with oxygen beams in 1986",
+      "sources": [
+        "src:hadron2-sps-first-signals-review-arxiv-2026",
+        "src:hadron2-na38-jpsi-o-u-zpc-1988-lip",
+        "src:hadron2-heavy-quarkonium-wg-arxiv-2004"
+      ],
+      "start": "1986",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:hep-ph/0412158, Section 7 and Table 7.2",
+      "note": "Terminal event inferred from the last documented NA38 data set (S+U, 1992); no fetched source states the NA38 end date. NA50 followed with Pb beams (first documented Pb-Pb sample 1995).",
+      "quote": "NA38 then collected a significantly larger sample of S+U events (see Table 7.2)",
+      "sources": [
+        "src:hadron2-heavy-quarkonium-wg-arxiv-2004"
+      ],
+      "start": "1992",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "heavy_ion",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "approximate",
+      "locator": "Internet Archive capture of na38.web.cern.ch/NA38/ (17 May 2024), page heading",
+      "note": "The live site (listed in Greybook) no longer resolves; the value is the Internet Archive capture.",
+      "quote": "Study of vector meson and dimuon production in p, O, and S-induced collisions at the CERN SPS",
+      "sources": [
+        "src:hadron2-na38-official-site-wayback"
+      ],
+      "value": "https://web.archive.org/web/20240517071737/https://na38.web.cern.ch/NA38/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "NA38",
+  "notes": [
+    "Hall not identified: placed at the generic Prévessin North Area site (Greybook gives the beam line, H10, but no fetched source names the hall).",
+    "NA38 reused the NA10 muon spectrometer (arXiv:2603.10835: 'built as a modest upgrade of the older NA10 experiment'); NA10 is not an Atlas record.",
+    "NA50 followed NA38 (Specht 2014 slides, Tserruya 1998, arXiv:hep-ph/0412158); the lineage row (predecessor) is on experiment:na50.",
+    "Spokesperson Louis Kluberg and contact person Peter Sonderegger (NA38 website, Greybook). No formation date or membership found.",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "NA38 paper, Z. Phys. C 38 (1988) 117, Introduction (J/psi suppression: arXiv:2603.10835, Section 1)",
+      "note": "",
+      "quote": "NA38 is a dedicated experiment for the study of muon pairs produced in interactions of ultra-relativistic ions with dense matter.",
+      "sources": [
+        "src:hadron2-na38-jpsi-o-u-zpc-1988-lip",
+        "src:hadron2-sps-first-signals-review-arxiv-2026"
+      ],
+      "value": "Study muon pairs produced in interactions of ultra-relativistic ions with dense matter, including J/psi production and its suppression as a signature of quark-gluon plasma formation",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:hadron2-greybook-na38",
+    "src:hadron2-heavy-quarkonium-wg-arxiv-2004",
+    "src:hadron2-na38-jpsi-o-u-plb-1989-lip",
+    "src:hadron2-na38-jpsi-o-u-zpc-1988-lip",
+    "src:hadron2-na38-official-site-wayback",
+    "src:hadron2-specht-sps-heavy-ion-roots-slides-2014",
+    "src:hadron2-sps-dileptons-photons-tserruya-arxiv-1998",
+    "src:hadron2-sps-first-signals-review-arxiv-2026"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "NA38 was a CERN experiment that counted pairs of muons produced when oxygen and sulphur ions hit uranium and other targets. It reported that J/psi particles were made less often in the most violent collisions, an early sign later linked to quark-gluon plasma.",
+    "technical": "NA38: NA10 air-core toroidal dimuon spectrometer (multiwire chambers, scintillator hodoscopes) with a scintillating-fibre electromagnetic calorimeter for transverse energy, a multiple active uranium target and beam hodoscopes, on the H10 beam line of the SPS North Area; p (200 and 450 GeV), O and S (200A GeV) beams, 1986-1992; J/psi yield versus transverse energy in O-U; precursor of NA50."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:heavy-ion-physics-qgp",
+    "topic:qcd",
+    "topic:nuclear-and-heavy-ion"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "Z. Phys. C 38 (1988) 117, Section 2",
+      "note": "",
+      "quote": "The apparatus consists of a muon spectrometer, an electromagnetic calorimeter, a multiple active target and specific beam detectors",
+      "sources": [
+        "src:hadron2-na38-jpsi-o-u-zpc-1988-lip"
+      ],
+      "value": "NA10 air-core toroidal dimuon spectrometer with an electromagnetic calorimeter, a multiple active uranium target and beam detectors, run at very high beam intensities",
+      "verified_at": "2026-10-26"
+    }
+  ]
+}

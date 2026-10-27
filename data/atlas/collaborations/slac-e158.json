@@ -1,0 +1,112 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "formation": {
+    "confidence": "uncertain",
+    "locator": "no formation date on the fetched pages",
+    "note": "No fetched source states a collaboration formation date.",
+    "sources": [
+      "src:hadron2-e158-members-page"
+    ],
+    "value": null,
+    "verified_at": "2026-10-26"
+  },
+  "host_facility_id": "facility:slac",
+  "host_site_id": "site:slac-menlo-park-campus",
+  "id": "collaboration:slac-e158",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2002",
+      "label": "collaboration: 2001 runs (spectrometer commissioning)",
+      "locator": "E158 site, '2001 Runs' page ('February Stuff')",
+      "note": "The official 2001 runs page lists February, April, May and June 2001 shift schedules and a spectrometer commissioning plan for the first three days under 'February Stuff'; no fetched source calls the 2001 runs 'commissioning' in words, and the first production data were taken in 2002. The end ('2002') is the start of the data runs.",
+      "quote": "Spectrometer Commissioning Plan -- first three days",
+      "sources": [
+        "src:hadron2-e158-2001-runs-page"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2001-02",
+        "display": "February 2001 (first shift schedule on the 2001 runs page)"
+      },
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2003",
+      "label": "collaboration: data taking (three production runs, 2002 and 2003)",
+      "locator": "arXiv:hep-ex/0504049, experimental apparatus and data sample",
+      "note": "The official site names a spring 2002 run, a fall 2002 run and a 2003 run; the proceedings of SLAC Summer Institute 2003 say the experiment performed three physics runs in 2002 and 2003. Month-level dates are not published in the fetched sources.",
+      "quote": "collected over three data runs in 2002 and 2003.",
+      "sources": [
+        "src:hadron2-e158-weak-mixing-angle-arxiv-2005"
+      ],
+      "start": "2002",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "derived",
+      "end": null,
+      "label": "collaboration: completed",
+      "locator": "arXiv:hep-ex/0403010, introduction",
+      "note": "Terminal event inferred: the last of the three production runs was in 2003 and the proceedings (submitted March 2004) already describe all three runs in the past tense; no source states the end date of the last run.",
+      "quote": "E158 performed 3 physics runs in 2002 and 2003.",
+      "sources": [
+        "src:hadron2-e158-ssi2003-arxiv-2004"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2003",
+        "display": "2003",
+        "note": "Last run was in 2003; the month is not stated."
+      },
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "main page of the E158 site (frame content at /exp/e158/main.html)",
+      "note": "The site root is a frameset; the cited text is on its main frame.",
+      "quote": "About the experiment",
+      "sources": [
+        "src:hadron2-e158-home-page"
+      ],
+      "value": "https://www.slac.stanford.edu/exp/e158/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "membership": {
+    "as_of": null,
+    "country_count": null,
+    "evidence_class": null,
+    "institution_count": null,
+    "member_count": null,
+    "roster_source_ids": []
+  },
+  "name": "SLAC E158 Collaboration",
+  "notes": [
+    "Formation date and membership counts not recorded. The official roster page (https://www.slac.stanford.edu/exp/e158/mem.html, last modified 22 October 1999) names eleven institutions: CEA Saclay, California Institute of Technology, Kent State University, Princeton University, Smith College, Stanford Linear Accelerator Center, Syracuse University, Thomas Jefferson National Accelerator Facility, University of California Berkeley, University of Massachusetts and University of Virginia."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-e158-members-page",
+    "src:hadron2-e158-home-page"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "The collaboration of physicists from SLAC, Caltech, Saclay, Syracuse and other institutions that ran the E158 experiment.",
+    "technical": "SLAC E158 Collaboration; a roster page (last modified 22 October 1999) lists eleven institutions; membership counts not recorded."
+  },
+  "superseded_by": null,
+  "type": "collaboration"
+}

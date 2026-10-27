@@ -1,0 +1,150 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:na35"
+  ],
+  "id": "detector:na35",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1983-02-03",
+      "label": "proposal to the PS committee",
+      "locator": "arXiv:2603.08053, Section 1.1",
+      "note": "The proposal (16O beams of 9-13A GeV at the PS) was submitted on 26 January 1982. The interval ends on the Greybook approval date (3 February 1983); CERN later moved the ion beams from the PS to the SPS.",
+      "quote": "The origins of the NA35 experiment at CERN can be traced back to a proposal [1] submitted by the GSI–LBL–Heidelberg–Marburg–Warsaw Collaboration to CERN’s Proton Synchrotron and Synchro-Cyclotron Committee on January 26, 1982.",
+      "sources": [
+        "src:hadron2-sps-h2-review-gazdzicki-arxiv-2026",
+        "src:hadron2-greybook-na35"
+      ],
+      "start": "1982-01-26",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1986",
+      "label": "approval",
+      "locator": "Greybook record for NA35 (JSON, experiment details)",
+      "note": "Approval date as recorded in Greybook (the original PS proposal). Specht (2014 slides) lists NA35 among the first-generation SPS experiments approved in 11/1984 and the Greybook status history has a row with approvalDate 15-11-1984: the SPS re-approval. The interval ends when the first oxygen beams reached the SPS (autumn 1986) and NA35 began recording data.",
+      "quote": "\"approvalDate\" : \"03-02-1983\"",
+      "sources": [
+        "src:hadron2-greybook-na35",
+        "src:hadron2-specht-sps-heavy-ion-roots-slides-2014"
+      ],
+      "start": "1983-02-03",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1992",
+      "label": "data taking (light-ion beams at 60A and 200A GeV)",
+      "locator": "arXiv:2603.08053, Section 1.2; arXiv:1505.06853, Section 1",
+      "note": "Year precision. Both reviews give the data-taking period 1986-1992.",
+      "quote": "NA35 recorded data on collisions of p, d, 16 O, and 32 S beams at 60A GeV/c and 200A GeV/c with S, Ag, and Au targets from 1986 to 1992.",
+      "sources": [
+        "src:hadron2-sps-h2-review-gazdzicki-arxiv-2026",
+        "src:hadron2-sps-heavy-ion-review-schukraft-stock-arxiv-2015"
+      ],
+      "start": "1986",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:1505.06853, Section 1 (NA35 and ALICE comparison)",
+      "note": "Year precision: NA35 data taking ended in 1992; its detector concept was succeeded by NA49 (TPCs replaced the streamer chamber in 1994).",
+      "quote": "NA35 was planned from 1981 onwards, and took SPS data from 1986 to 1992.",
+      "sources": [
+        "src:hadron2-sps-heavy-ion-review-schukraft-stock-arxiv-2015",
+        "src:hadron2-sps-h2-review-gazdzicki-arxiv-2026"
+      ],
+      "start": "1992",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "NA35 streamer chamber and calorimeters",
+  "notes": [
+    "Placement: see experiment:na35 (hall inferred from the H2 beam line)."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "uncertain",
+      "end": "1992",
+      "locator": "arXiv:2603.08053, Section 1",
+      "note": "H2 beam line; hall inferred (EHN1) from the NA61/SHINE Beams page (the H2 beam is transported to Experimental Hall North 1); the same inference as for NA49. Campus-grade site.",
+      "quote": "NA35 was the first experiment in the family of heavy-ion experiments conducted at the H2 beamline of the CERN North Area at the SPS.",
+      "role": "main",
+      "site_id": "site:cern-neutrino-platform-ehn1",
+      "sources": [
+        "src:hadron2-sps-h2-review-gazdzicki-arxiv-2026",
+        "src:hadron2-na61-shine-beams-page"
+      ],
+      "start": "1986",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-greybook-na35",
+    "src:hadron2-na35-official-site-wayback",
+    "src:hadron2-na35-strange-particles-s-s-zpc-1990",
+    "src:hadron2-na61-shine-beams-page",
+    "src:hadron2-specht-sps-heavy-ion-roots-slides-2014",
+    "src:hadron2-sps-first-signals-review-arxiv-2026",
+    "src:hadron2-sps-h2-review-gazdzicki-arxiv-2026",
+    "src:hadron2-sps-heavy-ion-review-schukraft-stock-arxiv-2015"
+  ],
+  "specs": {
+    "magnetic_field": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "1.5 T",
+      "locator": "arXiv:2603.08053, Section 1.2",
+      "note": "Vertical field of the streamer-chamber magnet.",
+      "quote": "The NA35 setup shown in Fig. 1 featured a visual tracking detector, a streamer chamber with a sensitive volume of 200×120×70 cm3 , placed in a 1.5 T vertical magnetic field.",
+      "sources": [
+        "src:hadron2-sps-h2-review-gazdzicki-arxiv-2026"
+      ],
+      "unit": "T",
+      "value": 1.5,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A large streamer chamber in a strong magnet that made photographs of the tracks from each nuclear collision, with calorimeters behind it measuring the energy flow.",
+    "technical": "NA35: streamer chamber (sensitive volume 200x120x70 cm3) in a 1.5 T vertical magnetic field, followed by four calorimeters; components inherited from NA5 and NA24."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2603.08053, Section 1.2",
+    "note": "",
+    "quote": "The NA35 setup shown in Fig. 1 featured a visual tracking detector, a streamer chamber with a sensitive volume of 200×120×70 cm3 , placed in a 1.5 T vertical magnetic field.",
+    "sources": [
+      "src:hadron2-sps-h2-review-gazdzicki-arxiv-2026"
+    ],
+    "value": "Streamer chamber in a 1.5 T vertical magnetic field followed by four calorimeters",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "spectrometer",
+    "tracking_calorimeter"
+  ],
+  "type": "detector"
+}

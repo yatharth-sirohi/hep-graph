@@ -1,0 +1,110 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "formation": {
+    "confidence": "uncertain",
+    "locator": "no formation date on the fetched pages",
+    "note": "No fetched source states a collaboration formation date.",
+    "sources": [
+      "src:hadron2-na38-jpsi-o-u-zpc-1988-lip"
+    ],
+    "value": null,
+    "verified_at": "2026-10-26"
+  },
+  "host_facility_id": "facility:cern",
+  "host_site_id": "site:cern-prevessin-north-area",
+  "id": "collaboration:na38",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1986",
+      "label": "collaboration: approval",
+      "locator": "Greybook record for NA38 (JSON, experiment details)",
+      "note": "Approval date as recorded in Greybook; Specht (2014 slides) lists NA38 as approved 09/1985. The interval ends when NA38 first took data (autumn 1986).",
+      "quote": "\"approvalDate\" : \"12-09-1985\"",
+      "sources": [
+        "src:hadron2-greybook-na38",
+        "src:hadron2-specht-sps-heavy-ion-roots-slides-2014"
+      ],
+      "start": "1985-09-12",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": "1992",
+      "label": "collaboration: data taking (proton, oxygen and sulphur beams)",
+      "locator": "arXiv:2603.10835, Section 5; arXiv:hep-ph/0412158, Section 7",
+      "note": "The start is stated (data taken from the fall of 1986: first 200 GeV protons on uranium, then oxygen ions; the 1988 NA38 paper). The end year is inferred: the last NA38 heavy-ion sample named in the fetched sources is the large S+U sample of 1992 (Table 7.2 of arXiv:hep-ph/0412158: '1992 200 20.5% S+U 8 × 107 113'); the years of NA38's 450 GeV proton-nucleus runs are not given.",
+      "quote": "It had started its data taking with oxygen beams in 1986",
+      "sources": [
+        "src:hadron2-sps-first-signals-review-arxiv-2026",
+        "src:hadron2-na38-jpsi-o-u-zpc-1988-lip",
+        "src:hadron2-heavy-quarkonium-wg-arxiv-2004"
+      ],
+      "start": "1986",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "collaboration: completed",
+      "locator": "arXiv:hep-ph/0412158, Section 7 and Table 7.2",
+      "note": "Terminal event inferred from the last documented NA38 data set (S+U, 1992); no fetched source states the NA38 end date. NA50 followed with Pb beams (first documented Pb-Pb sample 1995).",
+      "quote": "NA38 then collected a significantly larger sample of S+U events (see Table 7.2)",
+      "sources": [
+        "src:hadron2-heavy-quarkonium-wg-arxiv-2004"
+      ],
+      "start": "1992",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "approximate",
+      "locator": "Internet Archive capture of na38.web.cern.ch/NA38/ (17 May 2024), page heading",
+      "note": "The live site (listed in Greybook) no longer resolves; the value is the Internet Archive capture.",
+      "quote": "Study of vector meson and dimuon production in p, O, and S-induced collisions at the CERN SPS",
+      "sources": [
+        "src:hadron2-na38-official-site-wayback"
+      ],
+      "value": "https://web.archive.org/web/20240517071737/https://na38.web.cern.ch/NA38/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "membership": {
+    "as_of": null,
+    "country_count": null,
+    "evidence_class": null,
+    "institution_count": null,
+    "member_count": null,
+    "roster_source_ids": []
+  },
+  "name": "NA38 Collaboration",
+  "notes": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-greybook-na38",
+    "src:hadron2-heavy-quarkonium-wg-arxiv-2004",
+    "src:hadron2-na38-jpsi-o-u-plb-1989-lip",
+    "src:hadron2-na38-jpsi-o-u-zpc-1988-lip",
+    "src:hadron2-na38-official-site-wayback",
+    "src:hadron2-specht-sps-heavy-ion-roots-slides-2014",
+    "src:hadron2-sps-dileptons-photons-tserruya-arxiv-1998",
+    "src:hadron2-sps-first-signals-review-arxiv-2026"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "The mainly French-Portuguese collaboration that ran the NA38 dimuon experiment at the CERN SPS before NA50 extended it with Italian groups.",
+    "technical": "NA38 Collaboration (spokesperson Louis Kluberg, contact person Peter Sonderegger); the historical mainly French-Portuguese collaboration later enlarged into NA50 (arXiv:2603.10835); formation date and membership not recorded."
+  },
+  "superseded_by": null,
+  "type": "collaboration"
+}

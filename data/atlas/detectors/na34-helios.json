@@ -1,0 +1,121 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:na34-helios"
+  ],
+  "id": "detector:na34-helios",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1986",
+      "label": "approval",
+      "locator": "Greybook record for NA34/2 (JSON, experiment details)",
+      "note": "Approval date as recorded in Greybook for NA34/2 (synonym IONS/HELIOS); Specht (2014 slides) lists NA34-2 as approved 11/1984. The interval ends when the first oxygen-ion beams reached the SPS (autumn 1986).",
+      "quote": "\"approvalDate\" : \"15-11-1984\"",
+      "sources": [
+        "src:hadron2-greybook-na34-2",
+        "src:hadron2-specht-sps-heavy-ion-roots-slides-2014"
+      ],
+      "start": "1984-11-15",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": "1992",
+      "label": "ion-beam data taking (oxygen and sulphur beams)",
+      "locator": "Specht 2014 slides, 'Results with beams of 16O/32S' slide; Tserruya 1998, Table II",
+      "note": "Dates are those of the first-generation SPS ion-beam period (first oxygen beam 1986, first sulphur beam 1987, last sulphur beam 1992; Specht), within which HELIOS took oxygen and sulphur data (the first HELIOS oxygen results were published in 1988; Tserruya: HELIOS-2 used the O and S beams). No fetched source gives HELIOS-specific run dates.",
+      "quote": "Beam times: first 16O 1986 first 32S 1987 last 32S 1992 Energies 60 and 200 AGeV",
+      "sources": [
+        "src:hadron2-specht-sps-heavy-ion-roots-slides-2014",
+        "src:hadron2-sps-dileptons-photons-tserruya-arxiv-1998",
+        "src:hadron2-helios-et-o-nucleus-zpc-1988"
+      ],
+      "start": "1986",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed",
+      "locator": "Specht 2014 slides, 'Results with beams of 16O/32S' slide",
+      "note": "Terminal event inferred from the end of the sulphur-beam period (1992); no fetched source states the end of HELIOS ion running. HELIOS proton-beam work and the HELIOS-3 (NA34/3) dimuon experiment continued separately (HELIOS publications run to 1996).",
+      "quote": "Beam times: first 16O 1986 first 32S 1987 last 32S 1992 Energies 60 and 200 AGeV",
+      "sources": [
+        "src:hadron2-specht-sps-heavy-ion-roots-slides-2014"
+      ],
+      "start": "1992",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "HELIOS spectrometer and calorimeters",
+  "notes": [
+    "Placement: see experiment:na34-helios (generic North Area site)."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "uncertain",
+      "end": "1992",
+      "locator": "Hedberg HELIOS page; Greybook: beam H8",
+      "note": "Generic Prévessin North Area placement (NA = North Area); Greybook gives the beam line H8 but no fetched source names the hall. Dates as for the experiment intervals (inferred).",
+      "quote": "HELIOS consisted of two fixed-target experiments at the SPS which studied heavy ion collisions (NA34/2) and lepton production in hadronic interactions (NA34/1).",
+      "role": "main",
+      "site_id": "site:cern-prevessin-north-area",
+      "sources": [
+        "src:hadron2-helios-hedberg-experiment-page",
+        "src:hadron2-greybook-na34-2"
+      ],
+      "start": "1986",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-greybook-na34-2",
+    "src:hadron2-helios-energy-flow-czjp-1991",
+    "src:hadron2-helios-et-o-nucleus-zpc-1988",
+    "src:hadron2-helios-hedberg-experiment-page",
+    "src:hadron2-helios-hedberg-publication-list",
+    "src:hadron2-specht-sps-heavy-ion-roots-slides-2014",
+    "src:hadron2-sps-dileptons-photons-tserruya-arxiv-1998",
+    "src:hadron2-sps-first-signals-review-arxiv-2026",
+    "src:hadron2-sps-heavy-ion-review-schukraft-stock-arxiv-2015"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A set of calorimeters wrapped nearly all the way around the target, with silicon trackers and spectrometers, that measured the energy and particles flying out of ion collisions.",
+    "technical": "HELIOS: uranium/scintillator and uranium/liquid-argon calorimeters covering essentially the complete centre-of-mass solid angle, silicon strip detectors, high-resolution drift chambers, a transition radiation detector (proton set-up), a hadron spectrometer, NaI photon detectors and the NA3 muon spectrometer."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "Hedberg HELIOS page, apparatus description (NA34/1 set-up); Specht slides for NA34-2",
+    "note": "",
+    "quote": "Essentially the complete centre of mass solid angle was covered by the Uranium/Scintillator and Uranium/Liquid Argon calorimeters.",
+    "sources": [
+      "src:hadron2-helios-hedberg-experiment-page",
+      "src:hadron2-specht-sps-heavy-ion-roots-slides-2014"
+    ],
+    "value": "Near-4-pi uranium-scintillator and uranium-liquid-argon calorimetry with silicon detectors, drift chambers, a hadron spectrometer, photon detectors and a muon spectrometer",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "tracking_calorimeter",
+    "spectrometer"
+  ],
+  "type": "detector"
+}

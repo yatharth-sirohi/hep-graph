@@ -1,0 +1,158 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:g0"
+  ],
+  "id": "detector:g0",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": {
+        "approx": true,
+        "date": "2004-03",
+        "display": "about mid-March 2004"
+      },
+      "label": "installation and commissioning runs (first installed July-October 2002, reinstalled autumn 2003)",
+      "locator": "arXiv:1103.0761, section 8 (Summary and Operation History)",
+      "note": "The experiment was installed July-October 2002 and followed by a first commissioning run of about three months, then reinstalled in the autumn of 2003 with another commissioning/engineering run; it was not continuously installed in between. The end is the start of forward-angle production ('about mid-March 2004').",
+      "quote": "The G0 experiment was first installed in Hall C of Jefferson Lab during the period July 2002 to October 2002.",
+      "sources": [
+        "src:hadron2-g0-apparatus-arxiv-2011"
+      ],
+      "start": "2002-07",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2004-05",
+        "display": "about May 2004"
+      },
+      "label": "forward-angle production run (about March-May 2004)",
+      "locator": "arXiv:1103.0761, section 8 (Summary and Operation History)",
+      "note": "Production stopped when the statistical goals of the forward-angle measurement had been met.",
+      "quote": "The actual production runs for the forward angle measurement began about mid-March 2004 and continued until about May 2004",
+      "sources": [
+        "src:hadron2-g0-apparatus-arxiv-2011"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2004-03",
+        "display": "about mid-March 2004"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": {
+        "approx": true,
+        "date": "2006-03",
+        "display": "March 2006"
+      },
+      "label": "installation of the backward-angle hardware",
+      "locator": "arXiv:1103.0761, section 8 (Summary and Operation History)",
+      "note": "Start is the end of the forward-angle run; end is the start of backward-angle commissioning ('March to May of 2006'). The installation itself is not dated in the source.",
+      "quote": "Having completed the forward angle measurement, the new hardware for the back angle measurements was installed in Hall C, and commissioning and initial data-taking took place in March to May of 2006.",
+      "sources": [
+        "src:hadron2-g0-apparatus-arxiv-2011"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2004-05",
+        "display": "about May 2004"
+      },
+      "status": "upgrade",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2007-04",
+      "label": "backward-angle commissioning and production (March 2006 to April 2007)",
+      "locator": "arXiv:1103.0761, section 8 (Summary and Operation History)",
+      "note": "Hydrogen and deuterium targets, each at 359 and 684 MeV; commissioning and initial data-taking in March-May 2006 followed by a long production period.",
+      "quote": "A long period of production running followed – including measurements with both hydrogen and deuterium targets, each at beam energies of 359 and 684 MeV – ending in April 2007.",
+      "sources": [
+        "src:hadron2-g0-apparatus-arxiv-2011"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2006-03",
+        "display": "March 2006"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "derived",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:1103.0761, section 8 (Summary and Operation History)",
+      "note": "The end of production running (April 2007) is the last documented G0 data taking; the source does not use the word 'completed'.",
+      "quote": "A long period of production running followed – including measurements with both hydrogen and deuterium targets, each at beam energies of 359 and 684 MeV – ending in April 2007.",
+      "sources": [
+        "src:hadron2-g0-apparatus-arxiv-2011"
+      ],
+      "start": "2007-04",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "G0 apparatus",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "uncertain",
+      "end": "2007-04",
+      "locator": "arXiv:1103.0761, section 8 (Summary and Operation History)",
+      "note": "Campus-grade site (site:jlab-hall-c is the Hall C building footprint centroid). Start = first installation in Hall C (July 2002); end = end of production running (April 2007); the apparatus was not installed continuously.",
+      "quote": "The G0 experiment was first installed in Hall C of Jefferson Lab during the period July 2002 to October 2002.",
+      "role": "main",
+      "site_id": "site:jlab-hall-c",
+      "sources": [
+        "src:hadron2-g0-apparatus-arxiv-2011"
+      ],
+      "start": "2002-07",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-g0-apparatus-arxiv-2011",
+    "src:hadron2-pv-strangeness-review-arxiv-2012"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A superconducting doughnut-shaped magnet in Hall C with eight sets of scintillator and Cherenkov detectors around the beam, plus a cryogenic hydrogen or deuterium target and fast electronics that count individual particles.",
+    "technical": "G0: superconducting toroidal magnetic spectrometer (eight octants) with plastic scintillation detectors, aerogel Cherenkov counters for the backward-angle configuration, cryogenic hydrogen/deuterium target, beam monitors and fast time-encoding electronics counting individual events; forward configuration detects recoil protons, backward configuration scattered electrons near 110 degrees."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:1103.0761 abstract",
+    "note": "",
+    "quote": "a superconducting, toroidal magnetic spectrometer equipped with plastic scintillation and aerogel Cerenkov detectors",
+    "sources": [
+      "src:hadron2-g0-apparatus-arxiv-2011"
+    ],
+    "value": "Superconducting toroidal magnetic spectrometer with plastic scintillation and aerogel Cherenkov detectors and a cryogenic hydrogen or deuterium target",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "magnetic_spectrometer"
+  ],
+  "type": "detector"
+}

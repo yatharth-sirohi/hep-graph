@@ -1,0 +1,118 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:na38"
+  ],
+  "id": "detector:na38",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1986",
+      "label": "approval",
+      "locator": "Greybook record for NA38 (JSON, experiment details)",
+      "note": "Approval date as recorded in Greybook; Specht (2014 slides) lists NA38 as approved 09/1985. The interval ends when NA38 first took data (autumn 1986).",
+      "quote": "\"approvalDate\" : \"12-09-1985\"",
+      "sources": [
+        "src:hadron2-greybook-na38",
+        "src:hadron2-specht-sps-heavy-ion-roots-slides-2014"
+      ],
+      "start": "1985-09-12",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": "1992",
+      "label": "data taking (proton, oxygen and sulphur beams)",
+      "locator": "arXiv:2603.10835, Section 5; arXiv:hep-ph/0412158, Section 7",
+      "note": "The start is stated (data taken from the fall of 1986: first 200 GeV protons on uranium, then oxygen ions; the 1988 NA38 paper). The end year is inferred: the last NA38 heavy-ion sample named in the fetched sources is the large S+U sample of 1992 (Table 7.2 of arXiv:hep-ph/0412158: '1992 200 20.5% S+U 8 × 107 113'); the years of NA38's 450 GeV proton-nucleus runs are not given.",
+      "quote": "It had started its data taking with oxygen beams in 1986",
+      "sources": [
+        "src:hadron2-sps-first-signals-review-arxiv-2026",
+        "src:hadron2-na38-jpsi-o-u-zpc-1988-lip",
+        "src:hadron2-heavy-quarkonium-wg-arxiv-2004"
+      ],
+      "start": "1986",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:hep-ph/0412158, Section 7 and Table 7.2",
+      "note": "Terminal event inferred from the last documented NA38 data set (S+U, 1992); no fetched source states the NA38 end date. NA50 followed with Pb beams (first documented Pb-Pb sample 1995).",
+      "quote": "NA38 then collected a significantly larger sample of S+U events (see Table 7.2)",
+      "sources": [
+        "src:hadron2-heavy-quarkonium-wg-arxiv-2004"
+      ],
+      "start": "1992",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "NA38 dimuon spectrometer and calorimeter",
+  "notes": [
+    "Placement: see experiment:na38 (generic North Area site)."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "uncertain",
+      "end": "1992",
+      "locator": "Z. Phys. C 38 (1988) 117, Introduction; Greybook: beam H10",
+      "note": "Generic Prévessin North Area placement (NA = North Area); Greybook gives the beam line H10 but no fetched source names the hall.",
+      "quote": "NA38 is a dedicated experiment for the study of muon pairs produced in interactions of ultra-relativistic ions with dense matter.",
+      "role": "main",
+      "site_id": "site:cern-prevessin-north-area",
+      "sources": [
+        "src:hadron2-na38-jpsi-o-u-zpc-1988-lip",
+        "src:hadron2-greybook-na38"
+      ],
+      "start": "1986",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-greybook-na38",
+    "src:hadron2-heavy-quarkonium-wg-arxiv-2004",
+    "src:hadron2-na38-jpsi-o-u-plb-1989-lip",
+    "src:hadron2-na38-jpsi-o-u-zpc-1988-lip",
+    "src:hadron2-na38-official-site-wayback",
+    "src:hadron2-specht-sps-heavy-ion-roots-slides-2014",
+    "src:hadron2-sps-dileptons-photons-tserruya-arxiv-1998",
+    "src:hadron2-sps-first-signals-review-arxiv-2026"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A muon spectrometer with a ring-shaped magnet, plus a calorimeter and a multi-layer uranium target, that recorded pairs of muons from ion collisions at very high beam rates.",
+    "technical": "NA38: NA10 dimuon spectrometer (air-core hexagonal toroid, two sets of four multiwire proportional chambers, four scintillator hodoscopes, 4.8 m absorber), scintillating-fibre electromagnetic calorimeter (2 < eta < 4.2), ten-subtarget uranium active target and beam hodoscope/Cherenkov detectors."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "Z. Phys. C 38 (1988) 117, Section 2.1",
+    "note": "",
+    "quote": "The magnet is an air-core toroid with hexagonal symmetry",
+    "sources": [
+      "src:hadron2-na38-jpsi-o-u-zpc-1988-lip"
+    ],
+    "value": "Dimuon spectrometer (air-core toroidal magnet, multiwire proportional chambers, scintillator hodoscopes) with an electromagnetic calorimeter and a multiple active target",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "spectrometer"
+  ],
+  "type": "detector"
+}
