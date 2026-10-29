@@ -13,7 +13,8 @@
   --view-beam-glow: #46b4ff;
   --view-beam-quiet: #a0c4e2;
   /* The ground in section: a lighter rock at the surface, darker with depth. */
-  --view-rock-top: #234a60;
+  /* Muted text on the lightest rock stop is >= 4.5:1 (the section's labels are set on it). */
+  --view-rock-top: #214759;
   --view-rock-bottom: #0f2231;
   --view-surface: #8fd3b2;
   /* A detector marker (and anything else standing for a recorded detector). */
@@ -508,6 +509,43 @@ a.hg-people-link {
 }
 .bs-caption strong {
   color: var(--white);
+}
+
+/* Presenter mode (a tour on a projector): the arrow keys, Page Down and Space step the tour,
+   so the room cannot scroll this page. The part above the figure is compacted until the whole
+   figure sits on the stage, above the timeline bar, at 1920 x 1080 (1.25x type in the projector
+   theme included); what is below it stays where it was, a scroll away. */
+body.is-presenting.is-view-route .view-page {
+  padding-top: var(--space-2);
+  padding-bottom: var(--space-6);
+}
+body.is-presenting.is-view-route .view-head {
+  margin-bottom: var(--space-2);
+}
+body.is-presenting.is-view-route .view-title {
+  font-size: var(--text-2xl);
+}
+body.is-presenting.is-view-route .view-subtitle {
+  margin-top: 0;
+  font-size: var(--text-sm);
+}
+body.is-presenting.is-view-route .bs-lede {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-md);
+}
+body.is-presenting.is-view-route .bs-stats {
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+body.is-presenting.is-view-route .bs-stat {
+  padding: var(--space-2) var(--space-3);
+}
+body.is-presenting.is-view-route .bs-stat dt {
+  margin-bottom: 0;
+  font-size: var(--text-xs);
+}
+body.is-presenting.is-view-route .bs-stat-value {
+  font-size: var(--text-2xl);
 }
 
 /* the SVG's own marks */
@@ -1815,6 +1853,57 @@ a.rs-lane-link {
 @media (max-width: 559px) {
   .rs-lede { font-size: var(--text-md); }
 }
+/* The lanes as one SVG, made for the exported picture (results-story.js exportFigure). It sits in
+   .export-holder, off screen, while the picture is made. */
+.rs-fig text {
+  font-family: var(--font-ui);
+  fill: var(--white);
+  font-size: 13px;
+}
+.rs-fig .rs-fig-key {
+  font-size: 13.5px;
+  font-weight: 650;
+}
+.rs-fig .rs-fig-group {
+  fill: var(--teal);
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+}
+.rs-fig .rs-fig-tick,
+.rs-fig .rs-fig-count,
+.rs-fig .rs-fig-label {
+  fill: var(--muted);
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+}
+.rs-fig .rs-fig-lane {
+  font-weight: 600;
+}
+.rs-fig .rs-fig-rule {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.rs-fig .rs-fig-rule.is-strong {
+  stroke: var(--line-strong);
+}
+.rs-fig .rs-fig-grid {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.rs-fig .rs-fig-now {
+  fill: color-mix(in srgb, var(--amber) 14%, transparent);
+  stroke: var(--amber);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+.rs-fig .rs-fig-later {
+  opacity: 0.38;
+}
+.rs-fig .rs-shape {
+  display: inline;
+}
+
 /* ===== M4: Results as a story -- end ===== */
 
 /* ===== M4: the WIMP exclusion plot (js/views/limits.js) -- begin ===== */
@@ -2465,4 +2554,27 @@ a.rs-lane-link {
   .view-body > .ds-ice-figure {
     order: 2;
   }
+}
+
+/* ----------------------------------------------------- off-screen figures for "Export image" */
+/* A figure made only for the exported picture (a chart's legend as SVG, the results timeline as SVG)
+   is put in the document, where its style resolves, and taken away once the picture is made. It is
+   laid out and not seen. */
+.export-holder {
+  position: fixed;
+  top: 0;
+  left: -20000px;
+  pointer-events: none;
+}
+.ch-legend-fig text,
+.lm-legend-fig text {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  fill: var(--white);
+}
+.ch-legend-fig .ch-legend-fig-title {
+  fill: var(--muted);
+  font-size: 11.5px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
 }

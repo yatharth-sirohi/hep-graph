@@ -277,6 +277,9 @@ export async function mount(ctx) {
   const { arg, atlas, host, loader, navigate } = ctx;
   const authorId = parseAuthorId(arg);
   host.setTitle(PERSON_VIEW_TITLE);
+  // The map marks places without naming them (the table beside it does), so a picture of it alone
+  // would say nothing: no image is offered.
+  host.setExportReason('The map marks places without naming them (the table below does), so it is not offered as an image.');
   if (!authorId) {
     host.fail(`“${arg}” is not an INSPIRE author id. The route takes the number from an INSPIRE author link, `
       + 'for example #/view/person/1005149.');

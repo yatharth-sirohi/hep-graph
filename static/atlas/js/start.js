@@ -66,6 +66,7 @@ export function createStartHere({
     }
   }
   let opener = null;
+  let before = null; // what had focus when the card opened, for a card that was opened by no control
   let lastRoute = null;
 
   const isOpen = () => !card.hidden;
@@ -78,6 +79,8 @@ export function createStartHere({
 
   function open({ trigger = null, frame = false } = {}) {
     opener = trigger;
+    before = document.activeElement && document.activeElement !== document.body && !card.contains(document.activeElement)
+      ? document.activeElement : null;
     card.hidden = false;
     if (reopenButton) reopenButton.setAttribute('aria-expanded', 'true');
     lastRoute = routeKey(state.get());
@@ -87,12 +90,18 @@ export function createStartHere({
 
   function close({ remember = true, restoreFocus = true } = {}) {
     if (!isOpen()) return;
-    const hadFocus = card.contains(document.activeElement);
+    // Focus was in the card, or had fallen to the page (a click on the card's empty space): it goes back
+    // to what opened the card, else to what had it before, else to the search box. Never to the body.
+    const hadFocus = card.contains(document.activeElement) || document.activeElement === document.body;
     card.hidden = true;
     if (reopenButton) reopenButton.setAttribute('aria-expanded', 'false');
     if (remember) writeDismissed();
-    if (restoreFocus && hadFocus && opener && opener.isConnected) opener.focus({ preventScroll: true });
+    if (restoreFocus && hadFocus) {
+      const back = [opener, before, searchInput].find((el) => el && el.isConnected && !el.disabled);
+      if (back) back.focus({ preventScroll: true });
+    }
     opener = null;
+    before = null;
   }
 
   card.addEventListener('click', (event) => {

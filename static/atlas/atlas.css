@@ -454,6 +454,17 @@ input {
   background: var(--panel-2);
   border-color: var(--teal);
 }
+/* A tool that has nothing to act on here (Export image on a view with no figure) says so in its
+   tooltip and to a screen reader; it is dimmed and dashed, not hidden. */
+.tool-btn:disabled {
+  border-style: dashed;
+  color: var(--muted);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.tool-btn:disabled:hover {
+  border-color: var(--line-strong);
+}
 .tool-badge {
   min-width: 20px;
   padding: 0 6px;
@@ -1391,6 +1402,26 @@ body.is-map-route .atlas-header > .mode-buttons {
   font-size: var(--text-sm);
 }
 .result-companions a {
+  text-decoration: underline;
+}
+/* "Tested by" on a result that states a claim (js/tested-by.js): other experiments' results on it. */
+.tested-by-lead {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-sm);
+}
+.tested-by-list {
+  margin-bottom: var(--space-2);
+}
+.tested-by-meta {
+  color: var(--muted);
+  font-size: var(--text-xs);
+}
+.tested-by-more,
+.tested-by-note {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-xs);
+}
+.tested-by-more a {
   text-decoration: underline;
 }
 /* Chips: the one small-pill shape (status, tags, role filters, active filters).

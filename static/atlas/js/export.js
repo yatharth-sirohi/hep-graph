@@ -2,9 +2,10 @@
 //
 // Two things an instructor needs out of the Atlas and into a lecture:
 //
-//   1. The view on screen — the globe, or a local map — as a PNG with its title, the
-//      timeline year, a citation footer and, on a map, a metre scale bar and a north
-//      arrow. Two sizes: a 1920 x 1080 slide, or twice what is on screen.
+//   1. The view on screen — the globe, a local map, or the figure of a view (the beam
+//      section, the charts, the exclusion plot, the results timeline, the detector line-up) —
+//      as a PNG with its title, the timeline year, a citation footer and, on a map, a metre
+//      scale bar and a north arrow. Two sizes: a 1920 x 1080 slide, or twice what is on screen.
 //   2. A one-page, print-ready sheet for a facility (A4 or Letter): what it is, where,
 //      what it holds, who it hosts, a to-scale map, and where each fact comes from.
 //
@@ -21,6 +22,11 @@
 // assumed: if the canvas does come out tainted, or the tiles had not all arrived, the
 // image is made without them — to-scale shapes on a plain background — and the export
 // dialog says so. It never half-covers a map and never proxies a tile.
+//
+// A view's figure is SVG, and the view host (views/host.js) hands it over: its shapes are drawn
+// as the image the browser makes of the live SVG, its text from the page's own fonts, and the
+// title band, the year and the citation are the same bands the globe and the map get. A view
+// with no figure (a table) has no image to make, and the Export button says so.
 
 import * as state from './state.js';
 import * as loader from './loader.js';
@@ -32,7 +38,7 @@ import {
 import {
   makeTransform, canvasX, canvasY, intersects, isShown, effectiveOpacity, paintBox,
   paintStyledBox, paintText, paintGlyph, paintLeader, rasterizeSvgLayer, dropShadowHalos,
-  roundedPath,
+  roundedPath, paintSvgFigure,
 } from './exportpaint.js';
 
 export const SITE_ADDRESS = 'hep-graph.vercel.app/atlas';
@@ -44,7 +50,7 @@ const TILE_WAIT_MS = 9000;
 const MAX_SHEET_EXPERIMENTS = 30;
 const MAX_SHEET_SOURCES = 8;
 
-let env = null; // { atlas, index, manifest, getGlobe }
+let env = null; // { atlas, index, manifest, getGlobe, views }
 
 const nextFrame = () => new Promise((resolve) => window.requestAnimationFrame(() => resolve()));
 const sleep = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
@@ -86,6 +92,12 @@ export function citationLine(date = todayISO()) {
   return `HEP Atlas — ${SITE_ADDRESS} — data version ${dataVersion()} — accessed ${date}`;
 }
 
+/** What the view host says about the view on screen (see views/host.js exportState). */
+function viewExportState(slug) {
+  if (!env || !env.views) return { ready: false, reason: 'Views cannot be exported yet.' };
+  return env.views.exportState(slug);
+}
+
 function panelHeading() {
   const heading = document.querySelector('#detail-panel h2, #map-drawer-panel h2');
   return heading ? heading.textContent.trim() : '';
@@ -102,6 +114,8 @@ function describeView() {
   const entity = current.entity;
   const filtered = ['topic', 'status', 'era', 'facilityKind', 'experimentKind', 'region'].some((key) => current[key]);
   const mapInfo = entity && entity.type === 'map' ? localmap.exportInfo() : null;
+  const viewInfo = entity && entity.type === 'view' ? viewExportState(entity.slug) : null;
+  if (viewInfo && !viewInfo.ready) throw new ExportError(viewInfo.reason);
   let kind = 'globe';
   let title = 'Globe overview';
   let subtitle = 'World view of the facilities in the HEP Atlas';
@@ -113,6 +127,11 @@ function describeView() {
     slug = `${entity.slug}-map`;
     const selected = mapInfo.selected && env.index.get(mapInfo.selected);
     if (selected) subtitle += ` · selected: ${selected.name}`;
+  } else if (viewInfo) {
+    kind = 'figure';
+    title = viewInfo.title || 'HEP Atlas view';
+    subtitle = viewInfo.subtitle || 'A view of the HEP Atlas';
+    slug = viewInfo.name || entity.slug;
   } else if (entity) {
     const record = env.index.get(`${entity.type}:${entity.slug}`);
     title = (record && record.name) || panelHeading() || entity.slug;
@@ -169,6 +188,11 @@ function wrapLines(ctx, text, maxWidth) {
 
 function footerLinesFor(info, tiles, date) {
   const lines = [citationLine(date)];
+  if (info.kind === 'figure') {
+    const entity = state.get().entity;
+    lines.push(`Figure: ${info.title} — ${SITE_ADDRESS}#/view/${entity ? entity.slug : ''}`);
+    for (const note of info.notes || []) lines.push(note);
+  }
   if (info.kind === 'map') {
     const credits = [];
     if (tiles && tiles.state === 'included') credits.push('Basemap © OpenStreetMap contributors');
@@ -196,6 +220,16 @@ function planLayout(options, stageW, stageH, footerLines) {
     const s = options.scale || 2;
     return {
       W: Math.ceil(stageW * s), H: Math.ceil(stageH * s), s, u: Math.max(1, s), headerH: 0, footerH: 0, dx: 0, dy: 0,
+    };
+  }
+  if (options.fitWidth && options.preset !== 'double') {
+    // A figure much taller than a slide (the results timeline): 1920 px wide, as tall as it needs.
+    const { headerH, footerH } = bandsFor(SLIDE.width, 1);
+    let s = SLIDE.width / stageW;
+    const tallest = MAX_SIDE - headerH - footerH;
+    if (stageH * s > tallest) s = tallest / stageH;
+    return {
+      W: Math.ceil(stageW * s), H: Math.ceil(stageH * s) + headerH + footerH, s, u: 1, headerH, footerH, dx: 0, dy: headerH,
     };
   }
   if (options.preset === 'double') {
@@ -801,6 +835,82 @@ async function composeMap(info, options) {
   return out;
 }
 
+// ---------------------------------------------------------------- a view's figure
+
+const FIGURE_PAD = 18;
+const FIGURE_GAP = 16;
+// Below this scale a figure on a 1920 x 1080 slide would be drawn too small to read.
+const TALL_FIGURE_SCALE = 0.7;
+
+/** The figure of the view on screen. The view host hands over its SVG(s) (views/host.js): the
+ * shapes are drawn as the image the browser makes of each live SVG and the text from the page's
+ * own fonts, on a panel in the page's own colours, under the same title band and above the same
+ * citation footer as a globe or a map. Several SVGs (the beam section and the whole Earth) stand
+ * side by side ("row") or one above the other ("column"). */
+async function composeFigure(info, options) {
+  if (!env.views) throw new ExportError('Views cannot be exported yet.');
+  let exported = null;
+  try {
+    exported = await env.views.exportFigure();
+  } catch (error) {
+    throw new ExportError(error.message);
+  }
+  try {
+    await ensureFonts();
+    const sizes = exported.figures.map((svg) => svg.getBoundingClientRect());
+    if (sizes.some((rect) => !rect.width || !rect.height)) {
+      throw new ExportError('The figure is not on screen yet, so there is nothing to export. Try again in a moment.');
+    }
+    const row = exported.layout === 'row';
+    const innerW = row
+      ? sizes.reduce((sum, rect) => sum + rect.width, 0) + FIGURE_GAP * (sizes.length - 1)
+      : Math.max(...sizes.map((rect) => rect.width));
+    const innerH = row
+      ? Math.max(...sizes.map((rect) => rect.height))
+      : sizes.reduce((sum, rect) => sum + rect.height, 0) + FIGURE_GAP * (sizes.length - 1);
+    const stage = { width: innerW + 2 * FIGURE_PAD, height: innerH + 2 * FIGURE_PAD };
+    const date = todayISO();
+    let footerLines = footerLinesFor({ ...info, notes: exported.notes }, null, date);
+    let layout = planLayout(options, stage.width, stage.height, footerLines);
+    if (options.preset !== 'double' && layout.s < TALL_FIGURE_SCALE) {
+      // On a slide this figure would be drawn too small to read: it keeps a readable size and the
+      // picture is taller than a slide, with a line in the footer that says so.
+      const tallLines = [...footerLines, 'This figure is taller than a slide, so the picture is 1920 px wide and as tall as it needs to be.'];
+      const taller = planLayout({ ...options, fitWidth: true }, stage.width, stage.height, tallLines);
+      if (taller.s > layout.s) {
+        layout = taller;
+        footerLines = tallLines;
+      }
+    }
+    const { canvas, ctx } = newCanvas(layout.W, layout.H);
+    // The page's own ground, then the panel the figure sits on (the stage is the figures and their margin).
+    ctx.fillStyle = cssToken('--paper', '#0b1620');
+    ctx.fillRect(0, 0, layout.W, layout.H);
+    ctx.fillStyle = cssToken('--panel', '#10283f');
+    ctx.fillRect(layout.dx, layout.dy, stage.width * layout.s, stage.height * layout.s);
+    let cursor = FIGURE_PAD;
+    for (let i = 0; i < exported.figures.length; i += 1) {
+      const rect = sizes[i];
+      const offsetX = row ? cursor : FIGURE_PAD + (innerW - rect.width) / 2;
+      const offsetY = row ? FIGURE_PAD : cursor;
+      const xf = makeTransform(rect, layout.s, layout.dx + offsetX * layout.s, layout.dy + offsetY * layout.s);
+      // eslint-disable-next-line no-await-in-loop
+      await paintSvgFigure(ctx, exported.figures[i], xf);
+      cursor += (row ? rect.width : rect.height) + FIGURE_GAP;
+    }
+    paintViewFrame(ctx, layout, { width: stage.width, height: stage.height });
+    if (layout.headerH) {
+      paintHeader(ctx, layout, info);
+      paintFooter(ctx, layout, footerLines);
+    }
+    return {
+      canvas, layout, info, footerLines, date, tiles: null, scaleBar: null,
+    };
+  } finally {
+    exported.release();
+  }
+}
+
 // ----------------------------------------------------------------- public
 
 /**
@@ -812,7 +922,8 @@ async function composeMap(info, options) {
 export async function composeView(options = {}) {
   if (!env) throw new ExportError('Export is not ready yet.');
   const info = describeView();
-  const result = info.kind === 'map' ? await composeMap(info, options) : await composeGlobe(info, options);
+  const compose = { map: composeMap, figure: composeFigure, globe: composeGlobe }[info.kind];
+  const result = await compose(info, options);
   const summary = {
     kind: info.kind,
     filename: info.filename,
@@ -867,6 +978,9 @@ function h(tag, attrs = {}, children = []) {
   return el;
 }
 
+// Set by createDialog: re-reads whether the Export button can be used on the view on screen.
+let refreshExportButton = () => {};
+
 function createDialog() {
   const button = document.getElementById('export-btn');
   const popover = document.getElementById('export-popover');
@@ -899,6 +1013,26 @@ function createDialog() {
   let current = null;
   let refreshTimer = 0;
 
+  // On a view the button is offered only while there is a figure to make the picture from. Where
+  // there is none (a table, an error, a view still loading) it is disabled and says why, in its
+  // tooltip and for a screen reader: it never opens a dialog that cannot do anything.
+  const reasonEl = h('span', { class: 'visually-hidden', id: 'export-reason' });
+  button.after(reasonEl);
+  function refreshButton() {
+    const entity = state.get().entity;
+    let reason = '';
+    if (entity && entity.type === 'view') {
+      const info = viewExportState(entity.slug);
+      if (!info.ready) reason = info.reason || 'This view has no figure to export.';
+    }
+    button.disabled = !!reason;
+    button.title = reason ? `Export image: unavailable. ${reason}` : 'Export image';
+    reasonEl.textContent = reason ? `Export is unavailable. ${reason}` : '';
+    if (reason) button.setAttribute('aria-describedby', 'export-reason');
+    else button.removeAttribute('aria-describedby');
+    if (reason && open) setOpen(false, { restoreFocus: false });
+  }
+
   const presetValue = () => (radios.double.checked ? 'double' : 'slide');
 
   function say(text) { status.textContent = text; }
@@ -908,7 +1042,9 @@ function createDialog() {
     if (!result) return;
     const contents = result.kind === 'map'
       ? 'In the image: the map, its title, the timeline year, a metre scale bar, a north arrow and the citation.'
-      : 'In the image: the globe with its markers, captions and beams, the title, the timeline year and the citation.';
+      : (result.kind === 'figure'
+        ? 'In the image: the figure of this view as it is drawn on screen, its title, the timeline year, the address of the view and the citation.'
+        : 'In the image: the globe with its markers, captions and beams, the title, the timeline year and the citation.');
     notes.appendChild(h('p', { class: 'export-contents' }, contents));
     if (result.tiles) {
       notes.appendChild(h('p', {
@@ -918,13 +1054,20 @@ function createDialog() {
     notes.appendChild(h('p', { class: 'export-file' }, [h('span', {}, 'File: '), h('code', {}, result.filename)]));
   }
 
+  const routeType = () => { const e = state.get().entity; return e ? e.type : null; };
+
   function whatIs() {
-    const mapOpen = state.get().entity && state.get().entity.type === 'map' && localmap.exportInfo();
+    if (routeType() === 'view') {
+      const info = viewExportState(state.get().entity.slug);
+      return info.ready ? `The figure on screen: ${info.title}.` : 'The figure of this view.';
+    }
+    const mapOpen = routeType() === 'map' && localmap.exportInfo();
     return mapOpen ? 'The local map on screen.' : 'The globe on screen.';
   }
 
   function updateDims() {
-    const stage = document.getElementById(state.get().entity && state.get().entity.type === 'map' ? 'map-canvas' : 'globe-container');
+    const stage = routeType() === 'view' ? null
+      : document.getElementById(routeType() === 'map' ? 'map-canvas' : 'globe-container');
     const rect = stage ? stage.getBoundingClientRect() : null;
     dims.slide.textContent = `${SLIDE.width} × ${SLIDE.height} px`;
     dims.double.textContent = rect && rect.width ? `about ${Math.round(rect.width * 2)} × ${Math.round(rect.height * 2)} px` : '';
@@ -1001,10 +1144,13 @@ function createDialog() {
   // The picture follows the view while the dialog is open (a year, a selection), so the
   // preview is always the file that would be saved.
   state.subscribe(() => {
+    refreshButton();
     if (!open) return;
     window.clearTimeout(refreshTimer);
     refreshTimer = window.setTimeout(() => { if (open) render(); }, 450);
   });
+  refreshExportButton = refreshButton;
+  refreshButton();
 
   document.addEventListener('pointerdown', (event) => {
     if (!open || popover.contains(event.target) || button.contains(event.target)) return;
@@ -1371,8 +1517,17 @@ export function init({
   atlas, index, manifest, getGlobe,
 }) {
   env = {
-    atlas, index, manifest, getGlobe,
+    atlas, index, manifest, getGlobe, views: null,
   };
   window.__hepAtlasExport = window.__hepAtlasExport || {};
   createDialog();
+}
+
+/** The view host is made after this module is initialised (app.js): it is handed over here, and
+ * the Export button follows it from then on. */
+export function attachViews(views) {
+  if (!env) return;
+  env.views = views;
+  views.onExportChange(() => refreshExportButton());
+  refreshExportButton();
 }

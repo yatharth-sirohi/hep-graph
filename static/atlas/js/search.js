@@ -12,6 +12,9 @@
 import { titleCase } from './model.js';
 import { createMatcher, buildRelatedTopics } from './searchrank.js';
 
+// Said when a query matches nothing: the same partial-coverage honesty as every other empty state.
+export const NO_MATCH = 'No match in the Atlas. Coverage is partial, so this is not evidence the experiment doesn\u2019t exist.';
+
 export function init({ inputEl, listEl, entries, navigate, atlas = null, results = [] }) {
   let active = -1;
   let shown = [];
@@ -75,7 +78,7 @@ export function init({ inputEl, listEl, entries, navigate, atlas = null, results
       // Not an option: it can never be activated or chosen. role=presentation
       // keeps it out of the listbox's option count; the live region says it.
       listEl.appendChild(Object.assign(document.createElement('li'), {
-        className: 'search-empty', textContent: 'No matches.',
+        className: 'search-empty', textContent: NO_MATCH,
       }));
       listEl.lastChild.setAttribute('role', 'presentation');
     } else {
@@ -112,7 +115,7 @@ export function init({ inputEl, listEl, entries, navigate, atlas = null, results
     setActive(shown.length ? 0 : -1);
     announce(shown.length
       ? `${shown.length} result${shown.length === 1 ? '' : 's'}; press Enter to open ${label(shown[0])}`
-      : 'No matches.');
+      : NO_MATCH);
   }
 
   inputEl.addEventListener('input', () => render(inputEl.value));
@@ -144,7 +147,7 @@ export function init({ inputEl, listEl, entries, navigate, atlas = null, results
         event.preventDefault();
         select(shown[active]);
       } else if (isOpen()) {
-        event.preventDefault(); // "No matches." — nothing to open
+        event.preventDefault(); // no match — nothing to open
       }
     } else if (key === 'Escape') {
       // Escape belongs to the search box while it has something to dismiss;

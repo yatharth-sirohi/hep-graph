@@ -188,6 +188,101 @@ async function contrastOf(page, selector) {
   }, selector);
 }
 
+// The text inside an SVG figure, measured against what is painted under it. axe's colour-contrast rule
+// does not resolve SVG paint (a <text> on a gradient-filled <path> is "incomplete" at best), and the
+// Beam-through-the-Earth figure shipped in the projector theme with dark ink on dark rock (1.1:1) behind
+// a green suite. For every visible <text> of `containerSelector` this walks the elements under 9 sample
+// points (shapes with a painted fill, HTML backgrounds, gradients resolved to their stops and taken at the
+// worst stop), composites them bottom-up, and returns the worst WCAG ratio per text.
+async function svgTextContrast(page, containerSelector) {
+  return page.evaluate((sel) => {
+    const container = document.querySelector(sel) || document.body;
+    const parse = (css) => {
+      const m = /rgba?\(([^)]+)\)/.exec(css || "");
+      if (m) {
+        const p = m[1].split(/[ ,/]+/).filter(Boolean).map(Number);
+        return [p[0], p[1], p[2], p.length > 3 ? p[3] : 1];
+      }
+      const c = /color\(srgb ([\d.e-]+) ([\d.e-]+) ([\d.e-]+)(?: \/ ([\d.e-]+))?\)/.exec(css || "");
+      return c ? [c[1] * 255, c[2] * 255, c[3] * 255, c[4] === undefined ? 1 : Number(c[4])] : null;
+    };
+    const lum = ([r, g, b]) => {
+      const f = (v) => { const x = v / 255; return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; };
+      return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+    };
+    const ratio = (a, b) => { const l1 = lum(a); const l2 = lum(b); return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05); };
+    const over = (top, bottom) => {
+      const a = top[3];
+      return [top[0] * a + bottom[0] * (1 - a), top[1] * a + bottom[1] * (1 - a), top[2] * a + bottom[2] * (1 - a), 1];
+    };
+    const effectiveOpacity = (el) => {
+      let o = 1;
+      for (let n = el; n && n.nodeType === 1; n = n.parentElement) o *= parseFloat(getComputedStyle(n).opacity);
+      return o;
+    };
+    // One painted layer: a list of alternative colours (a gradient's stops), each with its alpha.
+    const layerOf = (el) => {
+      const cs = getComputedStyle(el);
+      if (cs.visibility === "hidden" || cs.display === "none") return null;
+      const eo = effectiveOpacity(el);
+      if (el instanceof SVGElement) {
+        if (!["rect", "circle", "ellipse", "path", "polygon", "polyline"].includes(el.tagName)) return null;
+        if (!cs.fill || cs.fill === "none") return null;
+        const fo = parseFloat(cs.fillOpacity) * eo;
+        const url = /url\("?#([^")]+)"?\)/.exec(cs.fill);
+        if (url) {
+          const gradient = document.getElementById(url[1]);
+          if (!gradient) return null;
+          const stops = [...gradient.querySelectorAll("stop")].map((stop) => {
+            const scs = getComputedStyle(stop);
+            const c = parse(scs.stopColor);
+            return c && [c[0], c[1], c[2], c[3] * parseFloat(scs.stopOpacity) * fo];
+          }).filter(Boolean);
+          return stops.length ? stops : null;
+        }
+        const c = parse(cs.fill);
+        return c ? [[c[0], c[1], c[2], c[3] * fo]] : null;
+      }
+      const c = parse(cs.backgroundColor);
+      return c && c[3] > 0 ? [[c[0], c[1], c[2], c[3] * eo]] : null;
+    };
+    const rows = [];
+    for (const text of container.querySelectorAll("svg text")) {
+      const cs = getComputedStyle(text);
+      const words = (text.textContent || "").trim();
+      const box = text.getBoundingClientRect();
+      if (!words || cs.display === "none" || cs.visibility === "hidden" || box.width < 1 || box.height < 1) continue;
+      if (effectiveOpacity(text) === 0) continue;
+      let ink = parse(cs.fill);
+      if (!ink) continue;
+      ink = [ink[0], ink[1], ink[2], ink[3] * parseFloat(cs.fillOpacity) * effectiveOpacity(text)];
+      let worst = Infinity;
+      for (const fx of [0.1, 0.5, 0.9]) {
+        for (const fy of [0.3, 0.6, 0.85]) {
+          const x = box.left + box.width * fx;
+          const y = box.top + box.height * fy;
+          if (x < 0 || y < 0 || x > window.innerWidth || y > window.innerHeight) continue;
+          const layers = [];
+          for (const el of document.elementsFromPoint(x, y)) {
+            if (el === text || text.contains(el)) continue;
+            const layer = layerOf(el);
+            if (layer) {
+              layers.push(layer);
+              if (layer.every((c) => c[3] >= 0.999)) break;
+            }
+          }
+          layers.reverse();
+          let grounds = [[255, 255, 255, 1]];
+          for (const layer of layers) grounds = grounds.flatMap((ground) => layer.map((c) => over(c, ground)));
+          for (const ground of grounds) worst = Math.min(worst, ratio(over(ink, ground), ground));
+        }
+      }
+      if (worst !== Infinity) rows.push({ text: words.slice(0, 60), ratio: Number(worst.toFixed(2)), size: cs.fontSize });
+    }
+    return rows;
+  }, containerSelector);
+}
+
 // The "Start here" card (static/atlas/js/start.js) appears on a first visit to a bare
 // /atlas, and every context below is a first visit. The suite is about the Atlas,
 // not the card, so contexts start with it dismissed (the card's own tests pass
@@ -550,6 +645,43 @@ async function openFilters(page) {
         await mapContext.close();
       });
     }
+    // ---- projector theme: every view ---------------------------------------------------------
+    // The projector theme redefines the tokens the views are painted with. The beam section kept
+    // its dark rock under the theme's dark ink (1.1:1 for "32.5 km", "centre of the Earth", ...), so
+    // each view is scanned by axe in projector mode AND its in-figure text is measured against what
+    // is painted under it (axe cannot resolve SVG paint). Tall viewport: the whole page is on screen.
+    if (tree.label === "generated") {
+      await record(`[${tree.label}] axe and in-figure text contrast >= 4.5:1: every view in the projector theme`, async () => {
+        const projectorContext = await browser.newContext({ viewport: { width: 1440, height: 3200 }, reducedMotion: "reduce" });
+        const states = [
+          ["beam section (LBNF)", "#/view/beam-section/lbnf", ".bs-fig-a svg.bs-svg", 20],
+          ["beam section (T2K, off-axis)", "#/view/beam-section/j-parc-neutrino", ".bs-offaxis svg.bs-svg", 20],
+          ["going underground", "#/view/underground", "#ug-chart svg.ch-svg", 12],
+          ["the energy frontier", "#/view/energy-frontier", "#ef-chart svg.ch-svg", 12],
+          ["results as a story", "#/view/results-story", ".rs-mark", 0],
+          ["WIMP exclusion plot", "#/view/limits/wimp-si", ".lm-svg", 8],
+          ["detector line-up", "#/view/detector-scale", ".ds-link", 20],
+          ["compare", "#/view/compare/dune,lz,nova", "table.cmp-table", 0],
+        ];
+        for (const [name, hash, ready, minTexts] of states) {
+          const projectorPage = await projectorContext.newPage();
+          projectorPage.setDefaultTimeout(30000);
+          await projectorPage.goto(`${base}/atlas?theme=projector${hash}`);
+          await projectorPage.locator(ready).first().waitFor();
+          assert.equal(await projectorPage.evaluate(() => document.documentElement.getAttribute("data-theme")), "projector");
+          await projectorPage.waitForTimeout(400);
+          const scanned = await runAxe(projectorPage, tree.label, `projector: ${name}`);
+          assert.deepEqual(scanned.violations, [], `expected 0 WCAG axe violations on ${name} in the projector theme, got ${JSON.stringify(scanned.violations)}`);
+          const texts = await svgTextContrast(projectorPage, "#view-host");
+          assert.ok(texts.length >= minTexts, `${name}: expected at least ${minTexts} text labels in the figures, measured ${texts.length}`);
+          const faint = texts.filter((t) => t.ratio < 4.5);
+          assert.deepEqual(faint, [], `${name} in the projector theme: figure text under 4.5:1 -- ${JSON.stringify(faint.slice(0, 6))}`);
+          await projectorPage.close();
+        }
+        await projectorContext.close();
+      });
+    }
+
     // ---- local map view (docs/HEP_ATLAS_GEOMETRY.md §4) -- begin --------
     // Two states, both of which have to be clean: the map with nothing
     // selected, and the map with the drawer open (which is where panels.js's
@@ -904,6 +1036,9 @@ async function openFilters(page) {
       assert.equal(inside, true, "Tab from the card's own focus stop goes to its first control");
       await startPage.keyboard.press("Escape");
       await startPage.waitForFunction(() => document.getElementById("start-card").hidden);
+      // Nothing opened the card on a first visit: Escape must not leave focus on the body.
+      assert.equal(await startPage.evaluate(() => document.activeElement && document.activeElement.id), "atlas-search",
+        "Escape on the first-visit card puts focus in the search box, not on the body");
       // Contrast of the card's own text, measured on the rendered page.
       await startPage.locator("#start-here-link").click();
       for (const selector of [".start-lede", ".start-question-text", ".start-question-hint", ".start-kicker", ".start-heading"]) {

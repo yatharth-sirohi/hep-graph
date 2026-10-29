@@ -49,6 +49,16 @@ function s(tag, attrs = {}, children = []) {
 }
 
 const words = (text) => String(text || '').replace(/_/g, ' ');
+/** Greedy word wrap of a lane's name to `maxChars` characters a line. */
+function wrapName(text, maxChars) {
+  const lines = [];
+  let line = '';
+  for (const word of String(text).split(/\s+/)) {
+    if (line && `${line} ${word}`.length > maxChars) { lines.push(line); line = word; } else { line = line ? `${line} ${word}` : word; }
+  }
+  if (line) lines.push(line);
+  return lines;
+}
 const sentenceCase = (text) => { const t = words(text); return t.charAt(0).toUpperCase() + t.slice(1); };
 const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 
@@ -61,6 +71,55 @@ function shape(form, size = 16) {
   else if (form === 'limit') svg.append(s('path', { class: 'rs-fill', d: 'M2.2,3.4L13.8,3.4L8,13.4Z' }));
   else svg.append(s('circle', { class: 'rs-dot', cx: 8, cy: 8, r: 3 }));
   return svg;
+}
+
+// ----------------------------------------------------------------- the strip's layout
+const MARK = 24; // a mark's box
+const ROW = 26; // a sub-row of a lane
+const LABEL_SIZE = 11.5; // the short name beside a mark (views.css .rs-mark-label)
+
+/** The width of a short label in the page's face, plus a few pixels of slack. A character count
+ * is not enough: the experiment names are mostly capitals ("MicroBooNE"), wider than the average. */
+function labelMeter() {
+  const canvas = document.createElement('canvas').getContext('2d');
+  canvas.font = `${LABEL_SIZE}px ${window.getComputedStyle(document.body).fontFamily}`;
+  return (text) => canvas.measureText(text).width + 6;
+}
+
+/** Packs a lane's items (in date order) into sub-rows so no mark covers another, and says how
+ * far each mark's row runs clear after it (`next`: the x of the next mark of its row). */
+function packLane(items, xOf) {
+  const rowEnds = [];
+  const placed = items.map((it) => {
+    const x = xOf(it.moment.t);
+    let row = rowEnds.findIndex((end) => x - end >= MARK);
+    if (row < 0) { row = rowEnds.length; rowEnds.push(-Infinity); }
+    rowEnds[row] = x;
+    return { it, x, row };
+  });
+  const lastByRow = new Map();
+  placed.forEach((p, i) => {
+    const prev = lastByRow.get(p.row);
+    if (prev !== undefined) placed[prev].next = p.x;
+    lastByRow.set(p.row, i);
+  });
+  return { placed, rowsN: Math.max(1, rowEnds.length) };
+}
+
+/** Whether the short label of the mark `p` fits beside it: clear of the next mark of its row, of the
+ * strip's end, and of the edges of the timeline's band (a label that ran across a dashed edge would
+ * be read through it). Returns the label's left edge, or null when it has no room. */
+function labelSpot(p, label, { trackW, padR, band: bandPx, measure }) {
+  if (!label) return null;
+  const left = p.x + MARK / 2 - 3;
+  let right = Math.min(p.next === undefined ? Infinity : p.next - MARK / 2 - 4, trackW + padR - 2);
+  if (bandPx) {
+    // From a mark left of the band the label must stop before the band; from inside it, before the
+    // band's far edge.
+    if (p.x < bandPx.left) right = Math.min(right, bandPx.left - 3);
+    else if (p.x <= bandPx.right) right = Math.min(right, bandPx.right - 3);
+  }
+  return right - left >= measure(label) ? left : null;
 }
 
 // ------------------------------------------------------------------------ mount
@@ -230,8 +289,6 @@ export async function mount(ctx) {
     const padR = 22;
     const trackW = canvasW - headW - padL - padR;
     const xOf = (t) => ((t - d0) / (d1 - d0)) * trackW;
-    const MARK = 24;
-    const ROW = 26;
     canvas.style.width = `${canvasW}px`;
     canvas.classList.toggle('is-stacked', stacked);
     canvas.style.setProperty('--rs-head-w', `${headW}px`);
@@ -240,6 +297,9 @@ export async function mount(ctx) {
     const tickEvery = stacked ? 10 : (trackW < 700 ? 10 : 5);
     const ticks = [];
     for (let year = Math.ceil(d0 / tickEvery) * tickEvery; year <= d1; year += tickEvery) ticks.push(year);
+
+    const bandPx = b ? { left: Math.max(0, xOf(b.lo)), right: Math.min(trackW, xOf(b.hi)) } : null;
+    const measure = labelMeter();
 
     const nodes = [];
     marksById = new Map();
@@ -257,22 +317,7 @@ export async function mount(ctx) {
       }
       const items = laneItems.get(lane.id);
       // Pack the marks into sub-rows so none covers another.
-      const rowEnds = [];
-      const placed = items.map((it) => {
-        const x = xOf(it.moment.t);
-        let row = rowEnds.findIndex((end) => x - end >= MARK);
-        if (row < 0) { row = rowEnds.length; rowEnds.push(-Infinity); }
-        rowEnds[row] = x;
-        return { it, x, row };
-      });
-      const rowsN = Math.max(1, rowEnds.length);
-      // A short label beside a mark, where the next mark of its row leaves room for it.
-      const lastByRow = new Map();
-      placed.forEach((p, i) => {
-        const prev = lastByRow.get(p.row);
-        if (prev !== undefined) placed[prev].next = p.x;
-        lastByRow.set(p.row, i);
-      });
+      const { placed, rowsN } = packLane(items, xOf);
       const trackH = rowsN * ROW + 12;
       const track = h('div', { class: 'rs-track', style: `height:${trackH}px;width:${trackW}px`, role: 'group', 'aria-label': `${lane.name}: ${plural(items.length, 'result', 'results')}` });
       for (const year of ticks) track.append(h('span', { class: 'rs-grid', 'aria-hidden': 'true', style: `left:${xOf(year).toFixed(1)}px` }));
@@ -298,13 +343,12 @@ export async function mount(ctx) {
         }, shape(it.form.key));
         buttons.push(button);
         track.append(button);
-        const room = Math.min(p.next === undefined ? Infinity : p.next - p.x - MARK / 2 - 4, trackW + padR - p.x - MARK / 2 - 2);
-        const label = it.experiment;
-        if (label && room >= label.length * 6.4 + 6) {
+        const labelLeft = labelSpot(p, it.experiment, { trackW, padR, band: bandPx, measure });
+        if (labelLeft !== null) {
           track.append(h('span', {
             class: `rs-mark-label${later || earlier ? ' is-later' : ''}`, 'aria-hidden': 'true',
-            style: `left:${(p.x + MARK / 2 - 3).toFixed(1)}px;top:${6 + p.row * ROW + 3}px`,
-          }, label));
+            style: `left:${labelLeft.toFixed(1)}px;top:${6 + p.row * ROW + 3}px`,
+          }, it.experiment));
         }
         if (!marksById.has(it.id)) marksById.set(it.id, []);
         marksById.get(it.id).push(button);
@@ -334,6 +378,94 @@ export async function mount(ctx) {
       setSelected(selectedId, mark, { keepOpen: !card.hidden });
     }
   }
+
+  // ---- "Export image": the lanes as one SVG made for the picture (the page's own timeline is HTML)
+  function exportFigure() {
+    const W = 1500;
+    const headW = 224;
+    const padL = 8;
+    const padR = 22;
+    const x0 = headW + padL;
+    const trackW = W - x0 - padR;
+    const xOf = (t) => ((t - d0) / (d1 - d0)) * trackW;
+    const b = band();
+    const bandPx = b ? { left: Math.max(0, xOf(b.lo)), right: Math.min(trackW, xOf(b.hi)) } : null;
+    const measure = labelMeter();
+    const ticks = [];
+    for (let year = Math.ceil(d0 / 5) * 5; year <= d1; year += 5) ticks.push(year);
+    const svg = s('svg', { class: 'rs-fig', width: W, role: 'img', 'aria-hidden': 'true', focusable: 'false' });
+    const rule = (yy, strong) => s('line', { class: `rs-fig-rule${strong ? ' is-strong' : ''}`, x1: 0, x2: W, y1: yy, y2: yy });
+    const text = (cls, x, y, value, anchor) => {
+      const node = s('text', { class: cls, x: x.toFixed(1), y: y.toFixed(1), 'text-anchor': anchor || null });
+      node.textContent = value;
+      return node;
+    };
+    const put = (node) => { svg.append(node); return node; };
+
+    // The key: the four shapes and what each says.
+    let y = 8;
+    let kx = 12;
+    for (const form of Object.values(FORMS)) {
+      const mark = shape(form.key, 18);
+      mark.setAttribute('x', String(kx));
+      mark.setAttribute('y', String(y));
+      put(mark);
+      const label = `${form.label} (${counts[form.key]})`;
+      put(text('rs-fig-key', kx + 26, y + 14, label));
+      kx += 26 + labelMeter()(label) * 1.12 + 26;
+    }
+    y += 34;
+
+    let lastGroup = null;
+    for (const lane of model.lanes) {
+      if (lane.group !== lastGroup && model.lanes.length > 1) {
+        lastGroup = lane.group;
+        put(rule(y, true));
+        put(text('rs-fig-group', 12, y + 20, lane.group.toUpperCase()));
+        // The year labels start after the group's name (a long name runs under the first of them).
+        const nameEnd = 12 + lane.group.length * 9.2 + 16;
+        for (const year of ticks) if (x0 + xOf(year) - 14 > nameEnd) put(text('rs-fig-tick', x0 + xOf(year), y + 20, String(year), 'middle'));
+        y += 30;
+      }
+      const { placed, rowsN } = packLane(laneItems.get(lane.id), xOf);
+      const nameLines = wrapName(lane.name, 27);
+      const headH = 14 + nameLines.length * 16 + 22;
+      const trackH = rowsN * ROW + 12;
+      const laneH = Math.max(headH, trackH);
+      const top = y + (laneH - trackH) / 2;
+      put(rule(y));
+      nameLines.forEach((line, i) => put(text('rs-fig-lane', 12, y + 22 + i * 16, line)));
+      put(text('rs-fig-count', 12, y + 22 + nameLines.length * 16, plural(placed.length, 'result', 'results')));
+      for (const year of ticks) put(s('line', { class: 'rs-fig-grid', x1: (x0 + xOf(year)).toFixed(1), x2: (x0 + xOf(year)).toFixed(1), y1: y, y2: y + laneH }));
+      if (bandPx && bandPx.right > bandPx.left) {
+        put(s('rect', { class: 'rs-fig-now', x: (x0 + bandPx.left).toFixed(1), y, width: Math.max(2, bandPx.right - bandPx.left).toFixed(1), height: laneH }));
+      }
+      for (const p of placed) {
+        const dim = b && (p.it.moment.t >= b.hi || (b.lo > d0 && p.it.moment.t < b.lo && !!(timelineState && timelineState.range)));
+        const mark = shape(p.it.form.key, 16);
+        mark.setAttribute('x', (x0 + p.x - 8).toFixed(1));
+        mark.setAttribute('y', (top + 9 + p.row * ROW).toFixed(1));
+        if (dim) mark.setAttribute('class', `${mark.getAttribute('class')} rs-fig-later`);
+        put(mark);
+        const labelLeft = labelSpot(p, p.it.experiment, { trackW, padR, band: bandPx, measure });
+        if (labelLeft !== null) {
+          put(text(`rs-fig-label${dim ? ' rs-fig-later' : ''}`, x0 + labelLeft, top + 6 + p.row * ROW + 16.5, p.it.experiment));
+        }
+      }
+      y += laneH;
+    }
+    put(rule(y));
+    y += 8;
+    svg.setAttribute('height', String(Math.ceil(y)));
+    svg.setAttribute('viewBox', `0 0 ${W} ${Math.ceil(y)}`);
+    const holder = h('div', { class: 'export-holder', 'aria-hidden': 'true' }, svg);
+    document.body.append(holder);
+    const notes = [];
+    if (b) notes.push(`The shaded band is the timeline’s ${timelineState && timelineState.range ? 'range' : 'year'}, ${b.label}; results after it are dimmed.`);
+    notes.push('A mark’s shape is the claim its paper makes, not a measured significance; a gap in a lane is a gap in what the Atlas has sourced.');
+    return { figures: [svg], layout: 'column', notes, release: () => holder.remove() };
+  }
+  host.setExporter(exportFigure);
 
   // ------------------------------------------------------------ the card
   const itemOf = (id) => allItems.find((it) => it.id === id);

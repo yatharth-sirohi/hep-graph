@@ -20,6 +20,14 @@ import {
 } from './compare-units.js';
 
 export const NOT_RECORDED = 'not recorded';
+/** A row that does not apply to an experiment's kind: a dark-matter detector has no baseline. Unlike
+ * "not recorded" (the Atlas holds no value), this says there is nothing to record. */
+export const NOT_APPLICABLE = 'not applicable';
+
+/** The kinds of experiment a baseline (the distance from a beam's source, or from a reactor, to the
+ * detector) is a quantity of. Any other kind with no baseline recorded reads "not applicable"; one of
+ * these with none reads "not recorded". A baseline that a record does carry is always shown. */
+export const BASELINE_KINDS = new Set(['accelerator_neutrino', 'reactor_neutrino']);
 
 // ---- names -------------------------------------------------------------------------
 /** A heading for a column: the name, or its shortest alias when the name is long. */
@@ -349,6 +357,9 @@ export function buildComparison(ctx, experiments) {
   // A depth is read in metres (not 0.65 km), the way the sources give it.
   quantity('depth', 'Depth or overburden', depthCandidates, { length: 'm' });
   quantity('baseline', 'Baseline', baselineCandidates);
+  rows[rows.length - 1].cells.forEach((cell, index) => {
+    if (!cell.lines.length && !BASELINE_KINDS.has(experiments[index].kind)) cell.notApplicable = true;
+  });
   quantity('mass', 'Target or fiducial mass', massCandidates);
   quantity('energy', 'Energy', energyCandidates);
   plain('technology', 'Technology', technologyLines);
@@ -426,7 +437,8 @@ export function lineText(line) {
 }
 
 export function cellText(cell) {
-  return cell.lines.length ? cell.lines.map(lineText).join(' | ') : NOT_RECORDED;
+  if (cell.lines.length) return cell.lines.map(lineText).join(' | ');
+  return cell.notApplicable ? NOT_APPLICABLE : NOT_RECORDED;
 }
 
 /**

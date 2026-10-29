@@ -63,6 +63,10 @@ function freshState() {
 
 let api = null;
 let st = freshState();
+// "Over my location": the ask in progress (a token, so a late answer to an earlier ask is ignored) and its timer.
+const LOCATE_TIMEOUT_MS = 20000;
+let locateToken = 0;
+let locateTimer = 0;
 
 // -------------------------------------------------------------------- helpers
 function metres(m) {
@@ -312,20 +316,42 @@ function overMyLocation() {
   }
   st.status = 'Waiting for your browser to share your location…';
   api.rerender();
+  // One ask at a time, and it always ends: a browser that never answers (a prompt left open, a
+  // permission that is neither given nor denied) must not leave "Waiting…" on the page for good, and
+  // the position option's own `timeout` does not count the time the browser spends asking.
+  const token = ++locateToken;
+  window.clearTimeout(locateTimer);
+  const settle = (message) => {
+    if (token !== locateToken) return false;
+    window.clearTimeout(locateTimer);
+    locateToken += 1;
+    st.status = message;
+    return true;
+  };
+  locateTimer = window.setTimeout(() => {
+    if (settle('Your browser did not share your location within 20 seconds, so the overlay stays where it was. You can try again.') && api) api.rerender();
+  }, LOCATE_TIMEOUT_MS);
   navigator.geolocation.getCurrentPosition((position) => {
+    if (!settle('')) return;
     if (!api || !api.map() || !api.view.cmp) return;
     // Held in memory only: not in the address (cmpc is cleared), not in storage, not sent.
     st.location = [position.coords.latitude, position.coords.longitude];
     st.mode = 'location';
     st.allowTiles = false;
-    st.status = '';
-    api.navigate({ cmp: api.view.cmp, cmpc: null });
+    if (api.view.cmpc) {
+      // The address changes (cmpc goes), and localmap.js syncs the overlay for the new address.
+      api.navigate({ cmp: api.view.cmp, cmpc: null });
+    } else {
+      // The address already is what it would become (a page opened with ?cmp= and no cmpc): there is no
+      // change to navigate to, so nothing would redraw. Place the overlay here.
+      sync(api).then(() => api.rerender());
+    }
   }, (error) => {
-    st.status = error && error.code === 1
+    if (!settle(error && error.code === 1
       ? 'Your browser did not share your location (permission was denied), so the overlay stays where it was.'
-      : 'Your location could not be found, so the overlay stays where it was.';
+      : 'Your location could not be found, so the overlay stays where it was.')) return;
     api.rerender();
-  }, { enableHighAccuracy: false, maximumAge: 0, timeout: 20000 });
+  }, { enableHighAccuracy: false, maximumAge: 0, timeout: LOCATE_TIMEOUT_MS });
 }
 
 // -------------------------------------------------------- what localmap.js asks
@@ -357,6 +383,8 @@ export function basemapNotice() {
 }
 
 export function destroy() {
+  window.clearTimeout(locateTimer);
+  locateToken += 1;
   if (st.layer && api && api.map()) api.map().removeLayer(st.layer);
   st = freshState();
   if (typeof window !== 'undefined' && window.__hepAtlasCompare) delete window.__hepAtlasCompare;

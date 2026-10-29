@@ -346,10 +346,10 @@ async function openFilters(page) {
     assert.equal(card.focusInside, true, "opening the card moves focus into it, so a keyboard user starts there");
     // "Take a tour" leads (the guided tours, js/tours.js), then the four questions.
     assert.deepEqual(card.links.map((l) => l.href), [
-      "?m=tours", "#/experiment/dune", "#/result/atlas-higgs-observation-2012", "#/topic/neutrino-oscillations", "#/experiment/t2k",
+      "?m=tours", "#/experiment/dune", "#/result/atlas-higgs-observation-2012", "#/topic/neutrino-oscillations", "#/view/beam-section/j-parc-neutrino",
     ]);
     // The fourth question was "How deep are the underground labs?" until a depth chart
-    // exists to answer it; T2K's 295 km beam answers the one below today.
+    // exists to answer it; T2K's 295 km beam, as the beam-section view, answers the one below today.
     assert.deepEqual(card.links.map((l) => l.text), [
       "Follow a guided tour", "Where is DUNE\u2019s far detector?", "Where was the Higgs discovered?",
       "Which experiments study neutrino oscillations?", "How far does a neutrino beam travel?",
@@ -361,13 +361,20 @@ async function openFilters(page) {
       { href: "#/experiment/dune", panel: /Deep Underground Neutrino Experiment/, url: /#\/experiment\/dune$/ },
       { href: "#/result/atlas-higgs-observation-2012", panel: /observation of a new particle/i, url: /#\/result\/atlas-higgs-observation-2012$/ },
       { href: "#/topic/neutrino-oscillations", panel: /Neutrino oscillations/, url: /#\/topic\/neutrino-oscillations$/ },
-      { href: "#/experiment/t2k", panel: /^T2K/, url: /#\/experiment\/t2k$/ },
+      // "How far does a neutrino beam travel?" lands on the T2K beam through the Earth, not on the experiment record.
+      { href: "#/view/beam-section/j-parc-neutrino", view: /Beam through the Earth/, url: /#\/view\/beam-section\/j-parc-neutrino$/ },
     ];
     for (const expected of expectations) {
       await p.locator(`#start-card a[href="${expected.href}"]`).click();
       await p.waitForFunction(() => document.getElementById("start-card").hidden);
-      await p.locator("#detail-panel h2").waitFor();
-      assert.match(await p.locator("#detail-panel h2").innerText(), expected.panel, `${expected.href} opens its record`);
+      if (expected.view) {
+        await p.locator("#view-host .bs-lede").waitFor();
+        assert.match(await p.locator("#view-title").innerText(), expected.view, `${expected.href} opens its view`);
+        assert.match(await p.locator("#view-subtitle").innerText(), /J-PARC → Kamioka Observatory/, "the T2K row: Tokai to Kamioka");
+      } else {
+        await p.locator("#detail-panel h2").waitFor();
+        assert.match(await p.locator("#detail-panel h2").innerText(), expected.panel, `${expected.href} opens its record`);
+      }
       assert.match(p.url(), expected.url);
       assert.equal(await p.evaluate(() => window.localStorage.getItem("hep-atlas.start-here")), "dismissed");
       // Reopen from the footer for the next one: it reopens, and aria-expanded follows.
@@ -380,6 +387,8 @@ async function openFilters(page) {
     await p.locator("#start-card").waitFor();
     await p.keyboard.press("Escape");
     await p.waitForFunction(() => document.getElementById("start-card").hidden);
+    assert.equal(await p.evaluate(() => document.activeElement && document.activeElement.id), "start-here-link",
+      "Escape returns focus to the footer button that reopened the card, not to the body");
     await p.goto(`${base}/atlas`);
     await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 30000 });
     await p.waitForTimeout(500);

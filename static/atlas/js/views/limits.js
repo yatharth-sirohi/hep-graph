@@ -206,6 +206,35 @@ function drawPlot(model, bundle, width) {
   return { svg, hit, cross, overlay, width, height: H };
 }
 
+/** The legend as an SVG, for the exported picture: one swatch and name per series, in rows that wrap
+ * at `width` (the on-screen legend is a row of buttons). The caller puts it in the document. */
+function legendFigure(series, width) {
+  const measure = document.createElement('canvas').getContext('2d');
+  measure.font = `13px ${window.getComputedStyle(document.body).fontFamily}`;
+  const svg = s('svg', { class: 'lm-legend-fig', width, role: 'img', 'aria-hidden': 'true', focusable: 'false' });
+  const ROW = 26;
+  let x = 6;
+  let y = 4;
+  for (const one of series) {
+    const labelWidth = measure.measureText(one.label).width;
+    if (x > 6 && x + 30 + 6 + labelWidth > width - 6) {
+      x = 6;
+      y += ROW;
+    }
+    svg.append(
+      s('g', { class: one.className, transform: `translate(${x} ${y + 4})` }, one.isMarker
+        ? s('path', { class: 'lm-diamond', d: 'M15,1L22,7L15,13L8,7Z' })
+        : [s('path', { class: 'lm-line', d: 'M1,7L29,7' }), s('circle', { class: 'lm-dot', cx: 15, cy: 7, r: 3 })]),
+      s('text', { class: 'lm-legend-fig-text', x: x + 36, y: y + 15.5 }, one.label),
+    );
+    x += 30 + 6 + labelWidth + 22;
+  }
+  const height = y + ROW + 2;
+  svg.setAttribute('height', String(height));
+  svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+  return svg;
+}
+
 // ---------------------------------------------------------------------- mount
 export async function mount(ctx) {
   const { host, loader } = ctx;
@@ -355,6 +384,16 @@ export async function mount(ctx) {
 
   host.body.append(lede, figure, stats, cites, numbers);
   fillMethod(host.method, { bundle, model });
+  // "Export image": the plot, and under it the legend as an SVG made for the call.
+  host.setExporter(() => {
+    const svg = plotWrap.querySelector('svg.lm-svg');
+    if (!svg) return { figures: [] };
+    const holder = h('div', { class: 'export-holder', 'aria-hidden': 'true' });
+    const legendSvg = legendFigure(model.series, Math.floor(svg.getBoundingClientRect().width));
+    holder.append(legendSvg);
+    document.body.append(holder);
+    return { figures: [legendSvg, svg], layout: 'column', release: () => holder.remove() };
+  });
 
   // ---- draw, and keep drawing as the stage resizes
   let focused = null;

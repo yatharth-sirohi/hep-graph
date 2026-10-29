@@ -14,13 +14,16 @@
 //      (`topic_ids` on experiments and results, `experiment_ids` on
 //      facilities); nothing is invented, and a row found this way says
 //      which topic it came through.
+//      A word matches at the start of a word, or across a hyphen or a space typed away
+//      ("superkamiokande" finds Super-Kamiokande); never from the middle of a word
+//      ("libra" is not "calibration").
 //   2. Entries that match every word only once the words are relaxed (a plural
 //      or a verb ending dropped: "neutrinos" -> "neutrino", "discovered" ->
 //      "discover"; "discovery" also reads as "observation", the word the Atlas
 //      uses for a discovery paper) follow the ones that match as typed.
 //   3. If nothing matches every word either way, entries matching any word are
 //      listed, those matching the most words first. A list that is never
-//      empty while some word matches something: "No matches" is only said when
+//      empty while some word matches something: "No match" is only said when
 //      no word of the query is in the Atlas at all.
 //
 // A query about a discovery ("Higgs discovery", "where was the Higgs
@@ -118,23 +121,56 @@ function typeRank(type) {
 }
 
 // One searchable piece of text: its words and, for words of three letters or
-// more, the text with spaces and punctuation squeezed out ("superkamiokande").
+// more, the text with spaces and punctuation squeezed out ("superkamiokande"),
+// with where each word starts in it.
 function piece(text) {
   const words = tokenize(text);
-  return { words, squeezed: words.join('') };
+  const starts = [];
+  let at = 0;
+  for (const word of words) {
+    starts.push(at);
+    at += word.length;
+  }
+  return { words, squeezed: words.join(''), starts };
 }
 
 function pieceQuality(pieces, variant) {
-  // 0 a whole word, 1 the start of a word, 2 inside a word or across a hyphen.
+  // 0 a whole word, 1 the start of a word, 2 the start of a word running on into the next ones (a
+  // space or a hyphen typed away: "superkamiokande"). Never from the middle of a word.
   let best = Infinity;
-  for (const { words, squeezed } of pieces) {
+  for (const { words, squeezed, starts } of pieces) {
     for (const word of words) {
       if (word === variant) return 0;
       if (best > 1 && word.startsWith(variant)) best = 1;
     }
-    if (best > 2 && variant.length >= 3 && squeezed.includes(variant)) best = 2;
+    if (best > 2 && variant.length >= 3) {
+      for (let i = 0; i < starts.length - 1; i += 1) {
+        if (variant.length > words[i].length && squeezed.startsWith(variant, starts[i])) { best = 2; break; }
+      }
+    }
   }
   return best;
+}
+
+/** A word with a simple plural taken off ("oscillations" -> "oscillation"), for comparing a typed
+ * phrase with a name word for word. Only a final "s" after four letters or more that is not "ss",
+ * "us" or "is": "atlas" and "physics" are left as the names they are. */
+function singular(word) {
+  return word.length >= 5 && word.endsWith('s') && !/(?:ss|us|is)$/.test(word) ? word.slice(0, -1) : word;
+}
+
+/** How a whole typed phrase matches a name, word for word with plurals folded: 0 the same, 1 the name starts with
+ * it, 2 it is inside the name; undefined when it is not. */
+function phraseTier(keyWords, phraseWords) {
+  const key = keyWords.map(singular);
+  const phrase = phraseWords.map(singular);
+  if (!phrase.length || phrase.length > key.length) return undefined;
+  if (phrase.length === key.length && phrase.every((word, i) => word === key[i])) return 0;
+  if (phrase.every((word, i) => word === key[i])) return 1;
+  for (let at = 1; at + phrase.length <= key.length; at += 1) {
+    if (phrase.every((word, i) => word === key[at + i])) return 2;
+  }
+  return undefined;
 }
 
 /** Builds the matcher over the search entries. `related` maps an entry id to
@@ -150,6 +186,7 @@ export function createMatcher(entries, related = new Map()) {
       entry,
       own,
       ownKeys: [tokenize(entry.name).join(' '), ...(entry.aliases || []).map((a) => tokenize(a).join(' '))],
+      ownWords: [tokenize(entry.name), ...(entry.aliases || []).map(tokenize)],
       subtitle: [piece(entry.subtitle)],
       topics,
       rank: typeRank(entry.type),
@@ -191,6 +228,10 @@ export function createMatcher(entries, related = new Map()) {
       if (row.ownKeys.includes(phrase)) tier = 0;
       else if (row.ownKeys.some((key) => key.startsWith(phrase))) tier = 1;
       else if (row.ownKeys.some((key) => key.includes(phrase))) tier = 2;
+      // The same phrase with simple plurals folded ("neutrino oscillation" is the topic "Neutrino
+      // oscillations"), word for word: it can only make the match better.
+      const folded = row.ownWords.map((words) => phraseTier(words, phrase.split(' '))).filter((t) => t !== undefined);
+      if (folded.length) tier = Math.min(tier === undefined ? Infinity : tier, ...folded);
     }
     if (tier === undefined) tier = 3 + level;
     const via = matched.find((l) => l.via);

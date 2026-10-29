@@ -62,6 +62,27 @@
   --marker-label-size: 16px;
   --beam-stroke-scale: 1.5;
 
+  /* ---- the figures of the views (views.css, proton.css). Their ink is this theme's dark ink
+     (--white, --muted, --amber, --teal), so what they are drawn on has to be light: the rock
+     of the beam section is a pale grey-blue (ink on it is >= 5:1, and 7:1 on the lighter
+     top), still darker with depth. The hues drawn over it are darkened to match: the beam,
+     the surface line, the detector marker (the amber above) and the curves of the plots,
+     each >= 4.5:1 on the panels because some carry text. */
+  --view-rock-top: #d3e2ec;
+  --view-rock-bottom: #aec6d6;
+  --view-surface: #17683f;
+  --view-beam: #00566b;
+  --view-beam-glow: #0a78b8;
+  --view-beam-quiet: #38597a;
+  --view-overlay: #b0206b;
+  --limit-0: #1f5fbf;
+  --limit-1: #8a5a00;
+  --limit-2: #b0306f;
+  --limit-3: #b5380a;
+  --limit-4: #6b4fc8;
+  --limit-5: #0b7a6a;
+  --rs-limit: #1f5fbf;
+
   /* ---- shadows are lighter on a light page */
   --elev-1: 0 1px 2px #00000033;
   --elev-2: 0 5px 20px #00000026;

@@ -15,7 +15,7 @@
 
 import { WORKING_TITLE, EXAMPLES, MAX_EXPERIMENTS, MIN_EXPERIMENTS, compareRoute, resolveArg } from './compare-route.js';
 import {
-  NOT_RECORDED, attachSources, buildComparison, comparisonCsv, shortExperimentName,
+  NOT_APPLICABLE, NOT_RECORDED, attachSources, buildComparison, comparisonCsv, shortExperimentName,
 } from './compare-rows.js';
 import * as tray from '../research/compare-tray.js';
 import { accessDate, downloadFile, fileName } from '../research/files.js';
@@ -44,6 +44,7 @@ const plainClick = (event) => event.button === 0 && !event.metaKey && !event.ctr
 export async function mount(ctx) {
   const { atlas, loader, host, navigate } = ctx;
   const body = host.body;
+  host.setExportReason('The comparison is a table, so there is no figure to make an image from. “Download CSV” on the page exports the table itself.');
 
   // The page opened with nothing named (the search box, a bare link): the tray's list is
   // what the reader was collecting, so open that.
@@ -205,7 +206,9 @@ export async function mount(ctx) {
   function renderCell(cell, label) {
     return h('td', { 'data-label': label }, cell.lines.length
       ? h('ul', { class: 'cmp-lines' }, cell.lines.map(renderLine))
-      : h('p', { class: 'cmp-missing' }, NOT_RECORDED));
+      : (cell.notApplicable
+        ? h('p', { class: 'cmp-missing cmp-na', title: 'A baseline is the distance from a beam’s source, or from a reactor, to a detector. This kind of experiment has none.' }, NOT_APPLICABLE)
+        : h('p', { class: 'cmp-missing' }, NOT_RECORDED)));
   }
 
   function renderTable() {
@@ -307,7 +310,7 @@ export async function mount(ctx) {
       h('li', {}, [h('strong', {}, 'Status and dates. '), 'The status at the year or range selected on the timeline, read from the experiment’s dated intervals; the dates are those intervals, each with its own sources.']),
       h('li', {}, [h('strong', {}, 'Host facility and site. '), 'The experiment’s facility roles and sites, each with the sources of that role or of the site’s location.']),
       h('li', {}, [h('strong', {}, 'Depth or overburden. '), 'Key specifications labelled as a depth or an overburden, and the depth and water-equivalent depth of the experiment’s sites. Metres of rock and metres water equivalent are different quantities and are never converted into each other.']),
-      h('li', {}, [h('strong', {}, 'Baseline. '), 'Key specifications labelled as a baseline or a distance from the source; for a beam experiment with none, the sourced baseline of its beamline.']),
+      h('li', {}, [h('strong', {}, 'Baseline. '), 'Key specifications labelled as a baseline or a distance from the source; for a beam experiment with none, the sourced baseline of its beamline. A baseline is a quantity of accelerator-neutrino and reactor-neutrino experiments only: for any other kind (a dark-matter detector, a collider) with none recorded the cell reads “not applicable”, not “not recorded”.']),
       h('li', {}, [h('strong', {}, 'Target or fiducial mass. '), 'Every mass among the key specifications except magnets and equipment. The label stays beside each value, because a “detector mass” is not a target mass.']),
       h('li', {}, [h('strong', {}, 'Energy. '), 'The recorded energy regime, and beam or collision energies; resolutions, thresholds and Q-values are not energies of the experiment and are left out.']),
       h('li', {}, [h('strong', {}, 'Technology. '), 'The technology class of the experiment’s detectors.']),
