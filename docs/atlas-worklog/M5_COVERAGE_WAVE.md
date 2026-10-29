@@ -103,8 +103,26 @@ every number traces to a source.
   - 6,518 verbatim, plus 278 matched in segments;
   - 60 missing, 19 near, 55 number flags.
 
-  An independent verifier is working through those 134 items one by one. Its log
-  is `VERIFY_COVERAGE_WAVE.md`.
+  An independent verifier re-read the source for every one of those 134 items
+  (`VERIFY_COVERAGE_WAVE.md`).
+  - **Re-check:** missing fell from 60 to 11 and near from 19 to 9. Those 20 were
+    verified by hand; publisher bot checks block a machine re-fetch.
+  - **Checker misses:** most items were the checker's own misses (table cells,
+    PDFs, landing pages), now repointed to the exact location.
+  - **Substantive errors** (34 items):
+    - PandaX-4T's limit minimum sat at 30 GeV/c². The arXiv listing says 30, but
+      the paper's abstract, results and conclusion all say 40, and the
+      integrator re-read the paper and confirmed it.
+    - Homestake's end had been read as 1994, which is only the end of one paper's
+      data set; it is now "late 1990s", bounded 1997–2001, per Davis.
+    - ESSnuSB's technology and physics goal were not in their quotes.
+    - ProtoDUNE's tagger description went beyond its quote.
+    - Notes and dates for JADE, MARK J, TASSO and VEPP-2000 were wrong.
+    - Country counts for Daya Bay and GALLEX/GNO came from Wikipedia; one of the
+      Daya Bay countries had no author affiliation at all.
+  - **Left for a later pass:** 48 Wikipedia source records from earlier phases
+    are still cited by 107 records, and Mu2e's member counts rest on INSPIRE's
+    description.
 
 ## Known limits
 
