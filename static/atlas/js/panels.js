@@ -1487,8 +1487,10 @@ async function renderResult(id) {
   // fields — those never exist on a real result record, so this used to
   // silently drop both rows every time.
   const facts = keyValueList([
-    ['Significance', result.significance],
-    ['Key value', result.key_value_text],
+    // Both may be copied from an arXiv abstract with its TeX ("$S_m$=-0.0044$\pm$…");
+    // the panel shows the readable form, as it does for the quote.
+    ['Significance', result.significance ? readableText(String(result.significance)) : result.significance],
+    ['Key value', result.key_value_text ? readableText(result.key_value_text) : result.key_value_text],
     [titleCase(result.date_kind) || 'Date', fmtDate(result.date)],
   ]);
   if (facts) frag.appendChild(facts);

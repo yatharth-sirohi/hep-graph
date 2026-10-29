@@ -3160,7 +3160,13 @@ async function openFilters(page) {
           assert.ok(count, `cluster label reads "N facilities near here": ${label}`);
           drawn += Number(count);
           // The label names at most four; every name it gives is a facility present that year.
-          for (const name of names.replace(/, …$/, "").split(", ")) {
+          // A facility's own name may contain ", " ("Wilson Synchrotron Laboratory, Cornell
+          // University"), so protect the known names before splitting the list.
+          let listed = names.replace(/, …$/, "");
+          for (const known of Object.values(atlasRaw.facilities).map((f) => f.name).filter((n) => n.includes(", "))) {
+            listed = listed.split(known).join(known.replace(/, /g, "\u0000"));
+          }
+          for (const name of listed.split(", ").map((n) => n.replace(/\u0000/g, ", "))) {
             assert.ok(presentNames.has(name), `${year}: cluster names ${name}, which is not present that year`);
           }
         }
@@ -3618,17 +3624,23 @@ async function openFilters(page) {
     const unplotted = await p.locator("table.ef-skipped").innerText();
     for (const name of ["PIP-II", "High-Luminosity LHC", "KEKB"]) assert.match(unplotted, new RegExp(name));
     assert.equal(await p.locator("table.ef-skipped tbody tr").count(), expected.length - plotted.length);
-    // The LHC is three points, one per run, each at the energy of its run; its 14 TeV design value is footnoted, not drawn.
+    // The LHC is one point per dated energy (Run 1 at 7 then 8 TeV, Run 2, Run 3), each at
+    // the energy of its era; its 14 TeV design value is footnoted, not drawn.
     const aria = async (id) => p.locator(`#ef-chart .ch-point[data-id="${id}"]`).getAttribute("aria-label");
     assert.match(await aria("accelerator:lhc#0"), /7 TeV.*Run 1, from 2010/);
-    assert.match(await aria("accelerator:lhc#1"), /13 TeV.*Run 2, from 2015/);
-    assert.match(await aria("accelerator:lhc#2"), /13\.6 TeV.*Run 3, from 2022/);
-    assert.equal(await p.locator('#ef-chart .ch-point[data-id="accelerator:lhc#3"]').count(), 0, "the design energy is not a point");
+    assert.match(await aria("accelerator:lhc#1"), /8 TeV.*from 2012/);
+    assert.match(await aria("accelerator:lhc#2"), /13 TeV.*Run 2, from 2015/);
+    assert.match(await aria("accelerator:lhc#3"), /13\.6 TeV.*Run 3, from 2022/);
+    assert.equal(await p.locator('#ef-chart .ch-point[data-id="accelerator:lhc#4"]').count(), 0, "the design energy is not a point");
+    // LEP climbs year by year to 209 GeV, which it reached only in 2000.
+    assert.match(await aria("accelerator:lep#7"), /209 GeV.*from 2000/);
     assert.match(await p.locator(".ef-footnotes").innerText(), /LHC: the record also states 14 TeV \(design\)/);
-    // LEP starts at the Z pole, not at 209 GeV; the Tevatron (no era data) is one dashed point that says so.
+    // LEP starts at the Z pole and LEP2 at 136 GeV in 1995, not at 209 GeV; the Tevatron
+    // starts at its first 1.6 TeV collisions, a dated era, not an energy "as recorded today".
     assert.match(await aria("accelerator:lep#0"), /91 GeV.*1989/);
-    assert.match(await aria("accelerator:lep#1"), /209 GeV.*1995/);
-    assert.match(await aria("accelerator:fermilab-tevatron#0"), /Energy as recorded today; the starting energy is not in the Atlas/);
+    assert.match(await aria("accelerator:lep#1"), /136 GeV.*1995/);
+    assert.match(await aria("accelerator:fermilab-tevatron#0"), /1\.6 TeV/);
+    assert.doesNotMatch(await aria("accelerator:fermilab-tevatron#0"), /starting energy is not in the Atlas/);
     assert.match(await p.locator(".ch-lede").innerText(), /13\.6 TeV \(2022\)/, "the sentence under the title says when the LHC reached 13.6 TeV");
     assert.deepEqual(await labelProblems(p), [], "labels neither overlap nor leave the chart");
     // The timeline: a year fades the points for later years, and a machine's later eras with them.

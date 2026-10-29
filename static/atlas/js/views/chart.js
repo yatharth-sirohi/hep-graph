@@ -242,6 +242,9 @@ export function placeLabels(items, bounds, options = {}) {
         if (c === 0) break;
       }
       if (options.omit && best.c >= 1000) continue;
+      // With crowded labels omitted, a label that would still lie over another one is
+      // dropped too (its marker stays, and the table and tooltip keep its name).
+      if (options.omit && taken.some((other) => overlapArea(best.rect, other) > 4)) continue;
       // A label that has to stand away from its marker is kept only for a marker important enough to need one.
       if (best.leader && (it.priority || 0) < (options.leaderMinPriority || 0)) continue;
       taken.push(best.rect);
@@ -270,6 +273,8 @@ export function placeLabels(items, bounds, options = {}) {
       if (best && best.c === 0) break;
     }
     stack.forEach((it, i) => {
+      // The same rule for a stacked label: with crowded labels omitted, one that would lie over another is dropped.
+      if (options.omit && taken.some((other) => overlapArea(best.rects[i], other) > 4)) return;
       taken.push(best.rects[i]);
       placed.set(it.id, { ...best.rects[i], leader: true });
     });

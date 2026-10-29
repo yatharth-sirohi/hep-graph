@@ -56,7 +56,8 @@ const SUBSCRIPTS = {
 
 /** True when `text` contains TeX markup (a `$` delimiter or a backslash command). */
 export function hasTex(text) {
-  return typeof text === 'string' && /\$|\\[A-Za-z%&#_{}\\,;:! |]/.test(text);
+  // Also a bare script group outside math: some abstracts print "10^{20} eV" without $.
+  return typeof text === 'string' && /\$|\\[A-Za-z%&#_{}\\,;:! |]|[\^_]\{/.test(text);
 }
 
 // The parser below walks the string once and produces runs: {text, pos} where
