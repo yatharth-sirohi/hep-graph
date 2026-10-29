@@ -4510,7 +4510,7 @@ async function openResultsControls(page) {
     const lines = csvBody(csvFile.text);
     assert.equal(lines[0], "# HEP Atlas: results list");
     assert.equal(lines[1], `# Atlas data version: ${version}`);
-    assert.match(lines[2], /^# Filter: Experiment: .*ATLAS.*; sorted by date \(newest first\)$/);
+    assert.match(lines[2], /^# Filter: Experiment: .*ATLAS.*; sorted by landmarks first$/);
     assert.equal(lines[3], `# Rows: ${shown} of ${total} results`);
     assert.equal(lines[4], `# Accessed: ${todayLocal()}`);
     assert.match(lines[5], /^# Link: .*[?&]m=results.*rx=experiment/);
@@ -5087,7 +5087,9 @@ async function openResultsControls(page) {
       await w.locator("#start-card").waitFor({ timeout: 30000 });
       assert.equal(await w.locator("#start-tours").isVisible(), true);
       assert.match(await w.locator("#start-tours-hint").innerText(), /6 short, sourced walks/);
-      assert.equal(await w.locator("#start-card h3").first().textContent(), "Take a tour", "the first of the card's options");
+      // How to read the globe, then the tour (the first of the card's options), then the questions.
+      assert.deepEqual(await w.locator("#start-card h3").allTextContents(),
+        ["How to use the Atlas", "Take a tour", "Or start from a question"], "the tour is the first of the card's options");
       await w.locator('#start-tours a[href="?m=tours"]').click();
       await w.locator(".tour-list .tour-row").first().waitFor();
       assert.equal(await w.locator("#start-card").isHidden(), true);
