@@ -11,6 +11,53 @@
   "id": "accelerator:hera",
   "intervals": [
     {
+      "confidence": "approximate",
+      "end": "1998",
+      "kind": "phase",
+      "label": "HERA I at 820 GeV protons (first data in summer 1992)",
+      "locator": "Klein and Yoshida, section 1 (arXiv:0805.3334)",
+      "note": "Year precision. The proton energy was raised from 820 to 920 GeV in 1998 (the quote of the proton-energy value); the electron beam was about 27.5 GeV throughout.",
+      "quote": "The first HERA data were taken in summer 1992.",
+      "sources": [
+        "src:hera-collider-physics-klein-yoshida-2008"
+      ],
+      "specs": {
+        "cms_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "300 GeV",
+          "locator": "abstract of arXiv:hep-ex/9705001 (H1, 1994 data)",
+          "note": "820 GeV protons on 27.5 GeV positrons.",
+          "quote": "The data were taken with the H1 detector at the HERA storage ring in 1994, in which 27.5 GeV positrons collided with 820 GeV protons at a centre of mass energy sqrt{s}=300 GeV.",
+          "sources": [
+            "src:fu2-arxiv-hep-ex-9705001"
+          ],
+          "unit": "GeV",
+          "value": 300,
+          "verified_at": "2026-10-26"
+        },
+        "proton_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "820 GeV (protons)",
+          "locator": "Klein and Yoshida, section 1",
+          "note": "Initial proton energy, until 1998.",
+          "quote": "The energy of the proton beam was initially set to 820 GeV until it was increased to 920 GeV, in 1998, and kept at that value.",
+          "sources": [
+            "src:hera-collider-physics-klein-yoshida-2008"
+          ],
+          "unit": "GeV",
+          "value": 820,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1992",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
       "confidence": "uncertain",
       "end": "2007-06-30",
       "label": "operation",
@@ -22,6 +69,55 @@
       "start": "1992",
       "status": "active",
       "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2007-06-30",
+      "kind": "phase",
+      "label": "HERA at 920 GeV protons (from 1998)",
+      "locator": "Klein and Yoshida, section 1 (arXiv:0805.3334); abstract of arXiv:hep-ex/0106022",
+      "note": "Year precision for the start (\"in 1998\"); the end is the end of HERA operation. HERA II (2003 to 2007) kept 27.5 GeV electrons and 920 GeV protons (\"with electron (positron) energy of approximately 27.5 GeV and proton energy of 920 GeV\"). In the last three months of operation (2007) data with lowered proton energies of 460 and 575 GeV were taken (\"In the last three months of HERA operation, data with lowered proton beam energies of 460 GeV and 575 GeV were taken\"); the centre-of-mass energies of those runs are not stated in the sources read, so they are not recorded as eras.",
+      "quote": "The energy of the proton beam was initially set to 820 GeV until it was increased to 920 GeV, in 1998, and kept at that value.",
+      "sources": [
+        "src:hera-collider-physics-klein-yoshida-2008",
+        "src:fu2-arxiv-hep-ex-0106022"
+      ],
+      "specs": {
+        "cms_energy": {
+          "approx": true,
+          "confidence": "derived",
+          "dimension": "energy",
+          "display": "318 GeV",
+          "locator": "abstract of arXiv:hep-ex/0106022; Klein and Yoshida (about 320 GeV)",
+          "note": "The upper end of the 300-318 GeV range the abstract gives for the HERA runs, equal to 2*sqrt(27.5 GeV * 920 GeV) = 318 GeV from the beam energies; Klein and Yoshida write \"about 320 GeV\" (the record's headline).",
+          "quote": "At HERA, new physics processes beyond the SM are probed in e^+/- proton collisions at a center of mass energy of 300-318 GeV.",
+          "sources": [
+            "src:fu2-arxiv-hep-ex-0106022",
+            "src:hera-collider-physics-klein-yoshida-2008"
+          ],
+          "unit": "GeV",
+          "value": 318,
+          "verified_at": "2026-10-26"
+        },
+        "proton_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "920 GeV (protons)",
+          "locator": "Klein and Yoshida, section 1",
+          "note": "Proton energy from 1998 until the end of operation.",
+          "quote": "The energy of the proton beam was initially set to 820 GeV until it was increased to 920 GeV, in 1998, and kept at that value.",
+          "sources": [
+            "src:hera-collider-physics-klein-yoshida-2008"
+          ],
+          "unit": "GeV",
+          "value": 920,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1998",
+      "status": "active",
+      "verified_at": "2026-10-26"
     },
     {
       "confidence": "uncertain",
@@ -45,7 +141,8 @@
   "name": "Hadron-Elektron-Ring-Anlage",
   "notes": [
     "Injector chain (Klein & Yoshida 2008, Table 1): protons, RFQ - LINAC III (50 MeV) - DESY III (8 GeV) - PETRA (40 GeV) - HERA (920 GeV); electrons and positrons, LINAC II (450 MeV) - PIA - DESY II (7 GeV) - PETRA (12 GeV) - HERA (27.5 GeV). Only HERA has an Atlas record; the pre-accelerators and PETRA are not linked.",
-    "Operation dates: DESY's page says \"Research operation: 1992-2007\" and Klein & Yoshida say \"The first HERA data were taken in summer 1992. It ceased operations in June 2007\"; the day (30 June 2007) is from Wikipedia and stays on the interval with its low confidence."
+    "Operation dates: DESY's page says \"Research operation: 1992-2007\" and Klein & Yoshida say \"The first HERA data were taken in summer 1992. It ceased operations in June 2007\"; the day (30 June 2007) is from Wikipedia and stays on the interval with its low confidence.",
+    "Eras (2026-10-26, follow-ups 2): the cms energy was 300 GeV with 820 GeV protons (1992 to 1998) and 318 GeV with 920 GeV protons (1998 to 2007); the headline 320 GeV is Klein and Yoshida's rounded figure for the second era."
   ],
   "particles": [
     "electron",
@@ -55,10 +152,12 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:desy-hamburg-campus",
   "sources": [
-    "src:hera-wikipedia",
     "src:facilities-verify-hera-desy-ameyer",
+    "src:fu2-arxiv-hep-ex-0106022",
+    "src:fu2-arxiv-hep-ex-9705001",
+    "src:geo-desy-hera-facts-page",
     "src:hera-collider-physics-klein-yoshida-2008",
-    "src:geo-desy-hera-facts-page"
+    "src:hera-wikipedia"
   ],
   "specs": {
     "beam_energy": {

@@ -103,6 +103,9 @@ def test_energies_are_converted_to_gev_one_point_per_era(result: dict) -> None:
     ]
     # CEBAF: the 4 GeV design energy (1995), 6 GeV (2000) and the 12 GeV era (from 2016); the 12 GeV headline is dated, not footnoted.
     assert gev["accelerator:cebaf"] == [[1995, 4, "era"], [2000, 6, "era"], [2016, 12, "era"]]
+    # HERA: 300 GeV with 820 GeV protons, 318 GeV from 1998; RHIC: Run 1 at 130 GeV (2000), Run 2 at 200 GeV (2001), 500 GeV protons (2021).
+    assert gev["accelerator:hera"] == [[1992, 300, "era"], [1998, 318, "era"]]
+    assert gev["accelerator:rhic"] == [[2000, 130, "era"], [2001, 200, "era"], [2021, 500, "era"]]
     # A machine whose record dates no energy is one point at its first operation, marked as recorded today.
     assert gev["accelerator:linac2"] == [[1978, pytest.approx(0.05), "today"]]  # 50 MeV in GeV
     # The Tevatron: first collisions at 1.6 TeV (1985), the 1.8 TeV era from November 1986, Run II at 1.96 TeV from March 2001.
