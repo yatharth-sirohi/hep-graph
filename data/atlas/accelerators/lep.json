@@ -73,9 +73,316 @@
       "end": "2000-11-02",
       "kind": "phase",
       "label": "LEP2",
-      "note": "Start is year-precision; end is the sourced shutdown date.",
+      "note": "Start is year-precision; end is the sourced shutdown date. The phase carries no energy of its own: LEP2's energy rose in steps (the dated run intervals below, 1995 to 2000), so a single value on the phase would date the 209 GeV of 2000 to 1995.",
       "quote": "In 1995 LEP was upgraded for a second operation phase",
       "sources": [
+        "src:cern-lep-page"
+      ],
+      "start": "1995",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1995",
+      "kind": "run",
+      "label": "LEP2 1995 run (130 and 136 GeV)",
+      "locator": "abstract",
+      "note": "First LEP running above the Z pole. The year is the sources' (\"Since 1995\"); the month and the end of the run are not stated in the sources read. The value is the higher of the two energy points (130 and 136 GeV); the review's 133 GeV is the average of the two.",
+      "quote": "Since 1995, LEP has steadily increased the center of mass energy of the colliding beams, from the M_Z resonance to 133, 161 and 172 GeV.",
+      "sources": [
+        "src:fu2-arxiv-hep-ex-9704016"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": true,
+          "confidence": "derived",
+          "dimension": "energy",
+          "display": "68 GeV per beam",
+          "locator": "abstract",
+          "note": "Half of the sourced centre-of-mass energy (symmetric e+e- collider); the sources state only the centre-of-mass energy.",
+          "quote": "The inclusive one- and two-jet cross-sections are measured in collisions of quasi-real photons at e+e- centre-of-mass energies of 130 and 136 GeV using the OPAL detector at LEP.",
+          "sources": [
+            "src:fu2-arxiv-hep-ex-9609018"
+          ],
+          "unit": "GeV",
+          "value": 68.0,
+          "verified_at": "2026-10-26"
+        },
+        "cms_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "136 GeV (data at 130 and 136 GeV)",
+          "locator": "abstract",
+          "note": "Highest of the two energy points of the run (130 and 136 GeV, OPAL abstract).",
+          "quote": "The inclusive one- and two-jet cross-sections are measured in collisions of quasi-real photons at e+e- centre-of-mass energies of 130 and 136 GeV using the OPAL detector at LEP.",
+          "sources": [
+            "src:fu2-arxiv-hep-ex-9609018"
+          ],
+          "unit": "GeV",
+          "value": 136,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1995",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1996-08",
+      "kind": "run",
+      "label": "LEP2 1996 run at 161 GeV (W-pair threshold)",
+      "locator": "abstract (OPAL); Miquel, section 1 (\"between June and August 1996\"); LEP Energy Working Group, section 1",
+      "note": "First LEP running above the W-pair production threshold; June to August 1996 as dated by OPAL and by Miquel's review. The Energy Working Group writes: \"The centre-of-mass energy of the large electron-positron (LEP) collider increased to 161 GeV in 1996, allowing W-pair production in e+ e− annihilation for the first time.\"",
+      "quote": "We summarize the recent results from OPAL using 9.9 pb^-1 of data collected at \\sqrt s = 161.3 GeV from June to August 1996.",
+      "sources": [
+        "src:fu2-arxiv-hep-ex-9704019",
+        "src:fu2-arxiv-hep-ph-9709380",
+        "src:fu2-arxiv-hep-ex-9901002"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": true,
+          "confidence": "derived",
+          "dimension": "energy",
+          "display": "80.65 GeV per beam",
+          "locator": "abstract",
+          "note": "Half of the sourced centre-of-mass energy (symmetric e+e- collider); the sources state only the centre-of-mass energy.",
+          "quote": "We summarize the recent results from OPAL using 9.9 pb^-1 of data collected at \\sqrt s = 161.3 GeV from June to August 1996.",
+          "sources": [
+            "src:fu2-arxiv-hep-ex-9704019"
+          ],
+          "unit": "GeV",
+          "value": 80.65,
+          "verified_at": "2026-10-26"
+        },
+        "cms_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "161.3 GeV",
+          "locator": "abstract",
+          "note": "",
+          "quote": "We summarize the recent results from OPAL using 9.9 pb^-1 of data collected at \\sqrt s = 161.3 GeV from June to August 1996.",
+          "sources": [
+            "src:fu2-arxiv-hep-ex-9704019"
+          ],
+          "unit": "GeV",
+          "value": 161.3,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1996-06",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1996-11",
+      "kind": "run",
+      "label": "LEP2 1996 run at 172 GeV",
+      "locator": "section 1 (the sentence continues \"was at sqrt(s) = 172 GeV and accumulated 10 pb-1\"; the PDF text layer garbles the symbols)",
+      "note": "Second part of the 1996 run, in October and November 1996 (Miquel's review of WW physics at LEP2).",
+      "quote": "The second run, in October and November 1996,",
+      "sources": [
+        "src:fu2-arxiv-hep-ph-9709380"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": true,
+          "confidence": "derived",
+          "dimension": "energy",
+          "display": "86 GeV per beam",
+          "locator": "abstract",
+          "note": "Half of the sourced centre-of-mass energy (symmetric e+e- collider); the sources state only the centre-of-mass energy.",
+          "quote": "The determination of the W mass, both through the measurement of the WW production cross section at a center-of-mass energy of 161 GeV and through the study of the invariant mass distribution of W decay products in the 172 GeV run are described first.",
+          "sources": [
+            "src:fu2-arxiv-hep-ph-9709380"
+          ],
+          "unit": "GeV",
+          "value": 86.0,
+          "verified_at": "2026-10-26"
+        },
+        "cms_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "172 GeV",
+          "locator": "abstract",
+          "note": "",
+          "quote": "The determination of the W mass, both through the measurement of the WW production cross section at a center-of-mass energy of 161 GeV and through the study of the invariant mass distribution of W decay products in the 172 GeV run are described first.",
+          "sources": [
+            "src:fu2-arxiv-hep-ph-9709380"
+          ],
+          "unit": "GeV",
+          "value": 172,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1996-10",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1997",
+      "kind": "run",
+      "label": "LEP2 1997 run at 183 GeV",
+      "locator": "abstract",
+      "note": "Year precision: the sources date the 183 GeV data to 1997 but give no months. The mean actual energy in the LEP combination is 182.7 GeV (arXiv:1302.3415, Table 1.1).",
+      "quote": "In 1997 each LEP experiment collected approximately 55 inv. pb of data at a center-of-mass energy of 183 GeV.",
+      "sources": [
+        "src:fu2-arxiv-hep-ex-9805020",
+        "src:fu2-arxiv-hep-ex-9901002",
+        "src:fu2-arxiv-hep-ex-0103022"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": true,
+          "confidence": "derived",
+          "dimension": "energy",
+          "display": "91.5 GeV per beam",
+          "locator": "abstract",
+          "note": "Half of the sourced centre-of-mass energy (symmetric e+e- collider); the sources state only the centre-of-mass energy.",
+          "quote": "In 1997 each LEP experiment collected approximately 55 inv. pb of data at a center-of-mass energy of 183 GeV.",
+          "sources": [
+            "src:fu2-arxiv-hep-ex-9805020"
+          ],
+          "unit": "GeV",
+          "value": 91.5,
+          "verified_at": "2026-10-26"
+        },
+        "cms_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "183 GeV",
+          "locator": "abstract",
+          "note": "",
+          "quote": "In 1997 each LEP experiment collected approximately 55 inv. pb of data at a center-of-mass energy of 183 GeV.",
+          "sources": [
+            "src:fu2-arxiv-hep-ex-9805020"
+          ],
+          "unit": "GeV",
+          "value": 183,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1997",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1998",
+      "kind": "run",
+      "label": "LEP2 1998 run at 189 GeV",
+      "locator": "abstract; LEP combination (arXiv:1302.3415), section on the WW cross-section inputs",
+      "note": "Year precision. The LEP combination gives the mean actual energy as 188.6 GeV (Table 1.1) and lists \"in 1998 at 189 GeV\".",
+      "quote": "The DELPHI detector at LEP has collected 54 pb^{-1} of data at a centre-of-mass energy around 183 GeV during 1997, 158 pb^{-1} around 189 GeV during 1998, and 187 pb^{-1} between 192 and 200 GeV during 1999.",
+      "sources": [
+        "src:fu2-arxiv-hep-ex-0103022",
+        "src:fu2-arxiv-1302-3415"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": true,
+          "confidence": "derived",
+          "dimension": "energy",
+          "display": "94.5 GeV per beam",
+          "locator": "abstract",
+          "note": "Half of the sourced centre-of-mass energy (symmetric e+e- collider); the sources state only the centre-of-mass energy.",
+          "quote": "The DELPHI detector at LEP has collected 54 pb^{-1} of data at a centre-of-mass energy around 183 GeV during 1997, 158 pb^{-1} around 189 GeV during 1998, and 187 pb^{-1} between 192 and 200 GeV during 1999.",
+          "sources": [
+            "src:fu2-arxiv-hep-ex-0103022"
+          ],
+          "unit": "GeV",
+          "value": 94.5,
+          "verified_at": "2026-10-26"
+        },
+        "cms_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "189 GeV",
+          "locator": "abstract",
+          "note": "",
+          "quote": "The DELPHI detector at LEP has collected 54 pb^{-1} of data at a centre-of-mass energy around 183 GeV during 1997, 158 pb^{-1} around 189 GeV during 1998, and 187 pb^{-1} between 192 and 200 GeV during 1999.",
+          "sources": [
+            "src:fu2-arxiv-hep-ex-0103022"
+          ],
+          "unit": "GeV",
+          "value": 189,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1998",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1999",
+      "kind": "run",
+      "label": "LEP2 1999 run (192 to 202 GeV)",
+      "locator": "abstract (Ferrer Ribas); L3 Z-pair paper abstract; LEP combination, section on the WW cross-section inputs",
+      "note": "Year precision. The value is the highest of the energy points of the year (192, 196, 200 and 202 GeV nominal in the LEP combination, Table 3.1). One experiment's abstract (DELPHI) says \"between 192 and 200 GeV\"; the other sources say 202 GeV.",
+      "quote": "In 1999 the LEP experiments collected data at centre of mass energies between 192 and 202 GeV for about 900 pb-1 integrated luminosity.",
+      "sources": [
+        "src:fu2-arxiv-hep-ex-0012026",
+        "src:fu2-arxiv-hep-ex-0010004",
+        "src:fu2-arxiv-1302-3415"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": true,
+          "confidence": "derived",
+          "dimension": "energy",
+          "display": "101 GeV per beam",
+          "locator": "abstract",
+          "note": "Half of the sourced centre-of-mass energy (symmetric e+e- collider); the sources state only the centre-of-mass energy.",
+          "quote": "In 1999 the LEP experiments collected data at centre of mass energies between 192 and 202 GeV for about 900 pb-1 integrated luminosity.",
+          "sources": [
+            "src:fu2-arxiv-hep-ex-0012026",
+            "src:fu2-arxiv-hep-ex-0010004"
+          ],
+          "unit": "GeV",
+          "value": 101.0,
+          "verified_at": "2026-10-26"
+        },
+        "cms_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "202 GeV (data at 192 to 202 GeV)",
+          "locator": "abstract",
+          "note": "Highest of the 1999 energy points (192 to 202 GeV).",
+          "quote": "In 1999 the LEP experiments collected data at centre of mass energies between 192 and 202 GeV for about 900 pb-1 integrated luminosity.",
+          "sources": [
+            "src:fu2-arxiv-hep-ex-0012026",
+            "src:fu2-arxiv-hep-ex-0010004"
+          ],
+          "unit": "GeV",
+          "value": 202,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1999",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2000-11-02",
+      "kind": "run",
+      "label": "LEP2 2000 run (up to 209 GeV)",
+      "locator": "LEP combination (arXiv:1302.3415), section 1.1; CERN LEP page",
+      "note": "The last year of LEP; the end is the sourced closing date (2 November 2000). The year's luminosity was delivered close to two energies plus a continuum (the combination splits it at 202.5 to 205.5 GeV and above 205.5 GeV); 209 GeV is the maximum reached. CERN: \"The collider's energy eventually topped 209 GeV in 2000.\"",
+      "quote": "In parallel the LEP-II centre-of-mass energy increased in steps up to a maximum of 209 GeV, reached in 2000, the final year of LEP operation.",
+      "sources": [
+        "src:fu2-arxiv-1302-3415",
         "src:cern-lep-page"
       ],
       "specs": {
@@ -83,33 +390,36 @@
           "approx": true,
           "confidence": "derived",
           "dimension": "energy",
-          "display": "≈104.5 GeV per beam",
-          "note": "Half of the sourced 209 GeV collision energy.",
+          "display": "104.5 GeV per beam",
+          "locator": "LEP combination (arXiv:1302.3415), section on the WW cross-section inputs",
+          "note": "Half of the sourced centre-of-mass energy (symmetric e+e- collider); the sources state only the centre-of-mass energy.",
+          "quote": "These inputs combine the data collected in 1996 at 172 GeV, in 1997 at 183 GeV, in 1998 at 189 GeV, in 1999 at 192 − 202 GeV, and in 2000 at 205 − 209 GeV.",
           "sources": [
-            "src:cern-lep-page"
+            "src:fu2-arxiv-1302-3415"
           ],
           "unit": "GeV",
           "value": 104.5,
-          "verified_at": "2026-09-16"
+          "verified_at": "2026-10-26"
         },
         "cms_energy": {
           "approx": false,
           "confidence": "verified",
           "dimension": "energy",
-          "display": "209 GeV",
-          "note": "",
-          "quote": "The collider's energy eventually topped 209 GeV in 2000.",
+          "display": "209 GeV (data at 205 to 209 GeV)",
+          "locator": "LEP combination (arXiv:1302.3415), section on the WW cross-section inputs",
+          "note": "Maximum energy reached, in 2000; the year's data span 205 to 209 GeV.",
+          "quote": "These inputs combine the data collected in 1996 at 172 GeV, in 1997 at 183 GeV, in 1998 at 189 GeV, in 1999 at 192 − 202 GeV, and in 2000 at 205 − 209 GeV.",
           "sources": [
-            "src:cern-lep-page"
+            "src:fu2-arxiv-1302-3415"
           ],
           "unit": "GeV",
           "value": 209,
-          "verified_at": "2026-09-16"
+          "verified_at": "2026-10-26"
         }
       },
-      "start": "1995",
+      "start": "2000",
       "status": "active",
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-26"
     },
     {
       "confidence": "verified",
@@ -140,7 +450,8 @@
   },
   "name": "Large Electron-Positron Collider",
   "notes": [
-    "Per-beam energies (≈45.5 GeV at LEP1, ≈104.5 GeV at LEP2) are recorded as derived halves of the sourced centre-of-mass energies; home.cern quotes only the collision energies."
+    "Per-beam energies (≈45.5 GeV at LEP1, ≈104.5 GeV at LEP2) are recorded as derived halves of the sourced centre-of-mass energies; home.cern quotes only the collision energies.",
+    "Per-run energies (2026-10-26, follow-ups 2): LEP2's energy rose in steps from 1995 to 2000, so the LEP2 phase carries no energy of its own and each data-taking year or run has its own interval with its centre-of-mass energy (the highest of the energy points of that run) and a derived half per beam. The 209 GeV maximum belongs to 2000 only."
   ],
   "particles": [
     "electron",
@@ -149,7 +460,17 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:cern-meyrin",
   "sources": [
-    "src:cern-lep-page"
+    "src:cern-lep-page",
+    "src:fu2-arxiv-1302-3415",
+    "src:fu2-arxiv-hep-ex-0010004",
+    "src:fu2-arxiv-hep-ex-0012026",
+    "src:fu2-arxiv-hep-ex-0103022",
+    "src:fu2-arxiv-hep-ex-9609018",
+    "src:fu2-arxiv-hep-ex-9704016",
+    "src:fu2-arxiv-hep-ex-9704019",
+    "src:fu2-arxiv-hep-ex-9805020",
+    "src:fu2-arxiv-hep-ex-9901002",
+    "src:fu2-arxiv-hep-ph-9709380"
   ],
   "specs": {
     "circumference": {

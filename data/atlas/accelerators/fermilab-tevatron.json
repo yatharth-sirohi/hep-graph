@@ -12,6 +12,56 @@
   "intervals": [
     {
       "confidence": "verified",
+      "end": "1985-10-13",
+      "kind": "run",
+      "label": "First proton-antiproton collisions (engineering test run, 1.6 TeV)",
+      "locator": "FermiNews special edition, 23 October 1985, first paragraph; Fermilab timeline, 13 October 1985",
+      "note": "First collisions at 2:52 a.m. on Sunday 13 October 1985, with beams at 800 GeV (the newsletter: \"We had circulating beam at 800 GeV by that time.\"), just before the year-long accelerator shutdown; CDF was only partly built. This is a one-day era, not a collider run: \"Following the first observation of collisions in the fall of 1985 the Tevatron was operated for two years at an energy of 800 GeV for fixed target experiments.\" (Holmes, arXiv:1109.2937). Shiltsev's abstract dates the start of collider operation to December 1985 (the interval above); the October event is the engineering test.",
+      "quote": "achieved the first proton-antiproton collision at 1.6 TeV, the highest energy yet achieved in a laboratory.",
+      "sources": [
+        "src:fu2-arxiv-1109-2937",
+        "src:fu2-fnal-ferminews-1985-10-23",
+        "src:fu2-fnal-tevatron-milestones-timeline"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "800 GeV per beam",
+          "locator": "FermiNews special edition, 23 October 1985, interview with the antiproton injection crew",
+          "note": "Half of the 1.6 TeV collision energy, as the newsletter's beam energy states.",
+          "quote": "We had circulating beam at 800 GeV by that time.",
+          "sources": [
+            "src:fu2-fnal-ferminews-1985-10-23"
+          ],
+          "unit": "GeV",
+          "value": 800,
+          "verified_at": "2026-10-26"
+        },
+        "cms_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "1.6 TeV",
+          "locator": "FermiNews special edition, 23 October 1985",
+          "note": "",
+          "quote": "achieved the first proton-antiproton collision at 1.6 TeV, the highest energy yet achieved in a laboratory.",
+          "sources": [
+            "src:fu2-fnal-ferminews-1985-10-23",
+            "src:fu2-fnal-tevatron-milestones-timeline"
+          ],
+          "unit": "TeV",
+          "value": 1.6,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1985-10-13",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
       "end": "2011",
       "label": "collider operation",
       "locator": "abstract",
@@ -25,17 +75,98 @@
       "verified_at": "2026-09-16"
     },
     {
+      "confidence": "approximate",
+      "end": "1996-02",
+      "kind": "run",
+      "label": "1.8 TeV collider era (Run 0 in 1987 and 1988-89, Run I in 1992-96)",
+      "locator": "Fermilab timeline, 30 November 1986; Shiltsev, sections on the first collider runs and Run I",
+      "note": "Starts with the first 1.8 TeV collisions (30 November 1986) and ends with Run I (\"Collider Run I (August of 1992 through February 1996)\", Shiltsev). The collider took data only in runs inside this span: February to May 1987, June 1988 to June 1989 (\"a total of 5 pb-1 were delivered to CDF at 1800 GeV (center-of-mass)\") and Run I from August 1992, with fixed-target running and upgrades between. Shiltsev adds that brief runs at 630 GeV and 1020 GeV also took place (1989, and in Run I). Year-month precision for the end; the day of the 1996 end is not stated in the sources read.",
+      "quote": "November 30 1986 First proton-antiproton collisions at 1.8 TeV.",
+      "sources": [
+        "src:fu2-fnal-tevatron-milestones-timeline",
+        "src:fermilab-tevatron-shiltsev-2011"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": true,
+          "confidence": "derived",
+          "dimension": "energy",
+          "display": "900 GeV per beam",
+          "locator": "Fermilab timeline, 21 October 1986",
+          "note": "Half of the 1.8 TeV collision energy; the timeline dates the first acceleration of Tevatron beam to 900 GeV to 21 October 1986.",
+          "quote": "October 21 1986 Acceleration of Tevatron beam to 900 GeV.",
+          "sources": [
+            "src:fu2-fnal-tevatron-milestones-timeline"
+          ],
+          "unit": "GeV",
+          "value": 900,
+          "verified_at": "2026-10-26"
+        },
+        "cms_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "1.8 TeV",
+          "locator": "Shiltsev, Run I section",
+          "note": "The collision energy of the 1988-89 run and of Run I (1800 GeV), also the first collisions of 30 November 1986 (1.8 TeV on the Fermilab timeline).",
+          "quote": "Run I ultimately delivered a total integrated luminosity of 180 pb-1 to both CDF and D0 experiments at √s = 1800 GeV.",
+          "sources": [
+            "src:fermilab-tevatron-shiltsev-2011"
+          ],
+          "unit": "TeV",
+          "value": 1.8,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1986-11-30",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
       "confidence": "verified",
-      "end": "2011",
+      "end": "2011-09",
       "kind": "run",
       "label": "Run II",
-      "locator": "§1, Introduction; arXiv PDF p. 2",
-      "note": "",
-      "quote": "operated at a collision energy of 1.96 TeV (980 GeV per beam) from 2002 through 2011 (Run II)",
+      "locator": "Shiltsev, section on Collider Run II; Vellidis (DPF 2015), section 1",
+      "note": "Start corrected from 2002 to March 2001. Conflict: Vellidis (DPF 2015) writes \"from 2002 through 2011 (Run II)\"; Shiltsev, a Fermilab accelerator physicist, dates Run II to March 2001 to September 2011 and the 1.96 TeV energy is the same in both. March 2001 is used. Run II followed the 1996 to 2001 upgrade period (Main Injector and Recycler, 1999).",
+      "quote": "Run II was initiated in March of 2001 and continued through September 2011.",
       "sources": [
+        "src:fermilab-tevatron-shiltsev-2011",
         "src:fermilab-tevatron-qcd-dpf2015"
       ],
-      "start": "2002",
+      "specs": {
+        "beam_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "980 GeV per beam",
+          "locator": "section 1, Introduction",
+          "note": "",
+          "quote": "The Tevatron proton-antiproton collider at the Fermi National Accelerator Laboratory (Fermilab) operated at a collision energy of 1.96 TeV (980 GeV per beam)",
+          "sources": [
+            "src:fermilab-tevatron-qcd-dpf2015"
+          ],
+          "unit": "GeV",
+          "value": 980,
+          "verified_at": "2026-10-26"
+        },
+        "cms_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "1.96 TeV",
+          "locator": "section 1, Introduction",
+          "note": "Run II collision energy.",
+          "quote": "The Tevatron proton-antiproton collider at the Fermi National Accelerator Laboratory (Fermilab) operated at a collision energy of 1.96 TeV (980 GeV per beam)",
+          "sources": [
+            "src:fermilab-tevatron-qcd-dpf2015"
+          ],
+          "unit": "TeV",
+          "value": 1.96,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "2001-03",
       "status": "active",
       "verified_at": "2026-09-16"
     },
@@ -62,7 +193,8 @@
   },
   "name": "Tevatron",
   "notes": [
-    "Injector chain: Linac (400 MeV) to Booster (8 GeV) to Main Injector (150 GeV, with antiprotons from the Recycler) to Tevatron (980 GeV). Run I (to 1996) was injected by the Main Ring, which has no Atlas record."
+    "Injector chain: Linac (400 MeV) to Booster (8 GeV) to Main Injector (150 GeV, with antiprotons from the Recycler) to Tevatron (980 GeV). Run I (to 1996) was injected by the Main Ring, which has no Atlas record.",
+    "Per-run energies (2026-10-26, follow-ups 2): the collider's energy rose from 1.6 TeV (the first collisions, 13 October 1985) to 1.8 TeV (from 30 November 1986, Run 0 and Run I) to 1.96 TeV (Run II, from March 2001); each has its own interval with its centre-of-mass energy, so the view no longer draws the 1.96 TeV of 2001 at 1985. The Run II start was corrected from 2002 to March 2001 (conflict recorded on the interval)."
   ],
   "particles": [
     "proton",
@@ -72,7 +204,9 @@
   "site_id": "site:fermilab-main-campus",
   "sources": [
     "src:fermilab-tevatron-qcd-dpf2015",
-    "src:fermilab-tevatron-shiltsev-2011"
+    "src:fermilab-tevatron-shiltsev-2011",
+    "src:fu2-fnal-ferminews-1985-10-23",
+    "src:fu2-fnal-tevatron-milestones-timeline"
   ],
   "specs": {
     "beam_energy": {
