@@ -3540,7 +3540,17 @@ async function openFilters(page) {
   const labelProblems = (p) => p.evaluate(() => {
     const svg = document.querySelector("#view-body svg.ch-svg");
     const box = svg.getBoundingClientRect();
-    const rects = [...svg.querySelectorAll(".ch-label")].map((el) => ({ text: el.textContent, r: el.getBoundingClientRect() }));
+    // A label's glyph box (getBBox) on the screen. Firefox's getBoundingClientRect of SVG
+    // text is the line box of every font in the stack (24.5 px for 15 px Inter, against
+    // 19 px in Chromium), so labels a row apart would "overlap" there and nowhere else.
+    const screenBox = (el) => {
+      const bb = el.getBBox();
+      const m = el.getScreenCTM();
+      const a = new DOMPoint(bb.x, bb.y).matrixTransform(m);
+      const b = new DOMPoint(bb.x + bb.width, bb.y + bb.height).matrixTransform(m);
+      return { left: Math.min(a.x, b.x), right: Math.max(a.x, b.x), top: Math.min(a.y, b.y), bottom: Math.max(a.y, b.y) };
+    };
+    const rects = [...svg.querySelectorAll(".ch-label")].map((el) => ({ text: el.textContent, r: screenBox(el) }));
     const problems = [];
     rects.forEach((a, i) => {
       if (a.r.left < box.left - 1 || a.r.right > box.right + 1 || a.r.top < box.top - 1 || a.r.bottom > box.bottom + 1) problems.push(`${a.text} leaves the chart`);
