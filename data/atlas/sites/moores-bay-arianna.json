@@ -4,17 +4,19 @@
   ],
   "altitude": null,
   "coordinates": {
-    "confidence": "uncertain",
+    "confidence": "approximate",
     "kind": "campus",
-    "lat": -78.5167,
-    "lon": 166.4167,
-    "note": "No official ARIANNA page, technical paper or geodetic source consulted (checked 2026-09-17) gives a numeric latitude/longitude for the Moore's Bay station field; the prototype (2010) and testbed (2019) arXiv papers describe the location only qualitatively ('Moore's Bay on the Ross Ice Shelf'). The coordinate used here is Minna Bluff, a named headland near Moore's Bay, taken from Wikipedia as a coarse regional pointer only. It is shown as a campus-grade point with large uncertainty, not as a detector position, because it is not a surveyed station position.",
-    "precision_m": 30000,
-    "quote": "78°31'S 166°25'E",
+    "lat": -78.74205,
+    "locator": "ARIANNA prototype-station paper (arXiv:1005.5193), 'Ice' paragraph",
+    "lon": 165.04023,
+    "note": "The ARIANNA prototype-station paper (arXiv:1005.5193) gives the GPS position of the December 2009 prototype station as 78 deg 44.523' S, 165 deg 02.414' E (minutes with decimals; the PDF text prints 780 44‟ 523” S, 1650 02‟ 414” East), about 110 km south of McMurdo Station; the ARIANNA group's Ross Ice Shelf radar paper (arXiv:1410.7134, Fig. 1) prints the same position as 78º 44.523' S, 165º 2.414' E. It replaces an earlier regional reference point (Minna Bluff, a headland about 40 km away). The point is the prototype station's position; the later 7-8 station Hexagonal Radio Array stations are not individually located in the sources consulted, so it is shown as a campus-grade point, approximate, with a precision of 2 km (both papers are arXiv preprints, so it is not labelled a detector coordinate).",
+    "precision_m": 2000,
+    "quote": "The prototype was deployed at GPS coordinates 780 44‟ 523” S, 1650 02‟ 414” East, about 110 kilometers south of McMurdo station). This is about 1 km from the original site coordinates.",
     "sources": [
-      "src:astro-neutrino-arianna-wikipedia-moore-bay"
+      "src:astro-neutrino-arianna-arxiv-prototype-2010",
+      "src:dw-arianna-ross-ice-shelf-radar-arxiv-1410-7134"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-26"
   },
   "countries": [
     "AQ"
@@ -56,11 +58,12 @@
   "schema": "hep-atlas/0.2",
   "setting": "ice",
   "sources": [
-    "src:astro-neutrino-arianna-arxiv-prototype-2010"
+    "src:astro-neutrino-arianna-arxiv-prototype-2010",
+    "src:dw-arianna-ross-ice-shelf-radar-arxiv-1410-7134"
   ],
   "summary": {
     "plain": "A patch of the vast floating Ross Ice Shelf in Antarctica, more than half a kilometre thick, where a small array of surface radio antennas once listened for neutrinos.",
-    "technical": "Moore's Bay station field on the Ross Ice Shelf, Antarctica; ice shelf thickness measured at 572±6 m at the original 2009 prototype deployment point. No surveyed lat/lon for the array was found; the coordinates are only a coarse regional pointer."
+    "technical": "Moore's Bay station field on the Ross Ice Shelf, Antarctica; ice shelf thickness measured at 572±6 m at the original 2009 prototype deployment point. Coordinates are the GPS position the collaboration published for that prototype station (78°44.523'S, 165°02.414'E); later array stations are not individually located."
   },
   "type": "site"
 }

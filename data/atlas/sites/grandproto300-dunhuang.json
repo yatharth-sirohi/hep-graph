@@ -2,19 +2,21 @@
   "aliases": [],
   "altitude": null,
   "coordinates": {
-    "confidence": "uncertain",
-    "kind": "campus",
-    "lat": 40.14111,
-    "lon": 94.66389,
-    "note": "The collaboration papers place GRANDProto300 qualitatively (ICRC 2025: XiaoDuShan site in Dunhuang, a 2.5-hour drive from the city; JINST, arXiv:2509.21306: the 300-antenna stage will span about 200 km² in the Gobi Desert near Xiaodushan, in northern Dunhuang, China) but give no numeric coordinates. This point is Dunhuang city itself (Wikipedia infobox: 40°08′28″N 94°39′50″E = 40.14111, 94.66389), used only as the nearest real, named reference point; the 65-antenna array (GP300_s65, about 30 km² per the JINST paper) lies somewhere in the Gobi Desert north of the city, not at this exact point. It is shown as a campus-grade point with large uncertainty because it is a city-level regional pointer, not a surveyed array position.",
-    "precision_m": 50000,
-    "quote": "Coordinates (Dunhuang municipal government): 40°08′28″N 94°39′50″E",
+    "confidence": "approximate",
+    "kind": "detector",
+    "lat": 40.99434,
+    "locator": "GRANDProto300 first-look paper (arXiv:2307.12769), abstract",
+    "lon": 93.94177,
+    "note": "The GRAND Collaboration's GRANDProto300 first-look paper (arXiv:2307.12769) gives the XiaoDuShan site as E 93.94177 deg, N 40.99434 deg, about 150 km north of Dunhuang city; the ICRC 2025 exposure proceedings (arXiv:2507.06629) give 40.99 N, 93.94 E at about 1200 m above sea level. This replaces an earlier city-level point (Dunhuang city itself). The point is the site, not a surveyed antenna position: the 65-antenna stage covers about 30 km2 and the planned 300-antenna stage about 200 km2 (arXiv:2509.21306), so it is marked approximate with a precision of 5 km.",
+    "precision_m": 5000,
+    "quote": "the selection of the XiaoDuShan site (E 93.94177◦ , N 40.99434◦ ), situated approximately 150 km north of Dunhuang city",
     "sources": [
-      "src:astro-neutrino-grand-wikipedia-dunhuang",
+      "src:dw-grand-gp13-first-look-arxiv-2307-12769",
+      "src:dw-grand-gp300-exposure-arxiv-2507-06629",
       "src:astro-neutrino-grand-prototypes-jinst-2026",
       "src:astro-neutrino-grandproto300-progress-icrc2025"
     ],
-    "verified_at": "2026-10-25"
+    "verified_at": "2026-10-26"
   },
   "countries": [
     "CN"
@@ -44,11 +46,13 @@
   "setting": "surface",
   "sources": [
     "src:astro-neutrino-grandproto300-progress-icrc2025",
-    "src:astro-neutrino-grand-prototypes-jinst-2026"
+    "src:astro-neutrino-grand-prototypes-jinst-2026",
+    "src:dw-grand-gp13-first-look-arxiv-2307-12769",
+    "src:dw-grand-gp300-exposure-arxiv-2507-06629"
   ],
   "summary": {
     "plain": "A stretch of the Gobi Desert north of the city of Dunhuang, China, where a prototype array of radio antennas is testing technology for the giant GRAND project.",
-    "technical": "Gobi Desert site near Xiaodushan, north of Dunhuang, Gansu, China, hosting the GRANDProto300 prototype radio array; coordinates recorded as the nearest named city (Dunhuang) as a coarse regional pointer, not a surveyed array position."
+    "technical": "Gobi Desert site near Xiaodushan, north of Dunhuang, Gansu, China, hosting the GRANDProto300 prototype radio array; coordinates are the XiaoDuShan site position published by the GRAND Collaboration (E 93.94177°, N 40.99434°), not a surveyed antenna position."
   },
   "type": "site"
 }
