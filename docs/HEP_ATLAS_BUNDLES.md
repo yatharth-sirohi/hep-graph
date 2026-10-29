@@ -23,7 +23,7 @@ Rules that hold for every bundle:
 * **Months.** Every month index is *months since 1950-01*
   (`(year - 1950) * 12 + (month - 1)`).  Dates before 1950 give negative
   indices; nothing is clamped.  `manifest.epoch` states the epoch.
-* **Size.** The build fails when `atlas.json` exceeds 2 500 000 bytes or
+* **Size.** The build fails when `atlas.json` exceeds 3 000 000 bytes or
   500 000 bytes gzipped (raised from 1.5 MB raw for the A26 coverage wave) and
   prints a per-type size table; the pilot budget is 400 KB for
   `atlas.json` + `manifest.json` together.  A `geometry/<slug>.json` bundle
