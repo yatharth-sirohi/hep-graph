@@ -101,23 +101,27 @@
   ],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:homestake-wikipedia",
     "src:homestake-1998-flux-measurement",
-    "src:rf06-davis-nobel-lecture-2002"
+    "src:rf06-davis-nobel-lecture-2002",
+    "src:surf-our-story",
+    "src:vf-davis-nobel-biographical-2002",
+    "src:dw-nobel-2002-physics-advanced-information"
   ],
   "specs": {
     "target_mass": {
       "approx": false,
-      "confidence": "uncertain",
+      "confidence": "verified",
       "dimension": "mass",
-      "display": null,
-      "note": "Wikipedia gives the target volume (380 m³ / 100,000 gallons of perchloroethylene) but no source consulted (checked 2026-09-18) converts this to a mass; the mass is left unset rather than computed from an assumed density.",
+      "display": "615 t perchloroethylene (C2Cl4)",
+      "locator": "Nobel Committee for Physics, Advanced information on the Nobel Prize in Physics 2002, section \"Neutrino astronomy\" (paragraph on the Davis experiment in the Homestake Gold Mine)",
+      "note": "Mass of the perchloroethylene (C2Cl4) filling as stated by the Nobel Committee for Physics; the volume of the same tank (100,000 gallons) is given in Davis's Nobel lecture.",
+      "quote": "The tank contained 615 tonnes of C2Cl4, an agent normally used for dry cleaning.",
       "sources": [
-        "src:homestake-wikipedia"
+        "src:dw-nobel-2002-physics-advanced-information"
       ],
       "unit": "t",
-      "value": null,
-      "verified_at": "2026-09-18"
+      "value": 615,
+      "verified_at": "2026-10-26"
     }
   },
   "status": "completed",
@@ -128,15 +132,15 @@
   },
   "technology": {
     "confidence": "verified",
-    "note": "Reaction νe + 37Cl → 37Ar + e⁻ (inverse beta decay) and the extraction/counting steps: Cleveland et al. 1998 abstract (src:homestake-1998-flux-measurement). Perchloroethylene tank, argon extraction by helium sweep every two to three months: Davis Nobel lecture (quoted). The 'dry-cleaning fluid' gloss is from Wikipedia.",
+    "note": "Reaction νe + 37Cl → 37Ar + e⁻ (inverse beta decay) and the extraction/counting steps: Cleveland et al. 1998 abstract (src:homestake-1998-flux-measurement). Perchloroethylene tank, argon extraction by helium sweep every two to three months: Davis Nobel lecture (quoted). The 'dry-cleaning fluid' gloss: Davis's Nobel autobiography calls perchloroethylene 'a solvent most commonly used for dry cleaning of clothing' (src:vf-davis-nobel-biographical-2002).",
     "quote": "build a 100,000-gallon chlorine-argon neutrino detector in the Homestake Gold Mine ... In order to extract argon from the tank, helium is bubbled through the perchloroethylene.",
     "sources": [
       "src:homestake-1998-flux-measurement",
       "src:rf06-davis-nobel-lecture-2002",
-      "src:homestake-wikipedia"
+      "src:vf-davis-nobel-biographical-2002"
     ],
     "value": "Radiochemical chlorine detector: solar neutrinos capture on 37Cl to produce 37Ar via inverse beta decay in a large tank of perchloroethylene (dry-cleaning fluid), with the argon periodically extracted and counted",
-    "verified_at": "2026-10-25"
+    "verified_at": "2026-10-26"
   },
   "technology_class": "other",
   "technology_classes": [

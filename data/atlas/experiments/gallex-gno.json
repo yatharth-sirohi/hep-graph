@@ -23,16 +23,19 @@
   },
   "facility_roles": [
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "end": null,
       "facility_id": "facility:lngs",
-      "note": "Confidence kept uncertain because the only source cited here is Wikipedia (rank 12); a verified claim needs a source of rank 10 or better.",
+      "locator": "GNO Collaboration final paper, Sec. 1 (Introduction); MPIK Heidelberg GALLEX/GNO history page, section \"GALLEX: a radiochemical GALLium EXperiment to detect solar pp neutrinos\"",
+      "note": "The GNO final paper places GNO at LNGS; the MPIK Heidelberg history page says the GALLEX target tank and counting system were located in Hall A of the LNGS.",
+      "quote": "The Gallium Neutrino Observatory (GNO) experiment at the Laboratori Nazionali del Gran Sasso (LNGS) has recorded solar neutrinos with energies above 233 keV",
       "role": "host",
       "sources": [
-        "src:gallex-wikipedia"
+        "src:rf05-gno-complete-results-arxiv",
+        "src:dw-mpik-gallex-gno-history"
       ],
       "start": null,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "id": "experiment:gallex-gno",
@@ -82,17 +85,19 @@
       "label": "Gallium target mass",
       "quantity": {
         "approx": false,
-        "confidence": "approximate",
+        "confidence": "verified",
         "dimension": "mass",
         "display": "30.3 t gallium (101 t GaCl3-HCl solution)",
-        "note": "Sourced from Wikipedia (rank 12) only.",
-        "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
+        "locator": "MPIK Heidelberg GALLEX/GNO history page, section \"The GALLEX detector and 71Ge extraction procedure\"; GNO final paper, Sec. 1",
+        "note": "The GNO final paper states 30.3 tons of gallium in a 100-ton gallium chloride target; the MPIK page gives a total solution weight of 101 t.",
+        "quote": "As already mentioned the GALLEX target consists of 30.3 t gallium in the form of a concentrated GaCl3-HCl solution (total weight 101 t).",
         "sources": [
-          "src:gallex-wikipedia"
+          "src:dw-mpik-gallex-gno-history",
+          "src:rf05-gno-complete-results-arxiv"
         ],
         "unit": "t",
         "value": 30.3,
-        "verified_at": "2026-09-17"
+        "verified_at": "2026-10-26"
       }
     }
   ],
@@ -104,19 +109,19 @@
   "name": "GALLEX",
   "notes": [
     "GALLEX (1991-1997) and its successor GNO (1998-2003) are recorded as ONE experiment, with GNO as an alias; there is no separate GNO record.",
-    "No official GALLEX/GNO site was found (a dedicated official site does not appear to exist independently of the MPIK Heidelberg host institution, which was not consulted); all facts here rely on Wikipedia and INSPIRE."
+    "No dedicated official GALLEX/GNO website was found; the description rests on the MPIK Heidelberg GALLEX/GNO history page (MPIK led GALLEX), the GNO collaboration's final paper and the INSPIRE experiment record."
   ],
   "physics_goals": [
     {
-      "confidence": "uncertain",
-      "locator": "Wikipedia",
-      "note": "Sourced from Wikipedia (rank 12) only.",
-      "quote": "It was designed to detect solar neutrinos and prove theories related to the Sun's energy creation mechanism.",
+      "confidence": "approximate",
+      "locator": "MPIK Heidelberg GALLEX/GNO history page, sections \"GALLEX: a radiochemical GALLium EXperiment to detect solar pp neutrinos\" and \"GNO: the Gallium Neutrino Observatory\"",
+      "note": "The first sentence of the quote gives the aim of the Ga-71 reaction used by GALLEX and the second the stated aim of its successor GNO, so the goal is read across the two phases of the one experiment.",
+      "quote": "The threshold of this reaction is 233 keV, low enough to detect neutrinos from the initial proton fusion chain. ... GNO aimed to measure the flux of solar electron neutrinos from the proton-proton fusion during a full solar cycle.",
       "sources": [
-        "src:gallex-wikipedia"
+        "src:dw-mpik-gallex-gno-history"
       ],
-      "value": "Detect low-energy (pp-chain) solar neutrinos via the radiochemical gallium-to-germanium reaction and measure the total solar neutrino capture rate",
-      "verified_at": "2026-09-17"
+      "value": "Detect low-energy solar neutrinos from the proton-proton fusion chain via the radiochemical gallium-to-germanium reaction and measure their flux",
+      "verified_at": "2026-10-26"
     }
   ],
   "result_ids": [],
@@ -124,13 +129,13 @@
   "secondary_kinds": [],
   "sources": [
     "src:gallex-inspire-experiment-record",
-    "src:gallex-wikipedia",
-    "src:rf05-gno-complete-results-arxiv"
+    "src:rf05-gno-complete-results-arxiv",
+    "src:dw-mpik-gallex-gno-history"
   ],
   "status": "completed",
   "summary": {
-    "plain": "An experiment in an Italian mountain lab that used tonnes of liquid gallium to catch the Sun's lowest-energy neutrinos, the ones from its very first fusion step.",
-    "technical": "Radiochemical gallium solar-neutrino experiment at LNGS: 30.3 t gallium (as 101 t GaCl3-HCl solution), sensitive to pp-chain neutrinos via the 71Ga→71Ge reaction. Ran as GALLEX 1991-1997 (73.1 SNU capture rate) then as GNO 1998-2003 (62.9 SNU), led by the Max-Planck-Institut für Kernphysik, Heidelberg, with French, German, Italian, Israeli, Polish and American participation."
+    "plain": "An experiment in an Italian mountain lab that used 30 tonnes of gallium, dissolved in an acid solution, to catch the Sun's lowest-energy neutrinos, the ones from its very first fusion step.",
+    "technical": "Radiochemical gallium solar-neutrino experiment at LNGS: 30.3 t gallium (as a 101 t GaCl3-HCl solution), sensitive to pp-chain neutrinos via the 71Ga→71Ge reaction (233 keV threshold). Ran as GALLEX 1991-1997 (re-evaluated capture rate 73.1 SNU) then as GNO 1998-2003 (62.9 SNU). GALLEX was run by an international collaboration of French, German, Italian, Israeli, Polish and American scientists headed by the Max-Planck-Institut für Kernphysik, Heidelberg; GNO was headed by the Milano group of INFN."
   },
   "topic_ids": [
     "topic:solar-neutrinos"
@@ -138,15 +143,15 @@
   "type": "experiment",
   "unique_capabilities": [
     {
-      "confidence": "uncertain",
-      "locator": "Wikipedia",
-      "note": "Sourced from Wikipedia (rank 12) only. The radiochemical gallium technique has no technology class of its own in the Atlas; it is described in detector:gallex-gno.technology.",
-      "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
+      "confidence": "approximate",
+      "locator": "MPIK Heidelberg GALLEX/GNO history page, sections \"The GALLEX / GNO Experiments\" and \"GALLEX: a radiochemical GALLium EXperiment to detect solar pp neutrinos\"",
+      "note": "The page gives the 233 keV threshold of the gallium reaction and says the chlorine experiment of Davis was only sensitive above about 0.8 MeV. The radiochemical gallium technique has no technology class of its own in the Atlas; it is described in detector:gallex-gno.technology.",
+      "quote": "The experiment of Davis had to face fundamental problems: It was only sensitive to neutrinos with a energy higher than ∼0.8 MeV ... The threshold of this reaction is 233 keV, low enough to detect neutrinos from the initial proton fusion chain.",
       "sources": [
-        "src:gallex-wikipedia"
+        "src:dw-mpik-gallex-gno-history"
       ],
-      "value": "Radiochemical gallium target sensitive to the lowest-energy (pp) solar neutrinos, below the threshold of water-Cherenkov or chlorine-based detectors",
-      "verified_at": "2026-09-17"
+      "value": "Radiochemical gallium target with a 233 keV threshold, low enough to detect the lowest-energy (pp) solar neutrinos, below the roughly 0.8 MeV sensitivity of the chlorine experiment",
+      "verified_at": "2026-10-26"
     }
   ]
 }
