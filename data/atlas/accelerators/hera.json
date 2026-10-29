@@ -11,30 +11,33 @@
   "id": "accelerator:hera",
   "intervals": [
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "end": "2007-06-30",
       "label": "operation",
-      "note": "Sourced to Wikipedia only. Operating interval; the terminal event is its end.",
-      "quote": "It was operated from 1992 to 30 June 2007.",
+      "locator": "DESY brochure 'HERA - Pointing the way' (2007), PDF p. 4 (start 1992, research operation concluded end of June 2007); end day: Zhang for H1 and ZEUS, arXiv:0812.4662, introduction",
+      "note": "DESY's brochure gives the start (1992) and says research operation concluded at the end of June 2007; the day comes from arXiv:0812.4662 (for the H1 and ZEUS Collaborations): \"The electron-proton collider HERA ended its data taking on June 30, 2007.\" Operating interval; the terminal event is its end.",
+      "quote": "The Hadron-Electron Ring Accelerator HERA went into operation at DESY in 1992. Research operation was concluded at the end of June 2007 and the accelerator was switched off.",
       "sources": [
-        "src:hera-wikipedia"
+        "src:dw-desy-hera-pointing-the-way",
+        "src:dw-hera-ew-bsm-zhang-arxiv-0812-4662"
       ],
       "start": "1992",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     },
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "end": null,
       "label": "completed",
-      "note": "Sourced to Wikipedia only. Terminal event: the end of the operating interval above.",
-      "quote": "It was operated from 1992 to 30 June 2007.",
+      "locator": "Zhang for H1 and ZEUS, arXiv:0812.4662, introduction",
+      "note": "Terminal event: the end of the operating interval above. The paper says data taking ended on that day; DESY's brochure says research operation was concluded at the end of June 2007 and the accelerator switched off.",
+      "quote": "The electron-proton collider HERA ended its data taking on June 30, 2007.",
       "sources": [
-        "src:hera-wikipedia"
+        "src:dw-hera-ew-bsm-zhang-arxiv-0812-4662"
       ],
       "start": "2007-06-30",
       "status": "completed",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "is_collider": true,
@@ -45,7 +48,7 @@
   "name": "Hadron-Elektron-Ring-Anlage",
   "notes": [
     "Injector chain (Klein & Yoshida 2008, Table 1): protons, RFQ - LINAC III (50 MeV) - DESY III (8 GeV) - PETRA (40 GeV) - HERA (920 GeV); electrons and positrons, LINAC II (450 MeV) - PIA - DESY II (7 GeV) - PETRA (12 GeV) - HERA (27.5 GeV). Only HERA has an Atlas record; the pre-accelerators and PETRA are not linked.",
-    "Operation dates: DESY's page says \"Research operation: 1992-2007\" and Klein & Yoshida say \"The first HERA data were taken in summer 1992. It ceased operations in June 2007\"; the day (30 June 2007) is from Wikipedia and stays on the interval with its low confidence."
+    "Operation dates: DESY's page says \"Research operation: 1992-2007\"; DESY's brochure \"HERA - Pointing the way\" says HERA \"went into operation at DESY in 1992\" and that research operation \"was concluded at the end of June 2007\"; Klein & Yoshida say \"The first HERA data were taken in summer 1992. It ceased operations in June 2007\"; the day (30 June 2007) is from Zhang for the H1 and ZEUS Collaborations, arXiv:0812.4662: \"HERA ended its data taking on June 30, 2007\"."
   ],
   "particles": [
     "electron",
@@ -55,10 +58,11 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:desy-hamburg-campus",
   "sources": [
-    "src:hera-wikipedia",
     "src:facilities-verify-hera-desy-ameyer",
     "src:hera-collider-physics-klein-yoshida-2008",
-    "src:geo-desy-hera-facts-page"
+    "src:geo-desy-hera-facts-page",
+    "src:dw-desy-hera-pointing-the-way",
+    "src:dw-hera-ew-bsm-zhang-arxiv-0812-4662"
   ],
   "specs": {
     "beam_energy": {
@@ -67,7 +71,7 @@
       "dimension": "energy",
       "display": "27.5 GeV (electrons/positrons)",
       "locator": "Klein & Yoshida, arXiv:0805.3334, introduction",
-      "note": "Replaces the earlier Wikipedia and lecture-notes sourcing. Table 1 of the same paper gives the lepton ring energy as 27.5 GeV.",
+      "note": "Replaces the earlier lecture-notes sourcing. Table 1 of the same paper gives the lepton ring energy as 27.5 GeV.",
       "quote": "The energy of the electron (positron) beam was about 27.5 GeV.",
       "sources": [
         "src:hera-collider-physics-klein-yoshida-2008"

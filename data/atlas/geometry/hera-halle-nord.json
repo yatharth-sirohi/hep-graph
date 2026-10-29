@@ -14,11 +14,11 @@
   "feature_type": "hall",
   "geometry": {
     "confidence": "approximate",
-    "locator": "OSM way 131496014, timestamp_osm_base 2026-09-18T22:24:35Z; Wikipedia 'HERA (particle accelerator)', 'H1 was a universal detector ... located in the HERA Hall North.'",
+    "locator": "OSM way 131496014, timestamp_osm_base 2026-09-18T22:24:35Z; DESY brochure 'HERA - Pointing the way' (2007), PDF p. 12: 'H1 in the North Hall'",
     "note": "OpenStreetMap alone yields at most 'approximate' confidence; no official hall-dimension figure was fetched to check this footprint against.",
     "sources": [
       "src:geo-desy-osm-hera-halle-nord",
-      "src:hera-wikipedia"
+      "src:dw-desy-hera-pointing-the-way"
     ],
     "value": {
       "coordinates": [
@@ -68,7 +68,7 @@
     "website": null
   },
   "map_id": "map:desy",
-  "method": "OpenStreetMap building footprint way 131496014 ('HERA Halle Nord', building=industrial), used verbatim. Its centroid sits 37.7 m from the HERA tunnel ring (geometry:hera-tunnel-ring) at the ring's north end -- consistent with a surface hall built over the underground North interaction point. Wikipedia's HERA page independently confirms 'H1 was ... located in the HERA Hall North.' This is the surface building; no source gives the underground H1 hall/cavern's own footprint, so this also stands in for detector:h1 and detector:alps-ii (both placed at this site).",
+  "method": "OpenStreetMap building footprint way 131496014 ('HERA Halle Nord', building=industrial), used verbatim. Its centroid sits 37.7 m from the HERA tunnel ring (geometry:hera-tunnel-ring) at the ring's north end -- consistent with a surface hall built over the underground North interaction point. DESY's brochure 'HERA - Pointing the way' independently confirms 'H1 in the North Hall and ZEUS in the South Hall.' This is the surface building; no source gives the underground H1 hall/cavern's own footprint, so this also stands in for detector:h1 and detector:alps-ii (both placed at this site).",
   "name": "HERA Hall North (H1)",
   "notes": [
     "Linked to the HERA North Hall site rather than to one detector, because both the H1 detector and ALPS II are placed at that site."
@@ -83,7 +83,8 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:desy-hera-north-hall-h1",
   "sources": [
-    "src:geo-desy-osm-hera-halle-nord"
+    "src:geo-desy-osm-hera-halle-nord",
+    "src:dw-desy-hera-pointing-the-way"
   ],
   "summary": {
     "plain": "The surface hall over the HERA ring's North interaction point, home to the H1 detector (1992-2007) and now the ALPS II axion experiment."

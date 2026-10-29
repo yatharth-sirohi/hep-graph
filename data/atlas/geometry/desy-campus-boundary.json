@@ -11,11 +11,11 @@
   "feature_type": "boundary",
   "geometry": {
     "confidence": "approximate",
-    "locator": "OSM way 276641657, timestamp_osm_base 2026-09-18T22:24:35Z",
+    "locator": "OSM way 276641657, timestamp_osm_base 2026-09-18T22:24:35Z; address: DESY contact page, \"Hamburg location\"",
     "note": "OpenStreetMap alone yields at most 'approximate' confidence; no official DESY campus-boundary figure was fetched to check the perimeter/area against.",
     "sources": [
       "src:geo-desy-osm-campus-boundary",
-      "src:desy-wikipedia"
+      "src:dw-desy-contact-page"
     ],
     "value": {
       "coordinates": [
@@ -717,7 +717,7 @@
     "website": null
   },
   "map_id": "map:desy",
-  "method": "OpenStreetMap way 276641657 ('Deutsches Elektronen-Synchrotron DESY', landuse=industrial, amenity=research_institute), used verbatim. The way's own address tags (Notkestraße 85, 22607 Hamburg) match DESY's official postal address, and its centroid (9.8808E, 53.5771N) is within 150 m of the coordinate in the DESY Wikipedia infobox (53 34'33''N 9 52'46''E = 53.5758N, 9.8794E). The DESY site record's own ROR-geocoded point (53.55073N, 9.99302E) is about 10.3 km from both of these independent fixes.",
+  "method": "OpenStreetMap way 276641657 ('Deutsches Elektronen-Synchrotron DESY', landuse=industrial, amenity=research_institute), used verbatim. The way's own address tags (Notkestraße 85, 22607 Hamburg) match the postal address DESY publishes on its contact page, 'Hamburg location Notkestraße 85 D-22607 Hamburg'. The DESY site record's earlier ROR-geocoded point (53.55073N, 9.99302E) lies about 10.3 km from this polygon's centroid (9.8808E, 53.5771N) and was replaced.",
   "name": "DESY Hamburg campus boundary",
   "notes": [],
   "osm": {
@@ -730,7 +730,8 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:desy-hamburg-campus",
   "sources": [
-    "src:geo-desy-osm-campus-boundary"
+    "src:geo-desy-osm-campus-boundary",
+    "src:dw-desy-contact-page"
   ],
   "summary": {
     "plain": "The fenced DESY laboratory campus in Hamburg-Bahrenfeld, at Notkestraße 85."

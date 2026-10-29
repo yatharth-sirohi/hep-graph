@@ -30,18 +30,19 @@
     },
     {
       "depth_m": {
-        "confidence": "uncertain",
+        "confidence": "verified",
         "dimension": "length",
         "display": "≈17.5 m (10–25 m below ground level)",
+        "locator": "DESY brochure 'HERA - Pointing the way' (2007), PDF p. 10, civil-engineering passage",
         "max": 25,
         "min": 10,
-        "note": "Sourced to Wikipedia only, matching accelerator:hera's own sourcing for this figure; no official DESY civil-engineering page consulted states the depth range directly.",
-        "quote": "The HERA tunnel runs 10 to 25 m below ground level and has a circumference of 6.3 km",
+        "note": "DESY's brochure gives the depth range of the bored HERA tunnel; depth varies around the ring, so the 17.5 m in the display is only the midpoint of the 10-25 m range. The OSM tunnel way is tagged depth=-25, consistent with the lower end of the range.",
+        "quote": "the tunnel boring machine HERAKLES wound its way through Hamburg’s sandy soil, 10 to 25 meters deep underground.",
         "sources": [
-          "src:hera-wikipedia"
+          "src:dw-desy-hera-pointing-the-way"
         ],
         "unit": "m",
-        "verified_at": "2026-09-18"
+        "verified_at": "2026-10-26"
       },
       "id": "hera-tunnel",
       "kind": "underground",
@@ -73,7 +74,8 @@
   ],
   "sources": [
     "src:geo-desy-osm-campus-boundary",
-    "src:geo-desy-hera-facts-page"
+    "src:geo-desy-hera-facts-page",
+    "src:dw-desy-hera-pointing-the-way"
   ],
   "summary": {
     "plain": "DESY's main laboratory campus in Hamburg-Bahrenfeld, Germany, and the 6.3-km HERA ring tunnel that ran underneath it and the surrounding city district from 1992 to 2007, with the North Hall (H1, now ALPS II) drawn to scale from OpenStreetMap and DESY's own published figures.",
@@ -86,7 +88,7 @@
       "entity_id": "site:desy-hera-south-hall-zeus",
       "reason": "ZEUS's HERA South Hall has no OpenStreetMap trace under that name: a case-insensitive Overpass name search for 'ZEUS' across a bbox spanning the whole DESY/HERA area (53.55-53.61N, 9.85-9.95E) returned zero elements, as did searches for 'Süd'/'Sued'/'Doppel-Ring' (the DORIS storage ring, whose former South-area straddling hall might otherwise corroborate the location). The nearest generically-named DESY building to the HERA ring's own southern extreme, OSM way 24892547 ('HalleSO', 'service' building, ~89 m from the ring line), is a plausible but unconfirmed candidate -- no source consulted names it as ZEUS's hall, so it is not drawn. The south straight of the drawn HERA ring (located on 2026-10-25 from the ring's geometry: four straight stretches of low curvature; the north one puts the centre of the straight 20-40 m from the OSM \"HERA Halle Nord\" building) carries one candidate, an unnamed industrial compound (OSM way 24824604, landuse=industrial 3297 m2, with an unnamed 223 m2 industrial building, way 24824600) 43 m from the ring at 9.8953 E, 53.5747 N; nothing names it as the ZEUS hall. A BabyIAXO study gives the South Hall as an underground hall of 43 m x 25 m x 15 m with two 40 t cranes (arXiv:2010.12076, section 8.2), and the DESY visitor map lists \"HERA Halle West\" as building 50 but not the other halls.",
       "sources": [
-        "src:zeus-wikipedia"
+        "src:dw-desy-hera-pointing-the-way"
       ],
       "verified_at": "2026-09-18"
     }
