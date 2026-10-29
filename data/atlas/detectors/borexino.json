@@ -11,30 +11,32 @@
   "id": "detector:borexino",
   "intervals": [
     {
-      "confidence": "approximate",
-      "end": "2021-10",
+      "confidence": "verified",
+      "end": "2021-10-07",
       "label": "data taking",
-      "note": "Dates sourced from Wikipedia (rank 12) only.",
-      "quote": "by May 2007 the detector chamber had been filled and data taking began ... The entire Borexino experiment was terminated in October 2021.",
+      "locator": "About Borexino page, 'Timeline' list",
+      "note": "First DAQ run and last DAQ run, per the collaboration's own timeline.",
+      "quote": "First DAQ run started on May 16, 2007 ... Last DAQ run (#36744) stopped on Oct 7, 2021",
       "sources": [
-        "src:borexino-wikipedia"
+        "src:rfua-borexino-about"
       ],
-      "start": "2007-05",
+      "start": "2007-05-16",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     },
     {
-      "confidence": "approximate",
+      "confidence": "verified",
       "end": null,
       "label": "shut down",
-      "note": "Terminal event date sourced from Wikipedia (rank 12) only.",
-      "quote": "the entire Borexino experiment was terminated in October 2021",
+      "locator": "About Borexino page, 'Timeline' list",
+      "note": "Terminal event: the last DAQ run, dated 7 October 2021 on the collaboration timeline.",
+      "quote": "Last DAQ run (#36744) stopped on Oct 7, 2021",
       "sources": [
-        "src:borexino-wikipedia"
+        "src:rfua-borexino-about"
       ],
-      "start": "2021-10",
+      "start": "2021-10-07",
       "status": "completed",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "links": {
@@ -46,23 +48,25 @@
   "placements": [
     {
       "confidence": "approximate",
-      "end": "2021-10",
-      "note": "Placed at site:lngs-hall-c.",
-      "quote": "by May 2007 the detector chamber had been filled and data taking began ... The entire Borexino experiment was terminated in October 2021.",
+      "end": "2021-10-07",
+      "locator": "About Borexino page, 'Timeline' list",
+      "note": "Placed at site:lngs-hall-c (the official site names Hall C of LNGS). The dates are the operating period (first to last DAQ run); the detector structures were completed in 2004.",
+      "quote": "First DAQ run started on May 16, 2007 ... Last DAQ run (#36744) stopped on Oct 7, 2021",
       "role": "main",
       "site_id": "site:lngs-hall-c",
       "sources": [
-        "src:borexino-wikipedia"
+        "src:rfua-borexino-about"
       ],
-      "start": "2007-05",
-      "verified_at": "2026-09-17"
+      "start": "2007-05-16",
+      "verified_at": "2026-10-26"
     }
   ],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:borexino-wikipedia",
     "src:borexino-cno-evidence-2020",
-    "src:borexino-pp-first-detection-2014"
+    "src:borexino-pp-first-detection-2014",
+    "src:rfua-borexino-about",
+    "src:dw-borexino-cno-2020-fulltext"
   ],
   "specs": {
     "fiducial_mass": {
@@ -84,15 +88,15 @@
       "confidence": "verified",
       "dimension": "mass",
       "display": "278 t",
-      "note": "278 t is the active liquid-scintillator mass stated in the 2014 Nature pp-neutrino paper (Methods); Wikipedia's infobox gives the same figure with a 315 m³ volume.",
-      "quote": "The active neutrino target, 278 t of ultrapure liquid scintillator",
+      "locator": "Nature 512, 383 (2014), Extended Data Fig. 1 caption",
+      "note": "278 t is the target (active) liquid-scintillator mass stated in the Extended Data Fig. 1 caption of the 2014 Nature pp-neutrino paper.",
+      "quote": "The buffer and target scintillator masses are 889 and 278 t, respectively.",
       "sources": [
-        "src:borexino-pp-first-detection-2014",
-        "src:borexino-wikipedia"
+        "src:borexino-pp-first-detection-2014"
       ],
       "unit": "t",
       "value": 278,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   },
   "status": "completed",
@@ -102,15 +106,16 @@
     "technical": "Liquid-scintillator (pseudocumene+PPO) detector, 278 t active mass, ~100 t fiducial mass, in a nylon vessel with a water-Cherenkov muon veto; operated at LNGS Hall C from May 2007 to October 2021."
   },
   "technology": {
-    "confidence": "approximate",
-    "note": "Sourced from the 2014 Nature pp-neutrino paper (Methods; journal, rank 10) and Wikipedia (rank 12). The same Methods paragraph describes the 2,212 PMTs on a stainless steel sphere and the 889 t non-scintillating buffer fluid.",
-    "quote": "pseudocumene (1,2,4-trimethylbenzene) solvent with 1.5 g l−1 2,5-diphenyloxazole (PPO) wavelength-shifting fluor), is contained inside a thin transparent nylon spherical vessel of 8.5 m diameter ... The sphere is immersed in a 2,100 t water Cherenkov detector for residual cosmic muons",
+    "confidence": "verified",
+    "locator": "arXiv:2006.15115 Methods, \"Experimental setup and neutrino detection technique\"",
+    "note": "Quoted from the Borexino collaboration's 2020 CNO paper (Methods). The 2014 Nature paper's Extended Data Fig. 1 caption adds the 13.7 m stainless-steel sphere, the 8.5 m nylon inner vessel and the 2,100 t water tank; the CNO paper gives the 2212 PMTs and the buffer liquid.",
+    "quote": "The SSS contains the organic liquid and supports the photomultipliers (PMTs) ... is the active medium of a Cherenkov muon tagger. ... The inner nylon vessel (IV), concentric to the SSS, contains a solution of Pseudocumene (PC) as solvent and PPO (2,5-diphenyloxazole) as fluor",
     "sources": [
-      "src:borexino-pp-first-detection-2014",
-      "src:borexino-wikipedia"
+      "src:dw-borexino-cno-2020-fulltext",
+      "src:borexino-pp-first-detection-2014"
     ],
     "value": "A nylon-sphere vessel of pseudocumene+PPO liquid scintillator viewed by photomultiplier tubes, surrounded by buffer liquid and a water-Cherenkov muon veto",
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-26"
   },
   "technology_class": "liquid_scintillator",
   "technology_classes": [

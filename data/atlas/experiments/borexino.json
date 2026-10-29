@@ -35,41 +35,44 @@
     {
       "confidence": "approximate",
       "end": "2004",
-      "label": "construction",
-      "note": "Sourced from Wikipedia (rank 12) only.",
-      "quote": "In 1990, the design was fundamentally altered, and the name of the experiment was changed to \"Borexino\". Research and development began on the detector at that time. ... By 2004, the structure of the detector had been completed",
+      "label": "construction (detailed proposal to completed detector structures)",
+      "locator": "About Borexino page, 'Timeline' list",
+      "note": "Start is the date of the official detailed proposal (August 1991), the earliest dated entry on the collaboration's own timeline; the timeline gives no start date for construction itself (the CTF prototype ran 1994-1996). The end is the year the timeline gives for completion of the detector structures.",
+      "quote": "Official detailed proposal: August 1991 ... Detector structures construction completed in 2004",
       "sources": [
-        "src:borexino-wikipedia"
+        "src:rfua-borexino-about"
       ],
-      "start": "1990",
+      "start": "1991-08",
       "status": "construction",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     },
     {
-      "confidence": "approximate",
-      "end": "2021-10",
+      "confidence": "verified",
+      "end": "2021-10-07",
       "label": "data taking",
-      "note": "Sourced from Wikipedia (rank 12) only; the official site's homepage (checked 2026-09-17) describes '35 years of operation through 2025' without giving exact start/end dates, which is not used here because it appears to describe the collaboration's overall lifetime (proposal to final analysis) rather than the detector's active data-taking window.",
-      "quote": "by May 2007 the detector chamber had been filled and data taking began ... The entire Borexino experiment was terminated in October 2021.",
+      "locator": "About Borexino page, 'Timeline' list",
+      "note": "Start is the first DAQ run (detector filling was completed the day before, 15 May 2007); end is the last DAQ run, per the collaboration's own timeline.",
+      "quote": "First DAQ run started on May 16, 2007 ... Last DAQ run (#36744) stopped on Oct 7, 2021",
       "sources": [
-        "src:borexino-wikipedia"
+        "src:rfua-borexino-about"
       ],
-      "start": "2007-05",
+      "start": "2007-05-16",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     },
     {
-      "confidence": "approximate",
+      "confidence": "verified",
       "end": null,
       "label": "shut down",
-      "note": "Terminal event date sourced from Wikipedia (rank 12) only.",
-      "quote": "the entire Borexino experiment was terminated in October 2021",
+      "locator": "About Borexino page, 'Timeline' list",
+      "note": "Terminal event: the last DAQ run, which the collaboration timeline dates to 7 October 2021.",
+      "quote": "Last DAQ run (#36744) stopped on Oct 7, 2021",
       "sources": [
-        "src:borexino-wikipedia"
+        "src:rfua-borexino-about"
       ],
-      "start": "2021-10",
+      "start": "2021-10-07",
       "status": "completed",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "key_specs": [
@@ -80,32 +83,33 @@
         "confidence": "verified",
         "dimension": "mass",
         "display": "278 t active mass",
-        "note": "278 t is the active liquid-scintillator mass stated in the 2014 Nature pp-neutrino paper (Methods); Wikipedia's infobox gives the same figure. The nominal fiducial mass is recorded separately on detector:borexino (specs.fiducial_mass); the pp analysis itself used a 75.5 t fiducial cut.",
-        "quote": "The active neutrino target, 278 t of ultrapure liquid scintillator",
+        "locator": "Nature 512, 383 (2014), Extended Data Fig. 1 caption",
+        "note": "278 t is the target (active) liquid-scintillator mass stated in the Extended Data Fig. 1 caption of the 2014 Nature pp-neutrino paper. The nominal fiducial mass is recorded separately on detector:borexino (specs.fiducial_mass); the pp analysis itself used a 75.5 t fiducial cut.",
+        "quote": "The buffer and target scintillator masses are 889 and 278 t, respectively.",
         "sources": [
-          "src:borexino-pp-first-detection-2014",
-          "src:borexino-wikipedia"
+          "src:borexino-pp-first-detection-2014"
         ],
         "unit": "t",
         "value": 278,
-        "verified_at": "2026-09-17"
+        "verified_at": "2026-10-26"
       }
     },
     {
       "label": "Overburden",
       "quantity": {
         "approx": false,
-        "confidence": "approximate",
+        "confidence": "verified",
         "dimension": "depth_mwe",
         "display": "3800 m.w.e.",
-        "note": "Sourced from Wikipedia (rank 12) only; differs from the ~1400 m rock / average LNGS overburden figure recorded on site:lngs-hall-c because m.w.e. and rock-metres are different units and per-hall shielding can differ from the site average.",
-        "quote": "Protected by 3,800 meters of water-equivalent depth",
+        "locator": "arXiv:1202.6403 (JCAP 2012), title and abstract",
+        "note": "The Borexino collaboration's muon-flux paper places Borexino at 3800 m water-equivalent depth (its abstract gives 3800 m w.e. for the Gran Sasso laboratory). This differs from the ~1400 m rock / average LNGS overburden figure recorded on site:lngs-hall-c because m.w.e. and rock-metres are different units and per-hall shielding can differ from the site average.",
+        "quote": "Cosmic-muon flux and annual modulation in Borexino at 3800 m water-equivalent depth",
         "sources": [
-          "src:borexino-wikipedia"
+          "src:ug-borexino-jcap-2012-muon-flux"
         ],
         "unit": "m.w.e.",
         "value": 3800,
-        "verified_at": "2026-09-17"
+        "verified_at": "2026-10-26"
       }
     }
   ],
@@ -141,15 +145,16 @@
   "secondary_kinds": [],
   "sources": [
     "src:borexino-official-site",
-    "src:borexino-wikipedia",
     "src:borexino-pp-first-detection-2014",
     "src:borexino-cno-evidence-2020",
-    "src:borexino-inspire-experiment-record"
+    "src:borexino-inspire-experiment-record",
+    "src:rfua-borexino-about",
+    "src:ug-borexino-jcap-2012-muon-flux"
   ],
   "status": "completed",
   "summary": {
     "plain": "A giant ball of ultra-pure liquid deep under the Gran Sasso mountain in Italy that directly watched low-energy neutrinos streaming from the Sun's core, including two kinds no one had ever seen before.",
-    "technical": "Liquid-scintillator (pseudocumene+PPO) solar-neutrino detector at LNGS Hall C, 278 t active mass (~100 t fiducial), built 1990-2004, took data May 2007-October 2021. First direct spectral measurement of pp-chain neutrinos (2014) and first experimental evidence of CNO-cycle solar neutrinos (2020)."
+    "technical": "Liquid-scintillator (pseudocumene+PPO) solar-neutrino detector at LNGS Hall C, 278 t active mass (~100 t fiducial); detector structures completed in 2004, took data from 16 May 2007 to 7 October 2021. First direct spectral measurement of pp-chain neutrinos (2014) and first experimental evidence of CNO-cycle solar neutrinos (2020)."
   },
   "topic_ids": [
     "topic:solar-neutrinos",

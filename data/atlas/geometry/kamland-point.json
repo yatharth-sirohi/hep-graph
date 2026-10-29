@@ -11,11 +11,11 @@
   "feature_type": "cavern",
   "geometry": {
     "confidence": "approximate",
-    "locator": "Wikipedia infobox coordinate (36 deg 25' 21'' N, 137 deg 18' 55'' E)",
-    "note": "The representation is weak: the only source consulted is Wikipedia (rank 12), not a lab page or paper, so the point is not 'surveyed', and it is not traced from OpenStreetMap or GIS data, so it is not 'georeferenced' either. 'Derived' is used for a zero-offset reuse of the existing sourced coordinate, with 'approximate' confidence. A lab page or paper giving KamLAND's offset from Super-Kamiokande would allow a better point.",
-    "quote": "36°25′21″N 137°18′55″E",
+    "locator": "T. Iwamoto, Ph.D. thesis (Tohoku University, 2003), Chapter 7 'Analysis', Sec. 7.1.1 'Reactor Distance from KamLAND', p. 105",
+    "note": "The representation is weak: the only source is the KamLAND collaboration's own Ph.D. thesis (a rank-9 project document), which reads the position off a 1:25,000 map; the point is not 'surveyed', and it is not traced from OpenStreetMap or GIS data, so it is not 'georeferenced' either. 'Derived' is used for a zero-offset reuse of the existing sourced coordinate, with 'approximate' confidence. A lab page or paper giving KamLAND's offset from Super-Kamiokande would allow a better point.",
+    "quote": "KamLAND coordinate is read out by the Japanese map with a scale of 1 to 25,000, and the result is following. East longitude is 137.3153, north latitude is 36.4225",
     "sources": [
-      "src:kamland-wikipedia"
+      "src:dw-kamland-iwamoto-thesis-2003"
     ],
     "value": {
       "coordinates": [
@@ -24,7 +24,7 @@
       ],
       "type": "Point"
     },
-    "verified_at": "2026-09-18"
+    "verified_at": "2026-10-26"
   },
   "id": "geometry:kamland-point",
   "level_id": "ikenoyama-1000m",
@@ -33,7 +33,7 @@
     "website": null
   },
   "map_id": "map:kamioka-observatory",
-  "method": "Reuses the coordinate already recorded on the KamLAND site record verbatim (36.4225 N, 137.3153 E), itself the Wikipedia infobox value for KamLAND (rank 12); no additional computation is performed. None of the sources consulted (the KamLAND overview arXiv:physics/0404071, the review 'Antineutrino Science in KamLAND' arXiv:1409.4515, or the combined pre-supernova-alert paper arXiv:2404.09920) states a numeric distance-and-bearing offset from Super-Kamiokande precise enough to derive a better point (checked 2026-09-18). A web-search summary reported '500 m', but no primary source states it, so it is not used. The stated accuracy (2000 m) matches the reused coordinate's own precision exactly, so this does not rest on a coarser anchor than its own claimed accuracy.",
+  "method": "Reuses the coordinate already recorded on the KamLAND site record verbatim (36.4225 N, 137.3153 E), itself the position read off a 1:25,000 map in the KamLAND collaboration's Iwamoto Ph.D. thesis (rank 9); no additional computation is performed. None of the sources consulted (the KamLAND overview arXiv:physics/0404071, the review 'Antineutrino Science in KamLAND' arXiv:1409.4515, or the combined pre-supernova-alert paper arXiv:2404.09920) states a numeric distance-and-bearing offset from Super-Kamiokande precise enough to derive a better point (checked 2026-09-18). A web-search summary reported '500 m', but no primary source states it, so it is not used. The stated accuracy (2000 m) matches the reused coordinate's own precision exactly, so this does not rest on a coarser anchor than its own claimed accuracy.",
   "name": "KamLAND (point, old Kamiokande cavity)",
   "notes": [],
   "osm": null,
@@ -41,10 +41,10 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:kamioka-kamland",
   "sources": [
-    "src:kamland-wikipedia"
+    "src:dw-kamland-iwamoto-thesis-2003"
   ],
   "summary": {
-    "plain": "KamLAND's approximate position in the Kamioka mine, reusing the same coarse Wikipedia-sourced point already on record for its site; no better public source was found (checked 2026-09-18)."
+    "plain": "KamLAND's approximate position in the Kamioka mine, reusing the coordinate from the KamLAND collaboration's own dissertation that is already on record for its site; no better public source was found (checked 2026-09-18)."
   },
   "type": "geometry",
   "valid": null
