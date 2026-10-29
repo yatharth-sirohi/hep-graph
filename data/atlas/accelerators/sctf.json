@@ -1,0 +1,88 @@
+{
+  "aliases": [
+    "SCTF",
+    "Super c-tau factory",
+    "Super Charm-Tau Factory"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:binp-novosibirsk",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:sctf",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "Super Charm-Tau factory project at BINP",
+      "locator": "SCTF Conceptual Design Report, Part One, title page",
+      "note": "Start = the 2018 conceptual design report (a 'very preliminary draft'); earlier tau-charm factory studies at BINP are cited in it (SLAC-Report-451, 1994; a 1995 'C-Tau in Novosibirsk' CDR) but are a different design. In 2020 BINP was still 'developing a Super Charm-Tau factory project' (arXiv:2005.09878). No approval, funding or construction is reported in the sources fetched, and none is dated after 2020; the project status as of 2026-10-26 is not confirmed.",
+      "quote": "CONCEPTUAL DESIGN REPORT PART ONE (physics program, detector) [very preliminary draft] Novosibirsk 2018",
+      "sources": [
+        "src:colliders2-sctf-cdr-part1",
+        "src:colliders2-sctf-cdr-part2",
+        "src:colliders2-sctf-project-page",
+        "src:colliders2-sctf-tpc-inner-tracker-arxiv"
+      ],
+      "start": "2018",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "BINP project page, heading",
+      "note": "The page footer reads 2011-2020; it has not been updated since.",
+      "quote": "Project of Super c-tau Factory BINP Budker Institute of Nuclear Physics",
+      "sources": [
+        "src:colliders2-sctf-project-page"
+      ],
+      "value": "https://ctd.inp.nsk.su/c-tau/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "Super Charm-Tau Factory (SCTF)",
+  "notes": [
+    "The Atlas marker is the BINP campus: the 2018 CDR places the project 'in the Budker Institute of Nuclear Physics (Novosibirsk, Russia)' without a more precise site, so no tunnel site is recorded.",
+    "Parameters differ between documents: the 2018 CDR gives 2 to 5 GeV; the BINP project page also 2 to 5 GeV; a 2020 JINST conference paper (arXiv:2005.09878) says 2 to 7 GeV. The record follows the CDR."
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:binp-novosibirsk-akademgorodok",
+  "sources": [
+    "src:colliders2-sctf-cdr-part1",
+    "src:colliders2-sctf-cdr-part2",
+    "src:colliders2-sctf-project-page",
+    "src:colliders2-sctf-tpc-inner-tracker-arxiv"
+  ],
+  "specs": {
+    "cms_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "5 GeV (upper end of the 2 to 5 GeV design range)",
+      "locator": "SCTF CDR Part One, abstract",
+      "note": "Upper end of the design range; the same sentence gives a peak luminosity of about 10^35 cm^-2 s^-1 (not recorded as a spec because the PDF text prints the exponent as '1035').",
+      "quote": "An electron-positron collider will operate in the range of center-of-mass energies from 2 to 5 GeV with unprecedented peak luminosity of about 1035 cm−2 c−1 and longitudinally polarized electrons at interaction point.",
+      "sources": [
+        "src:colliders2-sctf-cdr-part1"
+      ],
+      "unit": "GeV",
+      "value": 5,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "proposed",
+  "summary": {
+    "plain": "A proposed electron-positron collider at the Budker Institute in Novosibirsk, Russia, for 2 to 5 GeV collisions with polarised electrons and a luminosity of about 10^35, built to study charm quarks and tau leptons. Only a preliminary 2018 design report exists; no approval or construction is recorded.",
+    "technical": "SCTF: two-ring e⁺e⁻ collider with crab-waist collisions, full-energy linac and polarised electron injector, √s = 2 to 5 GeV (2 to 7 GeV in a 2020 paper), peak luminosity about 10³⁵ cm⁻² s⁻¹, longitudinally polarised electrons at the interaction point; very preliminary conceptual design report (2 parts) BINP 2018; BINP still described itself as developing the project in 2020. Status after 2020 not found."
+  },
+  "type": "accelerator"
+}

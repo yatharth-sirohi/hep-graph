@@ -1,0 +1,155 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:na44"
+  ],
+  "id": "detector:na44",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1992",
+      "label": "approval",
+      "locator": "Greybook record for NA44 (JSON, experiment details)",
+      "note": "Approval date as recorded in Greybook; Specht (2014 slides) lists NA44 among the new pre-lead experiments, 1989. The interval ends at the latest start of data taking (see the data-taking interval).",
+      "quote": "\"approvalDate\" : \"09-02-1989\"",
+      "sources": [
+        "src:hadron2-greybook-na44",
+        "src:hadron2-specht-sps-heavy-ion-roots-slides-2014"
+      ],
+      "start": "1989-02-09",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": {
+        "approx": true,
+        "date": "1995",
+        "display": "after the 1995 lead run; not later than the end of the SPS lead programme",
+        "earliest": "1995",
+        "latest": "2002",
+        "note": "Lower bound 1995: the last NA44 data year named in the fetched sources (Kopytine thesis: data recorded in 1994 and 1995). Upper bound 2002: the main SPS lead-beam programme ran 1994 to 2002 (arXiv:1505.06853). No source states the NA44 end date."
+      },
+      "label": "data taking (p, S and Pb beams)",
+      "locator": "KAKEN project 03044102 research report (FY1991-1992); Kopytine thesis (NA44 chapter); arXiv:2603.10835, Section 2.1 (1994 lead run)",
+      "note": "No fetched source states the first or last NA44 run. Evidence: proton and sulphur data accumulated by FY1992 (KAKEN report, project period 'FY 1991 - 1992'); the 1994 lead run (arXiv:2603.10835: 'Operating the detector in the experiment during the 1994 lead run') and 1994/1995 Si-pad data (thesis: 'the data recorded in 1994 ... the 1995 data'). Both bounds are therefore uncertain.",
+      "quote": "we have accumulated a large amount of raw deta on 450-GeV proton-nucleus and 200-GeV/nucleon sulphur-nucleus collisions",
+      "sources": [
+        "src:hadron2-na44-kaken-report-1991-1992",
+        "src:hadron2-na44-kopytine-thesis-wayback",
+        "src:hadron2-sps-first-signals-review-arxiv-2026",
+        "src:hadron2-sps-heavy-ion-review-schukraft-stock-arxiv-2015"
+      ],
+      "start": {
+        "approx": true,
+        "date": "1992",
+        "display": "by 1992",
+        "earliest": "1989-02",
+        "latest": "1992",
+        "note": "Upper bound, not a first-run date: the FY1991-1992 KAKEN report (Hiroshima group) says p-A and S-A data had been accumulated by then; the experiment was approved on 9 February 1989 (Greybook), so the first run lies between those dates."
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed",
+      "locator": "Kopytine thesis, chapter 'The NA44 Experiment', section 'The Si pad detector'",
+      "note": "Terminal event inferred from the last documented NA44 lead-beam data (1995); no fetched source states the NA44 end date.",
+      "quote": "The data from the detector was used in the texture analysis of the hadron production (using the data recorded in 1994), and in the analysis of meson production in the collisions to normalize particle yields (the 1995 data).",
+      "sources": [
+        "src:hadron2-na44-kopytine-thesis-wayback",
+        "src:hadron2-sps-heavy-ion-review-schukraft-stock-arxiv-2015"
+      ],
+      "start": {
+        "approx": true,
+        "date": "1995",
+        "display": "after the 1995 lead run; not later than the end of the SPS lead programme",
+        "earliest": "1995",
+        "latest": "2002",
+        "note": "Lower bound 1995: the last NA44 data year named in the fetched sources (Kopytine thesis: data recorded in 1994 and 1995). Upper bound 2002: the main SPS lead-beam programme ran 1994 to 2002 (arXiv:1505.06853). No source states the NA44 end date."
+      },
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "NA44 focusing spectrometer",
+  "notes": [
+    "Placement: see experiment:na44 (generic North Area site)."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "uncertain",
+      "end": {
+        "approx": true,
+        "date": "1995",
+        "display": "after the 1995 lead run; not later than the end of the SPS lead programme",
+        "earliest": "1995",
+        "latest": "2002",
+        "note": "Lower bound 1995: the last NA44 data year named in the fetched sources (Kopytine thesis: data recorded in 1994 and 1995). Upper bound 2002: the main SPS lead-beam programme ran 1994 to 2002 (arXiv:1505.06853). No source states the NA44 end date."
+      },
+      "locator": "arXiv:2603.10835, Section 2; Greybook: beam H4",
+      "note": "Generic Prévessin North Area placement; Greybook gives the beam line H4 but no fetched source names the hall. The dates carry the same bounds as the experiment intervals.",
+      "quote": "The NA44 spectrometer [5] (Spokesperson: Hans Bøggild) was a unique experiment among the early SPS heavy-ion programs, which was specially designed for precision measurements of single particle spectra",
+      "role": "main",
+      "site_id": "site:cern-prevessin-north-area",
+      "sources": [
+        "src:hadron2-sps-first-signals-review-arxiv-2026",
+        "src:hadron2-greybook-na44"
+      ],
+      "start": {
+        "approx": true,
+        "date": "1992",
+        "display": "by 1992",
+        "earliest": "1989-02",
+        "latest": "1992",
+        "note": "Upper bound, not a first-run date: the FY1991-1992 KAKEN report (Hiroshima group) says p-A and S-A data had been accumulated by then; the experiment was approved on 9 February 1989 (Greybook), so the first run lies between those dates."
+      },
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-greybook-na44",
+    "src:hadron2-na44-kaken-report-1991-1992",
+    "src:hadron2-na44-kopytine-thesis-wayback",
+    "src:hadron2-na44-official-site-wayback",
+    "src:hadron2-na44-particle-production-pb-pb-arxiv-2002",
+    "src:hadron2-specht-sps-heavy-ion-roots-slides-2014",
+    "src:hadron2-sps-first-signals-review-arxiv-2026",
+    "src:hadron2-sps-heavy-ion-review-schukraft-stock-arxiv-2015"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A focusing magnetic spectrometer that measures the momentum and identity of a few particles per collision, with a Cherenkov counter and time-of-flight to separate pions, kaons and protons.",
+    "technical": "NA44: focusing spectrometer for one- and two-particle measurements near mid-rapidity; threshold imaging Cherenkov detector (CsI photocathodes) for pi/K separation at 4-8 GeV/c, time-of-flight, silicon pad multiplicity array and a lead target."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2603.10835, Section 2.1",
+    "note": "",
+    "quote": "The NA44 collaboration built a novel Threshold Imaging Cherenkov (TIC) detector",
+    "sources": [
+      "src:hadron2-sps-first-signals-review-arxiv-2026"
+    ],
+    "value": "Focusing magnetic spectrometer with a threshold imaging Cherenkov counter (CsI photocathodes) and time-of-flight for pi/K separation",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "spectrometer"
+  ],
+  "type": "detector"
+}

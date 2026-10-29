@@ -1,0 +1,66 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:stcf"
+  ],
+  "id": "detector:stcf",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "proposal and design studies",
+      "locator": "Zhang (2026), slide 'Promotion of the program'",
+      "note": "Month from the 2026 project talk (2011.12); Physics World says it was first proposed in 2011 by Zhao Guangda. Design documents: Physics & Detector CDR (arXiv:2303.15790, 2023), accelerator CDR (arXiv:2509.11522, 2025). The accelerator CDR 'aims to secure support from the Chinese central government for its construction during the 15th Five-Year Plan (2026-2030)'; the June 2026 talk says the proposal was submitted in 2025 and defended for inclusion in that plan. No approval is reported in the sources fetched (as of 2026-10-26).",
+      "quote": "Proposed at “workshop for acc. Based high energy physics development strategy”",
+      "sources": [
+        "src:colliders2-stcf-progress-zhang-beauty2026",
+        "src:colliders2-physicsworld-china-mulls-stcf"
+      ],
+      "start": "2011-12",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "STCF spectrometer (conceptual design)",
+  "notes": [
+    "A concept: no detector has been built. No placement is recorded: the host area (Hefei Future Big Science City) has no hall position, and a placement on the area-marker site would add an A23 approximate-coordinate warning; the experiment is located through facility:stcf-hefei and accelerator:stcf."
+  ],
+  "parent_detector_id": null,
+  "placements": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders2-stcf-cdr-vol1-physics-detector-arxiv",
+    "src:colliders2-stcf-overview-liu-dis2024",
+    "src:colliders2-stcf-progress-zhang-beauty2026"
+  ],
+  "specs": {},
+  "status": "proposed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The conceptual STCF detector: a pixel or gas-detector inner tracker and drift chamber, ring-imaging and time-of-flight particle identification, a pure caesium iodide calorimeter and muon chambers inside a 1-tesla solenoid, covering 94% of the full solid angle.",
+    "technical": "STCF conceptual design (Physics & Detector CDR 2023): µRWELL inner tracker (6, 11, 16 cm) or CMOS MAPS option, main drift chamber, RICH with CsI-MPGD photon detectors (barrel), DIRC-like TOF (endcaps), pure CsI + APD calorimeter, RPC + scintillator-strip muon detector, 1 T superconducting solenoid, solid-angle coverage 94% of 4π."
+  },
+  "technology": {
+    "confidence": "approximate",
+    "locator": "STCF Physics & Detector CDR (arXiv:2303.15790), abstract",
+    "note": "The quote supports the µRWELL inner-tracker option; the other subsystems are listed in the DIS2024 talk (slide 'STCF Detector Conceptual Design', J. Liu): drift chamber, RICH with CsI-MPGD in the barrel, DIRC-like TOF in the endcaps, pure CsI + APD, RPC + scintillator strips, 1 T solenoid, 94% of 4π.",
+    "quote": "consisting of three cylindrical layers located 6, 11 and 16 cm away from the interaction point, is proposed as a baseline option for the inner tracker",
+    "sources": [
+      "src:colliders2-stcf-cdr-vol1-physics-detector-arxiv"
+    ],
+    "value": "Inner tracker (µRWELL or CMOS pixels), drift chamber, RICH and DIRC-like TOF, pure CsI + APD calorimeter, 1 T superconducting solenoid, RPC + scintillator muon detector",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

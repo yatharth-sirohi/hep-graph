@@ -9,7 +9,23 @@
     "tier": "C"
   },
   "facility_id": "facility:desy",
-  "feeds_accelerator_ids": [],
+  "feeds_accelerator_ids": [
+    {
+      "confidence": "verified",
+      "end": "2007",
+      "id": "accelerator:hera",
+      "locator": "Bethke and Wagner (arXiv:2208.11076), section on PETRA; Klein and Yoshida (arXiv:0805.3334), Table 1 and the text on HERA's injection",
+      "note": "PETRA is the last stage before HERA: protons LINAC III, DESY III, PETRA (40 GeV), HERA; electrons LINAC II, DESY II, PETRA (12 GeV), HERA (Klein and Yoshida, Table 1: \"Protons Source RFQ LINAC III DESY III PETRA HERA Ep 20 keV 750 keV 50 MeV 8 GeV 40 GeV 920 GeV Electrons Ee Source 150 keV LINAC II 450 MeV PIA 450 MeV DESY II 7 GeV PETRA 12 GeV HERA 27.5 GeV\"; \"Initially the use of PETRA as a pre-accelerator caused some problems due to eddy-current effects in HERA proton magnets at low energies and for tight injection aperture.\"). Conflict: the DESY anniversary page says PETRA served \"starting in 1986, as a preaccelerator for the even bigger HERA ring\"; Bethke and Wagner, who describe the November 1986 shutdown and the rebuilding as PETRA-II, give 1990 and the end in 2007 (HERA ceased operation in June 2007). 1990, the paper's year, is used. The link ends with HERA's operation; PETRA's later roles (synchrotron radiation from 1995, PETRA III from 2009) are outside the Atlas scope (A26).",
+      "quote": "After its shutdown as particle collider in November 1986, PETRA came back to life in 1990 as PETRA-II, where it served as pre-accelerator for the electron-proton collider HERA until 2007.",
+      "sources": [
+        "src:colliders2-jade-history-bethke-wagner",
+        "src:hera-collider-physics-klein-yoshida-2008",
+        "src:colliders2-desy-1978-petra-page"
+      ],
+      "start": "1990",
+      "verified_at": "2026-10-26"
+    }
+  ],
   "id": "accelerator:petra",
   "intervals": [
     {
@@ -105,7 +121,8 @@
   "name": "Positron-Electron Tandem Ring Accelerator",
   "notes": [
     "The DESY anniversary page says PETRA served as pre-accelerator for HERA \"starting in 1986\"; Bethke & Wagner (Eur. Phys. J. H 2022) say PETRA \"came back to life in 1990 as PETRA-II\" after the November 1986 shutdown. The record follows the latter for the collider/pre-accelerator distinction and only models the collider period.",
-    "PETRA II (HERA pre-accelerator) and PETRA III (synchrotron-radiation source) are not separate records here; photon science is outside the Atlas scope (A26)."
+    "PETRA II (HERA pre-accelerator) and PETRA III (synchrotron-radiation source) are not separate records here; photon science is outside the Atlas scope (A26).",
+    "Feed link to accelerator:hera added 2026-10-26 (follow-ups 2): PETRA II was HERA's pre-accelerator from 1990 to 2007. No source read states a feed relation between DORIS and PETRA: Bethke and Wagner call DORIS and SPEAR \"PETRA's precursor e+ e− colliders\" (earlier machines, not a stage of the chain), so no link is recorded."
   ],
   "particles": [
     "electron",
@@ -114,9 +131,10 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:desy-hamburg-campus",
   "sources": [
-    "src:colliders2-jade-history-bethke-wagner",
     "src:colliders2-desy-1978-petra-page",
-    "src:colliders2-ziemann-german-beams"
+    "src:colliders2-jade-history-bethke-wagner",
+    "src:colliders2-ziemann-german-beams",
+    "src:hera-collider-physics-klein-yoshida-2008"
   ],
   "specs": {
     "beam_energy": {

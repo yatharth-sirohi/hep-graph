@@ -94,12 +94,22 @@ def test_every_flux_is_converted_to_cm2_per_s_with_the_a27_scale(result: dict) -
 
 def test_energies_are_converted_to_gev_one_point_per_era(result: dict) -> None:
     gev = result["energyGeV"]
-    # The LHC is three points, one per run, never its 14 TeV design value at its first year.
-    assert gev["accelerator:lhc"] == [[2010, 7000, "era"], [2015, 13000, "era"], [2022, 13600, "era"]]
-    assert gev["accelerator:lep"] == [[1989, 91, "era"], [1995, 209, "era"]]
+    # The LHC: one point per run (Run 1 at 7 TeV from 2010 and at 8 TeV in 2012), never its 14 TeV design value at its first year.
+    assert gev["accelerator:lhc"] == [[2010, 7000, "era"], [2012, 8000, "era"], [2015, 13000, "era"], [2022, 13600, "era"]]
+    # LEP2's energy rose in steps from 1995 to 2000: 209 GeV belongs to 2000, not to 1995 (each run is dated and sourced).
+    assert gev["accelerator:lep"] == [
+        [1989, 91, "era"], [1995, 136, "era"], [1996, 161.3, "era"], [1996, 172, "era"],
+        [1997, 183, "era"], [1998, 189, "era"], [1999, 202, "era"], [2000, 209, "era"],
+    ]
+    # CEBAF: the 4 GeV design energy (1995), 6 GeV (2000) and the 12 GeV era (from 2016); the 12 GeV headline is dated, not footnoted.
+    assert gev["accelerator:cebaf"] == [[1995, 4, "era"], [2000, 6, "era"], [2016, 12, "era"]]
+    # HERA: 300 GeV with 820 GeV protons, 318 GeV from 1998; RHIC: Run 1 at 130 GeV (2000), Run 2 at 200 GeV (2001), 500 GeV protons (2021).
+    assert gev["accelerator:hera"] == [[1992, 300, "era"], [1998, 318, "era"]]
+    assert gev["accelerator:rhic"] == [[2000, 130, "era"], [2001, 200, "era"], [2021, 500, "era"]]
     # A machine whose record dates no energy is one point at its first operation, marked as recorded today.
     assert gev["accelerator:linac2"] == [[1978, pytest.approx(0.05), "today"]]  # 50 MeV in GeV
-    assert gev["accelerator:fermilab-tevatron"][0][2] == "today"
+    # The Tevatron: first collisions at 1.6 TeV (1985), the 1.8 TeV era from November 1986, Run II at 1.96 TeV from March 2001.
+    assert gev["accelerator:fermilab-tevatron"] == [[1985, 1600, "era"], [1986, 1800, "era"], [1992, 1800, "era"], [2001, 1960, "era"]]
 
 
 def test_log_axis_ticks_are_decades_with_superscripts(result: dict) -> None:

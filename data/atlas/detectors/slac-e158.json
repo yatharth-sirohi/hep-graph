@@ -1,0 +1,119 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:slac-e158"
+  ],
+  "id": "detector:slac-e158",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2002",
+      "label": "2001 runs (spectrometer commissioning)",
+      "locator": "E158 site, '2001 Runs' page ('February Stuff')",
+      "note": "The official 2001 runs page lists February, April, May and June 2001 shift schedules and a spectrometer commissioning plan for the first three days under 'February Stuff'; no fetched source calls the 2001 runs 'commissioning' in words, and the first production data were taken in 2002. The end ('2002') is the start of the data runs.",
+      "quote": "Spectrometer Commissioning Plan -- first three days",
+      "sources": [
+        "src:hadron2-e158-2001-runs-page"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2001-02",
+        "display": "February 2001 (first shift schedule on the 2001 runs page)"
+      },
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2003",
+      "label": "data taking (three production runs, 2002 and 2003)",
+      "locator": "arXiv:hep-ex/0504049, experimental apparatus and data sample",
+      "note": "The official site names a spring 2002 run, a fall 2002 run and a 2003 run; the proceedings of SLAC Summer Institute 2003 say the experiment performed three physics runs in 2002 and 2003. Month-level dates are not published in the fetched sources.",
+      "quote": "collected over three data runs in 2002 and 2003.",
+      "sources": [
+        "src:hadron2-e158-weak-mixing-angle-arxiv-2005"
+      ],
+      "start": "2002",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "derived",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:hep-ex/0403010, introduction",
+      "note": "Terminal event inferred: the last of the three production runs was in 2003 and the proceedings (submitted March 2004) already describe all three runs in the past tense; no source states the end date of the last run.",
+      "quote": "E158 performed 3 physics runs in 2002 and 2003.",
+      "sources": [
+        "src:hadron2-e158-ssi2003-arxiv-2004"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2003",
+        "display": "2003",
+        "note": "Last run was in 2003; the month is not stated."
+      },
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "E158 apparatus",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2003",
+      "locator": "E158 site, main page 'About the experiment'",
+      "note": "Campus-grade placement: End Station A is on the SLAC campus but is not a separate site record; the point is the campus centroid (about 2 km precision). Dates as for the experiment (2001 commissioning, 2002-2003 data).",
+      "quote": "will use the 48 GeV polarized electron beam in End Station A (ESA) at SLAC",
+      "role": "main",
+      "site_id": "site:slac-menlo-park-campus",
+      "sources": [
+        "src:hadron2-e158-home-page"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2001-02",
+        "display": "February 2001 (first shift schedule on the 2001 runs page)"
+      },
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-e158-weak-mixing-angle-arxiv-2005",
+    "src:hadron2-e158-home-page"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A 1.57-metre liquid-hydrogen target, a magnetic spectrometer that sorts scattered electrons along a 60-metre line, and a calorimeter that measures the energy flow of the target-electron scatters for each beam pulse.",
+    "technical": "E158: 1.57 m liquid-hydrogen target, magnetic spectrometer/collimator, primary copper/fused-silica-fibre sandwich calorimeter 60 m downstream (four radial rings, 10-20-20-10 photomultipliers), quartz pion detectors and gas ionisation-chamber luminosity monitors."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:hep-ex/0504049, experimental apparatus",
+    "note": "",
+    "quote": "The principal components of the experimental apparatus are the polarized electron beam, beam diagnostics, the liquid hydrogen target, the spectrometer/collimator system, and detectors.",
+    "sources": [
+      "src:hadron2-e158-weak-mixing-angle-arxiv-2005"
+    ],
+    "value": "Liquid-hydrogen target, magnetic spectrometer/collimator system and a copper/fused-silica fibre sandwich calorimeter integrating the response per beam pulse",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "magnetic_spectrometer"
+  ],
+  "type": "detector"
+}

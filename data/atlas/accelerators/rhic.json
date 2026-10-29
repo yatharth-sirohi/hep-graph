@@ -40,11 +40,44 @@
       "confidence": "verified",
       "end": null,
       "label": "first collisions / physics operations begin",
-      "note": "",
+      "note": "The first run (2000) collided gold ions at 65 GeV per nucleon per beam (130 GeV per nucleon pair); the interval carries those energies as its own era values.",
       "quote": "On the evening of Monday, June 12, 2000, operators in the main control room of RHIC anxiously watched control displays as the beams circulating in the collider's twin rings appeared to be colliding.",
       "sources": [
         "src:heavy-ions-rhic25-timeline"
       ],
+      "specs": {
+        "beam_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "65 GeV per nucleon (Run 1 maximum)",
+          "locator": "BNL newsroom, 18 July 2001",
+          "note": "Maximum energy per nucleon of the first run; 2 x 65 GeV is the 130 GeV centre-of-mass energy above.",
+          "quote": "In its first run, RHIC collided ions at a maximum energy of 65 billion electron volts (GeV) per nucleon (proton or neutron). The new collisions, at 100 GeV per nucleon, will deposit more energy into the collisions, raising the temperature higher.",
+          "sources": [
+            "src:bnl-newsroom-full-energy-2001"
+          ],
+          "unit": "GeV",
+          "value": 65,
+          "verified_at": "2026-10-26"
+        },
+        "cms_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "130 GeV per colliding nucleon pair (Au+Au, Run 1)",
+          "locator": "abstracts of arXiv:nucl-ex/0106001 (PHENIX) and arXiv:hep-ex/0105043 (PHOBOS: 56 GeV and 130 GeV)",
+          "note": "Run 1 (2000). PHOBOS gives two energies in the first running period, 56 and 130 GeV; 130 GeV is the highest.",
+          "quote": "Results from the PHENIX experiment for the first RHIC run with Au-Au collisions at a nucleon-nucleon center-of-mass energy of 130 GeV are presented.",
+          "sources": [
+            "src:fu2-arxiv-nucl-ex-0106001",
+            "src:fu2-arxiv-hep-ex-0105043"
+          ],
+          "unit": "GeV",
+          "value": 130,
+          "verified_at": "2026-10-26"
+        }
+      },
       "start": "2000-06-12",
       "status": "active",
       "verified_at": "2026-09-17"
@@ -59,6 +92,39 @@
       "sources": [
         "src:bnl-newsroom-full-energy-2001"
       ],
+      "specs": {
+        "beam_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "100 GeV per nucleon (full design energy)",
+          "locator": "BNL newsroom, 18 July 2001",
+          "note": "",
+          "quote": "The new collisions, at 100 GeV per nucleon, will deposit more energy into the collisions, raising the temperature higher.",
+          "sources": [
+            "src:bnl-newsroom-full-energy-2001"
+          ],
+          "unit": "GeV",
+          "value": 100,
+          "verified_at": "2026-10-26"
+        },
+        "cms_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "200 GeV per colliding nucleon pair (Au+Au, Run 2)",
+          "locator": "abstract of arXiv:nucl-ex/0209015 (PHENIX, Run II); BNL newsroom, 18 July 2001 (100 GeV per nucleon)",
+          "note": "Run 2 (2001 to 2002): 2 x 100 GeV per nucleon.",
+          "quote": "We show first results on phi -> K+K-, e+e-, low and intermediate mass dielectron continuum, single electrons from charm, and J/psi yields in proton-proton and Au-Au collisions at sqrt{s_{NN}}=200 GeV.",
+          "sources": [
+            "src:fu2-arxiv-nucl-ex-0209015",
+            "src:bnl-newsroom-full-energy-2001"
+          ],
+          "unit": "GeV",
+          "value": 200,
+          "verified_at": "2026-10-26"
+        }
+      },
       "start": "2001-07-18",
       "status": "active",
       "verified_at": "2026-09-17"
@@ -125,7 +191,8 @@
   "name": "Relativistic Heavy Ion Collider",
   "notes": [
     "site_id is set to site:bnl-upton-campus (the general BNL campus) rather than either IP-specific site, because RHIC is a ring machine spanning both interaction points and the tunnel between them, not a single point; the campus site is the most representative single location, matching the accelerator's own facility-level coordinate anchor.",
-    "Injector chain: Linac (accelerator:bnl-linac, 200 MeV) to Booster (accelerator:bnl-booster, 1.5 GeV) to AGS (accelerator:ags, 24 GeV protons) to RHIC; heavy ions entered the Booster from EBIS and, before that, from the Tandem Van de Graaffs, neither of which has a record."
+    "Injector chain: Linac (accelerator:bnl-linac, 200 MeV) to Booster (accelerator:bnl-booster, 1.5 GeV) to AGS (accelerator:ags, 24 GeV protons) to RHIC; heavy ions entered the Booster from EBIS and, before that, from the Tandem Van de Graaffs, neither of which has a record.",
+    "Eras (2026-10-26, follow-ups 2): Run 1 (2000) at 130 GeV per nucleon pair (65 GeV per nucleon), Run 2 (from July 2001) at 200 GeV (100 GeV per nucleon), then the Run 22 proton-proton energy of 500 GeV. The headline 200 GeV is now a dated value, not drawn at 2000."
   ],
   "particles": [
     "gold ion (Au)",
@@ -136,9 +203,12 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:bnl-upton-campus",
   "sources": [
+    "src:bnl-about-history-accelerators-page",
     "src:bnl-rhic-page",
-    "src:heavy-ions-rhic25-timeline",
-    "src:bnl-about-history-accelerators-page"
+    "src:fu2-arxiv-hep-ex-0105043",
+    "src:fu2-arxiv-nucl-ex-0106001",
+    "src:fu2-arxiv-nucl-ex-0209015",
+    "src:heavy-ions-rhic25-timeline"
   ],
   "specs": {
     "beam_energy": {

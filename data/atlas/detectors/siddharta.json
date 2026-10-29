@@ -1,0 +1,123 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:siddharta"
+  ],
+  "id": "detector:siddharta",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2009",
+      "label": "construction of the SIDDHARTA set-up",
+      "locator": "Marton (2007), section 'Setup development'",
+      "note": "A 2007 plan: construction was to be finished in spring 2007 and the set-up installed at DAΦNE in 2007. The data were taken in 2009 (after DAΦNE's interaction-region changes of 2007-2008, arXiv:0803.1450), so the end of construction is taken as the start of data taking (year precision); no source fetched dates the installation.",
+      "quote": "The construction phase started in the second half of 2006 and will be finished in spring 2007.",
+      "sources": [
+        "src:colliders2-marton-kaonic-atoms-at-lnf-arxiv"
+      ],
+      "start": "2006",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2009",
+      "label": "DAΦNE data taking (kaonic hydrogen, helium and deuterium)",
+      "locator": "SIDDHARTA kaonic hydrogen paper (Phys. Lett. B 704, 2011), Section 2",
+      "note": "Year precision; six months of data in 2009, the kaonic deuterium data in October 2009 (arXiv:1302.2797). The months of the six-month run are not given in the sources fetched.",
+      "quote": "Data were accumulated over six months in 2009 with integrated luminosities of ∼ 340 pb−1 for the hydrogen and ∼ 100 pb−1 for the deuterium measurement.",
+      "sources": [
+        "src:colliders2-siddharta-kaonic-hydrogen-arxiv",
+        "src:colliders2-siddharta-kaonic-deuterium-prelim-arxiv",
+        "src:colliders2-siddharta-kaonic-helium-arxiv"
+      ],
+      "start": "2009",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "data taking ended",
+      "locator": "Scordo et al. (arXiv:1803.02587), abstract",
+      "note": "Year precision; the end of the programme is inferred: the measurements 'were carried out in 2009' (past tense) and the apparatus was succeeded by SIDDHARTA-2, which no source dates before 2018.",
+      "quote": "The most precise kaonic hydrogen measurement to-date, together with an exploratory measurement of kaonic deuterium, were carried out in 2009 by the SIDDHARTA collaboration",
+      "sources": [
+        "src:colliders2-scordo-siddharta-to-siddharta2-arxiv"
+      ],
+      "start": "2009",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2009-10",
+      "kind": "run",
+      "label": "kaonic deuterium run",
+      "locator": "Bazzi et al. (arXiv:1302.2797), Section 2",
+      "note": "",
+      "quote": "The kaonic deuterium data were collected in October 2009, for a total integrated luminosity of about 100 pb−1.",
+      "sources": [
+        "src:colliders2-siddharta-kaonic-deuterium-prelim-arxiv"
+      ],
+      "start": "2009-10",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "SIDDHARTA set-up",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2009",
+      "locator": "SIDDHARTA kaonic hydrogen paper (Phys. Lett. B 704, 2011), Section 2",
+      "note": "Campus-grade placement: no fetched source locates the DAΦNE interaction region used; the marker is the LNF campus point. Year precision.",
+      "quote": "The SIDDHARTA experiment was performed at the DAΦNE electronpositron collider at the Laboratori Nazionali di Frascati of INFN.",
+      "role": "main",
+      "site_id": "site:infn-lnf-frascati",
+      "sources": [
+        "src:colliders2-siddharta-kaonic-hydrogen-arxiv"
+      ],
+      "start": "2009",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders2-siddharta-kaonic-hydrogen-arxiv",
+    "src:colliders2-siddharta-kaonic-deuterium-prelim-arxiv",
+    "src:colliders2-marton-kaonic-atoms-at-lnf-arxiv"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The SIDDHARTA set-up at DAΦNE: 144 silicon drift detectors timed against the kaon pair produced in each phi decay, around a cryogenic gas target, replacing DEAR's untimed CCD cameras.",
+    "technical": "SIDDHARTA: large-area silicon drift detectors (183 eV FWHM at 8 keV at about 170 K, timing resolution below 1 µs) used with the coincidence between K⁺K⁻ pairs and X-rays to suppress beam-loss background; signal-to-background improved by more than a factor of 10 relative to DEAR (Phys. Lett. B 704, 113)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "SIDDHARTA kaonic hydrogen paper (Phys. Lett. B 704, 2011), Section 3",
+    "note": "",
+    "quote": "The data acquisition system records the signal amplitudes seen by the 144 detectors along with the global time information.",
+    "sources": [
+      "src:colliders2-siddharta-kaonic-hydrogen-arxiv"
+    ],
+    "value": "Array of 144 silicon drift X-ray detectors recording signal amplitudes with timing information",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

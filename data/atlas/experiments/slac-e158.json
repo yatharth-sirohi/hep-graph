@@ -1,0 +1,231 @@
+{
+  "accelerator_ids": [
+    "accelerator:slac-linac"
+  ],
+  "aliases": [
+    "E158"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:slac-e158"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": {
+    "confidence": "verified",
+    "locator": "arXiv:hep-ex/0403010 abstract",
+    "note": "",
+    "quote": "elastic scattering of 45 and 48 GeV polarized electron beams with unpolarized electrons in a liquid hydrogen target",
+    "sources": [
+      "src:hadron2-e158-ssi2003-arxiv-2004"
+    ],
+    "value": "45 and 48 GeV polarised electron beams",
+    "verified_at": "2026-10-26"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:slac",
+      "locator": "E158 site, main page 'About the experiment'",
+      "note": "End Station A is not a separate site record: the experiment is placed at the SLAC campus site.",
+      "quote": "will use the 48 GeV polarized electron beam in End Station A (ESA) at SLAC",
+      "role": "host",
+      "sources": [
+        "src:hadron2-e158-home-page"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:slac",
+      "locator": "arXiv:hep-ex/0312035, introduction",
+      "note": "Polarised electron beam from the SLAC linac (accelerator:slac-linac).",
+      "quote": "The development of the 50 GeV electron beam in SLAC End Station A (ESA)",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-e158-parity-moller-arxiv-2003"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:slac-e158",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2002",
+      "label": "2001 runs (spectrometer commissioning)",
+      "locator": "E158 site, '2001 Runs' page ('February Stuff')",
+      "note": "The official 2001 runs page lists February, April, May and June 2001 shift schedules and a spectrometer commissioning plan for the first three days under 'February Stuff'; no fetched source calls the 2001 runs 'commissioning' in words, and the first production data were taken in 2002. The end ('2002') is the start of the data runs.",
+      "quote": "Spectrometer Commissioning Plan -- first three days",
+      "sources": [
+        "src:hadron2-e158-2001-runs-page"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2001-02",
+        "display": "February 2001 (first shift schedule on the 2001 runs page)"
+      },
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2003",
+      "label": "data taking (three production runs, 2002 and 2003)",
+      "locator": "arXiv:hep-ex/0504049, experimental apparatus and data sample",
+      "note": "The official site names a spring 2002 run, a fall 2002 run and a 2003 run; the proceedings of SLAC Summer Institute 2003 say the experiment performed three physics runs in 2002 and 2003. Month-level dates are not published in the fetched sources.",
+      "quote": "collected over three data runs in 2002 and 2003.",
+      "sources": [
+        "src:hadron2-e158-weak-mixing-angle-arxiv-2005"
+      ],
+      "start": "2002",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "derived",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:hep-ex/0403010, introduction",
+      "note": "Terminal event inferred: the last of the three production runs was in 2003 and the proceedings (submitted March 2004) already describe all three runs in the past tense; no source states the end date of the last run.",
+      "quote": "E158 performed 3 physics runs in 2002 and 2003.",
+      "sources": [
+        "src:hadron2-e158-ssi2003-arxiv-2004"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2003",
+        "display": "2003",
+        "note": "Last run was in 2003; the month is not stated."
+      },
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Beam energy (first setting)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "45.0 GeV",
+        "locator": "arXiv:hep-ex/0504049, data sample",
+        "note": "",
+        "quote": "at beam energies of 45.0 and 48.3 GeV respectively",
+        "sources": [
+          "src:hadron2-e158-weak-mixing-angle-arxiv-2005"
+        ],
+        "unit": "GeV",
+        "value": 45.0,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Beam energy (second setting)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "48.3 GeV",
+        "locator": "arXiv:hep-ex/0504049, data sample",
+        "note": "",
+        "quote": "at beam energies of 45.0 and 48.3 GeV respectively",
+        "sources": [
+          "src:hadron2-e158-weak-mixing-angle-arxiv-2005"
+        ],
+        "unit": "GeV",
+        "value": 48.3,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Liquid-hydrogen target length",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "1.57 m",
+        "locator": "arXiv:hep-ex/0504049, experimental apparatus",
+        "note": "",
+        "quote": "passes through a 1.57 m long cylindrical cell filled with liquid hydrogen",
+        "sources": [
+          "src:hadron2-e158-weak-mixing-angle-arxiv-2005"
+        ],
+        "unit": "m",
+        "value": 1.57,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "electroweak_precision",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "main page of the E158 site (frame content at /exp/e158/main.html)",
+      "note": "The site root is a frameset; the cited text is on its main frame.",
+      "quote": "About the experiment",
+      "sources": [
+        "src:hadron2-e158-home-page"
+      ],
+      "value": "https://www.slac.stanford.edu/exp/e158/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "SLAC E158",
+  "notes": [
+    "Campus-grade placement: End Station A is not a separate site record, so the experiment's detector is placed at site:slac-menlo-park-campus (an approximate campus point of 2 km precision); the position of ESA inside the campus is not given by any fetched source.",
+    "Successor: MOLLER at Jefferson Lab is the proposed improvement on this measurement (lineage row added on experiment:moller).",
+    "Month-level run dates are not published in the fetched sources: the official site names '2002 spring run', '2002 fall run' and '2003 run' pages, and the proceedings state three physics runs in 2002 and 2003.",
+    "The official site's main page is written in the future tense ('will use ... in a 5 month run') from before the runs; it is cited only for the beam and hall.",
+    "The collaboration roster page (last modified 22 October 1999) lists CEA Saclay, Caltech, Kent State, Princeton, Smith College, SLAC, Syracuse, Jefferson Lab, UC Berkeley, UMass and Virginia.",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "E158 site, main page 'About the experiment'",
+      "note": "",
+      "quote": "A comprehensive search for physics beyond the standard model is incomplete unless equally sensitive measurements are carried out both on and off the Z0 resonance.",
+      "sources": [
+        "src:hadron2-e158-home-page"
+      ],
+      "value": "Measure the weak mixing angle at low momentum transfer through the parity-violating asymmetry in electron-electron (Moller) scattering, testing the electroweak theory off the Z pole and probing physics beyond the Standard Model at the TeV scale",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:hadron2-e158-home-page",
+    "src:hadron2-e158-2001-runs-page",
+    "src:hadron2-e158-parity-moller-arxiv-2003",
+    "src:hadron2-e158-weak-mixing-angle-arxiv-2005",
+    "src:hadron2-e158-ssi2003-arxiv-2004"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "E158 fired a 45 to 48 GeV spin-polarised electron beam into liquid hydrogen at SLAC and measured the tiny difference in scattering from the target's electrons between the two spin directions. It gave the weak mixing angle at low energy and showed that it changes with energy as the Standard Model predicts.",
+    "technical": "Parity-violating Moller (e-e) scattering in End Station A: 45 and 48 GeV longitudinally polarised electrons on a 1.57 m liquid-hydrogen target, Moller electrons of 13-24 GeV selected by a magnetic spectrometer and integrated 60 m downstream in a copper/fused-silica-fibre calorimeter; three runs in 2002-2003; A_PV = -131 +- 14 +- 10 ppb, sin^2 theta_W^eff = 0.2397 +- 0.0010 +- 0.0008 at Q^2 = 0.026 GeV^2, running of the weak mixing angle observed at over 6 sigma."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:electroweak-physics",
+    "topic:precision-and-rare-processes"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

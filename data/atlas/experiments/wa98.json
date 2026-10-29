@@ -1,0 +1,171 @@
+{
+  "accelerator_ids": [
+    "accelerator:sps"
+  ],
+  "aliases": [],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:wa98"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": "WA98",
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "arXiv:2603.10835, Section 8.1",
+      "note": "",
+      "quote": "The WA98 experiment combined photon and hadron spectrometers with several other large acceptance detectors that allow for measuring various global variables on an event-by-event basis.",
+      "role": "host",
+      "sources": [
+        "src:hadron2-sps-first-signals-review-arxiv-2026"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "arXiv:nucl-ex/0108006, Section 2",
+      "note": "158A GeV lead beam from the SPS (accelerator:sps); H3 beam line per Greybook.",
+      "quote": "The experiment took data with the 158·A GeV 208 Pb beams from the SPS in 1994, 1995, and 1996.",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-wa98-pi0-mt-spectra-arxiv-2001"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:wa98",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1994",
+      "label": "approval",
+      "locator": "Greybook record for WA98 (JSON, experiment details)",
+      "note": "Approval date as recorded in Greybook. Specht (2014 slides) gives 1991 for WA98 (conflict; Greybook, the official registry, is used). The Greybook status-history rows start in 1983 (they carry the earlier WA80-era dates) and are not used. The interval ends when lead-beam data taking began (1994).",
+      "quote": "\"approvalDate\" : \"16-04-1992\"",
+      "sources": [
+        "src:hadron2-greybook-wa98",
+        "src:hadron2-specht-sps-heavy-ion-roots-slides-2014"
+      ],
+      "start": "1992-04-16",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1996",
+      "label": "data taking (Pb beam)",
+      "locator": "arXiv:nucl-ex/0108006, Section 2; arXiv:2603.10835, Section 8.1",
+      "note": "Year precision. The WA98 paper and the 2026 review both state lead-beam data in 1994, 1995 and 1996.",
+      "quote": "The experiment took data with the 158·A GeV 208 Pb beams from the SPS in 1994, 1995, and 1996.",
+      "sources": [
+        "src:hadron2-wa98-pi0-mt-spectra-arxiv-2001",
+        "src:hadron2-sps-first-signals-review-arxiv-2026"
+      ],
+      "start": "1994",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:nucl-ex/0108006, Section 2 ('final WA98 run period in 1996')",
+      "note": "Year precision: 1996 was the final WA98 run period. The Goliath magnet then moved from the West to the North Area for NA57.",
+      "quote": "The layout of the WA98 experiment as it existed during the final WA98 run period in 1996",
+      "sources": [
+        "src:hadron2-wa98-pi0-mt-spectra-arxiv-2001",
+        "src:hadron2-sps-first-signals-review-arxiv-2026"
+      ],
+      "start": "1996",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "heavy_ion",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "approximate",
+      "locator": "Internet Archive capture of wa98.web.cern.ch/WA98/ (29 April 2015), page heading",
+      "note": "The live site (listed in Greybook) now returns HTTP 404; the value is the Internet Archive capture.",
+      "quote": "Large Acceptance Photon and Hadron Spectrometer WA98 - Index",
+      "sources": [
+        "src:hadron2-wa98-official-site-wayback"
+      ],
+      "value": "https://web.archive.org/web/20150429025106/https://wa98.web.cern.ch/WA98/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "WA98",
+  "notes": [
+    "Hall not identified: the experiment sat in the SPS West Area (WA designation; it used the Goliath magnet, which stood in the West Area until it moved to the North Area for NA57). The placement is the existing campus-level site:cern-meyrin (500 m precision), which is not a hall position, as for WA97.",
+    "WA98 followed WA80 and WA93 (section title of arXiv:2603.10835, 'Experiments WA80 to WA93 to WA98'; Specht slides: 'followed WA80'); WA80 and WA93 are not Atlas records, so no lineage row was written.",
+    "Approval: Greybook says 16 April 1992, the 2014 Specht slides say 1991; Greybook is used.",
+    "Spokespersons: Hans Gutbrod, then Terry Awes from 1997 (arXiv:2603.10835). No formation date or membership found.",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2603.10835, Section 8",
+      "note": "",
+      "quote": "The leap into a precision measurement of direct photons came with the WA98 experiment",
+      "sources": [
+        "src:hadron2-sps-first-signals-review-arxiv-2026"
+      ],
+      "value": "Precision measurement of direct photons, neutral pions and charged-particle production in Pb-Pb collisions with photon and hadron spectrometers",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:hadron2-greybook-wa98",
+    "src:hadron2-specht-sps-heavy-ion-roots-slides-2014",
+    "src:hadron2-sps-first-signals-review-arxiv-2026",
+    "src:hadron2-wa98-direct-photons-arxiv-2000",
+    "src:hadron2-wa98-official-site-wayback",
+    "src:hadron2-wa98-pi0-mt-spectra-arxiv-2001"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "WA98 was a CERN experiment in the SPS West Area that studied lead-lead collisions with a photon spectrometer, a hadron spectrometer and many global detectors. It made the first observation of direct photons in ultrarelativistic heavy-ion collisions and saw suppression of high-momentum neutral pions.",
+    "technical": "WA98: lead-glass photon spectrometer, two tracking spectrometer arms in the Goliath dipole (1.6 Tm) with time-of-flight, Plastic Ball, silicon drift and pad multiplicity detectors, a 21 m2 photon multiplicity detector, MIRAC and zero-degree calorimeters, on 158A GeV Pb beams, 1994-1996; direct photons at low pT, pi0 suppression, flow, DCC searches and photon interferometry; follow-up of WA80 and WA93."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:heavy-ion-physics-qgp",
+    "topic:qcd",
+    "topic:nuclear-and-heavy-ion"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2603.10835, Section 8.1",
+      "note": "",
+      "quote": "The WA98 experiment combined photon and hadron spectrometers with several other large acceptance detectors that allow for measuring various global variables on an event-by-event basis.",
+      "sources": [
+        "src:hadron2-sps-first-signals-review-arxiv-2026"
+      ],
+      "value": "Photon and hadron spectrometers combined with several large-acceptance detectors giving event-by-event global variables",
+      "verified_at": "2026-10-26"
+    }
+  ]
+}

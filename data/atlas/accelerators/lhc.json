@@ -222,6 +222,52 @@
       "start": "2026-06-29",
       "status": "shutdown",
       "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2013",
+      "kind": "run",
+      "label": "Run 1 at 8 TeV (2012)",
+      "locator": "abstract of arXiv:1207.7214 (ATLAS)",
+      "note": "Year precision: the ATLAS paper dates the 8 TeV data to 2012 and the 7 TeV data to 2011; Run 1 ended in early 2013 (the Run 1 interval). The beam energy is half the centre-of-mass energy (4 TeV per beam). Run 1 itself started at 3.5 TeV per beam (7 TeV) in 2010.",
+      "quote": "The datasets used correspond to integrated luminosities of approximately 4.8 fb^-1 collected at sqrt(s) = 7 TeV in 2011 and 5.8 fb^-1 at sqrt(s) = 8 TeV in 2012.",
+      "sources": [
+        "src:atlas-higgs-observation-arxiv-1207-7214"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": true,
+          "confidence": "derived",
+          "dimension": "energy",
+          "display": "4 TeV per beam",
+          "locator": "abstract of arXiv:1207.7214",
+          "note": "Half of the 8 TeV centre-of-mass energy (symmetric proton-proton collider).",
+          "sources": [
+            "src:atlas-higgs-observation-arxiv-1207-7214"
+          ],
+          "unit": "TeV",
+          "value": 4,
+          "verified_at": "2026-10-26"
+        },
+        "cms_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "8 TeV",
+          "locator": "abstract of arXiv:1207.7214",
+          "note": "Centre-of-mass energy of the 2012 data.",
+          "quote": "The datasets used correspond to integrated luminosities of approximately 4.8 fb^-1 collected at sqrt(s) = 7 TeV in 2011 and 5.8 fb^-1 at sqrt(s) = 8 TeV in 2012.",
+          "sources": [
+            "src:atlas-higgs-observation-arxiv-1207-7214"
+          ],
+          "unit": "TeV",
+          "value": 8,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "2012",
+      "status": "active",
+      "verified_at": "2026-10-26"
     }
   ],
   "is_collider": true,
@@ -250,6 +296,7 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:cern-meyrin",
   "sources": [
+    "src:atlas-higgs-observation-arxiv-1207-7214",
     "src:cern-accelerator-complex",
     "src:cern-lhc-page",
     "src:cern-ls3-farewell-2026"

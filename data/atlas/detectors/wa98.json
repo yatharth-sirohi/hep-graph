@@ -1,0 +1,117 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:wa98"
+  ],
+  "id": "detector:wa98",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1994",
+      "label": "approval",
+      "locator": "Greybook record for WA98 (JSON, experiment details)",
+      "note": "Approval date as recorded in Greybook. Specht (2014 slides) gives 1991 for WA98 (conflict; Greybook, the official registry, is used). The Greybook status-history rows start in 1983 (they carry the earlier WA80-era dates) and are not used. The interval ends when lead-beam data taking began (1994).",
+      "quote": "\"approvalDate\" : \"16-04-1992\"",
+      "sources": [
+        "src:hadron2-greybook-wa98",
+        "src:hadron2-specht-sps-heavy-ion-roots-slides-2014"
+      ],
+      "start": "1992-04-16",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1996",
+      "label": "data taking (Pb beam)",
+      "locator": "arXiv:nucl-ex/0108006, Section 2; arXiv:2603.10835, Section 8.1",
+      "note": "Year precision. The WA98 paper and the 2026 review both state lead-beam data in 1994, 1995 and 1996.",
+      "quote": "The experiment took data with the 158·A GeV 208 Pb beams from the SPS in 1994, 1995, and 1996.",
+      "sources": [
+        "src:hadron2-wa98-pi0-mt-spectra-arxiv-2001",
+        "src:hadron2-sps-first-signals-review-arxiv-2026"
+      ],
+      "start": "1994",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:nucl-ex/0108006, Section 2 ('final WA98 run period in 1996')",
+      "note": "Year precision: 1996 was the final WA98 run period. The Goliath magnet then moved from the West to the North Area for NA57.",
+      "quote": "The layout of the WA98 experiment as it existed during the final WA98 run period in 1996",
+      "sources": [
+        "src:hadron2-wa98-pi0-mt-spectra-arxiv-2001",
+        "src:hadron2-sps-first-signals-review-arxiv-2026"
+      ],
+      "start": "1996",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "WA98 photon and hadron spectrometer",
+  "notes": [
+    "Placement: see experiment:wa98 (West Area, campus-level site)."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "uncertain",
+      "end": "1996",
+      "locator": "arXiv:2603.10835, Sections 7.2 and 8.1; Greybook: beam H3",
+      "note": "West Area, Goliath; campus-level placement at the Meyrin site record (500 m precision), not a hall position. Inference: the 2026 review says the Goliath magnet was moved 'from the West to the North Area' (for NA57) and describes WA98's tracking arms as using Goliath; 'WA' is the CERN West Area designation.",
+      "quote": "It was proposed to move the Goliath magnet from the West to the North Area and install it along with the WA97 detectors",
+      "role": "main",
+      "site_id": "site:cern-meyrin",
+      "sources": [
+        "src:hadron2-sps-first-signals-review-arxiv-2026",
+        "src:hadron2-greybook-wa98"
+      ],
+      "start": "1994",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-greybook-wa98",
+    "src:hadron2-specht-sps-heavy-ion-roots-slides-2014",
+    "src:hadron2-sps-first-signals-review-arxiv-2026",
+    "src:hadron2-wa98-direct-photons-arxiv-2000",
+    "src:hadron2-wa98-official-site-wayback",
+    "src:hadron2-wa98-pi0-mt-spectra-arxiv-2001"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A battery of detectors around a lead target: a lead-glass wall for photons, tracking arms in the large Goliath magnet for charged particles, and counters measuring the multiplicity and energy of everything else.",
+    "technical": "WA98: Plastic Ball (655 modules) around a thin lead target; silicon drift and pad multiplicity detectors; two tracking spectrometer arms with scintillator-slat time-of-flight in the 1.6 Tm Goliath magnet; lead-glass photon detector array with charged-particle veto; photon multiplicity detector (21 m2, 21.5 m from the target); MIRAC and zero-degree calorimeters."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2603.10835, Section 8.1",
+    "note": "",
+    "quote": "The WA98 experiment combined photon and hadron spectrometers with several other large acceptance detectors that allow for measuring various global variables on an event-by-event basis.",
+    "sources": [
+      "src:hadron2-sps-first-signals-review-arxiv-2026"
+    ],
+    "value": "Photon and hadron spectrometers (lead-glass photon array; tracking arms in the Goliath dipole) with large-acceptance global detectors",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "spectrometer",
+    "tracking_calorimeter"
+  ],
+  "type": "detector"
+}

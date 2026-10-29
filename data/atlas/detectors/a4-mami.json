@@ -1,0 +1,109 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:a4-mami"
+  ],
+  "id": "detector:a4-mami",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": {
+        "approx": true,
+        "date": "2018",
+        "display": "by September 2018",
+        "note": "Upper bound only: the SPIN2018 proceedings (September 2018) say the A4 collaboration 'has performed measurements' and discuss 'future analyses', so data taking was over by then. No fetched source states when the last A4 beam time was."
+      },
+      "label": "data taking (earliest documented beam time: January 2003)",
+      "locator": "Baryons 04 talk (25 Oct 2004), slide on the transverse-asymmetry determination; end bound from the SPIN2018 proceedings abstract",
+      "note": "Start is the earliest beam time dated in a fetched source (January 2003, transverse asymmetry at 855 MeV); the A4 programme (collaboration active since 1996 per the Mainz diploma thesis) and its first longitudinal measurement at Q^2 = 0.230 (GeV/c)^2 (published 2004) may have taken data earlier, but no fetched source dates them. End: Upper bound only: the SPIN2018 proceedings (September 2018) say the A4 collaboration 'has performed measurements' and discuss 'future analyses', so data taking was over by then. No fetched source states when the last A4 beam time was.",
+      "quote": "Data taking in January 03",
+      "sources": [
+        "src:hadron2-a4-baryons04-talk-2004",
+        "src:hadron2-a4-spin2018-transverse-pos"
+      ],
+      "start": "2003-01",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed",
+      "locator": "SPIN2018 proceedings (Ferrara, 10-14 September 2018), abstract",
+      "note": "Terminal event inferred: by September 2018 the collaboration describes its measurements in the past tense and its analyses as future work. Upper bound only: the SPIN2018 proceedings (September 2018) say the A4 collaboration 'has performed measurements' and discuss 'future analyses', so data taking was over by then. No fetched source states when the last A4 beam time was.",
+      "quote": "The A4 collaboration at the MAMI accelerator has performed measurements at various beam energies between 300 MeV and 1.5 GeV both at forward and backward angles.",
+      "sources": [
+        "src:hadron2-a4-spin2018-transverse-pos"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2018",
+        "display": "by September 2018",
+        "note": "Upper bound only: the SPIN2018 proceedings (September 2018) say the A4 collaboration 'has performed measurements' and discuss 'future analyses', so data taking was over by then. No fetched source states when the last A4 beam time was."
+      },
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "A4 apparatus",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "uncertain",
+      "end": {
+        "approx": true,
+        "date": "2018",
+        "display": "by September 2018",
+        "note": "Upper bound only: the SPIN2018 proceedings (September 2018) say the A4 collaboration 'has performed measurements' and discuss 'future analyses', so data taking was over by then. No fetched source states when the last A4 beam time was."
+      },
+      "locator": "arXiv:nucl-ex/0401019, experimental setup",
+      "note": "Campus-grade placement: the A4 experimental halls at MAMI are not located in any fetched source, so the apparatus is placed at the institute's site (site:mainz-kph-campus, approximate). Dates as for the experiment.",
+      "quote": "The PV asymmetry was measured at the MAMI accelerator facility in Mainz",
+      "role": "main",
+      "site_id": "site:mainz-kph-campus",
+      "sources": [
+        "src:hadron2-a4-strange-form-factors-arxiv-2004"
+      ],
+      "start": "2003-01",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-a4-strange-form-factors-arxiv-2004",
+    "src:hadron2-pv-strangeness-review-arxiv-2012",
+    "src:hadron2-a4-collaboration-page"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A wall of 1022 lead-fluoride crystals around the beam that counts individual scattered electrons at very high rates, together with a liquid-hydrogen target and monitors that watch the beam and target for tiny false asymmetries.",
+    "technical": "A4: total-absorption PbF2 Cherenkov calorimeter (1022 crystals in 7 rings, energies summed over clusters of nine crystals, event rate about 100 MHz), 10 cm liquid-hydrogen target, luminosity monitors and microwave-resonator beam monitors, used at forward (30-40 degree) and backward (140-150 degree) angles."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "Annu. Rev. Nucl. Part. Sci. 62 (2012), section 5.4 (PVA4)",
+    "note": "",
+    "quote": "The calorimeter is an azimuthally symmetric array of 1022 PbF2 crystal, in seven rings",
+    "sources": [
+      "src:hadron2-pv-strangeness-review-arxiv-2012"
+    ],
+    "value": "Segmented total-absorption lead-fluoride (PbF2) Cherenkov calorimeter of 1022 crystals counting individual scattered electrons; no magnetic spectrometer",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}
