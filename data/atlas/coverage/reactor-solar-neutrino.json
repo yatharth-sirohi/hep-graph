@@ -7,11 +7,11 @@
     "missing_fields": [
       "hall-specific coordinates (near/near/far) -- official site dayabay.ihep.ac.cn timed out on every fetch; one shared campus/approximate point used for all three halls",
       "overburden/depth per hall",
-      "official membership counts (used Wikipedia's '40+ institutions' instead)",
+      "official membership counts (no official count found; the institution count is taken from the author-list affiliations of the final oscillation paper and labelled as such)",
       "leadership"
     ],
     "name": "Daya Bay",
-    "notes": "Records exist for the experiment, detector, facility, site, collaboration and 1 result (2012 discovery, verbatim quote). On 2026-09-18 the 2012 discovery title, date and significance were confirmed verbatim against the arXiv preprint, and the coordinates were confirmed against Wikipedia. The six-, eight- and seven-AD timeline has day-precision dates (ending 2020-12-12), sourced directly from the collaboration's own final-result paper (arXiv:2211.14988 = PRL 130, 161802 (2023)).",
+    "notes": "Records exist for the experiment, detector, facility, site, collaboration and 1 result (2012 discovery, verbatim quote). On 2026-09-18 the 2012 discovery title, date and significance were confirmed verbatim against the arXiv preprint, and the hall coordinate is a campus-grade, approximate point derived from the collaboration's published baselines and hall geometry. The six-, eight- and seven-AD timeline has day-precision dates (ending 2020-12-12), sourced directly from the collaboration's own final-result paper (arXiv:2211.14988 = PRL 130, 161802 (2023)).",
     "owner": "reactor-solar-neutrino",
     "priority": 2,
     "researched": "partial",
@@ -23,7 +23,7 @@
     "experiment_id": "experiment:double-chooz",
     "facility": "Chooz Reactor Neutrino Site",
     "missing_fields": [
-      "hall-specific coordinates (official site domains all failed DNS; one shared approximate point from the adjacent power plant's Wikipedia page used for both halls)",
+      "hall-specific coordinates (official site domains all failed DNS; the near-hall point is a campus-grade proxy, the OpenStreetMap midpoint of the Chooz B reactor buildings)",
       "official membership counts",
       "leadership",
       "far-detector-only running start date (inferred lower bound, not sourced verbatim)"
@@ -41,7 +41,7 @@
     "experiment_id": "experiment:juno",
     "facility": "JUNO Jiangmen Underground Neutrino Observatory",
     "missing_fields": [
-      "site coordinate at underground-laboratory precision (no official or peer-reviewed source found; the coordinate is a campus-grade, approximate point taken from Wikipedia)",
+      "site coordinate at underground-laboratory precision (the position published in the JUNO physics and detector paper is kept as a campus-grade, approximate point)",
       "collaboration formation date",
       "leadership",
       "membership counts from JUNO's own dedicated collaboration page (used IHEP host-institute press release instead)",
@@ -60,8 +60,8 @@
     "experiment_id": "experiment:kamland",
     "facility": "Kamioka Observatory (existing facility, referenced)",
     "missing_fields": [
-      "site coordinate at underground_lab precision (official site's technical pages 404'd; Wikipedia campus/approximate used)",
-      "overburden (Wikipedia's own '105 m.w.e.' figure looked implausible next to the mine's established ~2700 m.w.e. and was deliberately not recorded)",
+      "site coordinate at underground_lab precision (official site's technical pages 404'd; the point read off a map in a KamLAND thesis is kept as campus-grade, approximate)",
+      "overburden (no figure specific to the KamLAND cavern was recorded; the ~2700 m.w.e. figure is the Kamioka mine's)",
       "official membership counts",
       "leadership",
       "formation date"
@@ -79,7 +79,7 @@
     "experiment_id": "experiment:reno",
     "facility": "Yonggwang (Hanbit) Reactor Neutrino Site",
     "missing_fields": [
-      "hall-specific coordinates (official site domains all failed DNS/connection; one shared approximate point from the adjacent power plant's Wikipedia page used for both halls)",
+      "hall-specific surveyed coordinates (official site domains all failed DNS/connection; the hall positions are derived by multilateration from OpenStreetMap reactor-building footprints and the technical-design-report baselines, approximate, 30 m)",
       "detector target mass/PMT count (not found in the 2012 discovery paper's abstract)",
       "official membership counts",
       "leadership"
@@ -116,7 +116,7 @@
     "missing_fields": [
       "official membership/institution counts (only 6 nationalities named)",
       "leadership",
-      "no dedicated official GALLEX/GNO site was found; all facts sourced from Wikipedia only",
+      "no dedicated official GALLEX/GNO site was found; facts are sourced to the MPIK Heidelberg history page and the GNO collaboration papers",
       "results (capture-rate measurement papers not written up as result: records, time-boxed to the mandatory bar)"
     ],
     "name": "GALLEX/GNO",
@@ -135,7 +135,7 @@
       "a distinct sourced coordinate for the Davis chlorine-tank chamber itself (none found; placed at the existing site:surf-surface-campus campus-grade, approximate point, which is a surface point, not the detector's true ~1478 m depth)",
       "target mass in tonnes (only volume, 380 m3, was sourced)",
       "official membership/institution counts",
-      "precise formation date (only 'headed... in the late 1960s' per Wikipedia)"
+      "precise formation date (no source consulted states one)"
     ],
     "name": "Homestake",
     "notes": "Records exist for the experiment, detector, collaboration and 1 result (1998 definitive flux measurement, verbatim title, key SNU value). Placed at the existing facility:surf and site:surf-surface-campus; this is not the same location as site:surf-4850-level-dune-far-detector.",
@@ -150,10 +150,10 @@
     "experiment_id": "experiment:sage",
     "facility": "Baksan Neutrino Observatory",
     "missing_fields": [
-      "underground_lab-precision coordinates (official Baksan/INR page 404'd; Wikipedia campus/approximate point used)",
+      "underground_lab-precision coordinates (none published for the SAGE hall, 3.5 km inside the mountain; the point is the OpenStreetMap main adit entrance, campus/approximate, 3500 m)",
       "official membership/institution counts",
       "leadership person_id (named physicists, no person records)",
-      "confirmation of a current operating status vs. shutdown (Wikipedia's own wording is self-contradictory: 'End: August 2011, with continued operations thereafter')"
+      "confirmation of a current operating status vs. shutdown"
     ],
     "name": "SAGE",
     "notes": "Mandatory bar written: experiment/detector/facility(facility:baksan-neutrino-observatory, newly created)/site/collaboration/1 result (1999 capture-rate measurement, verbatim quote) validated clean.",

@@ -1650,7 +1650,7 @@
     "website": null
   },
   "map_id": "map:slac",
-  "method": "OpenStreetMap way 162058026 (building=yes, name SLAC Klystron Gallery); nodes kept verbatim from an Overpass extract, no simplification. The Klystron Gallery is the continuous above-ground structure built directly over the buried linac beam tunnel it powers (per Wikipedia's Linear particle accelerator article, the gallery stretches above the path of the accelerator tunnel); its own footprint is used here as the accelerator's surface trace, honestly represented as a building feature rather than the buried tunnel itself.",
+  "method": "OpenStreetMap way 162058026 (building=yes, name SLAC Klystron Gallery); nodes kept verbatim from an Overpass extract, no simplification. The Klystron Gallery is the continuous above-ground structure built directly over the buried linac beam tunnel it powers (SLAC's public-tours page: 'SLAC is home to the historic 2-mile-long klystron gallery above the world’s longest linear particle accelerator.', src:dw-slac-public-tours-klystron-gallery); its own footprint is used here as the accelerator's surface trace, honestly represented as a building feature rather than the buried tunnel itself.",
   "name": "SLAC linear accelerator (Klystron Gallery structure)",
   "notes": [
     "Confidence verified rests on the passing span check against SLAC's own official figure for the length of this exact structure (not a proxy figure): the official page states the linear accelerator structure (i.e. the Klystron Gallery building measured here) is 3,073.72 m long."
@@ -1665,8 +1665,9 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:slac-menlo-park-campus",
   "sources": [
-    "src:geo-slac-osm-klystron-gallery",
-    "src:geo-slac-at-a-glance"
+    "src:dw-slac-public-tours-klystron-gallery",
+    "src:geo-slac-at-a-glance",
+    "src:geo-slac-osm-klystron-gallery"
   ],
   "summary": {
     "plain": "The above-ground Klystron Gallery running the full 3.2 km length of SLAC's linear accelerator, built directly over the buried beam tunnel it powers."
