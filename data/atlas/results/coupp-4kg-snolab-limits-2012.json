@@ -1,8 +1,8 @@
 {
   "aliases": [],
   "claim": {
-    "locator": "arXiv:1204.3094, abstract",
-    "quote": "This observation provides world best direct detection constraints on WIMP-proton spin-dependent scattering for WIMP masses $>$20 GeV/c$^{2}$ and demonstrates significant sensitivity for spin-independent interactions.",
+    "locator": "arXiv:1204.3094v2 (PDF, 19 Sep 2012), abstract",
+    "quote": "These data provide new direct detection constraints on WIMP-proton spin-dependent scattering for WIMP masses >20 GeV/c$^{2}$ and demonstrate significant sensitivity for spin-independent interactions.",
     "sources": [
       "src:coupp-4kg-snolab-2012"
     ]
@@ -37,22 +37,18 @@
   ],
   "hepdata": null,
   "id": "result:coupp-4kg-snolab-limits-2012",
-  "key_value": {
-    "approx": false,
+  "key_value": null,
+  "key_value_text": {
     "confidence": "verified",
-    "dimension": "exposure",
-    "display": "553 kg-days",
-    "locator": "arXiv:1204.3094, abstract",
-    "note": "Total exposure over three bubble-nucleation thresholds.",
-    "quote": "total exposure of 553 kg-days",
+    "locator": "arXiv:1204.3094, Figure 6 caption (PDF page 7)",
+    "note": "The paper states its limit as plotted curves, the spin-dependent WIMP-proton cross section against WIMP mass (Fig. 6, drawn with a band for the systematic uncertainty in the fluorine bubble-nucleation efficiency) and the spin-independent one (Fig. 7), and gives no single cross-section number, so `key_value` stays empty. The 'total exposure of 553 kg-days' of the abstract, which the record used as its key value until 2026-10-29, is in `summary.technical`.",
+    "quote": "The 90% C.L. limit for this result is shown in blue, interpreting all 20 observed single recoil events as WIMP candidates with no background subtraction.",
     "sources": [
       "src:coupp-4kg-snolab-2012"
     ],
-    "unit": "kg d",
-    "value": 553,
-    "verified_at": "2026-10-26"
+    "value": "The 90% C.L. spin-dependent WIMP-proton limit is the curve of Fig. 6, with all 20 observed single recoil events treated as WIMP candidates and no background subtraction.",
+    "verified_at": "2026-10-29"
   },
-  "key_value_text": null,
   "links": {
     "website": {
       "confidence": "verified",
@@ -65,7 +61,9 @@
     }
   },
   "name": "First dark matter search results from a 4-kg CF$_3$I bubble chamber operated in a deep underground site",
-  "notes": [],
+  "notes": [
+    "The arXiv listing's abstract still reads 'world best direct detection constraints'; the paper itself (v2, 19 Sep 2012) says 'new direct detection constraints' and reports an additional background; the record follows the paper (2026-10-29)."
+  ],
   "official_url": {
     "confidence": "verified",
     "note": "",
@@ -99,8 +97,8 @@
     "src:coupp-4kg-snolab-2012"
   ],
   "summary": {
-    "plain": "The same chamber, moved two kilometres underground to SNOLAB with 4.0 kg of CF3I, set the best limit of its time on spin-dependent WIMP-proton scattering for heavier WIMPs.",
-    "technical": "4.0 kg CF3I in the SNOLAB J-Drift, September 2010-August 2011: 553 kg-days over three nucleation thresholds (437.4 kg-days effective for single bubbles); 20 single nuclear-recoil candidates and 3 multiple-bubble events; an internal neutron background estimated to account for five single-recoil events; alpha rejection >99.3% (Phys. Rev. D 86, 052001)."
+    "plain": "The same chamber, moved two kilometres underground to SNOLAB with 4.0 kg of CF3I, set new limits on spin-dependent WIMP-proton scattering for heavier WIMPs. It also saw more single-bubble events than its known neutron background explains, with signs of a further background.",
+    "technical": "4.0 kg CF3I in the SNOLAB J-Drift, September 2010-August 2011: 553 kg-days over three nucleation thresholds (437.4 kg-days effective for single bubbles); 20 single nuclear-recoil candidates and 3 multiple-bubble events; an internal neutron background estimated to account for five single-recoil events; alpha rejection >99.3%; the remaining excess of single-bubble events shows characteristics of an additional background (Phys. Rev. D 86, 052001)."
   },
   "title": "First dark matter search results from a 4-kg CF$_3$I bubble chamber operated in a deep underground site",
   "topic_ids": [
@@ -108,5 +106,5 @@
     "topic:direct-dark-matter-detection"
   ],
   "type": "result",
-  "why_it_matters": "The abstract says the observation gives world-best direct-detection constraints on WIMP-proton spin-dependent scattering for masses above 20 GeV/c^2."
+  "why_it_matters": "The paper reports new direct-detection constraints on WIMP-proton spin-dependent scattering for WIMP masses above 20 GeV/c^2 from a deep underground site, and an excess of single-bubble events whose characteristics indicate an additional background."
 }
