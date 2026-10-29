@@ -43,12 +43,16 @@ let container = null;
 let openerElement = null;
 let lastRenderedId = null;
 let renderTicket = 0;
+// Whether the panel draws its own close button. Not in the local map's drawer, which has
+// its own: a second × there would close the whole map (`entity: null`), not the selection.
+let ownCloseButton = true;
 
-export function init({ el, atlas, index, navigate, focusGlobe, viewOnGlobe }) {
+export function init({ el, atlas, index, navigate, focusGlobe, viewOnGlobe, closeButton = true }) {
   container = el;
   ATLAS = atlas;
   INDEX = index;
   CALLBACKS = { navigate, focusGlobe, viewOnGlobe };
+  ownCloseButton = closeButton;
   provenance.configure(index);
 }
 
@@ -1925,11 +1929,13 @@ export async function render(route, timelineState = { year: new Date().getFullYe
     const frag = await renderer(id, timelineState);
     if (ticket !== renderTicket) return;
     container.innerHTML = '';
-    const closeBtn = h('button', {
-      type: 'button', class: 'close-btn', id: 'close-detail', 'aria-label': 'Close panel',
-    }, '×');
-    closeBtn.addEventListener('click', () => CALLBACKS.navigate({ entity: null }));
-    container.appendChild(closeBtn);
+    if (ownCloseButton) {
+      const closeBtn = h('button', {
+        type: 'button', class: 'close-btn', id: 'close-detail', 'aria-label': 'Close panel',
+      }, '×');
+      closeBtn.addEventListener('click', () => CALLBACKS.navigate({ entity: null }));
+      container.appendChild(closeBtn);
+    }
     container.appendChild(frag);
     // The summary toggle and the glossary terms; the glossary loads on its own, so the
     // panel is already readable (and focused) while it arrives.

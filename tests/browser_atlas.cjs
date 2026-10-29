@@ -2035,6 +2035,10 @@ async function openFilters(page) {
             assert.ok(facts.includes(title.title), `expected the source title "${title.title}"`);
           }
         }
+        // One ×, the drawer's: the record inside it has none of its own (that one would leave the map).
+        await p.locator("#map-drawer-panel h2, .map-drawer-panel h2").first().waitFor({ timeout: 15000 });
+        assert.equal(await p.locator(".map-drawer .close-btn").count(), 1, "the drawer has one close button");
+        assert.equal(await p.locator("#close-detail").count(), 0, "the record in the drawer has no close button of its own");
         // Escape closes the drawer and hands focus back, without leaving the map.
         await p.keyboard.press("Escape");
         await waitForSel(p, null);

@@ -652,12 +652,21 @@ def build_text_bundle(ctx: _Context) -> dict:
     return bundle
 
 
+_RESULT_REFERENCE_KEYS = ('experiment_ids', 'collaboration_ids', 'facility_ids', 'detector_ids', 'topic_ids')
+
+
 def build_results_bundle(ctx: _Context) -> dict:
     """`results.json`: every result, plus its date as a month index."""
     bundle: dict[str, Any] = {'schema': schema.SCHEMA_TAG}
     for entity_id in sorted(ctx.atlas.by_type('result')):
         record = dict(ctx.stripped[entity_id])
         record.pop('schema', None)
+        # A16 lets a row be `{"id", "sources"}` when the attribution has its own source;
+        # stripped, that is `{"id"}`. The bundle carries plain ids, the sources stay in
+        # provenance.json.
+        for key in _RESULT_REFERENCE_KEYS:
+            if key in record:
+                record[key] = schema.ref_ids(record[key])
         record['month'] = schema.month_index(schema.lo(record.get('date')))
         official_url = record.get('official_url')
         record['official_url_kind'] = (

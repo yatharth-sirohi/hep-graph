@@ -144,8 +144,8 @@ function uniqueSorted(values) {
  * date (the default), else alphabetically by primary experiment or by
  * result type — always with newest-first as the tiebreaker so the order
  * stays stable and useful even when many rows share a sort key. */
-/** An experiment id as the string it is. Two result records hold `{ id }` objects in `experiment_ids` (a slip in the
- * data, for the data stream to fix); sorting or grouping the Results list by experiment must not die on them. */
+/** An experiment id as the string it is. A16 allows a sourced `{ id, sources }` row; the builder flattens it to the id,
+ * but a bundle made another way may still hold `{ id }`, and sorting or grouping by experiment must not die on it. */
 const expKey = (value) => (typeof value === 'string' ? value : (value && typeof value.id === 'string' ? value.id : ''));
 const expIds = (result) => (result.experiment_ids || []).map(expKey).filter(Boolean);
 

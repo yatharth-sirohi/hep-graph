@@ -888,3 +888,22 @@ def test_official_url_kind_on_the_shared_fixture_result(built: BuildResult) -> N
     results = _json(built, "results.json")
     record = results["result:demo-oscillation-observation-2020"]
     assert record["official_url_kind"] == "official"
+
+
+def test_a_sourced_experiment_row_reaches_the_bundle_as_a_plain_id(tmp_path) -> None:
+    # A16: a result's experiment row may be `{"id", "sources"}`. The bundle carries the
+    # id as a string (every reader treats these lists as ids); its source stays in provenance.
+    import shutil
+
+    root = tmp_path / "atlas"
+    shutil.copytree(FIXTURE, root)
+    record = _result_fixture("result:test-sourced-experiment-row", official_url="https://unused.example/x",
+                             arxiv="2101.00006", doi="10.1000/test-sourced-row", inspire=1800005)
+    record["experiment_ids"] = [{"id": "experiment:demo", "sources": ["src:demo-result-paper"]}]
+    (root / "results" / "test-sourced-experiment-row.json").write_text(json.dumps(record), encoding="utf-8")
+    result = build(root, tmp_path / "out", build_date=BUILD_DATE)
+    assert result.errors == [], result.errors
+    bundled = _json(result, "results.json")["result:test-sourced-experiment-row"]
+    assert bundled["experiment_ids"] == ["experiment:demo"]
+    provenance = _json(result, "provenance.json")["result:test-sourced-experiment-row"]
+    assert provenance["/experiment_ids/0"]["sources"] == ["src:demo-result-paper"]

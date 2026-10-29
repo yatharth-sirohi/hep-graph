@@ -699,6 +699,7 @@ async function main() {
       els.detailPanel.innerHTML = '';
       panels.init({
         el: localmap.drawerPanelEl(), atlas, index, navigate: state.navigate, focusGlobe, viewOnGlobe,
+        closeButton: false,
       });
       await localmap.show(current, {
         atlas, index, navigate: state.navigate, panels, timelineState: mapTimeline,
