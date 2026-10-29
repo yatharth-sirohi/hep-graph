@@ -3217,6 +3217,17 @@ async function openFilters(page) {
     });
   }
 
+  if (process.env.HEP_ATLAS_DATA === "generated") {
+    await record("A result whose key value is a number shows it, with whole exponents", async () => {
+      // TEXONO 2008 states its limit in a table: no sentence, only the sourced quantity.
+      await page.goto(`${base}/atlas${dataTree}#/result/texono-ulege-220ev-wimp-limits-2008`);
+      await page.locator("#detail-panel h2").waitFor();
+      const value = await page.evaluate(() => [...document.querySelectorAll("#detail-panel .kv-row")]
+        .find((r) => r.querySelector("dt").textContent.trim() === "Key value")?.querySelector("dd").textContent.replace(/\s+/g, " ").trim());
+      assert.equal(value, "0.81 × 10⁻³⁹ cm²");
+    });
+  }
+
   await record("A result whose official_url restates its arXiv link shows one arXiv link and no 'Official page'", async () => {
     const arxivDuplicateResult = process.env.HEP_ATLAS_DATA === "generated"
       ? "alice-hypertriton-lifetime-2019" : "super-k-atmospheric-oscillation-1998";

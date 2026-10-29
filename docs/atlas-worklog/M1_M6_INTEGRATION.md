@@ -149,6 +149,11 @@ Fixed after the ship, on 2026-10-29:
 - **Sourced experiment rows.** A16 allows `{id, sources}` rows in a result's
   `experiment_ids`. The results bundle now carries them as plain ids, and the
   sources stay in `provenance.json`.
+- **Numeric key values.** A result's "Key value" row showed only `key_value_text`,
+  and nothing in the front end read `key_value`. So 95 results' sourced numbers,
+  every numeric limit among them, never appeared. The row now falls back to the
+  quantity, with plain-text exponents shown whole ("0.81 × 10⁻³⁹ cm²", not
+  "10⁻39").
 
 Still open:
 

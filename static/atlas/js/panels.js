@@ -118,6 +118,16 @@ function keepFiguresWithUnits(value) {
 
 // Label/value facts. Returns null when no row has a value, so callers can hand
 // it straight to a section that then does not appear.
+/** A quantity's display, readable: its plain-text exponents ("1.75 x 10^-40 cm^2") are
+ * whole exponents, not TeX's one-character script ("10⁻40"), so they are braced first. */
+function quantityReadable(quantity) {
+  if (!quantity) return null;
+  const display = quantityText(quantity)
+    .replace(/(\d)\s*x\s*10\^/g, '$1 × 10^')
+    .replace(/\^([+-]?\d+(?:\.\d+)?)/g, '^{$1}');
+  return readableText(display);
+}
+
 function keyValueList(pairs) {
   const rows = pairs.filter(([, value]) => value != null && value !== '');
   if (!rows.length) return null;
@@ -1494,7 +1504,8 @@ async function renderResult(id) {
     // Both may be copied from an arXiv abstract with its TeX ("$S_m$=-0.0044$\pm$…");
     // the panel shows the readable form, as it does for the quote.
     ['Significance', result.significance ? readableText(String(result.significance)) : result.significance],
-    ['Key value', result.key_value_text ? readableText(result.key_value_text) : result.key_value_text],
+    // A sentence when the paper gives one; otherwise the sourced number itself.
+    ['Key value', result.key_value_text ? readableText(result.key_value_text) : quantityReadable(result.key_value)],
     [titleCase(result.date_kind) || 'Date', fmtDate(result.date)],
   ]);
   if (facts) frag.appendChild(facts);
