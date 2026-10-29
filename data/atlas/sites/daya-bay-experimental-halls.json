@@ -4,15 +4,16 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 22.5953,
-    "locator": "Wikipedia infobox coordinate",
-    "lon": 114.5431,
-    "note": "No source consulted (checked 2026-09-17: the INSPIRE record, the 2012 discovery paper and the 2013 detector-assembly paper) gives numeric coordinates for the Daya Bay near hall, Ling Ao near hall or far hall individually. This is Wikipedia's single coordinate for the whole complex, so it is shown as a campus-grade, approximate point and not as three hall-level points. The three halls are known (from the 2012 discovery paper, arXiv:1203.1669) to sit at baselines of 470 m, 576 m (near halls) and 1648 m (far hall) from the reactor cores, i.e. within roughly 2 km of each other and of this point.",
-    "precision_m": 3000,
+    "lat": 22.608322,
+    "locator": "mean of the three hall positions geometry:daya-bay-eh1-hall, geometry:daya-bay-eh2-hall and geometry:daya-bay-eh3-hall (arXiv:1508.03943 Table 2 baselines; OSM reactor buildings)",
+    "lon": 114.544676,
+    "note": "No source consulted gives surveyed coordinates for the Daya Bay near hall, Ling Ao near hall or far hall. This point is the mean of the three hall positions derived in the geometry records from the surveyed detector-to-core baselines of the Daya Bay detector-system paper and the OpenStreetMap reactor-building positions; each hall lies within about 0.85 km of it (the halls are up to 1.6 km apart), so it is shown as a campus-grade, approximate point and not as three hall-level points.",
+    "precision_m": 1000,
     "sources": [
-      "src:daya-bay-wikipedia"
+      "src:geo-reactors-daya-bay-nim-2016",
+      "src:geo-reactors-osm-dayabay-reactors"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-26"
   },
   "countries": [
     "CN"
@@ -42,8 +43,9 @@
   "schema": "hep-atlas/0.2",
   "setting": "underground",
   "sources": [
-    "src:daya-bay-wikipedia",
-    "src:daya-bay-discovery-2012"
+    "src:daya-bay-discovery-2012",
+    "src:geo-reactors-daya-bay-nim-2016",
+    "src:geo-reactors-osm-dayabay-reactors"
   ],
   "summary": {
     "plain": "The underground halls near Shenzhen, China, where Daya Bay's detectors sat close to nuclear reactors to catch antineutrinos.",

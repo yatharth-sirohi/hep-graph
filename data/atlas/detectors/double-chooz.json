@@ -1,110 +1,154 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "detector:double-chooz",
-  "type": "detector",
-  "name": "Double Chooz detectors",
   "aliases": [],
-  "experiment_ids": ["experiment:double-chooz"],
-  "parent_detector_id": null,
-  "technology": {
-    "value": "Calorimetric liquid-scintillator detector consisting of four concentric cylindrical vessels, with a gadolinium-loaded liquid-scintillator target",
-    "sources": ["src:double-chooz-wikipedia"],
-    "verified_at": "2026-09-17",
-    "confidence": "approximate",
-    "quote": "a calorimetric liquid scintillator consisting of four concentric cylindrical vessels ... 10,000 liters of gadolinium (Gd) loaded (1 gram/liter) liquid scintillator",
-    "note": "Structural description sourced from Wikipedia (rank 12); the target-volume figure is corroborated by the 2012 paper's own '10.3 cubic meter fiducial volume' figure."
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
   },
-  "technology_class": "liquid_scintillator",
-  "technology_classes": ["liquid_scintillator"],
-  "placements": [
-    {
-      "site_id": "site:double-chooz-far-detector",
-      "role": "far",
-      "start": null,
-      "end": null,
-      "sources": ["src:double-chooz-2012-evidence"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "located at 1050 m from the reactor cores of the Chooz nuclear power plant in France",
-      "note": ""
-    },
-    {
-      "site_id": "site:double-chooz-near-detector",
-      "role": "near",
-      "start": {"approx": true, "date": "2014-12", "display": "end of 2014"},
-      "end": null,
-      "sources": ["src:rf04-double-chooz-detectors-2022"],
-      "verified_at": "2026-10-25",
-      "confidence": "approximate",
-      "quote": "After construction of the new near laboratory and detector, data taking with the second detector started at the end of 2014.",
-      "note": "Near detector construction/commissioning finished substantially later than the far detector. The collaboration's detector paper says data taking with the second (near) detector started at the end of 2014; Wikipedia says the beginning of 2015, and the 2019 Double Chooz θ₁₃ paper uses two-detector data from January 2015, so the start is recorded as approximately December 2014."
-    }
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:double-chooz"
   ],
+  "id": "detector:double-chooz",
   "intervals": [
     {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2014-12",
+        "display": "end of 2014"
+      },
       "label": "far detector only",
-      "status": "active",
-      "start": "2011-04",
-      "end": {"approx": true, "date": "2014-12", "display": "end of 2014"},
-      "sources": ["src:rf04-double-chooz-detectors-2022"],
-      "verified_at": "2026-10-25",
-      "confidence": "approximate",
+      "note": "Start month from the collaboration's detector paper (far detector data taking began in April 2011); end is the start of data taking with the second detector, at the end of 2014.",
       "quote": "its data taking started first, in April 2011. After construction of the new near laboratory and detector, data taking with the second detector started at the end of 2014.",
-      "note": "Start month from the collaboration's detector paper (far detector data taking began in April 2011); end is the start of data taking with the second detector, at the end of 2014 (previously recorded as 2015 from Wikipedia)."
-    },
-    {
-      "label": "near and far detectors",
+      "sources": [
+        "src:rf04-double-chooz-detectors-2022"
+      ],
+      "start": "2011-04",
       "status": "active",
-      "start": {"approx": true, "date": "2014-12", "display": "end of 2014"},
-      "end": "2017-12",
-      "sources": ["src:rf04-double-chooz-detectors-2022", "src:double-chooz-wikipedia"],
-      "verified_at": "2026-10-25",
-      "confidence": "approximate",
-      "quote": "After construction of the new near laboratory and detector, data taking with the second detector started at the end of 2014. Both detectors ran in parallel for about three years, until the end of 2017, when neutrino data taking was stopped.",
-      "note": "Start and end from the collaboration's detector paper ('end of 2014', 'end of 2017'); the end month (December) is from Wikipedia's 'late December 2017'. Wikipedia gives the beginning of 2015 for the start of two-detector data taking."
+      "verified_at": "2026-10-25"
     },
     {
-      "label": "shut down",
-      "status": "completed",
-      "start": "2017-12",
-      "end": null,
-      "sources": ["src:rf04-double-chooz-detectors-2022", "src:double-chooz-wikipedia"],
-      "verified_at": "2026-10-25",
       "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2017-12",
+        "display": "end of 2017"
+      },
+      "label": "near and far detectors",
+      "locator": "arXiv:2201.13285 (Eur. Phys. J. C 82 (2022) 804), section 1",
+      "note": "Start and end from the collaboration's detector paper ('end of 2014', 'end of 2017'); both are approximate readings of 'end of' (December).",
+      "quote": "After construction of the new near laboratory and detector, data taking with the second detector started at the end of 2014. Both detectors ran in parallel for about three years, until the end of 2017, when neutrino data taking was stopped.",
+      "sources": [
+        "src:rf04-double-chooz-detectors-2022"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2014-12",
+        "display": "end of 2014"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "shut down",
+      "locator": "arXiv:2201.13285 (Eur. Phys. J. C 82 (2022) 804), section 1",
+      "note": "Terminal event: end of neutrino data taking ('end of 2017' in the collaboration's detector paper), recorded approximately as December 2017.",
       "quote": "Both detectors ran in parallel for about three years, until the end of 2017, when neutrino data taking was stopped.",
-      "note": "Terminal event: end of neutrino data taking ('end of 2017' in the collaboration's detector paper; the month, December, is from Wikipedia's 'late December 2017')."
+      "sources": [
+        "src:rf04-double-chooz-detectors-2022"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2017-12",
+        "display": "end of 2017"
+      },
+      "status": "completed",
+      "verified_at": "2026-10-26"
     }
   ],
-  "status": "completed",
-  "specs": {
-    "target_mass": {
-      "value": 10.3,
-      "unit": "t",
-      "dimension": "mass",
-      "approx": true,
-      "display": "10.3 m³ fiducial volume (~10 t)",
-      "sources": ["src:double-chooz-2012-evidence"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "10.3 cubic meter fiducial volume detector",
-      "note": "Recorded as an approximate mass equivalent of the stated fiducial volume (Gd-loaded liquid scintillator, density close to 1 t/m³); the paper itself gives volume, not mass, directly."
-    }
-  },
-  "subsystems": [],
-  "document_ids": [],
   "links": {
     "website": null
   },
+  "name": "Double Chooz detectors",
   "notes": [
     "Modelled as a single detector record covering both the near and far detectors, which the sources describe as (near-)identical designs."
   ],
-  "sources": ["src:double-chooz-2012-evidence", "src:double-chooz-wikipedia", "src:rf04-double-chooz-detectors-2022"],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "",
+      "quote": "located at 1050 m from the reactor cores of the Chooz nuclear power plant in France",
+      "role": "far",
+      "site_id": "site:double-chooz-far-detector",
+      "sources": [
+        "src:double-chooz-2012-evidence"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "note": "Near detector construction/commissioning finished substantially later than the far detector. The collaboration's detector paper says data taking with the second (near) detector started at the end of 2014, so the start is recorded as approximately December 2014.",
+      "quote": "After construction of the new near laboratory and detector, data taking with the second detector started at the end of 2014.",
+      "role": "near",
+      "site_id": "site:double-chooz-near-detector",
+      "sources": [
+        "src:rf04-double-chooz-detectors-2022"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2014-12",
+        "display": "end of 2014"
+      },
+      "verified_at": "2026-10-25"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:double-chooz-2012-evidence",
+    "src:rf04-double-chooz-detectors-2022"
+  ],
+  "specs": {
+    "target_mass": {
+      "approx": true,
+      "confidence": "approximate",
+      "dimension": "mass",
+      "display": "10.3 m³ fiducial volume (~10 t)",
+      "note": "Recorded as an approximate mass equivalent of the stated fiducial volume (Gd-loaded liquid scintillator, density close to 1 t/m³); the paper itself gives volume, not mass, directly.",
+      "quote": "10.3 cubic meter fiducial volume detector",
+      "sources": [
+        "src:double-chooz-2012-evidence"
+      ],
+      "unit": "t",
+      "value": 10.3,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
   "summary": {
     "plain": "Two similar tank-shaped detectors of gadolinium-loaded liquid scintillator, one close to and one far from the Chooz reactors, catching antineutrino flashes of light.",
-    "technical": "Calorimetric Gd-loaded liquid-scintillator detectors (four concentric cylindrical vessels), ~10.3 m³ fiducial volume, at near (400 m, from the end of 2014) and far (1050 m, from the 2012 result onward) halls at the Chooz reactor site."
+    "technical": "Gd-loaded liquid-scintillator detectors (four nested cylindrical liquid volumes: Gd-loaded target, Gd-free gamma catcher, buffer oil, scintillator veto), ~10.3 m³ fiducial volume, at near (400 m, from the end of 2014) and far (1050 m, from the 2012 result onward) halls at the Chooz reactor site."
   },
-  "coverage": {
-    "tier": "B",
-    "researched": "partial"
-  }
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2201.13285 (Eur. Phys. J. C 82 (2022) 804), abstract",
+    "note": "Structure as described in the collaboration's own detector paper; the 10.3 m³ target volume is the 2012 paper's '10.3 cubic meter fiducial volume' figure (see specs.target_mass).",
+    "quote": "a main detector comprising four cylindrical volumes filled with organic liquids. From the inside towards the outside there were volumes containing gadolinium-loaded scintillator, gadolinium-free scintillator, a buffer oil and, optically separated, another liquid scintillator acting as veto system.",
+    "sources": [
+      "src:rf04-double-chooz-detectors-2022"
+    ],
+    "value": "Liquid-scintillator detector whose main detector has four nested cylindrical volumes: a gadolinium-loaded scintillator target, a gadolinium-free scintillator gamma catcher, a buffer oil and an optically separated liquid-scintillator veto",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": [
+    "liquid_scintillator"
+  ],
+  "type": "detector"
 }

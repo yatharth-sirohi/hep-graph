@@ -27,18 +27,18 @@
       "verified_at": "2026-10-26"
     },
     {
-      "confidence": "uncertain",
+      "confidence": "approximate",
       "end": null,
       "label": "hosting Double Chooz",
-      "note": "No official facility page was reachable (checked 2026-09-17) to source a facility-level founding or operating interval; the start is the same inferred lower bound used for experiment:double-chooz's earliest interval. The site remains a candidate host for other reactor-neutrino work (e.g. NUCLEUS) beyond Double Chooz's own 2017 shutdown, so the interval is left open-ended.",
-      "quote": "located at 1050 m from the reactor cores of the Chooz nuclear power plant in France",
+      "locator": "arXiv:2201.13285 (Eur. Phys. J. C 82 (2022) 804), section 1",
+      "note": "Lower bound: April 2011 is the first Double Chooz data taking at the site (far detector in the existing CHOOZ laboratory), so hosting began no later than this; no official facility page was reachable (checked 2026-09-17) to source an earlier founding or operating date. The site remains a candidate host for other reactor-neutrino work (e.g. NUCLEUS) beyond Double Chooz's own end of data taking in 2017, so the interval is left open-ended.",
+      "quote": "Since the far detector could be installed in the existing laboratory of the original CHOOZ experiment [9], its data taking started first, in April 2011.",
       "sources": [
-        "src:double-chooz-wikipedia",
-        "src:double-chooz-2012-evidence"
+        "src:rf04-double-chooz-detectors-2022"
       ],
-      "start": "2011",
+      "start": "2011-04",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "kind": "reactor_site",
@@ -47,27 +47,29 @@
   },
   "name": "Chooz Reactor Neutrino Site",
   "notes": [
-    "The Double Chooz official site (double-chooz.fr, doublechooz.in2p3.fr, chooz.in2p3.fr) was unreachable (DNS failure on every domain tried, checked 2026-09-17); this record relies on the 2012 arXiv discovery paper, INSPIRE, and Wikipedia.",
+    "The Double Chooz official site (double-chooz.fr, doublechooz.in2p3.fr, chooz.in2p3.fr) was unreachable (DNS failure on every domain tried, checked 2026-09-17); this record relies on the 2012 arXiv discovery paper, the collaboration's 2022 detector paper, and INSPIRE.",
     "experiment:nucleus also uses this facility as its host site."
   ],
   "operator": {
     "confidence": "uncertain",
-    "note": "No source consulted (checked 2026-09-17) states an explicit operator distinct from the Double Chooz Collaboration and EDF (which operates the adjacent Chooz Nuclear Power Plant, not the experimental site itself).",
+    "locator": "arXiv:2201.13285 (Eur. Phys. J. C 82 (2022) 804), section 2.1",
+    "note": "No source consulted (checked 2026-10-28) states an explicit operator of the experimental site distinct from the Double Chooz Collaboration and EDF; the collaboration's detector paper names EDF only as operator of the Chooz-B nuclear power plant next to the site.",
+    "quote": "two almost identical detectors located at the Chooz-B nuclear power plant operated by the EDF company",
     "sources": [
-      "src:double-chooz-wikipedia"
+      "src:rf04-double-chooz-detectors-2022"
     ],
     "value": null,
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-26"
   },
   "operator_ids": [],
   "primary_site_id": "site:double-chooz-far-detector",
   "related_facility_ids": [],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:double-chooz-inspire-experiment-record",
+    "src:chooz-hepex0301017",
     "src:double-chooz-2012-evidence",
-    "src:double-chooz-wikipedia",
-    "src:chooz-hepex0301017"
+    "src:double-chooz-inspire-experiment-record",
+    "src:rf04-double-chooz-detectors-2022"
   ],
   "specs": {},
   "status": "active",

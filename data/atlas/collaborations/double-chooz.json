@@ -20,31 +20,39 @@
   "intervals": [
     {
       "confidence": "uncertain",
-      "end": "2017-12",
+      "end": {
+        "approx": true,
+        "date": "2017-12",
+        "display": "end of 2017"
+      },
       "label": "collaboration active",
-      "note": "Start (2011) is a lower bound: the April 2011 start of far-detector data taking in the collaboration's detector paper, not a collaboration formation date. End is the end of neutrino data taking ('end of 2017' in that paper; Wikipedia gives 'late December 2017', hence the month 2017-12).",
+      "locator": "arXiv:2201.13285 (Eur. Phys. J. C 82 (2022) 804), section 1",
+      "note": "Start (2011) is a lower bound: the April 2011 start of far-detector data taking in the collaboration's detector paper, not a collaboration formation date. End is the end of neutrino data taking ('end of 2017' in that paper), recorded approximately as December 2017.",
       "quote": "its data taking started first, in April 2011 ... Both detectors ran in parallel for about three years, until the end of 2017, when neutrino data taking was stopped.",
       "sources": [
-        "src:rf04-double-chooz-detectors-2022",
-        "src:double-chooz-wikipedia"
+        "src:rf04-double-chooz-detectors-2022"
       ],
       "start": "2011",
       "status": "active",
-      "verified_at": "2026-10-25"
+      "verified_at": "2026-10-26"
     },
     {
       "confidence": "approximate",
       "end": null,
       "label": "collaboration completed",
-      "note": "Terminal event: end of neutrino data taking ('end of 2017' in the collaboration's detector paper; the month, December, is from Wikipedia's 'late December 2017').",
+      "locator": "arXiv:2201.13285 (Eur. Phys. J. C 82 (2022) 804), section 1",
+      "note": "Terminal event: end of neutrino data taking ('end of 2017' in the collaboration's detector paper), recorded approximately as December 2017.",
       "quote": "Both detectors ran in parallel for about three years, until the end of 2017, when neutrino data taking was stopped.",
       "sources": [
-        "src:rf04-double-chooz-detectors-2022",
-        "src:double-chooz-wikipedia"
+        "src:rf04-double-chooz-detectors-2022"
       ],
-      "start": "2017-12",
+      "start": {
+        "approx": true,
+        "date": "2017-12",
+        "display": "end of 2017"
+      },
       "status": "completed",
-      "verified_at": "2026-10-25"
+      "verified_at": "2026-10-26"
     }
   ],
   "leadership": [],
@@ -61,12 +69,11 @@
   },
   "name": "Double Chooz Collaboration",
   "notes": [
-    "No membership counts (scientists/institutions/countries) were found in any source consulted (checked 2026-09-17); Wikipedia states only that the collaboration was 'international' without a count."
+    "No membership counts (scientists/institutions/countries) were found in any source consulted (checked 2026-09-17)."
   ],
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:double-chooz-inspire-experiment-record",
-    "src:double-chooz-wikipedia",
     "src:rf04-double-chooz-detectors-2022"
   ],
   "status": "completed",

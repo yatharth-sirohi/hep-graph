@@ -4,15 +4,18 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 50.09,
-    "locator": "Wikipedia infobox, Chooz Nuclear Power Plant",
-    "lon": 4.78944,
-    "note": "No source consulted (checked 2026-09-17) gives numeric coordinates for the near-detector hall itself. This is the adjacent Chooz Nuclear Power Plant's own Wikipedia coordinate, used as an approximate regional proxy. The near detector is about 400 m from the reactor cores according to Wikipedia.",
-    "precision_m": 2000,
+    "lat": 50.089661,
+    "locator": "midpoint of the centroids of OSM way 331249625 (Chooz B1) and way 331249628 (Chooz-B2); arXiv:2201.13285 section 2.1 (near laboratory about 400 m from the cores)",
+    "lon": 4.790167,
+    "note": "The near-detector hall itself is not located: no source consulted gives its coordinates or a plan that fixes its side of the plant. This is the midpoint of the two Chooz B reactor-building centroids (OpenStreetMap), used as a campus-grade proxy; the collaboration's papers place the near laboratory about 400 m from the cores (469 m and 355 m to the two cores in arXiv:2009.05515), i.e. within about 0.5 km of this point.",
+    "precision_m": 500,
+    "quote": "The near detector was installed in a new underground laboratory at around 400 m from the nuclear cores.",
     "sources": [
-      "src:chooz-npp-wikipedia"
+      "src:rf04-double-chooz-detectors-2022",
+      "src:geo-chooz-osm-extract-2026-10",
+      "src:geo-chooz-dc-sterile-2021"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-26"
   },
   "countries": [
     "FR"
@@ -41,8 +44,9 @@
   "schema": "hep-atlas/0.2",
   "setting": "underground",
   "sources": [
-    "src:chooz-npp-wikipedia",
-    "src:double-chooz-wikipedia"
+    "src:geo-chooz-dc-sterile-2021",
+    "src:geo-chooz-osm-extract-2026-10",
+    "src:rf04-double-chooz-detectors-2022"
   ],
   "summary": {
     "plain": "The hall close to the Chooz nuclear reactors in France where Double Chooz placed its near detector.",
