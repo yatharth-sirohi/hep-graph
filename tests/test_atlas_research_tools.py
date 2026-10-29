@@ -96,6 +96,13 @@ out.cite = {
   journal: cite({ publication: { doi: '10.1/j', journal: 'Phys. Lett. B' }, published: '2012' }),
   authors: cite({ authors: ['Doe, J.', 'Roe, R.'], collaboration_ids: [] }),
   report: cite({ publication: { arxiv: '1', report_number: 'CERN-EP-2012-1' } }),
+  // The preprint is all the entry cites (LZ's first result: arXiv 2022, published 2023): the preprint's year.
+  preprintOnly: cite({ publication: { arxiv: '2207.03764' }, published: '2023', date: '2022-07-07' }),
+  preprintOnlyOldStyle: cite({ publication: { arxiv: 'astro-ph/0311046' }, date: '2003-11-03', date_kind: 'preprint' }),
+  preprintOnlyJournalDate: cite({ publication: { arxiv: 'not-an-id' }, date: '2013-05', date_kind: 'publication' }),
+  withJournal: cite({ publication: { arxiv: '2207.03764', journal: 'Phys. Rev. Lett.' }, published: '2023', date: '2022-07-07' }),
+  withDoi: cite({ publication: { arxiv: '2207.03764', doi: '10.1103/x' }, published: '2023', date: '2022-07-07' }),
+  arxivYears: ['2207.03764', 'astro-ph/0311046', 'hep-ex/9801007', '1103.2124v3', '9801007', null].map(bib.arxivYear),
   doc: bib.citationFor({
     type: 'document', id: 'document:d-1', name: 'A report', date: '1990-02', owner_ids: ['collaboration:atlas'],
     reference: { doi: '10.1/d', url: 'https://doi.org/10.1/d' },
@@ -146,7 +153,17 @@ const cells = (model, key) => model.rows.find((r) => r.key === key).cells.map((c
 const three = compare('dune,hyper-kamiokande,juno');
 const xenon = compare('lz,xenonnt,pandax-4t');
 const mixed = compare('atlas,juno,nova');
+const baselineCells = (model) => model.rows.find((r) => r.key === 'baseline').cells
+  .map((c) => ({ lines: c.lines.length, notApplicable: !!c.notApplicable, text: rows.cellText(c) }));
+// A beam or reactor experiment with no baseline recorded still reads "not recorded", not "not applicable".
+const beamWithoutBaseline = Object.values(input.atlas.experiments)
+  .filter((e) => ['accelerator_neutrino', 'reactor_neutrino'].includes(e.kind))
+  .map((e) => ({ id: e.id, cell: baselineCells(compare(e.id.split(':')[1]))[0] }))
+  .find((x) => x.cell.lines === 0) || null;
 out.compare = {
+  xenonBaseline: baselineCells(xenon),
+  mixedBaseline: baselineCells(mixed),
+  beamWithoutBaseline,
   rowKeys: three.rows.map((r) => r.key),
   rowLabels: three.rows.map((r) => r.label),
   heads: three.experiments.map((e) => e.short),
@@ -315,6 +332,18 @@ def test_an_entry_has_only_the_fields_the_record_carries(out: dict) -> None:
     assert "author" in c["doc"]["missing"]
 
 
+def test_a_preprint_only_entry_is_dated_by_the_preprint_not_by_a_journal_year(out: dict) -> None:
+    c = out["cite"]
+    assert c["arxivYears"] == ["2022", "2003", "1998", "2011", None, None]
+    assert "year = {2022}" in c["preprintOnly"]["text"], "the arXiv number says 2022; the 2023 is a journal year the entry does not carry"
+    assert "year = {2023}" not in c["preprintOnly"]["text"] and "journal" not in c["preprintOnly"]["text"]
+    assert "year = {2003}" in c["preprintOnlyOldStyle"]["text"]
+    # No usable arXiv number and a date that is a journal's: no year at all, said, not guessed.
+    assert "year" not in c["preprintOnlyJournalDate"]["text"] and "year" in c["preprintOnlyJournalDate"]["missing"]
+    # An entry that carries the journal, or the journal's DOI, is the article: its published year.
+    assert "year = {2023}" in c["withJournal"]["text"] and "year = {2023}" in c["withDoi"]["text"]
+
+
 def test_every_bibtex_entry_the_atlas_would_offer_is_well_formed(built) -> None:
     """The real records, through the real module: balanced braces, no raw special character in a title."""
     results = {k: v for k, v in json.loads(built.files["results.json"]).items() if k.startswith("result:")}
@@ -382,6 +411,20 @@ def test_the_route_names_two_to_four_experiments_and_reports_what_it_drops(out: 
     }
     assert out["route"]["hash"] == "#/view/compare/dune,juno"
     assert out["route"]["entry"][0]["id"] == "view:compare/" and "compare" in out["route"]["entry"][0]["aliases"]
+
+
+def test_baseline_is_not_applicable_to_experiments_that_have_none_by_kind(out: dict) -> None:
+    c = out["compare"]
+    # Dark-matter detectors have no baseline: "not applicable", which is not "not recorded".
+    assert all(cell["lines"] == 0 and cell["notApplicable"] and cell["text"] == "not applicable" for cell in c["xenonBaseline"])
+    # A collider next to two neutrino experiments: n/a for it, the recorded baselines for them.
+    atlas, juno, nova = c["mixedBaseline"]
+    assert atlas["notApplicable"] and atlas["text"] == "not applicable"
+    assert juno["lines"] > 0 and not juno["notApplicable"]
+    assert nova["lines"] > 0 and not nova["notApplicable"]
+    # An accelerator or reactor experiment with no baseline in the Atlas is a gap, not "not applicable".
+    gap = c["beamWithoutBaseline"]
+    assert gap is None or (not gap["cell"]["notApplicable"] and gap["cell"]["text"] == "not recorded")
 
 
 def test_dune_hyper_k_and_juno_side_by_side(out: dict) -> None:

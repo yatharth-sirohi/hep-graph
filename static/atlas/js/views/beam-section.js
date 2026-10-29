@@ -416,13 +416,25 @@ export function mount(ctx) {
   body.replaceChildren();
 
   // ---- the sentence a newcomer can read
+  // The dip, the length and the depth are those of the straight line from the source to the far
+  // detector's site, so the sentence says "the line to the far detector". For an off-axis beam (T2K,
+  // NOvA) that line is not the beam axis, and the sentence says so; a far detector is underground, so
+  // the beam is said to reach it at its recorded depth, not to "surface" there.
+  const offAxisCards = offAxisFor(atlas, row);
+  const farDepth = row.to.depth;
   const lede = h('p', { class: 'bs-lede' }, [
-    'Neutrinos pass through rock almost untouched, so the beam goes straight through the Earth: it leaves ',
+    'Neutrinos pass through rock almost untouched, so a beam goes straight through the Earth: the line to the far detector leaves ',
     h('strong', {}, row.from.short),
-    ` pointing ${f(g.dipDeg, 1)}° below the horizon, runs in a straight line for ${f(g.chordKm, 0)} km, and surfaces at `,
-    h('strong', {}, row.to.short),
-    `. Halfway, it is ${f(g.sagittaKm, 1)} km under the ground. Everything below is computed from the two recorded coordinates.`,
-  ]);
+    ` ${f(g.dipDeg, 1)}° below the horizon, runs in a straight line for ${f(g.chordKm, 0)} km, and `,
+    farDepth
+      ? [`reaches the far detector, ${depthText(farDepth)} underground at `, h('strong', {}, row.to.short)]
+      : ['reaches the far detector’s site, ', h('strong', {}, row.to.short), ' (its depth is not recorded)'],
+    `. Halfway, that line is ${f(g.sagittaKm, 1)} km under the ground. `,
+    offAxisCards.length
+      ? 'For this beam the line to the detector is not the beam axis: the axis is aimed a little to one side of the detector (the off-axis card below gives the angle). '
+      : '',
+    'Everything below is computed from the two recorded coordinates.',
+  ].flat());
 
   // ---- four numbers
   const tile = (label, value, note) => h('div', { class: 'bs-stat' }, [
@@ -440,7 +452,6 @@ export function mount(ctx) {
   // ---- the figure
   const sectionWrap = h('div', { class: 'bs-fig-a' });
   const earthWrap = h('div', { class: 'bs-fig-b' });
-  const offAxisCards = offAxisFor(atlas, row);
   const offAxisWrap = offAxisCards.length ? h('div', { class: 'bs-offaxis' }) : null;
   const grid = h('div', { class: 'bs-fig-grid' }, [sectionWrap, h('div', { class: 'bs-fig-side' }, [earthWrap])]);
   const caption = h('figcaption', { class: 'bs-caption' }, [
@@ -607,6 +618,11 @@ export function mount(ctx) {
   }
   drawFigures();
   window.requestAnimationFrame(drawFigures);
+  // "Export image": the zoomed section and the whole Earth (with the dip), side by side as on screen.
+  host.setExporter(() => ({
+    figures: [sectionWrap.querySelector('svg'), earthWrap.querySelector('svg')].filter(Boolean),
+    layout: 'row',
+  }));
 
   // ---- the citations, after the first paint (provenance.json is large and is not
   //      fetched until a view that cites it is asked for)
@@ -657,7 +673,7 @@ export function mount(ctx) {
   }
   window.setTimeout(loadCitations, 0);
 
-  host.announce(`${WORKING_TITLE}: ${row.label}. The beam leaves ${f(g.dipDeg, 2)} degrees below the horizontal and is ${f(g.sagittaKm, 1)} kilometres deep at its midpoint.`);
+  host.announce(`${WORKING_TITLE}: ${row.label}. The line to the far detector leaves ${f(g.dipDeg, 2)} degrees below the horizontal and is ${f(g.sagittaKm, 1)} kilometres deep at its midpoint.`);
 
   return {
     update(next) {

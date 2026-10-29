@@ -16,6 +16,7 @@ import * as underground from './views/underground-rows.js';
 import * as frontier from './views/frontier-rows.js';
 import { limitsLinkForRecord } from './views/limits-rows.js';
 import { storyLinkForTopic } from './views/results-rows.js';
+import { testedBy } from './tested-by.js';
 import {
   ICECUBE, ROSTER as SCALE_ROSTER, VIEW_NAME as SCALE_VIEW_NAME, WORKING_TITLE as SCALE_WORKING_TITLE,
 } from './views/scale-detectors.js';
@@ -1369,6 +1370,39 @@ const DATE_KIND_SAME_DAY = {
   publication: 'Published the same day',
 };
 
+// "Tested by" on a result that states a claim (tested-by.js): what other experiments' results say
+// about it, neutrally. The first TESTED_BY_SHOWN are listed (those whose own text names this
+// experiment first, newest first); the rest are counted and their experiments linked.
+const TESTED_BY_SHOWN = 8;
+
+function testedByBody(tested) {
+  const nameOf = (id) => (ATLAS.experiments[id] || {}).name || id;
+  const shown = tested.items.slice(0, TESTED_BY_SHOWN);
+  const rest = tested.items.slice(TESTED_BY_SHOWN);
+  const restExperiments = [...new Set(rest.flatMap((item) => item.experimentIds))].filter((id) => ATLAS.experiments[id]);
+  return [
+    h('p', { class: 'tested-by-lead' }, 'Results from other experiments that test this claim:'),
+    h('ul', { class: 'entity-list tested-by-list' }, shown.map((item) => {
+      const year = String(item.result.date || '').slice(0, 4);
+      const where = item.experimentIds.map(nameOf).join(', ');
+      return h('li', {}, [
+        linkTo(idRoute(item.result.id), readableText(item.result.name || item.result.title)),
+        h('span', { class: 'tested-by-meta' }, ` \u2014 ${[where, year, titleCase(item.result.result_type)].filter(Boolean).join(' \u00b7 ')}`),
+      ]);
+    })),
+    rest.length
+      ? h('p', { class: 'tested-by-more' }, [
+        `${rest.length} more result${rest.length === 1 ? '' : 's'} in the Atlas, from `,
+        ...restExperiments.flatMap((id, i) => [i ? document.createTextNode(', ') : null, linkTo(idRoute(id), nameOf(id))]),
+        '.',
+      ])
+      : null,
+    h('p', { class: 'tested-by-note source-meta' },
+      'Listed because their experiments are recorded as complementary to this one, or their own text names it. '
+      + 'The Atlas does not judge here whether a result confirms or contradicts the claim: open it to read what it found.'),
+  ];
+}
+
 async function renderResult(id) {
   const { byId, list: resultList } = await loader.getResults();
   const result = byId.get(id);
@@ -1380,7 +1414,8 @@ async function renderResult(id) {
   const sections = panelSections(frag);
   // The heading is the Atlas's own name (typeset notation); the paper's title
   // is kept verbatim underneath when it differs, as it was published.
-  frag.appendChild(h('h2', {}, result.name || result.title));
+  // A name that carries TeX ($Λ$CDM) is set as the notation it stands for, never as the source.
+  frag.appendChild(h('h2', {}, readableView(result.name || result.title)));
   frag.appendChild(h('p', { class: 'panel-subtitle' }, `${titleCase(result.result_type)} · ${fmtDate(result.date)}`));
   // Under the subtitle, so the answer to "where" is on the first screen (the globe is
   // looking at the same place: app.js selects the result's facility): the facility
@@ -1459,6 +1494,9 @@ async function renderResult(id) {
   if (facts) frag.appendChild(facts);
   const experiments = (result.experiment_ids || []).map((eid) => ATLAS.experiments[eid]).filter(Boolean);
   sections.add('Experiment', recordLinks(experiments));
+  // A claim does not stand alone: what other experiments' results say about it, open by default.
+  const tested = testedBy(result, { atlas: ATLAS, resultList, text });
+  if (tested) sections.add('Tested by', testedByBody(tested), { open: true });
   const pub = result.publication || {};
   const pubLinks = [];
   if (pub.doi) pubLinks.push(h('li', {}, h('a', { href: `https://doi.org/${pub.doi}`, target: '_blank', rel: 'noopener' }, `DOI ${pub.doi} (journal)`)));

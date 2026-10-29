@@ -144,12 +144,17 @@ function uniqueSorted(values) {
  * date (the default), else alphabetically by primary experiment or by
  * result type — always with newest-first as the tiebreaker so the order
  * stays stable and useful even when many rows share a sort key. */
+/** An experiment id as the string it is. Two result records hold `{ id }` objects in `experiment_ids` (a slip in the
+ * data, for the data stream to fix); sorting or grouping the Results list by experiment must not die on them. */
+const expKey = (value) => (typeof value === 'string' ? value : (value && typeof value.id === 'string' ? value.id : ''));
+const expIds = (result) => (result.experiment_ids || []).map(expKey).filter(Boolean);
+
 function sortResults(list, sortBy, experimentNames) {
   const arr = list.slice();
   if (sortBy === 'experiment') {
     arr.sort((a, b) => {
-      const an = experimentNames.get((a.experiment_ids || [])[0]) || '';
-      const bn = experimentNames.get((b.experiment_ids || [])[0]) || '';
+      const an = experimentNames.get(expIds(a)[0]) || '';
+      const bn = experimentNames.get(expIds(b)[0]) || '';
       return an.localeCompare(bn) || (timeKey(b) - timeKey(a));
     });
   } else if (sortBy === 'type') {
@@ -170,7 +175,7 @@ function groupResults(sortedList, groupBy, experimentNames) {
   if (groupBy === 'none') return [[null, sortedList]];
   const buckets = new Map();
   for (const r of sortedList) {
-    const key = groupBy === 'year' ? (yearOf(r) ?? '__unknown') : ((r.experiment_ids || [])[0] || '__unknown');
+    const key = groupBy === 'year' ? (yearOf(r) ?? '__unknown') : (expIds(r)[0] || '__unknown');
     if (!buckets.has(key)) buckets.set(key, []);
     buckets.get(key).push(r);
   }
@@ -282,7 +287,7 @@ function renderResultsMode() {
     });
     main.appendChild(link);
     const metaParts = [];
-    const expNames = (result.experiment_ids || []).map((id) => experimentNames.get(id) || id);
+    const expNames = expIds(result).map((id) => experimentNames.get(id) || id);
     if (expNames.length) metaParts.push(h('span', { class: 'result-tag' }, expNames.join(', ')));
     if (result.result_type) metaParts.push(h('span', { class: 'result-tag' }, titleCase(result.result_type)));
     if (result.significance) metaParts.push(h('span', { class: 'result-tag result-significance' }, result.significance));
@@ -304,7 +309,7 @@ function renderResultsMode() {
   // combination on top of results that do exist.
   function emptyMessage() {
     if (filters.experiment) {
-      const anyForExperiment = results.some((r) => (r.experiment_ids || []).includes(filters.experiment));
+      const anyForExperiment = results.some((r) => expIds(r).includes(filters.experiment));
       if (!anyForExperiment) return 'No results curated yet for this experiment.';
     }
     return 'No results match these filters.';
@@ -319,7 +324,7 @@ function renderResultsMode() {
     sortBy = sortSel.value;
     const filtered = results.filter((r) => (
       (!filters.year || String(yearOf(r)) === filters.year)
-      && (!filters.experiment || (r.experiment_ids || []).includes(filters.experiment))
+      && (!filters.experiment || expIds(r).includes(filters.experiment))
       && (!filters.facility || (r.facility_ids || []).includes(filters.facility))
       && (!filters.topic || (r.topic_ids || []).includes(filters.topic))
       && (!filters.type || r.result_type === filters.type)

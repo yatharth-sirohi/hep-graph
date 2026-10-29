@@ -62,6 +62,27 @@
   --marker-label-size: 16px;
   --beam-stroke-scale: 1.5;
 
+  /* ---- the figures of the views (views.css, proton.css). Their ink is this theme's dark ink
+     (--white, --muted, --amber, --teal), so what they are drawn on has to be light: the rock
+     of the beam section is a pale grey-blue (ink on it is >= 5:1, and 7:1 on the lighter
+     top), still darker with depth. The hues drawn over it are darkened to match: the beam,
+     the surface line, the detector marker (the amber above) and the curves of the plots,
+     each >= 4.5:1 on the panels because some carry text. */
+  --view-rock-top: #d3e2ec;
+  --view-rock-bottom: #aec6d6;
+  --view-surface: #17683f;
+  --view-beam: #00566b;
+  --view-beam-glow: #0a78b8;
+  --view-beam-quiet: #38597a;
+  --view-overlay: #b0206b;
+  --limit-0: #1f5fbf;
+  --limit-1: #8a5a00;
+  --limit-2: #b0306f;
+  --limit-3: #b5380a;
+  --limit-4: #6b4fc8;
+  --limit-5: #087060;
+  --rs-limit: #1f5fbf;
+
   /* ---- shadows are lighter on a light page */
   --elev-1: 0 1px 2px #00000033;
   --elev-2: 0 5px 20px #00000026;
@@ -246,8 +267,8 @@
 
 /* ================================================================== embed */
 /* ?embed=1: minimal chrome for a course page or an LMS iframe. No search, view
-   switcher, filters, projector button, footer or Start-here card; a small "Open in HEP
-   Atlas" link to the same view at full size; the timeline only where the route needs it
+   switcher, filters, projector button, footer (but for its one line, "Coverage: partial") or
+   Start-here card; a small "Open in HEP Atlas" link to the same view at full size; the timeline only where the route needs it
    (classroom.js adds .embed-timeline for a local map; the boot script, for an address
    that names a year or a range). */
 .embed-open {
@@ -288,9 +309,27 @@ html.is-embed #mode-buttons,
 html.is-embed #filters-btn,
 html.is-embed #theme-btn,
 html.is-embed #phone-filters-btn,
-html.is-embed .atlas-footer,
 html.is-embed #start-card {
   display: none !important;
+}
+/* The footer goes, but not its honesty: the Atlas's coverage is partial, and a figure embedded in a
+   course page without that line reads as the whole field. One line stays (the short form phone.css
+   uses), a link to the coverage report that opens beside the frame, not inside it. */
+html.is-embed .atlas-footer {
+  justify-content: center;
+  min-height: 0;
+  padding: 4px var(--space-3);
+}
+html.is-embed .atlas-footer > :not(.footer-coverage) {
+  display: none !important;
+}
+html.is-embed .atlas-footer .footer-coverage {
+  display: inline-flex;
+  flex: 0 1 auto;
+  white-space: normal;
+  text-align: center;
+  min-height: 0;
+  color: var(--muted);
 }
 html.is-embed .atlas-title {
   font-size: var(--text-md);

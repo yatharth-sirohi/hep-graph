@@ -332,6 +332,8 @@ async function main() {
   const views = createViewHost({
     main: document.getElementById('atlas-main'), atlas, index, loader, navigate: state.navigate,
   });
+  // "Export image" makes a picture from a view's figure: the host says whether it has one.
+  exportModule.attachViews(views);
 
   modes.init({
     container: els.modePanel,

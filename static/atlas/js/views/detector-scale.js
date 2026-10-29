@@ -527,6 +527,11 @@ export async function mount(ctx) {
   }
   drawAll();
   window.requestAnimationFrame(drawAll);
+  // "Export image": the line-up, and IceCube's panel beside it once it has been drawn.
+  host.setExporter(() => ({
+    figures: [figureWrap.querySelector('svg'), iceWrap.querySelector('svg')].filter(Boolean),
+    layout: 'row',
+  }));
 
   // ---- IceCube's panel needs the South Pole map's geometry: fetched now, after the first paint
   let destroyed = false;

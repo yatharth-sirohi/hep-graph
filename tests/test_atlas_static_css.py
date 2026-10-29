@@ -300,6 +300,43 @@ def test_projector_body_text_is_at_least_7_to_1_on_every_surface() -> None:
             assert ratio >= 7.0, f"{name} is {ratio:.2f}:1 on {surface}; projector body text needs 7:1"
 
 
+def test_projector_view_figures_keep_their_text_at_least_4_5_to_1() -> None:
+    """The beam section was drawn in dark ink on its dark rock (1.1:1) in projector mode, because the theme flipped
+    --white and --muted but not the rock the figure is painted on. The figures of the views are painted with tokens of
+    their own (views.css): the projector theme must redefine them, so the ink it flips is on a light ground."""
+    projector = _projector()
+    for name in ("--view-rock-top", "--view-rock-bottom", "--view-surface", "--view-beam", "--view-beam-glow",
+                 "--view-beam-quiet", "--view-overlay", "--rs-limit", *(f"--limit-{i}" for i in range(6))):
+        assert name in projector, f"projector mode does not redefine the view token {name}"
+    rocks = [_rgb(projector["--view-rock-top"]), _rgb(projector["--view-rock-bottom"])]
+    for rock in rocks:
+        assert _luminance(rock) > 0.4, "the rock of the beam section is light in projector mode"
+        # Every ink a figure sets on the rock: names and numbers, the muted captions, the amber of "not to scale", the teal.
+        for ink in ("--white", "--muted", "--amber", "--teal"):
+            ratio = _contrast(_rgb(projector[ink]), rock)
+            assert ratio >= 4.5, f"{ink} is {ratio:.2f}:1 on the projector rock; figure text needs 4.5:1"
+    panels = [_rgb(projector[n]) for n in ("--paper", "--panel", "--panel-2")]
+    # The hues drawn on the panels carry text too (a curve's direct label, a card's kicker): 4.5:1 on each panel.
+    for name in ("--view-beam", "--rs-limit", *(f"--limit-{i}" for i in range(6))):
+        for panel in panels:
+            ratio = _contrast(_rgb(projector[name]), panel)
+            assert ratio >= 4.5, f"{name} is {ratio:.2f}:1 on a projector panel"
+    # What is drawn over the rock (the beam, the quiet beam, the surface line) is a graphic: 3:1 on both stops.
+    for name in ("--view-beam", "--view-beam-quiet", "--view-surface"):
+        for rock in rocks:
+            ratio = _contrast(_rgb(projector[name]), rock)
+            assert ratio >= 3.0, f"{name} is {ratio:.2f}:1 on the projector rock; a graphic needs 3:1"
+    # The standard theme's lightest rock stop holds the muted captions set on it.
+    standard = _tokens()
+    assert _contrast(_rgb(standard["--muted"]), _rgb(_view_tokens()["--view-rock-top"])) >= 4.5
+
+
+def _view_tokens() -> dict[str, str]:
+    text = _strip_comments((ROOT / "static" / "atlas" / "views.css").read_text(encoding="utf-8"))
+    block = text[text.index(":root {"): text.index("\n}", text.index(":root {")) + 2]
+    return dict(re.findall(r"(--[a-z0-9-]+)\s*:\s*([^;]+);", block))
+
+
 def test_projector_accent_text_and_buttons_are_at_least_7_to_1() -> None:
     projector = _projector()
     for name in ("--teal", "--amber", "--danger"):
@@ -366,7 +403,12 @@ def test_embed_mode_hides_the_chrome_and_keeps_the_open_link() -> None:
     css = _strip_comments(CLASSROOM_CSS.read_text(encoding="utf-8"))
     hidden = css[css.index("html.is-embed .atlas-header .brand"):]
     hidden = hidden[: hidden.index("}")]
-    for selector in (".search-wrap", "#mode-buttons", ".atlas-footer", "#start-card", "#filters-btn"):
+    for selector in (".search-wrap", "#mode-buttons", "#start-card", "#filters-btn"):
         assert selector in hidden, f"embed mode must hide {selector}"
+    # The footer goes but for one line: coverage is partial, and an embedded figure must not read as the whole field.
+    assert ".atlas-footer" not in hidden, "the footer is not hidden whole in embed mode"
+    assert "html.is-embed .atlas-footer > :not(.footer-coverage)" in css, "its links and buttons are hidden, its coverage note is not"
+    note = css[css.index("html.is-embed .atlas-footer .footer-coverage"):]
+    assert "display: inline-flex" in note[: note.index("}")], "the coverage note is shown in embed mode"
     assert "html.is-embed:not(.embed-timeline) .timeline-bar" in css
     assert ".embed-open" in css and "html.is-embed .embed-open" in css

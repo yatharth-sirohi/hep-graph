@@ -8,6 +8,9 @@
 //   views.show(state)   state.entity is { type: 'view', slug: '<name>/<arg>' }
 //   views.hide(state)   any other route; remembers it as where "Back" should return to
 //   views.back()        the back control (and Escape) do this
+//   views.exportState(slug) what "Export image" can do on this view: { ready, reason, title,
+//                       subtitle, name }; views.exportFigure() the figure(s) to draw into the
+//                       picture; views.onExportChange(cb) tells export.js when either changes
 
 import { getView, parseViewSlug } from './registry.js';
 
@@ -31,6 +34,8 @@ export function createViewHost({ main, atlas, index, loader, navigate }) {
   let current = null; // { slug, controller, back }
   let returnTo = null; // the last non-view route this page saw: where Back returns to
   let serial = 0;
+  const exportListeners = new Set(); // export.js: told when the view's figure is ready, or goes
+  const changed = () => { for (const listener of exportListeners) listener(); };
 
   function ensureDom() {
     if (dom) return dom;
@@ -156,21 +161,38 @@ export function createViewHost({ main, atlas, index, loader, navigate }) {
       setSubtitle: (value) => { dom.subtitle.replaceChildren(value == null ? '' : value); },
       setBack,
       announce: (text) => { dom.status.textContent = ''; window.setTimeout(() => { dom.status.textContent = text; }, 30); },
-      fail: (message, options = {}) => showError(message, options.retry),
+      fail: (message, options = {}) => {
+        if (current && current.host === host) current.failed = true;
+        showError(message, options.retry);
+        changed();
+      },
+      /** The view's figure for "Export image": `fn()` returns (or resolves to)
+       * `{ figures: [<svg>...], layout: 'row' | 'column', notes: [text...], release() }`, the SVGs
+       * laid out in the document (on screen, or in a holder off it); `release` clears what the
+       * call made. A view that draws `svg[data-export-figure]` elements needs no exporter. */
+      setExporter: (fn) => { if (current && current.host === host) { current.exporter = fn; changed(); } },
+      /** A view with no figure to make a picture from says why, in a sentence for the Export button
+       * (instead of the default "this view is a table and text"). */
+      setExportReason: (text) => { if (current && current.host === host) { current.exportReason = text; changed(); } },
     };
-    current = { slug, controller: null, back: parent, host, latest: null };
+    current = {
+      slug, controller: null, back: parent, host, latest: null, exporter: null, settled: false,
+    };
     if (parent) setBack(parent);
     dom.body.replaceChildren(h('p', { class: 'loading-note', role: 'status' }, 'Loading…'));
+    changed();
 
     let module;
     try {
       module = await view.load();
     } catch (error) {
       if (ticket !== serial) return;
+      current.failed = true;
       showError(`This view could not be loaded: ${error.message}. Check your connection and retry.`, () => {
         current = null;
         show(state);
       });
+      changed();
       return;
     }
     if (ticket !== serial) return;
@@ -183,11 +205,15 @@ export function createViewHost({ main, atlas, index, loader, navigate }) {
         return;
       }
       current.controller = controller || null;
+      current.settled = true;
       if (controller && typeof controller.update === 'function' && current.latest) controller.update(current.latest);
+      changed();
     } catch (error) {
       if (ticket !== serial) return;
       window.console.error(error);
+      current.failed = true;
       showError(`This view could not be drawn: ${error.message}.`);
+      changed();
       return;
     }
     // Focus moves to the heading on arrival (and never again for a year change).
@@ -208,6 +234,61 @@ export function createViewHost({ main, atlas, index, loader, navigate }) {
       dom.body.replaceChildren();
       dom.methodBody.replaceChildren();
     }
+    changed();
+  }
+
+  // ---- "Export image": what the figure on this view is, for export.js
+  const markedFigures = () => (dom ? [...dom.body.querySelectorAll('svg[data-export-figure]')] : []);
+
+  /** The line under the title as words for the picture: a status badge ("Under construction")
+   * is set off with a middle dot. */
+  function subtitleText() {
+    const copy = dom.subtitle.cloneNode(true);
+    for (const badge of copy.querySelectorAll('.status-badge')) badge.prepend('· ');
+    return copy.textContent.replace(/\s+/g, ' ').replace(/\s+·/g, ' ·').trim();
+  }
+
+  /** `{ ready, reason, title, subtitle, name }`. `ready` is true when this view has a figure the
+   * picture can be made from; otherwise `reason` says why not, in words for the button. */
+  function exportState(slug) {
+    if (!opened) return { ready: false, reason: 'No view is open.', title: '', subtitle: '', name: '' };
+    if (!current) {
+      return {
+        ready: false, reason: 'This view is showing an error, so there is no figure to export.', title: '', subtitle: '', name: '',
+      };
+    }
+    const { name, arg } = parseViewSlug(current.slug);
+    const base = {
+      title: dom.title.textContent.trim(),
+      subtitle: subtitleText(),
+      name: [name, arg].filter(Boolean).join('-'),
+    };
+    if (current.failed) return { ...base, ready: false, reason: 'This view is showing an error, so there is no figure to export.' };
+    // A route that has not finished taking over from the view before it is not drawn yet.
+    if (!current.settled || (slug && slug !== current.slug)) return { ...base, ready: false, reason: 'The figure is still being drawn.' };
+    if (current.exporter || markedFigures().length) return { ...base, ready: true, reason: '' };
+    return {
+      ...base,
+      ready: false,
+      reason: current.exportReason
+        || 'This view is a table and text, not a figure, so there is no image to export.',
+    };
+  }
+
+  /** The figure to draw into the picture: `{ figures, layout, notes, release }` (see setExporter).
+   * Throws when the view has none, or it is not drawn yet. */
+  async function exportFigure() {
+    const state = exportState();
+    if (!state.ready) throw new Error(state.reason);
+    const made = current.exporter ? await current.exporter() : { figures: markedFigures() };
+    const figures = ((made && made.figures) || []).filter((svg) => svg && svg.isConnected);
+    if (!figures.length) throw new Error('The figure has not been drawn yet. Try again in a moment.');
+    return {
+      figures,
+      layout: (made && made.layout) || 'column',
+      notes: (made && made.notes) || [],
+      release: (made && made.release) || (() => {}),
+    };
   }
 
   return {
@@ -215,5 +296,11 @@ export function createViewHost({ main, atlas, index, loader, navigate }) {
     hide,
     back: goBack,
     isOpen: () => opened,
+    exportState,
+    exportFigure,
+    onExportChange(listener) {
+      exportListeners.add(listener);
+      return () => exportListeners.delete(listener);
+    },
   };
 }

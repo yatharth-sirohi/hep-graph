@@ -162,6 +162,7 @@ export function mount(ctx) {
     });
     host.body.replaceChildren(lede, figure, depthSection, h('div', { class: 'ch-block' }, table));
 
+    host.setExporter(() => chart.exportFigures());
     inputs = fillMethod(host.method, { rows, entries, link, loader, prov });
     host.announce(`${WORKING_TITLE}: ${rows.length} laboratory sites, depth in metres of water equivalent against muon flux.`);
   }

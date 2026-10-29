@@ -454,6 +454,17 @@ input {
   background: var(--panel-2);
   border-color: var(--teal);
 }
+/* A tool that has nothing to act on here (Export image on a view with no figure) says so in its
+   tooltip and to a screen reader; it is dimmed and dashed, not hidden. */
+.tool-btn:disabled {
+  border-style: dashed;
+  color: var(--muted);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.tool-btn:disabled:hover {
+  border-color: var(--line-strong);
+}
 .tool-badge {
   min-width: 20px;
   padding: 0 6px;
@@ -1393,6 +1404,26 @@ body.is-map-route .atlas-header > .mode-buttons {
 .result-companions a {
   text-decoration: underline;
 }
+/* "Tested by" on a result that states a claim (js/tested-by.js): other experiments' results on it. */
+.tested-by-lead {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-sm);
+}
+.tested-by-list {
+  margin-bottom: var(--space-2);
+}
+.tested-by-meta {
+  color: var(--muted);
+  font-size: var(--text-xs);
+}
+.tested-by-more,
+.tested-by-note {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-xs);
+}
+.tested-by-more a {
+  text-decoration: underline;
+}
 /* Chips: the one small-pill shape (status, tags, role filters, active filters).
    A chip that is a button gets .is-active when it is on. */
 .chip,
@@ -2030,6 +2061,11 @@ body.is-map-route .atlas-header > .mode-buttons {
 .start-card[hidden] {
   display: none;
 }
+/* Reopened from the footer on a local map or a view: over the map's own panes and controls. */
+#atlas-main.is-map-route > .start-card,
+#atlas-main.is-view-route > .start-card {
+  z-index: 2000;
+}
 @media (max-width: 1200px) {
   .start-card {
     left: var(--space-4);
@@ -2341,7 +2377,7 @@ body.about-page {
   grid-template-columns: 1fr;
   grid-template-areas: none;
 }
-#atlas-main.is-map-route > :not(.map-view):not(.tour-card):not(.tour-resume) {
+#atlas-main.is-map-route > :not(.map-view):not(.tour-card):not(.tour-resume):not(.start-card) {
   display: none !important;
 }
 .map-view {

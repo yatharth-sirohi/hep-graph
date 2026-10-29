@@ -311,6 +311,39 @@ export function buildLegend(groups) {
   ])));
 }
 
+/** The legend as an SVG, for the exported picture: the same swatches and words, in rows that
+ * wrap at `width`. The caller puts it in the document (off screen) so its style resolves. */
+export function legendFigure(groups, width) {
+  const measure = document.createElement('canvas').getContext('2d');
+  measure.font = `13px ${window.getComputedStyle(document.body).fontFamily}`;
+  const svg = s('svg', { class: 'ch-legend-fig', width, role: 'img', 'aria-hidden': 'true', focusable: 'false' });
+  const ROW = 26;
+  let y = 4;
+  for (const group of groups) {
+    if (group.title) {
+      svg.append(s('text', { class: 'ch-legend-fig-title', x: 6, y: y + 12 }, group.title.toUpperCase()));
+      y += 20;
+    }
+    let x = 6;
+    for (const item of group.items) {
+      const swatchWidth = item.line ? 34 : 22;
+      const textWidth = measure.measureText(item.text).width;
+      if (x > 6 && x + swatchWidth + 6 + textWidth > width - 6) {
+        x = 6;
+        y += ROW;
+      }
+      const mark = s('g', { transform: `translate(${x + swatchWidth / 2} ${y + 11})` });
+      for (const child of [...legendSwatch(item).childNodes]) mark.append(child);
+      svg.append(mark, s('text', { class: 'ch-legend-fig-text', x: x + swatchWidth + 6, y: y + 15.5 }, item.text));
+      x += swatchWidth + 6 + textWidth + 22;
+    }
+    y += ROW + 4;
+  }
+  svg.setAttribute('height', String(y));
+  svg.setAttribute('viewBox', `0 0 ${width} ${y}`);
+  return svg;
+}
+
 // ------------------------------------------------------------------------ the chart
 let chartCounter = 0;
 
@@ -638,6 +671,18 @@ export function createChart(container, spec) {
       return [...parts.keys()];
     },
     svg: () => svg,
+    /** What "Export image" draws (views/host.js setExporter): the chart, and under it its legend as
+     * an SVG made for the call (the on-screen legend is HTML). `release` removes that legend. */
+    exportFigures() {
+      if (!svg || !svg.isConnected) return null;
+      const groups = (spec.legend || []).filter((group) => group.items && group.items.length);
+      if (!groups.length) return { figures: [svg], layout: 'column', release() {} };
+      const holder = h('div', { class: 'export-holder', 'aria-hidden': 'true' });
+      const legend = legendFigure(groups, Math.floor(svg.getBoundingClientRect().width) || width);
+      holder.append(legend);
+      document.body.append(holder);
+      return { figures: [svg, legend], layout: 'column', release: () => holder.remove() };
+    },
     destroy() {
       destroyed = true;
       window.cancelAnimationFrame(frame);

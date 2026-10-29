@@ -155,6 +155,9 @@ export function mount(ctx) {
     },
   });
 
+  // "Export image": the chart and its legend, as the picture a lecture slide takes.
+  host.setExporter(() => chart.exportFigures());
+
   const notes = rows.filter((row) => row.other);
   const figure = h('div', { class: 'ch-block ef-figure' }, [
     chartHost,

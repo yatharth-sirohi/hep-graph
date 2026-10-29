@@ -346,10 +346,10 @@ async function openFilters(page) {
     assert.equal(card.focusInside, true, "opening the card moves focus into it, so a keyboard user starts there");
     // "Take a tour" leads (the guided tours, js/tours.js), then the four questions.
     assert.deepEqual(card.links.map((l) => l.href), [
-      "?m=tours", "#/experiment/dune", "#/result/atlas-higgs-observation-2012", "#/topic/neutrino-oscillations", "#/experiment/t2k",
+      "?m=tours", "#/experiment/dune", "#/result/atlas-higgs-observation-2012", "#/topic/neutrino-oscillations", "#/view/beam-section/j-parc-neutrino",
     ]);
     // The fourth question was "How deep are the underground labs?" until a depth chart
-    // exists to answer it; T2K's 295 km beam answers the one below today.
+    // exists to answer it; T2K's 295 km beam, as the beam-section view, answers the one below today.
     assert.deepEqual(card.links.map((l) => l.text), [
       "Follow a guided tour", "Where is DUNE\u2019s far detector?", "Where was the Higgs discovered?",
       "Which experiments study neutrino oscillations?", "How far does a neutrino beam travel?",
@@ -361,13 +361,20 @@ async function openFilters(page) {
       { href: "#/experiment/dune", panel: /Deep Underground Neutrino Experiment/, url: /#\/experiment\/dune$/ },
       { href: "#/result/atlas-higgs-observation-2012", panel: /observation of a new particle/i, url: /#\/result\/atlas-higgs-observation-2012$/ },
       { href: "#/topic/neutrino-oscillations", panel: /Neutrino oscillations/, url: /#\/topic\/neutrino-oscillations$/ },
-      { href: "#/experiment/t2k", panel: /^T2K/, url: /#\/experiment\/t2k$/ },
+      // "How far does a neutrino beam travel?" lands on the T2K beam through the Earth, not on the experiment record.
+      { href: "#/view/beam-section/j-parc-neutrino", view: /Beam through the Earth/, url: /#\/view\/beam-section\/j-parc-neutrino$/ },
     ];
     for (const expected of expectations) {
       await p.locator(`#start-card a[href="${expected.href}"]`).click();
       await p.waitForFunction(() => document.getElementById("start-card").hidden);
-      await p.locator("#detail-panel h2").waitFor();
-      assert.match(await p.locator("#detail-panel h2").innerText(), expected.panel, `${expected.href} opens its record`);
+      if (expected.view) {
+        await p.locator("#view-host .bs-lede").waitFor();
+        assert.match(await p.locator("#view-title").innerText(), expected.view, `${expected.href} opens its view`);
+        assert.match(await p.locator("#view-subtitle").innerText(), /J-PARC → Kamioka Observatory/, "the T2K row: Tokai to Kamioka");
+      } else {
+        await p.locator("#detail-panel h2").waitFor();
+        assert.match(await p.locator("#detail-panel h2").innerText(), expected.panel, `${expected.href} opens its record`);
+      }
       assert.match(p.url(), expected.url);
       assert.equal(await p.evaluate(() => window.localStorage.getItem("hep-atlas.start-here")), "dismissed");
       // Reopen from the footer for the next one: it reopens, and aria-expanded follows.
@@ -380,6 +387,8 @@ async function openFilters(page) {
     await p.locator("#start-card").waitFor();
     await p.keyboard.press("Escape");
     await p.waitForFunction(() => document.getElementById("start-card").hidden);
+    assert.equal(await p.evaluate(() => document.activeElement && document.activeElement.id), "start-here-link",
+      "Escape returns focus to the footer button that reopened the card, not to the body");
     await p.goto(`${base}/atlas`);
     await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 30000 });
     await p.waitForTimeout(500);
@@ -761,7 +770,7 @@ async function openFilters(page) {
         "a row reached through a topic says which");
       for (const query of ["Higgs discovery", "where was the Higgs discovered"]) {
         const found = await rows(query);
-        assert.ok(!found.includes("No matches."), `"${query}" must not be "No matches"`);
+        assert.ok(!found.some((row) => /^No match/.test(row)), `"${query}" must not be "No match"`);
         assert.ok(found.some((row) => /^Observation of a new boson at a mass of 125 GeV — Result/.test(row)),
           `"${query}" must reach the CMS discovery paper; got ${JSON.stringify(found)}`);
         // Release-candidate review F7: a question about a discovery is answered
@@ -773,7 +782,19 @@ async function openFilters(page) {
       }
       assert.deepEqual(await rows("pr\u00e9vessin"), await rows("PREVESSIN"), "accents and case do not matter");
       assert.ok((await rows("Super Kamiokande"))[0].startsWith("Super-Kamiokande — Experiment"), "words match across a hyphen");
-      assert.deepEqual(await rows("zzzzqq"), ["No matches."], "a query no word of which is in the Atlas still says so");
+      // Coverage is partial: "nothing found" is never said as if it were "nothing exists", here as in every empty state.
+      assert.deepEqual(await rows("zzzzqq"), ["No match in the Atlas. Coverage is partial, so this is not evidence the experiment doesn\u2019t exist."],
+        "a query no word of which is in the Atlas says so, and that coverage is partial");
+      assert.match(await p.locator("#search-status").innerText(), /Coverage is partial/, "and the live region says it too");
+      // A word matches at the start of a word, never from the middle of one: "libra" is DAMA/LIBRA, not "calibration".
+      if (process.env.HEP_ATLAS_DATA === "generated") {
+        const libra = await rows("libra");
+        assert.match(libra[0], /^DAMA\/LIBRA — Experiment/);
+        assert.ok(libra.every((row) => !/calibration/i.test(row)), `"libra" found something that only has it inside a word: ${JSON.stringify(libra)}`);
+        // A typed phrase matches a name with simple plurals folded: the topic comes first for the singular too.
+        assert.equal((await rows("neutrino oscillation"))[0], "Neutrino oscillations — Topic");
+        assert.equal((await rows("neutrino oscillations"))[0], "Neutrino oscillations — Topic");
+      }
       assert.ok((await rows("zzzzqq Higgs")).length > 1, "one matching word is enough once all-words finds nothing");
       await ctx.close();
     });
@@ -1327,6 +1348,8 @@ async function openFilters(page) {
           footerBand: navy(ctx.getImageData(4, H - 4, 1, 1).data),
           yearPixels: count(W - 320, 4, 316, 80, (r, g, b) => r > 200 && g > 140 && g < 215 && b < 120),
           footerTextPixels: count(0, H - 44, Math.min(W, 1400), 40, (r, g, b) => r > 140 && g > 150 && b > 150),
+          // Pale pixels between the bands: the text of a figure (its shapes are drawn in the page's hues).
+          figureLightPixels: count(0, 90, W, Math.max(1, H - 90 - 100), (r, g, b) => r > 200 && g > 200 && b > 200),
           titleTextPixels: count(0, 4, 700, 80, (r, g, b) => r > 200 && g > 200 && b > 200),
         };
       }, bytes.toString("base64"));
@@ -1455,6 +1478,104 @@ async function openFilters(page) {
       }
       await exportCtx.close();
     });
+
+    // "Export image" on a view route (it said "The globe on screen", then "The globe is not on screen", and stayed
+    // disabled): the view host hands over its figure (an SVG), which is drawn under the same title band, year and
+    // citation. A view that is a table has no figure, and the button says so instead of opening a dialog that cannot work.
+    if (process.env.HEP_ATLAS_DATA === "generated") {
+      await record("Export image on a view: the beam section, both charts, the exclusion plot, the results timeline and the detector line-up each give a PNG with their figure, title, year and citation; a table view disables the button with a reason", async () => {
+        const { exportCtx, p } = await exportContext({ width: 1440, height: 960 });
+        const views = [
+          ["#/view/beam-section/lbnf", "beam-section-lbnf", "Beam through the Earth", ".bs-fig-a svg.bs-svg", /32\.5 km/],
+          ["#/view/underground", "underground", "Going underground", "#ug-chart svg.ch-svg", null],
+          ["#/view/energy-frontier", "energy-frontier", "The energy frontier", "#ef-chart svg.ch-svg", null],
+          ["#/view/limits/wimp-si", "limits-wimp-si", "WIMP exclusion plot", ".lm-svg", null],
+          ["#/view/results-story", "results-story", "Results as a story", ".rs-mark", null],
+          ["#/view/detector-scale", "detector-scale", "Detector line-up", ".ds-link", null],
+        ];
+        for (const [hash, name, title, ready] of views) {
+          await p.goto(`${base}/atlas${hash}`);
+          await p.locator(ready).first().waitFor({ timeout: 30000 });
+          await p.waitForFunction(() => !document.getElementById("export-btn").disabled, null, { timeout: 15000 });
+          assert.equal(await p.locator("#export-btn").getAttribute("title"), "Export image", `${name}: the button is on`);
+          for (const preset of ["slide", "double"]) {
+            const out = await exportAs(p, preset);
+            assert.match(out.name, new RegExp(`^hep-atlas_${name}_\\d{4}\\.png$`), `${name}: the file name says what it is`);
+            assert.ok(out.promised.includes(`${out.sample.W} × ${out.sample.H}`), `${name}: the dialog promised "${out.promised}", the PNG is ${out.sample.W} x ${out.sample.H}`);
+            if (preset === "slide" && name !== "results-story") assert.deepEqual([out.sample.W, out.sample.H], [1920, 1080], `${name}: the slide preset is 1920 x 1080`);
+            if (name === "results-story" && preset === "slide") {
+              assert.equal(out.sample.W, 1920, "the timeline is 1920 px wide, and as tall as it needs to be");
+              assert.ok(out.sample.H > 1080, "taller than a slide: on one it would be too small to read");
+              assert.ok(out.last.footerLines.some((line) => /taller than a slide/.test(line)), "and the footer says so");
+            }
+            assert.equal(out.last.kind, "figure");
+            assert.equal(out.last.title, title, `${name}: the title is the view's`);
+            assert.ok(out.sample.titleBand && out.sample.footerBand && out.sample.yearPixels > 40, `${name}: title band, year and footer band are drawn`);
+            assert.ok(out.sample.footerTextPixels > 150 && out.sample.titleTextPixels > 200, `${name}: the citation and the title are drawn`);
+            assert.ok(out.sample.distinctColours > 6, `${name}: the figure is not blank (${out.sample.distinctColours} colours)`);
+            assert.ok(out.sample.figureLightPixels > 400, `${name}: the text of the figure is drawn (${out.sample.figureLightPixels} pale pixels)`);
+            assert.match(out.last.footerLines[0], /^HEP Atlas — hep-graph\.vercel\.app\/atlas — data version \S+ — accessed \d{4}-\d{2}-\d{2}$/);
+            assert.ok(out.last.footerLines[1].endsWith(`#/view/${hash.slice("#/view/".length)}`), `${name}: the footer carries the address of the view: ${out.last.footerLines[1]}`);
+            assert.match(out.notes, /the figure of this view/i, `${name}: the dialog says what is in the image`);
+          }
+          await p.keyboard.press("Escape");
+        }
+        // A view with no figure (a table): the button is disabled, with its reason in the tooltip and for a screen reader.
+        await p.goto(`${base}/atlas#/view/compare/dune,lz,nova`);
+        await p.locator("table.cmp-table").waitFor({ timeout: 30000 });
+        await p.waitForFunction(() => document.getElementById("export-btn").disabled);
+        assert.match(await p.locator("#export-btn").getAttribute("title"), /unavailable.*table/i);
+        assert.equal(await p.locator("#export-btn").getAttribute("aria-describedby"), "export-reason");
+        assert.match(await p.locator("#export-reason").innerText(), /no figure to make an image from/);
+        // An error page has no figure either, and a view that comes next gives the button back (it never stays stuck).
+        await p.evaluate(() => { window.location.hash = "#/view/limits/no-such-plot"; });
+        await p.locator(".view-error").waitFor();
+        assert.equal(await p.locator("#export-btn").isDisabled(), true, "an error is not a figure");
+        assert.match(await p.locator("#export-btn").getAttribute("title"), /error/i);
+        await p.evaluate(() => { window.location.hash = "#/view/beam-section/lbnf"; });
+        await p.waitForFunction(() => !document.getElementById("export-btn").disabled, null, { timeout: 15000 });
+        // Back on the globe it is the globe's again.
+        await p.evaluate(() => { window.location.hash = ""; });
+        await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0);
+        assert.equal(await p.locator("#export-btn").isDisabled(), false);
+        await exportCtx.close();
+      });
+    }
+
+    // The sheet's key specifications are those of machines that exist: a proposed machine's design values
+    // (CERN: FCC-ee's circumference and depth, CLIC's energy) are listed apart, each with its status.
+    if (process.env.HEP_ATLAS_DATA === "generated") {
+      await record("Print facility sheet: the specifications of proposed machines (CERN: FCC-ee, CLIC) are listed apart, with their status", async () => {
+        const { exportCtx, p } = await exportContext({ width: 1280, height: 800 });
+        await p.goto(`${base}/atlas#/facility/cern`);
+        await p.locator("#detail-panel h2").waitFor({ timeout: 20000 });
+        await p.evaluate(() => { window.__printCalls = 0; window.print = () => { window.__printCalls += 1; }; });
+        await p.locator(".print-sheet-btn").click();
+        await p.waitForFunction(() => window.__printCalls > 0, null, { timeout: 45000 });
+        const sheet = await p.evaluate(() => {
+          const dls = [...document.querySelectorAll("#print-sheet .ps-specs")];
+          const names = (dl) => [...dl.querySelectorAll("dt")].map((dt) => dt.textContent);
+          return {
+            lists: dls.map(names),
+            head: (document.querySelector("#print-sheet .ps-proposed-head") || {}).textContent || "",
+          };
+        });
+        assert.equal(sheet.lists.length, 2, `one list of machines that exist, one of machines that do not: ${JSON.stringify(sheet.lists)}`);
+        const [built, proposed] = sheet.lists;
+        assert.ok(built.length > 0 && built.every((name) => !/FCC|Future Circular|CLIC|Compact Linear/.test(name)), `no proposed machine among those that run: ${JSON.stringify(built)}`);
+        assert.ok(proposed.some((name) => /FCC-ee.*\(proposed\)$/.test(name)), `FCC-ee is listed as proposed: ${JSON.stringify(proposed)}`);
+        assert.ok(proposed.some((name) => /(CLIC|Compact Linear Collider).*\(proposed\)$/.test(name)), `CLIC is listed as proposed: ${JSON.stringify(proposed)}`);
+        assert.ok(proposed.every((name) => /\((proposed|planned|approved, not built)\)$/.test(name)), "every one says its status");
+        assert.match(sheet.head, /not built/i);
+        if (BROWSER_NAME === "chromium") {
+          await p.emulateMedia({ media: "print" });
+          const pdf = await p.pdf({ format: "Letter", printBackground: true });
+          const pages = (pdf.toString("latin1").match(/\/Type\s*\/Page[^s]/g) || []).length;
+          assert.equal(pages, 1, `CERN's sheet is ${pages} pages on Letter, want 1`);
+        }
+        await exportCtx.close();
+      });
+    }
   }
   // ---- take it to a slide -- end ----------------------------------------
 
@@ -3846,6 +3967,38 @@ async function openFilters(page) {
     assert.ok(box.back >= 44, "the back control is a 44 px target");
     await phone.ctx.close();
   });
+  // The short name beside a mark never runs into another mark of its lane, and never across the dashed edge of the
+  // timeline's band (a gridline would strike through it, the band's edge was read through it).
+  if (process.env.HEP_ATLAS_DATA === "generated") {
+    await record("Results as a story: no label runs into a mark or across the edge of the year's band", async () => {
+      const { ctx, p } = await viewContext({ viewport: { width: 1440, height: 900 } });
+      for (const query of ["", "?y=2005"]) {
+        await p.goto(viewURL("#/view/results-story", query));
+        await p.locator(".rs-mark").first().waitFor();
+        await p.waitForFunction(() => document.querySelectorAll(".rs-mark-label").length > 20);
+        const clashes = await p.evaluate(() => {
+          const overlap = (a, b) => a.left < b.right - 0.5 && a.right > b.left + 0.5 && a.top < b.bottom - 0.5 && a.bottom > b.top + 0.5;
+          const found = [];
+          let labels = 0;
+          for (const track of document.querySelectorAll(".rs-track")) {
+            const shapes = [...track.querySelectorAll(".rs-mark .rs-shape")].map((el) => el.getBoundingClientRect());
+            const band = track.querySelector(".rs-now");
+            const edges = band ? [band.getBoundingClientRect().left, band.getBoundingClientRect().right] : [];
+            for (const label of track.querySelectorAll(".rs-mark-label")) {
+              labels += 1;
+              const box = label.getBoundingClientRect();
+              if (shapes.some((shape) => overlap(box, shape))) found.push(`${label.textContent}: over a mark`);
+              if (edges.some((x) => x > box.left + 1 && x < box.right - 1)) found.push(`${label.textContent}: across the band`);
+            }
+          }
+          return { labels, found };
+        });
+        assert.ok(clashes.labels > 20, `labels are drawn (${clashes.labels}) ${query}`);
+        assert.deepEqual(clashes.found, [], `labels clear of marks and of the band's edges ${query}`);
+      }
+      await ctx.close();
+    });
+  }
   // ---- views: Results as a story (M4) -- end -------------------------------------
 
   // ---- views: the WIMP exclusion plot (M4) -- begin -------------------------------
@@ -3875,13 +4028,37 @@ async function openFilters(page) {
     assert.match(text, /10⁴/);
     for (const label of ["LZ 2022", "LZ 2024", "XENONnT 2023 (min.)", "PandaX-4T 2021 (min.)"]) assert.ok(text.includes(label), `${label} is labelled on the plot`);
     const svg = await p.locator(".lm-svg").first().evaluate((el) => ({ role: el.getAttribute("role"), t: !!el.querySelector("title").textContent, d: !!el.querySelector("desc").textContent }));
-    assert.deepEqual(svg, { role: "img", t: true, d: true });
+    assert.deepEqual(svg, { role: "group", t: true, d: true }, "a group: its points are focusable, which an image's children cannot be");
+    // The keyboard reaches the numbers: one tab stop per series, every point named, the arrow keys walk a curve.
+    const keyboard = await p.evaluate(() => {
+      const points = [...document.querySelectorAll(".lm-svg [role='img'][aria-label]")];
+      return {
+        count: points.length,
+        stops: points.filter((el) => el.getAttribute("tabindex") === "0").length,
+        named: points.every((el) => /GeV\/c², .*cm² \((?:90% CL upper limit|published minimum)\)\.$/.test(el.getAttribute("aria-label"))),
+      };
+    });
+    assert.ok(keyboard.count >= 54 && keyboard.named, `every point is named: ${JSON.stringify(keyboard)}`);
+    assert.equal(keyboard.stops, 4, "one tab stop per series");
+    const lz2024 = '.lm-series[data-slug="lz-2024-si-wimp-nucleon"] .lm-dot';
+    await p.locator(lz2024).first().focus();
+    const first = await p.evaluate(() => document.activeElement.getAttribute("aria-label"));
+    await p.keyboard.press("End");
+    const last = await p.evaluate(() => document.activeElement.getAttribute("aria-label"));
+    assert.notEqual(last, first, "End moves to the last point of the curve");
+    assert.match(last, /^LZ, 4\.2 tonne-years \(2024\): /);
+    assert.equal(await p.locator(".lm-readout").innerText(), last, "the read-out says what the keyboard is on");
+    await p.keyboard.press("ArrowLeft");
+    const before = await p.evaluate(() => document.activeElement.getAttribute("aria-label"));
+    assert.notEqual(before, last);
+    assert.match(before, /^LZ, 4\.2 tonne-years \(2024\): .*\(90% CL upper limit\)\.$/);
+    assert.equal(await p.evaluate(() => document.activeElement.getAttribute("tabindex")), "0", "the tab stop moves with the arrow keys");
     // The lowest point of each curve, against the HEPData tables: LZ 2022 9.17e-48 at 36 GeV, LZ 2024 2.18e-48 at 40 GeV.
     const stats = await p.locator(".lm-stats").innerText();
     assert.match(stats, /9\.17 × 10⁻⁴⁸ cm²\s+at 36 GeV\/c²/);
     assert.match(stats, /2\.18 × 10⁻⁴⁸ cm²\s+at 40 GeV\/c²/);
     assert.match(stats, /2\.58 × 10⁻⁴⁷ cm²\s+at 28 GeV\/c²/);
-    assert.match(stats, /3\.80 × 10⁻⁴⁷ cm²\s+at 30 GeV\/c²/);
+    assert.match(stats, /3\.80 × 10⁻⁴⁷ cm²\s+at 40 GeV\/c²/, "PandaX-4T's published minimum is at 40 GeV/c² (the data were corrected from 30)");
     // The read-out: pointing at the dot of LZ 2024's minimum names it.
     const spot = await p.evaluate(() => {
       const dots = [...document.querySelectorAll('.lm-series[data-slug="lz-2024-si-wimp-nucleon"] .lm-dot')];
@@ -4394,6 +4571,40 @@ async function openFilters(page) {
       await ctx.close();
     });
 
+    // "Over my location" on a page opened with ?cmp=cern and no cmpc: the address already is what it would become, so
+    // there was nothing to navigate to and nothing redrew ("Waiting for your browser…" stayed on the page for good).
+    await record("Compare with…: Over my location works from a page opened with ?cmp= and no cmpc, and a request the browser never answers ends", async () => {
+      const place = { latitude: 41.6611, longitude: -91.5302 };
+      const { ctx, p } = await viewContext({ viewport: { width: 1440, height: 900 }, permissions: ["geolocation"], geolocation: place });
+      await ctx.route("**/tile.openstreetmap.org/**", (route) => route.fulfill({ status: 200, contentType: "image/png", body: PIXEL }));
+      await p.goto(viewURL("#/map/fermilab", "?cmp=cern"));
+      await p.locator(".map-compare-section").waitFor();
+      if (!(await p.locator("#map-compare-locate").isVisible())) await p.locator(".map-compare-section > summary").click();
+      await p.locator(".map-cmp-line").first().waitFor();
+      assert.equal(new URL(p.url()).searchParams.has("cmpc"), false, "the page was opened with no map point");
+      await p.locator("#map-compare-locate").click();
+      await p.locator(".map-cmp-label").filter({ hasText: "your location" }).waitFor({ timeout: 10000 });
+      assert.ok(!/Waiting for your browser/.test(await p.locator(".map-compare-section").innerText()), "the wait is over");
+      assert.equal(new URL(p.url()).searchParams.has("cmpc"), false, "and the location is not in the link");
+      await ctx.close();
+      // A browser that never answers (a permission prompt left open): the 20 s limit (shortened here) ends the wait.
+      const { ctx: silent, p: q } = await viewContext({ viewport: { width: 1440, height: 900 } });
+      await silent.addInitScript(() => {
+        const original = window.setTimeout.bind(window);
+        window.setTimeout = (fn, ms, ...rest) => original(fn, ms === 20000 ? 300 : ms, ...rest);
+        navigator.geolocation.getCurrentPosition = () => {};
+      });
+      await q.goto(viewURL("#/map/fermilab", "?cmp=cern"));
+      await q.locator(".map-compare-section").waitFor();
+      if (!(await q.locator("#map-compare-locate").isVisible())) await q.locator(".map-compare-section > summary").click();
+      await q.locator(".map-cmp-line").first().waitFor();
+      await q.locator("#map-compare-locate").click();
+      await q.waitForFunction(() => /did not share your location within 20 seconds/.test(document.querySelector(".map-compare-section").innerText), null, { timeout: 10000 });
+      assert.ok(!/Waiting for your browser/.test(await q.locator(".map-compare-section").innerText()), "it always resolves");
+      assert.equal(await q.locator("#map-compare-locate").isEnabled(), true, "and the reader can try again");
+      await silent.close();
+    });
+
     await record("Detector line-up: the sourced detectors are drawn at one scale beside a 1.8 m person, IceCube has its own panel, each opens its record", async () => {
       const { ctx, p } = await viewContext();
       await p.goto(viewURL("#/view/detector-scale"));
@@ -4682,6 +4893,59 @@ async function openFilters(page) {
       await p.keyboard.press("Escape");
       await p.locator("#tour-card").waitFor({ state: "hidden" });
       assert.equal(new URL(p.url()).hash, "");
+      await ctx.close();
+    });
+
+    // Presenter mode (a tour on a projector, 1920 x 1080): the room cannot scroll (the arrow keys and Space step the tour), so
+    // a view step shows its whole figure above the timeline bar, in both themes, and a map step gives the map the stage.
+    await record("Tours: in presenter mode at 1920 x 1080 the whole beam figure is above the timeline bar, and a map step has the stage (no layers column; the record's drawer only when asked for)", async () => {
+      const beams = tourList.find((t) => slugOf(t) === "neutrino-beams-through-the-earth");
+      const collider = tourList.find((t) => slugOf(t) === "how-a-collider-complex-works");
+      const { ctx, p } = await viewContext({ viewport: { width: 1920, height: 1080 } });
+      for (const theme of ["standard", "projector"]) {
+        await p.goto(tourURL("neutrino-beams-through-the-earth", `?theme=${theme}&present=1&step=5`));
+        await expectStep(p, beams, 5);
+        await p.locator("#view-host:not(.hidden) .bs-fig-a svg.bs-svg").waitFor({ timeout: 45000 });
+        await p.waitForTimeout(600);
+        const fit = await p.evaluate(() => {
+          const bar = document.getElementById("timeline-bar").getBoundingClientRect();
+          const host = document.getElementById("view-host");
+          return {
+            figureBottom: Math.max(...[...document.querySelectorAll(".bs-fig-grid > *")].map((el) => el.getBoundingClientRect().bottom)),
+            barTop: bar.top, scrolled: host.scrollTop, projector: document.documentElement.getAttribute("data-theme") === "projector",
+          };
+        });
+        assert.equal(fit.projector, theme === "projector");
+        assert.ok(fit.figureBottom <= fit.barTop - 2, `${theme}: the lower half of the beam figure is behind the timeline bar (figure ends at ${fit.figureBottom}, the bar starts at ${fit.barTop})`);
+        assert.equal(fit.scrolled, 0, `${theme}: nothing had to be scrolled`);
+      }
+      await p.goto(tourURL("how-a-collider-complex-works", "?present=1&step=1"));
+      await expectStep(p, collider, 1);
+      await p.locator(".leaflet-container").waitFor({ timeout: 45000 });
+      await p.waitForTimeout(800);
+      const boxes = () => p.evaluate(() => {
+        const rect = (sel) => { const el = document.querySelector(sel); return el && el.getClientRects().length ? el.getBoundingClientRect() : null; };
+        const stage = rect(".map-stage");
+        return { stage: stage && stage.width, layers: !!rect(".map-layers"), drawer: !!rect(".map-drawer"), open: document.body.classList.contains("tour-record-open") };
+      });
+      let seen = await boxes();
+      assert.equal(seen.layers, false, "the layers column is not shown in presenter mode");
+      assert.equal(seen.drawer, false, "the record's drawer waits to be asked for");
+      assert.ok(seen.stage >= 1000, `the map has the stage the card leaves it (${seen.stage} px wide at 1920)`);
+      await p.locator(".tour-record-btn").waitFor({ state: "visible" });
+      await p.locator(".tour-record-btn").click();
+      await p.locator("#map-drawer-title").waitFor({ timeout: 15000 });
+      seen = await boxes();
+      assert.equal(seen.drawer, true, "asked for, the drawer opens beside the map");
+      assert.ok(seen.stage >= 700 && seen.layers === false, `and the map keeps most of the stage (${seen.stage} px)`);
+      // Escape puts the drawer away again (it is on screen, so it goes first); the next one leaves presenter mode, and
+      // the layers column comes back.
+      await p.keyboard.press("Escape");
+      await p.waitForFunction(() => !document.querySelector(".map-drawer") || !document.querySelector(".map-drawer").getClientRects().length);
+      assert.equal(await p.evaluate(() => document.body.classList.contains("is-presenting")), true, "the drawer went first");
+      await p.keyboard.press("Escape");
+      await p.waitForFunction(() => !document.body.classList.contains("is-presenting"));
+      assert.equal((await boxes()).layers, true, "the layers column is back once presenter mode is off");
       await ctx.close();
     });
 

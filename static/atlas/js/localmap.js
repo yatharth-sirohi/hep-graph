@@ -2812,7 +2812,11 @@ document.addEventListener('keydown', (event) => {
     player.closeFromEscape();
     return;
   }
-  if (view.sel) {
+  // Presenter mode (a tour on a projector): the record's drawer is not on screen unless it was asked for, and the
+  // first Escape leaves presenter mode (the tour's own handler), not closes a drawer nobody can see.
+  const presentingWithoutDrawer = document.body.classList.contains('is-presenting')
+    && !document.body.classList.contains('tour-record-open');
+  if (view.sel && !presentingWithoutDrawer) {
     event.stopPropagation();
     clearSelection();
   }

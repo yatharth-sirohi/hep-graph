@@ -68,6 +68,12 @@ export function init() {
 
   if (root.classList.contains('is-embed')) {
     const link = document.getElementById('embed-open');
+    // The coverage line that stays in the footer opens beside the frame, not inside it.
+    const coverage = document.querySelector('.atlas-footer .footer-coverage');
+    if (coverage) {
+      coverage.setAttribute('target', '_blank');
+      coverage.setAttribute('rel', 'noopener');
+    }
     const arrivedWithTimeline = root.classList.contains('embed-timeline');
     const sync = (current) => {
       if (link) link.setAttribute('href', fullSizeHref());

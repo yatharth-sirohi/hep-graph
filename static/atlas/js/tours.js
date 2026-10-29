@@ -448,6 +448,8 @@ export function createPlayer({
       dom.presentBtn.setAttribute('aria-label', present ? 'Presenter mode is on; turn it off' : 'Turn on presenter mode');
     }
     if (!present) setBlank(null);
+    // Presenter mode changes what waits to be asked for on a map step (the record's drawer).
+    if (target && activeKey) updateRecordButton();
   }
 
   function setBlank(kind) {
@@ -479,14 +481,16 @@ export function createPlayer({
     if (!dom) return;
     const button = card.querySelector('.tour-record-btn');
     const hasRecord = !!recordId();
-    // Beside the globe the record opens by itself (and can be closed, then asked for again); a
-    // local map's drawer is a column of its own on a laptop, so only a phone needs the button there.
-    const hidden = !hasRecord || !(target.stage === 'globe' ? panelHidden() : PHONE.matches && phoneKey !== activeKey);
+    // A local map's drawer is a column of its own on a laptop and shows by itself, but a phone's is a sheet,
+    // and presenter mode keeps the stage for the map (tours.css): in both, the drawer waits to be asked for.
+    const waits = PHONE.matches || (present && target.stage === 'map');
+    const asked = !!hasRecord && phoneKey === activeKey;
+    // Beside the globe the record opens by itself (and can be closed, then asked for again).
+    const hidden = !hasRecord || !(target.stage === 'globe' ? panelHidden() : waits && phoneKey !== activeKey);
     if (button) button.hidden = hidden;
     // A phone shows one sheet at a time: while the record is open the card steps aside.
-    const yielding = !!hasRecord && PHONE.matches && phoneKey === activeKey;
-    card.classList.toggle('is-yielding', yielding);
-    document.body.classList.toggle('tour-record-open', yielding);
+    card.classList.toggle('is-yielding', asked && PHONE.matches);
+    document.body.classList.toggle('tour-record-open', asked && waits);
   }
 
   // ----------------------------------------------------------------- the keyboard

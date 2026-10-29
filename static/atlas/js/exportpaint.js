@@ -468,12 +468,12 @@ export function paintLeader(ctx, leader, origin, xf, { alpha = 1 } = {}) {
  * live <svg> with the computed paint of every shape written onto it (a stylesheet
  * rule such as the ghosted outline's lower opacity does not travel with a
  * serialized SVG), so the picture is the layer the reader sees. */
-export async function rasterizeSvgLayer(svg, scale) {
+export async function rasterizeSvgLayer(svg, scale, { figure = false } = {}) {
   const rect = svg.getBoundingClientRect();
   const clone = svg.cloneNode(true);
-  const paint = ['fill', 'fill-opacity', 'fill-rule', 'stroke', 'stroke-opacity', 'stroke-width',
-    'stroke-dasharray', 'stroke-dashoffset', 'stroke-linecap', 'stroke-linejoin', 'opacity',
-    'display', 'visibility'];
+  // A figure of a view (its own gradients, clip paths, stops and arrowheads) needs more of its
+  // computed style than the map's vector layer, whose elements carry only the basics.
+  const paint = figure ? FIGURE_PAINT : LAYER_PAINT;
   const live = svg.querySelectorAll('*');
   const copy = clone.querySelectorAll('*');
   live.forEach((element, index) => {
@@ -485,6 +485,15 @@ export async function rasterizeSvgLayer(svg, scale) {
     }
     copy[index].setAttribute('style', style);
   });
+  if (figure) {
+    // Text is drawn separately, on the canvas, in the page's own faces (an SVG used as an image
+    // cannot reach the page's web fonts); a running animation (the beam's flowing dashes) is a
+    // moment, not the figure.
+    live.forEach((element, index) => {
+      if (copy[index].parentNode && (element.localName === 'text'
+        || window.getComputedStyle(element).animationName !== 'none')) copy[index].remove();
+    });
+  }
   clone.removeAttribute('style');
   clone.removeAttribute('class');
   clone.setAttribute('width', String(Math.max(1, Math.round(rect.width * scale))));
@@ -492,6 +501,89 @@ export async function rasterizeSvgLayer(svg, scale) {
   const markup = new XMLSerializer().serializeToString(clone);
   const image = await loadSvgImage(markup);
   return { image, rect };
+}
+
+const LAYER_PAINT = ['fill', 'fill-opacity', 'fill-rule', 'stroke', 'stroke-opacity', 'stroke-width',
+  'stroke-dasharray', 'stroke-dashoffset', 'stroke-linecap', 'stroke-linejoin', 'opacity',
+  'display', 'visibility'];
+const FIGURE_PAINT = [...LAYER_PAINT, 'stroke-miterlimit', 'stop-color', 'stop-opacity', 'clip-path',
+  'mask', 'marker-start', 'marker-mid', 'marker-end', 'paint-order', 'shape-rendering'];
+
+/** The colour of a computed paint (`fill`/`stroke`) with its opacity folded in, as a canvas
+ * colour string, or null when it is `none` or a reference to a gradient or pattern. */
+function paintColor(ctx, value, opacity) {
+  if (!value || value === 'none' || /^url\(/.test(value)) return null;
+  const colour = usableColor(ctx, value, null);
+  if (!colour) return null;
+  return { colour, opacity };
+}
+
+/** Draws every <text> of a live SVG with the page's fonts, on the canvas, where the browser
+ * lays it: the SVG's own user space, through the element's screen matrix (a rotated axis
+ * title, a text in a scaled figure), starting at the glyph run's real start position (so
+ * `text-anchor` and `dx` are already in it). `xf` is the SVG's transform onto the canvas. */
+export function paintSvgText(ctx, svg, xf) {
+  for (const text of svg.querySelectorAll('text')) {
+    const cs = window.getComputedStyle(text);
+    if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+    const alpha = effectiveOpacity(text, svg.parentElement);
+    if (alpha <= 0.01) continue;
+    const matrix = text.getScreenCTM();
+    if (!matrix) continue;
+    const walker = document.createTreeWalker(text, NodeFilter.SHOW_TEXT);
+    let offset = 0;
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+      const value = node.nodeValue || '';
+      const at = offset;
+      offset += value.length;
+      const words = value.replace(/\s+/g, ' ');
+      if (!words.trim()) continue;
+      const parent = node.parentElement;
+      const style = parent === text ? cs : window.getComputedStyle(parent);
+      if (style.display === 'none' || style.visibility === 'hidden') continue;
+      let start = null;
+      try { start = text.getStartPositionOfChar(at); } catch (error) { start = null; }
+      if (!start) continue;
+      const fill = paintColor(ctx, style.fill, parseFloat(style.fillOpacity));
+      const stroke = paintColor(ctx, style.stroke, parseFloat(style.strokeOpacity));
+      const strokeWidth = parseFloat(style.strokeWidth) || 0;
+      ctx.save();
+      ctx.setTransform(
+        matrix.a * xf.s, matrix.b * xf.s, matrix.c * xf.s, matrix.d * xf.s,
+        xf.dx + (matrix.e - xf.left) * xf.s, xf.dy + (matrix.f - xf.top) * xf.s,
+      );
+      ctx.font = fontShorthand(style, 1);
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
+      if ('letterSpacing' in ctx) ctx.letterSpacing = `${parseFloat(style.letterSpacing) || 0}px`;
+      const strokeFirst = /^stroke/.test(style.paintOrder || '');
+      const doStroke = () => {
+        if (!stroke || !(strokeWidth > 0)) return;
+        ctx.globalAlpha = alpha * stroke.opacity;
+        ctx.strokeStyle = stroke.colour;
+        ctx.lineWidth = strokeWidth;
+        ctx.lineJoin = 'round';
+        ctx.strokeText(words.replace(/^ /, ''), start.x, start.y);
+      };
+      const doFill = () => {
+        if (!fill) return;
+        ctx.globalAlpha = alpha * fill.opacity;
+        ctx.fillStyle = fill.colour;
+        ctx.fillText(words.replace(/^ /, ''), start.x, start.y);
+      };
+      if (strokeFirst) { doStroke(); doFill(); } else { doFill(); doStroke(); }
+      ctx.restore();
+    }
+  }
+}
+
+/** A live SVG figure (a view's drawing) onto the canvas: its shapes as the image the
+ * browser makes of them, then its text from the page's fonts. */
+export async function paintSvgFigure(ctx, svg, xf) {
+  const layer = await rasterizeSvgLayer(svg, xf.s, { figure: true });
+  ctx.drawImage(layer.image, canvasX(xf, layer.rect.left), canvasY(xf, layer.rect.top),
+    layer.rect.width * xf.s, layer.rect.height * xf.s);
+  paintSvgText(ctx, svg, xf);
 }
 
 export { SVG_NS };

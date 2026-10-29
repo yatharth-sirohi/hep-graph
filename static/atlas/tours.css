@@ -396,6 +396,25 @@ body.is-presenting .tour-hint {
   display: block;
 }
 
+/* A local map in presenter mode (a tour on a projector): the map is what the room looks at, so it
+   has the stage the card leaves it. At 1920 x 1080 the card, the map's own column of layers and
+   places, and a record's drawer left the map about 680 px wide. The layers column is not shown, and
+   the drawer waits to be asked for ("Open the record for ...", as on a phone): then it takes a
+   column beside the map. */
+body.is-presenting.is-map-route .map-layers {
+  display: none;
+}
+body.is-presenting.is-map-route .map-view,
+body.is-presenting.is-map-route .map-view.drawer-open {
+  grid-template-columns: minmax(0, 1fr) 0;
+}
+body.is-presenting.is-map-route:not(.tour-record-open) .map-drawer {
+  display: none;
+}
+body.is-presenting.is-map-route.tour-record-open .map-view.drawer-open {
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 30%);
+}
+
 /* --------------------------------------------------------------- the Tours list */
 .tour-list {
   display: flex;

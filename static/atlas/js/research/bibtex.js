@@ -151,6 +151,17 @@ const yearOf = (value) => {
   return match ? match[1] : null;
 };
 
+/** The year an arXiv identifier says: 2207.03764 -> 2022 (new style, YYMM), astro-ph/0311046 -> 2003 and
+ * hep-ex/9801007 -> 1998 (old style, YYMM too; the archive began in 1991). Null when it is neither. */
+export function arxivYear(id) {
+  const text = String(id == null ? '' : id).trim().replace(/^arxiv:\s*/i, '');
+  const match = /^(\d{2})\d{2}\.\d{4,5}(?:v\d+)?$/.exec(text)
+    || /^[a-z-]+(?:\.[A-Za-z-]+)?\/(\d{2})\d{2}\d{3}(?:v\d+)?$/.exec(text);
+  if (!match) return null;
+  const yy = Number(match[1]);
+  return String(yy >= 91 ? 1900 + yy : 2000 + yy);
+}
+
 const clean = (value) => (typeof value === 'string' && value.trim() ? value.trim() : null);
 
 /** Authors a record lists itself ({name} or a string each); nothing is read from anywhere else. */
@@ -194,9 +205,21 @@ export function citationFor(record, { collaborations = {} } = {}) {
   else if (names.length) author = names.map((name) => `{${bibtexEscape(name)}}`).join(' and ');
   else missing.push('author');
 
-  // When: the year it was published if the record says so, else the year of its own date.
-  const published = record.type === 'result' ? yearOf(record.published) : null;
-  const year = published || yearOf(record.date);
+  // When: the year it was published if the record says so, else the year of its own date. An entry
+  // that cites only the arXiv preprint (no journal, no DOI) is dated by the preprint: the year in its
+  // arXiv identifier, else the record's own preprint or announcement date. A `published` year (or a
+  // publication date) that belongs to a journal
+  // article the entry does not carry (LZ's first result: preprint 2022, published 2023) is not used.
+  const journalField = clean(source.journal);
+  const preprintOnly = Boolean(arxiv) && !doi && !journalField;
+  let year;
+  if (preprintOnly && record.type === 'result') {
+    year = arxivYear(arxiv) || (record.date_kind === 'publication' ? null : yearOf(record.date));
+  } else {
+    const published = record.type === 'result' ? yearOf(record.published) : null;
+    year = published || yearOf(record.date);
+  }
+  const published = record.type === 'result' && !preprintOnly ? yearOf(record.published) : null;
   if (!year) missing.push('year');
   const notes = [];
   if (record.type === 'result' && record.date_kind === 'announcement' && !published && yearOf(record.date)) {
