@@ -8,15 +8,17 @@
     "confidence": "approximate",
     "kind": "campus",
     "lat": -77.8675,
+    "locator": "OpenStreetMap way 821080729 'Williams Field' (aerodrome NZWD), tags gns:DMS_LAT and gns:DMS_LONG",
     "lon": 167.05667,
-    "note": "This point is Williams Field (the specific launch strip named on ANITA's own campaign pages for the ANITA-II flight); the exact launch pad varied slightly by flight/year (LDB Camp vs Williams Field, both near McMurdo Station). The numeric coordinate itself comes from Wikipedia; it marks the launch area only and is not a precise position. ANITA does not detect at this location anyway.",
+    "note": "This point is Williams Field (the launch strip named on ANITA's own campaign pages for the ANITA-II flight; NASA's balloon-facility page says 'LDB Camp, McMurdo Station'). The numbers are the gns:DMS_LAT / gns:DMS_LONG tags (77°52'03\"S 167°03'24\"E, apparently copied from the GEOnet Names Server; not checked there) of the OpenStreetMap aerodrome object for Williams Field; the point lies inside that object's mapped outline, about 0.7 km from its centroid. The exact launch pad varied by flight/year (LDB Camp vs Williams Field, both near McMurdo Station), so it marks the launch area only (precision 20 km) and is not a precise position. ANITA does not detect at this location anyway.",
     "precision_m": 20000,
-    "quote": "77°52'03\"S 167°03'24\"E / 77.86750°S 167.05667°E",
+    "quote": "\"gns:DMS_LAT\":\"77°52′03″S\",\"gns:DMS_LONG\":\"167°03′24″E\"",
     "sources": [
       "src:astro-neutrino-anita-csbf-nasa-antarctica-payloads",
-      "src:astro-neutrino-anita-wikipedia-williams-field"
+      "src:dw-osm-api-way-821080729",
+      "src:geo-mcmurdo-osm-williams-field-aerodrome"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-26"
   },
   "countries": [
     "AQ"
@@ -45,7 +47,8 @@
   "schema": "hep-atlas/0.2",
   "setting": "balloon",
   "sources": [
-    "src:astro-neutrino-anita-csbf-nasa-antarctica-payloads"
+    "src:astro-neutrino-anita-csbf-nasa-antarctica-payloads",
+    "src:dw-osm-api-way-821080729"
   ],
   "summary": {
     "plain": "The icy airstrip near McMurdo Station, Antarctica, where giant NASA balloons carrying instruments like ANITA are launched.",

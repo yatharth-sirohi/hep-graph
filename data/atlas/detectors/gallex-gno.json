@@ -60,23 +60,25 @@
   ],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:gallex-wikipedia",
-    "src:rf05-gno-complete-results-arxiv"
+    "src:rf05-gno-complete-results-arxiv",
+    "src:dw-mpik-gallex-gno-history"
   ],
   "specs": {
     "target_mass": {
       "approx": false,
-      "confidence": "approximate",
+      "confidence": "verified",
       "dimension": "mass",
       "display": "30.3 t gallium",
-      "note": "Sourced from Wikipedia only (checked 2026-09-17).",
-      "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
+      "locator": "GNO Collaboration final paper (Phys. Lett. B 616, 174; arXiv:hep-ex/0504037), Sec. 1 (Introduction)",
+      "note": "The GNO final paper gives the gallium chloride target as 100 tons containing 30.3 tons of gallium; the MPIK Heidelberg GALLEX/GNO history page gives the same 30.3 t of gallium in a GaCl3-HCl solution of total weight 101 t.",
+      "quote": "in a 100-ton gallium chloride target (containing 30.3 tons of gallium)",
       "sources": [
-        "src:gallex-wikipedia"
+        "src:rf05-gno-complete-results-arxiv",
+        "src:dw-mpik-gallex-gno-history"
       ],
       "unit": "t",
       "value": 30.3,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   },
   "status": "completed",
@@ -86,14 +88,16 @@
     "technical": "Radiochemical gallium detector, 30.3 t Ga as 101 t GaCl3-HCl solution, at LNGS Hall A; 71Ga(νe,e⁻)71Ge reaction, chemically extracted and counted in campaigns rather than observed in real time."
   },
   "technology": {
-    "confidence": "uncertain",
-    "note": "Sourced from Wikipedia only (checked 2026-09-17). The technology classes have no radiochemical value, so the class is 'other' and the radiochemical gallium technique is described in this free-text field instead.",
-    "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
+    "confidence": "verified",
+    "locator": "MPIK Heidelberg GALLEX/GNO history page, sections \"GALLEX: a radiochemical GALLium EXperiment to detect solar pp neutrinos\" and \"The GALLEX detector and 71Ge extraction procedure\"",
+    "note": "The reaction, the GaCl3-HCl target, the chemical extraction of germanium and its counting in proportional counters are described by MPIK Heidelberg, the lead institute of GALLEX; the GNO final paper gives the same reaction in a 100-ton gallium chloride target. The technology classes have no radiochemical value, so the class is 'other' and the radiochemical gallium technique is described in this free-text field instead.",
+    "quote": "Gallium as target allows neutrino interaction via νe + 71Ga → 71Ge + e–. ... Germanium is removed from the solution as volatile germanium chloride (GeCl4). ... Finally, it is placed together with Xenon into a miniaturized proportional counter.",
     "sources": [
-      "src:gallex-wikipedia"
+      "src:dw-mpik-gallex-gno-history",
+      "src:rf05-gno-complete-results-arxiv"
     ],
     "value": "Radiochemical gallium detector: solar neutrinos capture on 71Ga to produce 71Ge, which is chemically extracted and counted; the target is a gallium trichloride-hydrochloric acid solution, not an electronic real-time detector",
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-26"
   },
   "technology_class": "other",
   "technology_classes": [

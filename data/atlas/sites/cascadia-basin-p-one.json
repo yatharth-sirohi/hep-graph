@@ -4,18 +4,19 @@
   ],
   "altitude": null,
   "coordinates": {
-    "confidence": "uncertain",
-    "kind": "campus",
-    "lat": 48.89889,
-    "lon": -125.27444,
-    "note": "No official P-ONE or Ocean Networks Canada page, journal article or Wikipedia entry consulted (checked 2026-09-17) gives numeric coordinates for the Cascadia Basin seafloor node itself; all describe it only qualitatively ('~200 km off the coast of British Columbia/Vancouver Island', 'off the west coast of Vancouver Island in Barkley Sound'). This point is Barkley Sound (from Wikipedia), the nearest named coastal feature to the NEPTUNE cabled observatory that P-ONE builds on. The actual seafloor site is roughly 200 km further offshore at 2660 m depth, not at this coastal point. It is a coarse regional pointer with large uncertainty, not a surveyed seafloor position.",
-    "precision_m": 250000,
-    "quote": "Coordinates: 48°53′56″N 125°16′28″W",
+    "confidence": "approximate",
+    "kind": "detector",
+    "lat": 47.76667,
+    "locator": "STRAW pathfinder paper (arXiv:1810.13265), introduction",
+    "lon": -127.76667,
+    "note": "The STRAW pathfinder paper (arXiv:1810.13265, P-ONE/Ocean Networks Canada authors) gives 47 deg 46 min N, 127 deg 46 min W (to 1 arcminute) for the ONC deep-sea infrastructure at the Cascadia Basin site, to which the STRAW pathfinder and P-ONE connect; that paper rounds the depth to about 2600 m, the 2021 site-characterization paper (arXiv:2108.04961) gives 2660 m (used for the depth value). It replaces an earlier coastal reference point (Barkley Sound, Vancouver Island, about 220 km away). The point is the position of the cabled site, not a surveyed seafloor mooring position, so it is marked approximate with a precision of 3 km that covers the arcminute rounding and the offset of the moorings from the node.",
+    "precision_m": 3000,
+    "quote": "the ONC deep-sea infrastructure at Cascadia Basin dark site (47◦ 46’ N, 127◦ 46’ W), at a depth of ∼2600 m b.s.l.",
     "sources": [
-      "src:astro-neutrino-p-one-wikipedia-barkley-sound",
+      "src:dw-p-one-straw-pathfinder-arxiv-1810-13265",
       "src:astro-neutrino-p-one-straw-site-characterization-2021"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-26"
   },
   "countries": [
     "CA"
@@ -57,11 +58,12 @@
   "schema": "hep-atlas/0.2",
   "setting": "sea",
   "sources": [
-    "src:astro-neutrino-p-one-straw-site-characterization-2021"
+    "src:astro-neutrino-p-one-straw-site-characterization-2021",
+    "src:dw-p-one-straw-pathfinder-arxiv-1810-13265"
   ],
   "summary": {
     "plain": "A deep patch of the Pacific Ocean floor off the west coast of Vancouver Island, Canada, more than 2.6 kilometres down, where a planned neutrino telescope will one day be built using an existing undersea cable network.",
-    "technical": "Cascadia Basin seafloor site on Ocean Networks Canada's NEPTUNE cabled observatory, 2660 m depth, roughly 200 km off the coast of Vancouver Island/British Columbia; coordinates recorded as the nearest named coastal feature (Barkley Sound) as a coarse regional pointer, not a surveyed seafloor position."
+    "technical": "Cascadia Basin seafloor site on Ocean Networks Canada's NEPTUNE cabled observatory, 2660 m depth, roughly 200 km off the coast of Vancouver Island/British Columbia; coordinates (47°46'N, 127°46'W, to 1 arcminute) are the position the STRAW pathfinder paper gives for the Cascadia Basin site, not a surveyed seafloor mooring position."
   },
   "type": "site"
 }

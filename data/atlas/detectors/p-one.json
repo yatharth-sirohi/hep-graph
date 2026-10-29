@@ -73,15 +73,15 @@
   },
   "name": "P-ONE pathfinder instruments (STRAW / STRAW-b / P-ONE-1)",
   "notes": [
-    "No numeric coordinate for the actual Cascadia Basin seafloor deployment point was found in any source consulted; the placement above points at the nearest named coastal feature (Barkley Sound, Vancouver Island) as a coarse regional pointer, not a surveyed seafloor position.",
+    "No numeric coordinate for the actual seafloor mooring positions was found in any source consulted; the placement uses the Cascadia Basin site position (47°46'N, 127°46'W, to 1 arcminute) that the STRAW pathfinder paper (arXiv:1810.13265) gives for the site's cabled infrastructure, not a surveyed seafloor position.",
     "This record models the pathfinder-stage hardware (STRAW/STRAW-b/P-ONE-1), not the full planned P-ONE array, which does not yet exist; experiment:p-one's own status remains 'proposed' for that reason."
   ],
   "parent_detector_id": null,
   "placements": [
     {
-      "confidence": "uncertain",
+      "confidence": "approximate",
       "end": null,
-      "note": "Placed at the nearest named coastal feature (Barkley Sound) as a coarse regional pointer only; see site:cascadia-basin-p-one for why no precise seafloor coordinate exists.",
+      "note": "Placed at the Cascadia Basin site point (see site:cascadia-basin-p-one), the position of the cabled infrastructure the STRAW moorings connect to, not a surveyed mooring position.",
       "quote": "To fully qualify the Cascadia Basin as a site to host a multi-cubic-kilometer-scale neutrino telescope ... was deployed in Spring 2018 and connected to the existing NEPTUNE node",
       "role": "prototype",
       "site_id": "site:cascadia-basin-p-one",
@@ -96,7 +96,6 @@
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:astro-neutrino-p-one-straw-site-characterization-2021",
-    "src:astro-neutrino-p-one-wikipedia-barkley-sound",
     "src:astro-neutrino-p-one-nature-astronomy-2020"
   ],
   "specs": {

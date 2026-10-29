@@ -13,17 +13,18 @@
   "id": "accelerator:lansce",
   "intervals": [
     {
-      "confidence": "uncertain",
+      "confidence": "approximate",
       "end": null,
       "label": "opened as LAMPF",
-      "note": "Sourced to Wikipedia only. Renamed LANSCE in 1995 per the same source (not modeled as a separate interval; see facility aliases).",
-      "quote": "It was the most powerful linear accelerator in the world when it was opened in June 1972.",
+      "locator": "LANL National Security Science, \"Accelerating innovation\" (28 Nov 2022), section on the first 800 MeV beam; rename: \"In 1995, LAMPF was renamed the Los Alamos Neutron Science Center, or LANSCE\"",
+      "note": "The start is the month LAMPF first reached 800 MeV (9 June 1972, LANL); LANL's magazine 1663 says LAMPF \"opened in 1972\", and no page consulted gives a separate opening or dedication day. LANL also states that LAMPF was renamed LANSCE in 1995; that is not modeled as a separate interval (see facility aliases).",
+      "quote": "on June 9, 1972, the much-anticipated energy of 800 million electron volts was achieved, making LAMPF the most powerful linear accelerator in the world at that time.",
       "sources": [
-        "src:lansce-wikipedia"
+        "src:dw-lanl-nss-2022-accelerating-innovation"
       ],
       "start": "1972-06",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "is_collider": false,
@@ -41,22 +42,24 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:lanl-lansce",
   "sources": [
-    "src:lansce-wikipedia"
+    "src:geo-lanl-linac-page",
+    "src:dw-lanl-nss-2022-accelerating-innovation"
   ],
   "specs": {
     "beam_energy": {
       "approx": false,
-      "confidence": "uncertain",
+      "confidence": "verified",
       "dimension": "energy",
       "display": "800 MeV",
-      "note": "Sourced to Wikipedia only; no official LANL page consulted (checked 2026-09-17) states the beam energy directly.",
-      "quote": "The facility is capable of accelerating protons up to 800 MeV.",
+      "locator": "LANL page \"LANL's Linear Accelerator (LINAC)\", second paragraph",
+      "note": "",
+      "quote": "The third and longest stage of the accelerator (800m) is the side-coupled-cavity linac, where particles are accelerated to their final energy of 800 MeV.",
       "sources": [
-        "src:lansce-wikipedia"
+        "src:geo-lanl-linac-page"
       ],
       "unit": "MeV",
       "value": 800,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   },
   "status": "active",

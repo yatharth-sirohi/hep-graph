@@ -14,17 +14,18 @@
   "id": "detector:sno-plus",
   "intervals": [
     {
-      "confidence": "approximate",
-      "end": "2019",
+      "confidence": "verified",
+      "end": "2019-07",
       "label": "water-fill commissioning",
-      "note": "Years sourced from Wikipedia (rank 12) only.",
-      "quote": "The detector underwent a water-filled commissioning phase from 2017 to 2019",
+      "locator": "arXiv:2104.11687 (JINST 16 P08059), description of the three operating phases",
+      "note": "The collaboration's detector paper dates the water phase (the acrylic vessel filled with 905 t of ultrapure water, run as a water Cherenkov detector) to May 2017 - July 2019; the paper says the purpose of the water fill was to re-commission the detector and mitigate radon ingress.",
+      "quote": "The water phase was used to collect physics data by operating SNO+ as a water Cherenkov detector from May 2017 to July 2019 while filled with 905 tonnes of UPW.",
       "sources": [
-        "src:sno-plus-wikipedia"
+        "src:dw-sno-plus-detector-jinst-2021"
       ],
-      "start": "2017",
+      "start": "2017-05",
       "status": "commissioning",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     },
     {
       "confidence": "approximate",
@@ -34,15 +35,16 @@
         "display": "by April 2026 (leak repair under way); onset not sourced"
       },
       "label": "liquid-scintillator phase",
-      "note": "Year sourced from Wikipedia only. The acrylic-vessel leak repair was under way by April 2026 (LIP slide: \"lowering water now to repair\"); onset date not sourced.",
-      "quote": "In 2022, the detector was filled with Linear alkylbenzene (LAB) liquid scintillator loaded with the wavelength shifter PPO",
+      "locator": "SNOLAB news item, 17 May 2022",
+      "note": "Start is taken as May 2022, the date of the SNOLAB news item announcing the scintillator fill and PPO loading complete; earlier filling steps are not dated here. The acrylic-vessel leak repair was under way by April 2026 (LIP slide: \"lowering water now to repair\"); onset date not sourced.",
+      "quote": "The SNO+ experiment completes scintillator fill and PPO loading May 17, 2022 ... has completed the liquid scintillator detector fill and PPO loading marking a huge milestone for the experiment.",
       "sources": [
-        "src:sno-plus-wikipedia",
+        "src:dw-snolab-news-sno-plus-fill-2022",
         "src:currency2-sno-plus-lip-advisory-2026"
       ],
-      "start": "2022",
+      "start": "2022-05",
       "status": "active",
-      "verified_at": "2026-10-25"
+      "verified_at": "2026-10-26"
     },
     {
       "confidence": "approximate",
@@ -82,36 +84,43 @@
     {
       "confidence": "approximate",
       "end": null,
-      "note": "Placed at site:snolab-underground-lab, the same cavern as experiment:sno.",
-      "quote": "The detector underwent a water-filled commissioning phase from 2017 to 2019",
+      "locator": "arXiv:2104.11687 (JINST 16 P08059), description of the three operating phases",
+      "note": "Placed at site:snolab-underground-lab, the same cavern as experiment:sno. Start is the year of the first water fill (May 2017), a lower bound for when this detector configuration was in place.",
+      "quote": "In the first operating phase of the experiment, or “water phase”, the SNO+ detector was initially filled with light water (H2O) in May 2017.",
       "role": "main",
       "site_id": "site:snolab-underground-lab",
       "sources": [
-        "src:sno-plus-wikipedia"
+        "src:dw-sno-plus-detector-jinst-2021"
       ],
       "start": "2017",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:sno-plus-official-site",
-    "src:sno-plus-wikipedia"
+    "src:currency2-sno-plus-lip-advisory-2026",
+    "src:currency2-snolab-report-2026-05-26",
+    "src:dw-sno-plus-about-page",
+    "src:dw-sno-plus-detector-jinst-2021",
+    "src:dw-snolab-news-sno-plus-fill-2022"
   ],
   "specs": {
     "target_mass": {
       "approx": false,
-      "confidence": "approximate",
+      "confidence": "verified",
       "dimension": "mass",
       "display": "780 t liquid scintillator",
-      "note": "Sourced from Wikipedia only (checked 2026-09-17).",
-      "quote": "780 tonnes of organic liquid scintillator",
+      "locator": "About SNO+ page, first paragraph",
+      "note": "The SNO+ collaboration's About page gives 780 tonnes of liquid scintillator in the acrylic vessel; SNOLAB's May 2022 news item says the same after the fill.",
+      "quote": "The heart of the SNO+ detector is a 12m diameter acrylic sphere filled with 780 tonnes of liquid scintillator",
       "sources": [
-        "src:sno-plus-wikipedia"
+        "src:dw-sno-plus-about-page",
+        "src:dw-snolab-news-sno-plus-fill-2022"
       ],
       "unit": "t",
       "value": 780,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   },
   "status": "shutdown",
@@ -121,14 +130,15 @@
     "technical": "SNO's original acrylic vessel and PMT support structure, water-filled 2017-2019 for commissioning, then filled with 780 t of LAB+PPO liquid scintillator from 2022; a future phase will load natural tellurium for a 0νββ search."
   },
   "technology": {
-    "confidence": "approximate",
-    "note": "Structural continuity with the SNO vessel is per the official site's own description of SNO+ as reusing SNO's infrastructure; the specific scintillator mass figure is Wikipedia-sourced only.",
-    "quote": "780 tonnes of organic liquid scintillator",
+    "confidence": "verified",
+    "locator": "About SNO+ page, first paragraph",
+    "note": "The SNO+ About page states that the acrylic sphere, PMTs and PMT support structure are from the original SNO experiment and that the detector was previously filled with ultrapure water. The planned tellurium loading is recorded on experiment:sno-plus (LIP Advisory Committee slide), not repeated here.",
+    "quote": "a 12m diameter acrylic sphere filled with 780 tonnes of liquid scintillator ... The acrylic sphere, PMTs and PMT support structure were from the original SNO Experiment. ... Previously, the detector was filled with ultrapure water and operated as a water Cherenkov detector.",
     "sources": [
-      "src:sno-plus-wikipedia"
+      "src:dw-sno-plus-about-page"
     ],
-    "value": "The original SNO 12 m acrylic vessel and PMT support structure, refilled first with ultrapure water, then with liquid scintillator, and eventually planned to be loaded with tellurium for a double-beta-decay search",
-    "verified_at": "2026-09-17"
+    "value": "The original SNO 12 m acrylic vessel, photomultiplier tubes and PMT support structure, filled first with ultrapure water and now with liquid scintillator",
+    "verified_at": "2026-10-26"
   },
   "technology_class": "liquid_scintillator",
   "technology_classes": [

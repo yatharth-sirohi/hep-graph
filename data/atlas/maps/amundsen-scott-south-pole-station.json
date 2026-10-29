@@ -77,10 +77,10 @@
   "name": "Amundsen-Scott South Pole Station: IceCube, DeepCore and IceTop",
   "notes": [
     "The IceCube coordinate frame is anchored: the IceCube instrumentation paper (arXiv:1612.05093, version 3 of 6 Feb 2024, section 5.3) states that the y-axis is aligned with the Prime Meridian (Grid North, towards Greenwich) and the x-axis points 90 degrees clockwise (Grid East), and the IceCube repository i3astropy gives the nominal location of the detector centre (lat -89.9944, lon -62.6081, height 883.9 m, the elevation of the frame origin). Earlier versions of the paper may not state the orientation; docs.icecube.aq returned HTTP 401 to every fetch attempt (checked 2026-10-25).",
-    "Absolute accuracy of the IceCube features is about 500 m (anchor of unstated epoch, ice drift about 10 m a year, and the Wikipedia/OpenStreetMap point for IceCube, 89.99 S 63.4531 W, lies 489 m away); the relative layout of strings and tanks is good to about 1 m and drawn at true size and orientation.",
+    "Absolute accuracy of the IceCube features is about 500 m (anchor of unstated epoch, ice drift about 10 m a year, and the OpenStreetMap point for IceCube, 89.99 S 63.4531 W, lies 489 m away); the relative layout of strings and tanks is good to about 1 m and drawn at true size and orientation.",
     "String and tank positions come from the IC86 geometry text file in the IceCube repository icecube/toise (strings) and the GraphNeT copy of the same geometry (IceTop tanks, checked against the IceTop paper).md.",
     "String and tank groups are drawn as MultiPolygons of small markers because the map format has no multi-point type; each record is split to stay within 400 vertices.",
-    "Overpass (queried 2026-10-25, extract timestamp 2026-10-25T10:37:51Z) holds only the station village node, the ceremonial pole node and the IceCube office node (a copy of the Wikipedia coordinate) near the pole; no IceCube Laboratory building or station building footprint is mapped."
+    "Overpass (queried 2026-10-25, extract timestamp 2026-10-25T10:37:51Z) holds only the station village node, the ceremonial pole node and the IceCube office node near the pole; no IceCube Laboratory building or station building footprint is mapped."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],

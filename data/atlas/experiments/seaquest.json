@@ -37,14 +37,15 @@
       "confidence": "verified",
       "end": null,
       "facility_id": "facility:fermilab",
-      "note": "The spectrometer paper confirms the 120 GeV proton beam; the Fermilab Main Injector as the specific source machine is corroborated by src:seaquest-wikipedia-pointer (rank 12) rather than stated verbatim in the arXiv abstract text retrieved.",
-      "quote": "120 GeV proton beam",
+      "locator": "arXiv:1706.09990 (NIM A), section 2 (beam)",
+      "note": "The spectrometer paper states that the 120 GeV proton beam comes from the Fermilab Main Injector.",
+      "quote": "The SeaQuest uses the 120 GeV proton beam ... from the Fermilab Main Injector.",
       "role": "beam_source",
       "sources": [
         "src:seaquest-spectrometer-arxiv-2017"
       ],
       "start": null,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "id": "experiment:seaquest",
@@ -84,19 +85,21 @@
   },
   "name": "SeaQuest",
   "notes": [
-    "No official SeaQuest/E906 Fermilab website was found (DNS failures and refused connections on several tried subdomains); the record relies on INSPIRE, the spectrometer arXiv paper, the December 2025 final-results arXiv paper, and one Wikipedia pointer for the NM4 building name and Main Injector attribution.",
+    "No official SeaQuest/E906 Fermilab website was found (DNS failures and refused connections on several tried subdomains); the record relies on INSPIRE, the spectrometer arXiv paper, the December 2025 final-results arXiv paper, and a U.S. DOE categorical-exclusion record (CX-002672) for the NM4 hall name and project goals.",
     "Exact data-taking start/end calendar years were not confirmed by any source consulted and are therefore not asserted (see the 'completed' interval note)."
   ],
   "physics_goals": [
     {
       "confidence": "verified",
-      "note": "",
+      "locator": "title (flavor asymmetry via Drell-Yan); nuclear-modification goal in DOE CX-002672",
+      "note": "The d-bar/u-bar flavor asymmetry via Drell-Yan is the subject of the collaboration's final-results paper; the nuclear-modification goal is from the 2010 DOE determination: 'the modifications to that structure which occur when the nucleon is embedded in a nucleus'.",
+      "quote": "Final SeaQuest results on the flavor asymmetry of the proton light-quark sea with proton-induced Drell-Yan process",
       "sources": [
-        "src:seaquest-wikipedia-pointer",
-        "src:seaquest-final-results-arxiv-2025"
+        "src:seaquest-final-results-arxiv-2025",
+        "src:dw-doe-cx-002672-seaquest"
       ],
       "value": "Measure the antiquark flavor asymmetry (d̄/ū) in the proton sea via the Drell-Yan process, and study how nuclear binding modifies the quark/antiquark structure of nucleons",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "schema": "hep-atlas/0.2",
@@ -105,7 +108,7 @@
     "src:seaquest-spectrometer-arxiv-2017",
     "src:seaquest-final-results-arxiv-2025",
     "src:seaquest-inspire-experiment-record",
-    "src:seaquest-wikipedia-pointer"
+    "src:dw-doe-cx-002672-seaquest"
   ],
   "status": "completed",
   "summary": {

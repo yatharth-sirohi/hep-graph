@@ -15,15 +15,15 @@
       "confidence": "verified",
       "end": null,
       "label": "institute created (EIR + SIN merger)",
-      "note": "Upgraded 2026-09-17: the official PSI history page gives a day-precision date, replacing the Wikipedia-only year-precision value.",
+      "locator": "PSI page \"The history of PSI\", entry for 1988",
+      "note": "PSI's official history page gives a day-precision date.",
       "quote": "On 1 January 1988, the Swiss Federal Institute for Reactor Research (EIR) and the Swiss Institute for Nuclear Research (SIN) merged to form the Paul Scherrer Institute, PSI.",
       "sources": [
-        "src:facilities-verify-psi-history-page",
-        "src:psi-wikipedia"
+        "src:facilities-verify-psi-history-page"
       ],
       "start": "1988-01-01",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "kind": "accelerator_laboratory",
@@ -40,26 +40,29 @@
   },
   "name": "Paul Scherrer Institute",
   "notes": [
-    "2026-09-17 re-check: psi.ch is reachable (homepage, /en/about, /en/about/history-of-psi, /en/cas/hipa, and the HIPA-turns-50 news story all returned content); earlier 404s on every attempted psi.ch URL do not reproduce. Founding date and website are upgraded to official sources accordingly; operator_text remains Wikipedia-only because none of the official pages consulted states the ETH-Domain governance line verbatim."
+    "2026-09-17 re-check: psi.ch is reachable (homepage, /en/about, /en/about/history-of-psi, /en/cas/hipa, and the HIPA-turns-50 news story all returned content); earlier 404s on every attempted psi.ch URL do not reproduce. Founding date, website and the ETH-Domain membership line are sourced to PSI and ETH Board pages."
   ],
   "operator_ids": [],
   "operator_text": {
-    "confidence": "uncertain",
-    "note": "The psi.ch pages tried for this line (proscan/hipa, media/our-research, lab-life-and-safety/facts-and-figures) returned HTTP 404; sourced to Wikipedia only.",
-    "quote": "PSI belongs to the ETH Domain of the Swiss Confederation.",
+    "confidence": "verified",
+    "locator": "ETH Board page \"Overview of the ETH Domain\", first paragraph; PSI page \"PSI in brief\": \"As part of the ETH Domain, PSI is a key pillar of the Swiss research landscape\"",
+    "note": "",
+    "quote": "The ETH Domain comprises the two Federal Institutes of Technology ETH Zurich and EPFL, the four research institutes PSI, WSL, Empa and Eawag, as well as the ETH Board",
     "sources": [
-      "src:psi-wikipedia"
+      "src:dw-ethrat-overview-eth-domain",
+      "src:dw-psi-in-brief"
     ],
-    "value": "Part of the ETH Domain of the Swiss Confederation (the Swiss Federal Institutes of Technology system)",
-    "verified_at": "2026-09-17"
+    "value": "Part of the ETH Domain, the group of Swiss federal research institutions that also includes ETH Zurich, EPFL, WSL, Empa and Eawag",
+    "verified_at": "2026-10-26"
   },
   "primary_site_id": "site:psi-villigen",
   "related_facility_ids": [],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:psi-wikipedia",
     "src:facilities-verify-psi-history-page",
-    "src:facilities-verify-psi-official-home"
+    "src:facilities-verify-psi-official-home",
+    "src:dw-psi-in-brief",
+    "src:dw-ethrat-overview-eth-domain"
   ],
   "specs": {},
   "status": "active",

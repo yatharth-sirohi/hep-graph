@@ -23,16 +23,17 @@
       "confidence": "approximate",
       "end": "2024-08-27",
       "label": "reactor-antineutrino data taking",
-      "note": "Start date sourced only from Wikipedia; no official page or paper consulted (checked 2026-10-25) restates it. The end is sourced to the KamLAND collaboration, which states \"KamLAND began data taking in March 2002 and ended data taking in August 2024.\" (arXiv:2606.29381, v2 of 21 Oct 2026) and the TAUP 2025 slides give the day: \"Last physics run on August 27th 2024\". The January 2002 start day above is still sourced only to Wikipedia; the 2026 collaboration paper says \"March 2002\", which this record does not resolve.",
-      "quote": "KamLAND started to collect data on January 17, 2002.",
+      "locator": "arXiv:hep-ex/0405074 abstract (start); arXiv:2606.29381 Sec. II (end)",
+      "note": "Start is January 2002 at month precision: arXiv:hep-ex/0405074 (Motoki et al., Tohoku Research Center for Neutrino Science) says 'In January 22, 2002, KamLAND started the data-taking', while the KamLAND proceedings arXiv:hep-ex/0405001 (Hatakeyama, for the KamLAND Collaboration) says KamLAND 'started operation on January 21st 2002', so the day is not fixed here. The 2026 collaboration paper (arXiv:2606.29381, v2 of 21 Oct 2026) says \"KamLAND began data taking in March 2002 and ended data taking in August 2024.\", and the first-results exposure began on 4 March 2002 (arXiv:hep-ex/0212021); this record does not resolve the January/March difference. The end (2024-08-27) comes from the KamLAND collaboration paper quoted above; the TAUP 2025 slides give the day: \"Last physics run on August 27th 2024\".",
+      "quote": "In January 22, 2002, KamLAND started the data-taking.",
       "sources": [
-        "src:kamland-wikipedia",
+        "src:dw-kamland-motoki-online-monitoring-2004",
         "src:currency-kamland-dsnb-arxiv-2606-29381",
         "src:currency-kamland-taup2025-slides"
       ],
-      "start": "2002-01-17",
+      "start": "2002-01",
       "status": "active",
-      "verified_at": "2026-10-25"
+      "verified_at": "2026-10-26"
     },
     {
       "confidence": "approximate",
@@ -63,64 +64,73 @@
   "name": "KamLAND detector",
   "notes": [
     "`detector:kamland` is the id that KamLAND-Zen references: KamLAND-Zen loads a xenon-doped mini-balloon inside this same liquid-scintillator volume. This detector record describes KamLAND's own reactor-antineutrino configuration only; KamLAND-Zen's own specs and intervals are not recorded here.",
-    "All structural specs here (containment vessel, PMT count, veto mass) come from Wikipedia only; no official KamLAND page (the 'About KamLAND' sub-page returned 404 on every URL tried) or detector paper was reached to independently confirm them. The coverage page lists them as missing."
+    "Structural specs (target mass, PMT count) are quoted from the KamLAND first-results paper (arXiv:hep-ex/0212021) and the collaboration's 2026 full-dataset paper (arXiv:2606.29381); no official KamLAND detector page was reachable (the 'About KamLAND' sub-page returned 404 on every URL tried). The veto mass and containment vessel in `technology` rest on the first-results paper."
   ],
   "parent_detector_id": null,
   "placements": [
     {
       "confidence": "approximate",
       "end": null,
-      "note": "Placement start date sourced only from Wikipedia (rank 12), and site coordinates are themselves only campus-grade/approximate (see site:kamioka-kamland); confidence kept approximate accordingly.",
-      "quote": "KamLAND started to collect data on January 17, 2002.",
+      "locator": "arXiv:hep-ex/0405074 abstract",
+      "note": "Placement start is the January 2002 start of data taking at month precision (see the interval note on the January/March difference); the site coordinates are themselves only campus-grade/approximate (see site:kamioka-kamland), so confidence is kept approximate.",
+      "quote": "In January 22, 2002, KamLAND started the data-taking.",
       "role": "main",
       "site_id": "site:kamioka-kamland",
       "sources": [
-        "src:kamland-wikipedia"
+        "src:dw-kamland-motoki-online-monitoring-2004"
       ],
-      "start": "2002-01-17",
-      "verified_at": "2026-09-17"
+      "start": "2002-01",
+      "verified_at": "2026-10-26"
     }
   ],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:kamland-wikipedia",
-    "src:kamland-zen-arxiv-1211-first-phase"
+    "src:kamland-zen-arxiv-1211-first-phase",
+    "src:currency-kamland-dsnb-arxiv-2606-29381",
+    "src:currency-kamland-qeyes2025-slides",
+    "src:currency-kamland-taup2025-slides",
+    "src:dw-kamland-dsnb-2026-fulltext",
+    "src:dw-kamland-first-results-2002-fulltext",
+    "src:dw-kamland-motoki-online-monitoring-2004",
+    "src:kamland-first-results-2002"
   ],
   "specs": {
     "pmt_count": {
       "approx": false,
-      "confidence": "approximate",
+      "confidence": "verified",
       "dimension": "count",
       "display": "1879",
-      "note": "Sourced only from Wikipedia.",
-      "quote": "1,879 photomultiplier tubes",
+      "locator": "arXiv:hep-ex/0212021 (PRL 90, 021802), detector description",
+      "note": "Stated outright by the KamLAND first-results paper (1,325 17-inch plus 554 20-inch PMTs; the 2026 collaboration paper gives the same two counts).",
+      "quote": "An array of 1,879 photomultiplier tubes (PMTs), mounted on the inner surface of the containment vessel, completes the inner detector (ID) system.",
       "sources": [
-        "src:kamland-wikipedia"
+        "src:dw-kamland-first-results-2002-fulltext"
       ],
       "unit": "",
       "value": 1879,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     },
     "target_mass": {
       "approx": true,
-      "confidence": "approximate",
+      "confidence": "verified",
       "dimension": "mass",
       "display": "~1000 t liquid scintillator",
-      "note": "Sourced only from Wikipedia; no official or paper source independently confirmed it.",
-      "quote": "1,000 metric tons of mineral oil, benzene, and fluorescent chemicals",
+      "locator": "arXiv:2606.29381, Sec. II (KamLAND Detector and Dataset)",
+      "note": "The KamLAND collaboration states 1 kton of liquid scintillator in the inner detector (a nominal, rounded figure, hence ~1000 t).",
+      "quote": "The ID contained 1 kton of LS enclosed in a 13-m-diameter nylon/EVOH (ethylene-vinyl alcohol copolymer) balloon, which was supported by non-scintillating buffer oil.",
       "sources": [
-        "src:kamland-wikipedia"
+        "src:dw-kamland-dsnb-2026-fulltext"
       ],
       "unit": "t",
       "value": 1000,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   },
   "status": "upgrade",
   "subsystems": [],
   "summary": {
     "plain": "A giant balloon of clear liquid inside a mine in Japan, watched by nearly 1,900 light sensors, that catches antineutrinos from nuclear reactors across the country. A xenon-loaded inner balloon suspended at its centre (KamLAND-Zen) uses the same detector to search for a different rare process.",
-    "technical": "~1000 t liquid-scintillator antineutrino detector in an 18 m diameter vessel with 1,879 PMTs, surrounded by a water-Cherenkov muon veto, in the old Kamiokande cavity of the Kamioka mine; operating since 2002-01-17."
+    "technical": "~1000 t liquid-scintillator antineutrino detector in an 18 m diameter vessel with 1,879 PMTs, surrounded by a water-Cherenkov muon veto, in the old Kamiokande cavity of the Kamioka mine; operating since January 2002."
   },
   "technology": {
     "confidence": "verified",

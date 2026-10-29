@@ -7,7 +7,7 @@
   "formation": {
     "confidence": "uncertain",
     "locator": "INSPIRE experiment record 1110247",
-    "note": "No fetched source states an explicit formation date; Wikipedia says the experiment was 'headed by astrophysicists Raymond Davis, Jr. and John N. Bahcall in the late 1960s' without a precise date.",
+    "note": "No fetched source states an explicit collaboration formation date; Davis dates the experiment becoming operational to 1967 (see the intervals) but gives no date for a collaboration.",
     "sources": [
       "src:homestake-inspire-experiment-record"
     ],
@@ -65,16 +65,19 @@
   ],
   "leadership": [
     {
-      "confidence": "uncertain",
+      "confidence": "approximate",
       "end": null,
-      "note": "Raymond Davis Jr. (apparatus/experiment) and John N. Bahcall (theoretical predictions) are named as having headed the experiment in the late 1960s, per Wikipedia. Davis shared the 2002 Nobel Prize in Physics for this work (general knowledge, not independently sourced here).",
+      "locator": "Davis, Nobel autobiography (Les Prix Nobel 2002), paragraphs beginning \"Encouraged by these developments\" and \"I retired from Brookhaven in 1984\"",
+      "note": "Davis built the experiment and ran it; he transferred its administration to the University of Pennsylvania when he retired from Brookhaven in 1984. The sources give him no formal title such as spokesperson, so the role is 'other'. John N. Bahcall's part, per the autobiography, was the standard-solar-model flux that the measured signal was compared with, not a collaboration leadership role, so he is not recorded as a leader here.",
       "person_id": null,
-      "role": "spokesperson",
+      "person_name": "Raymond Davis Jr.",
+      "quote": "I built a much larger experiment in the Homestake Gold Mine in Lead, South Dakota. ... I transferred administration of the Homestake experiment to the University of Pennsylvania",
+      "role": "other",
       "sources": [
-        "src:homestake-wikipedia"
+        "src:vf-davis-nobel-biographical-2002"
       ],
       "start": null,
-      "verified_at": "2026-09-18"
+      "verified_at": "2026-10-26"
     }
   ],
   "links": {
@@ -95,14 +98,15 @@
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:homestake-inspire-experiment-record",
-    "src:homestake-wikipedia",
     "src:rf06-davis-nobel-lecture-2002",
-    "src:homestake-1998-flux-measurement"
+    "src:homestake-1998-flux-measurement",
+    "src:surf-our-story",
+    "src:vf-davis-nobel-biographical-2002"
   ],
   "status": "completed",
   "summary": {
-    "plain": "The small team led by Ray Davis (experiment) and John Bahcall (theory) that ran the Homestake chlorine experiment for over two decades.",
-    "technical": "Collaboration operating the Homestake chlorine solar-neutrino experiment from 1967 (standard data set 1970-1994), led by Raymond Davis Jr. and John N. Bahcall; institution/membership counts not independently confirmed by a source consulted."
+    "plain": "The small team around Ray Davis that built and ran the Homestake chlorine experiment for over two decades, measuring solar neutrinos against John Bahcall's theoretical predictions.",
+    "technical": "Collaboration operating the Homestake chlorine solar-neutrino experiment from 1967 (standard data set 1970-1994), led by Raymond Davis Jr.; the predicted rates came from John N. Bahcall's solar-model calculations; institution/membership counts not independently confirmed by a source consulted."
   },
   "type": "collaboration"
 }

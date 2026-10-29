@@ -7,13 +7,13 @@
     "missing_fields": [
       "collaboration formation date",
       "collaboration leadership (person records owned elsewhere)",
-      "day/month-precision run dates (only 'summer 1997', sourced solely to Wikipedia, was found)",
+      "day-precision run dates (the 2001 DONUT paper gives only the April to September 1997 emulsion exposure; no other run dates were found)",
       "detector specs beyond emulsion/steel technology and event counts (fnal.gov returned HTTP 403; the text of the primary 2001 PLB paper could not be extracted)",
       "external.inspire_experiment (no INSPIRE experiment-registry lookup performed; not mandatory at tier D)",
       "dedicated site record (the placement uses the Fermilab main-campus point, site:fermilab-main-campus, because a DONUT-specific hall coordinate is not published)"
     ],
     "name": "DONUT",
-    "notes": "Records exist for the experiment, detector, collaboration and the 'Observation of tau neutrino interactions' result (Kodama et al., Phys. Lett. B 504 (2001) 218). Several fields have confidence 'uncertain' because Wikipedia was the only reachable source for the run period and detector description (fnal.gov blocked every request with HTTP 403); the primary publication's abstract was read directly and used for the event counts, the background and the exact title.",
+    "notes": "Records exist for the experiment, detector, collaboration and the 'Observation of tau neutrino interactions' result (Kodama et al., Phys. Lett. B 504 (2001) 218). The host role, run period, beam and detector description, event counts, background and exact title are sourced to the primary publication (arXiv:hep-ex/0012035, Phys. Lett. B 504 (2001) 218); fnal.gov blocked every request with HTTP 403, and the collaboration formation date is left null.",
     "owner": "accelerator-neutrino-historical",
     "priority": 3,
     "researched": "full",
@@ -64,10 +64,10 @@
     "experiment_id": "experiment:opera",
     "facility": "LNGS Hall C (facility:lngs, site:lngs-hall-c) / CERN SPS (facility:cern, accelerator:sps)",
     "missing_fields": [
-      "collaboration formation date (only a rank-12 Wikipedia lower bound of 2003 is recorded, flagged uncertain)",
+      "collaboration formation date (not stated by any source consulted; the 2003 start of detector construction from the 2009 JINST detector paper is recorded as a lower bound, flagged uncertain)",
       "collaboration leadership and membership counts (person records owned elsewhere; no sourced official roster count found)",
       "external.inspire_experiment (no INSPIRE experiment-registry lookup performed; not mandatory at tier D)",
-      "construction-period sourcing is Wikipedia-only (rank 12), flagged uncertain; no official OPERA/LNGS page with construction dates was reachable (operaweb.lngs.infn.it did not resolve; lngs.infn.it/en/opera returned HTTP 500)"
+      "construction period 2003-2008 is taken from the abstract of the 2009 JINST detector paper (iopscience was bot-blocked, so the abstract was read on the OSTI/ETDEWEB copy); no official OPERA/LNGS page with construction dates was reachable (operaweb.lngs.infn.it did not resolve; lngs.infn.it/en/opera returned HTTP 500)"
     ],
     "name": "OPERA",
     "notes": "Mandatory-bar record complete: experiment, detector, collaboration, and beamline:cngs (CERN SPS to LNGS, 732 km baseline sourced to CERN's own CNGS page, quote '732 kilometres away in Italy'), plus the required 2015 tau-neutrino-appearance 'Discovery' result (Agafonova et al., Phys. Rev. Lett. 115, 121802 (2015), 5.1 sigma). Data-taking dates (2008-2012) and the CNGS beam-operation range (July 2006-December 2012) are verified against the primary PRL paper and CERN's official CNGS page respectively.",

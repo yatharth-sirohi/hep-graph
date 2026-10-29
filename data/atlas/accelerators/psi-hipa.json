@@ -12,17 +12,19 @@
   "id": "accelerator:psi-hipa",
   "intervals": [
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "end": null,
       "label": "Ring Cyclotron went into operation",
-      "note": "Sourced to Wikipedia only; the official psi.ch pages tried (checked 2026-09-17) returned HTTP 404. The machine has been upgraded substantially since 1974 (for example to a beam power of 1.4 MW, see the beam-power spec), but no source consulted gives a separate upgrade-interval date.",
-      "quote": "Like the Injector-2, the Ring Cyclotron, which has a circumference of about 48 m, went into operation in 1974.",
+      "locator": "PSI Center for Accelerator Science and Engineering, page \"The Ring Cyclotron\", first paragraph; corroborated by the HIPA-turns-50 story (\"went into operation in 1974\")",
+      "note": "The machine has been upgraded substantially since 1974 (for example to a beam power of 1.4 MW, see the beam-power spec), but no source consulted gives a separate upgrade-interval date.",
+      "quote": "The Ring cyclotron is a separated sector cyclotron with a fixed beam energy of 590 MeV, built by PSI and commissioned in 1974.",
       "sources": [
-        "src:psi-wikipedia"
+        "src:psi-geo-ring-cyclotron-page",
+        "src:facilities-verify-psi-hipa-turns-50"
       ],
       "start": "1974",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "is_collider": false,
@@ -32,7 +34,7 @@
   },
   "name": "High Intensity Proton Accelerator",
   "notes": [
-    "Beam power: the official psi.ch/en/cas/hipa page (checked 2026-09-17) gives 1.4 MW. The 1.3 MW figure in the Wikipedia article is the current beam allocation to SINQ/SmuS, not the facility's own headline power. The 1974 start year is corroborated by an official PSI news story (src:facilities-verify-psi-hipa-turns-50: 'went into operation in 1974') in addition to Wikipedia."
+    "Beam power: the official psi.ch/en/cas/hipa page (checked 2026-09-17) gives 1.4 MW. The 1974 start year is stated by PSI's Ring Cyclotron page and by an official PSI news story (src:facilities-verify-psi-hipa-turns-50: 'went into operation in 1974')."
   ],
   "particles": [
     "proton"
@@ -40,7 +42,7 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:psi-villigen",
   "sources": [
-    "src:psi-wikipedia",
+    "src:psi-geo-ring-cyclotron-page",
     "src:facilities-verify-psi-hipa-page",
     "src:facilities-verify-psi-hipa-turns-50"
   ],
@@ -50,7 +52,7 @@
       "confidence": "verified",
       "dimension": "energy",
       "display": "590 MeV",
-      "note": "Upgraded 2026-09-17 from Wikipedia-only to PSI's own official HIPA page.",
+      "note": "PSI's own official HIPA page states the proton energy.",
       "quote": "accelerates the proton bunches up to 590 MeV (79 % of the speed of light)",
       "sources": [
         "src:facilities-verify-psi-hipa-page"
@@ -64,7 +66,7 @@
       "confidence": "verified",
       "dimension": "power",
       "display": "1.4 MW",
-      "note": "PSI's own official HIPA page states the facility's beam power as 1.4 MW; the 1.3 MW figure in the Wikipedia article ('The 1.3 MW strong proton beam is directed towards...') describes the current beam distribution.",
+      "note": "PSI's own official HIPA page states the facility's beam power as 1.4 MW.",
       "quote": "The High Intensity Proton Accelerator Facility (HIPA) provides a 1.4 MW proton beam for the production of mesons and neutrons.",
       "sources": [
         "src:facilities-verify-psi-hipa-page"

@@ -4,15 +4,18 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 43.2756,
-    "locator": "Wikipedia infobox coordinate (43°16'32\"N 42°41'25\"E)",
-    "lon": 42.6903,
-    "note": "No primary or official source consulted (checked 2026-09-18) gives numeric coordinates for the underground lab itself: the abstract of the SAGE 1999 results paper does not state them, and the official Baksan/INR site returned 404. The point is the Wikipedia infobox coordinate for the laboratory area, so it is a campus-grade, approximate point and not an underground-laboratory position. A published survey or an official INR coordinate would give a better one.",
-    "precision_m": 3000,
+    "lat": 43.2756023,
+    "locator": "CERN Courier, \"Baksan scales new neutrino heights\" (19 May 2017): SAGE lies 3.5 km from the tunnel entrance; OpenStreetMap node 4244310615 (Main adit entrance, 43.2756023 N 42.6921682 E)",
+    "lon": 42.6921682,
+    "note": "Campus-grade: the point is the OpenStreetMap Main adit entrance of the Baksan Neutrino Observatory, not the laboratory. CERN Courier and the SAGE 1999 results paper put the SAGE laboratory 3.5 km from the entrance of a horizontal adit; no source read gives the tunnel's bearing or says which of the observatory's parallel adits it is, so the laboratory lies within about 3.5 km (precision stated 3500 m) of this point. It is not a surveyed underground position (rank-11 OpenStreetMap source, A17), and no published coordinate of the laboratory itself was found. The previous point, about 150 m to the west, was a coarse point (precision 3000 m) for the same area.",
+    "precision_m": 3500,
+    "quote": "SAGE, which has been in operation since 1986 and is led by Vladimir Gavrin, is located 3.5 km from the tunnel entrance",
     "sources": [
-      "src:sage-wikipedia"
+      "src:glossary-cern-courier-baksan-2017",
+      "src:geo-baksan-osm-main-adit",
+      "src:sage-1999-capture-rate"
     ],
-    "verified_at": "2026-09-18"
+    "verified_at": "2026-10-26"
   },
   "countries": [
     "RU"
@@ -28,7 +31,7 @@
     "dimension": "length",
     "display": "~2100 m of rock above the laboratory",
     "locator": "Slide 'Baksan Valley and Mt. Andyrchi' (page 7 of the PDF)",
-    "note": "Rock thickness above the SAGE (GGNT) laboratory per the Baksan Neutrino Observatory's 2016 presentation; the SAGE 1999 paper gives the overburden as 4700 m.w.e. (see depth_mwe). Earlier source: Wikipedia (rank 12), now dropped from this field.",
+    "note": "Rock thickness above the SAGE (GGNT) laboratory per the Baksan Neutrino Observatory's 2016 presentation; the SAGE 1999 paper gives the overburden as 4700 m.w.e. (see depth_mwe).",
     "quote": "GGNT - 3,5 km from the entrance 2100 m thickness of the rock above laboratory (4700 m.w.e.)",
     "sources": [
       "src:geo-baksan-kornoukhov-2016-slides"
@@ -82,13 +85,16 @@
   "schema": "hep-atlas/0.2",
   "setting": "underground",
   "sources": [
-    "src:sage-wikipedia",
     "src:sage-1999-capture-rate",
-    "src:geo-baksan-kornoukhov-2016-slides"
+    "src:geo-baksan-kornoukhov-2016-slides",
+    "src:glossary-cern-courier-baksan-2017",
+    "src:geo-baksan-osm-main-adit",
+    "src:rf09-sage-iii-arxiv",
+    "src:geo-euro-ug-pandola-2011"
   ],
   "summary": {
-    "plain": "A chamber more than two kilometres inside a mountain in the Russian Caucasus, holding tonnes of liquid gallium metal to catch solar neutrinos.",
-    "technical": "Underground laboratory of the Baksan Neutrino Observatory, ~2100 m (6900 ft) underground in the Caucasus Mountains, Kabardino-Balkaria, Russia, housing the SAGE gallium detector."
+    "plain": "A chamber under more than two kilometres of rock in a mountain in the Russian Caucasus, holding tonnes of liquid gallium metal to catch solar neutrinos.",
+    "technical": "Underground laboratory of the Baksan Neutrino Observatory, under about 2100 m of rock (4700 m.w.e.) in the Caucasus Mountains, Kabardino-Balkaria, Russia, housing the SAGE gallium detector."
   },
   "type": "site"
 }

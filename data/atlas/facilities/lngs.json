@@ -14,18 +14,34 @@
   "id": "facility:lngs",
   "intervals": [
     {
+      "confidence": "verified",
+      "end": "1987",
+      "label": "excavation of the underground halls",
+      "locator": "arXiv:1102.0208, paragraph 'Laboratori Nazionali del Gran Sasso (LNGS), Italy'",
+      "note": "L. Pandola (INFN LNGS) dates the start of the actual excavation to 1982 and its completion to 1987; the laboratory's own Italian description page also dates the start of the excavation of the underground halls to 1982 ('Le opere di scavo ... hanno avuto inizio nel 1982').",
+      "quote": "After the initial proposal by the INFN President A. Zichichi in 1979, the actual excavation started in 1982, in coincidence with the freeway 10-km tunnel, and was completed in 1987.",
+      "sources": [
+        "src:dw-lngs-pandola-underground-overview-2011",
+        "src:dw-lngs-descrizione-generale"
+      ],
+      "start": "1982",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
       "confidence": "uncertain",
       "end": null,
       "label": "laboratory operating",
-      "note": "No official LNGS or INFN page consulted (checked 2026-09-17) states a foundation, construction or opening date (lngs.infn.it/en/lab-history returned HTTP 404; lngs.infn.it/en gives no date). The start of 1987 rests on Wikipedia ('the research center became fully operational in 1987'), a low-reliability source, and should be re-checked against an official page. An undated interval would wrongly show the laboratory as not operating, although it clearly is ('Currently 1300 scientists from 30 different Countries are taking part in the experimental activities of LNGS', src:lngs-overview).",
-      "quote": "the research center became fully operational in 1987",
+      "locator": "arXiv:1102.0208, paragraph 'Laboratori Nazionali del Gran Sasso (LNGS), Italy'",
+      "note": "The start of 1987 is the year the excavation of the underground halls was completed (L. Pandola, INFN LNGS, arXiv:1102.0208); no LNGS or INFN page consulted (checked 2026-10-28) states an opening date for the laboratory as such (lngs.infn.it/en/lab-history returned HTTP 404; the English overview gives no date), and a 2005 INFN presentation by E. Coccia says the first experiment, MACRO, started taking data in 1989, so the date the laboratory began operating is uncertain and 1987 is a lower bound. An undated interval would wrongly show the laboratory as not operating, although it clearly is ('Currently 1300 scientists from 30 different Countries are taking part in the experimental activities of LNGS', src:lngs-overview).",
+      "quote": "After the initial proposal by the INFN President A. Zichichi in 1979, the actual excavation started in 1982, in coincidence with the freeway 10-km tunnel, and was completed in 1987.",
       "sources": [
-        "src:lngs-overview",
-        "src:lngs-wikipedia-history"
+        "src:dw-lngs-pandola-underground-overview-2011",
+        "src:lngs-overview"
       ],
       "start": "1987",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "kind": "underground_laboratory",
@@ -43,8 +59,8 @@
   "name": "Laboratori Nazionali del Gran Sasso",
   "notes": [
     "This record describes LNGS at a basic level (the laboratory and its Hall B, where ICARUS ran), not the full LNGS programme.",
-    "The commonly quoted 3800 m.w.e. overburden is NOT recorded: no page consulted states a metres-water-equivalent figure, only the 1400 m rock thickness.",
-    "The foundation and construction dates of LNGS were not found on an official page; the operating interval's start (1987) is sourced to Wikipedia only (src:lngs-wikipedia-history) and should be re-checked against an official source."
+    "An m.w.e. overburden is not recorded as a spec here: the LNGS pages fetched give only the 1400 m rock thickness. L. Pandola's overview (arXiv:1102.0208) gives about 3100 m w.e. (minimum depth) and 3800 m w.e. (average depth), and the Borexino collaboration places Borexino at 3800 m w.e.",
+    "The foundation date of LNGS was not found on an official page; the excavation of the halls (1982-1987) is sourced to L. Pandola's overview (arXiv:1102.0208) and the laboratory's Italian description page, and the operating interval's start (1987) is the end of that excavation, marked uncertain."
   ],
   "operator": {
     "confidence": "verified",
@@ -66,7 +82,8 @@
     "src:lngs-overview",
     "src:lngs-about-general",
     "src:lngs-how-to-reach",
-    "src:lngs-wikipedia-history"
+    "src:dw-lngs-descrizione-generale",
+    "src:dw-lngs-pandola-underground-overview-2011"
   ],
   "specs": {
     "depth": {

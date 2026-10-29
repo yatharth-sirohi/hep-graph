@@ -13,58 +13,65 @@
   "id": "facility:argonne-national-laboratory",
   "intervals": [
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "end": null,
-      "label": "re-chartered as Argonne National Laboratory",
-      "note": "Sourced to Wikipedia only (anl.gov returned HTTP 403 to every fetch attempt, checked 2026-09-17).",
-      "quote": "On July 1, 1946, Site A of the 'Metallurgical Laboratory' was formally re-chartered as Argonne National Laboratory.",
+      "label": "chartered as Argonne National Laboratory",
+      "locator": "University of Chicago News, \"Argonne National Laboratory celebrates 75 years of scientific discovery\" (23 Jun 2021), opening paragraphs; DOE History Program page: \"On July 1, the Argonne National Laboratory officially came into existence.\"",
+      "note": "anl.gov answers scripted requests with a bot challenge (HTTP 403, checked 2026-10-28), so the date is sourced to the operator's news office and the DOE History Program.",
+      "quote": "on July 1, 1946, the lab was formally chartered as Argonne National Laboratory",
       "sources": [
-        "src:argonne-wikipedia"
+        "src:dw-uchicago-argonne-75-years",
+        "src:dw-doe-history-argonne-national-laboratory"
       ],
       "start": "1946-07-01",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "kind": "research_laboratory",
   "links": {
     "website": {
-      "confidence": "uncertain",
-      "note": "Sourced to Wikipedia only; the official page could not be fetched (checked 2026-09-17).",
+      "confidence": "verified",
+      "locator": "DOE page \"National Laboratories\", Argonne National Laboratory entry; the entry's \"Learn More\" button links to https://www.anl.gov/",
+      "note": "anl.gov answers scripted requests with a bot challenge (HTTP 403, checked 2026-10-28), so the URL is confirmed from the DOE page that links to it, not by fetching it.",
+      "quote": "Argonne National Laboratory (ANL) is a federally funded research and development center located in Lemont, Illinois, and is the largest national laboratory in the Midwestern United States.",
       "sources": [
-        "src:argonne-wikipedia"
+        "src:dw-doe-national-laboratories-page"
       ],
       "value": "https://www.anl.gov/",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   },
   "name": "Argonne National Laboratory",
   "notes": [
-    "anl.gov returned HTTP 403 to every fetch attempt (checked 2026-09-17); every claim on this record is sourced to Wikipedia only and should be re-checked against an official Argonne page.",
+    "anl.gov answers scripted requests with a bot challenge (HTTP 403, checked 2026-10-28); the claims on this record are sourced to the U.S. Department of Energy, the DOE History Program and the University of Chicago news office instead.",
     "No Atlas topic is assigned: none of the existing topics clearly fits Argonne's broad multiprogram profile. The historical ZGS synchrotron is not recorded as an accelerator because no source for it has been fetched."
   ],
   "operator_ids": [],
   "operator_text": {
-    "confidence": "uncertain",
-    "note": "anl.gov returned HTTP 403 to every fetch attempt (checked 2026-09-17); sourced to Wikipedia only.",
-    "quote": "The laboratory is sponsored by the United States Department of Energy and operated by the University of Chicago through its subordinate UChicago Argonne LLC.",
+    "confidence": "verified",
+    "locator": "DOE page \"National Laboratories\", Argonne National Laboratory entry",
+    "note": "",
+    "quote": "It is sponsored by the U.S. Department of Energy and operated by the University of Chicago through UChicago Argonne LLC.",
     "sources": [
-      "src:argonne-wikipedia"
+      "src:dw-doe-national-laboratories-page"
     ],
     "value": "The University of Chicago, through its subordinate UChicago Argonne LLC, for the U.S. Department of Energy",
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-26"
   },
   "primary_site_id": "site:argonne-campus",
   "related_facility_ids": [],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:argonne-wikipedia"
+    "src:dw-uchicago-argonne-75-years",
+    "src:dw-doe-history-argonne-national-laboratory",
+    "src:dw-doe-national-laboratories-page"
   ],
   "specs": {},
   "status": "active",
   "summary": {
     "plain": "A United States Department of Energy multidisciplinary science laboratory near Chicago, one of the country's oldest national laboratories.",
-    "technical": "DOE Office of Science multiprogram national laboratory (Lemont, Illinois, in Downers Grove Township, DuPage County), operated by UChicago Argonne LLC; re-chartered from the wartime Metallurgical Laboratory's Site A on 1 July 1946."
+    "technical": "DOE Office of Science multiprogram national laboratory (Lemont, Illinois; southwest DuPage County), operated by UChicago Argonne LLC; chartered on 1 July 1946 as the lineal descendant of the wartime Metallurgical Laboratory."
   },
   "topic_ids": [],
   "type": "facility"

@@ -60,49 +60,48 @@
   "id": "experiment:opera",
   "intervals": [
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "end": "2008",
       "label": "construction",
-      "locator": "Wikipedia, OPERA experiment",
-      "note": "The only source consulted for this date range is Wikipedia (rank 12). When checked on 2026-09-17 no official OPERA, LNGS or CERN page giving construction dates was reachable (operaweb.lngs.infn.it did not resolve; lngs.infn.it/en/opera returned HTTP 500), so the range is marked uncertain.",
-      "quote": "OPERA, in Hall C of the Gran Sasso underground labs, was built in 2003–2008.",
+      "locator": "abstract (JINST 4 P04018)",
+      "note": "Construction window from the OPERA detector paper (JINST 4 P04018): construction started in 2003 and was completed in summer 2008; year precision.",
+      "quote": "The construction of the detector started in 2003 and it was completed in Summer 2008.",
       "sources": [
-        "src:opera-wikipedia"
+        "src:dw-opera-jinst-2009-detector"
       ],
       "start": "2003",
       "status": "construction",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     },
     {
       "confidence": "verified",
       "end": "2012-12-03",
       "label": "data taking (CNGS beam operation)",
       "locator": "abstract",
-      "note": "Day-precision end date corroborated by Wikipedia ('The beam from CERN was stopped on 3 December 2012, ending data taking.') and by the CERN CNGS page's 'July 2006 to December 2012' beam-operation range; the year-precision start and end used here are the primary PRL paper's own stated run range.",
+      "note": "Year-precision start and end are the primary PRL paper's own stated run range; the day-precision end (3 December 2012) is the CNGS beam stop given on the official OPERA news page (Internet Archive capture), consistent with the CERN CNGS page's 'July 2006 to December 2012' beam-operation range.",
       "quote": "The experiment took data from 2008 to 2012 in the CERN Neutrinos to Gran Sasso beam",
       "sources": [
         "src:opera-prl-2015-discovery",
-        "src:opera-wikipedia"
+        "src:rf08-opera-news-wayback"
       ],
       "start": "2008",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     },
     {
       "confidence": "verified",
       "end": null,
       "label": "completed",
       "locator": "OPERA News and Updates page (Internet Archive capture), entry of 3 December 2012",
-      "note": "Terminal event; day precision from the CNGS beam stop date given on the official OPERA news page (Internet Archive capture); the official CERN CNGS page corroborates at month precision (July 2006 to December 2012) and Wikipedia gives the same date.",
+      "note": "Terminal event; day precision from the CNGS beam stop date given on the official OPERA news page (Internet Archive capture); the official CERN CNGS page corroborates at month precision (July 2006 to December 2012).",
       "quote": "3 December 2012 After 5 years of operation the CNGS beam was stopped.",
       "sources": [
         "src:rf08-opera-news-wayback",
-        "src:opera-cern-cngs-page",
-        "src:opera-wikipedia"
+        "src:opera-cern-cngs-page"
       ],
       "start": "2012-12-03",
       "status": "completed",
-      "verified_at": "2026-10-25"
+      "verified_at": "2026-10-26"
     }
   ],
   "key_specs": [
@@ -175,7 +174,9 @@
   "sources": [
     "src:opera-prl-2015-discovery",
     "src:opera-cern-cngs-page",
-    "src:opera-wikipedia"
+    "src:dw-opera-jinst-2009-detector",
+    "src:rf08-opera-news-wayback",
+    "src:rf08-opera-discovery-2015-arxiv-pdf"
   ],
   "status": "completed",
   "summary": {

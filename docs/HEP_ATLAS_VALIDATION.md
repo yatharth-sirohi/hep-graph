@@ -52,8 +52,9 @@ terminal-status semantics, derived-state agreement, unit and dimension
 correctness with per-key plausibility ranges, display-versus-value magnitude,
 coordinate kind and source quality, great-circle agreement between a recorded
 baseline and its two sites, evidence-class consistency with source type,
-claim-level quotes where the contract requires them, and duplicate sources by
-normalised URL or DOI.
+claim-level quotes where the contract requires them, duplicate sources by
+normalised URL or DOI, and (`source-wikipedia`, error) any source whose address
+is on wikipedia.org.
 
 Errors fell from **368** at the first run against real data to **zero**, and
 the pilot gate stayed green through every change.

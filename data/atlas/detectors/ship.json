@@ -10,31 +10,35 @@
   "id": "detector:ship",
   "intervals": [
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "end": null,
       "label": "approved, not yet built",
-      "note": "Mirrors experiment:ship's 'approved for ECN3' interval; sourced only to a Wikipedia pointer (rank 12), see experiment:ship notes.",
+      "locator": "arXiv:2606.11039, abstract",
+      "note": "Mirrors experiment:ship's 'approved for ECN3' interval; the SHiP Collaboration paper states the experiment was approved in 2024.",
+      "quote": "approved in 2024",
       "sources": [
-        "src:ship-wikipedia-pointer"
+        "src:fixed-target-verify-ship-bdf-ecn3-arxiv-2606-11039"
       ],
       "start": "2024",
       "status": "approved",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     },
     {
-      "confidence": "uncertain",
+      "confidence": "approximate",
       "end": null,
-      "label": "planned construction/operation",
-      "note": "See experiment:ship notes on the Wikipedia-only sourcing for the 2033 start date.",
+      "label": "planned start of data taking",
+      "locator": "arXiv:2606.11039 (PDF), closing paragraph before the acknowledgements",
+      "note": "Planned date stated in the SHiP Collaboration's 2026 proceedings (arXiv:2606.11039), which also say the BDF is foreseen to be commissioned with beam by 2033. Recorded as approximate because the schedule is still moving: a May 2024 CERN Courier interview gave an earlier aim (facility towards the end of 2030, detector in 2031).",
+      "quote": "Approved in 2024 and to be built within the coming years at the CERN SPS, it will begin data taking in 2033.",
       "sources": [
-        "src:ship-wikipedia-pointer"
+        "src:fixed-target-verify-ship-bdf-ecn3-arxiv-2606-11039"
       ],
       "start": {
         "date": "2033",
         "planned": true
       },
       "status": "approved",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "links": {
@@ -42,30 +46,33 @@
   },
   "name": "SHiP detector",
   "notes": [
-    "Not yet constructed; all interval/placement dates are `planned: true` and rest on a Wikipedia pointer for the specific year, per experiment:ship notes."
+    "Not yet constructed; the 2033 start in the intervals and placement is `planned: true` and rests on the SHiP Collaboration's 2026 proceedings (arXiv:2606.11039), per experiment:ship notes."
   ],
   "parent_detector_id": null,
   "placements": [
     {
-      "confidence": "uncertain",
+      "confidence": "approximate",
       "end": null,
-      "note": "Not yet built; planned placement at the ECN3 cavern per the official site's reference to the 'High-Intensity ECN3 Facility'. Start date (2033) sourced only to a Wikipedia pointer (rank 12); see experiment:ship notes.",
+      "locator": "arXiv:2606.11039 (PDF), closing paragraph before the acknowledgements (start date); official SHiP site (ECN3 location)",
+      "note": "Not yet built; planned placement at the ECN3 cavern per the official site's reference to the 'High-Intensity ECN3 Facility'. Planned start (2033) from the SHiP Collaboration's 2026 proceedings (arXiv:2606.11039); see experiment:ship notes.",
+      "quote": "Approved in 2024 and to be built within the coming years at the CERN SPS, it will begin data taking in 2033.",
       "role": "main",
       "site_id": "site:cern-ecn3-north-area",
       "sources": [
         "src:ship-official-site",
-        "src:ship-wikipedia-pointer"
+        "src:fixed-target-verify-ship-bdf-ecn3-arxiv-2606-11039"
       ],
       "start": {
         "date": "2033",
         "planned": true
       },
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:ship-official-site"
+    "src:ship-official-site",
+    "src:fixed-target-verify-ship-bdf-ecn3-arxiv-2606-11039"
   ],
   "specs": {},
   "status": "approved",

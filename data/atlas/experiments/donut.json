@@ -32,16 +32,16 @@
   },
   "facility_roles": [
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "facility_id": "facility:fermilab",
-      "locator": "Wikipedia, DONUT (opening sentence)",
-      "note": "The quote is the opening-sentence wording of the Wikipedia article (rank 12), the only source consulted; fnal.gov returned HTTP 403 to every access attempt.",
-      "quote": "was an experiment at Fermilab dedicated to the search for tau neutrino interactions",
+      "locator": "arXiv:hep-ex/0012035 (Phys. Lett. B 504 (2001) 218), introduction (first paragraph)",
+      "note": "The DONUT 2001 paper names the experiment as Fermilab E872; the beam_source role records the Tevatron beam.",
+      "quote": "The DONUT experiment (Fermilab E872) was designed to observe the charged current interactions",
       "role": "host",
       "sources": [
-        "src:donut-wikipedia"
+        "src:donut-plb-2001-observation"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     },
     {
       "confidence": "verified",
@@ -114,7 +114,7 @@
         "dimension": "count",
         "display": "4 candidate events",
         "locator": "abstract",
-        "note": "A later (2008) final analysis reported 9 tau-neutrino events in a larger 578-event sample per Wikipedia (rank 12, not used as the primary figure here); this key_spec records the number from the primary 2001 observation paper.",
+        "note": "The collaboration's later final analysis (arXiv:0711.0728, Phys. Rev. D 78, 052002) reports 9 observed tau-neutrino CC interactions among 578 observed neutrino interactions; this key_spec records the number from the primary 2001 observation paper.",
         "quote": "A decay search has found evidence of four tau neutrino interactions with an estimated background of 0.34 events.",
         "sources": [
           "src:donut-plb-2001-observation"
@@ -156,7 +156,7 @@
   ],
   "sources": [
     "src:donut-plb-2001-observation",
-    "src:donut-wikipedia"
+    "src:dw-donut-prd-2008-final-arxiv-0711-0728"
   ],
   "status": "completed",
   "summary": {
