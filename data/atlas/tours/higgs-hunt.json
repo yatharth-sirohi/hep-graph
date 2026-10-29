@@ -4,7 +4,7 @@
   "id": "tour:higgs-hunt",
   "name": "The Higgs hunt",
   "notes": [
-    "Working title. The Tevatron and 2011 LHC steps rest on the ATLAS 2012 paper's introduction and the CDF+D0 combination (arXiv:1207.6436)."
+    "Working title. The 2011 LHC step rests on the ATLAS 2012 paper's introduction. The Tevatron step reports the CDF+D0 combination of July 2012 (arXiv:1207.6436), so it sits at 2012, after the LHC step, and selects Fermilab because the Tevatron and its experiments are not on the timeline after 2011. The first step has no `year`: its second sentence reports how the 2012 ATLAS paper described the Higgs boson, which was not true of 1990 (the top quark was still unobserved)."
   ],
   "order": 3,
   "schema": "hep-atlas/0.2",
@@ -45,8 +45,7 @@
       "id": "why-a-higgs",
       "select": "topic:higgs-physics",
       "text": "The mechanism that breaks electroweak symmetry in the Standard Model gives mass to massive elementary particles and implies the existence of a scalar particle, the Higgs boson. In its discovery paper ATLAS described it as the only elementary particle in the Standard Model that had not yet been observed.",
-      "title": "Why a Higgs boson?",
-      "year": 1990
+      "title": "Why a Higgs boson?"
     },
     {
       "camera": {
@@ -80,7 +79,7 @@
       "select": "accelerator:lep",
       "text": "LEP, a collider with a 27 km circumference at CERN, reached a collision energy that topped 209 GeV in 2000. The four LEP collaborations, ALEPH, DELPHI, L3 and OPAL, collected 2461 pb⁻¹ of collision data at energies between 189 and 209 GeV and used it to search for the Standard Model Higgs boson.",
       "title": "LEP searches at up to 209 GeV",
-      "year": 1999
+      "year": 2000
     },
     {
       "camera": {
@@ -101,20 +100,51 @@
         },
         {
           "confidence": "verified",
-          "covers": "Indirect limits from global fits to precision electroweak results, as ATLAS recalled in its discovery paper, put the Higgs boson mass below 158 GeV at 95% CL",
+          "covers": "Indirect limits from precision electroweak measurements, as the LEP paper recalled, constrained the Standard Model Higgs boson mass to less than 193 GeV/c² at the 95% confidence level",
+          "locator": "arXiv:hep-ex/0306033, Section 1 (Introduction), first paragraph",
+          "note": "The paper is dated 13 March 2003 (CERN-EP/2003-011) and appeared on arXiv on 16 June 2003. The '...' stands for 'which depend logarithmically on the Higgs boson mass through radiative corrections. Currently these measurements predict that the Standard Model Higgs boson mass is mH = 81 (+52, -33) GeV/c2 and' (the superscripts and subscripts are garbled by text extraction); the omitted words run across a sentence boundary. The 158 GeV limit this step used before is the ATLAS 2012 paper's figure for the 2011 fits; it did not exist in 2003, so the step now quotes what the 2003 paper itself says.",
+          "quote": "indirect experimental limits are obtained from precision measurements of the electroweak parameters ... constrain its value to less than 193 GeV/c2 at the 95% confidence level",
+          "sources": [
+            "src:lep-arxiv-higgs-search-2003"
+          ],
+          "verified_at": "2026-10-28"
+        }
+      ],
+      "id": "lep-limit",
+      "select": "result:lep-higgs-exclusion-2003",
+      "text": "In June 2003 the combined LEP search established a lower bound of 114.4 GeV/c² on the mass of the Standard Model Higgs boson, at the 95% confidence level. Indirect limits from precision electroweak measurements, as the LEP paper recalled, constrained the Standard Model Higgs boson mass to less than 193 GeV/c² at the 95% confidence level.",
+      "title": "No Higgs below 114.4 GeV",
+      "year": 2003
+    },
+    {
+      "camera": {
+        "altitude": 0.25,
+        "lat": 46.234,
+        "lng": 6.047
+      },
+      "claims": [
+        {
+          "covers": "The LHC began high-energy collisions at 7 TeV on 30 March 2010",
+          "field": "intervals.Run 1.specs.cms_energy",
+          "ref": "accelerator:lhc"
+        },
+        {
+          "confidence": "verified",
+          "covers": "In their 2011 data ATLAS and CMS reported excesses compatible with SM Higgs boson production in the mass region 124–126 GeV, with significances of 2.9 and 3.1 standard deviations, respectively",
           "locator": "ATLAS Higgs paper (arXiv:1207.7214), Section 1, Introduction",
-          "quote": "Indirect limits on the SM Higgs boson mass of mH < 158 GeV at 95% confidence level (CL) have been set using global fits to precision electroweak results [12].",
+          "note": "The sentence runs from the foot of the left column to the top of the right column on page 2 of the PDF; text extraction puts the page footer ('Preprint submitted to Physics Letters B') between 'standard' and 'deviations'. The '...' stands for 'of proton-proton (pp) collisions at centre-of-mass energy sqrt(s) = 7 TeV at the LHC,'. The quote is otherwise verbatim.",
+          "quote": "Both the ATLAS and CMS Collaborations reported excesses of events in their 2011 datasets ... which were compatible with SM Higgs boson production and decay in the mass region 124–126 GeV, with significances of 2.9 and 3.1 standard deviations (σ), respectively",
           "sources": [
             "src:tours-atlas-higgs-observation-arxiv-1207-7214-pdf"
           ],
           "verified_at": "2026-10-26"
         }
       ],
-      "id": "lep-limit",
-      "select": "result:lep-higgs-exclusion-2003",
-      "text": "In June 2003 the combined LEP search established a lower bound of 114.4 GeV/c² on the mass of the Standard Model Higgs boson, at the 95% confidence level. Indirect limits from global fits to precision electroweak results, as ATLAS recalled in its discovery paper, put the Higgs boson mass below 158 GeV at 95% CL.",
-      "title": "No Higgs below 114.4 GeV",
-      "year": 2003
+      "id": "lhc",
+      "select": "accelerator:lhc",
+      "text": "The LHC began high-energy collisions at 7 TeV on 30 March 2010. In their 2011 data ATLAS and CMS reported excesses compatible with SM Higgs boson production in the mass region 124–126 GeV, with significances of 2.9 and 3.1 standard deviations, respectively.",
+      "title": "The LHC and the first hints",
+      "year": 2011
     },
     {
       "camera": {
@@ -160,40 +190,10 @@
         }
       ],
       "id": "tevatron",
-      "select": "accelerator:fermilab-tevatron",
+      "select": "facility:fermilab",
       "text": "The Tevatron at Fermilab collided protons and antiprotons at 1.96 TeV from 2002 through 2011 (Run II). In July 2012 CDF and D0 combined their searches for a Higgs boson decaying to a bottom-antibottom quark pair and reported evidence for a new particle, with a global significance of 3.1 standard deviations.",
-      "title": "The Tevatron joins the hunt",
-      "year": 2011
-    },
-    {
-      "camera": {
-        "altitude": 0.25,
-        "lat": 46.234,
-        "lng": 6.047
-      },
-      "claims": [
-        {
-          "covers": "The LHC began high-energy collisions at 7 TeV on 30 March 2010",
-          "field": "intervals.Run 1.specs.cms_energy",
-          "ref": "accelerator:lhc"
-        },
-        {
-          "confidence": "verified",
-          "covers": "In their 2011 data ATLAS and CMS reported excesses compatible with SM Higgs boson production in the mass region 124–126 GeV, with significances of 2.9 and 3.1 standard deviations, respectively",
-          "locator": "ATLAS Higgs paper (arXiv:1207.7214), Section 1, Introduction",
-          "note": "The sentence runs from the foot of the left column to the top of the right column on page 2 of the PDF; text extraction puts the page footer ('Preprint submitted to Physics Letters B') between 'standard' and 'deviations'. The '...' stands for 'of proton-proton (pp) collisions at centre-of-mass energy sqrt(s) = 7 TeV at the LHC,'. The quote is otherwise verbatim.",
-          "quote": "Both the ATLAS and CMS Collaborations reported excesses of events in their 2011 datasets ... which were compatible with SM Higgs boson production and decay in the mass region 124–126 GeV, with significances of 2.9 and 3.1 standard deviations (σ), respectively",
-          "sources": [
-            "src:tours-atlas-higgs-observation-arxiv-1207-7214-pdf"
-          ],
-          "verified_at": "2026-10-26"
-        }
-      ],
-      "id": "lhc",
-      "select": "accelerator:lhc",
-      "text": "The LHC began high-energy collisions at 7 TeV on 30 March 2010. In their 2011 data ATLAS and CMS reported excesses compatible with SM Higgs boson production in the mass region 124–126 GeV, with significances of 2.9 and 3.1 standard deviations, respectively.",
-      "title": "The LHC and the first hints",
-      "year": 2011
+      "title": "The Tevatron's evidence",
+      "year": 2012
     },
     {
       "camera": {
@@ -405,6 +405,6 @@
       "year": 2022
     }
   ],
-  "summary": "Follow the search for the Higgs boson from LEP, through the Tevatron, to the announcement by ATLAS and CMS on 4 July 2012.",
+  "summary": "Follow the search for the Higgs boson from LEP, through the LHC's first hints and the Tevatron's evidence, to the announcement by ATLAS and CMS on 4 July 2012.",
   "type": "tour"
 }
