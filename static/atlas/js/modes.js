@@ -470,7 +470,7 @@ function renderResultsMode() {
   ]);
   return h('div', { class: 'mode-body' }, [
     h('h2', {}, 'Results'),
-    h('p', { class: 'mode-lede' }, 'What the experiments found. Landmarks come first: discoveries and first detections, '
+    h('p', { class: 'mode-lede results-lede' }, 'What the experiments found. Landmarks come first: discoveries and first detections, '
       + 'then observations and evidence, then measurements, limits and milestones.'),
     h('p', { class: 'mode-hint' }, storyLink),
     typeGuide,

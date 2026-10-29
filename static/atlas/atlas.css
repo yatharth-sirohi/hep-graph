@@ -3378,6 +3378,13 @@ a.local-map-chip {
 .result-type-list dd:last-child {
   margin-bottom: 0;
 }
+/* On a phone the band headings say the same as the sentence, and the first result
+   must be on the first screen of the sheet. */
+@media (max-width: 900px) {
+  .results-lede {
+    display: none;
+  }
+}
 /* The band headings say where the landmarks end. */
 .result-group-header h3 {
   color: var(--teal);
