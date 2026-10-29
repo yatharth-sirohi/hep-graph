@@ -21,6 +21,25 @@
       ],
       "start": "2000-04-02",
       "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "id": "accelerator:eic",
+      "locator": "Lovelace et al., IPAC2022 WEPOTK014, abstract; Introduction",
+      "note": "Planned, not yet in operation. The EIC's Hadron Storage Ring is one of the RHIC rings; its hadrons come through the existing injector chain: \"The beam is transported through two accelerators, the AGS-booster and the AGS, to the HSR injection energy and extracted through a transfer line to the HSR.\" (same paper; polarised protons start from the 200 MeV linac). BNL: \"the other RHIC ring, refurbished for its new mission, will receive ions accelerated by C-AD’s existing injector complex\" (src:heavy-ions-rhic-final-collisions-2026). The date window is from the ePIC paper: \"The EIC project detector is expected to start operate in 2032\" (arXiv:2305.15593). The AGS to RHIC link ends on 2026-02-06 with RHIC's final run.",
+      "quote": "To accomplish the acceleration process, the hadrons are pre-accelerated in the Alternating Gradient Synchrotron (AGS), extracted, and transferred to HSR for injection.",
+      "sources": [
+        "src:fu2-ipac2022-wepotk014-eic-hsr-injection",
+        "src:hadron2-epic-vertex-tracking-arxiv-2023",
+        "src:heavy-ions-rhic-final-collisions-2026"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2032",
+        "display": "planned; the EIC's start of operations is not dated in the sources read (2032 is the 2023 expectation for the ePIC detector, which may have moved)",
+        "planned": true
+      },
+      "verified_at": "2026-10-26"
     }
   ],
   "id": "accelerator:ags",
@@ -113,8 +132,9 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:bnl-upton-campus",
   "sources": [
+    "src:bnl-about-history-accelerators-page",
     "src:bnl-rhic-ags-page",
-    "src:bnl-about-history-accelerators-page"
+    "src:fu2-ipac2022-wepotk014-eic-hsr-injection"
   ],
   "specs": {
     "beam_energy": {

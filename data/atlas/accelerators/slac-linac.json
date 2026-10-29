@@ -21,6 +21,37 @@
         "src:slac-linac-turns-50-2016"
       ],
       "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1990",
+      "id": "accelerator:spear",
+      "locator": "SLAC news item \"SLAC's Historic Linac Turns 50 and Gets a Makeover\", section on the linac's discoveries; SLAC graduate handbook page; SLAC Milestones, 1990",
+      "note": "Start: 1972, SPEAR's first year (the handbook: \"With the advent of colliding beam storage rings (SPEAR in 1972) and PEP (in 1980), which are discussed in more detail below, the SLAC linac also served as source and injector for electrons and positrons.\"). End: 1990, when SPEAR became a dedicated synchrotron-radiation facility with its own injector (SLAC Milestones: \"1990: SPEAR becomes a dedicated synchrotron radiation facility with its own independent injector.\"; the handbook: \"The SPEAR storage ring now has its own electron injector (linac and synchrotron booster).\"). Year precision; the end is inferred from the change of injector.",
+      "quote": "In 1972, the linac beams were for the first time injected into the SPEAR storage ring to produce exotic new particles in powerful electron-positron collisions.",
+      "sources": [
+        "src:slac-linac-turns-50-2016",
+        "src:slac-grad-handbook",
+        "src:colliders2-slac-milestones"
+      ],
+      "start": "1972",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1990",
+      "id": "accelerator:pep",
+      "locator": "SLAC graduate handbook page, \"The Linac and the SLAC Linear Collider\"; SLAC news item; SLAC Milestones, 1980; CERN Courier, \"SLAC at 50\"",
+      "note": "Start: 1980, when PEP began operating (SLAC Milestones: \"1980: PEP operations begin\"); the 2016 SLAC news item calls PEP one of \"three linac-driven particle smashers\" from 1980 to 2008. End: 1990, the end of PEP's collider running (CERN Courier: \"ran during the years 1980–1990\"); the PEP ring was later reused as the high-energy ring of PEP-II, which the linac also fed (the existing accelerator:pep-ii link). Year precision.",
+      "quote": "With the advent of colliding beam storage rings (SPEAR in 1972) and PEP (in 1980), which are discussed in more detail below, the SLAC linac also served as source and injector for electrons and positrons.",
+      "sources": [
+        "src:slac-grad-handbook",
+        "src:slac-linac-turns-50-2016",
+        "src:colliders2-slac-milestones",
+        "src:colliders2-cerncourier-slac-at-50"
+      ],
+      "start": "1980",
+      "verified_at": "2026-10-26"
     }
   ],
   "id": "accelerator:slac-linac",
@@ -48,7 +79,7 @@
   },
   "name": "SLAC linear accelerator",
   "notes": [
-    "The linac has fed SPEAR (from 1972) and PEP (1980-1990), which the colliders stream owns and which have no record on this branch; PEP-II (1999-2008) is linked here; LCLS has no record. The SLC (1989-1998) did not take beam from the linac: \"Starting in 1983, extensive modifications and additions to the existing linac enabled it to simultaneously accelerate and collide 50 GeV electrons and positron bunches\" (SLAC handbook page), so the linac was the SLC's accelerator, and no feeds relationship is recorded."
+    "The linac has fed SPEAR (from 1972) and PEP (1980-1990), both linked here since 2026-10-26 (follow-ups 2); PEP-II (1999-2008) is linked here; LCLS has no record. The SLC (1989-1998) did not take beam from the linac: \"Starting in 1983, extensive modifications and additions to the existing linac enabled it to simultaneously accelerate and collide 50 GeV electrons and positron bunches\" (SLAC handbook page), so the linac was the SLC's accelerator, and no feeds relationship is recorded."
   ],
   "particles": [
     "electron",
@@ -57,6 +88,8 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:slac-menlo-park-campus",
   "sources": [
+    "src:colliders2-cerncourier-slac-at-50",
+    "src:colliders2-slac-milestones",
     "src:slac-wikipedia"
   ],
   "specs": {
