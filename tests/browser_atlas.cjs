@@ -4322,6 +4322,8 @@ async function openFilters(page) {
     // Back reaches the previous list.
     await p.goBack();
     await p.waitForURL(/#\/view\/compare\/dune,nova,atlas$/);
+    // ...and draws it (the tray takes the address's list when the page is drawn, not when the URL changes).
+    await p.waitForFunction(() => document.querySelectorAll("table.cmp-table thead th").length === 4, null, { timeout: 15000 });
     // A bare link, or the search box, with something in the tray opens the tray's list.
     await p.goto(viewURL("#/view/compare/"));
     await p.waitForURL(/#\/view\/compare\/dune,nova,atlas$/);

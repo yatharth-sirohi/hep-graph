@@ -128,13 +128,32 @@ touch only the tests.
   hand verification (`VERIFY_COVERAGE_WAVE.md`: 134 items, 34 corrections).
 - The local test server must run with `HEPGRAPH_ASSET_RATE_LIMIT` raised (above).
 
-## Known follow-ups (not blocking)
+## Follow-ups
 
-- Lazy plain summaries, to keep the gzip budget as coverage grows.
-- 11 limit results quote an exposure as their key value; they should quote the limit.
-- `collaboration:cmd`'s status disagrees with its summary.
-- HERA's plain summary is empty.
-- Mu2e's counts are sourced from INSPIRE and should cite the collaboration.
-- The map drawer shows two × buttons on one path.
-- Two results hold `{id}` objects in `experiment_ids`. `modes.js` tolerates them, but
-  the records should be plain ids.
+Fixed after the ship, on 2026-10-29:
+
+- **Limit results.** All 11 limit results now state their limit, not an exposure.
+  - Ten papers draw the limit as a curve. Those records quote the exclusion
+    statement and have no single number.
+  - TEXONO ULEGe 2008 tabulates it: SI < 0.81 × 10⁻³⁹ cm² at 5 GeV, 90% CL.
+  - Two COUPP-4kg claims followed the arXiv listing's v1 abstracts ("strongest",
+    "world best"). They now follow the papers' final text ("strong", "new").
+  - Logs: `FOLLOWUPS_3_LIMITS_A.md` and `FOLLOWUPS_3_LIMITS_B.md`.
+- **CMD, HERA and Mu2e.** Log: `FOLLOWUPS_3_DATA.md`.
+  - `collaboration:cmd` is active.
+  - HERA has its plain and technical summaries.
+  - Mu2e's counts, CD-3 date, run start, sensitivity and solenoid length now rest
+    on primary sources, not INSPIRE.
+- **Map drawer.** It shows one ×. The record's own "Close panel" button, which left
+  the map instead of clearing the selection, is gone from the drawer.
+- **Sourced experiment rows.** A16 allows `{id, sources}` rows in a result's
+  `experiment_ids`. The results bundle now carries them as plain ids, and the
+  sources stay in `provenance.json`.
+
+Still open:
+
+- Lazy plain summaries, to keep the gzip budget as coverage grows. `atlas.json`
+  is about 447 KB gzipped by the builder's measure, and 457 KB as served.
+- `experiment:mu2e` still has an INSPIRE-only "approved 2010-08" date, which
+  conflicts with Syphers (October 2009). Its July 2026 status paper says it is
+  moving from installation to commissioning.
