@@ -92,7 +92,7 @@ function buildToggle(onChange) {
   const label = document.createElement('span');
   label.className = 'summary-toggle-label';
   label.id = `summary-toggle-label-${Math.random().toString(36).slice(2, 8)}`;
-  label.textContent = 'Summary';
+  label.textContent = 'Reading level';
   const group = document.createElement('div');
   group.className = 'summary-toggle-group';
   group.setAttribute('role', 'group');
@@ -103,6 +103,9 @@ function buildToggle(onChange) {
     button.className = 'summary-toggle-btn';
     button.dataset.mode = value;
     button.textContent = value === 'plain' ? 'Plain' : 'Technical';
+    button.title = value === 'plain'
+      ? 'Plain: the summary written for someone new to particle physics'
+      : 'Technical: the summary written for a physicist';
     button.addEventListener('click', () => onChange(value));
     group.appendChild(button);
   }
@@ -155,7 +158,9 @@ export function decorate(container) {
       glossary.closePopover({ restoreFocus: false });
       refresh(container, toggle);
     });
-    const anchor = container.querySelector('.panel-section');
+    // Just above the summary it changes (the panel's lede), so the switch and the
+    // sentence it switches are read together.
+    const anchor = container.querySelector('.panel-lede') || container.querySelector('.panel-section');
     if (anchor) anchor.before(toggle); else container.appendChild(toggle);
   }
   return refresh(container, toggle);

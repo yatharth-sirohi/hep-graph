@@ -6,6 +6,7 @@ import { titleCase, fmtDate, buildIndex } from './model.js';
 import * as loader from './loader.js';
 import { tourMeta, tourSlug } from './tour-data.js';
 import { exportBar } from './research/list-export.js';
+import { RESULT_TYPE_HELP, RESULT_BANDS, resultBand } from './result-types.js';
 
 let ctx = null; // { container, atlas, results, documents, navigate, getState, setTimelineYear }
 // Flat id->record index over atlas.json (same groups buildIndex covers:
@@ -97,9 +98,9 @@ function topicChildren(topics, parentId) {
   return Object.values(topics).filter((t) => t.parent_id === parentId);
 }
 
-function renderTopicNode(topics, topic) {
+function renderTopicNode(topics, topic, depth = 0) {
   const children = topicChildren(topics, topic.id);
-  const li = h('li', {});
+  const li = h('li', { class: depth === 0 ? 'topic-field' : null });
   const link = h('a', { href: `#/topic/${topic.id.split(':')[1]}`, class: 'topic-link' }, topic.name);
   // The globe highlight for the chosen topic is not set here: it follows the
   // route (app.js), so it stays for as long as the topic is open and goes when
@@ -109,8 +110,10 @@ function renderTopicNode(topics, topic) {
     goto({ type: 'topic', slug: topic.id.split(':')[1] });
   });
   li.appendChild(link);
+  // A field of physics says what it asks, so a newcomer can choose by the question.
+  if (depth === 0 && topic.question) li.appendChild(h('p', { class: 'topic-question' }, topic.question));
   if (children.length) {
-    li.appendChild(h('ul', { class: 'topic-tree-children' }, children.map((c) => renderTopicNode(topics, c))));
+    li.appendChild(h('ul', { class: 'topic-tree-children' }, children.map((c) => renderTopicNode(topics, c, depth + 1))));
   }
   return li;
 }
@@ -121,20 +124,16 @@ function renderTopicMode() {
   const tree = h('ul', { class: 'topic-tree' }, roots.map((r) => renderTopicNode(topics, r)));
   return h('div', { class: 'mode-body' }, [
     h('h2', {}, 'Research topics'),
-    h('p', { class: 'mode-hint' }, 'Select a topic to highlight its experiments and facilities on the globe.'),
+    h('p', { class: 'mode-lede' }, 'The fields of particle physics and the questions they ask. Choose one to light up its '
+      + 'experiments and facilities on the globe.'),
     h('div', { class: 'mode-scroll' }, [tree]),
   ]);
 }
 
 // ------------------------------------------------------------- results mode
-// The Results controls are open at wide widths and shut on a phone (see
-// renderResultsMode); crossing the breakpoint (a rotation, a resize) puts the
-// panel on the side of it that now applies. One listener, for whichever
-// Results panel is on screen.
-const phoneControls = { query: window.matchMedia('(max-width: 900px)'), el: null };
-phoneControls.query.addEventListener('change', () => {
-  if (phoneControls.el && phoneControls.el.isConnected) phoneControls.el.open = !phoneControls.query.matches;
-});
+// The Results controls start closed on every screen (see renderResultsMode); the
+// reader opens them, and they stay as the reader left them.
+const phoneControls = { el: null };
 
 function uniqueSorted(values) {
   return [...new Set(values.filter(Boolean))].sort();
@@ -151,7 +150,11 @@ const expIds = (result) => (result.experiment_ids || []).map(expKey).filter(Bool
 
 function sortResults(list, sortBy, experimentNames) {
   const arr = list.slice();
-  if (sortBy === 'experiment') {
+  if (sortBy === 'highlights') {
+    // Landmarks first: discoveries and first detections, then observations and
+    // evidence, then everything else; newest first within each band.
+    arr.sort((a, b) => (resultBand(a) - resultBand(b)) || (timeKey(b) - timeKey(a)));
+  } else if (sortBy === 'experiment') {
     arr.sort((a, b) => {
       const an = experimentNames.get(expIds(a)[0]) || '';
       const bn = experimentNames.get(expIds(b)[0]) || '';
@@ -171,7 +174,12 @@ function sortResults(list, sortBy, experimentNames) {
  * grouping toggle, ordering the groups themselves (newest year first;
  * experiments alphabetically) — 'none' returns everything as one ungrouped
  * bucket so the caller can share the same rendering loop either way. */
-function groupResults(sortedList, groupBy, experimentNames) {
+function groupResults(sortedList, groupBy, experimentNames, sortBy = 'date') {
+  if (groupBy === 'none' && sortBy === 'highlights') {
+    // The landmark bands are headed, so a reader knows where the landmarks end.
+    return RESULT_BANDS.map((band, i) => [band.label, sortedList.filter((r) => resultBand(r) === i)])
+      .filter(([, items]) => items.length);
+  }
   if (groupBy === 'none') return [[null, sortedList]];
   const buckets = new Map();
   for (const r of sortedList) {
@@ -218,7 +226,7 @@ function renderResultsMode() {
   const topics = uniqueSorted(results.flatMap((r) => r.topic_ids || []));
 
   const filters = { year: '', experiment: '', facility: '', topic: '', type: '' };
-  let sortBy = 'date';
+  let sortBy = 'highlights';
   let groupBy = 'none';
   // The view the address carries (state.js): filters, sort and grouping survive
   // opening a result and pressing Back, and travel in a shared link.
@@ -245,6 +253,7 @@ function renderResultsMode() {
   const typeSel = select('results-filter-type', 'Result type', types, new Map(types.map((t) => [t, titleCase(t)])));
 
   const sortSel = h('select', { id: 'results-sort', 'aria-label': 'Sort by' }, [
+    h('option', { value: 'highlights' }, 'Landmarks first'),
     h('option', { value: 'date' }, 'Date (newest first)'),
     h('option', { value: 'experiment' }, 'Experiment (A–Z)'),
     h('option', { value: 'type' }, 'Result type (A–Z)'),
@@ -262,18 +271,17 @@ function renderResultsMode() {
   // The rows on screen, in the order on screen: what "Download CSV" and "Download JSON" export.
   let visible = [];
 
-  // On a phone the controls are a "Filters" disclosure, closed until opened, so
-  // the sheet opens on the list and not on seven controls above it; its summary
-  // says how many are in force. At wider widths the controls are always shown
-  // (the summary is hidden by CSS and the disclosure kept open).
+  // The controls are a disclosure, closed until opened, so the panel opens on the
+  // list and not on nine controls above it; its summary says how many are in force.
   const controls = h('details', { class: 'results-controls', id: 'results-controls' });
-  const controlsSummary = h('summary', { id: 'results-controls-summary' }, 'Filters');
-  controls.open = !phoneControls.query.matches;
+  const controlsSummary = h('summary', { id: 'results-controls-summary' }, 'Filter, sort and download');
+  // Closed on every screen: the list comes first, and the summary says what is in force.
+  controls.open = false;
   phoneControls.el = controls;
   function updateControlsSummary() {
     const active = [yearSel, expSel, facSel, topicSel, typeSel].filter((sel) => sel.value).length
-      + (sortSel.value !== 'date' ? 1 : 0) + (groupBy !== 'none' ? 1 : 0);
-    controlsSummary.textContent = active ? `Filters \u00b7 ${active} active` : 'Filters';
+      + (sortSel.value !== 'highlights' ? 1 : 0) + (groupBy !== 'none' ? 1 : 0);
+    controlsSummary.textContent = active ? `Filter, sort and download \u00b7 ${active} active` : 'Filter, sort and download';
   }
 
   function buildResultRow(result) {
@@ -289,12 +297,16 @@ function renderResultsMode() {
     const metaParts = [];
     const expNames = expIds(result).map((id) => experimentNames.get(id) || id);
     if (expNames.length) metaParts.push(h('span', { class: 'result-tag' }, expNames.join(', ')));
-    if (result.result_type) metaParts.push(h('span', { class: 'result-tag' }, titleCase(result.result_type)));
+    if (result.result_type) {
+      metaParts.push(h('span', { class: 'result-tag', title: RESULT_TYPE_HELP[result.result_type] || null }, titleCase(result.result_type)));
+    }
     if (result.significance) metaParts.push(h('span', { class: 'result-tag result-significance' }, result.significance));
     if (metaParts.length) main.appendChild(h('div', { class: 'result-meta' }, metaParts));
     li.appendChild(main);
     if (result.month != null) {
-      const jump = h('button', { type: 'button', class: 'text-btn jump-year-btn' }, 'Move timeline here');
+      const jump = h('button', {
+        type: 'button', class: 'text-btn jump-year-btn', title: `Set the globe to ${yearOf(result)}, to see what was running then`,
+      }, `Show ${yearOf(result)} on globe`);
       jump.addEventListener('click', () => ctx.setTimelineYear(yearOf(result)));
       li.appendChild(jump);
     }
@@ -338,7 +350,7 @@ function renderResultsMode() {
       return;
     }
     const sorted = sortResults(filtered, sortBy, experimentNames);
-    for (const [label, group] of groupResults(sorted, groupBy, experimentNames)) {
+    for (const [label, group] of groupResults(sorted, groupBy, experimentNames, sortBy)) {
       if (label != null) list.appendChild(groupHeaderRow(label, group.length));
       for (const result of group) {
         list.appendChild(buildResultRow(result));
@@ -391,7 +403,7 @@ function renderResultsMode() {
     setSelect(facSel, view.facility);
     setSelect(topicSel, view.topic);
     setSelect(typeSel, view.type);
-    setSelect(sortSel, view.sort || 'date');
+    setSelect(sortSel, view.sort || 'highlights');
     showGroupBy(['year', 'experiment'].includes(view.group) ? view.group : 'none');
   }
 
@@ -433,6 +445,12 @@ function renderResultsMode() {
       sortSel,
       h('div', { class: 'group-toggle-row', role: 'group', 'aria-label': 'Group results by' }, [groupYearBtn, groupExpBtn]),
     ]),
+    // The list as filtered, for a spreadsheet or a script: with the controls, not above the list.
+    exportBar({
+      kind: 'results',
+      atlas: ctx.atlas,
+      snapshot: () => ({ records: visible, filter: describeFilter(), total: results.length }),
+    }),
   );
   updateControlsSummary();
   // The same results, drawn by year and physics question (js/views/results-story.js).
@@ -442,16 +460,22 @@ function renderResultsMode() {
     event.preventDefault();
     ctx.navigate({ entity: { type: 'view', slug: 'results-story' }, mode: null });
   });
+  // What the list is and how it is ordered, with what each kind of result means.
+  const typeGuide = h('details', { class: 'result-type-guide' }, [
+    h('summary', {}, 'What the result types mean'),
+    h('dl', { class: 'result-type-list' }, Object.entries(RESULT_TYPE_HELP).flatMap(([type, text]) => [
+      h('dt', {}, titleCase(type)),
+      h('dd', {}, text.replace(/^[^:]+:\s*/, '')),
+    ])),
+  ]);
   return h('div', { class: 'mode-body' }, [
     h('h2', {}, 'Results'),
+    h('p', { class: 'mode-lede' }, 'What the experiments found. Landmarks come first: discoveries and first detections, '
+      + 'then observations and evidence, then measurements, limits and milestones.'),
     h('p', { class: 'mode-hint' }, storyLink),
+    typeGuide,
     countEl,
     controls,
-    exportBar({
-      kind: 'results',
-      atlas: ctx.atlas,
-      snapshot: () => ({ records: visible, filter: describeFilter(), total: results.length }),
-    }),
     h('div', { class: 'mode-scroll' }, [list]),
   ]);
 }

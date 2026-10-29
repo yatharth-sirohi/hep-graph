@@ -27,6 +27,7 @@ import {
   HEP_GRAPH_SEARCH_URL, authorIdOf, hepGraphPersonUrl, personViewRoute, rosterPeople,
 } from './hepgraph.js';
 import { summaryParagraph, decorate as decorateSummaries } from './summary.js';
+import { RESULT_TYPE_HELP } from './result-types.js';
 import { compareControl } from './research/compare-tray.js';
 import { citeBody } from './research/cite-panel.js';
 
@@ -89,9 +90,14 @@ function idRoute(id) {
   return { type, slug };
 }
 
-function section(titleText, contentNodes, { open = true } = {}) {
+function section(titleText, contentNodes, { open = true, count = null } = {}) {
   const details = h('details', { class: 'panel-section', open: open ? '' : null });
-  details.appendChild(h('summary', {}, titleText));
+  details.appendChild(h('summary', {}, [
+    titleText,
+    // Real text, so the name reads "Detectors 5".
+    count != null ? ' ' : null,
+    count != null ? h('span', { class: 'section-count' }, String(count)) : null,
+  ]));
   const body = h('div', { class: 'panel-section-body' }, contentNodes);
   details.appendChild(body);
   return details;
@@ -193,7 +199,10 @@ function panelSections(frag) {
         return null;
       }
       omitted.push(...missing.filter(Boolean));
-      const el = section(titleText, nodes, options);
+      // A section that is one list says how long it is, so a reader can tell what is
+      // inside a closed one without opening it.
+      const list = nodes.length === 1 && nodes[0].matches && nodes[0].matches('ul.entity-list, ol.entity-list') ? nodes[0] : null;
+      const el = section(titleText, nodes, { count: list ? list.children.length : null, ...options });
       frag.appendChild(el);
       return el;
     },
@@ -473,7 +482,8 @@ export async function localMapLinks(record) {
       h('div', { class: 'source-meta' }, note),
     ]);
   });
-  return section('Local map', [h('ul', { class: 'entity-list' }, items)]);
+  return section(items.length === 1 ? 'Local map' : 'Local maps', [h('ul', { class: 'entity-list' }, items)],
+    { open: false, count: items.length });
 }
 
 /**
@@ -943,7 +953,7 @@ async function renderExperiment(id, timelineState) {
   ], { open: false, missing: [!t.summary_technical && 'Technical summary'] });
 
   const detectors = (exp.detector_ids || []).map((did) => ATLAS.detectors[did]).filter(Boolean);
-  sections.add('Detectors', recordLinks(detectors));
+  sections.add('Detectors', recordLinks(detectors), { open: false });
 
   const beamlines = (exp.beamline_ids || []).map((bid) => ATLAS.beamlines[bid]).filter(Boolean);
   const sites = (exp.site_ids || []).map((sid) => ATLAS.sites[sid]).filter(Boolean);
@@ -1430,11 +1440,31 @@ async function renderResult(id) {
   // is kept verbatim underneath when it differs, as it was published.
   // A name that carries TeX ($Λ$CDM) is set as the notation it stands for, never as the source.
   frag.appendChild(h('h2', {}, readableView(result.name || result.title)));
-  frag.appendChild(h('p', { class: 'panel-subtitle' }, `${titleCase(result.result_type)} · ${fmtDate(result.date)}`));
-  // Under the subtitle, so the answer to "where" is on the first screen (the globe is
-  // looking at the same place: app.js selects the result's facility): the facility
-  // records the result names, each with its local map when the Atlas has drawn one
-  // (an absent link means not mapped yet), then the results announced with this one.
+  frag.appendChild(h('p', {
+    class: 'panel-subtitle',
+    title: RESULT_TYPE_HELP[result.result_type] || null,
+  }, `${titleCase(result.result_type)} · ${fmtDate(result.date)}`));
+  // The answer first: the Atlas's plain sentence, then what was found (its significance and
+  // key value). Where it was done, what was announced with it and the paper's own title
+  // follow as context; then the paper's wording of the claim, as an excerpt.
+  const lede = summaryParagraph(result, t, 'plain-summary result-lede');
+  if (lede) frag.appendChild(lede);
+  // The bundle carries one `date` plus a `date_kind` ("announcement" |
+  // "preprint" | "publication"), not separate `announced` / `published`
+  // fields — those never exist on a real result record, so this used to
+  // silently drop both rows every time.
+  const facts = keyValueList([
+    // Both may be copied from an arXiv abstract with its TeX ("$S_m$=-0.0044$\pm$…");
+    // the panel shows the readable form, as it does for the quote.
+    ['Significance', result.significance ? readableText(String(result.significance)) : result.significance],
+    // A sentence when the paper gives one; otherwise the sourced number itself.
+    ['Key value', result.key_value_text ? readableText(result.key_value_text) : quantityReadable(result.key_value)],
+    [titleCase(result.date_kind) || 'Date', fmtDate(result.date)],
+  ]);
+  if (facts) frag.appendChild(h('div', { class: 'result-found' }, [h('p', { class: 'result-found-title' }, 'What was found'), facts]));
+  // The facility records the result names (the globe is looking at the same place:
+  // app.js selects the result's facility), each with its local map when the Atlas has
+  // drawn one (an absent link means not mapped yet), then the results announced with it.
   const facilities = (result.facility_ids || []).map((fid) => ATLAS.facilities[fid]).filter(Boolean);
   if (facilities.length) {
     const maps = (ATLAS && ATLAS.maps) || {};
@@ -1479,12 +1509,9 @@ async function renderResult(id) {
   if (result.title && result.name && result.title !== result.name) {
     frag.appendChild(h('p', { class: 'source-meta' }, ['Paper title: ', readableView(result.title)]));
   }
-  // The lede is the Atlas's own plain-language summary. The paper's wording of
-  // the claim follows under a label that says where it was taken from, so it
-  // reads as an excerpt and not as the Atlas speaking; a quote that is only the
-  // paper's title is not repeated (the title is already on the page).
-  const lede = summaryParagraph(result, t, 'plain-summary result-lede');
-  if (lede) frag.appendChild(lede);
+  // The paper's wording of the claim follows under a label that says where it was
+  // taken from, so it reads as an excerpt and not as the Atlas speaking; a quote that
+  // is only the paper's title is not repeated (the title is already on the page).
   const resultLimits = viewLinkLine([limitsLinkForRecord(ATLAS, result)]);
   if (resultLimits) frag.appendChild(resultLimits);
   const claim = (t.claim && t.claim.quote) || (result.claim && result.claim.quote) || '';
@@ -1496,19 +1523,6 @@ async function renderResult(id) {
       quoteView(claim),
     ]));
   }
-  // The bundle carries one `date` plus a `date_kind` ("announcement" |
-  // "preprint" | "publication"), not separate `announced` / `published`
-  // fields — those never exist on a real result record, so this used to
-  // silently drop both rows every time.
-  const facts = keyValueList([
-    // Both may be copied from an arXiv abstract with its TeX ("$S_m$=-0.0044$\pm$…");
-    // the panel shows the readable form, as it does for the quote.
-    ['Significance', result.significance ? readableText(String(result.significance)) : result.significance],
-    // A sentence when the paper gives one; otherwise the sourced number itself.
-    ['Key value', result.key_value_text ? readableText(result.key_value_text) : quantityReadable(result.key_value)],
-    [titleCase(result.date_kind) || 'Date', fmtDate(result.date)],
-  ]);
-  if (facts) frag.appendChild(facts);
   const experiments = (result.experiment_ids || []).map((eid) => ATLAS.experiments[eid]).filter(Boolean);
   sections.add('Experiment', recordLinks(experiments));
   // A claim does not stand alone: what other experiments' results say about it, open by default.
@@ -1903,6 +1917,63 @@ const RENDERERS = {
 // build-time status. app.js re-invokes render() on every timeline change
 // (it is itself a state.navigate() subscriber), so this also re-renders the
 // whole panel whenever the year or range moves.
+// ---- a record's head, in reading order (docs/HEP_ATLAS_UX_PLAN.md) ------------
+// Every renderer builds its head the same way: the name, a line on what kind of thing it
+// is, its status, then whatever it links to (a local map, a chart, the beam through the
+// Earth, compare, print), then its sections, the first of which holds the summary. A
+// newcomer met five controls before the sentence that says what the thing is. This puts
+// the same nodes in reading order: the name; kind and status on one line; the summary;
+// who runs it and where; then the links together under "Explore"; then the sections.
+// Nothing is added or dropped.
+const EXPLORE_SELECTOR = [
+  '.local-map-header', '.local-map-chip-row', '.beam-section-links', '.beam-section-cta',
+  '.chart-cta', '.view-cta', '.compare-control', '.panel-actions',
+].join(', ');
+const CONTEXT_SELECTOR = '.collab-line';
+
+function arrangePanel(container) {
+  const heading = [...container.children].find((el) => el.tagName === 'H2');
+  if (!heading) return;
+  const meta = h('div', { class: 'panel-meta' });
+  for (let next = heading.nextElementSibling; next
+    && (next.matches('p.panel-subtitle:not(.local-map-chip-row)') || next.matches('.status-badge'));) {
+    const node = next;
+    next = next.nextElementSibling;
+    meta.appendChild(node);
+  }
+  if (meta.childElementCount) heading.after(meta);
+  let after = meta.childElementCount ? meta : heading;
+
+  // The summary: the panel's own, or the one that opens its first section.
+  const firstSection = container.querySelector(':scope > details.panel-section');
+  // (A topic's lede is its plain question.)
+  const lede = container.querySelector(':scope > [data-summary], :scope > .plain-question')
+    || (firstSection && firstSection.querySelector(':scope > .panel-section-body > [data-summary]'));
+  if (lede) {
+    const fromSection = lede.closest('details.panel-section');
+    if (lede.hasAttribute('data-summary')) lede.classList.add('panel-lede');
+    after.after(lede);
+    after = lede;
+    if (fromSection) {
+      const body = fromSection.querySelector(':scope > .panel-section-body');
+      const title = fromSection.querySelector(':scope > summary');
+      if (body && !body.children.length) fromSection.remove();
+      else if (title && /^(Overview|Summary)$/.test(title.textContent.trim())) title.textContent = 'At a glance';
+    }
+  }
+  // What a result found stays with the sentence that says it.
+  while (after.nextElementSibling && after.nextElementSibling.matches('.result-found')) after = after.nextElementSibling;
+  for (const line of [...container.children].filter((el) => el.matches(CONTEXT_SELECTOR))) {
+    after.after(line);
+    after = line;
+  }
+  const actions = [...container.children].filter((el) => el.matches(EXPLORE_SELECTOR));
+  if (actions.length) {
+    const row = h('div', { class: 'panel-explore' }, [h('p', { class: 'panel-explore-title' }, 'Explore'), ...actions]);
+    after.after(row);
+  }
+}
+
 export async function render(route, timelineState = { year: new Date().getFullYear() }, { focus = true } = {}) {
   // Two renders can overlap (Next pressed twice in a tour, a fast pair of clicks): only the
   // latest one may write the panel, so a slow earlier record never lands on top of a later
@@ -1948,6 +2019,7 @@ export async function render(route, timelineState = { year: new Date().getFullYe
       container.appendChild(closeBtn);
     }
     container.appendChild(frag);
+    arrangePanel(container);
     // The summary toggle and the glossary terms; the glossary loads on its own, so the
     // panel is already readable (and focused) while it arrives.
     decorateSummaries(container);

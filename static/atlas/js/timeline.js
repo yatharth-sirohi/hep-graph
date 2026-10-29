@@ -49,24 +49,27 @@ export function createTimeline(container, { minYear, maxYear, defaultYear, onCha
   // Phone width (phone.css) shows the short caption and keeps the full one as
   // the accessible name; everywhere else only the full caption is displayed.
   captionButton(yearBtn, 'Single date', 'Date');
+  yearBtn.title = 'Single date: show the globe as it was in one year';
   const rangeBtn = document.createElement('button');
   rangeBtn.type = 'button';
   rangeBtn.className = 'mode-btn';
   rangeBtn.id = 'timeline-mode-range';
   rangeBtn.textContent = 'Range';
+  rangeBtn.title = 'Range: show everything that was running at any time across a span of years';
   const playBtn = document.createElement('button');
   playBtn.type = 'button';
   playBtn.className = 'mode-btn play-btn';
   playBtn.id = 'timeline-play';
   playBtn.setAttribute('aria-pressed', 'false');
   setPlayCaption(playBtn, false);
+  playBtn.title = 'Play: step through the years, to watch laboratories and experiments open and close';
   // Playback speed: one press steps 1x -> 2x -> 5x -> 1x. A plain button, so it
   // takes Tab, Enter and Space like Play beside it; its name states the speed.
   const speedBtn = document.createElement('button');
   speedBtn.type = 'button';
   speedBtn.className = 'mode-btn speed-btn';
   speedBtn.id = 'timeline-speed';
-  speedBtn.title = 'Change playback speed';
+  speedBtn.title = 'Playback speed: press to go faster';
   modeRow.append(yearBtn, rangeBtn, playBtn, speedBtn);
 
   const sliderRow = document.createElement('div');
@@ -79,6 +82,7 @@ export function createTimeline(container, { minYear, maxYear, defaultYear, onCha
   yearInput.max = String(maxYear);
   yearInput.value = String(defaultYear);
   yearInput.setAttribute('aria-label', 'Year');
+  yearInput.title = 'Drag to choose the year the globe shows';
 
   const loInput = document.createElement('input');
   loInput.type = 'range';
@@ -111,7 +115,11 @@ export function createTimeline(container, { minYear, maxYear, defaultYear, onCha
   legend.className = 'timeline-legend';
   legend.id = 'timeline-legend';
 
-  container.append(modeRow, sliderRow, readout, legend);
+  // What the bar is, in words: a newcomer meets a slider and a year with nothing saying
+  // that the year is the one the globe (and every status on it) shows.
+  const caption = span('timeline-caption', 'Year on the globe');
+  caption.setAttribute('aria-hidden', 'true');
+  container.append(caption, modeRow, sliderRow, readout, legend);
 
   let mode = 'year';
   let playing = false;
@@ -136,8 +144,8 @@ export function createTimeline(container, { minYear, maxYear, defaultYear, onCha
 
   function updateLegend() {
     legend.innerHTML = mode === 'year'
-      ? `<strong>Status in ${yearInput.value}</strong>${legendHTML()}`
-      : `<strong>Status across ${loInput.value}–${hiInput.value}</strong>${legendHTML()}`;
+      ? `<strong>Colour: status in ${yearInput.value}</strong>${legendHTML()}`
+      : `<strong>Colour: status across ${loInput.value}–${hiInput.value}</strong>${legendHTML()}`;
   }
 
   function emit() {

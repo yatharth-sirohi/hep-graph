@@ -123,8 +123,8 @@ function renderLegend() {
   // the same glyph builder, the beam arcs are copies of the arcs' own colours and
   // dashes — so the Key cannot drift from what it explains.
   els.legend.innerHTML = `
-    <div class="legend-group" id="legend-facility-kinds"><strong>Facility shape</strong></div>
-    <div class="legend-group"><strong>Institution dot</strong>
+    <div class="legend-group" id="legend-facility-kinds"><strong>Shape: what kind of place</strong></div>
+    <div class="legend-group"><strong>Dots: member institutions (with a collaboration)</strong>
       <span class="legend-item"><i class="dot solid"></i>Confirmed / counted</span>
       <span class="legend-item"><i class="dot hollow"></i>Uncounted / historical</span>
     </div>
@@ -155,11 +155,11 @@ function renderLegend() {
     shape: 'circle', color: statusColor(status), size: 12, hollow: false, hatched: false, approximate: false,
   }));
   els.keyGlobe.replaceChildren(
-    legendGroup('Clusters and sites', [
+    legendGroup('Rings and small dots', [
       legendItem(keyArt(badge), 'Cluster of places close together; the number is how many'),
       legendItem(keyArt(...dots), 'Experiment site: a small dot, coloured by status'),
     ]),
-    legendGroup('Beams', [
+    legendGroup('Lines: particle beams', [
       legendItem(keyArt(beamKeyGlyph({ running: true })), 'Beam running: a bright line, flowing'),
       legendItem(keyArt(beamKeyGlyph({ running: false })), 'Beam under construction or ended: a dotted, dimmer line'),
     ]),
@@ -221,22 +221,27 @@ async function main() {
   // so it can never drift from these numbers) — built with DOM calls rather
   // than an HTML string so nothing here depends on escaping manifest text.
   const counts = manifest.counts || {};
+  // The reader's line first (what is here, and that it is not all of it); the data
+  // version and its date, which a citation needs, close it in smaller type.
   els.versionLabel.textContent = '';
-  els.versionLabel.appendChild(document.createTextNode(
-    `Atlas data version ${manifest.data_version || manifest.version || ''} · coverage updated ${manifest.coverage_updated || manifest.build_date || ''}`
-  ));
-  if (counts.experiments) {
-    els.versionLabel.appendChild(document.createTextNode(
-      ` · ${counts.experiments} experiments researched — partial coverage of the field, see `
-    ));
+  const countWords = [
+    [counts.experiments, 'experiment'], [counts.facilities, 'facility', 'facilities'], [counts.results, 'result'],
+  ].filter(([n]) => n).map(([n, one, many]) => `${n} ${n === 1 ? one : (many || `${one}s`)}`);
+  if (countWords.length) {
+    els.versionLabel.appendChild(document.createTextNode(`${countWords.join(' \u00b7 ')} \u2014 partial coverage of the field, see `));
     const coverageLink = document.createElement('a');
     coverageLink.href = '/atlas/about.html#coverage';
     coverageLink.className = 'footer-link';
     coverageLink.textContent = 'the coverage report';
     els.versionLabel.appendChild(coverageLink);
   } else {
-    els.versionLabel.appendChild(document.createTextNode(' · partial coverage of the field'));
+    els.versionLabel.appendChild(document.createTextNode('Partial coverage of the field'));
   }
+  const versionText = document.createElement('span');
+  versionText.className = 'data-version-id';
+  versionText.textContent = ` \u00b7 data version ${manifest.data_version || manifest.version || ''}, updated ${manifest.coverage_updated || manifest.build_date || ''}`;
+  versionText.title = 'The version of the Atlas data on screen: cite it with anything you take from here';
+  els.versionLabel.appendChild(versionText);
   if (manifest.fixture && manifest.banner) {
     els.bannerLabel.textContent = manifest.banner;
     els.bannerLabel.classList.remove('hidden');
@@ -269,6 +274,7 @@ async function main() {
   const startHere = startModule.createStartHere({
     card: document.getElementById('start-card'),
     reopenButton: document.getElementById('start-here-link'),
+    helpButton: document.getElementById('help-btn'),
     searchInput: els.searchInput,
     getGlobe: () => globeApi,
     firstVisit,

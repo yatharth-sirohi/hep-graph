@@ -986,7 +986,7 @@ function createDialog() {
   const popover = document.getElementById('export-popover');
   if (!button || !popover) return;
 
-  const title = h('h2', { class: 'export-title', id: 'export-title' }, 'Export this view as an image');
+  const title = h('h2', { class: 'export-title', id: 'export-title' }, 'Save this view as an image');
   const closeX = h('button', { type: 'button', class: 'export-close', 'aria-label': 'Close export' }, '×');
   const lede = h('p', { class: 'export-lede', id: 'export-lede' });
   const sizes = h('fieldset', { class: 'export-sizes' }, [h('legend', {}, 'Size')]);
@@ -1026,7 +1026,8 @@ function createDialog() {
       if (!info.ready) reason = info.reason || 'This view has no figure to export.';
     }
     button.disabled = !!reason;
-    button.title = reason ? `Export image: unavailable. ${reason}` : 'Export image';
+    button.title = reason ? `Save image: unavailable. ${reason}`
+      : 'Save image: download what is on screen as a picture for a slide, with its title, year and citation';
     reasonEl.textContent = reason ? `Export is unavailable. ${reason}` : '';
     if (reason) button.setAttribute('aria-describedby', 'export-reason');
     else button.removeAttribute('aria-describedby');

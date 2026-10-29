@@ -54,8 +54,10 @@ export function isFirstVisit(loc = window.location) {
  * Returns { openFirstVisit, open, close }.
  */
 export function createStartHere({
-  card, reopenButton, searchInput, getGlobe, firstVisit, tours = false, tourCount = null,
+  card, reopenButton, helpButton = null, searchInput, getGlobe, firstVisit, tours = false, tourCount = null,
 }) {
+  // The footer's "Start here" and the header's "Help" both open the card.
+  const openers = [reopenButton, helpButton].filter(Boolean);
   if (!card) return { openFirstVisit() {}, open() {}, close() {} };
   const toursRow = document.getElementById('start-tours');
   if (toursRow) {
@@ -82,7 +84,7 @@ export function createStartHere({
     before = document.activeElement && document.activeElement !== document.body && !card.contains(document.activeElement)
       ? document.activeElement : null;
     card.hidden = false;
-    if (reopenButton) reopenButton.setAttribute('aria-expanded', 'true');
+    for (const button of openers) button.setAttribute('aria-expanded', 'true');
     lastRoute = routeKey(state.get());
     card.focus({ preventScroll: true });
     if (frame) frameGlobe();
@@ -94,7 +96,7 @@ export function createStartHere({
     // to what opened the card, else to what had it before, else to the search box. Never to the body.
     const hadFocus = card.contains(document.activeElement) || document.activeElement === document.body;
     card.hidden = true;
-    if (reopenButton) reopenButton.setAttribute('aria-expanded', 'false');
+    for (const button of openers) button.setAttribute('aria-expanded', 'false');
     if (remember) writeDismissed();
     if (restoreFocus && hadFocus) {
       const back = [opener, before, searchInput].find((el) => el && el.isConnected && !el.disabled);
@@ -122,10 +124,10 @@ export function createStartHere({
     // "globe" and "close": closing is all there is to do.
   });
 
-  if (reopenButton) {
-    reopenButton.addEventListener('click', () => {
+  for (const button of openers) {
+    button.addEventListener('click', () => {
       if (isOpen()) close({ remember: false });
-      else open({ trigger: reopenButton });
+      else open({ trigger: button });
     });
   }
 

@@ -35,11 +35,11 @@ const TYPE_PREFIX = {
 const RESULTS_PARAMS = {
   year: 'ry', experiment: 'rx', facility: 'rf', topic: 'rt', type: 'rk', sort: 'rs', group: 'rb',
 };
-const RESULTS_SORTS = ['date', 'experiment', 'type'];
+const RESULTS_SORTS = ['highlights', 'date', 'experiment', 'type'];
 const RESULTS_GROUPS = ['none', 'year', 'experiment'];
 
 export function defaultResultsView() {
-  return { year: '', experiment: '', facility: '', topic: '', type: '', sort: 'date', group: 'none' };
+  return { year: '', experiment: '', facility: '', topic: '', type: '', sort: 'highlights', group: 'none' };
 }
 
 function parseResultsView(params) {

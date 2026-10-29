@@ -340,15 +340,19 @@ function h(tag, attrs = {}, children = []) {
   return el;
 }
 
+// Plain names: the simple status first ("running, finished or planned"); the twelve
+// lifecycle stages behind it are the "Detailed status".
 const FACET_LABELS = {
-  status: 'Experiment status', era: 'Active / completed / planned', topic: 'Research topic',
-  facilityKind: 'Facility kind', experimentKind: 'Experiment kind', region: 'Region',
+  status: 'Detailed status', era: 'Running, finished or planned', topic: 'Physics topic',
+  facilityKind: 'Kind of place', experimentKind: 'Kind of experiment', region: 'Region',
 };
 
 // The sidebar holds ~90 checkboxes. The two long groups start collapsed so the
 // short ones (and the groups below them) are reachable without scrolling past
 // 60 rows; a collapsed group still says how many of its options are active.
-const COLLAPSED_BY_DEFAULT = new Set(['topic', 'experimentKind']);
+// The simple status and the regions are open; the rest are one click away, each
+// heading saying how many choices it holds.
+const COLLAPSED_BY_DEFAULT = new Set(['status', 'topic', 'facilityKind', 'experimentKind']);
 const LONG_FACETS = new Set(['topic', 'experimentKind']);
 const CLEAR_ALL_ID = 'filter-clear-all';
 
@@ -426,10 +430,11 @@ export function createFilterPanel(container, { atlas, topicIndex, onChange }) {
 
   // A group's header: its name, plus "N selected" whenever any of its options
   // is active — the only cue a collapsed group has that it is filtering.
-  function groupSummary(facet) {
+  function groupSummary(facet, size) {
     const selected = filters[facet].length;
     return h('summary', {}, [
       FACET_LABELS[facet],
+      size ? h('span', { class: 'filter-group-size' }, ` ${size}`) : null,
       // The space is real text, so the accessible name reads "Research topic 3 selected".
       selected ? ' ' : null,
       selected ? h('span', { class: 'filter-group-count' }, `${selected} selected`) : null,
@@ -440,7 +445,7 @@ export function createFilterPanel(container, { atlas, topicIndex, onChange }) {
     const details = h('details', {
       class: 'filter-group', 'data-facet': facet, open: isOpenGroup(facet) ? '' : null,
     }, [
-      groupSummary(facet),
+      groupSummary(facet, rows.length),
       h('div', { class: `filter-options${LONG_FACETS.has(facet) ? ' is-long' : ''}` }, rows),
     ]);
     details.addEventListener('toggle', () => openState.set(facet, details.open));

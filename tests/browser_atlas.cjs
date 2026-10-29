@@ -145,6 +145,15 @@ async function openFilters(page) {
   await page.waitForFunction(() => getComputedStyle(document.getElementById("filters-panel")).transform === "none");
 }
 
+// The Results list's filters, sort, grouping and downloads sit in the closed "Filter,
+// sort and download" disclosure: the list comes first.
+async function openResultsControls(page) {
+  await page.locator("#results-controls").waitFor({ state: "attached" });
+  if (!(await page.evaluate(() => document.getElementById("results-controls").open))) {
+    await page.locator("#results-controls-summary").click();
+  }
+}
+
 (async () => {
   browser = await engine.launch(launchOptions());
   dismissWelcomeByDefault(browser);
@@ -522,7 +531,7 @@ async function openFilters(page) {
       const panel = document.getElementById("detail-panel");
       const sections = [...panel.querySelectorAll("details.panel-section")].map((d) => ({ title: d.querySelector("summary").textContent, open: d.open }));
       const question = panel.querySelector(".plain-question");
-      const experiments = [...panel.querySelectorAll("details.panel-section")].find((d) => d.querySelector("summary").textContent === "Experiments");
+      const experiments = [...panel.querySelectorAll("details.panel-section")].find((d) => /^Experiments( \d+)?$/.test(d.querySelector("summary").textContent));
       return {
         heading: panel.querySelector("h2").textContent,
         questionAfterHeading: question.previousElementSibling === panel.querySelector("h2"),
@@ -575,7 +584,7 @@ async function openFilters(page) {
         return {
           links: links.map((a) => ({ text: a.textContent, href: a.getAttribute("href"), top: a.getBoundingClientRect().top })),
           beforeFirstSection: links.every((a) => !!(a.compareDocumentPosition(firstSection) & Node.DOCUMENT_POSITION_FOLLOWING)),
-          foot: [...panel.querySelectorAll("summary")].some((summary) => summary.textContent === "Local map"),
+          foot: [...panel.querySelectorAll("summary")].some((summary) => /^Local maps?( \d+)?$/.test(summary.textContent)),
         };
       });
       assert.equal(head.links.length, maps, `${slug}: one link per map, got ${JSON.stringify(head.links)}`);
@@ -719,6 +728,7 @@ async function openFilters(page) {
       await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
       await p.locator('#mode-buttons [data-mode="results"]').click();
       await p.locator("#results-mode-list li").first().waitFor();
+      await openResultsControls(p);
       await p.selectOption("#results-filter-topic", "topic:higgs-physics");
       await p.selectOption("#results-filter-type", "observation");
       await p.selectOption("#results-sort", "experiment");
@@ -803,7 +813,7 @@ async function openFilters(page) {
       const { ctx, p } = await freshReader();
       await p.goto(`${base}/atlas${dataTree}#/experiment/dune`);
       await p.locator("#detail-panel h2").waitFor();
-      const section = (title) => p.locator("#detail-panel details.panel-section", { has: p.locator("summary", { hasText: new RegExp(`^${title}$`) }) });
+      const section = (title) => p.locator("#detail-panel details.panel-section", { has: p.locator("summary", { hasText: new RegExp(`^${title}( \\d+)?$`) }) });
       const detectors = await section("Detectors").locator("a.entity-link").allInnerTexts();
       assert.equal(detectors.length, 5, `DUNE records five detectors, got ${JSON.stringify(detectors)}`);
       assert.ok(detectors.some((name) => /Far Detector Module 1/.test(name)));
@@ -858,7 +868,7 @@ async function openFilters(page) {
       const { ctx, p } = await freshReader();
       await p.goto(`${base}/atlas${dataTree}#/topic/neutrino-oscillations`);
       await p.locator("#detail-panel h2").waitFor();
-      const related = p.locator("#detail-panel details.panel-section", { has: p.locator("summary", { hasText: /^Related results$/ }) });
+      const related = p.locator("#detail-panel details.panel-section", { has: p.locator("summary", { hasText: /^Related results( \d+)?$/ }) });
       await related.locator("summary").click();
       const order = await related.evaluate((el) => [...el.querySelectorAll(".panel-section-body > *")].map((node) => (
         node.tagName === "H4" ? `H4:${node.textContent}` : `UL:${[...node.querySelectorAll("a")].map((a) => a.textContent).join("|")}`)));
@@ -1497,7 +1507,7 @@ async function openFilters(page) {
           await p.goto(`${base}/atlas${hash}`);
           await p.locator(ready).first().waitFor({ timeout: 30000 });
           await p.waitForFunction(() => !document.getElementById("export-btn").disabled, null, { timeout: 15000 });
-          assert.equal(await p.locator("#export-btn").getAttribute("title"), "Export image", `${name}: the button is on`);
+          assert.match(await p.locator("#export-btn").getAttribute("title"), /^Save image: download/, `${name}: the button is on`);
           for (const preset of ["slide", "double"]) {
             const out = await exportAs(p, preset);
             assert.match(out.name, new RegExp(`^hep-atlas_${name}_\\d{4}\\.png$`), `${name}: the file name says what it is`);
@@ -2606,16 +2616,30 @@ async function openFilters(page) {
     // undated-to-day record as the earliest point in its year rather than
     // guessing a mid-year date, so it sorts after (not ahead of) dated peers
     // from the same year.
-    const dates = await page.evaluate(() => [...document.querySelectorAll("#results-mode-list .result-row .result-date")]
-      .map((el) => Date.parse(el.textContent.trim().length === 4 ? `${el.textContent.trim()}-01-01` : el.textContent.trim()) || 0));
-    const sortedDesc = [...dates].sort((a, b) => b - a);
-    assert.deepEqual(dates, sortedDesc, "results must render newest-first by default");
+    const bands = await page.evaluate(() => {
+      const out = [];
+      for (const li of document.querySelectorAll("#results-mode-list > li")) {
+        if (li.classList.contains("result-group-header")) out.push({ label: li.textContent.replace(/\s*\(\d+\)$/, ""), dates: [] });
+        else if (li.classList.contains("result-row") && out.length) {
+          const text = li.querySelector(".result-date").textContent.trim();
+          out[out.length - 1].dates.push(Date.parse(text.length === 4 ? `${text}-01-01` : text) || 0);
+        }
+      }
+      return out;
+    });
+    const order = ["Discoveries and first detections", "Observations, evidence and anomalies", "Measurements, limits and milestones"];
+    assert.deepEqual(bands.map((band) => band.label), order.filter((label) => bands.some((band) => band.label === label)),
+      "landmarks first: the bands in order");
+    for (const band of bands) {
+      assert.deepEqual(band.dates, [...band.dates].sort((a, b) => b - a), `${band.label}: newest first within the band`);
+    }
   });
 
   await record("Results mode: 'Move timeline here' keeps the list's scroll position, its filters and keyboard focus", async () => {
     await page.goto(`${base}/atlas${modeQuery("results")}`);
     await page.locator("#results-mode-list").waitFor();
     await page.waitForFunction(() => document.querySelectorAll("#results-mode-list .result-row").length > 5);
+    await openResultsControls(page);
     // Every state change (the timeline year included) used to rebuild this
     // panel from scratch: back to the top, selects reset, focus on <body>.
     await page.selectOption("#results-sort", "experiment");
@@ -2672,6 +2696,7 @@ async function openFilters(page) {
   await record("Results mode: distinguishes \"no results match filters\" from \"nothing curated for this experiment\"", async () => {
     await page.goto(`${base}/atlas${modeQuery("results")}`);
     await page.locator("#results-mode-list").waitFor();
+    await openResultsControls(page);
 
     // The experiment select lists every atlas experiment, not just ones a
     // result already cites (otherwise this empty state could never be
@@ -3198,7 +3223,7 @@ async function openFilters(page) {
         // read with it open.
         assert.equal(await p.evaluate(() => document.getElementById("results-controls").open), false,
           "the Results filters start collapsed on a phone");
-        assert.match(await p.locator("#results-controls-summary").innerText(), /^Filters$/);
+        assert.match(await p.locator("#results-controls-summary").innerText(), /^Filter, sort and download$/);
         const firstRowTop = await p.evaluate(() => document.querySelector("#results-mode-list .result-row").getBoundingClientRect().top);
         assert.ok(firstRowTop < 700, `the first result is on screen at ${width}px (top ${firstRowTop})`);
         await p.locator("#results-controls-summary").click();
@@ -4472,6 +4497,7 @@ async function openFilters(page) {
     assert.ok(shown > 0 && shown < total, "a filtered list");
     const slugsShown = await p.locator("#results-mode-list .result-title").evaluateAll((els) => els.map((a) => a.getAttribute("href").replace("#/result/", "")));
     const version = await dataVersionOf(p);
+    await openResultsControls(p);
     const csvFile = await downloadOf(p, () => p.locator("#mode-panel .export-csv").click());
     assert.equal(csvFile.name, `hep-atlas-results-${todayLocal()}.csv`);
     const lines = csvBody(csvFile.text);

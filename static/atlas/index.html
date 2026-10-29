@@ -30,12 +30,12 @@
       <!-- The view switcher: a segmented control in the header on a laptop; on a
            phone (phone.js) the same element moves into the Views sheet. -->
       <div id="mode-buttons" class="mode-buttons" role="group" aria-label="View">
-        <button type="button" class="mode-toggle is-active" data-mode="" aria-pressed="true">Globe</button>
-        <button type="button" class="mode-toggle" data-mode="topic" aria-pressed="false">Topics</button>
-        <button type="button" class="mode-toggle" data-mode="results" aria-pressed="false">Results</button>
-        <button type="button" class="mode-toggle" data-mode="docs" aria-pressed="false">Documents</button>
+        <button type="button" class="mode-toggle is-active" data-mode="" aria-pressed="true" title="The globe: every facility in the Atlas on a 3D Earth">Globe</button>
+        <button type="button" class="mode-toggle" data-mode="topic" aria-pressed="false" title="Topics: browse by physics question, such as neutrino oscillations or dark matter">Topics</button>
+        <button type="button" class="mode-toggle" data-mode="results" aria-pressed="false" title="Results: what experiments found, landmarks first">Results</button>
+        <button type="button" class="mode-toggle" data-mode="docs" aria-pressed="false" title="Documents: design reports and other papers about the facilities and experiments">Documents</button>
         <!-- Guided tours (js/tours.js). Hidden by app.js when the data build has no tours.json. -->
-        <button type="button" class="mode-toggle" id="tours-mode-btn" data-mode="tours" aria-pressed="false" hidden>Tours</button>
+        <button type="button" class="mode-toggle" id="tours-mode-btn" data-mode="tours" aria-pressed="false" title="Tours: short guided walks through the Atlas" hidden>Tours</button>
       </div>
       <div class="search-wrap">
         <label for="atlas-search" class="visually-hidden">Search the atlas</label>
@@ -44,6 +44,7 @@
           type="text"
           autocomplete="off"
           placeholder="Search facilities, experiments, results…"
+          title="Find any facility, experiment, result or topic by name"
           role="combobox"
           aria-expanded="false"
           aria-autocomplete="list"
@@ -57,11 +58,13 @@
            Filters opens the left drawer (chrome.js). Both are hidden on a phone,
            where "Views & filters" (phone.js) is the one entry to all of it. -->
       <div class="header-tools">
-        <button type="button" id="key-btn" class="tool-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="key-popover">Key</button>
-        <button type="button" id="filters-btn" class="tool-btn" aria-expanded="false" aria-controls="filters-panel">
+        <button type="button" id="key-btn" class="tool-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="key-popover" title="Map key: what the symbols, colours, numbers and lines on the globe mean">Map key</button>
+        <button type="button" id="filters-btn" class="tool-btn" aria-expanded="false" aria-controls="filters-panel"
+                title="Filters: show only some places on the globe, by status, topic, kind or region">
           Filters<span id="filters-badge" class="tool-badge" hidden></span>
         </button>
         <div id="key-popover" class="key-popover" role="dialog" aria-label="Key to the map and the colours" tabindex="-1" hidden>
+          <p class="key-intro">What you see on the globe. Click any symbol to read about that place.</p>
           <div id="key-body" class="key-body">
             <div id="marker-legend" class="marker-legend"></div>
             <div class="key-col">
@@ -70,19 +73,21 @@
             </div>
           </div>
         </div>
+        <button type="button" id="help-btn" class="tool-btn help-btn" aria-haspopup="dialog" aria-controls="start-card" aria-expanded="false"
+                title="Help: how to use the Atlas, with a guided tour and questions to start from">Help</button>
         <!-- Projector mode (js/classroom.js): a light, high-contrast theme with larger type.
              On a phone this button moves into the "Views & filters" sheet (phone.js). -->
         <button type="button" id="theme-btn" class="tool-btn theme-btn" aria-pressed="false" aria-label="Projector mode"
-                title="Projector mode: a light, high-contrast theme with larger type, for a lecture hall">
+                title="Projector mode: a light, high-contrast theme with larger type, for showing the Atlas in a lecture hall">
           <span class="theme-btn-label">Projector</span><span class="theme-btn-state" aria-hidden="true">Off</span>
         </button>
       </div>
       <!-- "Take it to a slide" (js/export.js): the globe or map on screen as a PNG, in a
            popover like the Key. Not offered on a phone (export.css). -->
       <div class="header-export">
-        <button type="button" id="export-btn" class="tool-btn" aria-label="Export image" title="Export image" aria-haspopup="dialog" aria-expanded="false" aria-controls="export-popover">
+        <button type="button" id="export-btn" class="tool-btn" aria-label="Save image" title="Save image: download what is on screen as a picture for a slide, with its title, year and citation" aria-haspopup="dialog" aria-expanded="false" aria-controls="export-popover">
           <svg class="export-icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M8 2v8m0 0L5 7m3 3 3-3M2.5 13.5h11" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span class="export-label">Export image</span>
+          <span class="export-label">Save image</span>
         </button>
         <div id="export-popover" class="export-popover" role="dialog" tabindex="-1" hidden></div>
       </div>
@@ -110,8 +115,9 @@
           <h2 class="drawer-title">Filters</h2>
           <button type="button" id="filters-close" class="drawer-close" aria-label="Close filters">&times;</button>
         </div>
+        <p class="drawer-intro">Show only some of the places on the globe. The number beside each choice is how many match it.</p>
         <details class="drawer-options">
-          <summary>Options</summary>
+          <summary>Display options</summary>
           <label class="option-row">
             <input type="checkbox" id="arcs-toggle" />
             Show institution connections
@@ -154,8 +160,21 @@
         <p class="start-kicker">HEP Atlas</p>
         <h2 id="start-title" class="start-title">Start here</h2>
         <p id="start-lede" class="start-lede">
-          Particle-physics facilities on to-scale maps, with every fact traced to its source.
+          The laboratories, detectors and discoveries of particle physics on one globe, with every fact traced to its source.
         </p>
+        <div class="start-grid">
+        <div class="start-col">
+        <h3 class="start-heading">How to use the Atlas</h3>
+        <ul class="start-howto">
+          <li><span class="start-howto-icon" aria-hidden="true">&#9673;</span>
+            <span><b>Click a symbol</b> to read about that place. Its shape says what kind of place it is: see <b>Map key</b>.</span></li>
+          <li><span class="start-howto-icon start-howto-ring" aria-hidden="true">3</span>
+            <span><b>A ringed number</b> is several places close together. Click it to zoom in.</span></li>
+          <li><span class="start-howto-icon" aria-hidden="true">&#8596;</span>
+            <span><b>The slider at the bottom</b> picks the year the globe shows. Press <b>Play</b> to watch laboratories open and close.</span></li>
+          <li><span class="start-howto-icon" aria-hidden="true">&#9906;</span>
+            <span><b>Search</b> finds anything by name; <b>Filters</b> show only some places.</span></li>
+        </ul>
         <!-- Shown by start.js only when the data build carries tours. -->
         <div class="start-tours" id="start-tours" hidden>
           <h3 class="start-heading">Take a tour</h3>
@@ -168,7 +187,9 @@
             </li>
           </ul>
         </div>
-        <h3 class="start-heading">Ask a question</h3>
+        </div>
+        <div class="start-col">
+        <h3 class="start-heading">Or start from a question</h3>
         <ul class="start-questions">
           <li>
             <a class="start-question" data-start-link href="#/experiment/dune">
@@ -195,6 +216,8 @@
             </a>
           </li>
         </ul>
+        </div>
+        </div>
         <div class="start-actions">
           <button type="button" class="text-btn start-action" data-start-action="results">Browse results</button>
           <button type="button" class="text-btn start-action" data-start-action="search">Search</button>

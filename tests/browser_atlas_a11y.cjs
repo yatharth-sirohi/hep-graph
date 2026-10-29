@@ -379,8 +379,8 @@ async function openFilters(page) {
       assert.equal(await page.locator("#key-btn").getAttribute("aria-expanded"), "true");
       // The Key carries the status colours the timeline used to: words next to every dot.
       const keyText = await page.locator("#key-popover").innerText();
-      for (const term of ["Facility shape", "Accelerator laboratory", "Active", "Upgrade", "Construction / commissioning",
-        "Proposed / approved / planned", "Completed", "Uncertain (possible)", "Institution dot", "Location precision",
+      for (const term of ["Shape: what kind of place", "Accelerator laboratory", "Active", "Upgrade", "Construction / commissioning",
+        "Proposed / approved / planned", "Completed", "Uncertain (possible)", "Member institutions", "Location precision",
         "Cluster of places", "Experiment site", "Beam running", "Beam under construction or ended"]) {
         assert.ok(keyText.toLowerCase().includes(term.toLowerCase()), `the Key must say "${term}" in words`);
       }
@@ -589,6 +589,8 @@ async function openFilters(page) {
       const cite = await runAxe(citePage, tree.label, "result panel, Cite open");
       assert.deepEqual(cite.violations, [], `expected 0 WCAG axe violations with Cite open, got ${JSON.stringify(cite.violations)}`);
       await citePage.goto(`${base}/atlas${dataTree ? `${dataTree}&m=results` : "?m=results"}`);
+      // The downloads sit with the filters, in the closed "Filter, sort and download".
+      await citePage.locator("#results-controls > summary").click();
       await citePage.locator("#mode-panel .export-bar").waitFor();
       const lists = await runAxe(citePage, tree.label, "results list with the export bar");
       assert.deepEqual(lists.violations, [], `expected 0 WCAG axe violations on the Results list, got ${JSON.stringify(lists.violations)}`);

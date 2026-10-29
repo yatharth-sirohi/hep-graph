@@ -1206,11 +1206,8 @@ body.is-map-route .atlas-header > .mode-buttons {
 .topic-link {
   text-decoration: none;
 }
-/* The Results controls sit in a disclosure that is only a disclosure on a
-   phone (phone.css): here its summary is hidden and it stays open. */
-.results-controls > summary {
-  display: none;
-}
+/* The Results controls sit in a closed disclosure (styled with the type guide,
+   below under "a calmer first experience"; phone.css sizes it for a finger). */
 .results-filters {
   display: flex;
   flex-wrap: wrap;
@@ -3142,4 +3139,278 @@ a.local-map-chip {
    under 100 px wide. It takes its natural width up to its own max-width. */
 .map-tooltip.leaflet-tooltip {
   width: max-content;
+}
+
+/* ------------------------------------------- a calmer first experience */
+/* docs/HEP_ATLAS_UX_PLAN.md: the same content, in an order a newcomer can read.
+   Phone layouts (phone.css, loaded later) still override what they need to. */
+
+/* The Key opens on a sentence saying what it is for. */
+.key-intro {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* Start here: how to read the globe, then a tour, then questions. On a wide
+   screen the card has two columns, so it fits without scrolling. */
+.start-howto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+.start-howto li {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: var(--space-2);
+  align-items: start;
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}
+.start-howto b {
+  font-weight: 650;
+  color: var(--white);
+}
+.start-howto-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--panel-2);
+  color: var(--teal);
+  font-size: 12px;
+  line-height: 1;
+}
+.start-howto-ring {
+  box-sizing: border-box;
+  border: 2px solid var(--amber);
+  background: var(--paper);
+  color: var(--amber);
+  font-size: 11px;
+  font-weight: 700;
+}
+@media (min-width: 1280px) {
+  .start-card {
+    width: min(800px, calc(100% - 2 * var(--space-5)));
+  }
+  .start-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-5);
+  }
+}
+
+/* The timeline says what it is: the year the globe shows. */
+.timeline-caption {
+  flex: none;
+  font-size: var(--text-xs);
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+@media (max-width: 900px) {
+  .timeline-caption {
+    display: none;
+  }
+}
+
+/* The footer's data version closes its line, after what a reader needs. */
+.data-version-id {
+  white-space: nowrap;
+}
+
+/* Record panels: the name; kind and status on one line; the summary; then the
+   links under "Explore"; then the sections (js/panels.js arrangePanel). */
+.panel-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-1) 0 var(--space-3);
+}
+.panel-meta > .panel-subtitle,
+.panel-meta > .status-badge {
+  margin: 0;
+}
+.panel-lede {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-md);
+  line-height: var(--leading-body);
+  color: var(--white);
+}
+.panel-explore {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-2);
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--teal) 5%, var(--panel));
+}
+.panel-explore.panel-explore > * {
+  margin: 0;
+}
+/* The view cards keep their look but not a second frame inside this one. */
+.panel-explore.panel-explore > :is(.beam-section-cta, .chart-cta) {
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.panel-explore-title {
+  font-size: var(--text-xs);
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.panel-explore .local-map-entry {
+  margin: 0;
+}
+/* A result's answer, under its plain sentence. */
+.result-found {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-3);
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--teal);
+  border-radius: var(--radius);
+}
+.result-found-title {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+/* How many items a closed section holds. */
+.section-count {
+  margin-left: auto;
+  padding: 1px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--paper);
+  color: var(--muted);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+/* The closing line on what the Atlas has nothing for: a footnote, not a section. */
+.omitted-note {
+  font-size: var(--text-xs);
+}
+/* A record reads at a comfortable measure on a large screen. */
+@media (min-width: 1280px) {
+  #atlas-main:not(.is-map-route):has(> .detail-panel:not(.hidden)) {
+    grid-template-columns: minmax(0, 1fr) 400px;
+  }
+}
+
+/* Results list: what it is, landmarks first, the controls folded away. */
+.mode-lede {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}
+.results-controls > summary,
+.result-type-guide > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: fit-content;
+  margin: 0 0 var(--space-2);
+  padding: 4px var(--space-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  color: var(--teal);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+.results-controls > summary::-webkit-details-marker,
+.result-type-guide > summary::-webkit-details-marker {
+  display: none;
+}
+.results-controls > summary::after,
+.result-type-guide > summary::after {
+  content: '\25BE';
+  color: var(--muted);
+}
+.results-controls[open] > summary::after,
+.result-type-guide[open] > summary::after {
+  content: '\25B4';
+}
+.results-controls > summary:hover,
+.result-type-guide > summary:hover {
+  border-color: var(--teal);
+}
+.result-type-list {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-3);
+  background: var(--panel-2);
+  border-radius: var(--radius);
+  font-size: var(--text-xs);
+  line-height: 1.45;
+}
+.result-type-list dt {
+  font-weight: 650;
+  color: var(--white);
+}
+.result-type-list dd {
+  margin: 0 0 var(--space-2);
+  color: var(--muted);
+}
+.result-type-list dd:last-child {
+  margin-bottom: 0;
+}
+/* The band headings say where the landmarks end. */
+.result-group-header h3 {
+  color: var(--teal);
+}
+/* "Show 2012 on globe": a quiet link, not a button competing with the title. */
+.jump-year-btn {
+  border-color: transparent;
+  padding: 2px var(--space-2);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.result-tag[title] {
+  cursor: help;
+}
+
+/* Filters: a sentence on what they do, and how many choices a closed group holds. */
+.drawer-intro {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  color: var(--muted);
+}
+.filter-group-size {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* Topics: each field of physics is a heading with its question under it. */
+.topic-tree > .topic-field {
+  margin: 0 0 var(--space-3);
+}
+.topic-tree > .topic-field > .topic-link {
+  font-size: var(--text-md);
+  font-weight: 650;
+  color: var(--white);
+}
+.topic-question {
+  margin: 2px 0 var(--space-1);
+  font-size: var(--text-xs);
+  line-height: 1.45;
+  color: var(--muted);
 }
