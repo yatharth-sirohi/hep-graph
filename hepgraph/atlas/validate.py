@@ -1570,10 +1570,16 @@ def check_glossary(ctx: _Context) -> Iterator[Finding]:
                 yield finding('glossary-match', _pointer('match', index), f'the pattern does not compile: {exc}')
 
 
+#: A source on wikipedia.org (any language edition, mobile host, or an archive
+#: wrapper such as web.archive.org/web/<stamp>/https://en.wikipedia.org/...).
+_WIKIPEDIA_URL_RE = re.compile(r'(?:^|[/.@])wikipedia\.org(?=[/:?#]|$)', re.IGNORECASE)
+
+
 def check_sources(ctx: _Context) -> Iterator[Finding]:
     """A18/A22: `accessed` is required, a `failed` retrieval may not be cited,
     a source nobody cites warns, and an authored `rank` that disagrees with the
-    derived one warns."""
+    derived one warns.  `source-wikipedia`: no source may live on wikipedia.org
+    — cite the primary source the article points to instead."""
     cited: set[str] = set()
     for _path, _entity_id, record in _reference_rows(ctx):
         for _json_path, reference in schema.iter_reference_fields(record):
@@ -1590,6 +1596,11 @@ def check_sources(ctx: _Context) -> Iterator[Finding]:
         if not _text(record.get('accessed')):
             yield Finding(ERROR, 'source-missing-accessed', path, entity_id, _pointer('accessed'),
                           'A18: `accessed` (the day an agent read the source) is required')
+        for key in ('url', 'archive_url'):
+            if _WIKIPEDIA_URL_RE.search(_text(record.get(key))):
+                yield Finding(ERROR, 'source-wikipedia', path, entity_id, _pointer(key),
+                              'Wikipedia is not a citable source: cite the primary source the article '
+                              f'points to (this source\'s `{key}` is on wikipedia.org)')
         if record.get('retrieval') in schema.UNCITABLE_RETRIEVALS and entity_id in cited:
             yield Finding(ERROR, 'failed-source-cited', path, entity_id, _pointer('retrieval'),
                           'A18: a source whose retrieval `failed` may not be cited')

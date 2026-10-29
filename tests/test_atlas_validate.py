@@ -221,6 +221,8 @@ MUTATION_CASES: tuple[tuple[str, Callable[[Path], None], str, str], ...] = (
      "result-before-experiment", v.ERROR),
     ("future date without planned", _future_date_without_planned,
      "future-date-not-planned", v.ERROR),
+    ("source on wikipedia.org", lambda root: _mutate(root, "sources/demo-experiment-site.json", lambda r: r.__setitem__("url", "https://en.wikipedia.org/wiki/Demo")), "source-wikipedia", v.ERROR),
+    ("source archived from wikipedia.org", lambda root: _mutate(root, "sources/demo-experiment-site.json", lambda r: r.__setitem__("url", "https://web.archive.org/web/2026/https://de.wikipedia.org/wiki/Demo")), "source-wikipedia", v.ERROR),
 )
 
 

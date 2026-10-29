@@ -137,10 +137,11 @@ def test_step_and_question_counts_are_enforced(atlas) -> None:
 
 
 def test_a_claim_may_not_lean_on_an_encyclopaedia_only_field(atlas, monkeypatch) -> None:
-    # Homestake's intervals cite the Davis lecture and the 1998 paper, so the test puts an
-    # encyclopaedia source (rank 12) on one real interval for the length of the test.
+    # Homestake's intervals cite the Davis lecture and the 1998 paper, so the test puts a
+    # rank-12 `secondary` source on one real interval for the length of the test (Wikipedia
+    # itself is no longer admitted by the validator, so no such source exists in the data).
     weak = next(sid for sid, source in atlas.by_type('source').items()
-                if source.get('source_type') == 'wikipedia')
+                if source.get('source_type') == 'secondary')
     interval = next(row for row in atlas.get('experiment:homestake')['intervals'] if row['label'] == 'operation')
     monkeypatch.setitem(interval, 'sources', [weak])
     resolved = T.resolve(atlas, 'experiment:homestake', 'intervals.operation')
