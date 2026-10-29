@@ -2668,6 +2668,7 @@ async function openResultsControls(page) {
   await record("Results mode: the sort control reorders rows; the group toggles bucket them and set aria-pressed", async () => {
     await page.goto(`${base}/atlas${modeQuery("results")}`);
     await page.locator("#results-mode-list").waitFor();
+    await openResultsControls(page);
 
     await page.selectOption("#results-sort", "experiment");
     await page.waitForTimeout(150);
