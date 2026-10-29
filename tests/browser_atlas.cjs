@@ -351,7 +351,7 @@ async function openResultsControls(page) {
     assert.notEqual(card.modal, "true", "the card is not modal: the globe behind it stays reachable");
     assert.equal(card.label, "Start here");
     // Coverage is partial, so the card does not claim "every major facility" (M1 round 2).
-    assert.equal(card.desc, "Particle-physics facilities on to-scale maps, with every fact traced to its source.");
+    assert.equal(card.desc, "Laboratories, detectors and discoveries of particle physics on one globe, with every fact traced to its source.");
     assert.equal(card.focusInside, true, "opening the card moves focus into it, so a keyboard user starts there");
     // "Take a tour" leads (the guided tours, js/tours.js), then the four questions.
     assert.deepEqual(card.links.map((l) => l.href), [
@@ -491,8 +491,9 @@ async function openResultsControls(page) {
     await p.goto(`${base}/atlas`);
     await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 30000 });
 
-    // Where was the Higgs discovered? CERN is selected on the globe (the result names it),
-    // and the panel's first lines are the place, its map, and the paper announced beside it.
+    // Where was the Higgs discovered? CERN is selected on the globe (the result names it).
+    // The panel opens on what was found (its summary and "What was found"); the place, its
+    // map and the paper announced beside it follow, still on the first screen.
     await p.goto(`${base}/atlas#/result/atlas-higgs-observation-2012`);
     await p.locator("#detail-panel .result-where").waitFor({ timeout: 30000 });
     await p.waitForFunction(() => [...document.querySelectorAll(".atlas-marker.is-selected")].some((el) => /CERN/.test(el.getAttribute("aria-label") || "")), null, { timeout: 15000 });
@@ -505,15 +506,16 @@ async function openResultsControls(page) {
       return {
         where: where.innerText, companions: companions && companions.innerText,
         companionHref: companions && companions.querySelector("a").getAttribute("href"),
-        order: !!companions && before(where, companions) && before(companions, lede),
+        order: !!companions && before(lede, where) && before(where, companions),
+        viewport: window.innerHeight,
         whereTop: where.getBoundingClientRect().top, panelBottom: panel.getBoundingClientRect().bottom,
       };
     });
     assert.equal(higgs.where, "Where: CERN (local map)");
     assert.match(higgs.companions, /^Announced the same day at CERN: CMS \u2014 Observation of a new boson at a mass of 125 GeV$/);
     assert.equal(higgs.companionHref, "#/result/cms-higgs-boson-observation-2012");
-    assert.equal(higgs.order, true, "the place, then the paper announced with it, then the summary");
-    assert.ok(higgs.whereTop < 400, `the place is on the first screen, got y=${higgs.whereTop}`);
+    assert.equal(higgs.order, true, "the summary, then the place, then the paper announced with it");
+    assert.ok(higgs.whereTop < higgs.viewport - 120, `the place is on the first screen, got y=${higgs.whereTop}`);
     // The pair is symmetric: CMS's page names ATLAS's.
     await p.locator(".result-companions a").click();
     await p.waitForFunction(() => /CMS/.test(document.querySelector(".result-companions")?.innerText || "") === false
@@ -588,7 +590,8 @@ async function openResultsControls(page) {
         };
       });
       assert.equal(head.links.length, maps, `${slug}: one link per map, got ${JSON.stringify(head.links)}`);
-      assert.ok(head.links.every((link) => link.top < 520), `${slug}: the links are on the first screen: ${JSON.stringify(head.links)}`);
+      // On the first screen of a 900 px window, under the facility's summary (which comes first).
+      assert.ok(head.links.every((link) => link.top < 780), `${slug}: the links are on the first screen: ${JSON.stringify(head.links)}`);
       assert.equal(head.beforeFirstSection, true);
       assert.equal(head.foot, false, "the link is not repeated in a card at the foot");
       assert.match(head.links[0].text, /^\u25ce Open local map: /);
@@ -814,6 +817,8 @@ async function openResultsControls(page) {
       await p.goto(`${base}/atlas${dataTree}#/experiment/dune`);
       await p.locator("#detail-panel h2").waitFor();
       const section = (title) => p.locator("#detail-panel details.panel-section", { has: p.locator("summary", { hasText: new RegExp(`^${title}( \\d+)?$`) }) });
+      // The detectors are a list to open (closed by default, its heading counting them).
+      await section("Detectors").locator("summary").click();
       const detectors = await section("Detectors").locator("a.entity-link").allInnerTexts();
       assert.equal(detectors.length, 5, `DUNE records five detectors, got ${JSON.stringify(detectors)}`);
       assert.ok(detectors.some((name) => /Far Detector Module 1/.test(name)));
@@ -1153,14 +1158,15 @@ async function openResultsControls(page) {
       async function detailsText(headingText) {
         return page.evaluate((text) => {
           const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
-          const details = summaries.find((s) => s.textContent.trim() === text)?.closest("details");
+          // A heading may end with how many items its list holds ("Beam and sites 1").
+          const details = summaries.find((s) => s.textContent.trim().replace(/\s+\d+$/, "") === text)?.closest("details");
           return details ? details.innerText : null;
         }, headingText);
       }
       async function clickSummary(headingText) {
         const handle = await page.evaluateHandle((text) => {
           const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
-          return summaries.find((s) => s.textContent.trim() === text) || null;
+          return summaries.find((s) => s.textContent.trim().replace(/\s+\d+$/, "") === text) || null;
         }, headingText);
         const el = handle.asElement();
         if (el) await el.click();
@@ -2941,13 +2947,13 @@ async function openResultsControls(page) {
   async function openSection(targetPage, headingText) {
     const handle = await targetPage.evaluateHandle((text) => {
       const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
-      return summaries.find((s) => s.textContent.trim() === text) || null;
+      return summaries.find((s) => s.textContent.trim().replace(/\s+\d+$/, "") === text) || null;
     }, headingText);
     const el = handle.asElement();
     if (el) await el.click();
     await targetPage.waitForFunction((text) => {
       const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
-      const details = summaries.find((s) => s.textContent.trim() === text)?.closest("details");
+      const details = summaries.find((s) => s.textContent.trim().replace(/\s+\d+$/, "") === text)?.closest("details");
       return !!details && details.open;
     }, headingText, { timeout: 10000 });
   }

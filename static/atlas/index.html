@@ -160,10 +160,13 @@
         <p class="start-kicker">HEP Atlas</p>
         <h2 id="start-title" class="start-title">Start here</h2>
         <p id="start-lede" class="start-lede">
-          The laboratories, detectors and discoveries of particle physics on one globe, with every fact traced to its source.
+          Laboratories, detectors and discoveries of particle physics on one globe, with every fact traced to its source.
         </p>
         <div class="start-grid">
         <div class="start-col">
+        <!-- How to read the globe: the laptop controls it names (Map key, Filters) are in
+             "Views & filters" on a phone, so the block is not shown there (atlas.css). -->
+        <div class="start-howto-block">
         <h3 class="start-heading">How to use the Atlas</h3>
         <ul class="start-howto">
           <li><span class="start-howto-icon" aria-hidden="true">&#9673;</span>
@@ -175,6 +178,7 @@
           <li><span class="start-howto-icon" aria-hidden="true">&#9906;</span>
             <span><b>Search</b> finds anything by name; <b>Filters</b> show only some places.</span></li>
         </ul>
+        </div>
         <!-- Shown by start.js only when the data build carries tours. -->
         <div class="start-tours" id="start-tours" hidden>
           <h3 class="start-heading">Take a tour</h3>
