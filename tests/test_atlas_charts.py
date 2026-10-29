@@ -94,8 +94,8 @@ def test_every_flux_is_converted_to_cm2_per_s_with_the_a27_scale(result: dict) -
 
 def test_energies_are_converted_to_gev_one_point_per_era(result: dict) -> None:
     gev = result["energyGeV"]
-    # The LHC is three points, one per run, never its 14 TeV design value at its first year.
-    assert gev["accelerator:lhc"] == [[2010, 7000, "era"], [2015, 13000, "era"], [2022, 13600, "era"]]
+    # The LHC: one point per run (Run 1 at 7 TeV from 2010 and at 8 TeV in 2012), never its 14 TeV design value at its first year.
+    assert gev["accelerator:lhc"] == [[2010, 7000, "era"], [2012, 8000, "era"], [2015, 13000, "era"], [2022, 13600, "era"]]
     # LEP2's energy rose in steps from 1995 to 2000: 209 GeV belongs to 2000, not to 1995 (each run is dated and sourced).
     assert gev["accelerator:lep"] == [
         [1989, 91, "era"], [1995, 136, "era"], [1996, 161.3, "era"], [1996, 172, "era"],
@@ -109,7 +109,7 @@ def test_energies_are_converted_to_gev_one_point_per_era(result: dict) -> None:
     # A machine whose record dates no energy is one point at its first operation, marked as recorded today.
     assert gev["accelerator:linac2"] == [[1978, pytest.approx(0.05), "today"]]  # 50 MeV in GeV
     # The Tevatron: first collisions at 1.6 TeV (1985), the 1.8 TeV era from November 1986, Run II at 1.96 TeV from March 2001.
-    assert gev["accelerator:fermilab-tevatron"] == [[1985, 1600, "era"], [1986, 1800, "era"], [2001, 1960, "era"]]
+    assert gev["accelerator:fermilab-tevatron"] == [[1985, 1600, "era"], [1986, 1800, "era"], [1992, 1800, "era"], [2001, 1960, "era"]]
 
 
 def test_log_axis_ticks_are_decades_with_superscripts(result: dict) -> None:
