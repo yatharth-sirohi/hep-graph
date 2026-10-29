@@ -13,33 +13,34 @@
   "id": "facility:brokdorf-nuclear-power-plant",
   "intervals": [
     {
-      "confidence": "approximate",
+      "confidence": "verified",
       "end": "2021-12-31",
       "label": "reactor operation",
-      "locator": "Wikipedia infobox",
-      "note": "Commissioning and shutdown dates from Wikipedia's infobox/text.",
-      "quote": "the power plant was commissioned on October 14, 1986",
+      "locator": "Portal on Nuclear Safety, Brokdorf page, \"Operational data\" table",
+      "note": "Start is the first grid synchronisation (14 October 1986); first criticality was 8 October 1986 and commercial operation began 22 December 1986 (same table). End is the expiry of the authorisation for power operation under the Atomic Energy Act; BASE confirms the plant went off the grid for good on 31 December 2021.",
+      "quote": "First grid synchronisation14 October 1986 ... Expiry of authorisation for power operation in accordance with the German Atomic Energy Act (AtG)31 December 2021",
       "sources": [
-        "src:cevns-conus-brokdorf-wikipedia"
+        "src:dw-nuklearesicherheit-brokdorf",
+        "src:dw-base-brokdorf-abschaltung"
       ],
       "start": "1986-10-14",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     },
     {
-      "confidence": "approximate",
+      "confidence": "verified",
       "end": null,
       "label": "decommissioned",
-      "locator": "Wikipedia infobox",
-      "note": "The CONUS experiment's own setup at this site continued taking background(-only) data for some time after the reactor's own shutdown, before physically relocating to Leibstadt in 2023 (see experiment:conus); this interval describes the reactor/facility itself, not the CONUS detector's own operating window. Exact day from Wikipedia (rank 12); the CONUS 2024 paper (arXiv:2401.07684) says the reactor 'stopped operation by the end of 2021'.",
-      "quote": "the Brokdorf plant was shut down on 31 December 2021",
+      "locator": "BASE page \"Abschaltung des Atomkraftwerks Brokdorf\", introduction",
+      "note": "The CONUS experiment's own setup at this site continued taking background(-only) data for some time after the reactor's own shutdown, before physically relocating to Leibstadt in 2023 (see experiment:conus); this interval describes the reactor/facility itself, not the CONUS detector's own operating window. The CONUS 2024 paper (arXiv:2401.07684) says the reactor 'stopped operation by the end of 2021'.",
+      "quote": "Am 31.12.2021 ging das Atomkraftwerk Brokdorf endgültig vom Netz.",
       "sources": [
-        "src:cevns-conus-brokdorf-wikipedia",
+        "src:dw-base-brokdorf-abschaltung",
         "src:cevns-conus-prl-2024-final-brokdorf"
       ],
       "start": "2021-12-31",
       "status": "decommissioned",
-      "verified_at": "2026-10-25"
+      "verified_at": "2026-10-26"
     }
   ],
   "kind": "reactor_site",
@@ -48,8 +49,8 @@
   },
   "name": "Brokdorf Nuclear Power Plant",
   "notes": [
-    "Original host facility of the CONUS experiment (2018-2023); operated as CONUS+ at facility:leibstadt-nuclear-power-plant from late 2023.",
-    "Reactor thermal power (3.9 GWth) is from arXiv:2011.00210; it is stated in the technical summary and not as a separate numeric spec."
+    "Original host facility of the CONUS experiment (CONUS data taking 2018-2022; the setup moved to Switzerland in 2023); operated as CONUS+ at facility:leibstadt-nuclear-power-plant from late 2023.",
+    "Reactor thermal power (3.9 GWth) is from arXiv:2011.00210 and agrees with the 3,900 MW thermal power on the Portal on Nuclear Safety data sheet (src:dw-nuklearesicherheit-brokdorf), which also gives the pressurised-water (pre-Convoy) type and 1,480 MW gross / 1,410 MW net electric capacity; these are stated in the technical summary and not as separate numeric specs."
   ],
   "operator": {
     "confidence": "verified",
@@ -66,14 +67,16 @@
   "related_facility_ids": [],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:cevns-conus-brokdorf-wikipedia",
-    "src:cevns-conus-prl-2021-first-limit"
+    "src:cevns-conus-prl-2021-first-limit",
+    "src:cevns-conus-prl-2024-final-brokdorf",
+    "src:dw-base-brokdorf-abschaltung",
+    "src:dw-nuklearesicherheit-brokdorf"
   ],
   "specs": {},
   "status": "decommissioned",
   "summary": {
     "plain": "A now-closed German nuclear power plant on the Elbe river that hosted the CONUS reactor-neutrino experiment from 2018 until the setup moved to Switzerland in 2023.",
-    "technical": "Brokdorf Nuclear Power Plant (KBR), Schleswig-Holstein, Germany; 3.9 GWth / 1440 MWe pressurized water reactor, shut down 2021-12-31 as part of Germany's nuclear phase-out; hosted the CONUS CEvNS experiment 17.1 m from the reactor core."
+    "technical": "Brokdorf Nuclear Power Plant (KBR), Schleswig-Holstein, Germany; 3.9 GWth pressurised water reactor (1,480 MWe gross, 1,410 MWe net), first synchronised to the grid 1986-10-14 and shut down 2021-12-31 as part of Germany's nuclear phase-out; hosted the CONUS CEvNS experiment 17.1 m from the reactor core."
   },
   "topic_ids": [
     "topic:cevns",

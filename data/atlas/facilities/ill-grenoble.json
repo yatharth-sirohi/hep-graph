@@ -12,18 +12,19 @@
   "id": "facility:ill-grenoble",
   "intervals": [
     {
-      "confidence": "approximate",
+      "confidence": "verified",
       "end": null,
       "label": "operation",
-      "locator": "Wikipedia",
-      "note": "Sourced only from Wikipedia (rank 12), which per the source hierarchy may not be cited at confidence: verified; operating as of verified_at.",
-      "quote": "Founded in 1967",
+      "locator": "ILL \"Historical overview\"",
+      "note": "Start is the founding of the Institute by intergovernmental agreement; the ILL pages consulted do not date the reactor's first operation. Still operating as of verified_at (the ILL reactor overview describes the reactor running in cycles of about 60 days).",
+      "quote": "The ILL was founded on 19 January 1967 with the signing of an agreement between the governments of the French Republic and the Federal Republic of Germany.",
       "sources": [
-        "src:cevns-ill-wikipedia"
+        "src:dw-ill-historical-overview",
+        "src:dw-ill-reactor-overview"
       ],
-      "start": "1967",
+      "start": "1967-01-19",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "kind": "reactor_site",
@@ -33,29 +34,32 @@
   "name": "Institut Laue-Langevin",
   "notes": [
     "Host facility of the Ricochet experiment.",
-    "ILL is primarily a multinational neutron-science user facility; it is recorded here as a reactor site because the property relevant to Ricochet's CEvNS program is its 58.3 MW research reactor core, as for the other CEvNS reactor facilities (Brokdorf, Leibstadt)."
+    "ILL is primarily a multinational neutron-science user facility; it is recorded here as a reactor site because the property relevant to Ricochet's CEvNS program is its 58 MW (thermal) research reactor core, as for the other CEvNS reactor facilities (Brokdorf, Leibstadt)."
   ],
   "operator": {
-    "confidence": "uncertain",
-    "locator": "Wikipedia",
-    "note": "Not independently confirmed against ILL's own official page (checked 2026-09-17).",
+    "confidence": "verified",
+    "locator": "ILL \"ILL at a glance\"",
+    "note": "The Institute is its own operator; its own page names the three funding and managing countries.",
+    "quote": "Funded and managed by France, Germany and the United Kingdom, and in scientific partnership with 10 other countries, ILL is located in a dynamic and scientifically rich city of Grenoble",
     "sources": [
-      "src:cevns-ill-wikipedia"
+      "src:dw-ill-at-a-glance"
     ],
-    "value": "Institut Laue-Langevin (a tripartite French-German-British research organisation)",
-    "verified_at": "2026-09-17"
+    "value": "Institut Laue-Langevin (an international research centre funded and managed by France, Germany and the United Kingdom)",
+    "verified_at": "2026-10-26"
   },
   "primary_site_id": "site:ill-grenoble-reactor-hall",
   "related_facility_ids": [],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:cevns-ill-wikipedia"
+    "src:dw-ill-at-a-glance",
+    "src:dw-ill-historical-overview",
+    "src:dw-ill-reactor-overview"
   ],
   "specs": {},
   "status": "active",
   "summary": {
     "plain": "A major research reactor in Grenoble, France, mainly used to make beams of neutrons for science, and also home to the Ricochet reactor-neutrino experiment.",
-    "technical": "Institut Laue-Langevin (ILL), Grenoble, France: 58.3 MW research reactor (Wikipedia) / 58 MW per Ricochet's own background paper; hosts the Ricochet CEvNS experiment 8.8 m from the reactor core."
+    "technical": "Institut Laue-Langevin (ILL), Grenoble, France: research reactor of 58 MW thermal power (ILL's own reactor page; Ricochet's own background paper also gives 58 MW); hosts the Ricochet CEvNS experiment 8.8 m from the reactor core."
   },
   "topic_ids": [
     "topic:cevns",

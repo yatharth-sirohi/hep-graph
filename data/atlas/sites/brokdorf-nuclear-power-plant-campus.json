@@ -4,16 +4,16 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 53.85083,
-    "locator": "infobox",
-    "lon": 9.34472,
-    "note": "Campus-level coordinate from Wikipedia's infobox, shown as approximate. No official plant-operator page or geodetic source consulted (checked 2026-09-17) gives a coordinate. The signs are consistent with the location: Brokdorf, Germany is in the northern hemisphere (positive latitude) and east of the prime meridian (positive longitude).",
-    "precision_m": 200,
-    "quote": "53°51′03″N 9°20′41″E / 53.85083°N 9.34472°E",
+    "lat": 53.850777,
+    "locator": "area centroid of OpenStreetMap way 87723028 ('Reaktorgebäude', Kernkraftwerk Brokdorf; element version 6, last edited 2025-11-27, read from the OSM API on 2026-10-28; the same outline is in the 2026-10-25 extract)",
+    "lon": 9.345842,
+    "note": "Campus-grade point at the reactor-building complex (the outline spans about 130 m), shown as approximate. The CONUS detector sat 17.1 m from the reactor core inside this building (arXiv:2401.07684), but no source gives a more precise position.",
+    "precision_m": 100,
     "sources": [
-      "src:cevns-conus-brokdorf-wikipedia"
+      "src:geo-brokdorf-osm-extract-2026-10",
+      "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-26"
   },
   "country": "DE",
   "coverage": {
@@ -39,11 +39,12 @@
   "schema": "hep-atlas/0.2",
   "setting": "surface",
   "sources": [
-    "src:cevns-conus-brokdorf-wikipedia"
+    "src:geo-brokdorf-osm-extract-2026-10",
+    "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
   ],
   "summary": {
     "plain": "A now-closed nuclear power plant on the Elbe river in northern Germany, where the CONUS experiment sat just 17 metres from the reactor core to catch its antineutrinos.",
-    "technical": "Surface site of the (now shut down) Brokdorf boiling water reactor, Schleswig-Holstein, Germany; hosted the CONUS CEvNS detector 17.1 m from the reactor core, 2018-2023."
+    "technical": "Surface site of the (now shut down) Brokdorf pressurised water reactor, Schleswig-Holstein, Germany; hosted the CONUS CEvNS detector 17.1 m from the reactor core, 2018-2022 data taking before the 2023 move to Leibstadt."
   },
   "type": "site"
 }

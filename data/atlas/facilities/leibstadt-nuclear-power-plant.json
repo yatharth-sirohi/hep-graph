@@ -13,18 +13,19 @@
   "id": "facility:leibstadt-nuclear-power-plant",
   "intervals": [
     {
-      "confidence": "approximate",
+      "confidence": "verified",
       "end": null,
       "label": "reactor operation",
-      "locator": "Wikipedia infobox",
-      "note": "Commissioning date from Wikipedia's infobox/text; plant is operating as of verified_at.",
-      "quote": "Commission date: May 24, 1984",
+      "locator": "KKL Chronik, entry 1984 \"KKL geht in Betrieb und ans Netz\"",
+      "note": "Start of continuous (commercial) operation with federal authorisation, per the plant operator's own chronicle; an earlier 'commission date' of 1984-05-24 (probably the first grid connection) is not stated by any primary source consulted. Plant is in normal operation as of verified_at (KKL home page, news of 2026-06-05).",
+      "quote": "Am 15. Dezember 1984 nimmt das Kernkraftwerk Leibstadt mit Bewilligung der Bundesbehörden seinen Dauerbetrieb auf.",
       "sources": [
-        "src:cevns-conus-leibstadt-wikipedia"
+        "src:dw-kkl-chronik",
+        "src:dw-kkl-home"
       ],
-      "start": "1984-05-24",
+      "start": "1984-12-15",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "kind": "reactor_site",
@@ -34,30 +35,35 @@
   "name": "Leibstadt Nuclear Power Plant",
   "notes": [
     "Host facility of CONUS+ since 2023 (the CONUS experiment's setup, relocated from facility:brokdorf-nuclear-power-plant).",
-    "Reactor thermal power (3.6 GWth) is from arXiv:2407.11912; it is stated in the technical summary and not as a separate numeric spec."
+    "Reactor thermal power (3.6 GWth) is from arXiv:2407.11912 and agrees with the 3,600 MW thermal power on the plant operator's reactor page (src:dw-kkl-reaktorgebaeude-und-reaktor), which also gives the General Electric BWR-6 type; the 1285 MW gross (1233 MW net) electrical rating is on src:dw-kkl-unser-kraftwerk. All are stated in the technical summary and not as separate numeric specs."
   ],
   "operator": {
-    "confidence": "uncertain",
-    "locator": "Wikipedia",
-    "note": "Operator name not independently confirmed against a primary/official source (checked 2026-09-17).",
+    "confidence": "verified",
+    "locator": "ENSI Stellungnahme zur PSÜ 2022, section 8.1.1",
+    "note": "The regulator names Kernkraftwerk Leibstadt AG as licence holder (Bewilligungsinhaberin); the same document puts responsibility for safe operation with it (Art. 22 KEG).",
+    "quote": "Die Bewilligungsinhaberin des Kernkraftwerks Leibstadt ist eine Aktiengesellschaft mit dem Namen Kernkraftwerk Leibstadt AG",
     "sources": [
-      "src:cevns-conus-leibstadt-wikipedia"
+      "src:dw-ensi-kkl-psue-2022-stellungnahme"
     ],
     "value": "Kernkraftwerk Leibstadt AG",
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-26"
   },
   "primary_site_id": "site:leibstadt-nuclear-power-plant-campus",
   "related_facility_ids": [],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:cevns-conus-leibstadt-wikipedia",
-    "src:cevns-conus-plus-overview-2024"
+    "src:cevns-conus-plus-overview-2024",
+    "src:dw-ensi-kkl-psue-2022-stellungnahme",
+    "src:dw-kkl-chronik",
+    "src:dw-kkl-home",
+    "src:dw-kkl-reaktorgebaeude-und-reaktor",
+    "src:dw-kkl-unser-kraftwerk"
   ],
   "specs": {},
   "status": "active",
   "summary": {
     "plain": "A Swiss nuclear power plant on the Rhine that has hosted the CONUS+ reactor-neutrino experiment since late 2023.",
-    "technical": "Leibstadt Nuclear Power Plant (KKL), canton of Aargau, Switzerland; 3.6 GWth boiling water reactor (1285 MWe nameplate); hosts CONUS+ (the relocated CONUS experiment) 20.7 m from the reactor core since 2023."
+    "technical": "Leibstadt Nuclear Power Plant (KKL), canton of Aargau, Switzerland; 3.6 GWth General Electric BWR-6 boiling water reactor (1285 MWe gross, 1233 MWe net rated); hosts CONUS+ (the relocated CONUS experiment) 20.7 m from the reactor core since 2023."
   },
   "topic_ids": [
     "topic:cevns",
