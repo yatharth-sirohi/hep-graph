@@ -52,36 +52,39 @@
   "membership": {
     "as_of": null,
     "country_count": {
-      "confidence": "approximate",
-      "note": "Derived by counting the six nationalities named in the quote (French, German, Italian, Israeli, Polish, American); Wikipedia (rank 12) does not itself state a numeric count. Describes the GALLEX-era collaboration; the GNO-phase author list in arXiv:hep-ex/0504037 shows affiliations in four countries (Germany, Italy, France, Poland).",
-      "quote": "an international collaboration of French, German, Italian, Israeli, Polish and American scientists led by the Max-Planck-Institut für Kernphysik Heidelberg",
+      "confidence": "derived",
+      "locator": "GNO Collaboration, Phys. Lett. B 616 (2005) 174 (arXiv:hep-ex/0504037), author affiliations a-l; T. Kirsten, The GALLEX Project (1990), p. 187, GALLEX collaboration list",
+      "note": "Derived as the union of the countries of the collaboration's institutions in two papers. The GNO final paper's affiliations (the quote) are in Germany, Italy, France and Poland. The 1990 GALLEX collaboration list adds the Weizmann Institute, Rehovot (Israel) and Brookhaven National Laboratory, Upton, N.Y. (United States). Neither paper states a country count. The GNO-era list alone has four countries and the 1990 GALLEX list five (Poland does not appear in it).",
+      "quote": "D-69029 Heidelberg, Germany ... I-67010 l'Aquila, Italy ... F-91191 Gif-sur-Yvette Cedex, France ... PL-30059 Krakow, Poland",
       "sources": [
-        "src:gallex-wikipedia"
+        "src:rf05-gno-complete-results-arxiv",
+        "src:vf-gallex-project-kirsten-1990"
       ],
       "value": 6,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-28"
     },
-    "evidence_class": "institutional_page",
+    "evidence_class": "publication_affiliation_historical",
     "institution_count": null,
     "member_count": null,
     "roster_source_ids": [
-      "src:gallex-wikipedia"
+      "src:rf05-gno-complete-results-arxiv",
+      "src:vf-gallex-project-kirsten-1990"
     ]
   },
   "name": "GALLEX/GNO Collaboration",
   "notes": [
-    "No institution list or member count was found in a source consulted (checked 2026-09-17); only the collaboration's six represented nationalities are recorded, sourced from Wikipedia."
+    "No member count or complete institution list was found in a source consulted (the 2026-09-17 search found no official collaboration page); the six countries are tallied from the institutions named in two collaboration papers."
   ],
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:gallex-inspire-experiment-record",
-    "src:gallex-wikipedia",
-    "src:rf05-gno-complete-results-arxiv"
+    "src:rf05-gno-complete-results-arxiv",
+    "src:vf-gallex-project-kirsten-1990"
   ],
   "status": "completed",
   "summary": {
-    "plain": "The international team, led by the Max Planck Institute for Nuclear Physics in Heidelberg, that ran the GALLEX and GNO gallium solar-neutrino experiments in Italy.",
-    "technical": "International collaboration (France, Germany, Italy, Israel, Poland, US) led by MPIK Heidelberg, operating GALLEX (1991-1997) and its successor GNO (1998-2003) at LNGS."
+    "plain": "The international team, from institutions in Germany, Italy, France, Israel, Poland and the United States, that ran the GALLEX and GNO gallium solar-neutrino experiments in Italy.",
+    "technical": "International collaboration of institutions in Germany, Italy, France, Israel, Poland and the United States (the GNO-era author list has Germany, Italy, France and Poland; the 1990 GALLEX list has Germany, Italy, France, Israel and the United States), operating GALLEX (1991-1997) and its successor GNO (1998-2003) at LNGS."
   },
   "type": "collaboration"
 }

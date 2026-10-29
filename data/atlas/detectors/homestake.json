@@ -26,34 +26,47 @@
     },
     {
       "confidence": "approximate",
-      "end": "1994",
+      "end": {
+        "approx": true,
+        "date": "1998",
+        "display": "late 1990s",
+        "earliest": "1997",
+        "latest": "2001"
+      },
       "label": "operation",
-      "locator": "Davis, Nobel Lecture 2002, p. 68, paragraph after Fig. 7",
-      "note": "Start: the year Davis gives for the experiment becoming operational. The standard data set analysed by Cleveland et al. begins in 1970, when rise-time counting was introduced. The end is the end of the standard data set, not a documented shutdown: Cleveland et al. (accepted October 1997) still describe the detector as measuring solar neutrinos, and no source read dates the end of operation. The Homestake mine itself closed in 2001.",
+      "locator": "Davis, Nobel Lecture 2002, p. 68, paragraph after Fig. 7; end: Davis, Nobel autobiography (Les Prix Nobel 2002), paragraph beginning 'I retired from Brookhaven in 1984'; SURF, Our Story",
+      "note": "Start: the year Davis gives for the experiment becoming operational; the standard data set analysed by Cleveland et al. begins in 1970, when rise-time counting was introduced. End of operation: Davis writes that the experiment \"continued to measure the solar neutrino flux until the late 1990s, when the Homestake Mine ceased operating\"; SURF dates the end of the mine's operation to 2001, and Cleveland et al. (accepted October 1997) still describe the detector as measuring solar neutrinos. The date is therefore bounded between 1997 and 2001 and marked approximate; no source read gives the date of the last extraction. The standard data set of 108 observations ends in 1994, which is not the end of operation.",
       "quote": "The Homestake experiment became operational in 1967.",
       "sources": [
         "src:rf06-davis-nobel-lecture-2002",
         "src:homestake-1998-flux-measurement",
-        "src:surf-our-story"
+        "src:surf-our-story",
+        "src:vf-davis-nobel-biographical-2002"
       ],
       "start": "1967",
       "status": "active",
-      "verified_at": "2026-10-26"
+      "verified_at": "2026-10-28"
     },
     {
       "confidence": "approximate",
       "end": null,
       "label": "shut down",
-      "locator": "Cleveland et al. 1998, section 7.1",
-      "note": "A bound on the end of the standard data set, not a shutdown date. The end is the end of the standard data set, not a documented shutdown: Cleveland et al. (accepted October 1997) still describe the detector as measuring solar neutrinos, and no source read dates the end of operation. The Homestake mine itself closed in 2001.",
-      "quote": "Our standard data set consists of 108 solar neutrino observations made between 1970 and 1994.",
+      "locator": "Davis, Nobel autobiography (Les Prix Nobel 2002), paragraph beginning 'I retired from Brookhaven in 1984'; SURF, Our Story, 'The Unique History of the Black Hills'",
+      "note": "Davis: \"The experiment continued to measure the solar neutrino flux until the late 1990s, when the Homestake Mine ceased operating.\" SURF says the mine operated until 2001, so the date is bounded between 1997 (Cleveland et al. still describe ongoing measurements) and 2001 and marked approximate. The standard data set of 108 observations ends in 1994, which is not the end of operation.",
+      "quote": "The experiment continued to measure the solar neutrino flux until the late 1990s, when the Homestake Mine ceased operating.",
       "sources": [
-        "src:homestake-1998-flux-measurement",
+        "src:vf-davis-nobel-biographical-2002",
         "src:surf-our-story"
       ],
-      "start": "1994",
+      "start": {
+        "approx": true,
+        "date": "1998",
+        "display": "late 1990s",
+        "earliest": "1997",
+        "latest": "2001"
+      },
       "status": "completed",
-      "verified_at": "2026-10-26"
+      "verified_at": "2026-10-28"
     }
   ],
   "links": {
@@ -67,8 +80,14 @@
   "placements": [
     {
       "confidence": "approximate",
-      "end": "1994",
-      "note": "site:surf-surface-campus is an approximate campus-level point for the whole SURF/Homestake site, used because no distinct sourced coordinate exists for the Davis chlorine-tank chamber. The detector was actually ~1478 m (4850 ft) underground, not at the surface; the placement's role is sourced from the 1998 paper, its dates from the experiment's intervals, but the site point only marks the general campus location, not the true underground depth.",
+      "end": {
+        "approx": true,
+        "date": "1998",
+        "display": "late 1990s",
+        "earliest": "1997",
+        "latest": "2001"
+      },
+      "note": "site:surf-surface-campus is an approximate campus-level point for the whole SURF/Homestake site, used because no distinct sourced coordinate exists for the Davis chlorine-tank chamber. The detector was actually ~1478 m (4850 ft) underground, not at the surface; the placement's role is sourced from the 1998 paper, its dates from the experiment's intervals (the end is approximate, late 1990s), but the site point only marks the general campus location, not the true underground depth.",
       "quote": "The Homestake Solar Neutrino Observatory is located in the Homestake Gold Mine, at Lead, South Dakota",
       "role": "main",
       "site_id": "site:surf-surface-campus",
