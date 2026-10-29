@@ -11,30 +11,35 @@
   "id": "accelerator:pep-ii",
   "intervals": [
     {
-      "confidence": "uncertain",
-      "end": "2008",
+      "confidence": "verified",
+      "end": "2008-04-07",
       "label": "operation",
-      "note": "Year-precision only; sourced to Wikipedia only. Operating interval; the terminal event is its end.",
-      "quote": "From 1999 to 2008",
+      "locator": "J. Seeman for the PEP-II Team, \"The Last Year of PEP-II B-Factory Operation\" (EPAC 2008 talk), timeline slide; abstract of the EPAC 2008 paper",
+      "note": "Start at year precision: the PEP-II team's own abstract says PEP-II \"operated from 1999 to 2008\". First collisions came earlier, on 23 July 1998, during commissioning (same talk; SLAC milestones page: \"First B Factory particle collision occurs\"), so this interval is the physics-running period for BaBar. End: the talk gives 7 April 2008 as the day PEP-II was turned off. Operating interval; the terminal event is its end.",
+      "quote": "1999-2007: Y4S data for BaBar (433 fb-1) ... Turned off PEP-II April 7, 2008",
       "sources": [
-        "src:slac-wikipedia"
+        "src:dw-pep-ii-last-year-epac2008-talk",
+        "src:dw-pep-ii-last-year-epac2008-osti",
+        "src:colliders2-slac-milestones"
       ],
       "start": "1999",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     },
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "end": null,
       "label": "completed",
-      "note": "Year-precision only; sourced to Wikipedia only. Terminal event: the end of the operating interval above.",
-      "quote": "From 1999 to 2008",
+      "locator": "J. Seeman for the PEP-II Team, \"The Last Year of PEP-II B-Factory Operation\" (EPAC 2008 talk), timeline slide; abstract of the EPAC 2008 paper",
+      "note": "Terminal event: PEP-II turned off on 7 April 2008, the end of the operating interval above.",
+      "quote": "Turned off PEP-II April 7, 2008",
       "sources": [
-        "src:slac-wikipedia"
+        "src:dw-pep-ii-last-year-epac2008-talk",
+        "src:dw-pep-ii-last-year-epac2008-osti"
       ],
-      "start": "2008",
+      "start": "2008-04-07",
       "status": "completed",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "is_collider": true,
@@ -53,8 +58,12 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:slac-pep-ii-ir2-babar",
   "sources": [
-    "src:slac-wikipedia",
-    "src:babar-wikipedia"
+    "src:colliders-historical-babar-detector-nim-2002",
+    "src:colliders2-slac-milestones",
+    "src:dw-pep-ii-last-year-epac2008-osti",
+    "src:dw-pep-ii-last-year-epac2008-talk",
+    "src:geo-slac-pepii-cdr-osti",
+    "src:pep-ii-injection-pac1995-fieguth"
   ],
   "specs": {
     "beam_energy": {
@@ -74,17 +83,18 @@
     },
     "circumference": {
       "approx": false,
-      "confidence": "uncertain",
+      "confidence": "verified",
       "dimension": "length",
-      "display": "2.2 km (1.4 mi)",
-      "note": "Sourced to Wikipedia only.",
-      "quote": "a pair of storage rings 2.2 km (1.4 mi) in circumference",
+      "display": "2.2 km (2,200 m per ring)",
+      "locator": "PEP-II Conceptual Design Report (1993), OSTI abstract",
+      "note": "Design value from the conceptual design report: each of the two storage rings has a circumference of 2200 m, recorded here in km.",
+      "quote": "each with a circumference of 2200 m",
       "sources": [
-        "src:slac-wikipedia"
+        "src:geo-slac-pepii-cdr-osti"
       ],
       "unit": "km",
       "value": 2.2,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     },
     "cms_energy": {
       "approx": false,

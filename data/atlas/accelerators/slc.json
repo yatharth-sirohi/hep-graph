@@ -11,32 +11,36 @@
   "id": "accelerator:slc",
   "intervals": [
     {
-      "confidence": "uncertain",
-      "end": "1998",
+      "confidence": "approximate",
+      "end": "1998-06",
       "label": "operation",
-      "note": "Year precision only, sourced to Wikipedia only ('discovered first Z event on April 12, 1989' and 'early-to-mid 1990s' for SLD operation); the end year 1998 matches the commonly cited shutdown but no official page consulted (checked 2026-09-17) confirms it. Operating interval; the terminal event is its end.",
-      "quote": "on April 12, 1989",
+      "locator": "SLC page on the SLD ALR site (SLAC), first and last paragraphs; SLAC milestones page, 1989 entry",
+      "note": "Start at year precision: the SLAC milestones page says \"SLC operations begin\" in 1989 and the SLC page on the SLD site dates the physics program with the Mark II detector to 1989, but the SLAC handbook page says \"Physics at the SLC started in 1988 with the Mark II detector\", so the start year differs by one between official SLAC pages. End: \"termination in June of 1998\" (SLC page); CERN Courier reports the SLC was shut down just before noon on 8 June 1998 \"for what may have been the last time\". Operating interval; the terminal event is its end.",
+      "quote": "The experimental physics program using the SLC started with the MarkII detector in 1989 ... lack of federal funding for this program led to its termination in June of 1998",
       "sources": [
-        "src:slac-wikipedia",
-        "src:slc-wikipedia"
+        "src:dw-slc-alr-sld-page",
+        "src:colliders2-slac-milestones",
+        "src:slac-grad-handbook",
+        "src:dw-slc-cerncourier-1998-perched"
       ],
       "start": "1989",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     },
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "end": null,
       "label": "completed",
-      "note": "Year precision only, sourced to Wikipedia only ('discovered first Z event on April 12, 1989' and 'early-to-mid 1990s' for SLD operation); the end year 1998 matches the commonly cited shutdown but no official page consulted (checked 2026-09-17) confirms it. Terminal event: the end of the operating interval above.",
-      "quote": "on April 12, 1989",
+      "locator": "SLC page on the SLD ALR site (SLAC), paragraph on the Z0 event totals",
+      "note": "Terminal event: the end of the operating interval above. CERN Courier gives 8 June 1998 as the day of the shutdown but was not certain it was final, so only the month is recorded.",
+      "quote": "lack of federal funding for this program led to its termination in June of 1998",
       "sources": [
-        "src:slac-wikipedia",
-        "src:slc-wikipedia"
+        "src:dw-slc-alr-sld-page",
+        "src:dw-slc-cerncourier-1998-perched"
       ],
-      "start": "1998",
+      "start": "1998-06",
       "status": "completed",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "is_collider": true,
@@ -55,23 +59,28 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:slac-slc-collider-hall-sld",
   "sources": [
-    "src:slac-wikipedia",
-    "src:slc-wikipedia"
+    "src:colliders2-slac-milestones",
+    "src:dw-slc-alr-sld-page",
+    "src:dw-slc-cerncourier-1998-perched",
+    "src:rf12-sld-alr-final-arxiv-hep-ex-0004026",
+    "src:slac-grad-handbook"
   ],
   "specs": {
     "beam_energy": {
       "approx": false,
-      "confidence": "uncertain",
+      "confidence": "verified",
       "dimension": "energy",
-      "display": "up to 50 GeV (design/maximum per beam)",
-      "note": "This is the SLC linac's quoted maximum per-beam energy, not the energy used for physics: to sit on the Z resonance the collider ran at cms/2 ~ 45.5-45.6 GeV per beam (cms energy ~91 GeV). The 50 GeV figure is sourced to Wikipedia only, so confidence is uncertain.",
-      "quote": "an RF linear accelerator that accelerated electrons and positrons up to 50 GeV",
+      "display": "up to 50 GeV (maximum per beam)",
+      "locator": "SLAC graduate handbook page, \"The Linac and the SLAC Linear Collider\"; SLAC milestones page, 1989 entry",
+      "note": "Maximum per-beam energy of the SLC linac, not the energy used for physics: to sit on the Z resonance the collider ran at cms/2 ~ 45.5-45.6 GeV per beam (cms energy ~91 GeV). The SLAC milestones page records \"SLC operations begin, 50 GeV electron and positron beams achieved\" (1989).",
+      "quote": "Starting in 1983, extensive modifications and additions to the existing linac enabled it to simultaneously accelerate and collide 50 GeV electrons and positron bunches on a pulse-to-pulse basis.",
       "sources": [
-        "src:slc-wikipedia"
+        "src:slac-grad-handbook",
+        "src:colliders2-slac-milestones"
       ],
       "unit": "GeV",
       "value": 50,
-      "verified_at": "2026-10-25"
+      "verified_at": "2026-10-26"
     },
     "cms_energy": {
       "approx": true,
@@ -92,7 +101,7 @@
   "status": "completed",
   "summary": {
     "plain": "A particle collider at SLAC that smashed together beams of electrons and positrons tuned to the mass of the Z boson, letting physicists study that particle's properties with the SLD detector from 1989 to 1998.",
-    "technical": "Stanford Linear Collider: SLAC's linac accelerated electrons and positrons (up to 50 GeV per beam by design) around a single-pass arc to collide at the Z resonance (~91 GeV cms, ~45.5 GeV/beam), studied by the SLD detector, 1989-1998."
+    "technical": "Stanford Linear Collider: SLAC's linac accelerated electrons and positrons (up to 50 GeV per beam) around a single-pass arc to collide at the Z resonance (~91 GeV cms, ~45.5 GeV/beam), studied by the SLD detector, 1989-1998."
   },
   "type": "accelerator"
 }

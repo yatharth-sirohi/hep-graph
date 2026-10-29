@@ -13,17 +13,20 @@
   "id": "facility:slac",
   "intervals": [
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "end": null,
       "label": "laboratory founded",
-      "note": "Sourced to Wikipedia only.",
-      "quote": "Founded in 1962",
+      "locator": "SLAC \"At a glance\" page, \"SLAC by the Numbers\"",
+      "note": "Year precision. The SLAC graduate handbook page also says \"Established in 1962\"; the SLAC milestones page dates the contract execution and the start of accelerator construction to 1962.",
+      "quote": "Founded in 1962 with 200 employees",
       "sources": [
-        "src:slac-wikipedia"
+        "src:geo-slac-at-a-glance",
+        "src:slac-grad-handbook",
+        "src:colliders2-slac-milestones"
       ],
       "start": "1962",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "kind": "accelerator_laboratory",
@@ -40,12 +43,12 @@
   },
   "name": "SLAC National Accelerator Laboratory",
   "notes": [
-    "2026-09-17 re-check: www6.slac.stanford.edu is reachable (an earlier TLS-certificate error on slac.stanford.edu does not reproduce there). Website and operator are upgraded to this official source. The founding date (1962) remains Wikipedia-only/uncertain: the official page consulted gives the address and operator but no founding year."
+    "2026-09-17 re-check: www6.slac.stanford.edu is reachable (an earlier TLS-certificate error on slac.stanford.edu does not reproduce there). Website and operator are upgraded to this official source. The founding year (1962) is taken from SLAC's own \"At a glance\" page, which gives the year but no day."
   ],
   "operator_ids": [],
   "operator_text": {
     "confidence": "verified",
-    "note": "Upgraded 2026-09-17 from an official source; matches the Wikipedia-sourced wording already on file.",
+    "note": "Upgraded 2026-09-17 from an official source.",
     "quote": "SLAC National Accelerator Laboratory is a Department of Energy national lab run by Stanford ... operated by Stanford University for the U.S. Department of Energy Office of Science.",
     "sources": [
       "src:facilities-verify-slac-official-home"
@@ -57,14 +60,16 @@
   "related_facility_ids": [],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:slac-wikipedia",
-    "src:facilities-verify-slac-official-home"
+    "src:colliders2-slac-milestones",
+    "src:facilities-verify-slac-official-home",
+    "src:geo-slac-at-a-glance",
+    "src:slac-grad-handbook"
   ],
   "specs": {},
   "status": "active",
   "summary": {
-    "plain": "The United States' national laboratory for accelerator-based science at Stanford University, in Menlo Park, California. It built the world's longest linear accelerator and later ran two colliders, SLC and PEP-II, that produced Nobel-Prize-winning physics.",
-    "technical": "DOE Office of Science national laboratory (Menlo Park, California), administered by Stanford University; historically home to the 3.2 km SLAC linac (up to 50 GeV electrons), the SLC electron-positron collider (1989-1998) and the PEP-II B-factory (1999-2008)."
+    "plain": "The United States' national laboratory for accelerator-based science, run by Stanford University in Menlo Park, California. It built a two-mile-long linear accelerator and later ran two colliders, SLC and PEP-II. Work at the laboratory has won Nobel Prizes in Physics.",
+    "technical": "DOE Office of Science national laboratory (Menlo Park, California), operated by Stanford University; historically home to the 3.2 km SLAC linac (up to 50 GeV electrons), the SLC electron-positron collider (1989-1998) and the PEP-II B-factory (1999-2008)."
   },
   "topic_ids": [
     "topic:collider-physics",
