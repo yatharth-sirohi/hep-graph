@@ -74,6 +74,9 @@ let lastAnnouncedSel = null;
 let player = null;
 let playerLoading = false;
 let lastShownKey = null;
+// Each full render's number: a render that awaits (a record panel, a module) and is
+// overtaken by a newer one (Back pressed meanwhile) must not record what it showed.
+let renderSerial = 0;
 let cameraSaved = null;
 
 // ---------------------------------------------------------------- helpers
@@ -2642,6 +2645,7 @@ export async function show(current, ctx) {
   // A full render begins: forget what was last shown until it completes, so a render
   // that never reaches its end (a panel that fails) cannot leave a stale key behind.
   lastShownKey = null;
+  const serial = ++renderSerial;
 
   if (mapId !== currentMapId) {
     destroyMap();
@@ -2721,6 +2725,7 @@ export async function show(current, ctx) {
     } catch (error) {
       window.console.error('HEP Atlas local map: the comparison overlay could not load', error);
     }
+    if (serial !== renderSerial) return;
   }
   if (compare && mapInstance) {
     // Not awaited: the footprint of another facility loads while the map is already usable.
@@ -2750,6 +2755,12 @@ export async function show(current, ctx) {
         'This is a context feature: it depicts no atlas entity, so it has no record of its own.'));
     } else {
       await PANELS.render(route, view.timelineState);
+    }
+    if (serial !== renderSerial) {
+      // Overtaken: the late panel has just written this record into the drawer, which the
+      // newer render may have emptied (Back cleared the selection).
+      if (!view.sel) dom.drawerPanel.innerHTML = '';
+      return;
     }
     const title = document.getElementById('map-drawer-title');
     if (title && !dom.drawer.contains(document.activeElement)) title.focus({ preventScroll: true });
