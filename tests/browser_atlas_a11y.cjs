@@ -256,6 +256,13 @@ async function svgTextContrast(page, containerSelector) {
       let ink = parse(cs.fill);
       if (!ink) continue;
       ink = [ink[0], ink[1], ink[2], ink[3] * parseFloat(cs.fillOpacity) * effectiveOpacity(text)];
+      // A label with a halo (paint-order: stroke, a stroke of a few pixels in the ground's own colour) is read
+      // against its halo, not against the data line or dot behind it.
+      let halo = null;
+      if (/^stroke/.test(cs.paintOrder || "") && parseFloat(cs.strokeWidth) >= 2) {
+        const h = parse(cs.stroke);
+        if (h && h[3] * parseFloat(cs.strokeOpacity) >= 0.9) halo = [h[0], h[1], h[2], 1];
+      }
       let worst = Infinity;
       for (const fx of [0.1, 0.5, 0.9]) {
         for (const fy of [0.3, 0.6, 0.85]) {
@@ -274,6 +281,7 @@ async function svgTextContrast(page, containerSelector) {
           layers.reverse();
           let grounds = [[255, 255, 255, 1]];
           for (const layer of layers) grounds = grounds.flatMap((ground) => layer.map((c) => over(c, ground)));
+          if (halo) grounds = [halo];
           for (const ground of grounds) worst = Math.min(worst, ratio(over(ink, ground), ground));
         }
       }
@@ -682,6 +690,31 @@ async function openFilters(page) {
       });
     }
 
+    // ---- Export image on a view: the dialog with a figure's preview, and the button disabled with its reason ----
+    if (tree.label === "generated") {
+      await record(`[${tree.label}] axe: Export image dialog open on a view, and the disabled button on a table view`, async () => {
+        const exportContext = await browser.newContext({ viewport: { width: 1440, height: 960 }, reducedMotion: "reduce" });
+        const exportPage = await exportContext.newPage();
+        exportPage.setDefaultTimeout(30000);
+        await exportPage.goto(`${base}/atlas${dataTree}#/view/limits/wimp-si`);
+        await exportPage.locator(".lm-svg").waitFor();
+        await exportPage.waitForFunction(() => !document.getElementById("export-btn").disabled);
+        await exportPage.locator("#export-btn").click();
+        await exportPage.waitForFunction(() => { const b = document.querySelector(".export-download"); return b && !b.disabled; });
+        // The Download button turns from disabled to teal through a colour transition: measure it after.
+        await exportPage.waitForFunction(() => document.querySelector(".export-download").getAnimations().length === 0);
+        const open = await runAxe(exportPage, tree.label, "export dialog open on the WIMP plot");
+        assert.deepEqual(open.violations, [], `expected 0 WCAG axe violations with the export dialog open, got ${JSON.stringify(open.violations)}`);
+        await exportPage.goto(`${base}/atlas${dataTree}#/view/compare/dune,lz,nova`);
+        await exportPage.reload();
+        await exportPage.locator("table.cmp-table").waitFor();
+        await exportPage.waitForFunction(() => document.getElementById("export-btn").disabled);
+        const disabled = await runAxe(exportPage, tree.label, "compare view, Export image disabled with its reason");
+        assert.deepEqual(disabled.violations, [], `expected 0 WCAG axe violations with the button disabled, got ${JSON.stringify(disabled.violations)}`);
+        await exportContext.close();
+      });
+    }
+
     // ---- local map view (docs/HEP_ATLAS_GEOMETRY.md §4) -- begin --------
     // Two states, both of which have to be clean: the map with nothing
     // selected, and the map with the drawer open (which is where panels.js's
@@ -1024,13 +1057,13 @@ async function openFilters(page) {
       await startPage.goto(`${base}/atlas`);
       await startPage.locator("#start-card").waitFor({ timeout: 30000 });
       await runAxe(startPage, "generated", "Start here card");
-      // Tab order inside the card: close, four questions, then the three entries.
+      // Tab order inside the card: close, the tour, four questions, then the three entries.
       const order = await startPage.evaluate(() => {
         const card = document.getElementById("start-card");
         return [...card.querySelectorAll("button, a[href]")].map((el) => el.textContent.trim() || el.getAttribute("aria-label"));
       });
       assert.equal(order[0], "\u00d7", "the close button is the first control in the card");
-      assert.equal(order.length, 8, `one close, four questions, three entries: ${JSON.stringify(order)}`);
+      assert.equal(order.length, 9, `one close, a tour, four questions, three entries: ${JSON.stringify(order)}`);
       await startPage.keyboard.press("Tab");
       const inside = await startPage.evaluate(() => document.getElementById("start-card").contains(document.activeElement));
       assert.equal(inside, true, "Tab from the card's own focus stop goes to its first control");

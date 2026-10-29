@@ -257,15 +257,23 @@ async function waitForPanel(page, heading) {
   }
 
   // ---------------------------------------------------------------- embed mode
-  await record("Embed mode: ?embed=1 hides the search, view switcher, filters, footer and timeline, and offers Open in HEP Atlas", async () => {
+  await record("Embed mode: ?embed=1 hides the search, view switcher, filters, footer links and timeline, keeps a one-line partial-coverage note, and offers Open in HEP Atlas", async () => {
     const context = await newContext({ viewport: { width: 1280, height: 800 } });
     const page = await context.newPage();
     await page.goto(url("?embed=1#/experiment/t2k"));
     await waitForPanel(page, "T2K");
     assert.equal(await page.evaluate(() => document.documentElement.classList.contains("is-embed")), true);
-    for (const selector of [".search-wrap", "#mode-buttons", "#filters-btn", "#theme-btn", ".atlas-footer", ".timeline-bar", "#start-card"]) {
+    for (const selector of [".search-wrap", "#mode-buttons", "#filters-btn", "#theme-btn", ".timeline-bar", "#start-card",
+      "#start-here-link", "#share-link", ".atlas-footer .data-version-label", '.atlas-footer a[href$="about.html"]']) {
       assert.equal(await page.locator(selector).isVisible(), false, `${selector} is hidden in embed mode`);
     }
+    // The footer goes, but not its honesty: coverage is partial, in one line, linking out of the frame.
+    const coverage = page.locator(".atlas-footer .footer-coverage");
+    assert.equal(await coverage.isVisible(), true, "the partial-coverage note stays in embed mode");
+    assert.match(await coverage.innerText(), /coverage: partial/i);
+    assert.equal(await coverage.getAttribute("target"), "_blank", "the coverage report opens beside the frame, not inside it");
+    const footerHeight = await page.locator(".atlas-footer").evaluate((el) => el.getBoundingClientRect().height);
+    assert.ok(footerHeight > 0 && footerHeight < 40, `one line, not a footer: ${footerHeight}px`);
     for (const selector of ["#embed-open", ".atlas-title", "#key-btn", "#globe-stage", "#detail-panel"]) {
       assert.equal(await page.locator(selector).isVisible(), true, `${selector} stays in embed mode`);
     }

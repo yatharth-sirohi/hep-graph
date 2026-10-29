@@ -111,7 +111,7 @@ function packLane(items, xOf) {
  * be read through it). Returns the label's left edge, or null when it has no room. */
 function labelSpot(p, label, { trackW, padR, band: bandPx, measure }) {
   if (!label) return null;
-  const left = p.x + MARK / 2 - 3;
+  const left = p.x + MARK / 2 - 1; // a clear 3 px beyond the mark's own edge
   let right = Math.min(p.next === undefined ? Infinity : p.next - MARK / 2 - 4, trackW + padR - 2);
   if (bandPx) {
     // From a mark left of the band the label must stop before the band; from inside it, before the

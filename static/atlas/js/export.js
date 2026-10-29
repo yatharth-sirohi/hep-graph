@@ -1214,19 +1214,27 @@ export function operatingYears(experiment) {
 }
 
 const SPEC_WORDS = { cms_energy: 'centre-of-mass energy', peak_luminosity: 'peak luminosity' };
+// A machine that is not built yet. Its numbers are design values, and a sheet that listed them with
+// the machines that run (CERN: FCC-ee's circumference and depth, CLIC's energy) would read as
+// specifications of the laboratory. They are listed apart, each with its status.
+const NOT_BUILT = { proposed: 'proposed', planned: 'planned', approved: 'approved, not built' };
+const STATUS_NOTE = { construction: 'under construction', commissioning: 'commissioning' };
 
 function specRows(facility) {
   const own = Object.entries(facility.specs || {}).map(([key, value]) => [titleCase(key), quantityText(value)]);
-  if (own.length) return { rows: own, note: '' };
+  if (own.length) return { rows: own, proposed: [], note: '' };
   // An accelerator laboratory records its numbers on its accelerators.
   const accelerators = (facility.accelerator_ids || []).map((id) => env.atlas.accelerators[id]).filter(Boolean)
     .filter((a) => !['decommissioned', 'completed', 'cancelled'].includes(a.status));
   const label = (key) => SPEC_WORDS[key] || titleCase(key).toLowerCase();
-  const rows = accelerators.map((a) => [
-    a.name,
-    Object.entries(a.specs || {}).slice(0, 3).map(([key, value]) => `${label(key)} ${quantityText(value)}`).join('; '),
-  ]).filter(([, text]) => text).slice(0, 7);
-  return { rows, note: rows.length ? 'Recorded on the facility’s accelerators.' : '' };
+  const specText = (a) => Object.entries(a.specs || {}).slice(0, 3).map(([key, value]) => `${label(key)} ${quantityText(value)}`).join('; ');
+  const rows = accelerators.filter((a) => !NOT_BUILT[a.status])
+    .map((a) => [STATUS_NOTE[a.status] ? `${a.name} (${STATUS_NOTE[a.status]})` : a.name, specText(a)])
+    .filter(([, text]) => text).slice(0, 7);
+  const proposed = accelerators.filter((a) => NOT_BUILT[a.status])
+    .map((a) => [`${a.name} (${NOT_BUILT[a.status]})`, specText(a)])
+    .filter(([, text]) => text).slice(0, 4);
+  return { rows, proposed, note: rows.length || proposed.length ? 'Recorded on the facility’s accelerators.' : '' };
 }
 
 function statusLine(facility, current) {
@@ -1323,11 +1331,18 @@ function sheetNode(data, snapshot, date) {
     data.summary ? section('What it is', h('p', { class: 'ps-summary' }, data.summary)) : null,
   );
   const columns = h('div', { class: 'ps-columns' });
+  const specList = (rows) => h('dl', { class: 'ps-specs' }, rows.flatMap(([key, value]) => [h('dt', {}, key), h('dd', {}, value)]));
   const specs = data.specs.rows.length
-    ? h('dl', { class: 'ps-specs' }, data.specs.rows.flatMap(([key, value]) => [h('dt', {}, key), h('dd', {}, value)]))
-    : h('p', { class: 'ps-none' }, 'None recorded in the Atlas for this facility.');
+    ? specList(data.specs.rows)
+    : (data.specs.proposed.length ? null : h('p', { class: 'ps-none' }, 'None recorded in the Atlas for this facility.'));
   columns.append(
-    section('Key specifications', specs, data.specs.note ? h('p', { class: 'ps-note' }, data.specs.note) : null),
+    section('Key specifications', specs,
+      // Machines not built yet: apart from the ones that run, each with its status.
+      data.specs.proposed.length ? [
+        h('p', { class: 'ps-note ps-proposed-head' }, 'Proposed or planned machines, not built (design values):'),
+        specList(data.specs.proposed),
+      ] : null,
+      data.specs.note ? h('p', { class: 'ps-note' }, data.specs.note) : null),
     section('Experiments hosted', data.experiments.length
       ? [
         h('ul', { class: `ps-experiments${data.experiments.length > 8 ? ' is-long' : ''}` }, data.experiments.slice(0, MAX_SHEET_EXPERIMENTS).map((e) => h('li', {}, [

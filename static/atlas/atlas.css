@@ -2061,6 +2061,11 @@ body.is-map-route .atlas-header > .mode-buttons {
 .start-card[hidden] {
   display: none;
 }
+/* Reopened from the footer on a local map or a view: over the map's own panes and controls. */
+#atlas-main.is-map-route > .start-card,
+#atlas-main.is-view-route > .start-card {
+  z-index: 2000;
+}
 @media (max-width: 1200px) {
   .start-card {
     left: var(--space-4);
@@ -2372,7 +2377,7 @@ body.about-page {
   grid-template-columns: 1fr;
   grid-template-areas: none;
 }
-#atlas-main.is-map-route > :not(.map-view):not(.tour-card):not(.tour-resume) {
+#atlas-main.is-map-route > :not(.map-view):not(.tour-card):not(.tour-resume):not(.start-card) {
   display: none !important;
 }
 .map-view {

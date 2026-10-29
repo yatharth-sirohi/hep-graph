@@ -1414,7 +1414,8 @@ async function renderResult(id) {
   const sections = panelSections(frag);
   // The heading is the Atlas's own name (typeset notation); the paper's title
   // is kept verbatim underneath when it differs, as it was published.
-  frag.appendChild(h('h2', {}, result.name || result.title));
+  // A name that carries TeX ($Λ$CDM) is set as the notation it stands for, never as the source.
+  frag.appendChild(h('h2', {}, readableView(result.name || result.title)));
   frag.appendChild(h('p', { class: 'panel-subtitle' }, `${titleCase(result.result_type)} · ${fmtDate(result.date)}`));
   // Under the subtitle, so the answer to "where" is on the first screen (the globe is
   // looking at the same place: app.js selects the result's facility): the facility

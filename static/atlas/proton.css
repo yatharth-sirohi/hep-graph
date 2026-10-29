@@ -493,6 +493,15 @@
 
 /* ---- phones: the card is a strip at the foot of the stage, above the scale bar */
 @media (max-width: 900px) {
+  /* On a tour's map step the stage is what the tour card (a sheet of up to 60 % of the screen) leaves:
+     about 240 px. The player does not fit there: its button sat over the map's labels and its card was
+     cut after its title. The tour card is the guide on a tour, so the player is not offered until the
+     tour is left (the layers sheet's own button goes too: it would open a card that is not shown). */
+  body.is-touring .pr-control,
+  body.is-touring .pr-card,
+  body.is-touring .pr-section {
+    display: none;
+  }
   .pr-control-btn {
     min-height: var(--phone-touch, 44px);
     font-size: var(--text-md);
@@ -504,8 +513,16 @@
     left: 10px;
     bottom: 38px;
     width: auto;
-    max-height: 48%;
+    max-height: 56%;
     padding: var(--space-2) var(--space-3);
+    /* A card that scrolls says so: a shade at the edge that has more behind it (it shows only while
+       there is something to scroll to), so the last visible row is not taken for the end. */
+    background:
+      linear-gradient(var(--panel) 30%, transparent) 0 0 / 100% 28px no-repeat local,
+      linear-gradient(transparent, var(--panel) 70%) 0 100% / 100% 28px no-repeat local,
+      radial-gradient(farthest-side at 50% 0, #00000073, transparent) 0 0 / 100% 12px no-repeat scroll,
+      radial-gradient(farthest-side at 50% 100%, #00000073, transparent) 0 100% / 100% 12px no-repeat scroll,
+      var(--panel);
   }
   .pr-title {
     font-size: var(--text-md);

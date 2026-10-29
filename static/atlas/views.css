@@ -29,7 +29,7 @@
   grid-template-columns: minmax(0, 1fr);
   grid-template-areas: none;
 }
-#atlas-main.is-view-route > :not(.view-host):not(.tour-card):not(.tour-resume) {
+#atlas-main.is-view-route > :not(.view-host):not(.tour-card):not(.tour-resume):not(.start-card) {
   display: none !important;
 }
 /* The globe's own controls do not exist on a view (it has no layers or filters),
@@ -1697,6 +1697,11 @@ a.rs-lane-link {
 }
 .rs-mark-label {
   position: absolute;
+  margin-left: -2px;
+  padding: 0 2px;
+  border-radius: 2px;
+  /* A gridline does not strike through the name. */
+  background: color-mix(in srgb, var(--panel) 85%, transparent);
   color: var(--muted);
   font-size: 11.5px;
   line-height: 18px;
@@ -1880,6 +1885,12 @@ a.rs-lane-link {
 .rs-fig .rs-fig-lane {
   font-weight: 600;
 }
+.rs-fig .rs-fig-label {
+  paint-order: stroke;
+  stroke: var(--panel);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
 .rs-fig .rs-fig-rule {
   stroke: var(--line);
   stroke-width: 1;
@@ -2031,6 +2042,19 @@ a.rs-lane-link {
   fill: var(--lm);
   stroke: var(--panel);
   stroke-width: 1;
+}
+/* A point the keyboard is on: the read-out's ring (.lm-cross) marks it, so the default outline
+   (a box round a 6 px dot) steps aside; the dot itself grows. */
+.lm-dot:focus,
+.lm-diamond:focus {
+  outline: none;
+}
+.lm-dot:focus-visible {
+  stroke: var(--white);
+  stroke-width: 2.5;
+}
+.lm-diamond:focus-visible {
+  stroke: var(--white);
 }
 .lm-min-ring {
   fill: none;

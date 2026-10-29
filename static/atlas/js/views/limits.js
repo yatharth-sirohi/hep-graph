@@ -106,7 +106,8 @@ function drawPlot(model, bundle, width) {
   const fx = (v) => v.toFixed(1);
 
   const svg = s('svg', {
-    class: 'lm-svg', viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img',
+    // A group, not an image: the points inside it are focusable (an image's children are presentational).
+    class: 'lm-svg', viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'group',
     'aria-labelledby': `${id}-t ${id}-d`, focusable: 'false',
   });
   const curveNames = model.series.filter((one) => !one.isMarker).map((one) => one.label).join('; ');
@@ -165,6 +166,7 @@ function drawPlot(model, bundle, width) {
   for (const one of model.series) {
     const g = s('g', { class: `lm-series ${one.className}${one.isMarker ? ' is-marker' : ''}`, 'data-slug': one.slug });
     const px = one.points.map(([x, y]) => [lx(x), ly(y)]);
+    const dots = []; // the element of each point, for the keyboard
     if (!one.isMarker) {
       const line = px.map(([x, y], i) => `${i ? 'L' : 'M'}${fx(x)},${fx(y)}`).join('');
       // The region above the line is what the result excludes.
@@ -172,15 +174,21 @@ function drawPlot(model, bundle, width) {
         s('path', { class: 'lm-excluded', d: `${line}L${fx(px[px.length - 1][0])},${margin.top}L${fx(px[0][0])},${margin.top}Z` }),
         s('path', { class: 'lm-line', d: line }),
       );
-      for (const [x, y] of px) g.append(s('circle', { class: 'lm-dot', cx: fx(x), cy: fx(y), r: compact ? 2.4 : 3 }));
+      for (const [x, y] of px) {
+        const dot = s('circle', { class: 'lm-dot', cx: fx(x), cy: fx(y), r: compact ? 2.4 : 3 });
+        dots.push(dot);
+        g.append(dot);
+      }
       g.append(s('circle', { class: 'lm-min-ring', cx: fx(lx(one.lowest[0])), cy: fx(ly(one.lowest[1])), r: 8 }));
     } else {
       const [x, y] = px[0];
       const r = compact ? 6 : 7;
-      g.append(s('path', { class: 'lm-diamond', d: `M${fx(x)},${fx(y - r)}L${fx(x + r)},${fx(y)}L${fx(x)},${fx(y + r)}L${fx(x - r)},${fx(y)}Z` }));
+      const diamond = s('path', { class: 'lm-diamond', d: `M${fx(x)},${fx(y - r)}L${fx(x + r)},${fx(y)}L${fx(x)},${fx(y + r)}L${fx(x - r)},${fx(y)}Z` });
+      dots.push(diamond);
+      g.append(diamond);
     }
     layer.append(g);
-    one.points.forEach((point, i) => hit.push({ one, point, px: px[i][0], py: px[i][1] }));
+    one.points.forEach((point, i) => hit.push({ one, point, px: px[i][0], py: px[i][1], el: dots[i] }));
   }
   svg.append(layer);
 
@@ -312,7 +320,8 @@ export async function mount(ctx) {
       swatchOf(one), h('span', { class: 'lm-chip-label' }, one.label),
     ])));
   const plotWrap = h('div', { class: 'lm-plot' });
-  const readout = h('p', { class: 'lm-readout' }, 'Move over the plot, or tap it, to read the nearest point.');
+  const readout = h('p', { class: 'lm-readout', 'aria-live': 'off' },
+    'Move over the plot, or tap it, to read the nearest point. With a keyboard, Tab to a curve and use the arrow keys to move along its points.');
   const figure = h('figure', { class: 'lm-figure' }, [
     legend, plotWrap, readout,
     h('figcaption', { class: 'lm-caption' }, [
@@ -437,6 +446,39 @@ export async function mount(ctx) {
       cross.setAttribute('class', `lm-cross ${entry.one.className}`);
       readout.textContent = describe(entry);
     };
+    // The keyboard: every point is focusable, named by what it is, and a curve is one tab stop (its
+    // first point) with the arrow keys moving along it, Home and End to its ends, Enter to hear it
+    // again: a screen reader or a keyboard reaches the numbers the pointer reads off the plot.
+    const bySeries = new Map();
+    for (const entry of hit) {
+      if (!bySeries.has(entry.one.slug)) bySeries.set(entry.one.slug, []);
+      bySeries.get(entry.one.slug).push(entry);
+    }
+    for (const entries of bySeries.values()) {
+      entries.forEach((entry, i) => {
+        const { el } = entry;
+        el.setAttribute('tabindex', i === 0 ? '0' : '-1');
+        el.setAttribute('role', 'img');
+        el.setAttribute('aria-label', describe(entry));
+        el.addEventListener('focus', () => show(entry));
+        el.addEventListener('blur', () => { if (!el.matches(':hover')) cross.setAttribute('visibility', 'hidden'); });
+        el.addEventListener('keydown', (event) => {
+          const target = {
+            ArrowRight: entries[i + 1], ArrowUp: entries[i + 1], ArrowLeft: entries[i - 1], ArrowDown: entries[i - 1],
+            Home: entries[0], End: entries[entries.length - 1],
+          }[event.key];
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            host.announce(describe(entry));
+            return;
+          }
+          if (!target) return;
+          event.preventDefault();
+          for (const other of entries) other.el.setAttribute('tabindex', other === target ? '0' : '-1');
+          target.el.focus();
+        });
+      });
+    }
     overlay.addEventListener('pointermove', (event) => { const entry = nearest(event); if (entry) show(entry); });
     overlay.addEventListener('pointerdown', (event) => {
       const entry = nearest(event);
