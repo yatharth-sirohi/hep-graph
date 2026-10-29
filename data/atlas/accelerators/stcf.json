@@ -1,0 +1,118 @@
+{
+  "aliases": [
+    "Super Tau-Charm Facility",
+    "STCF"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:stcf-hefei",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:stcf",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "proposal and design studies",
+      "locator": "Zhang (2026), slide 'Promotion of the program'",
+      "note": "Month from the 2026 project talk (2011.12); Physics World says it was first proposed in 2011 by Zhao Guangda. Design documents: Physics & Detector CDR (arXiv:2303.15790, 2023), accelerator CDR (arXiv:2509.11522, 2025). The accelerator CDR 'aims to secure support from the Chinese central government for its construction during the 15th Five-Year Plan (2026-2030)'; the June 2026 talk says the proposal was submitted in 2025 and defended for inclusion in that plan. No approval is reported in the sources fetched (as of 2026-10-26).",
+      "quote": "Proposed at “workshop for acc. Based high energy physics development strategy”",
+      "sources": [
+        "src:colliders2-stcf-progress-zhang-beauty2026",
+        "src:colliders2-physicsworld-china-mulls-stcf"
+      ],
+      "start": "2011-12",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "News list on the STCF project home page",
+      "note": "Project website of the University of Science and Technology of China.",
+      "quote": "超级陶粲装置加速器概念设计报告正式发表",
+      "sources": [
+        "src:colliders2-stcf-project-site"
+      ],
+      "value": "http://stcf.ustc.edu.cn/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "Super Tau-Charm Facility (STCF)",
+  "notes": [
+    "The Atlas marker is an area point in Hefei's Future Big Science City: the project talks name the city district as the site (about 1 km²) and show three candidate sites under geological exploration, so no tunnel site has been selected.",
+    "The accelerator CDR says construction would 'commence as planned in 2027 or 2028' if approved; that is a plan, recorded here as a note, not as an interval.",
+    "Budget figures in the project talks (about 4.5 to 4.98 billion CNY for construction, 364 to 400 million CNY for the key-technology R&D) are not recorded as specs."
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:stcf-hefei-future-big-science-city",
+  "sources": [
+    "src:colliders2-stcf-cdr-accelerator-arxiv",
+    "src:colliders2-stcf-cdr-vol1-physics-detector-arxiv",
+    "src:colliders2-stcf-overview-zheng-2024",
+    "src:colliders2-stcf-overview-liu-dis2024",
+    "src:colliders2-stcf-progress-zhang-beauty2026",
+    "src:colliders2-stcf-project-site"
+  ],
+  "specs": {
+    "circumference": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "about 860 m (collider ring)",
+      "locator": "Accelerator CDR (arXiv:2509.11522), Section 4.1.4.1",
+      "note": "Collider ring; the talks give 800 to 1000 m for earlier layouts.",
+      "quote": "The STCF collider is a dual-ring machine with a circumference of about 860 m.",
+      "sources": [
+        "src:colliders2-stcf-cdr-accelerator-arxiv"
+      ],
+      "unit": "m",
+      "value": 860,
+      "verified_at": "2026-10-26"
+    },
+    "cms_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "7 GeV (upper end of the 2 to 7 GeV design range)",
+      "locator": "Accelerator CDR (arXiv:2509.11522), abstract",
+      "note": "Upper end of the design range of 2 to 7 GeV.",
+      "quote": "The main design goals of STCF are with a center-of-mass energy ranging from 2 to 7 GeV and a peak luminosity surpassing 5 × 10³⁴ cm⁻²s⁻¹ that is optimized at a center-of-mass energy of 4 GeV",
+      "sources": [
+        "src:colliders2-stcf-cdr-accelerator-arxiv"
+      ],
+      "unit": "GeV",
+      "value": 7,
+      "verified_at": "2026-10-26"
+    },
+    "peak_luminosity": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "luminosity",
+      "display": "above 5 × 10^34 cm^-2 s^-1 (design goal at 4 GeV)",
+      "locator": "Accelerator CDR (arXiv:2509.11522), abstract",
+      "note": "A design goal ('surpassing'); the accelerator CDR's lattice studies also give about 1 × 10^35 cm^-2 s^-1 at a beam energy of 2 GeV.",
+      "quote": "The main design goals of STCF are with a center-of-mass energy ranging from 2 to 7 GeV and a peak luminosity surpassing 5 × 10³⁴ cm⁻²s⁻¹ that is optimized at a center-of-mass energy of 4 GeV",
+      "sources": [
+        "src:colliders2-stcf-cdr-accelerator-arxiv"
+      ],
+      "unit": "cm^-2 s^-1",
+      "value": 5e+34,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "proposed",
+  "summary": {
+    "plain": "A proposed electron-positron collider for the tau-charm energy region, 2 to 7 GeV, planned for Hefei, China, with about 50 times the luminosity of BEPCII. Its accelerator design report appeared in 2025; approval in China's 2026-2030 plan is pending and its site within Hefei is not yet chosen.",
+    "technical": "STCF: double-ring e⁺e⁻ collider with crab-waist collisions (ring about 860 m, linac injector with damping ring, top-up injection), √s = 2 to 7 GeV, design peak luminosity above 5×10³⁴ cm⁻² s⁻¹ at 4 GeV, optional polarised electron beam; Physics & Detector CDR 2023 (arXiv:2303.15790), accelerator CDR 2025 (arXiv:2509.11522); proposed 2011, key-technology R&D funded by Anhui, Hefei and USTC since 2023; seeking construction in the 15th Five-Year Plan (2026-2030). Not approved in the sources fetched."
+  },
+  "type": "accelerator"
+}

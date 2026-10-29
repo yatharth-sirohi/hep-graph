@@ -1,0 +1,122 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:dear"
+  ],
+  "id": "detector:dear",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2000",
+      "label": "proposal",
+      "locator": "Franzini & Moulson (2006), Section 1 (Introduction)",
+      "note": "Year of the proposal; the interval ends at the start of the test runs (2000).",
+      "quote": "DEAR (DAΦNE Exotic Atom Research) (7) in 1995 for the spectroscopy of K-mesic hydrogen atoms",
+      "sources": [
+        "src:colliders2-franzini-moulson-physics-of-dafne-arxiv"
+      ],
+      "start": "1995",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2002",
+      "label": "test runs and detector optimization",
+      "locator": "Franzini & Moulson (2006), Section 6.2.1",
+      "note": "Test runs and detector optimization took place in 2000-2001; the interval ends in 2002 when physics data taking began (year precision).",
+      "quote": "After test runs and detector optimization during 2000–2001, DEAR took physics data in 2002.",
+      "sources": [
+        "src:colliders2-franzini-moulson-physics-of-dafne-arxiv"
+      ],
+      "start": "2000",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2002",
+      "label": "DAΦNE physics data taking (kaonic nitrogen, then hydrogen)",
+      "locator": "Franzini & Moulson (2006), Section 6.2.1",
+      "note": "Year precision. Kaonic nitrogen data in October 2002 and about 60 pb^-1 on hydrogen in December 2002 (Di Falco 2003). The accelerator report (Milardi 2008, arXiv:0803.1450) says the DEAR run lasted 'less than 5 months during 2002-2003'; the 2002 dates of the DEAR physics papers' authors are used.",
+      "quote": "After test runs and detector optimization during 2000–2001, DEAR took physics data in 2002.",
+      "sources": [
+        "src:colliders2-franzini-moulson-physics-of-dafne-arxiv",
+        "src:colliders2-di-falco-latest-results-from-dafne-arxiv"
+      ],
+      "start": "2002",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "data taking ended",
+      "locator": "Di Falco (2003), abstract",
+      "note": "Year precision; FINUDA was installed in DEAR's interaction region in 2003. Conflict: arXiv:0803.1450 gives 2002-2003 for the DEAR run (see the log).",
+      "quote": "The DEAR experiment, concluded in 2002, has measured the de-excitation of kaonic atoms.",
+      "sources": [
+        "src:colliders2-di-falco-latest-results-from-dafne-arxiv",
+        "src:colliders2-milardi-dafne-interaction-regions-arxiv"
+      ],
+      "start": "2002",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "DEAR setup",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2002",
+      "locator": "Franzini & Moulson (2006), Section 6.2.1",
+      "note": "Campus-grade placement: no fetched source locates the DAΦNE second interaction region; the marker is the LNF campus point. Year precision for the physics run; test runs in 2000-2001 are not located by a source.",
+      "quote": "The apparatus shares the second DAΦNE interaction point with the FINUDA experiment",
+      "role": "main",
+      "site_id": "site:infn-lnf-frascati",
+      "sources": [
+        "src:colliders2-franzini-moulson-physics-of-dafne-arxiv"
+      ],
+      "start": "2002",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders2-franzini-moulson-physics-of-dafne-arxiv",
+    "src:colliders2-di-falco-latest-results-from-dafne-arxiv",
+    "src:colliders2-marton-kaonic-atoms-at-lnf-arxiv"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The DEAR set-up at DAΦNE: a cryogenic gas-target cell where stopped kaons form kaonic atoms, viewed by 16 charge-coupled-device chips that record the atoms' X-rays.",
+    "technical": "DEAR: pressurised cryogenic target cell (11 cm diameter, 75 µm kapton) surrounded by 16 CCD-55 chips (116 cm² in total, 150 eV resolution at 6 keV) with in-beam calibration from fluorescence foils in the cell; soft X-ray background about 70 times the signal (Marton 2007)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "Di Falco (2003), Section 2.2",
+    "note": "",
+    "quote": "The photons produced in the de-excitation of these atoms are detected by 16 CCD-55 (Charged Coupled Devices).",
+    "sources": [
+      "src:colliders2-di-falco-latest-results-from-dafne-arxiv"
+    ],
+    "value": "Pressurised cryogenic gas target cell with 16 CCD-55 charge-coupled-device X-ray detectors",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}
