@@ -2725,7 +2725,6 @@ export async function show(current, ctx) {
     } catch (error) {
       window.console.error('HEP Atlas local map: the comparison overlay could not load', error);
     }
-    if (serial !== renderSerial) return;
   }
   if (compare && mapInstance) {
     // Not awaited: the footprint of another facility loads while the map is already usable.

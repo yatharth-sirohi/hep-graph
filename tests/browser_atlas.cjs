@@ -2429,6 +2429,10 @@ async function openFilters(page) {
       { timeout: 15000 },
     );
     await page.locator("#filter-region-Europe").waitFor({ state: "attached", timeout: 15000 });
+    // The box is built before the address is applied to it (about half a second on a
+    // fresh load): wait for that, then read what the reader sees.
+    await page.waitForFunction(() => document.getElementById("filter-region-Europe")?.checked, null, { timeout: 15000 })
+      .catch(() => {});
     const restored = await page.evaluate(() => {
       const box = document.getElementById("filter-region-Europe");
       return { exists: !!box, checked: !!(box && box.checked), url: location.href,
