@@ -3810,8 +3810,11 @@ async function openFilters(page) {
     // A person each tree's people files name, with INSPIRE author id (the fixture's are invented).
     const known = generated ? { id: "1035202", name: "Elizabeth Worcester" } : { id: "2417710", name: "Rosalind Okonjo" };
     const personErrors = [];
+    const personStatuses = [];
     const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" });
-    // The 503 the no-database server answers is expected; the browser logs it as a console error.
+    // The 503 the no-database server answers is expected. Chromium and WebKit log it as a
+    // console error; Firefox logs nothing for a failed fetch, so the response is checked too.
+    ctx.on("page", (page) => page.on("response", (r) => { if (/\/api\/person\//.test(r.url())) personStatuses.push(`${r.status()} ${r.url().replace(/^https?:\/\/[^/]+/, "")}`); }));
     ctx.on("page", (page) => page.on("pageerror", (e) => errors.push(`person view: ${e.message}`)));
     ctx.on("page", (page) => page.on("console", (msg) => {
       if (msg.type() !== "error") return;
@@ -3887,8 +3890,12 @@ async function openFilters(page) {
     await p.locator(".pv-partial").waitFor();
     assert.match(p.url(), /#\/view\/person\/\d+$/);
 
-    // The 503 is the only console error, and it came from the person endpoint.
-    assert.ok(personErrors.length >= 1 && personErrors.every((text) => /503/.test(text)), `unexpected person-endpoint errors: ${personErrors.join(" | ")}`);
+    // The person endpoint answered 503 (a person the local server can answer may get a 200;
+    // no other failure), and that 503 is the only console error (where the engine logs one).
+    assert.ok(personStatuses.some((status) => /^503 /.test(status)) && personStatuses.every((status) => /^(503|200) /.test(status)),
+      `person-endpoint statuses: ${personStatuses.join(", ")}`);
+    if (BROWSER_NAME !== "firefox") assert.ok(personErrors.length >= 1, "the 503 is logged as a console error");
+    assert.ok(personErrors.every((text) => /503/.test(text)), `unexpected person-endpoint errors: ${personErrors.join(" | ")}`);
     await ctx.close();
   });
   // ---- HEP Graph x Atlas -- end -----------------------------------------------------
@@ -4385,7 +4392,9 @@ async function openFilters(page) {
     assert.equal(box.pageOverflow, false, "no sideways scroll on the page");
     assert.equal(box.hostOverflow, false, "no sideways scroll in the view");
     assert.equal(box.cellDisplay, "block", "a row is a card on a phone");
-    assert.ok(box.label && box.labelShown.includes(box.label.slice(0, 3)), "each value carries its experiment's name");
+    // Chromium and WebKit resolve the label's attr() in computed style; Firefox reports it as written.
+    assert.ok(box.label && (box.labelShown.includes(box.label.slice(0, 3)) || box.labelShown === "attr(data-label)"),
+      "each value carries its experiment's name");
     assert.ok(box.remove[0] >= 44 && box.remove[1] >= 44 && box.csv >= 44, "44 px targets");
     await ctx.close();
   });
