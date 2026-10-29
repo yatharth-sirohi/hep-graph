@@ -35,17 +35,60 @@
     },
     {
       "confidence": "approximate",
-      "end": null,
-      "label": "CMD-1 experiments ended",
+      "end": "1992",
+      "label": "CMD-2 commissioning at VEPP-2M",
       "locator": "CMD Collaboration web site, Collaboration History",
-      "note": "Year precision; the CMD-2 detector followed.",
+      "note": "Year precision; the page calls the whole period \"commissioning\". The CMD-2 experiment record (experiment:cmd-2) gives the same period the status construction.",
       "quote": "1984 - 1992 Commissioning of the CMD-2 detector at VEPP-2M collider",
       "sources": [
         "src:colliders2-cmd-collaboration-history"
       ],
       "start": "1984",
-      "status": "completed",
-      "verified_at": "2026-10-26"
+      "status": "construction",
+      "verified_at": "2026-10-29"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2000",
+      "label": "VEPP-2M data taking (CMD-2)",
+      "locator": "CMD Collaboration web site, Collaboration History",
+      "note": "Year precision.",
+      "quote": "1992 - 2000 Experiments with the CMD-2 detector at VEPP-2M collider",
+      "sources": [
+        "src:colliders2-cmd-collaboration-history"
+      ],
+      "start": "1992",
+      "status": "active",
+      "verified_at": "2026-10-29"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2010",
+      "label": "CMD-3 design, prototyping and commissioning at VEPP-2000",
+      "locator": "CMD Collaboration web site, Collaboration History",
+      "note": "Year precision. The page dates the CMD-3 commissioning \"2000 - present\"; the end is taken as 2010, the year the CMD-3 experiment record (experiment:cmd-3) gives for the start of VEPP-2000 data taking (it records construction to 2009-10 and commissioning to 2010).",
+      "quote": "2000 - present Commissioning of the CMD-3 detector at VEPP-2000 collider",
+      "sources": [
+        "src:colliders2-cmd-collaboration-history"
+      ],
+      "start": "2000",
+      "status": "construction",
+      "verified_at": "2026-10-29"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "CMD-3 data taking at VEPP-2000",
+      "locator": "E. Solodov for the CMD-3 Collaboration, \"Update - News from CMD-3\", Phi to Psi 2026 workshop (Pisa, 8 June 2026), slide 8 (\"More data (x3) to be collected (2024-2026(7?))\") and slide 38 (plans: \"Continue data taking\")",
+      "note": "Year precision. As of the 8 June 2026 talk the collaboration is still taking data: slide 8 says \"2025 data were collected with the reverse direction of the beams\" and \"More data (x3) to be collected (2024-2026(7?))\"; slide 38 says \"Then we plan to have 1-2 year break for detectors upgrades\", after the data taking of the next two years. The start year follows experiments/cmd-3.json, which cites the IPAC-2017 abstract for it (\"VEPP-2000 e+e− collider at BINP was commissioned and started data taking with two detectors in 2010 with old injection chain\"; the abstract does not name the detectors).",
+      "quote": "2025 data were collected with the reverse direction of the beams ... We plan to finish low-energy scan and take some dedicated high energy data over next two years",
+      "sources": [
+        "src:colliders2-solodov-cmd3-phipsi2026",
+        "src:colliders2-vepp2000-high-luminosity-ipac17"
+      ],
+      "start": "2010",
+      "status": "active",
+      "verified_at": "2026-10-29"
     }
   ],
   "leadership": [],
@@ -66,12 +109,14 @@
   "notes": [],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:colliders2-cmd-collaboration-history"
+    "src:colliders2-cmd-collaboration-history",
+    "src:colliders2-solodov-cmd3-phipsi2026",
+    "src:colliders2-vepp2000-high-luminosity-ipac17"
   ],
-  "status": "completed",
+  "status": "active",
   "summary": {
     "plain": "The CMD collaboration of the Budker Institute and partner institutes, which has built and run the CMD-1, CMD-2 and CMD-3 detectors at VEPP-2M and VEPP-2000 since 1979.",
-    "technical": "CMD Collaboration (BINP, Novosibirsk): history since 1979: CMD-1 at VEPP-2M 1979-1984, CMD-2 commissioning 1984-1992 and experiments 1992-2000, CMD-3 from 2000; membership list not retrieved."
+    "technical": "CMD Collaboration (BINP, Novosibirsk): history since 1979: CMD-1 at VEPP-2M 1979-1984, CMD-2 commissioning 1984-1992 and experiments 1992-2000, CMD-3 from 2000 and taking data at VEPP-2000 since 2010 (still taking data in 2025-2026 per the collaboration's 8 June 2026 workshop talk); membership list not retrieved."
   },
   "type": "collaboration"
 }

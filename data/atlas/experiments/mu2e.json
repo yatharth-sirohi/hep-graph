@@ -20,13 +20,14 @@
     {
       "confidence": "verified",
       "facility_id": "facility:fermilab",
-      "note": "",
-      "quote": "The Mu2e experiment will utilize an intense muon beam produced by the accelerator complex at the Fermi National Accelerator Lab, located in the far west suburbs of Chicago, Illinois in the USA.",
+      "locator": "Fermilab news feature, 19 May 2023, first paragraph",
+      "note": "Re-sourced 2026-10-29 from the INSPIRE experiment record.",
+      "quote": "which will be situated at the U.S. Department of Energy’s Fermi National Accelerator Laboratory",
       "role": "host",
       "sources": [
-        "src:muons-inspire-experiment-mu2e"
+        "src:vf-fnal-mu2e-miscetti-2023"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-29"
     }
   ],
   "id": "experiment:mu2e",
@@ -35,14 +36,15 @@
       "confidence": "verified",
       "end": null,
       "label": "experiment proposed (FNAL-E-0973)",
-      "locator": "INSPIRE experiment record 1108209, metadata.date_proposed",
-      "note": "'date_proposed' field of the INSPIRE experiment record.",
+      "locator": "M. J. Syphers, arXiv:0910.3657 (DPF-2009 proceedings), reference [3]",
+      "note": "Month precision. Re-sourced 2026-10-29 from the INSPIRE experiment record's date_proposed (2008-10-18): the day could not be confirmed. This reference gives 10 October 2008 for the submission of Proposal P-973 (the Mu2e document MU2E-doc-388), the INSPIRE record gives 18 October 2008, and the proposals page on mu2e.fnal.gov returns HTTP 403 and could not be read. Only the month, on which both agree, is recorded.",
+      "quote": "Proposal P-973 submitted to Fermilab, 10 Oct. 2008; available as, MU2E-doc-388 (2008)",
       "sources": [
-        "src:muons-inspire-experiment-mu2e"
+        "src:fu3-arxiv-0910-3657-syphers-muon-accelerator"
       ],
-      "start": "2008-10-18",
+      "start": "2008-10",
       "status": "proposed",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-29"
     },
     {
       "confidence": "verified",
@@ -61,25 +63,26 @@
       "confidence": "verified",
       "end": null,
       "label": "DOE CD-3 construction approval and construction",
-      "note": "Ongoing as of the most recent fetched status report (2026-07): subsystem installation (tracker, calorimeter, solenoids, cosmic ray veto) is described as in progress, with data collection not yet started.",
-      "quote": "The experiment received DOE CD-3 approval for construction in June 2016 and construction activities have begun.",
+      "locator": "DOE Office of Science, High Energy Physics \"Projects, Missions, and Status\", Intensity Frontier Projects table, Mu2e row (columns CD Status and CD Date); Driutti for Mu2e, PoS(WIFAI2025)020, section 2, first sentence",
+      "note": "Re-sourced 2026-10-29 (changed date). The start is the DOE date of Critical Decision 3, defined on the same page as \"Critical Decision (CD) 3: Approve Start of Construction\": 14 July 2016. The INSPIRE experiment record said \"June 2016\", which the DOE table does not support, so the DOE date replaces it. Ongoing at the July 2026 status paper, which says the experiment \"is currently being assembled at the Fermilab Muon Campus\"; initial data collection is scheduled to begin in 2027.",
+      "quote": "Mu2e CD-3 July 14, 2016",
       "sources": [
-        "src:muons-inspire-experiment-mu2e",
-        "src:muons-inspire-lit-mu2e-status-2022",
-        "src:muons-inspire-lit-mu2e-status-2026"
+        "src:fu3-doe-hep-projects-status",
+        "src:fu3-pos-wifai2025-mu2e-status"
       ],
-      "start": "2016-06",
+      "start": "2016-07-14",
       "status": "construction",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-29"
     },
     {
       "confidence": "verified",
       "end": null,
       "label": "initial data collection (Run 1)",
-      "note": "Based on the most recent status source consulted (dated 2026-07-20); earlier sources projected commissioning in 2020 (INSPIRE experiment record, now outdated) and data collection in 2025 (2022 status paper, also superseded). The start is planned, not yet reached.",
+      "locator": "Driutti for Mu2e, PoS(WIFAI2025)020 (published 20 July 2026), abstract; sections 2.4 and 3",
+      "note": "Re-sourced 2026-10-29 from the INSPIRE-hosted record of the same paper. The start is planned, not yet reached. The body says \"Run 1, expected to begin in 2027\" and \"A physics run is planned to begin at the end of 2027 to study the detector systems and collect initial physics data, preceding the scheduled long shutdown at Fermilab in 2028.\" Earlier projections are superseded: PoS EPS-HEP2021 557 (2022) said \"Mu2e is expected to start taking data in 2025\".",
       "quote": "initial data collection scheduled to begin in 2027",
       "sources": [
-        "src:muons-inspire-lit-mu2e-status-2026"
+        "src:fu3-pos-wifai2025-mu2e-status"
       ],
       "start": {
         "approx": true,
@@ -87,7 +90,7 @@
         "planned": true
       },
       "status": "planned",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-29"
     }
   ],
   "key_specs": [
@@ -97,15 +100,16 @@
         "approx": false,
         "confidence": "verified",
         "dimension": "fraction",
-        "display": "~2.5×10⁻¹⁷",
-        "note": "A 2022 Mu2e status proceedings paper (src:muons-inspire-lit-mu2e-status-2022) quotes a close but distinct figure, 'an unprecedented single event sensitivity of 3x10^-17', for a staged Run-1/Run-2 plan; both figures are the collaboration's own, from different points in the project's history, and are not treated as contradictory.",
-        "quote": "in the Coulomb field of a nucleus with a single event sensitivity of about $2.5 \\times 10^{-17}$.",
+        "display": "2.87×10⁻¹⁷",
+        "locator": "Mu2e Technical Design Report (arXiv:1501.05241), Chapter 1 Executive Summary, section 1.1 Introduction, p. 1-1 (PDF p. 18)",
+        "note": "Re-sourced 2026-10-29 (changed value). The earlier value, \"about 2.5×10⁻¹⁷\", rested only on the INSPIRE experiment record's description. The Technical Design Report, the collaboration's design report, gives 2.87×10⁻¹⁷ for 3.6×10²⁰ delivered protons. The 2022 status paper (src:fu3-pos-eps-hep2021-mu2e-status) quotes \"an unprecedented single event sensitivity of 3x10^{-17}\" for a staged Run-1/Run-2 plan. All are the collaboration's own figures from different points in the project's history and are not treated as contradictory.",
+        "quote": "measuring Rµe with a single event sensitivity of 2.87 × 10–17",
         "sources": [
-          "src:muons-inspire-experiment-mu2e"
+          "src:muons-arxiv-1501-05241"
         ],
         "unit": "",
-        "value": 2.5e-17,
-        "verified_at": "2026-09-17"
+        "value": 2.87e-17,
+        "verified_at": "2026-10-29"
       }
     }
   ],
@@ -125,35 +129,40 @@
   "name": "Mu2e",
   "notes": [
     "No physics results exist yet: every fetched status source describes Mu2e as still under construction/installation, with data collection not yet begun (most recently planned for 2027). This is stated explicitly rather than left to silence, per the correctness rule that an incomplete/no-results state must never be implied by omission.",
-    "Sensitivity-goal conflict: the INSPIRE experiment record (closest to the original approved proposal) states 2.5×10⁻¹⁷; a 2022 Mu2e collaboration status proceedings paper states 3×10⁻¹⁷ for a staged Run-1+Run-2 plan. Both are recorded (primary value 2.5×10⁻¹⁷, the other noted) rather than silently picking one.",
+    "Sensitivity figures: the Mu2e Technical Design Report gives 2.87×10⁻¹⁷ (the key spec since 2026-10-29); the 2022 status paper (PoS EPS-HEP2021 557) gives 3×10⁻¹⁷ for a staged Run-1+Run-2 plan; the INSPIRE experiment record's description says about 2.5×10⁻¹⁷ (the key spec before 2026-10-29, replaced because only that INSPIRE record stated it). Each is recorded rather than silently picking one.",
     "A documented lineage exists to the cancelled Brookhaven proposal MECO (Muon-to-Electron COnversion); no source describing this lineage was consulted, so it is not recorded here rather than asserted from memory.",
     "external.inspire_experiment (1108209) is sourced from https://inspirehep.net/api/experiments?q=mu2e, confirmed at https://inspirehep.net/experiments/1108209.",
-    "2026-09-18 verification: the \"25 m long superconducting solenoidal system\" key spec was removed — the quoted sentence does not appear in the cited status paper (PoS WIFAI2025 020, INSPIRE 3189846) or its abstract, and no fetched source states the length; the 2027 quote was made verbatim (lower-case)."
+    "2026-09-18 verification: the \"25 m long superconducting solenoidal system\" key spec was removed — the quoted sentence does not appear in the cited status paper (PoS WIFAI2025 020, INSPIRE 3189846) or its abstract, and no fetched source states the length; the 2027 quote was made verbatim (lower-case). 2026-10-29: the Fermilab news feature of 19 May 2023 does state a length, \"An “S”-shaped, 82-foot-long system of superconducting solenoids\", so the unique-capabilities text uses it; the quoted sentence of the earlier text is still not in the status paper and was replaced.",
+    "2026-10-29 INSPIRE re-sourcing: the \"experiment approved\" interval (2010-08) still rests only on the INSPIRE experiment record's date_approved field. No source that could be read states it; arXiv:0910.3657 (October 2009) already says Mu2e \"has been given relatively high priority by HEPAP and Stage-I Approval from the Fermilab PAC\", so 2010-08 cannot be the first approval. The date is kept until a readable source is found (the Mu2e status and proposals pages on mu2e.fnal.gov return HTTP 403). The website link and the INSPIRE experiment id are identifiers and keep their INSPIRE basis."
   ],
   "physics_goals": [
     {
       "confidence": "verified",
-      "note": "",
-      "quote": "The muon-to-electron conversion experiment (Mu2e) is designed to search for the coherent, neutrino-less conversion of a muon to an electron, in the Coulomb field of a nucleus with a single event sensitivity of about 2.5 x 10^-17.",
+      "locator": "Driutti for Mu2e, PoS(WIFAI2025)020, abstract; \"aluminum nucleus\" from section 2; \"strictly forbidden in the Standard Model\" from section 3",
+      "note": "Re-sourced 2026-10-29 from the INSPIRE experiment record: the 2026 status paper says the target is aluminum (section 2) and that CLFV is \"a process strictly forbidden in the Standard Model\" (section 3).",
+      "quote": "The Mu2e experiment at Fermilab is designed to search for charged lepton flavor violation (CLFV) by looking for the rare, neutrinoless conversion of a muon into an electron in the Coulomb field of a nucleus.",
       "sources": [
-        "src:muons-inspire-experiment-mu2e"
+        "src:fu3-pos-wifai2025-mu2e-status"
       ],
       "value": "Search for charged-lepton-flavor-violating, neutrino-less conversion of a muon to an electron in the field of an aluminum nucleus (μ⁻ N → e⁻ N), a process forbidden in the Standard Model",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-29"
     }
   ],
   "schema": "hep-atlas/0.2",
   "secondary_kinds": [],
   "sources": [
+    "src:fu3-arxiv-0910-3657-syphers-muon-accelerator",
+    "src:fu3-doe-hep-projects-status",
+    "src:fu3-pos-eps-hep2021-mu2e-status",
+    "src:fu3-pos-wifai2025-mu2e-status",
+    "src:muons-arxiv-1501-05241",
     "src:muons-inspire-experiment-mu2e",
-    "src:muons-inspire-lit-mu2e-status-2022",
-    "src:muons-inspire-lit-mu2e-status-2026",
-    "src:muons-arxiv-1501-05241"
+    "src:vf-fnal-mu2e-miscetti-2023"
   ],
   "status": "construction",
   "summary": {
     "plain": "An experiment being built at Fermilab that will look for a muon turning directly into an electron without any neutrinos -- something the standard laws of particle physics say should never happen. Construction is under way; no data has been taken yet.",
-    "technical": "Fermilab E973 (Mu2e): searches for coherent, neutrino-less μ⁻ N → e⁻ N conversion in the field of an aluminum nucleus using a pulsed muon beam and a 25 m chain of three superconducting solenoids (production, transport, detector) feeding a straw-tube tracker, crystal calorimeter and cosmic-ray veto. Proposed 2008, approved 2010, CD-3 construction approval June 2016; as of the most recently fetched status report (2026-07) construction/installation is ongoing across all subsystems with initial data collection planned for 2027. No physics results have been produced yet."
+    "technical": "Fermilab E973 (Mu2e): searches for coherent, neutrino-less μ⁻ N → e⁻ N conversion in the field of an aluminum nucleus using a pulsed muon beam and an 82-foot (about 25 m) system of superconducting solenoids (production, transport, detector) feeding a straw tracker, a crystal calorimeter and a cosmic-ray veto. Proposed 2008, approved 2010, DOE CD-3 construction approval July 2016; as of the July 2026 status paper the experiment is being assembled at the Fermilab Muon Campus, with initial data collection planned for 2027. No physics results have been produced yet."
   },
   "topic_ids": [
     "topic:lepton-flavor-violation",
@@ -163,13 +172,14 @@
   "unique_capabilities": [
     {
       "confidence": "verified",
-      "note": "",
-      "quote": "The system comprises production, transport, and detector solenoids, with downstream straw tracker and crystal calorimeter.",
+      "locator": "Fermilab news feature, 19 May 2023, section \"A big journey for tiny particles\"",
+      "note": "Re-sourced 2026-10-29 (changed text). The earlier text, a \"25-metre chain of three superconducting solenoids\" with a quote that is not in the cited status paper, rested on the INSPIRE-hosted record of that paper. The Fermilab feature gives the length as 82 feet (82 ft = 25.0 m, a unit conversion) and describes the sorting and focusing (the quote elides the sentence's explanation of what solenoids are); it says \"system of superconducting solenoids\", not which solenoids the 82 feet cover.",
+      "quote": "An “S”-shaped, 82-foot-long system of superconducting solenoids ... will sort negatively charged muons from positive ones. This system will also transport and focus the muons toward an aluminum target.",
       "sources": [
-        "src:muons-inspire-lit-mu2e-status-2026"
+        "src:vf-fnal-mu2e-miscetti-2023"
       ],
-      "value": "A 25-metre chain of three superconducting solenoids (production, transport, detector) that curves and momentum-selects the muon beam to suppress prompt background before the electrons reach the tracker and calorimeter",
-      "verified_at": "2026-09-17"
+      "value": "An “S”-shaped, 82-foot-long system of superconducting solenoids that sorts negatively charged muons from positive ones and transports and focuses the muons toward an aluminum target",
+      "verified_at": "2026-10-29"
     }
   ]
 }

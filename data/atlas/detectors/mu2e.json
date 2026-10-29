@@ -13,15 +13,16 @@
       "confidence": "verified",
       "end": null,
       "label": "construction and subsystem installation",
-      "note": "Ongoing as of the most recent fetched status report (2026-07).",
-      "quote": "The experiment received DOE CD-3 approval for construction in June 2016 and construction activities have begun.",
+      "locator": "DOE Office of Science, High Energy Physics \"Projects, Missions, and Status\", Intensity Frontier Projects table, Mu2e row (CD Status, CD Date); Driutti for Mu2e, PoS(WIFAI2025)020, section 2.2.3",
+      "note": "Re-sourced 2026-10-29 (changed date): the start is the DOE date of Critical Decision 3, \"Approve Start of Construction\" (14 July 2016; the INSPIRE experiment record said June 2016). Ongoing at the July 2026 status paper: \"the tracker and the calorimeter detectors have already been installed in the Mu2e hall\"; the Detector Solenoid, the final major component, was still to be delivered.",
+      "quote": "Mu2e CD-3 July 14, 2016",
       "sources": [
-        "src:muons-inspire-experiment-mu2e",
-        "src:muons-inspire-lit-mu2e-status-2026"
+        "src:fu3-doe-hep-projects-status",
+        "src:fu3-pos-wifai2025-mu2e-status"
       ],
-      "start": "2016-06",
+      "start": "2016-07-14",
       "status": "construction",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-29"
     }
   ],
   "links": {
@@ -30,46 +31,50 @@
   "name": "Mu2e detector",
   "notes": [
     "technology_classes uses 'spectrometer': the detector's function (momentum/energy analysis of a mono-energetic conversion electron via tracker + calorimeter behind a solenoidal magnet chain) is closer to a spectrometer than to any of the other listed classes (none of which name a solenoidal charged-lepton spectrometer specifically).",
-    "Overall solenoid-system length not stated in any fetched source; an unsupported 25 m value was removed on 2026-09-18 verification."
+    "2026-09-18: an unsupported 25 m value was removed on verification. 2026-10-29: the Fermilab news feature of 19 May 2023 states \"An “S”-shaped, 82-foot-long system of superconducting solenoids\" (82 ft = 25.0 m), so the length is stated again, as 82 feet; the status paper does not give a length."
   ],
   "parent_detector_id": null,
   "placements": [
     {
       "confidence": "verified",
       "end": null,
-      "note": "",
+      "locator": "Driutti for Mu2e, PoS(WIFAI2025)020, section 2.2.3",
+      "note": "Re-sourced 2026-10-29 from the INSPIRE-hosted record of the same paper.",
+      "quote": "the tracker and the calorimeter detectors have already been installed in the Mu2e hall",
       "role": "main",
       "site_id": "site:fermilab-mu2e-hall",
       "sources": [
-        "src:muons-inspire-lit-mu2e-status-2026"
+        "src:fu3-pos-wifai2025-mu2e-status"
       ],
       "start": null,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-29"
     }
   ],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:muons-inspire-experiment-mu2e",
-    "src:muons-inspire-lit-mu2e-status-2022",
-    "src:muons-inspire-lit-mu2e-status-2026",
-    "src:muons-arxiv-1501-05241"
+    "src:fu3-doe-hep-projects-status",
+    "src:fu3-pos-eps-hep2021-mu2e-status",
+    "src:fu3-pos-wifai2025-mu2e-status",
+    "src:muons-arxiv-1501-05241",
+    "src:vf-fnal-mu2e-miscetti-2023"
   ],
   "specs": {},
   "status": "construction",
   "subsystems": [],
   "summary": {
-    "plain": "A 25-metre chain of giant superconducting magnets at Fermilab, with a tracker and a fast crystal detector at the end, built to catch the single electron that would appear if a muon ever turned into one.",
-    "technical": "Production, transport and detector superconducting solenoids (25 m combined length) with a straw-tube tracker and fast CsI crystal calorimeter behind the stopping target, plus a cosmic ray veto system covering the solenoids, per the Mu2e TDR and subsequent status reports. Under construction; no data yet."
+    "plain": "An 82-foot (about 25-metre) system of giant superconducting magnets at Fermilab, with a tracker and a crystal calorimeter downstream, built to catch the single electron that would appear if a muon ever turned directly into one.",
+    "technical": "Production, transport and detector superconducting solenoids (an 82-foot-long system, about 25 m) with a straw tracker and a pure-CsI crystal calorimeter behind the stopping target, plus a cosmic ray veto system around the last section of the transport solenoid and the whole detector solenoid, per the July 2026 Mu2e status paper and the Fermilab news feature of May 2023. Under construction and installation; initial data collection is scheduled to begin in 2027."
   },
   "technology": {
     "confidence": "verified",
-    "note": "",
-    "quote": "The system comprises production, transport, and detector solenoids, with downstream straw tracker and crystal calorimeter.",
+    "locator": "Driutti for Mu2e, PoS(WIFAI2025)020, abstract",
+    "note": "Re-sourced 2026-10-29 (changed text). The earlier text called the calorimeter \"fast CsI\" and gave a \"25-metre\" chain; the quote below states neither. The status paper's paragraph \"The Calorimeter System\" (section 2) describes the calorimeter as pure CsI crystals; the Fermilab feature of 19 May 2023 gives the solenoid system as 82 feet long.",
+    "quote": "superconducting solenoids and high-precision detectors. The solenoid system comprises production, transport, and detector solenoids. ... a straw tracker and a crystal calorimeter, ... a cosmic ray veto system surrounds the last section of the transport solenoid and the entire detector solenoid",
     "sources": [
-      "src:muons-inspire-lit-mu2e-status-2026"
+      "src:fu3-pos-wifai2025-mu2e-status"
     ],
-    "value": "A 25-metre chain of three superconducting solenoids (production, transport, detector) feeding a straw-tube tracker and a fast CsI crystal calorimeter, surrounded by a cosmic-ray veto",
-    "verified_at": "2026-09-17"
+    "value": "A system of three superconducting solenoids (production, transport, detector) feeding a straw tracker and a crystal calorimeter, with a cosmic ray veto system around the last section of the transport solenoid and the entire detector solenoid",
+    "verified_at": "2026-10-29"
   },
   "technology_classes": [
     "spectrometer"
