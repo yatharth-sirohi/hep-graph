@@ -2602,3 +2602,36 @@ a.rs-lane-link {
   font-weight: 650;
   letter-spacing: 0.06em;
 }
+
+/* Energy interaction inside the existing beam section. Text and shape encode
+   every chart state; the selected circle and maximum diamond differ in print. */
+.osc-lab { margin: 1.5rem 0; padding: clamp(.8rem, 2vw, 1.4rem); border: 1px solid var(--line-strong); border-radius: 12px; background: var(--panel); min-width: 0; }
+.osc-lab h3 { margin-top: 0; }
+.osc-lab p { line-height: 1.6; }
+.osc-model-note { border-left: 3px solid currentColor; padding-left: .8rem; font-weight: 600; }
+.osc-controls { display: grid; grid-template-columns: minmax(10rem, 1fr) minmax(12rem, 2fr); gap: .6rem 1rem; align-items: center; }
+.osc-controls select, .osc-controls input { width: 100%; min-width: 0; box-sizing: border-box; font: inherit; }
+.osc-controls select, .osc-controls input[type=number] { min-height: 44px; color: var(--white); background: var(--paper); border: 1px solid var(--line-strong); border-radius: 5px; padding: .4rem; }
+.osc-controls input[type=range] { min-height: 44px; accent-color: var(--white); }
+.osc-lab output { display: block; padding: .6rem 0; font-weight: 650; font-variant-numeric: tabular-nums; line-height: 1.7; }
+.osc-plot { width: 100%; min-width: 0; }
+.osc-plot svg { display: block; overflow: visible; }
+.osc-plot text { fill: var(--white); font: 14px Inter, sans-serif; }
+.osc-grid { stroke: var(--line-strong); stroke-width: 1; }
+.osc-curve { fill: none; stroke: var(--white); stroke-width: 2; }
+.osc-max-guide { stroke: var(--white); stroke-dasharray: 5 4; stroke-width: 1.5; }
+.osc-selected-guide { stroke: var(--white); stroke-width: 1; }
+.osc-max-point { fill: var(--paper); stroke: var(--white); stroke-width: 2; }
+.osc-selected-point { fill: var(--white); stroke: var(--paper); stroke-width: 2; }
+.osc-method { margin-top: 1rem; }
+.osc-method summary { cursor: pointer; padding: .6rem 0; }
+.osc-formula { font-family: 'STIX Two Math', serif; font-size: 1.15rem; overflow-wrap: anywhere; }
+.osc-lab :focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }
+@media (max-width: 560px) { .osc-controls { grid-template-columns: minmax(0, 1fr); gap: .35rem; } .osc-controls label:not(:first-child) { margin-top: .6rem; } }
+/* A question opened in the tour must expose its visual in the small area above
+   the phone's tour sheet. The full explanation remains immediately below it. */
+@media (max-width: 760px) {
+  body.is-touring .view-body > .bs-figure,
+  body.is-touring .view-body > .ug-figure,
+  body.is-touring .view-body > .rs-stage { order: -1; }
+}

@@ -116,6 +116,7 @@ export function createViewHost({ main, atlas, index, loader, navigate }) {
   function makeContext(state, name, arg, host) {
     return {
       arg,
+      energyGeV: state.energy,
       atlas,
       index,
       loader,

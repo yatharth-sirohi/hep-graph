@@ -1462,6 +1462,9 @@ async function renderResult(id) {
     [titleCase(result.date_kind) || 'Date', fmtDate(result.date)],
   ]);
   if (facts) frag.appendChild(h('div', { class: 'result-found' }, [h('p', { class: 'result-found-title' }, 'What was found'), facts]));
+  const { renderEvidenceTrail } = await import('./result-evidence.js');
+  const evidenceTrail = renderEvidenceTrail(id, linkTo);
+  if (evidenceTrail) frag.appendChild(evidenceTrail);
   // The facility records the result names (the globe is looking at the same place:
   // app.js selects the result's facility), each with its local map when the Atlas has
   // drawn one (an absent link means not mapped yet), then the results announced with it.

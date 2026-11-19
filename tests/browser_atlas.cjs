@@ -317,7 +317,7 @@ async function openResultsControls(page) {
   });
 
   // ---- Start here (static/atlas/js/start.js) ---------------------------------------
-  await record("Start here: a first visit shows a labelled card with a tour row and four real deep links, Escape dismisses it for good, the footer reopens it", async () => {
+  await record("Start here: a first visit shows a labelled card with a tour row and three real deep links, Escape dismisses it for good, the footer reopens it", async () => {
     if (process.env.HEP_ATLAS_DATA !== "generated") {
       // The curated questions name records of the real bundle. Against the fixture
       // tree only the rule "an address with a query never opens the card" applies.
@@ -353,33 +353,29 @@ async function openResultsControls(page) {
     // Coverage is partial, so the card does not claim "every major facility" (M1 round 2).
     assert.equal(card.desc, "Laboratories, detectors and discoveries of particle physics on one globe, with every fact traced to its source.");
     assert.equal(card.focusInside, true, "opening the card moves focus into it, so a keyboard user starts there");
-    // "Take a tour" leads (the guided tours, js/tours.js), then the four questions.
+    // "Take a tour" leads (the guided tours, js/tours.js), then the three questions.
     assert.deepEqual(card.links.map((l) => l.href), [
-      "?m=tours", "#/experiment/dune", "#/result/atlas-higgs-observation-2012", "#/topic/neutrino-oscillations", "#/view/beam-section/j-parc-neutrino",
+      "?m=tours", "?step=5&e=2.5#/tour/neutrino-beams-through-the-earth", "?step=6#/tour/higgs-hunt", "?step=6#/tour/going-underground-dark-matter",
     ]);
-    // The fourth question was "How deep are the underground labs?" until a depth chart
-    // exists to answer it; T2K's 295 km beam, as the beam-section view, answers the one below today.
     assert.deepEqual(card.links.map((l) => l.text), [
-      "Follow a guided tour", "Where is DUNE\u2019s far detector?", "Where was the Higgs discovered?",
-      "Which experiments study neutrino oscillations?", "How far does a neutrino beam travel?",
+      "Follow a guided tour", "Why do neutrino beams go through the Earth?", "How did ATLAS and CMS establish the Higgs discovery?",
+      "Why are some detectors underground?",
     ]);
     assert.deepEqual(card.buttons, ["Close Start here", "Browse results", "Search", "Explore the globe"]);
 
     // Every question lands on something real, and dismisses the card on the way.
     const expectations = [
-      { href: "#/experiment/dune", panel: /Deep Underground Neutrino Experiment/, url: /#\/experiment\/dune$/ },
-      { href: "#/result/atlas-higgs-observation-2012", panel: /observation of a new particle/i, url: /#\/result\/atlas-higgs-observation-2012$/ },
-      { href: "#/topic/neutrino-oscillations", panel: /Neutrino oscillations/, url: /#\/topic\/neutrino-oscillations$/ },
-      // "How far does a neutrino beam travel?" lands on the T2K beam through the Earth, not on the experiment record.
-      { href: "#/view/beam-section/j-parc-neutrino", view: /Beam through the Earth/, url: /#\/view\/beam-section\/j-parc-neutrino$/ },
+      { href: "?step=5&e=2.5#/tour/neutrino-beams-through-the-earth", view: /Beam through the Earth/, url: /#\/tour\/neutrino-beams-through-the-earth$/ },
+      { href: "?step=6#/tour/higgs-hunt", view: /Results as a story/, url: /#\/tour\/higgs-hunt$/ },
+      { href: "?step=6#/tour/going-underground-dark-matter", view: /Going underground/, url: /#\/tour\/going-underground-dark-matter$/ },
     ];
     for (const expected of expectations) {
       await p.locator(`#start-card a[href="${expected.href}"]`).click();
       await p.waitForFunction(() => document.getElementById("start-card").hidden);
       if (expected.view) {
-        await p.locator("#view-host .bs-lede").waitFor();
+        await p.locator("#view-body svg").first().waitFor();
         assert.match(await p.locator("#view-title").innerText(), expected.view, `${expected.href} opens its view`);
-        assert.match(await p.locator("#view-subtitle").innerText(), /J-PARC → Kamioka Observatory/, "the T2K row: Tokai to Kamioka");
+        if (expected.href === "#/view/beam-section/j-parc-neutrino") assert.match(await p.locator("#view-subtitle").innerText(), /J-PARC → Kamioka Observatory/, "the T2K row: Tokai to Kamioka");
       } else {
         await p.locator("#detail-panel h2").waitFor();
         assert.match(await p.locator("#detail-panel h2").innerText(), expected.panel, `${expected.href} opens its record`);
@@ -476,7 +472,7 @@ async function openResultsControls(page) {
     assert.ok(box.close.w >= 44 && box.close.h >= 44, "the close button is a 44 px target");
     for (const a of box.actions) assert.ok(a.h >= 44 && a.b <= box.card.b && a.y >= box.card.y, "each action is a 44 px target inside the sheet");
     for (const q of box.questions) assert.ok(q.h >= 44, "each question is a 44 px target");
-    assert.equal(box.scrolls, false, "all four questions and the three entries fit without scrolling a 390x844 phone");
+    assert.equal(box.scrolls, false, "all three questions and the three entries fit without scrolling a 390x844 phone");
     assert.equal(box.overflowX, false, "no sideways scroll");
     await p.locator(".start-close").tap();
     await p.waitForFunction(() => document.getElementById("start-card").hidden);

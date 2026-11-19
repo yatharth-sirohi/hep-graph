@@ -25,6 +25,7 @@ import {
 } from './beam-rows.js';
 import { quantityText, titleCase } from '../model.js';
 import * as provenance from '../provenance.js';
+import { createOscillationLab } from './oscillation-lab.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
@@ -433,7 +434,7 @@ export function mount(ctx) {
     offAxisCards.length
       ? 'For this beam the line to the detector is not the beam axis: the axis is aimed a little to one side of the detector (the off-axis card below gives the angle). '
       : '',
-    'Everything below is computed from the two recorded coordinates.',
+    'The geometry below is computed from the two recorded coordinates; the oscillation lab uses the sourced baseline.',
   ].flat());
 
   // ---- four numbers
@@ -579,7 +580,8 @@ export function mount(ctx) {
 
   // The sourced baseline and (where one exists) the off-axis angle sit side by side.
   const lower = h('div', { class: offAxisWrap ? 'bs-lower has-offaxis' : 'bs-lower' }, [compare, offAxisWrap]);
-  body.append(lede, stats, figure, table, lower, records);
+  const lab = createOscillationLab(ctx, row);
+  body.append(lede, stats, figure, lab.element, table, lower, records);
 
   // ---- the off-axis card (only where a record carries a sourced angle)
   if (offAxisWrap) {
@@ -678,11 +680,13 @@ export function mount(ctx) {
   return {
     update(next) {
       timelineState = next.timelineState;
+      lab.update(next);
       paintStatus();
       drawFigures();
     },
     destroy() {
       destroyed = true;
+      lab.destroy();
       window.cancelAnimationFrame(frame);
       if (observer) observer.disconnect();
     },

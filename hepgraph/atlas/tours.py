@@ -49,7 +49,7 @@ WARNING = 'warning'
 
 #: A28: the computed views a step may open.  `beam-section` is the cross-section
 #: of the Earth along one beamline (M2); its `arg` is the beamline slug.
-VIEW_NAMES: tuple[str, ...] = ('beam-section',)
+VIEW_NAMES: tuple[str, ...] = ('beam-section', 'underground', 'results-story')
 
 #: The entity types the app can route to (`TYPE_PREFIX` in static/atlas/js/state.js;
 #: `tests/test_atlas_tours.py` keeps the two in step).  A step may `select` only these.
@@ -639,6 +639,10 @@ class _Checker:
             elif view['name'] not in VIEW_NAMES:
                 self.error('tour-view', _pointer(*base, 'view', 'name'),
                            f'view name {view["name"]!r} is not one of {list(VIEW_NAMES)}')
+            elif view['name'] == 'underground' and view['arg'] != '':
+                self.error('tour-view-arg', _pointer(*base, 'view', 'arg'), 'underground takes an empty argument')
+            elif view['name'] == 'results-story' and view['arg'] and not self.atlas.has(f'topic:{view["arg"]}'):
+                self.error('tour-view-arg', _pointer(*base, 'view', 'arg'), 'results-story takes a known topic slug or an empty argument')
             elif view['name'] == 'beam-section' and not self.atlas.has(f'beamline:{view["arg"]}'):
                 self.warn('tour-view-arg', _pointer(*base, 'view', 'arg'),
                           f'beam-section takes a beamline slug; there is no beamline:{view["arg"]}')
@@ -877,7 +881,8 @@ def step_href(step: dict) -> str:
     query = f'?y={year}' if isinstance(year, int) else ''
     view, local_map, select = step.get('view'), step.get('map'), step.get('select')
     if isinstance(view, dict):
-        return f"{query}#/view/{view['name']}/{view['arg']}"
+        suffix = f"/{view['arg']}" if view['arg'] else ''
+        return f"{query}#/view/{view['name']}{suffix}"
     if local_map:
         # On a map route the selection is the `sel` parameter (an entity id), as in localmap.js.
         if select:

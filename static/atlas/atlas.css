@@ -3427,3 +3427,16 @@ a.local-map-chip {
   line-height: 1.45;
   color: var(--muted);
 }
+
+.result-evidence { margin: var(--space-4) 0; padding: var(--space-4); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--panel-2); overflow-wrap: anywhere; }
+.result-evidence h3 { margin-top: 0; }
+.result-evidence h4 { margin-bottom: .5rem; }
+.result-evidence p { line-height: 1.6; }
+.evidence-significance { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .75rem; }
+.evidence-significance dt { font-size: var(--text-sm); color: var(--muted); }
+.evidence-significance dd { margin: .3rem 0 0; font-size: var(--text-xl); font-weight: 700; }
+.evidence-caveat { border-left: 2px solid var(--amber); padding-left: .7rem; }
+.evidence-items { padding-left: 1.25rem; }
+.evidence-items li { margin: 1rem 0; }
+.evidence-items p { margin: .3rem 0; }
+.result-evidence summary { cursor: pointer; padding: .5rem 0; }
