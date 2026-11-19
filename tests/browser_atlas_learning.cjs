@@ -101,6 +101,7 @@ const questions = [
    await page.locator('#mode-panel a[href="#/result/atlas-higgs-observation-2012"]').first().click();
    await page.locator('.result-evidence').waitFor();
    await page.waitForURL(/#\/result\/atlas-higgs-observation-2012$/);
+   if(!mobile) assert((await page.locator('.result-where').boundingBox()).y < 880, 'evidence must preserve the first-screen place and companion context');
    assert.match(await page.locator('.evidence-significance').innerText(),/Observed.*5.9σ.*Expected.*4.9σ/s);
    const primary=page.locator('.evidence-items .evidence-source').first();
    assert.match(await primary.getAttribute('href'),/1207\.7214v1#page=11$/);
