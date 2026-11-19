@@ -4,6 +4,11 @@
 const higgsReading = {
   context: 'These are the paper’s findings, following the 4 July announcement.',
   expectedLabel: 'Expected with a Standard Model Higgs signal',
+  nextQuestion: {
+    title: 'Do the two mass measurements agree?',
+    description: 'Use the quoted mass fits and uncertainties, with an independent-error approximation. Make a prediction, then reveal the sourced calculation in the Higgs hunt tour.',
+    tour: 'higgs-hunt', step: 7, label: 'Compare the Higgs masses',
+  },
   interpretation: [
     'Observed significance measures how incompatible the data are with a background-only model at one tested mass, expressed as an equivalent one-sided Gaussian tail. Expected significance is the median sensitivity assuming a Standard Model Higgs signal; it is not another observation.',
     'Neither is the probability that the Higgs exists. A global significance also accounts for searching over many masses; it depends on the search window.',

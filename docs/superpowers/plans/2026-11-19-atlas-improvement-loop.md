@@ -44,7 +44,23 @@ Independent review identified three edge cases, reproduced in failing browser re
 
 Finding: both Higgs evidence trails explain the measurements and link to the papers, but the existing sourced mass-compatibility exercise (Higgs hunt, step 7) is not discoverable from those Results. Connecting it gives a learner a next action using what they just read, without duplicating the tour or inventing a second exercise.
 
-- [ ] Test that both curated evidence entries target the existing step and that the target still contains both experiments’ measurements, the independent-error approximation and sourced working.
-- [ ] Add a failing browser regression for evidence→question, keyboard reveal, worked answer, copied/deep links and Back on desktop Chromium and 360px WebKit.
-- [ ] Add an optional next-question slot to the reusable evidence display. Keep its topic-specific content in the reviewed registry; reuse the panel’s existing tour-step navigation.
-- [ ] Verify both pilots and optional/missing data, check the separate HEP Graph entry point, record results, and commit this cycle.
+- [x] Test that both curated evidence entries target the existing step and that the target still contains both experiments’ measurements, the independent-error approximation and sourced working.
+- [x] Add a failing browser regression for evidence→question, keyboard reveal, worked answer, copied/deep links and Back on desktop Chromium and 360px WebKit.
+- [x] Add an optional next-question slot to the reusable evidence display. Keep its topic-specific content in the reviewed registry; reuse the panel’s existing tour-step navigation.
+- [x] Verify both pilots and optional/missing data, check the separate HEP Graph entry point, record results, and commit this cycle.
+
+
+Iteration 3 verified: the new registry test failed on its missing destination, and the browser test failed on the missing evidence→question link. Both pilots now reach the existing sourced step 7, reveal its independent-error calculation by keyboard, and restore the result with Back. The optional generic renderer remains free of pilot-specific assumptions. Extracted topic-tour links use the same helper. Review found native links dropping data/embed/theme and then retaining a stale theme after a later toggle; both cases received failing-before/passing-after browser checks, including opening the actual copied href. The final review found no remaining blockers.
+
+Final iteration 3 verification: full repository suite 808 passed, 139 skipped; focused learning/evidence/tour-player suite 24 passed; Chromium and WebKit each passed desktop and 360px evidence→question, keyboard, working, Back, native/copied links, theme changes, embed/data preservation and optional-data checks. Separate HEP Graph browser regression passed (mocked API boundary; no production writes). Preserved-snapshot validation: 0 errors, 1892 existing warnings, 4 informational; 84 generated files match. No scientific source values changed.
+
+## Iteration 4 — Investigate cold-page navigation lifecycle
+
+Finding from the iteration 3 browser run: very rapid cross-document navigation can let deferred globe scenery fetches begin while WebKit is leaving the document, producing access-control errors. The identical focused sequence reproduced six errors on unchanged main and six on the feature branch. `globe.js` and `loader.js` match main. Trace points to the first-frame timeout calling `loadEarthTexture()` / `loadBorders()` after navigation has started. This is a separate existing lifecycle issue, not a failed probability or lesson-link assertion.
+
+The native-link learner test waits for startup requests to settle before moving between documents and retains a strict zero-page-error assertion. Its final run passes both engines and sizes. The rapid-unload stress case remains unfixed and recorded for the next loop cycle; no errors were filtered from the test.
+
+- [ ] Turn the main/feature reproducer into a focused regression and trace the document lifecycle boundary.
+- [ ] Implement an Atlas-only fix for work scheduled on a departing document, preserving normal cold loads and restored history pages.
+- [ ] Verify rapid navigation plus Back/forward restoration in Chromium and WebKit, and rerun the relevant learning journey.
+- [ ] Review, record and commit the cycle before choosing the next learning improvement.

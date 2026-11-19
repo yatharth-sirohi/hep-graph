@@ -47,6 +47,7 @@ let renderTicket = 0;
 // Whether the panel draws its own close button. Not in the local map's drawer, which has
 // its own: a second × there would close the whole map (`entity: null`), not the selection.
 let ownCloseButton = true;
+let tourLinkThemeBound = false;
 
 export function init({ el, atlas, index, navigate, focusGlobe, viewOnGlobe, closeButton = true }) {
   container = el;
@@ -55,6 +56,10 @@ export function init({ el, atlas, index, navigate, focusGlobe, viewOnGlobe, clos
   CALLBACKS = { navigate, focusGlobe, viewOnGlobe };
   ownCloseButton = closeButton;
   provenance.configure(index);
+  if (!tourLinkThemeBound) {
+    document.addEventListener('atlas:themechange', syncTourLinkThemes);
+    tourLinkThemeBound = true;
+  }
 }
 
 export function setCollaborationContext(id) {
@@ -81,6 +86,37 @@ function linkTo(route, text, extraClass) {
   a.addEventListener('click', (event) => {
     event.preventDefault();
     CALLBACKS.navigate({ entity: route });
+  });
+  return a;
+}
+
+
+// Projector changes keep panels mounted and fire before their URL patch.
+// One document listener updates live links without retaining detached panels.
+function syncTourLinkThemes(event) {
+  const theme = event.detail?.theme;
+  if (!['projector', 'standard'].includes(theme)) return;
+  for (const link of document.querySelectorAll('a[data-tour-step-link]')) {
+    const url = new URL(link.href);
+    url.searchParams.set('theme', theme);
+    link.setAttribute('href', `${url.search}${url.hash}`);
+  }
+}
+
+// A real deep link to an existing question in the one tour player. Used both
+// by topic tour lists and an evidence trail's optional next learning step.
+function tourStepLink(slug, step, text) {
+  const context = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams();
+  // These settings belong to the visit, including a copied/new-tab link.
+  // The destination supplies its own step instead of inheriting a stale one.
+  for (const key of ['data', 'embed', 'theme']) if (context.has(key)) params.set(key, context.get(key));
+  params.set('step', String(step));
+  const a = h('a', { href: `?${params}#/tour/${slug}`, class: 'entity-link', 'data-tour-step-link': '' }, text);
+  a.addEventListener('click', (event) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    CALLBACKS.navigate({ entity: { type: 'tour', slug }, step });
   });
   return a;
 }
@@ -1330,12 +1366,7 @@ async function fillTopicTours(slot, topicId, results) {
   if (!rows.length) return;
   const list = h('ul', { class: 'entity-list tour-links' }, rows.map(({ tour, steps }) => {
     const slug = tourSlug(tour.id);
-    const a = h('a', { href: `#/tour/${slug}?step=${steps[0]}`, class: 'entity-link' }, tour.name);
-    a.addEventListener('click', (event) => {
-      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      event.preventDefault();
-      CALLBACKS.navigate({ entity: { type: 'tour', slug }, step: steps[0] });
-    });
+    const a = tourStepLink(slug, steps[0], tour.name);
     return h('li', {}, [
       a,
       h('span', { class: 'source-meta' }, ` · ${steps.length} of ${tour.steps.length} step${tour.steps.length === 1 ? '' : 's'} · ${tourMeta(tour)}`),
@@ -1507,7 +1538,7 @@ async function renderResult(id) {
     ]));
   }
   const { renderEvidenceTrail } = await import('./result-evidence.js');
-  const evidenceTrail = renderEvidenceTrail(id, linkTo);
+  const evidenceTrail = renderEvidenceTrail(id, linkTo, tourStepLink);
   if (evidenceTrail) frag.appendChild(evidenceTrail);
   if (result.title && result.name && result.title !== result.name) {
     frag.appendChild(h('p', { class: 'source-meta' }, ['Paper title: ', readableView(result.title)]));

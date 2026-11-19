@@ -10,11 +10,23 @@ Verification: tests failed before implementation; 10 learning unit tests passed 
 
 ## Cycle 2: compare at the same L/E
 
+Committed as `dfcdc8dc`.
+
 The existing baseline selector gains an optional “Keep L/E” checkbox. It scales energy with distance before rounding to the lab’s 0.01 GeV increment, making a controlled T2K/DUNE comparison possible. Default behavior still holds energy fixed. A match outside 0.2–8 GeV is refused with an accessible explanation, and the original setup stays selected. The checkbox is restored by `le=1` in beam-view and beam-tour URLs; it is cleared when leaving that scope.
 
 The calculation follows the lab’s existing cited two-flavor vacuum formula with fixed teaching parameters. Equal L/E gives equal phase and conversion probability in that model; rounding is explicit. It remains an illustrative teaching model, not a DUNE prediction, event-rate calculation or substitute for three-flavor matter effects.
 
 The final review found and resolved alias-state loss, obsolete hidden text in the computed accessible description, and a misleading rounded boundary refusal. Both engines pass four focused review regressions; 23 calculation/navigation/tour-player tests pass. Both engines also pass the desktop/360px comparison tests and the complete phone question→lab→result→primary-paper journey. Final post-review repository verification: **807 passed, 139 skipped**. The independent review confirmed all findings resolved.
+
+## Cycle 3: continue from evidence to a worked question
+
+Both curated Higgs evidence trails now offer “Compare the Higgs masses.” It opens the existing Higgs hunt step 7, where learners predict whether the mass fits agree and reveal the sourced calculation under an explicit independent-error approximation. This reuses the same tour player and existing scientific content. The evidence display accepts optional next-question metadata, so other reviewed entries can supply a future exercise without adding assumptions to the renderer.
+
+Results and Topics share one tour-step link helper. Native/copied links retain data, embed and projector settings, supply their own step, and stay synchronized if Projector mode changes while the panel remains open. The source mass fits and separate discovery significances were not changed; this exercise does not combine the discovery significances.
+
+Final verification: **808 passed, 139 skipped** in the full repository suite; **24 passed** in the focused evidence/learning/tour-player checks. Chromium and WebKit passed desktop and 360px journeys from both evidence trails to the question, keyboard reveal, worked answer, Back, copied links, theme changes, embed/data context and optional/missing evidence data. The separate HEP Graph browser regression passed at its mocked API boundary. Atlas validation at the preserved `2026-10-29` data date gives **0 errors, 1892 existing warnings, 4 informational**; all **84 generated files match**. Independent review found no remaining code blockers after the native-link fixes.
+
+A rapid-navigation stress probe exposed an existing WebKit lifecycle issue: deferred globe asset requests can start while a cold document is being unloaded. The exact probe reproduces six errors on unchanged main and six on this branch, with matching call stacks in unchanged globe code. This remains queued as the next loop cycle. The copied-link learner test waits for page startup requests to settle and still asserts zero browser errors; no errors are filtered. Its final run passes both engines. Physical-device and screen-reader walkthroughs remain unperformed.
 
 ## Local routes and sources
 
@@ -32,3 +44,23 @@ Use the current local server at `http://127.0.0.1:8876` while the loop is runnin
 No scientific source values were changed in these cycles. Sources remain the [T2K experiment paper, §3.6.1](https://arxiv.org/pdf/1106.1238v2#page=10), [DUNE baseline passage, §1](https://arxiv.org/pdf/2007.06722v4#page=12), [T2K two-flavor formula and units](https://t2k-experiment.org/neutrinos/beyond-the-standard-model/), [PDG mixing review](https://pdg.lbl.gov/2024/reviews/rpp2024-rev-neutrino-mixing.pdf), and the versioned [ATLAS](https://arxiv.org/pdf/1207.7214v1) and [CMS](https://arxiv.org/pdf/1207.7235v1) papers. The previous report records exact figures and passages. Claims about phase changes and matching L/E are derived from the displayed formula.
 
 Logs and screenshots for this loop are retained locally under `/tmp/hep-atlas-iterations/` and `/tmp/hep-iteration*.log`; final review artifacts will also be copied to the ignored `test-results/atlas-iterations/` directory. Screen-reader hardware and physical phones have not been tested. Existing database-environment skips, aging-data validation findings and legacy monolithic-browser timing limits remain as documented in the original report.
+
+
+## Reproduce the current loop checks
+
+Use the repository Python environment and the existing Playwright installation, with the feature server on port 8876:
+
+```sh
+python -m pytest -q -p no:cacheprovider
+python -m hepgraph.atlas.validate --build-date 2026-10-29
+python -m hepgraph.atlas.build --build-date 2026-10-29 --check
+HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_experiments.cjs
+HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_experiments.cjs
+HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_comparison_edges.cjs
+HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_comparison_edges.cjs
+HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_evidence_followup.cjs
+HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_evidence_followup.cjs
+HEP_URL=http://127.0.0.1:8876 node tests/browser_database.cjs
+```
+
+The connected phone question→lab→result→primary-paper journey also passed again in both engines during cycle 2; its command remains `node tests/browser_atlas_learning.cjs` (set `HEP_BROWSER=webkit` for WebKit).

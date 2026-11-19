@@ -11,7 +11,7 @@ const source = (item) => h('a', { class: 'evidence-source', href: item.url, targ
 /** Generic display for a reviewed evidence object. Interpretation, definitions,
  * comparison assumptions and conclusions belong to its data, never the display.
  * The shipped registry intentionally contains only the two Higgs pilot entries. */
-export function renderEvidence(e, linkTo) {
+export function renderEvidence(e, linkTo, tourStepLink) {
   if (!e) return null;
   const significance = e.significance;
   const quantities = significance ? [
@@ -36,9 +36,14 @@ export function renderEvidence(e, linkTo) {
     ]))) : null,
     e.conclusion ? h('p', { class: 'evidence-caveat' }, e.conclusion) : null,
     e.companion && linkTo ? linkTo({ type: 'result', slug: e.companion.slug }, e.companion.label) : null,
+    e.nextQuestion && tourStepLink ? h('div', { class: 'evidence-next-question' }, [
+      h('h4', {}, e.nextQuestion.title),
+      h('p', {}, e.nextQuestion.description),
+      tourStepLink(e.nextQuestion.tour, e.nextQuestion.step, e.nextQuestion.label),
+    ]) : null,
   ]);
 }
 
-export function renderEvidenceTrail(resultId, linkTo) {
-  return renderEvidence(evidenceFor(resultId), linkTo);
+export function renderEvidenceTrail(resultId, linkTo, tourStepLink) {
+  return renderEvidence(evidenceFor(resultId), linkTo, tourStepLink);
 }
