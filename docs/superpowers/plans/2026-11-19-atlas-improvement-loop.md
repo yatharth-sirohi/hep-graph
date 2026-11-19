@@ -58,9 +58,25 @@ Final iteration 3 verification: full repository suite 808 passed, 139 skipped; f
 
 Finding from the iteration 3 browser run: very rapid cross-document navigation can let deferred globe scenery fetches begin while WebKit is leaving the document, producing access-control errors. The identical focused sequence reproduced six errors on unchanged main and six on the feature branch. `globe.js` and `loader.js` match main. Trace points to the first-frame timeout calling `loadEarthTexture()` / `loadBorders()` after navigation has started. This is a separate existing lifecycle issue, not a failed probability or lesson-link assertion.
 
-The native-link learner test waits for startup requests to settle before moving between documents and retains a strict zero-page-error assertion. Its final run passes both engines and sizes. The rapid-unload stress case remains unfixed and recorded for the next loop cycle; no errors were filtered from the test.
+The native-link learner test waits for startup requests to settle before moving between documents and retains a strict zero-page-error assertion. Its final run passes both engines and sizes. At the end of iteration 3, the rapid-unload stress case was recorded for cycle 4; no errors were filtered from the test.
 
-- [ ] Turn the main/feature reproducer into a focused regression and trace the document lifecycle boundary.
-- [ ] Implement an Atlas-only fix for work scheduled on a departing document, preserving normal cold loads and restored history pages.
-- [ ] Verify rapid navigation plus Back/forward restoration in Chromium and WebKit, and rerun the relevant learning journey.
-- [ ] Review, record and commit the cycle before choosing the next learning improvement.
+- [x] Turn the main/feature reproducer into a focused regression and trace the document lifecycle boundary.
+- [x] Implement an Atlas-only fix for work scheduled on a departing document, preserving normal cold loads and restored history pages.
+- [x] Verify rapid navigation plus Back/forward restoration in Chromium and WebKit, and rerun the relevant learning journey.
+- [x] Review, record and commit the cycle before choosing the next learning improvement.
+
+
+Iteration 4 outcome: a lifecycle trace proved both scenery requests were being created after `beforeunload`, before `pagehide`, while the document was still reported visible. The focused regression failed before implementation. Requests now start directly in globe `ready()`; decoding/application remain asynchronous, existing once-only guards and fallbacks remain, and no unload listeners were added. The old first-paint comments were corrected. Independent review found no correctness, fallback or history blockers.
+
+Final verification: Chromium and WebKit 360px both pass four rapid cold-page exit cycles with zero browser errors, normal scenery requests, real Back/forward recovery of energy and fixed-L/E state, and a slow-assets case. That case holds both optional requests, checks the base canvas is visible, opens the real beam question and changes energy by keyboard before releasing either request. It does not measure first-frame timing or prove a persisted browser-cache hit. The full connected mobile question→lab→primary-paper journey passes again in both engines. Repository suite: 808 passed, 139 skipped. Logs: `/tmp/hep-iteration4-*.log` and ignored `test-results/atlas-iterations/`.
+
+## Iteration 5 — Track both flavors in the teaching model
+
+Finding: the lab plots and announces conversion, while original-flavor survival appears only in the formula disclosure. A newcomer answering why beams traverse Earth can confuse loss of the starting flavor with absorption. The existing two-flavor formula already determines both outcomes; no new experimental prediction is needed.
+
+The T2K explanation was checked again on 19 November: its “Atmospheric Neutrino Anomaly” passage distinguishes the observed flavor deficit from absorption at those energies, and “The Resolution — Neutrino Oscillations” supplies the two-flavor conversion formula. Source: <https://t2k-experiment.org/neutrinos/beyond-the-standard-model/>. Survival = 1 − conversion follows from the closed two-flavor teaching model.
+
+- [ ] Add meaningful calculation regressions at no mixing, a first maximum, and half-phase, with probabilities bounded and summing to one.
+- [ ] Add an optional in-place “Track both flavors” disclosure under the current chart: original-flavor and converted-flavor probabilities, text labels and a non-color visual that follows the existing energy control.
+- [ ] Keep the two generic flavors explicit; distinguish flavor survival from absorption and detector event counts. Reuse the current formula/source and model limitations, without adding another tour or URL control.
+- [ ] Verify keyboard disclosure/energy changes, first-maximum and doubling actions, fixed-L/E switching, 360px layout and restored URLs in Chromium/WebKit; review and record the cycle.

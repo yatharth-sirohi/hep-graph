@@ -20,13 +20,25 @@ The final review found and resolved alias-state loss, obsolete hidden text in th
 
 ## Cycle 3: continue from evidence to a worked question
 
+Committed as `761edc71`.
+
 Both curated Higgs evidence trails now offer “Compare the Higgs masses.” It opens the existing Higgs hunt step 7, where learners predict whether the mass fits agree and reveal the sourced calculation under an explicit independent-error approximation. This reuses the same tour player and existing scientific content. The evidence display accepts optional next-question metadata, so other reviewed entries can supply a future exercise without adding assumptions to the renderer.
 
 Results and Topics share one tour-step link helper. Native/copied links retain data, embed and projector settings, supply their own step, and stay synchronized if Projector mode changes while the panel remains open. The source mass fits and separate discovery significances were not changed; this exercise does not combine the discovery significances.
 
 Final verification: **808 passed, 139 skipped** in the full repository suite; **24 passed** in the focused evidence/learning/tour-player checks. Chromium and WebKit passed desktop and 360px journeys from both evidence trails to the question, keyboard reveal, worked answer, Back, copied links, theme changes, embed/data context and optional/missing evidence data. The separate HEP Graph browser regression passed at its mocked API boundary. Atlas validation at the preserved `2026-10-29` data date gives **0 errors, 1892 existing warnings, 4 informational**; all **84 generated files match**. Independent review found no remaining code blockers after the native-link fixes.
 
-A rapid-navigation stress probe exposed an existing WebKit lifecycle issue: deferred globe asset requests can start while a cold document is being unloaded. The exact probe reproduces six errors on unchanged main and six on this branch, with matching call stacks in unchanged globe code. This remains queued as the next loop cycle. The copied-link learner test waits for page startup requests to settle and still asserts zero browser errors; no errors are filtered. Its final run passes both engines. Physical-device and screen-reader walkthroughs remain unperformed.
+A rapid-navigation stress probe exposed an existing WebKit lifecycle issue: deferred globe asset requests can start while a cold document is being unloaded. The exact probe reproduces six errors on unchanged main and six on this branch, with matching call stacks in unchanged globe code. This was queued for cycle 4 and is resolved below. The copied-link learner test waits for page startup requests to settle and still asserts zero browser errors; no errors are filtered. Its final run passes both engines. Physical-device and screen-reader walkthroughs remain unperformed.
+
+## Cycle 4: reliable cold-page exits
+
+The rapid-navigation failure is fixed. The trace showed the optional Earth texture and country-border requests starting after WebKit had begun leaving a document. Their creation is now part of globe initialization; loading, decoding and application remain asynchronous. Existing fallback behavior and once-only guards remain. The change adds no unload listeners.
+
+The new regression failed before the fix and now passes in Chromium and WebKit at 360px: four rapid cold-page exit cycles, normal loading of both assets, keyboard energy input and real Back/forward restoration of energy and fixed-L/E state. A separate slow-assets case holds both optional requests while the base canvas is visible, opens the beam question and operates the lab before releasing either request. This verifies usability while loading, not a first-frame timing budget or a persisted history-cache hit.
+
+The connected phone journey through all three questions, the lab and both primary papers passed again in both engines. Full repository suite: **808 passed, 139 skipped**. Independent review found no correctness, fallback or history blockers. Data/source values and the separate HEP Graph app were unchanged; the most recent dedicated Graph browser regression remains the cycle 3 pass.
+
+Next learning cycle: make the two-flavor model’s original-flavor survival visible alongside conversion, so learners can distinguish changing flavor from absorption or an observed detector rate. The existing cited formula supplies both probabilities; no new fitted parameters or experimental prediction is planned.
 
 ## Local routes and sources
 
@@ -60,6 +72,8 @@ HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_comparison_edges.cjs
 HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_comparison_edges.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_evidence_followup.cjs
 HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_evidence_followup.cjs
+HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_navigation_lifecycle.cjs
+HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=chromium node tests/browser_atlas_navigation_lifecycle.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_database.cjs
 ```
 

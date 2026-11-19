@@ -17,8 +17,8 @@ fs.mkdirSync(out,{recursive:true});
    const page=await context.newPage();page.setDefaultTimeout(30000);
    page.on('pageerror',error=>errors.push(error.message));
    // Test copied/native destinations after their startup requests settle.
-   // Rapidly unloading a cold page has a separately reproduced main-branch
-   // WebKit scenery-load race; do not filter those errors out of this test.
+   // Rapid cold exits are separately covered by browser_atlas_navigation_lifecycle;
+   // this journey retains a strict assertion against all browser errors.
    const visit=url=>page.goto(url,{waitUntil:'networkidle'});
    for(const result of ['atlas-higgs-observation-2012','cms-higgs-boson-observation-2012']) {
     await visit(`${base}/atlas?data=generated&embed=1&theme=projector&m=results#/result/${result}`);
