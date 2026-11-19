@@ -27,5 +27,7 @@ export function firstMaximumEnergy(baselineKm, options) {
 
 export function normaliseEnergy(value) {
   if (value == null || String(value).trim() === '' || !Number.isFinite(Number(value))) return ENERGY.initial;
-  return Math.min(ENERGY.max, Math.max(ENERGY.min, Number(value)));
+  // Both native controls support 0.01 GeV steps; normalize pasted and typed
+  // values once so the curve, controls, and share URL describe the same point.
+  return Math.round(Math.min(ENERGY.max, Math.max(ENERGY.min, Number(value))) * 100) / 100;
 }

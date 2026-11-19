@@ -307,6 +307,21 @@ export function createPlayer({
     }));
   }
 
+  function workedExample(q) {
+    const example = q.worked_example;
+    if (!example) return null;
+    const claims = example.claims || [];
+    return h('details', { class: 'panel-section tour-worked-example' }, [
+      h('summary', {}, 'Go deeper: compare rock depth and water-equivalent depth'),
+      h('div', { class: 'panel-section-body' }, [
+        h('p', {}, sentence(example.prompt, claims.filter(c => c.in === 'prompt'))),
+        h('p', {}, sentence(example.answer, claims.filter(c => c.in !== 'prompt'))),
+        workingList(example),
+        sourcesDisclosure(claims.map(claim => ({ claim, where: 'in the worked example' })), 'Sources for the worked example'),
+      ]),
+    ]);
+  }
+
   function questionCard() {
     const q = step.question;
     if (!q) return null;
@@ -315,6 +330,7 @@ export function createPlayer({
     const answerClaims = claims.filter((c) => c.in !== 'prompt');
     const answer = h('div', { class: 'tour-answer', id: 'tour-answer', hidden: !answerOpen }, [
       h('p', { class: 'tour-q-answer' }, sentence(q.answer, answerClaims)),
+      workedExample(q),
       workingList(q) ? h('details', { class: 'panel-section' }, [h('summary', {}, 'How it was worked out'), h('div', { class: 'panel-section-body' }, workingList(q))]) : null,
       // The answer's own claims and the ones its working leans on (the figures in the question).
       claims.length ? sourcesDisclosure(claims.map((claim) => ({ claim, where: claim.in === 'prompt' ? 'in the question' : 'in the answer' })), 'Sources for the question and answer') : null,

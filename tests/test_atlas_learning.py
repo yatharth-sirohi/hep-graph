@@ -103,3 +103,39 @@ def test_existing_tours_can_open_the_underground_and_higgs_visuals():
         errors = [i for i in validate_tour(atlas, tour, '2026-11-19') if i.level == 'error']
         assert errors == [], [i.message for i in errors]
         assert step_href(tour['steps'][5]).endswith(expected)
+
+
+def test_off_step_energy_has_one_supported_value_for_controls_and_shared_url():
+    out = run_node("""
+      import {normaliseEnergy} from './static/atlas/js/views/oscillation-model.js';
+      console.log(JSON.stringify(['0.2051','1.23456',2.5911936707].map(normaliseEnergy)));
+    """)
+    assert out == [.21,1.23,2.59]
+
+
+def test_underground_prediction_retains_the_prior_sourced_worked_example():
+    from hepgraph.atlas.load import DATA_DIR, load_atlas
+    from hepgraph.atlas.tours import build_bundle
+    atlas = load_atlas(DATA_DIR)
+    bundle, errors = build_bundle(atlas, '2026-10-29')
+    assert not errors
+    question = bundle['tours']['tour:going-underground-dark-matter']['steps'][5]['question']
+    worked = question.get('worked_example')
+    assert worked, 'the original sourced depth exercise must remain behind the prediction reveal'
+    assert len(worked['claims']) == 5
+    assert sum('ref' in line for line in worked['calculation']) == 6
+    assert 'Soudan is 705 m underground, at 2070 m.w.e.' in worked['prompt']
+    assert 'SURF: 4300 ÷ 1478' in worked['answer']
+    assert worked['calculation'][-1]['value'] == 2.9
+
+
+def test_worked_example_claims_are_validated_instead_of_silently_accepted():
+    import copy
+    from hepgraph.atlas.load import DATA_DIR, load_atlas
+    from hepgraph.atlas.tours import validate_tour
+    atlas = load_atlas(DATA_DIR)
+    tour = copy.deepcopy(atlas.get('tour:going-underground-dark-matter'))
+    tour['steps'][5]['question']['worked_example'] = {
+        'prompt': 'Predict a value?', 'answer': 'A sourced value.',
+        'claims': [{'covers':'A sourced value', 'in':'answer', 'ref':'experiment:does-not-exist', 'field':'claim'}]}
+    assert any(i.rule == 'tour-ref-unknown-entity' for i in validate_tour(atlas,tour,'2026-10-29'))

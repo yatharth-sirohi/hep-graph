@@ -51,9 +51,15 @@ const questions = [
     }
     await checkpoint();
     await noOverflow();
+    if(view==='underground') {
+     await page.locator('.tour-worked-example > summary').click();
+     assert.match(await page.locator('.tour-worked-example').innerText(),/Soudan: 2070/);
+    }
     if(view==='results-story') {
      if(mobile) await page.getByRole('button',{name:'Hide text',exact:true}).click();
      await page.locator('.rs-mark[data-id="result:atlas-higgs-observation-2012"]').first().click();
+     await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+     assert.equal(await page.locator('.rs-card').evaluate(n=>n.hidden),false, 'the card must stay open after the strip scrolls to the mark');
      await page.locator('.rs-card').getByRole('link',{name:'Open the result',exact:true}).click();
      await page.locator('.result-evidence').waitFor();
      assert.match(page.url(), /#\/result\/atlas-higgs-observation-2012$/);
@@ -76,6 +82,14 @@ const questions = [
    await page.locator('.osc-method summary').click();
    assert.match(await page.locator('.osc-method').innerText(),/1.267/);
    assert.match(await page.locator('.osc-method').innerText(),/eV²/);
+   await page.locator('#osc-baseline').selectOption('j-parc-neutrino');
+   await page.waitForURL(/#\/view\/beam-section\/j-parc-neutrino$/);
+   await page.waitForFunction(()=>document.querySelector('#osc-baseline')?.value==='j-parc-neutrino');
+   assert.match(await page.locator('.osc-maximum').innerText(),/0.596 GeV at 295.3352 km/);
+   await page.goBack();
+   await page.waitForURL(/#\/tour\/neutrino-beams-through-the-earth$/);
+   await page.waitForFunction(()=>document.querySelector('#osc-baseline')?.value==='lbnf');
+   assert.equal(await page.locator('#osc-energy').inputValue(),'2.51');
    await page.locator('#osc-baseline').selectOption('lbnf');
    await page.waitForURL(/#\/view\/beam-section\/lbnf$/);
    await page.waitForFunction(()=>document.querySelector('#osc-baseline')?.value==='lbnf');
@@ -92,7 +106,16 @@ const questions = [
    await page.reload();
    await page.waitForFunction(()=>document.querySelector('#osc-energy')?.value==='2.59');
    await noOverflow();
-   await page.locator('#osc-energy').scrollIntoViewIfNeeded();
+   await page.locator('.osc-plot').scrollIntoViewIfNeeded();
+   if(mobile) {
+    const visible=await page.evaluate(()=>{
+     const view=document.querySelector('#view-host').getBoundingClientRect();
+     const slider=document.querySelector('#osc-energy').getBoundingClientRect();
+     const plot=document.querySelector('.osc-plot').getBoundingClientRect();
+     return slider.top>=view.top && plot.bottom<=view.bottom;
+    });
+    assert(visible,'the phone must show the energy control and full curve together');
+   }
    await page.screenshot({path:path.join(out,`${engineName}-${mobile?'360':'desktop'}-lab.png`)});
    // Keyboard source disclosure, then Results and Back must restore the changed lab.
    await page.locator('.osc-method summary').focus(); await page.keyboard.press('Enter');
@@ -140,6 +163,21 @@ const questions = [
    await page.goto(`${base}/atlas?e=NaN#/view/beam-section/lbnf`);
    await page.waitForFunction(()=>document.querySelector('#osc-energy')?.value==='0.6');
    assert.equal(await page.locator('#osc-readout').innerText().then(t=>t.includes('NaN')),false);
+   await page.goto(`${base}/atlas?e=0.2051#/view/beam-section/lbnf`);
+   await page.waitForFunction(()=>document.querySelector('#osc-energy')?.value==='0.21');
+   assert.equal(await page.locator('#osc-energy-number').inputValue(),'0.21');
+   await page.locator('#osc-energy-number').fill('1.23456');
+   await page.locator('#osc-energy-number').press('Tab');
+   assert.equal(await page.locator('#osc-energy').inputValue(),'1.23');
+   assert.equal(await page.locator('#osc-energy-number').inputValue(),'1.23');
+   assert.equal(new URL(page.url()).searchParams.get('e'),'1.23');
+   const genericText=await page.evaluate(async()=>{
+    const {renderEvidence}=await import('/atlas/js/result-evidence.js');
+    const node=renderEvidence({experiment:'Example',paper:'A primary study',measurement:'Measured a flux',evidence:[]});
+    return node.textContent;
+   });
+   assert.match(genericText,/Measured a flux/); assert.doesNotMatch(genericText,/Higgs|CMS|4 July/);
+
    await page.goto(`${base}/atlas#/result/atlas-nature-higgs-2022`);
    await page.locator('#detail-panel h2').waitFor();
    assert.equal(await page.locator('.result-evidence').count(),0,'uncurated results must not acquire invented evidence');

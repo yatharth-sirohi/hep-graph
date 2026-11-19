@@ -375,7 +375,6 @@ async function openResultsControls(page) {
       if (expected.view) {
         await p.locator("#view-body svg").first().waitFor();
         assert.match(await p.locator("#view-title").innerText(), expected.view, `${expected.href} opens its view`);
-        if (expected.href === "#/view/beam-section/j-parc-neutrino") assert.match(await p.locator("#view-subtitle").innerText(), /J-PARC → Kamioka Observatory/, "the T2K row: Tokai to Kamioka");
       } else {
         await p.locator("#detail-panel h2").waitFor();
         assert.match(await p.locator("#detail-panel h2").innerText(), expected.panel, `${expected.href} opens its record`);

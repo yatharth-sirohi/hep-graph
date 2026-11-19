@@ -1,8 +1,19 @@
 // Editorial evidence pilot, checked against the explicit July 2012 paper versions.
 // Add a reviewed entry for another result; absence means no evidence card, not no evidence.
 // Display strings preserve the distinction between a mass fit and a significance scan.
+const higgsReading = {
+  context: 'These are the paper’s findings, following the 4 July announcement.',
+  expectedLabel: 'Expected with a Standard Model Higgs signal',
+  interpretation: [
+    'Observed significance measures how incompatible the data are with a background-only model at one tested mass, expressed as an equivalent one-sided Gaussian tail. Expected significance is the median sensitivity assuming a Standard Model Higgs signal; it is not another observation.',
+    'Neither is the probability that the Higgs exists. A global significance also accounts for searching over many masses; it depends on the search window.',
+  ],
+  definition: { label: 'CMS §4, printed p. 6 (PDF page 8): local and global p-values', url: 'https://arxiv.org/pdf/1207.7235v1#page=8' },
+  conclusion: 'ATLAS and CMS are separate analyses. No joint significance is calculated here. The papers established a new boson compatible with the Higgs; further property measurements followed.',
+};
 const trails = {
   'result:atlas-higgs-observation-2012': {
+    ...higgsReading,
     experiment: 'ATLAS', paper: 'arXiv:1207.7214v1 (31 July 2012)',
     measurement: 'ATLAS reconstructed decay products in 7 and 8 TeV proton–proton collisions. Excesses in two-photon and four-lepton invariant masses, with other channels, supported a new neutral boson compatible with a Standard Model Higgs.',
     mass: '126.0 ± 0.4 (stat.) ± 0.4 (sys.) GeV, fitted from γγ and ZZ → 4ℓ.',
@@ -19,6 +30,7 @@ const trails = {
     companion: { slug:'cms-higgs-boson-observation-2012', label:'Read CMS’s evidence trail' },
   },
   'result:cms-higgs-boson-observation-2012': {
+    ...higgsReading,
     experiment:'CMS', paper:'arXiv:1207.7235v1 (31 July 2012)',
     measurement:'CMS searched five decay modes in 7 and 8 TeV proton–proton collisions. The clearest mass excesses were in two photons and four leptons; the significance below uses all five modes.',
     mass:'125.3 ± 0.4 (stat.) ± 0.5 (syst.) GeV, fitted from γγ and ZZ.',

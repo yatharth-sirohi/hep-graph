@@ -2627,7 +2627,16 @@ a.rs-lane-link {
 .osc-method summary { cursor: pointer; padding: .6rem 0; }
 .osc-formula { font-family: 'STIX Two Math', serif; font-size: 1.15rem; overflow-wrap: anywhere; }
 .osc-lab :focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }
-@media (max-width: 560px) { .osc-controls { grid-template-columns: minmax(0, 1fr); gap: .35rem; } .osc-controls label:not(:first-child) { margin-top: .6rem; } }
+@media (max-width: 560px) {
+  /* Keep the energy controls and the entire curve together in a phone viewport. */
+  .osc-controls { grid-template-columns: minmax(0, 1fr) 7rem; gap: .35rem .7rem; }
+  .osc-controls label[for=osc-baseline] { grid-area: 1 / 1 / 2 / 3; }
+  #osc-baseline { grid-area: 2 / 1 / 3 / 3; }
+  .osc-controls label[for=osc-energy] { grid-area: 3 / 1; margin-top: .6rem; }
+  #osc-energy { grid-area: 4 / 1; }
+  .osc-controls label[for=osc-energy-number] { grid-area: 3 / 2; margin-top: .6rem; }
+  #osc-energy-number { grid-area: 4 / 2; }
+}
 /* A question opened in the tour must expose its visual in the small area above
    the phone's tour sheet. The full explanation remains immediately below it. */
 @media (max-width: 760px) {

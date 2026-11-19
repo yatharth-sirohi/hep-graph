@@ -49,7 +49,7 @@ export function createOscillationLab(ctx, row) {
     el('p', {}, `Baseline input: ${decimal(baseline, 4)} km, from the beamline record’s distance field, rather than the coordinate-derived chord above. ${row.baseline.distance?.note || ''}`),
     el('p', {}, named[row.arg] === 'T2K'
       ? sourceLink('https://arxiv.org/pdf/1106.1238v2#page=10', 'T2K experiment paper: §3.6.1, PDF page 10, surveyed target–Super-K distance')
-      : row.arg === 'lbnf' ? sourceLink('https://arxiv.org/pdf/2007.06722#page=12', 'DUNE ProtoDUNE-SP performance paper: §1, 1285 km baseline')
+      : row.arg === 'lbnf' ? sourceLink('https://arxiv.org/pdf/2007.06722v4#page=12', 'DUNE ProtoDUNE-SP performance paper: §1, 1285 km baseline')
         : 'The original baseline citations appear in “Sourced baseline and computed distance” below.'),
   ]);
   root.append(
@@ -61,8 +61,8 @@ export function createOscillationLab(ctx, row) {
       el('label', { for: 'osc-energy' }, 'Neutrino energy (GeV)'), range,
       el('label', { for: 'osc-energy-number' }, 'Set energy (GeV)'), number,
     ]),
-    el('p', { id: 'osc-control-help', class: 'muted' }, 'Use the slider, arrow keys (0.01 GeV per step), or the number box. Range: 0.2–8 GeV.'),
     readout, plot,
+    el('p', { id: 'osc-control-help', class: 'muted' }, 'Use the slider, arrow keys (0.01 GeV per step), or the number box. Range: 0.2–8 GeV.'),
     el('p', { class: 'osc-legend' }, '● Selected energy: solid guide · ◇ First maximum: dashed guide. Curve: illustrative conversion probability.'),
     el('p', { class: 'osc-maximum' }, `First maximum: ${decimal(maximum)} GeV at ${decimal(baseline, 4)} km; P = 100% for these teaching parameters.`),
     peak, method,

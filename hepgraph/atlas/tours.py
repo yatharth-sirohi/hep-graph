@@ -663,7 +663,7 @@ class _Checker:
                            f'{entity_id} is dated {date}, after {year}')
 
     # -- questions ---------------------------------------------------------
-    def check_question(self, base: tuple, question: Any) -> None:
+    def check_question(self, base: tuple, question: Any, *, allow_worked_example: bool = True) -> None:
         if not isinstance(question, dict):
             self.error('tour-question-shape', _pointer(*base), 'a question is an object')
             return
@@ -672,9 +672,14 @@ class _Checker:
             self.error('tour-question-shape', _pointer(*base, 'prompt'), 'a question needs a `prompt`')
         if not answer:
             self.error('tour-question-shape', _pointer(*base, 'answer'), 'a question needs a worked `answer`')
-        extra = sorted(set(question) - {'prompt', 'answer', 'claims', 'calculation'})
+        allowed = {'prompt', 'answer', 'claims', 'calculation'}
+        if allow_worked_example:
+            allowed.add('worked_example')
+        extra = sorted(set(question) - allowed)
         if extra:
             self.error('tour-question-shape', _pointer(*base), f'unknown question key(s) {extra}')
+        if allow_worked_example and question.get('worked_example') is not None:
+            self.check_question(base + ('worked_example',), question['worked_example'], allow_worked_example=False)
         hosts = {'prompt': prompt, 'answer': answer}
         claims = self.check_claims(question.get('claims'), base + ('claims',), hosts, what='a question')
         covered = [(h, c) for h, c, _ in claims]
@@ -932,6 +937,8 @@ def _resolved_question(atlas: Any, question: dict) -> dict:
         calc.append(row)
     if calc:
         out['calculation'] = calc
+    if question.get('worked_example'):
+        out['worked_example'] = _resolved_question(atlas, question['worked_example'])
     return out
 
 
@@ -963,7 +970,10 @@ def build_bundle(atlas: Any, build_date: str) -> tuple[dict, list[str]]:
             except (RefError, KeyError, TypeError) as exc:
                 errors.append(f'{tour_id} steps[{index}]: {getattr(exc, "message", exc)}')
                 continue
-            for claim in out['claims'] + out.get('question', {}).get('claims', []):
+            question = out.get('question', {})
+            example = question.get('worked_example', {})
+            for claim in (out['claims'] + question.get('claims', []) + question.get('calculation', [])
+                          + example.get('claims', []) + example.get('calculation', [])):
                 used.update(claim.get('sources') or [])
             steps.append(out)
         tours[tour_id] = {
