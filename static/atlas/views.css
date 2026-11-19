@@ -2653,3 +2653,14 @@ a.rs-lane-link {
 .osc-controls .osc-keep-ratio { display: flex; align-items: center; gap: .65rem; min-height: 44px; line-height: 1.5; }
 .osc-controls input[type=checkbox] { width: 1.15rem; height: 1.15rem; flex-shrink: 0; accent-color: var(--white); }
 #osc-baseline-error { border-left: 3px solid currentColor; padding-left: .65rem; }
+
+/* A closed two-flavor probability balance, with shape and text independent of color. */
+.osc-flavors { margin: .9rem 0; padding: .7rem .9rem; border: 1px solid var(--line-strong); border-radius: var(--radius); }
+.osc-flavors summary { cursor: pointer; min-height: 44px; line-height: 1.6; font-weight: 600; }
+.osc-flavor-values { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .75rem; }
+.osc-flavor-values dt { font-size: .9rem; line-height: 1.5; }
+.osc-flavor-values dd { margin: .35rem 0; font-size: 1.25rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+.osc-flavor-bar svg { display: block; width: 100%; }
+.osc-survival-part { fill: var(--white); }
+.osc-flavor-hatch { fill: none; stroke: var(--white); stroke-width: 5; }
+.osc-flavor-outline { fill: none; stroke: var(--white); stroke-width: 1.5; vector-effect: non-scaling-stroke; }

@@ -76,7 +76,21 @@ Finding: the lab plots and announces conversion, while original-flavor survival 
 
 The T2K explanation was checked again on 19 November: its “Atmospheric Neutrino Anomaly” passage distinguishes the observed flavor deficit from absorption at those energies, and “The Resolution — Neutrino Oscillations” supplies the two-flavor conversion formula. Source: <https://t2k-experiment.org/neutrinos/beyond-the-standard-model/>. Survival = 1 − conversion follows from the closed two-flavor teaching model.
 
-- [ ] Add meaningful calculation regressions at no mixing, a first maximum, and half-phase, with probabilities bounded and summing to one.
-- [ ] Add an optional in-place “Track both flavors” disclosure under the current chart: original-flavor and converted-flavor probabilities, text labels and a non-color visual that follows the existing energy control.
-- [ ] Keep the two generic flavors explicit; distinguish flavor survival from absorption and detector event counts. Reuse the current formula/source and model limitations, without adding another tour or URL control.
-- [ ] Verify keyboard disclosure/energy changes, first-maximum and doubling actions, fixed-L/E switching, 360px layout and restored URLs in Chromium/WebKit; review and record the cycle.
+- [x] Add meaningful calculation regressions at no mixing, a first maximum, and half-phase, with probabilities bounded and summing to one.
+- [x] Add an optional in-place “Track both flavors” disclosure under the current chart: original-flavor and converted-flavor probabilities, text labels and a non-color visual that follows the existing energy control.
+- [x] Keep the two generic flavors explicit; distinguish flavor survival from absorption and detector event counts. Reuse the current formula/source and model limitations, without adding another tour or URL control.
+- [x] Verify keyboard disclosure/energy changes, first-maximum and doubling actions, fixed-L/E switching, 360px layout and restored URLs in Chromium/WebKit; review and record the cycle.
+
+
+Iteration 5 outcome: the existing energy control now drives a native “Track both flavors” disclosure below the curve. It shows original-flavor survival and conversion as a solid/striped balance with text percentages and an explicit selected-energy/sourced-baseline caption. The closed two-flavor model, no absorption/detector response, generic flavors and distinction from detected-event fractions/rates are stated. No new tour, URL field or model parameter was added. The range’s accessible value contains both outcomes; the new definition list is not another live region.
+
+The calculation and browser tests failed first for the missing helper/disclosure. Final verification: 15 focused learning tests pass; 809 repository tests pass, 139 skip. Chromium and WebKit pass desktop and 360px values, keyboard, first maximum, doubling, fixed-L/E switching, caption updates, reload/Back and phone beam-tour energy controls without advancing the step. Both engines pass the full connected mobile question→lab→primary-paper journey again. Scoped axe WCAG A/AA checks on the expanded lab find zero violations in standard and projector themes at 360px. Independent review found no actionable issue, confirmed the primary source and swept all 1,562 T2K/DUNE control-energy pairs for bounds, complement and display rounding. Actual screen-reader speech/timing was not measured.
+
+## Iteration 6 — Take the oscillation lab to a lesson
+
+Finding: `beam-section.js` registers an export containing only the zoomed Earth section and whole-Earth diagram (`host.setExporter`, around line 624). The selected oscillation curve and two-flavor balance are omitted. An instructor can share the live energy URL but cannot save the worked model visual with the current Export image flow. The teaching plan explicitly asks for reusable, sourced classroom figures.
+
+- [ ] Inspect the existing host/export interfaces and reproduce what the beam view currently saves.
+- [ ] Add a way to export the selected oscillation lab through the existing image-export machinery, while preserving the existing beam-geometry export.
+- [ ] Carry the actual selected energy, sourced baseline, formula/units/chosen parameters, teaching-model qualification and citations into the saved figure; avoid implying an event prediction or measured uncertainty.
+- [ ] Verify keyboard/mobile controls, current-state capture and downloaded artifact legibility in Chromium/WebKit, including updated energy and baseline selection; review, record and commit the cycle.

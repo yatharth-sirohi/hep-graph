@@ -1,6 +1,6 @@
 // An interaction in the existing beam view, using its sourced baseline row.
 import { allBeamRows } from './beam-rows.js';
-import { ENERGY, doublingExperiment, firstMaximumEnergy, matchBaselineEnergy, normaliseEnergy, oscillationProbability } from './oscillation-model.js';
+import { ENERGY, doublingExperiment, firstMaximumEnergy, flavorProbabilities, matchBaselineEnergy, normaliseEnergy, oscillationProbability } from './oscillation-model.js';
 import { patchQuietly } from '../state.js';
 
 function el(tag, attrs = {}, children = []) {
@@ -76,6 +76,23 @@ export function createOscillationLab(ctx, row) {
     el('p', {}, `Start near the first maximum at ${decimal(experiment.startEnergy)} GeV, keeping this baseline fixed. Predict whether doubling the energy will raise, lower, or leave the conversion probability unchanged. Then test your prediction on the same curve.`),
     testPrediction, predictionAnswer,
   ]) : null;
+  const survivalValue = el('dd', { class: 'osc-survival-value' });
+  const conversionValue = el('dd', { class: 'osc-conversion-value' });
+  const flavorBar = el('div', { class: 'osc-flavor-bar' });
+  const flavorContext = el('p', { id: 'osc-flavor-context', class: 'muted' });
+  const flavors = el('details', { class: 'osc-flavors' }, [
+    el('summary', {}, 'Track both flavors'),
+    el('p', {}, 'Two generic flavors: α is the original flavor, β the other. Change energy above to follow both probabilities.'),
+    flavorContext,
+    el('dl', { class: 'osc-flavor-values' }, [
+      el('div', {}, [el('dt', {}, 'Original flavor α · solid'), survivalValue]),
+      el('div', {}, [el('dt', {}, 'Other flavor β · striped'), conversionValue]),
+    ]),
+    flavorBar,
+    el('p', { class: 'osc-formula' }, 'P(α → α) = 1 − P(α → β); total probability = 100%.'),
+    el('p', {}, 'Flavor survival means keeping the original flavor. Changing flavor is different from absorption: this closed two-flavor vacuum model includes no absorption or detector response. The probabilities are not detected-event fractions or rates. Percentages are rounded to 0.01%.'),
+    el('p', {}, sourceLink('https://t2k-experiment.org/neutrinos/beyond-the-standard-model/', 'T2K: “Atmospheric Neutrino Anomaly” and the two-flavor oscillation explanation')),
+  ]);
   const method = el('details', { class: 'osc-method' }, [
     el('summary', {}, 'Formula, parameters and sources'),
     el('p', { class: 'osc-formula' }, 'P(να → νβ) = sin²(2θ) sin²(1.267 Δm² L / E), α ≠ β'),
@@ -106,7 +123,7 @@ export function createOscillationLab(ctx, row) {
     el('p', { id: 'osc-baseline-help', class: 'muted' }, 'At fixed L/E, the oscillation phase and probability stay the same in this teaching model. “Keep L/E” scales energy with distance, rounded to 0.01 GeV, so the displayed values may differ slightly. Unchecked: energy stays fixed.'),
     el('p', { class: 'osc-legend' }, '● Selected energy: solid guide · ◇ First maximum: dashed guide. Curve: illustrative conversion probability.'),
     el('p', { class: 'osc-maximum' }, `First maximum: ${decimal(maximum)} GeV at ${decimal(baseline, 4)} km; P = 100% for these teaching parameters.`),
-    peak, prediction, method,
+    peak, flavors, prediction, method,
   );
 
   function draw() {
@@ -140,11 +157,35 @@ export function createOscillationLab(ctx, row) {
       svgEl('circle', { cx:x(energy),cy:y(probability),r:6,class:'osc-selected-point' }));
     plot.replaceChildren(svg);
   }
+  function drawFlavors(pair, converted, survived) {
+    flavorContext.textContent = `Selected energy: ${decimal(energy)} GeV · Baseline: ${decimal(baseline,4)} km`;
+    survivalValue.textContent = `${survived}%`;
+    conversionValue.textContent = `${converted}%`;
+    const svg = svgEl('svg', { viewBox: '0 0 1000 60', width: '100%', height: 48,
+      preserveAspectRatio: 'none', role: 'img', 'aria-labelledby': 'osc-flavor-title osc-flavor-desc' });
+    svg.append(svgEl('title', { id: 'osc-flavor-title' }, 'The two flavor probabilities at the selected energy'),
+      svgEl('desc', { id: 'osc-flavor-desc' }, `At ${decimal(energy)} GeV and ${decimal(baseline,4)} km, original-flavor survival is ${survived}% and conversion to the other flavor is ${converted}%. The solid and striped parts total 100% in this teaching model.`));
+    const defs = svgEl('defs');
+    const pattern = svgEl('pattern', { id: 'osc-flavor-stripes', width: 20, height: 20, patternUnits: 'userSpaceOnUse' });
+    pattern.append(svgEl('path', { d: 'M-5,5l10,-10 M0,20L20,0 M15,25l10,-10', class: 'osc-flavor-hatch' }));
+    defs.append(pattern);svg.append(defs);
+    const original = 1000 * pair.survival;
+    svg.append(
+      svgEl('rect', { x:0, y:10, width:original, height:40, class:'osc-survival-part', 'data-probability':'survival' }),
+      svgEl('rect', { x:original, y:10, width:1000-original, height:40, fill:'url(#osc-flavor-stripes)', 'data-probability':'conversion' }),
+      svgEl('rect', { x:0, y:10, width:1000, height:40, class:'osc-flavor-outline' }),
+    );
+    flavorBar.replaceChildren(svg);
+  }
   function render() {
     range.value = String(energy);
     number.value = decimal(energy, 4);
-    const percent = (oscillationProbability(baseline,energy)*100).toFixed(2);
-    range.setAttribute('aria-valuetext', `${decimal(energy)} GeV; ${percent}% illustrative conversion probability`);
+    const pair = flavorProbabilities(baseline, energy);
+    const percent = (pair.conversion*100).toFixed(2);
+    // Round the displayed complement together so the displayed pair totals 100%.
+    const survived = (100-Number(percent)).toFixed(2);
+    range.setAttribute('aria-valuetext', `${decimal(energy)} GeV; ${percent}% illustrative conversion probability; ${survived}% original-flavor survival`);
+    drawFlavors(pair, percent, survived);
     readout.textContent = `E = ${decimal(energy)} GeV · P = ${percent}% · L/E = ${decimal(baseline/energy,1)} km/GeV`;
     draw();
   }

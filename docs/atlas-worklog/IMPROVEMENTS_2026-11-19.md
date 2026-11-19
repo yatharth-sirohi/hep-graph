@@ -32,13 +32,27 @@ A rapid-navigation stress probe exposed an existing WebKit lifecycle issue: defe
 
 ## Cycle 4: reliable cold-page exits
 
+Committed as `eceeb178`.
+
 The rapid-navigation failure is fixed. The trace showed the optional Earth texture and country-border requests starting after WebKit had begun leaving a document. Their creation is now part of globe initialization; loading, decoding and application remain asynchronous. Existing fallback behavior and once-only guards remain. The change adds no unload listeners.
 
 The new regression failed before the fix and now passes in Chromium and WebKit at 360px: four rapid cold-page exit cycles, normal loading of both assets, keyboard energy input and real Back/forward restoration of energy and fixed-L/E state. A separate slow-assets case holds both optional requests while the base canvas is visible, opens the beam question and operates the lab before releasing either request. This verifies usability while loading, not a first-frame timing budget or a persisted history-cache hit.
 
 The connected phone journey through all three questions, the lab and both primary papers passed again in both engines. Full repository suite: **808 passed, 139 skipped**. Independent review found no correctness, fallback or history blockers. Data/source values and the separate HEP Graph app were unchanged; the most recent dedicated Graph browser regression remains the cycle 3 pass.
 
-Next learning cycle: make the two-flavor model’s original-flavor survival visible alongside conversion, so learners can distinguish changing flavor from absorption or an observed detector rate. The existing cited formula supplies both probabilities; no new fitted parameters or experimental prediction is planned.
+This led to the two-flavor learning interaction in cycle 5 below.
+
+## Cycle 5: track both flavors
+
+“Track both flavors” expands beneath the existing oscillation curve. The same energy control updates a solid/striped probability balance, text percentages and a selected-energy/sourced-baseline caption. It distinguishes retaining the starting flavor from absorption and detector response; the two generic flavors belong to the closed two-flavor vacuum teaching model. The existing DUNE/three-flavor limitations remain visible. No experimental values, fitted parameters, URL controls or second tour were added.
+
+The pure model exposes conversion and its survival complement. The range’s accessible value announces both outcomes, while the new definition list adds no separate live region. Paired percentage rounding preserves a displayed total of 100%; the bar follows the unrounded model. Source: the existing [T2K atmospheric-deficit and two-flavor explanation](https://t2k-experiment.org/neutrinos/beyond-the-standard-model/), rechecked for this cycle. Survival = 1 − conversion is derived from that closed model, not an observed event fraction.
+
+Final verification: **809 passed, 139 skipped** in the repository suite; **15 focused learning tests passed**, including no mixing, first maximum, half-phase and independent Python reference values. Chromium and WebKit passed desktop/360px values, keyboard controls, first-maximum/doubling actions, fixed-L/E baseline changes, captions, reload/Back and phone tour-step preservation. Both engines passed the connected phone question→lab→primary-paper journey again. Scoped axe checks on the expanded lab found **zero WCAG A/AA violations** in standard and Projector themes at 360px. Actual screen-reader speech and timing remain unverified. Independent review found no actionable findings and checked the source and all 1,562 T2K/DUNE energy pairs for probability bounds, complement and displayed rounding.
+
+Try either lab route below and expand “Track both flavors.” The existing default curve and phone control/plot layout are preserved. Screenshots include the dark and Projector versions in the ignored verification-artifact directory.
+
+Next cycle: export currently saves only the two beam/Earth diagrams. Extend the existing export flow to save the selected lab visual with its parameters, model qualification and sources, preserving the existing geometry export.
 
 ## Local routes and sources
 
@@ -72,6 +86,8 @@ HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_comparison_edges.cjs
 HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_comparison_edges.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_evidence_followup.cjs
 HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_evidence_followup.cjs
+HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_flavors.cjs
+HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_flavors.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_navigation_lifecycle.cjs
 HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=chromium node tests/browser_atlas_navigation_lifecycle.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_database.cjs

@@ -18,6 +18,13 @@ export function oscillationProbability(baselineKm, energyGeV, options) {
     * Math.sin(MODEL.phaseFactor * deltaM2 * baselineKm / energyGeV) ** 2;
 }
 
+// A closed two-flavor vacuum model has no absorption or detector response.
+// Survival means retaining the original flavor, not a transmitted event rate.
+export function flavorProbabilities(baselineKm, energyGeV, options) {
+  const conversion = oscillationProbability(baselineKm, energyGeV, options);
+  return { conversion, survival: 1 - conversion };
+}
+
 // The first peak as L/E grows from zero: phase = pi/2. At fixed L it is
 // the highest-energy oscillation maximum, not the leftmost peak of an E plot.
 export function firstMaximumEnergy(baselineKm, options) {

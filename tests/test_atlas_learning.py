@@ -250,3 +250,22 @@ def test_beam_tour_alias_keeps_lab_state_during_startup_navigation():
     assert 'le=1' in out['canonical']
     assert out['state']['energy'] == 2.5
     assert out['state']['keepRatio'] is True
+
+
+def test_two_flavor_outcomes_at_no_mixing_maximum_and_half_phase():
+    out = run_node("""
+      import {flavorProbabilities as f,firstMaximumEnergy as peak} from './static/atlas/js/views/oscillation-model.js';
+      const l=1285,e=peak(l);
+      console.log(JSON.stringify({canonical:[f(0,1),f(l,e,{thetaDeg:0}),f(l,e,{thetaDeg:30}),f(l,e),f(l,2*e)],
+        grid:[295.3352,1285].flatMap(l=>[.2,.6,1.2,2.59,5.18,8].map(e=>({l,e,...f(l,e)})))}));
+    """)
+    for actual, (conversion, survival) in zip(out['canonical'], [(0,1),(0,1),(.75,.25),(1,0),(.5,.5)]):
+        assert actual['conversion'] == pytest.approx(conversion, abs=1e-12)
+        assert actual['survival'] == pytest.approx(survival, abs=1e-12)
+    for row in out['grid']:
+        expected = math.sin(1.267 * .0025 * row['l'] / row['e']) ** 2
+        assert row['conversion'] == pytest.approx(expected, abs=1e-12)
+        assert row['survival'] == pytest.approx(1 - expected, abs=1e-12)
+        assert 0 <= row['conversion'] <= 1
+        assert 0 <= row['survival'] <= 1
+        assert row['conversion'] + row['survival'] == pytest.approx(1, abs=1e-12)
