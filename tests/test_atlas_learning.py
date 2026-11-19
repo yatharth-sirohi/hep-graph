@@ -139,3 +139,25 @@ def test_worked_example_claims_are_validated_instead_of_silently_accepted():
         'prompt': 'Predict a value?', 'answer': 'A sourced value.',
         'claims': [{'covers':'A sourced value', 'in':'answer', 'ref':'experiment:does-not-exist', 'field':'claim'}]}
     assert any(i.rule == 'tour-ref-unknown-entity' for i in validate_tour(atlas,tour,'2026-10-29'))
+
+
+def test_energy_doubling_experiment_uses_supported_controls_and_actual_probabilities():
+    out = run_node("""
+      import {doublingExperiment} from './static/atlas/js/views/oscillation-model.js';
+      console.log(JSON.stringify([295.3352,1285].map(doublingExperiment)));
+    """)
+    for experiment, baseline, start, target in zip(out, [295.3352,1285], [.6,2.59], [1.2,5.18]):
+        assert experiment['startEnergy'] == start
+        assert experiment['doubledEnergy'] == target
+        assert experiment['startProbability'] == pytest.approx(math.sin(1.267*.0025*baseline/start)**2)
+        assert experiment['doubledProbability'] == pytest.approx(math.sin(1.267*.0025*baseline/target)**2)
+        assert experiment['startProbability'] > .999
+        assert .49 < experiment['doubledProbability'] < .51
+
+
+def test_energy_experiment_does_not_silently_clamp_an_unreachable_maximum():
+    out = run_node("""
+      import {doublingExperiment} from './static/atlas/js/views/oscillation-model.js';
+      console.log(JSON.stringify([0,50,2500,5000].map(doublingExperiment)));
+    """)
+    assert out == [None,None,None,None]

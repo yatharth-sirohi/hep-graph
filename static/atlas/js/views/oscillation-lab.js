@@ -1,6 +1,6 @@
 // An interaction in the existing beam view, using its sourced baseline row.
 import { allBeamRows } from './beam-rows.js';
-import { ENERGY, firstMaximumEnergy, normaliseEnergy, oscillationProbability } from './oscillation-model.js';
+import { ENERGY, doublingExperiment, firstMaximumEnergy, normaliseEnergy, oscillationProbability } from './oscillation-model.js';
 import { patchQuietly } from '../state.js';
 
 function el(tag, attrs = {}, children = []) {
@@ -38,6 +38,14 @@ export function createOscillationLab(ctx, row) {
   const readout = el('output', { id: 'osc-readout', for: 'osc-energy osc-energy-number', 'aria-live': 'polite', 'aria-atomic': 'true' });
   const plot = el('div', { class: 'osc-plot' });
   const peak = el('button', { type: 'button', class: 'text-btn' }, 'Try the first maximum');
+  const experiment = doublingExperiment(baseline);
+  const predictionAnswer = el('div', { id: 'osc-prediction-answer', class: 'osc-prediction-answer', hidden: '', role: 'status', 'aria-live': 'polite' });
+  const testPrediction = el('button', { type: 'button', class: 'text-btn', 'aria-controls': 'osc-prediction-answer', 'aria-expanded': 'false' }, 'Test doubling on the curve');
+  const prediction = experiment ? el('details', { class: 'osc-experiment' }, [
+    el('summary', {}, 'Predict: what if the energy doubles?'),
+    el('p', {}, `Start near the first maximum at ${decimal(experiment.startEnergy)} GeV, keeping this baseline fixed. Predict whether doubling the energy will raise, lower, or leave the conversion probability unchanged. Then test your prediction on the same curve.`),
+    testPrediction, predictionAnswer,
+  ]) : null;
   const method = el('details', { class: 'osc-method' }, [
     el('summary', {}, 'Formula, parameters and sources'),
     el('p', { class: 'osc-formula' }, 'P(να → νβ) = sin²(2θ) sin²(1.267 Δm² L / E), α ≠ β'),
@@ -65,7 +73,7 @@ export function createOscillationLab(ctx, row) {
     el('p', { id: 'osc-control-help', class: 'muted' }, 'Use the slider, arrow keys (0.01 GeV per step), or the number box. Range: 0.2–8 GeV.'),
     el('p', { class: 'osc-legend' }, '● Selected energy: solid guide · ◇ First maximum: dashed guide. Curve: illustrative conversion probability.'),
     el('p', { class: 'osc-maximum' }, `First maximum: ${decimal(maximum)} GeV at ${decimal(baseline, 4)} km; P = 100% for these teaching parameters.`),
-    peak, method,
+    peak, prediction, method,
   );
 
   function draw() {
@@ -108,6 +116,8 @@ export function createOscillationLab(ctx, row) {
     draw();
   }
   function change(value) {
+    predictionAnswer.hidden = true;
+    testPrediction.setAttribute('aria-expanded', 'false');
     energy = normaliseEnergy(value);
     patchQuietly({ energy }); // retain keyboard focus; no remount per slider step
     render();
@@ -115,11 +125,21 @@ export function createOscillationLab(ctx, row) {
   range.addEventListener('input', () => change(range.value));
   number.addEventListener('change', () => change(number.value));
   peak.addEventListener('click', () => change(Math.round(maximum*100)/100));
+  testPrediction.addEventListener('click', () => {
+    if (!experiment) return;
+    change(experiment.doubledEnergy);
+    predictionAnswer.replaceChildren(
+      el('p', {}, `Conversion falls from ${(100 * experiment.startProbability).toFixed(2)}% at ${decimal(experiment.startEnergy)} GeV to ${(100 * experiment.doubledProbability).toFixed(2)}% at ${decimal(experiment.doubledEnergy)} GeV. The selected point on the curve now shows the doubled energy.`),
+      el('p', {}, 'Why: at fixed distance, doubling the energy halves the oscillation phase, which is proportional to L/E. Starting exactly at phase π/2 would give phase π/4, so this model’s conversion probability would fall from 100% to 50%. The numbers above use the actual 0.01 GeV control rounding.'),
+    );
+    predictionAnswer.hidden = false;
+    testPrediction.setAttribute('aria-expanded', 'true');
+  });
   const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(draw);
   observer?.observe(plot);
   render();
   return { element:root,
-    update(next) { const restored=normaliseEnergy(next.energyGeV); if(restored!==energy){energy=restored;render();} },
+    update(next) { const restored=normaliseEnergy(next.energyGeV); if(restored!==energy){predictionAnswer.hidden=true;testPrediction.setAttribute('aria-expanded','false');energy=restored;render();} },
     destroy() { observer?.disconnect(); },
   };
 }

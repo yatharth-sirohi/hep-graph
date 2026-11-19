@@ -31,3 +31,20 @@ export function normaliseEnergy(value) {
   // values once so the curve, controls, and share URL describe the same point.
   return Math.round(Math.min(ENERGY.max, Math.max(ENERGY.min, Number(value))) * 100) / 100;
 }
+
+/** A reproducible learner experiment on the real control grid. Returns null
+ * rather than silently changing the question when its energies are out of range. */
+export function doublingExperiment(baselineKm) {
+  const maximum = firstMaximumEnergy(baselineKm);
+  if (maximum < ENERGY.min || maximum > ENERGY.max) return null;
+  const startEnergy = normaliseEnergy(maximum);
+  const doubledEnergy = 2 * startEnergy;
+  if (doubledEnergy > ENERGY.max) return null;
+  const target = normaliseEnergy(doubledEnergy);
+  return {
+    startEnergy,
+    doubledEnergy: target,
+    startProbability: oscillationProbability(baselineKm, startEnergy),
+    doubledProbability: oscillationProbability(baselineKm, target),
+  };
+}
