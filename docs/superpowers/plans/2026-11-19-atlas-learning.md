@@ -32,33 +32,33 @@ Files: create static/atlas/js/views/oscillation-model.js and oscillation-lab.js;
 
 Interfaces: oscillationProbability(Lkm,EGeV,parameters), firstMaximumEnergy(Lkm,parameters), normaliseEnergy(value); lab consumes resolved beam row and context; energy URL parameter e, scoped to beam view and beam tour.
 
-- [ ] Write and run calculation and URL regression tests, observe failure.
-- [ ] Implement calculation (1.267, delta m squared 0.0025 eV squared, theta 45 degrees), valid 0.2–8 GeV input, live selected circle and dashed maximum/diamond on labeled SVG, numeric alternative, baseline selector using sourced records, method and sources.
-- [ ] Run regression tests and verify keyboard/URL behavior.
+- [x] Write and run calculation and URL regression tests, observe failure.
+- [x] Implement calculation (1.267, delta m squared 0.0025 eV squared, theta 45 degrees), valid 0.2–8 GeV input, live selected circle and dashed maximum/diamond on labeled SVG, numeric alternative, baseline selector using sourced records, method and sources.
+- [x] Run regression tests and verify keyboard/URL behavior.
 
 ### Task 2: Question-first tour entries
 
 Files: modify static/atlas/index.html, existing three data/atlas/tours/*.json and tour player only as needed; regenerate bundles.
 
-- [ ] Add browser regression that opens each exact question, checks its view and prediction reveal.
-- [ ] Link to beam tour step 5, underground tour step 6 with chart, Higgs tour step 6 with Results story; add concise visual instructions and sourced checkpoints. Reuse player, no second system.
-- [ ] Regenerate bundles, run validator and tour tests.
+- [x] Add browser regression that opens each exact question, checks its view and prediction reveal.
+- [x] Link to beam tour step 5, underground tour step 6 with chart, Higgs tour step 6 with Results story; add concise visual instructions and sourced checkpoints. Reuse player, no second system.
+- [x] Regenerate bundles, run validator and tour tests.
 
 ### Task 3: Optional readable evidence trail
 
 Files: create static/atlas/js/result-evidence-data.js and result-evidence.js; modify panels.js and atlas.css.
 
-- [ ] Write failing tests for two evidence records and absence elsewhere.
-- [ ] Add measurement, distinct observed/expected local significance, meaning and exact versioned figure/passage links. Link to companion result; no cross-experiment significance.
-- [ ] Run tests, primary-source check, validator and bundle check.
+- [x] Write failing tests for two evidence records and absence elsewhere.
+- [x] Add measurement, distinct observed/expected local significance, meaning and exact versioned figure/passage links. Link to companion result; no cross-experiment significance.
+- [x] Run tests, primary-source check, validator and bundle check.
 
 ### Task 4: Full journey and reviewable delivery
 
 Files: create tests/browser_atlas_learning.cjs and docs/atlas-worklog/LEARNING_2026-11-19.md.
 
-- [ ] Chromium and 360px mobile WebKit: question, reveal, keyboard energy change, explain, baseline change, shared URL, Back, Results evidence and primary paper navigation.
-- [ ] Run relevant existing Atlas browser suites and full pytest; verify HEP Graph search configuration/behavior and routes.
-- [ ] Review changes, commit feature branch, report exact local routes, sources, passing checks and any remaining limits. Do not merge/deploy.
+- [x] Chromium and 360px mobile WebKit: question, reveal, keyboard energy change, explain, baseline change, shared URL, Back, Results evidence and primary paper navigation.
+- [x] Run relevant existing Atlas browser suites and full pytest; verify HEP Graph search configuration/behavior and routes.
+- [x] Review changes, commit feature branch, report exact local routes, sources, passing checks and any remaining limits. Do not merge/deploy.
 
 ## Progress
 
@@ -68,4 +68,4 @@ Verification notes: Initial regression tests failed before implementation. Focus
 
 Final review fixes: normalized off-step energy to the supported 0.01 GeV grid; strengthened the browser test to switch DUNE → T2K → Back with physical numbers; moved all Higgs-specific prose and definitions into the two pilot data objects and tested generic rendering with a synthetic object; restored the entire prior underground exercise under a validated Go deeper disclosure; pinned DUNE’s PDF to the verified v4. All review findings were addressed. A separately reproduced delayed horizontal-scroll event closed phone result cards; recording the scroll position when opening the card fixes the real chart→result journey.
 
-Verification: 33 focused tests; full Python suite 801 passed / 139 skipped; full connected journey Chromium and WebKit desktop and 360px passed; final compact phone-control check passed in both engines; new lab/evidence axe check 0 WCAG A/AA violations; snapshot validator 0 errors and build check 84 matching files. Comprehensive legacy browser suite is still running.
+Verification: 33 focused tests; full Python suite 801 passed / 139 skipped; full connected journey Chromium and WebKit desktop and 360px passed; final compact phone-control check passed in both engines; new lab/evidence axe check 0 WCAG A/AA violations; snapshot validator 0 errors and build check 84 matching files. Comprehensive legacy browser suite passed 122 checks and then timed out on an unchanged Compare case. The report records the timeout, isolated comparisons against main, and the remaining unverified legacy cases. The explicitly requested connected journeys, calculations, URLs, source access, keyboard and mobile checks all pass.
