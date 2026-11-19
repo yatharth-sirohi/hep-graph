@@ -48,3 +48,18 @@ export function doublingExperiment(baselineKm) {
     doubledProbability: oscillationProbability(baselineKm, target),
   };
 }
+
+
+/** Keep the vacuum phase L/E when moving to a different sourced baseline.
+ * Check the unrounded target first: a clamped result would change the question. */
+export function matchBaselineEnergy(fromBaselineKm, energyGeV, toBaselineKm) {
+  parameters(fromBaselineKm);
+  parameters(toBaselineKm);
+  if (fromBaselineKm === 0 || toBaselineKm === 0 || !Number.isFinite(energyGeV)
+      || energyGeV < ENERGY.min || energyGeV > ENERGY.max) {
+    throw new RangeError('Use positive baselines and an energy within the lab’s supported range.');
+  }
+  const requestedEnergy = energyGeV * toBaselineKm / fromBaselineKm;
+  return { requestedEnergy, energy: requestedEnergy < ENERGY.min || requestedEnergy > ENERGY.max
+    ? null : normaliseEnergy(requestedEnergy) };
+}

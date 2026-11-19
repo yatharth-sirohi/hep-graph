@@ -2631,7 +2631,7 @@ a.rs-lane-link {
   /* Keep the energy controls and the entire curve together in a phone viewport. */
   .osc-controls { grid-template-columns: minmax(0, 1fr) 7rem; gap: .35rem .7rem; }
   .osc-controls label[for=osc-baseline] { grid-area: 1 / 1 / 2 / 3; }
-  #osc-baseline { grid-area: 2 / 1 / 3 / 3; }
+  .osc-baseline-controls { grid-area: 2 / 1 / 3 / 3; }
   .osc-controls label[for=osc-energy] { grid-area: 3 / 1; margin-top: .6rem; }
   #osc-energy { grid-area: 4 / 1; }
   .osc-controls label[for=osc-energy-number] { grid-area: 3 / 2; margin-top: .6rem; }
@@ -2648,3 +2648,8 @@ a.rs-lane-link {
 .osc-experiment summary { cursor: pointer; min-height: 44px; line-height: 1.6; font-weight: 600; }
 .osc-experiment .text-btn { min-height: 44px; }
 .osc-prediction-answer { margin-top: .75rem; border-left: 3px solid var(--amber); padding-left: .8rem; }
+
+.osc-baseline-controls { min-width: 0; }
+.osc-controls .osc-keep-ratio { display: flex; align-items: center; gap: .65rem; min-height: 44px; line-height: 1.5; }
+.osc-controls input[type=checkbox] { width: 1.15rem; height: 1.15rem; flex-shrink: 0; accent-color: var(--white); }
+#osc-baseline-error { border-left: 3px solid currentColor; padding-left: .65rem; }

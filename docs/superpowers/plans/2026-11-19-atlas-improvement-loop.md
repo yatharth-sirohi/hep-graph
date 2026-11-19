@@ -29,8 +29,22 @@ Iteration 1 verified: the two new independent calculation tests failed first bec
 
 Finding: the baseline selector currently holds energy fixed, so changing the distance also changes the oscillation phase. The formula explains L/E, but learners cannot use the existing selector for a controlled comparison.
 
-- [ ] Add failing independent tests for proportional energy matching, supported rounding, invalid inputs, and requests outside 0.2–8 GeV.
-- [ ] Add URL/state and browser regressions for the fixed-L/E preference, actual T2K ↔ DUNE switching, keyboard input, Back/reload, and an out-of-range request.
-- [ ] Add an optional checkbox alongside the existing baseline selector. Preserve the default fixed-energy behavior. When checked, scale energy with baseline; explain the phase invariance and 0.01 GeV rounding using the already sourced formula.
-- [ ] Refuse an unreachable match with a visible, accessible explanation instead of silently clamping energy or changing the requested comparison.
-- [ ] Verify Chromium and mobile WebKit, run relevant regressions, record the outcome, and commit the cycle.
+- [x] Add failing independent tests for proportional energy matching, supported rounding, invalid inputs, and requests outside 0.2–8 GeV.
+- [x] Add URL/state and browser regressions for the fixed-L/E preference, actual T2K ↔ DUNE switching, keyboard input, Back/reload, and an out-of-range request.
+- [x] Add an optional checkbox alongside the existing baseline selector. Preserve the default fixed-energy behavior. When checked, scale energy with baseline; explain the phase invariance and 0.01 GeV rounding using the already sourced formula.
+- [x] Refuse an unreachable match with a visible, accessible explanation instead of silently clamping energy or changing the requested comparison.
+- [x] Verify Chromium and mobile WebKit, run relevant regressions, record the outcome, and commit the cycle.
+
+
+Iteration 2 verification: the new matcher/state tests failed first on missing exports and state. The new comparison browser test failed first on its missing checkbox. Both engines then passed desktop and 360px prediction/comparison tests, including actual T2K↔DUNE switching, keyboard checkbox/energy input, Back/forward/reload and an unreachable match. The full question→lab→Higgs-paper phone journey passed again in Chromium and WebKit. Full repository checks before review fixes: 806 passed, 139 skipped.
+
+Independent review identified three edge cases, reproduced in failing browser regressions before fixes: the accepted view/tour alias lost e/le during startup, hidden referenced error text remained in Chromium’s computed accessibility description, and rounding hid why a target just below 0.2 GeV was refused. All four focused edge checks now pass in both engines; 23 learning/tour-player tests pass. A second review found all findings resolved with no new actionable issues. Final post-review repository verification: 807 passed, 139 skipped. Both engines also pass the final desktop/360px experiment suite. Cycle ready to commit.
+
+## Iteration 3 — Turn evidence reading into the next question
+
+Finding: both Higgs evidence trails explain the measurements and link to the papers, but the existing sourced mass-compatibility exercise (Higgs hunt, step 7) is not discoverable from those Results. Connecting it gives a learner a next action using what they just read, without duplicating the tour or inventing a second exercise.
+
+- [ ] Test that both curated evidence entries target the existing step and that the target still contains both experiments’ measurements, the independent-error approximation and sourced working.
+- [ ] Add a failing browser regression for evidence→question, keyboard reveal, worked answer, copied/deep links and Back on desktop Chromium and 360px WebKit.
+- [ ] Add an optional next-question slot to the reusable evidence display. Keep its topic-specific content in the reviewed registry; reuse the panel’s existing tour-step navigation.
+- [ ] Verify both pilots and optional/missing data, check the separate HEP Graph entry point, record results, and commit this cycle.

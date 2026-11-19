@@ -117,6 +117,7 @@ export function createViewHost({ main, atlas, index, loader, navigate }) {
     return {
       arg,
       energyGeV: state.energy,
+      keepRatio: state.keepRatio,
       atlas,
       index,
       loader,

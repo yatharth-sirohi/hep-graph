@@ -41,8 +41,49 @@ fs.mkdirSync(out,{recursive:true});
     assert.equal(await answer.isVisible(),false,'pasted physical state does not invent a previous prediction');
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'no horizontal overflow');
    }
+   // A controlled comparison uses the existing selector, with restorable state.
+   await page.goto(`${base}/atlas?e=.6#/view/beam-section/j-parc-neutrino`);
+   const keep=page.locator('#osc-keep-ratio');
+   await keep.waitFor();await keep.focus();await page.keyboard.press('Space');
+   assert.equal(await keep.isChecked(),true);
+   assert.equal(new URL(page.url()).searchParams.get('le'),'1');
+   const initialP=Number((await page.locator('#osc-readout').innerText()).match(/([\d.]+)%/)[1]);
+   await page.locator('#osc-baseline').selectOption('lbnf');
+   await page.waitForFunction(()=>document.querySelector('#osc-energy')?.value==='2.61');
+   assert.equal(await keep.isChecked(),true);
+   assert.match(await page.locator('#osc-baseline-help').innerText(),/L\/E.*phase|phase.*L\/E/);
+   assert.match(await page.locator('#osc-baseline-help').innerText(),/round|0.01/);
+   const matchedP=Number((await page.locator('#osc-readout').innerText()).match(/([\d.]+)%/)[1]);
+   assert(Math.abs(matchedP-initialP)<.02,'rounded equal-L/E setups should agree at these energies');
+   await page.goBack();
+   await page.waitForFunction(()=>document.querySelector('#osc-baseline')?.value==='j-parc-neutrino');
+   assert.equal(await page.locator('#osc-energy').inputValue(),'0.6');
+   assert.equal(await keep.isChecked(),true);
+   await page.goForward();
+   await page.waitForFunction(()=>document.querySelector('#osc-baseline')?.value==='lbnf');
+   await page.reload();
+   await page.waitForFunction(()=>document.querySelector('#osc-energy')?.value==='2.61');
+   assert.equal(await keep.isChecked(),true);
+   await page.locator('.osc-plot').scrollIntoViewIfNeeded();
+   assert(await page.locator('.osc-lab').evaluate(node=>node.scrollWidth<=node.clientWidth+1),'lab fits its own panel');
+   await page.screenshot({path:path.join(out,`${engine}-${mobile?'360':'desktop'}-fixed-ratio.png`)});
+   // Refuse a match outside the chart domain; never fake agreement by clamping.
+   await page.goto(`${base}/atlas?e=2&le=1#/view/beam-section/j-parc-neutrino`);
+   await keep.waitFor();
+   await page.locator('#osc-baseline').selectOption('lbnf');
+   assert.equal(await page.locator('#osc-baseline').inputValue(),'j-parc-neutrino');
+   assert.equal(await page.locator('#osc-energy').inputValue(),'2');
+   assert.match(await page.locator('#osc-baseline-error').innerText(),/8\.70.*outside.*0\.2.*8/);
+   assert.match(page.url(),/#\/view\/beam-section\/j-parc-neutrino$/);
+   await keep.focus();await page.keyboard.press('Space');
+   assert.equal(await page.locator('#osc-baseline-error').isVisible(),false);
+   await page.locator('#osc-baseline').selectOption('lbnf');
+   await page.waitForFunction(()=>document.querySelector('#osc-baseline')?.value==='lbnf');
+   assert.equal(await page.locator('#osc-energy').inputValue(),'2','the default comparison keeps energy fixed');
+   assert.equal(new URL(page.url()).searchParams.has('le'),false);
+   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
    await context.close();
-   console.log(`PASS ${engine} ${mobile?'360px mobile':'desktop'} predict-and-test, actual values, keyboard, URL, reset`);
+   console.log(`PASS ${engine} ${mobile?'360px mobile':'desktop'} predict-and-test, fixed-L/E comparison, range refusal, keyboard, Back/reload`);
   }
   assert.deepEqual(errors,[]);
  } finally {await browser.close()}

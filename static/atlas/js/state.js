@@ -87,6 +87,7 @@ function parseSearch(search) {
     // ---- guided tours: the 1-based step, and presenter mode ----
     step: null, present: false,
     energy: params.has('e') ? normaliseEnergy(params.get('e')) : null,
+    keepRatio: params.get('le') === '1',
     results: parseResultsView(params),
     // ---- classroom modes (js/classroom.js): `?embed=1` and `?theme=projector|standard`
     // ride along in every address the app writes, so reloading or sharing keeps them.
@@ -160,7 +161,8 @@ function readLocation() {
 }
 
 function onBeamLab(entity) {
-  return entity && ((entity.type === 'view' && entity.slug.startsWith('beam-section/'))
+  return entity && ((entity.type === 'view' && (entity.slug.startsWith('beam-section/')
+      || entity.slug === 'tour/neutrino-beams-through-the-earth'))
     || (entity.type === 'tour' && entity.slug === 'neutrino-beams-through-the-earth'));
 }
 
@@ -180,7 +182,10 @@ function buildURL(state) {
   if (state.mode) params.set('m', state.mode);
   if (state.collab) params.set('c', state.collab);
   if (state.arcs) params.set('arcs', '1');
-  if (onBeamLab(state.entity) && state.energy != null) params.set('e', String(normaliseEnergy(state.energy)));
+  if (onBeamLab(state.entity)) {
+    if (state.energy != null) params.set('e', String(normaliseEnergy(state.energy)));
+    if (state.keepRatio) params.set('le', '1');
+  }
   // ---- local map view (§4) ----
   // These three only mean anything on a map route, so they are written only
   // there: leaving a map must not leave `lv`/`bm`/`sel` stranded in the URL
@@ -225,7 +230,7 @@ export function navigate(patch, { replace = false } = {}) {
   const previousMode = current ? current.mode : null;
   const previousEntity = current ? current.entity : null;
   current = { ...current, ...patch };
-  if (!onBeamLab(current.entity)) current.energy = null;
+  if (!onBeamLab(current.entity)) { current.energy = null; current.keepRatio = false; }
   // An overlay belongs to the map it was laid on: opening any other route drops it
   // (a link that names `cmp` brings it back, because the patch then says so).
   if ('entity' in patch && !('cmp' in patch)) {
@@ -306,7 +311,7 @@ export function patchFromLink(href) {
   const entity = parseHashEntity(url.hash);
   if (entity) patch.entity = entity;
   const named = [['y', 'year'], ['t', 'topic'], ['s', 'status'], ['er', 'era'], ['fk', 'facilityKind'],
-    ['ek', 'experimentKind'], ['rg', 'region'], ['m', 'mode'], ['step', 'step'], ['present', 'present'], ['e', 'energy']];
+    ['ek', 'experimentKind'], ['rg', 'region'], ['m', 'mode'], ['step', 'step'], ['present', 'present'], ['e', 'energy'], ['le', 'keepRatio']];
   for (const [param, key] of named) if (params.has(param)) patch[key] = parsed[key];
   return patch;
 }

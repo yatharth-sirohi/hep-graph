@@ -161,3 +161,92 @@ def test_energy_experiment_does_not_silently_clamp_an_unreachable_maximum():
       console.log(JSON.stringify([0,50,2500,5000].map(doublingExperiment)));
     """)
     assert out == [None,None,None,None]
+
+
+def test_baseline_matching_scales_energy_before_supported_control_rounding():
+    out = run_node("""
+      import {matchBaselineEnergy, oscillationProbability as p} from './static/atlas/js/views/oscillation-model.js';
+      const pairs = [[295.3352, .6, 1285], [1285, 2.61, 295.3352], [100, .2, 100], [100, 8, 100]];
+      console.log(JSON.stringify(pairs.map(([from, energy, to]) => {
+        const match = matchBaselineEnergy(from, energy, to);
+        return {...match, before:p(from, energy), after:p(to, match.energy)};
+      })));
+    """)
+    for row, (before_l, before_e, after_l, rounded) in zip(out, [
+        (295.3352, .6, 1285, 2.61), (1285, 2.61, 295.3352, .6),
+        (100, .2, 100, .2), (100, 8, 100, 8),
+    ]):
+        requested = before_e * after_l / before_l
+        assert row['requestedEnergy'] == pytest.approx(requested)
+        assert after_l / requested == pytest.approx(before_l / before_e)
+        assert row['energy'] == rounded
+        expected = math.sin(1.267 * 2.5e-3 * after_l / rounded) ** 2
+        assert row['after'] == pytest.approx(expected)
+        assert abs(row['before'] - row['after']) < .0002
+
+
+def test_baseline_matching_refuses_unreachable_energy_without_clamping():
+    out = run_node("""
+      import {matchBaselineEnergy as m} from './static/atlas/js/views/oscillation-model.js';
+      console.log(JSON.stringify({outside:[[295.3352,2,1285],[1285,.6,295.3352],[100,.2,99.99],[100,8,100.01]].map(x=>m(...x)),
+        rejected:[[0,.6,1285],[295,.6,0],[-1,.6,1285],[295,NaN,1285],[295,0,1285],[295,Infinity,1285],[NaN,.6,1285]].map(x=>{
+          try {m(...x);return false} catch(error) {return error instanceof RangeError}
+        })}));
+    """)
+    assert all(row['energy'] is None for row in out['outside'])
+    assert out['outside'][0]['requestedEnergy'] > 8
+    assert out['outside'][1]['requestedEnergy'] < .2
+    assert all(out['rejected'])
+
+
+def test_fixed_ratio_preference_roundtrips_and_stays_scoped_to_the_beam_lab():
+    out = run_node("""
+      globalThis.window = {location: new URL('http://atlas.test/atlas?step=5&e=.6&le=1#/tour/neutrino-beams-through-the-earth'),
+        addEventListener(){},history:{pushState(s,_,u){window.location=new URL(u,window.location)},
+          replaceState(s,_,u){window.location=new URL(u,window.location)}}};
+      const state = await import('./static/atlas/js/state.js');
+      const initial=state.init();
+      const link=state.patchFromLink('?e=2.61&le=1#/view/beam-section/lbnf');
+      state.navigate(link);
+      const matched=window.location.href;
+      state.patchQuietly({keepRatio:false});
+      const fixedEnergy=window.location.href;
+      state.patchQuietly({keepRatio:true});
+      state.navigate({entity:{type:'result',slug:'atlas-higgs-observation-2012'}});
+      const after=state.get(), resultURL=window.location.href;
+      window.location=new URL(matched); const restored=state.init();
+      window.location=new URL('http://atlas.test/atlas?le=maybe#/view/beam-section/lbnf');
+      const invalid=state.init().keepRatio;
+      console.log(JSON.stringify({initial,link,matched,fixedEnergy,after,resultURL,restored,invalid}));
+    """)
+    assert out['initial']['keepRatio'] is True
+    assert out['link']['keepRatio'] is True
+    assert out['link']['energy'] == 2.61
+    assert 'le=1' in out['matched']
+    assert 'le=' not in out['fixedEnergy']
+    assert 'le=' not in out['resultURL']
+    assert out['after']['keepRatio'] is False
+    assert out['after']['energy'] is None
+    assert out['restored']['keepRatio'] is True
+    assert out['restored']['energy'] == 2.61
+    assert out['invalid'] is False
+
+
+def test_beam_tour_alias_keeps_lab_state_during_startup_navigation():
+    out = run_node("""
+      globalThis.window = {location:new URL('http://atlas.test/atlas?step=5&e=2.5&le=1#/view/tour/neutrino-beams-through-the-earth'),
+        addEventListener(){},history:{pushState(s,_,u){window.location=new URL(u,window.location)},
+          replaceState(s,_,u){window.location=new URL(u,window.location)}}};
+      const state=await import('./static/atlas/js/state.js');
+      state.init();
+      state.navigate({year:2026},{replace:true});
+      const during=window.location.href;
+      state.navigate({entity:{type:'tour',slug:'neutrino-beams-through-the-earth'}},{replace:true});
+      console.log(JSON.stringify({during,canonical:window.location.href,state:state.get()}));
+    """)
+    assert 'e=2.5' in out['during']
+    assert 'le=1' in out['during']
+    assert 'e=2.5' in out['canonical']
+    assert 'le=1' in out['canonical']
+    assert out['state']['energy'] == 2.5
+    assert out['state']['keepRatio'] is True

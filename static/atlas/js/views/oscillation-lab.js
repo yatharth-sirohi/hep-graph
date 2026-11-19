@@ -1,6 +1,6 @@
 // An interaction in the existing beam view, using its sourced baseline row.
 import { allBeamRows } from './beam-rows.js';
-import { ENERGY, doublingExperiment, firstMaximumEnergy, normaliseEnergy, oscillationProbability } from './oscillation-model.js';
+import { ENERGY, doublingExperiment, firstMaximumEnergy, matchBaselineEnergy, normaliseEnergy, oscillationProbability } from './oscillation-model.js';
 import { patchQuietly } from '../state.js';
 
 function el(tag, attrs = {}, children = []) {
@@ -26,12 +26,42 @@ export function createOscillationLab(ctx, row) {
   const baseline = row.sourcedKm;
   const maximum = firstMaximumEnergy(baseline);
   const rows = allBeamRows(ctx.atlas).filter(r => r.located && r.sourcedKm > 0);
-  const select = el('select', { id: 'osc-baseline' }, rows.map(r => {
+  const select = el('select', { id: 'osc-baseline', 'aria-describedby': 'osc-baseline-help osc-baseline-error' }, rows.map(r => {
     const option = el('option', { value: r.arg }, `${named[r.arg] || r.label} · ${decimal(r.sourcedKm, 4)} km`);
     option.selected = r.arg === row.arg;
     return option;
   }));
-  select.addEventListener('change', () => ctx.navigate({ entity: { type: 'view', slug: `beam-section/${select.value}` }, energy }));
+  const keepRatio = el('input', { type: 'checkbox', id: 'osc-keep-ratio', 'aria-describedby': 'osc-baseline-help' });
+  keepRatio.checked = Boolean(ctx.keepRatio);
+  const baselineError = el('p', { id: 'osc-baseline-error', role: 'alert', hidden: '' });
+  function clearBaselineError() {
+    baselineError.hidden = true;
+    baselineError.textContent = ''; // Hidden described text still reaches assistive technology.
+  }
+  keepRatio.addEventListener('change', () => {
+    clearBaselineError();
+    patchQuietly({ keepRatio: keepRatio.checked });
+  });
+  select.addEventListener('change', () => {
+    const target = rows.find(r => r.arg === select.value);
+    if (!target) return;
+    let nextEnergy = energy;
+    if (keepRatio.checked) {
+      const match = matchBaselineEnergy(baseline, energy, target.sourcedKm);
+      if (match.energy == null) {
+        select.value = row.arg;
+        const shown = decimal(match.requestedEnergy);
+        const required = Number(shown) >= ENERGY.min && Number(shown) <= ENERGY.max
+          ? `an energy just ${match.requestedEnergy < ENERGY.min ? `below ${ENERGY.min}` : `above ${ENERGY.max}`} GeV`
+          : `${shown} GeV`;
+        baselineError.textContent = `Keeping L/E at this baseline would need ${required}, outside the lab’s 0.2–8 GeV range. Change the energy or turn off “Keep L/E” and try again.`;
+        baselineError.hidden = false;
+        return;
+      }
+      nextEnergy = match.energy;
+    }
+    ctx.navigate({ entity: { type: 'view', slug: `beam-section/${target.arg}` }, energy: nextEnergy, keepRatio: keepRatio.checked });
+  });
   const range = el('input', { type: 'range', id: 'osc-energy', min: ENERGY.min, max: ENERGY.max, step: '.01',
     'aria-describedby': 'osc-control-help osc-readout' });
   const number = el('input', { type: 'number', id: 'osc-energy-number', min: ENERGY.min, max: ENERGY.max, step: '.01', inputmode: 'decimal' });
@@ -65,12 +95,15 @@ export function createOscillationLab(ctx, row) {
     el('p', { class: 'osc-model-note' }, 'Two-flavor vacuum teaching model. This is not a DUNE prediction, an observed event rate, or a substitute for three-flavor matter effects.'),
     el('p', {}, 'Keep the distance fixed and change the energy. Watch how the selected circle moves along the curve; compare it with the diamond marking the first maximum.'),
     el('div', { class: 'osc-controls' }, [
-      el('label', { for: 'osc-baseline' }, 'Sourced baseline'), select,
+      el('label', { for: 'osc-baseline' }, 'Sourced baseline'),
+      el('div', { class: 'osc-baseline-controls' }, [select,
+        el('label', { for: 'osc-keep-ratio', class: 'osc-keep-ratio' }, [keepRatio, 'Keep L/E when changing baseline']), baselineError]),
       el('label', { for: 'osc-energy' }, 'Neutrino energy (GeV)'), range,
       el('label', { for: 'osc-energy-number' }, 'Set energy (GeV)'), number,
     ]),
     readout, plot,
     el('p', { id: 'osc-control-help', class: 'muted' }, 'Use the slider, arrow keys (0.01 GeV per step), or the number box. Range: 0.2–8 GeV.'),
+    el('p', { id: 'osc-baseline-help', class: 'muted' }, 'At fixed L/E, the oscillation phase and probability stay the same in this teaching model. “Keep L/E” scales energy with distance, rounded to 0.01 GeV, so the displayed values may differ slightly. Unchecked: energy stays fixed.'),
     el('p', { class: 'osc-legend' }, '● Selected energy: solid guide · ◇ First maximum: dashed guide. Curve: illustrative conversion probability.'),
     el('p', { class: 'osc-maximum' }, `First maximum: ${decimal(maximum)} GeV at ${decimal(baseline, 4)} km; P = 100% for these teaching parameters.`),
     peak, prediction, method,
@@ -116,6 +149,7 @@ export function createOscillationLab(ctx, row) {
     draw();
   }
   function change(value) {
+    clearBaselineError();
     predictionAnswer.hidden = true;
     testPrediction.setAttribute('aria-expanded', 'false');
     energy = normaliseEnergy(value);
@@ -139,7 +173,18 @@ export function createOscillationLab(ctx, row) {
   observer?.observe(plot);
   render();
   return { element:root,
-    update(next) { const restored=normaliseEnergy(next.energyGeV); if(restored!==energy){predictionAnswer.hidden=true;testPrediction.setAttribute('aria-expanded','false');energy=restored;render();} },
+    update(next) {
+      keepRatio.checked = Boolean(next.keepRatio);
+      clearBaselineError();
+      const restored = normaliseEnergy(next.energyGeV);
+      if (restored !== energy) {
+        clearBaselineError();
+        predictionAnswer.hidden = true;
+        testPrediction.setAttribute('aria-expanded', 'false');
+        energy = restored;
+        render();
+      }
+    },
     destroy() { observer?.disconnect(); },
   };
 }
