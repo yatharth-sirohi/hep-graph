@@ -49,7 +49,7 @@ WARNING = 'warning'
 
 #: A28: the computed views a step may open.  `beam-section` is the cross-section
 #: of the Earth along one beamline (M2); its `arg` is the beamline slug.
-VIEW_NAMES: tuple[str, ...] = ('beam-section',)
+VIEW_NAMES: tuple[str, ...] = ('beam-section', 'underground', 'results-story')
 
 #: The entity types the app can route to (`TYPE_PREFIX` in static/atlas/js/state.js;
 #: `tests/test_atlas_tours.py` keeps the two in step).  A step may `select` only these.
@@ -639,6 +639,10 @@ class _Checker:
             elif view['name'] not in VIEW_NAMES:
                 self.error('tour-view', _pointer(*base, 'view', 'name'),
                            f'view name {view["name"]!r} is not one of {list(VIEW_NAMES)}')
+            elif view['name'] == 'underground' and view['arg'] != '':
+                self.error('tour-view-arg', _pointer(*base, 'view', 'arg'), 'underground takes an empty argument')
+            elif view['name'] == 'results-story' and view['arg'] and not self.atlas.has(f'topic:{view["arg"]}'):
+                self.error('tour-view-arg', _pointer(*base, 'view', 'arg'), 'results-story takes a known topic slug or an empty argument')
             elif view['name'] == 'beam-section' and not self.atlas.has(f'beamline:{view["arg"]}'):
                 self.warn('tour-view-arg', _pointer(*base, 'view', 'arg'),
                           f'beam-section takes a beamline slug; there is no beamline:{view["arg"]}')
@@ -659,7 +663,42 @@ class _Checker:
                            f'{entity_id} is dated {date}, after {year}')
 
     # -- questions ---------------------------------------------------------
-    def check_question(self, base: tuple, question: Any) -> None:
+    def check_choices(self, base: tuple, question: dict, *, allowed: bool) -> None:
+        if 'choices' not in question and 'correct_choice' not in question:
+            return
+        if not allowed:
+            self.error('tour-choice-shape', _pointer(*base),
+                       'choices belong to the primary question, not its worked example')
+            return
+        choices = question.get('choices')
+        if not isinstance(choices, list) or not 2 <= len(choices) <= 5:
+            self.error('tour-choice-shape', _pointer(*base, 'choices'),
+                       '`choices` is a list of two to five alternatives')
+            return
+        ids, labels = set(), set()
+        for index, choice in enumerate(choices):
+            pointer = base + ('choices', index)
+            if not isinstance(choice, dict) or set(choice) != {'id', 'label'}:
+                self.error('tour-choice-shape', _pointer(*pointer),
+                           'each choice has exactly an `id` and a plain-text `label`')
+                continue
+            ident, label = choice['id'], choice['label']
+            if not isinstance(ident, str) or not re.fullmatch(r'[a-z][a-z0-9-]*', ident) or ident in ids:
+                self.error('tour-choice-shape', _pointer(*pointer, 'id'),
+                           'choice IDs are distinct lowercase identifiers with optional digits/hyphens')
+            else:
+                ids.add(ident)
+            if not isinstance(label, str) or not label.strip() or label.strip().casefold() in labels:
+                self.error('tour-choice-shape', _pointer(*pointer, 'label'),
+                           'choice labels are non-empty, distinct text')
+            else:
+                labels.add(label.strip().casefold())
+        correct = question.get('correct_choice')
+        if not isinstance(correct, str) or correct not in ids:
+            self.error('tour-choice-shape', _pointer(*base, 'correct_choice'),
+                       '`correct_choice` names one of the listed choice IDs')
+
+    def check_question(self, base: tuple, question: Any, *, allow_worked_example: bool = True) -> None:
         if not isinstance(question, dict):
             self.error('tour-question-shape', _pointer(*base), 'a question is an object')
             return
@@ -668,9 +707,15 @@ class _Checker:
             self.error('tour-question-shape', _pointer(*base, 'prompt'), 'a question needs a `prompt`')
         if not answer:
             self.error('tour-question-shape', _pointer(*base, 'answer'), 'a question needs a worked `answer`')
-        extra = sorted(set(question) - {'prompt', 'answer', 'claims', 'calculation'})
+        allowed = {'prompt', 'answer', 'claims', 'calculation', 'choices', 'correct_choice'}
+        if allow_worked_example:
+            allowed.add('worked_example')
+        extra = sorted(set(question) - allowed)
         if extra:
             self.error('tour-question-shape', _pointer(*base), f'unknown question key(s) {extra}')
+        if allow_worked_example and question.get('worked_example') is not None:
+            self.check_question(base + ('worked_example',), question['worked_example'], allow_worked_example=False)
+        self.check_choices(base, question, allowed=allow_worked_example)
         hosts = {'prompt': prompt, 'answer': answer}
         claims = self.check_claims(question.get('claims'), base + ('claims',), hosts, what='a question')
         covered = [(h, c) for h, c, _ in claims]
@@ -877,7 +922,8 @@ def step_href(step: dict) -> str:
     query = f'?y={year}' if isinstance(year, int) else ''
     view, local_map, select = step.get('view'), step.get('map'), step.get('select')
     if isinstance(view, dict):
-        return f"{query}#/view/{view['name']}/{view['arg']}"
+        suffix = f"/{view['arg']}" if view['arg'] else ''
+        return f"{query}#/view/{view['name']}{suffix}"
     if local_map:
         # On a map route the selection is the `sel` parameter (an entity id), as in localmap.js.
         if select:
@@ -927,6 +973,11 @@ def _resolved_question(atlas: Any, question: dict) -> dict:
         calc.append(row)
     if calc:
         out['calculation'] = calc
+    if question.get('choices'):
+        out['choices'] = [{'id': choice['id'], 'label': choice['label']} for choice in question['choices']]
+        out['correct_choice'] = question['correct_choice']
+    if question.get('worked_example'):
+        out['worked_example'] = _resolved_question(atlas, question['worked_example'])
     return out
 
 
@@ -958,7 +1009,10 @@ def build_bundle(atlas: Any, build_date: str) -> tuple[dict, list[str]]:
             except (RefError, KeyError, TypeError) as exc:
                 errors.append(f'{tour_id} steps[{index}]: {getattr(exc, "message", exc)}')
                 continue
-            for claim in out['claims'] + out.get('question', {}).get('claims', []):
+            question = out.get('question', {})
+            example = question.get('worked_example', {})
+            for claim in (out['claims'] + question.get('claims', []) + question.get('calculation', [])
+                          + example.get('claims', []) + example.get('calculation', [])):
                 used.update(claim.get('sources') or [])
             steps.append(out)
         tours[tour_id] = {

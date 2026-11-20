@@ -539,6 +539,9 @@ export async function mount(ctx) {
     if (!it) return;
     window.clearTimeout(hoverTimer);
     window.clearTimeout(leaveTimer);
+    // Opening after keyboard focus or a tap can follow a programmatic strip
+    // scroll. Its delayed event belongs to this position, not to a later gesture.
+    lastScroll = scroller.scrollLeft;
     fillCard(it);
     pinned = pinned || pin;
     card.dataset.mark = `${mark.dataset.lane}|${mark.dataset.id}`;

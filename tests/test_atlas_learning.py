@@ -1,0 +1,381 @@
+"""Behavioral regression for the teaching model, scoped URLs and evidence pilot.
+
+Independent Python trigonometry catches unit/phase errors; real browser modules
+run under Node, with only the browser location/history boundary supplied here.
+"""
+import json
+import math
+import shutil
+import subprocess
+from pathlib import Path
+
+import pytest
+
+ROOT = Path(__file__).resolve().parents[1]
+NODE = shutil.which('node')
+pytestmark = pytest.mark.skipif(not NODE, reason='Node is required for browser module checks')
+
+
+def run_node(script):
+    result = subprocess.run([NODE, '--input-type=module', '-e', script],
+                            cwd=ROOT, capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr
+    return json.loads(result.stdout)
+
+
+def test_two_flavor_probability_and_first_maximum_in_km_gev():
+    out = run_node("""
+      import {oscillationProbability as p, firstMaximumEnergy as e} from './static/atlas/js/views/oscillation-model.js';
+      console.log(JSON.stringify({values: [[295.3352,.6],[1285,2.5],[735.3,1],[0,1]].map(([l,en])=>p(l,en)),
+        maxima: [295.3352,1285].map(l=>[e(l),p(l,e(l)),p(l,e(l)*2)]),
+        reduced: p(1285,e(1285),{thetaDeg:15})}));
+    """)
+    for actual, (baseline, energy) in zip(out['values'], [(295.3352,.6),(1285,2.5),(735.3,1),(0,1)]):
+        assert actual == pytest.approx(math.sin(1.267 * .0025 * baseline / energy)**2, abs=1e-12)
+        assert 0 <= actual <= 1
+    for energy, probability, doubled in out['maxima']:
+        assert probability == pytest.approx(1)
+        assert doubled == pytest.approx(.5)
+    assert out['maxima'][0][0] == pytest.approx(.5955414015, abs=1e-7)
+    assert out['maxima'][1][0] == pytest.approx(2.5911936707, abs=1e-7)
+    assert out['reduced'] == pytest.approx(.25)
+
+
+def test_model_rejects_nonphysical_inputs_and_url_energy_stays_finite():
+    out = run_node("""
+      import {oscillationProbability as p, normaliseEnergy as n} from './static/atlas/js/views/oscillation-model.js';
+      const invalid = [[1,0],[1,-1],[-1,1],[Infinity,1],[1,NaN]];
+      console.log(JSON.stringify({rejected:invalid.map(args=>{try{p(...args);return false}catch{return true}}),
+        energy: [null,'', 'banana','Infinity','-1','0.1','2.5','100'].map(n)}));
+    """)
+    assert all(out['rejected'])
+    assert out['energy'] == [.6,.6,.6,.6,.2,.2,2.5,8]
+
+
+def test_question_and_lab_urls_roundtrip_and_do_not_leak_into_results():
+    out = run_node("""
+      globalThis.window = {location: new URL('http://atlas.test/atlas?step=4&e=2.5#/tour/neutrino-beams-through-the-earth'),
+        addEventListener(){}, history:{pushState(s,_,u){window.location=new URL(u,window.location)},
+          replaceState(s,_,u){window.location=new URL(u,window.location)}}};
+      const state = await import('./static/atlas/js/state.js');
+      const initial=state.init();
+      const link=state.patchFromLink('?step=6#/tour/higgs-hunt');
+      state.navigate({entity:{type:'view',slug:'beam-section/lbnf'},energy:1.25});
+      const beamURL=window.location.href;
+      state.navigate({entity:{type:'result',slug:'atlas-higgs-observation-2012'}});
+      console.log(JSON.stringify({initial,link,beamURL,resultURL:window.location.href,energy:state.get().energy}));
+    """)
+    assert out['initial']['energy'] == 2.5
+    assert out['initial']['step'] == 4
+    assert out['link']['step'] == 6
+    assert '?e=1.25#/view/beam-section/lbnf' in out['beamURL']
+    assert 'e=' not in out['resultURL']
+    assert out['energy'] is None
+
+
+def test_evidence_pilot_distinguishes_observed_expected_and_missing_records():
+    out = run_node("""
+      import {evidenceFor} from './static/atlas/js/result-evidence-data.js';
+      console.log(JSON.stringify({atlas:evidenceFor('result:atlas-higgs-observation-2012'),
+        cms:evidenceFor('result:cms-higgs-boson-observation-2012'), other:evidenceFor('result:other')}));
+    """)
+    assert out['other'] is None
+    assert out['atlas']['significance']['observed'] == '5.9σ'
+    assert out['atlas']['significance']['expected'] == '4.9σ'
+    assert out['cms']['significance']['observed'] == '5.0σ'
+    assert out['cms']['significance']['expected'] == '5.8σ'
+    for experiment in ['atlas','cms']:
+        entry = out[experiment]
+        assert entry['significance']['scope'] == 'Local significance'
+        assert all(item['locator'] and item['url'].startswith('https://arxiv.org/pdf/') and '#page=' in item['url']
+                   for item in entry['evidence'])
+
+
+def test_existing_tours_can_open_the_underground_and_higgs_visuals():
+    import copy
+    from hepgraph.atlas.load import DATA_DIR, load_atlas
+    from hepgraph.atlas.tours import validate_tour, step_href
+    atlas = load_atlas(DATA_DIR)
+    for name, arg, expected in [('underground', '', '#/view/underground'),
+                                ('results-story', 'higgs-physics', '#/view/results-story/higgs-physics')]:
+        tour = copy.deepcopy(atlas.get('tour:higgs-hunt'))
+        tour['steps'][5]['view'] = {'name': name, 'arg': arg}
+        errors = [i for i in validate_tour(atlas, tour, '2026-11-19') if i.level == 'error']
+        assert errors == [], [i.message for i in errors]
+        assert step_href(tour['steps'][5]).endswith(expected)
+
+
+def test_off_step_energy_has_one_supported_value_for_controls_and_shared_url():
+    out = run_node("""
+      import {normaliseEnergy} from './static/atlas/js/views/oscillation-model.js';
+      console.log(JSON.stringify(['0.2051','1.23456',2.5911936707].map(normaliseEnergy)));
+    """)
+    assert out == [.21,1.23,2.59]
+
+
+def test_underground_prediction_retains_the_prior_sourced_worked_example():
+    from hepgraph.atlas.load import DATA_DIR, load_atlas
+    from hepgraph.atlas.tours import build_bundle
+    atlas = load_atlas(DATA_DIR)
+    bundle, errors = build_bundle(atlas, '2026-10-29')
+    assert not errors
+    question = bundle['tours']['tour:going-underground-dark-matter']['steps'][5]['question']
+    worked = question.get('worked_example')
+    assert worked, 'the original sourced depth exercise must remain behind the prediction reveal'
+    assert len(worked['claims']) == 5
+    assert sum('ref' in line for line in worked['calculation']) == 6
+    assert 'Soudan is 705 m underground, at 2070 m.w.e.' in worked['prompt']
+    assert 'SURF: 4300 ÷ 1478' in worked['answer']
+    assert worked['calculation'][-1]['value'] == 2.9
+
+
+def test_worked_example_claims_are_validated_instead_of_silently_accepted():
+    import copy
+    from hepgraph.atlas.load import DATA_DIR, load_atlas
+    from hepgraph.atlas.tours import validate_tour
+    atlas = load_atlas(DATA_DIR)
+    tour = copy.deepcopy(atlas.get('tour:going-underground-dark-matter'))
+    tour['steps'][5]['question']['worked_example'] = {
+        'prompt': 'Predict a value?', 'answer': 'A sourced value.',
+        'claims': [{'covers':'A sourced value', 'in':'answer', 'ref':'experiment:does-not-exist', 'field':'claim'}]}
+    assert any(i.rule == 'tour-ref-unknown-entity' for i in validate_tour(atlas,tour,'2026-10-29'))
+
+
+def test_energy_doubling_experiment_uses_supported_controls_and_actual_probabilities():
+    out = run_node("""
+      import {doublingExperiment} from './static/atlas/js/views/oscillation-model.js';
+      console.log(JSON.stringify([295.3352,1285].map(doublingExperiment)));
+    """)
+    for experiment, baseline, start, target in zip(out, [295.3352,1285], [.6,2.59], [1.2,5.18]):
+        assert experiment['startEnergy'] == start
+        assert experiment['doubledEnergy'] == target
+        assert experiment['startProbability'] == pytest.approx(math.sin(1.267*.0025*baseline/start)**2)
+        assert experiment['doubledProbability'] == pytest.approx(math.sin(1.267*.0025*baseline/target)**2)
+        assert experiment['startProbability'] > .999
+        assert .49 < experiment['doubledProbability'] < .51
+
+
+def test_energy_experiment_does_not_silently_clamp_an_unreachable_maximum():
+    out = run_node("""
+      import {doublingExperiment} from './static/atlas/js/views/oscillation-model.js';
+      console.log(JSON.stringify([0,50,2500,5000].map(doublingExperiment)));
+    """)
+    assert out == [None,None,None,None]
+
+
+def test_baseline_matching_scales_energy_before_supported_control_rounding():
+    out = run_node("""
+      import {matchBaselineEnergy, oscillationProbability as p} from './static/atlas/js/views/oscillation-model.js';
+      const pairs = [[295.3352, .6, 1285], [1285, 2.61, 295.3352], [100, .2, 100], [100, 8, 100]];
+      console.log(JSON.stringify(pairs.map(([from, energy, to]) => {
+        const match = matchBaselineEnergy(from, energy, to);
+        return {...match, before:p(from, energy), after:p(to, match.energy)};
+      })));
+    """)
+    for row, (before_l, before_e, after_l, rounded) in zip(out, [
+        (295.3352, .6, 1285, 2.61), (1285, 2.61, 295.3352, .6),
+        (100, .2, 100, .2), (100, 8, 100, 8),
+    ]):
+        requested = before_e * after_l / before_l
+        assert row['requestedEnergy'] == pytest.approx(requested)
+        assert after_l / requested == pytest.approx(before_l / before_e)
+        assert row['energy'] == rounded
+        expected = math.sin(1.267 * 2.5e-3 * after_l / rounded) ** 2
+        assert row['after'] == pytest.approx(expected)
+        assert abs(row['before'] - row['after']) < .0002
+
+
+def test_baseline_matching_refuses_unreachable_energy_without_clamping():
+    out = run_node("""
+      import {matchBaselineEnergy as m} from './static/atlas/js/views/oscillation-model.js';
+      console.log(JSON.stringify({outside:[[295.3352,2,1285],[1285,.6,295.3352],[100,.2,99.99],[100,8,100.01]].map(x=>m(...x)),
+        rejected:[[0,.6,1285],[295,.6,0],[-1,.6,1285],[295,NaN,1285],[295,0,1285],[295,Infinity,1285],[NaN,.6,1285]].map(x=>{
+          try {m(...x);return false} catch(error) {return error instanceof RangeError}
+        })}));
+    """)
+    assert all(row['energy'] is None for row in out['outside'])
+    assert out['outside'][0]['requestedEnergy'] > 8
+    assert out['outside'][1]['requestedEnergy'] < .2
+    assert all(out['rejected'])
+
+
+def test_fixed_ratio_preference_roundtrips_and_stays_scoped_to_the_beam_lab():
+    out = run_node("""
+      globalThis.window = {location: new URL('http://atlas.test/atlas?step=5&e=.6&le=1#/tour/neutrino-beams-through-the-earth'),
+        addEventListener(){},history:{pushState(s,_,u){window.location=new URL(u,window.location)},
+          replaceState(s,_,u){window.location=new URL(u,window.location)}}};
+      const state = await import('./static/atlas/js/state.js');
+      const initial=state.init();
+      const link=state.patchFromLink('?e=2.61&le=1#/view/beam-section/lbnf');
+      state.navigate(link);
+      const matched=window.location.href;
+      state.patchQuietly({keepRatio:false});
+      const fixedEnergy=window.location.href;
+      state.patchQuietly({keepRatio:true});
+      state.navigate({entity:{type:'result',slug:'atlas-higgs-observation-2012'}});
+      const after=state.get(), resultURL=window.location.href;
+      window.location=new URL(matched); const restored=state.init();
+      window.location=new URL('http://atlas.test/atlas?le=maybe#/view/beam-section/lbnf');
+      const invalid=state.init().keepRatio;
+      console.log(JSON.stringify({initial,link,matched,fixedEnergy,after,resultURL,restored,invalid}));
+    """)
+    assert out['initial']['keepRatio'] is True
+    assert out['link']['keepRatio'] is True
+    assert out['link']['energy'] == 2.61
+    assert 'le=1' in out['matched']
+    assert 'le=' not in out['fixedEnergy']
+    assert 'le=' not in out['resultURL']
+    assert out['after']['keepRatio'] is False
+    assert out['after']['energy'] is None
+    assert out['restored']['keepRatio'] is True
+    assert out['restored']['energy'] == 2.61
+    assert out['invalid'] is False
+
+
+def test_beam_tour_alias_keeps_lab_state_during_startup_navigation():
+    out = run_node("""
+      globalThis.window = {location:new URL('http://atlas.test/atlas?step=5&e=2.5&le=1#/view/tour/neutrino-beams-through-the-earth'),
+        addEventListener(){},history:{pushState(s,_,u){window.location=new URL(u,window.location)},
+          replaceState(s,_,u){window.location=new URL(u,window.location)}}};
+      const state=await import('./static/atlas/js/state.js');
+      state.init();
+      state.navigate({year:2026},{replace:true});
+      const during=window.location.href;
+      state.navigate({entity:{type:'tour',slug:'neutrino-beams-through-the-earth'}},{replace:true});
+      console.log(JSON.stringify({during,canonical:window.location.href,state:state.get()}));
+    """)
+    assert 'e=2.5' in out['during']
+    assert 'le=1' in out['during']
+    assert 'e=2.5' in out['canonical']
+    assert 'le=1' in out['canonical']
+    assert out['state']['energy'] == 2.5
+    assert out['state']['keepRatio'] is True
+
+
+def test_two_flavor_outcomes_at_no_mixing_maximum_and_half_phase():
+    out = run_node("""
+      import {flavorProbabilities as f,firstMaximumEnergy as peak} from './static/atlas/js/views/oscillation-model.js';
+      const l=1285,e=peak(l);
+      console.log(JSON.stringify({canonical:[f(0,1),f(l,e,{thetaDeg:0}),f(l,e,{thetaDeg:30}),f(l,e),f(l,2*e)],
+        grid:[295.3352,1285].flatMap(l=>[.2,.6,1.2,2.59,5.18,8].map(e=>({l,e,...f(l,e)})))}));
+    """)
+    for actual, (conversion, survival) in zip(out['canonical'], [(0,1),(0,1),(.75,.25),(1,0),(.5,.5)]):
+        assert actual['conversion'] == pytest.approx(conversion, abs=1e-12)
+        assert actual['survival'] == pytest.approx(survival, abs=1e-12)
+    for row in out['grid']:
+        expected = math.sin(1.267 * .0025 * row['l'] / row['e']) ** 2
+        assert row['conversion'] == pytest.approx(expected, abs=1e-12)
+        assert row['survival'] == pytest.approx(1 - expected, abs=1e-12)
+        assert 0 <= row['conversion'] <= 1
+        assert 0 <= row['survival'] <= 1
+        assert row['conversion'] + row['survival'] == pytest.approx(1, abs=1e-12)
+
+
+def test_sno_question_compares_primary_flux_central_values_without_recomputing_significance():
+    from hepgraph.atlas.load import DATA_DIR, load_atlas
+    from hepgraph.atlas.tours import build_bundle, validate_tour
+    atlas = load_atlas(DATA_DIR)
+    tour = atlas.get('tour:neutrino-oscillation-story')
+    question = tour['steps'][2].get('question')
+    assert question, 'SNO step needs a prediction and worked flux comparison'
+    errors = [i for i in validate_tour(atlas, tour, '2026-11-19') if i.level == 'error']
+    assert not errors, [(i.rule, i.message) for i in errors]
+    inputs = {line['name']: line for line in question['calculation'] if 'expression' not in line}
+    assert inputs['CC']['value'] == 1.76
+    assert inputs['NC']['value'] == 5.09
+    for line in inputs.values():
+        source = atlas.get(line['sources'][0])
+        assert source['url'] == 'https://arxiv.org/pdf/nucl-ex/0204008v2#page=4'
+        assert 'PDF page 4' in line['locator']
+        assert line['unit'] == 'million cm⁻² s⁻¹'
+    ratio, percent = question['calculation'][-2:]
+    assert ratio['expression'] == 'CC / NC'
+    assert ratio['value'] == pytest.approx(round(1.76 / 5.09, 2))
+    assert percent['expression'] == 'ratio * 100'
+    assert percent['value'] == pytest.approx(round(1.76 / 5.09 * 100))
+    assert 'standard solar spectrum' in question['prompt']
+    for text in ['raw event counts', 'no propagated uncertainty', 'single-energy', '5.3σ', 'not this division']:
+        assert text in question['answer']
+    bundle, errors = build_bundle(atlas, '2026-11-19')
+    assert not errors
+    assert bundle['tours'][tour['id']]['steps'][2]['question']['calculation'][-1]['value'] == 35
+    assert tour['steps'][2]['select'] == 'experiment:sno'
+
+
+def test_sno_flux_comparison_drift_is_caught_by_the_existing_tour_validator():
+    import copy
+    from hepgraph.atlas.load import DATA_DIR, load_atlas
+    from hepgraph.atlas.tours import validate_tour
+    atlas = load_atlas(DATA_DIR)
+    tour = copy.deepcopy(atlas.get('tour:neutrino-oscillation-story'))
+    assert tour['steps'][2].get('question'), 'SNO question must exist'
+    tour['steps'][2]['question']['calculation'][-1]['value'] = 40
+    assert any(i.level == 'error' and i.rule == 'tour-calc-result'
+               for i in validate_tour(atlas, tour, '2026-11-19'))
+
+
+def test_shared_tour_question_link_retains_visit_context_and_scopes_out_lab_state():
+    out = run_node("""
+      import {tourStepHref} from './static/atlas/js/tour-link.js';
+      const search='?data=generated&embed=1&theme=projector&e=1.2&le=1&step=5&y=2026&present=1';
+      console.log(JSON.stringify([tourStepHref('neutrino-oscillation-story',3,search),tourStepHref('higgs-hunt',7,'')]));
+    """)
+    assert out == ['?data=generated&embed=1&theme=projector&step=3#/tour/neutrino-oscillation-story',
+                   '?step=7#/tour/higgs-hunt']
+
+
+def test_mixing_amplitude_and_angle_control_normalization():
+    out = run_node("""
+      import {mixingAmplitude as a, normaliseMixing as n} from './static/atlas/js/views/oscillation-model.js';
+      console.log(JSON.stringify({amplitudes:[0,15,30,45,75,90].map(a),
+        controls:[null,'','NaN','Infinity',-1,0,15.4,15.5,45,80].map(n),
+        rejected:[-1,91,NaN,Infinity].map(v=>{try{a(v);return false}catch{return true}})}));
+    """)
+    assert out['amplitudes'] == pytest.approx([math.sin(2*math.radians(a))**2 for a in [0,15,30,45,75,90]])
+    assert out['amplitudes'][0] == out['amplitudes'][-1] == 0
+    assert out['controls'] == [45,45,45,45,0,0,15,16,45,45]
+    assert all(out['rejected'])
+
+
+def test_mixing_changes_peak_height_without_moving_nonzero_peaks():
+    out = run_node("""
+      import {firstMaximumEnergy as peak,oscillationProbability as p} from './static/atlas/js/views/oscillation-model.js';
+      console.log(JSON.stringify({peaks:[15,30,45].map(thetaDeg=>{const e=peak(295.3352,{thetaDeg});return[e,p(295.3352,e,{thetaDeg})]}),
+        absent:[peak(295.3352,{thetaDeg:0}),peak(295.3352,{thetaDeg:90}),peak(0)],
+        zero:[.2,.6,8].map(e=>p(295.3352,e,{thetaDeg:0}))}));
+    """)
+    energy = 2*1.267*.0025*295.3352/math.pi
+    for (actual,probability),angle in zip(out['peaks'],[15,30,45]):
+        assert actual == pytest.approx(energy)
+        assert probability == pytest.approx(math.sin(2*math.radians(angle))**2)
+    assert out['absent'] == [None,None,None]
+    assert out['zero'] == [0,0,0]
+
+
+def test_energy_doubling_keeps_the_selected_mixing_amplitude():
+    out = run_node("""
+      import {doublingExperiment as d} from './static/atlas/js/views/oscillation-model.js';
+      console.log(JSON.stringify({default:d(295.3352),weak:d(295.3352,{thetaDeg:15}),zero:d(295.3352,{thetaDeg:0})}));
+    """)
+    for key in ['startEnergy','doubledEnergy']:
+        assert out['weak'][key] == out['default'][key]
+    for key in ['startProbability','doubledProbability']:
+        assert out['weak'][key] == pytest.approx(.25*out['default'][key])
+    assert out['zero'] is None
+
+
+def test_mixing_url_is_normalized_and_scoped_to_the_existing_beam_lesson():
+    out = run_node("""
+      globalThis.window={location:new URL('http://atlas.test/atlas?e=.6&th=15.4&le=1#/view/beam-section/j-parc-neutrino'),
+        addEventListener(){},history:{pushState(s,_,u){window.location=new URL(u,window.location)},replaceState(s,_,u){window.location=new URL(u,window.location)}}};
+      const s=await import('./static/atlas/js/state.js');const initial=s.init();
+      s.navigate({entity:{type:'view',slug:'beam-section/lbnf'},energy:2.61});const beam=window.location.href;
+      s.navigate({entity:{type:'tour',slug:'neutrino-beams-through-the-earth'},step:5});const tour=window.location.href;
+      const link=s.patchFromLink('?th=0#/view/beam-section/lbnf');
+      s.navigate({entity:{type:'result',slug:'atlas-higgs-observation-2012'}});
+      console.log(JSON.stringify({initial:initial.mixingDeg,beam,tour,link:link.mixingDeg,result:window.location.href,cleared:s.get().mixingDeg}));
+    """)
+    assert out['initial'] == 15
+    assert 'th=15' in out['beam'] and 'th=15' in out['tour']
+    assert out['link'] == 0
+    assert 'th=' not in out['result'] and out['cleared'] is None

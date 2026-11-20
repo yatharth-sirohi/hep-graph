@@ -87,7 +87,7 @@ const DECLUTTER_DELAY_MS = 120;
 // atmosphere glow, its name would only add noise. Beyond the horizon itself the
 // marker is not drawn at all.
 const LIMB_LABEL_FRACTION = 0.9;
-// Scenery drawn after the first paint (see loadBorders, loadEarthTexture).
+// Optional scenery loaded during initialization (see loadBorders, loadEarthTexture).
 const BORDERS_URL = '/atlas/vendor/countries-borders-110m.json';
 const BORDER_COLOR = 'rgba(176, 216, 204, 0.34)';
 const COAST_COLOR = 'rgba(190, 228, 216, 0.62)';
@@ -494,7 +494,7 @@ export function createGlobe(container, {
     })
     .arcsTransitionDuration(0)
     // Country borders and coastlines (static/atlas/vendor/countries-borders-
-    // 110m.json): 1px lines, low contrast, loaded after the first paint.
+    // 110m.json): 1px lines, low contrast, loaded asynchronously.
     .pathsData([])
     .pathPoints('points')
     .pathPointLat((p) => p[1])
@@ -557,10 +557,10 @@ export function createGlobe(container, {
   }).catch(() => {});
 
   // ---- scenery: the shaded-relief Earth and the country lines ------------------
-  // Both are fetched only after the globe has painted, so neither delays the
-  // first frame, and either failing leaves the globe as it was: the flat land
-  // polygons stay until the Earth image is in place, and keep their own coast
-  // stroke until the line work is.
+  // Requests start during initialization and complete asynchronously. The
+  // base globe remains usable while either optional asset loads or fails: flat
+  // land polygons stay until the Earth image is in place, and keep their own
+  // coast stroke until the line work is.
   let earthApplied = false;
   let bordersApplied = false;
   function syncScenery() {
@@ -2236,11 +2236,12 @@ export function createGlobe(container, {
       siteEntities = buildSiteEntities();
       beamArcs = buildBeamArcs();
       rebuildVisibleLayer();
-      // After the first frame has painted, bring in the Earth and the country lines.
-      window.requestAnimationFrame(() => window.setTimeout(() => {
-        loadEarthTexture();
-        loadBorders();
-      }, 0));
+      // Start requests while ready() still owns the active document. A deferred
+      // frame/timeout can run after navigation begins, when WebKit refuses new
+      // fetches. Decoding and applying scenery remain asynchronous, so the base
+      // globe can paint while these optional assets arrive.
+      loadEarthTexture();
+      loadBorders();
     },
     /** Points the camera at `{ lat, lng, altitude }` (altitude in globe radii; 2.4
      * is the opening overview, 0.5 a country). Animated by default, instant when

@@ -154,7 +154,7 @@ def test_every_step_href_reads_back_as_its_own_fields(result: dict) -> None:
         if fields["view"]:
             # A view beats a map beats a selection.
             assert row["stage"] == "view", where
-            assert row["entity"] == {"type": "view", "slug": f'{fields["view"]["name"]}/{fields["view"]["arg"]}'}, where
+            assert row["entity"] == {"type": "view", "slug": "/".join(part for part in (fields["view"]["name"], fields["view"]["arg"]) if part)}, where
         elif fields["map"]:
             assert row["stage"] == "map", where
             assert row["entity"] == {"type": "map", "slug": fields["map"]}, where

@@ -22,6 +22,9 @@ import {
 } from './views/scale-detectors.js';
 import { quoteView, readableText, readableView } from './tex.js';
 import { tourMeta, tourSlug, toursCoveringTopic } from './tour-data.js';
+import { createTourStepLink, createMapStepLink, syncTourLinkThemes } from './tour-link.js';
+import { beamDependencyAvailable, DEPENDENCY_ENTRY } from './proton-dependency.js';
+import { unconfirmedRestart } from './restart-context.js';
 import { facilityPrintAction } from './export.js';
 import {
   HEP_GRAPH_SEARCH_URL, authorIdOf, hepGraphPersonUrl, personViewRoute, rosterPeople,
@@ -47,6 +50,7 @@ let renderTicket = 0;
 // Whether the panel draws its own close button. Not in the local map's drawer, which has
 // its own: a second × there would close the whole map (`entity: null`), not the selection.
 let ownCloseButton = true;
+let tourLinkThemeBound = false;
 
 export function init({ el, atlas, index, navigate, focusGlobe, viewOnGlobe, closeButton = true }) {
   container = el;
@@ -55,6 +59,10 @@ export function init({ el, atlas, index, navigate, focusGlobe, viewOnGlobe, clos
   CALLBACKS = { navigate, focusGlobe, viewOnGlobe };
   ownCloseButton = closeButton;
   provenance.configure(index);
+  if (!tourLinkThemeBound) {
+    document.addEventListener('atlas:themechange', syncTourLinkThemes);
+    tourLinkThemeBound = true;
+  }
 }
 
 export function setCollaborationContext(id) {
@@ -83,6 +91,12 @@ function linkTo(route, text, extraClass) {
     CALLBACKS.navigate({ entity: route });
   });
   return a;
+}
+
+
+// The same native deep-link behavior serves topic lists, evidence and labs.
+function tourStepLink(slug, step, text) {
+  return createTourStepLink(slug, step, text, CALLBACKS.navigate);
 }
 
 function idRoute(id) {
@@ -545,6 +559,48 @@ export async function localMapHeader(record) {
 // statusAtMonth/statusInRange), and the panel must agree with them instead
 // of showing a frozen, potentially anachronistic label (e.g. an experiment
 // reading "Active" at a year decades before it existed).
+function restartFollowUp(record, pending) {
+  const details = h('details', { class: 'panel-section', 'data-state': 'idle' }, [
+    h('summary', {}, 'Read the schedule and evidence'),
+  ]);
+  const body = h('div', { class: 'panel-section-body' }, emptyNote('Opens to load the reported condition and the planned run.'));
+  details.appendChild(body);
+  let busy = false;
+  async function load() {
+    if (busy || details.dataset.state === 'loaded') return;
+    busy = true;
+    details.dataset.state = 'loading';
+    body.replaceChildren(h('p', { class: 'loading-note', role: 'status' }, 'Loading evidence…'));
+    try {
+      const [bundle, sources] = await Promise.all([loader.getProvenance(), loader.getSources()]);
+      const prefixes = [pending.stateIndex, pending.planIndex].map(index => `/intervals/${index}`);
+      const entries = Object.fromEntries(Object.entries(bundle[record.id] || {}).filter(([pointer]) =>
+        prefixes.some(prefix => pointer === prefix || pointer.startsWith(`${prefix}/`))));
+      const items = provenance.renderClaimItems(entries, sources, record);
+      body.replaceChildren(items.length ? h('ul', { class: 'source-list' }, items) : emptyNote('No source evidence is available for these intervals.'));
+      details.dataset.state = 'loaded';
+    } catch (error) {
+      details.dataset.state = 'error';
+      const retry = h('button', { type: 'button', class: 'text-btn' }, 'Retry');
+      retry.addEventListener('click', () => {
+        // The button is replaced by the loading state; retain the reader's place.
+        if (details.isConnected && document.activeElement === retry) details.querySelector('summary').focus();
+        load();
+      });
+      body.replaceChildren(h('p', { class: 'error-note', role: 'alert' }, `Could not load evidence: ${error.message}`), retry);
+    } finally { busy = false; }
+  }
+  details.addEventListener('toggle', () => { if (details.open) load(); });
+  return h('section', { class: 'status-follow-up', 'aria-label': 'Unconfirmed restart' }, [
+    h('p', {}, [h('strong', {}, 'Restart not confirmed in Atlas sources. '),
+      `Last reported condition: ${(record.intervals[pending.stateIndex].label || 'shutdown').replace(/^last reported:\s*/i, '')}. A run was planned from ${fmtDate(pending.start)}; current operation has not been confirmed here.`]),
+    beamDependencyAvailable(ATLAS) ? h('p', {class:'status-next-question'},
+      createMapStepLink(DEPENDENCY_ENTRY.map,DEPENDENCY_ENTRY.year,DEPENDENCY_ENTRY.proton,
+        'Predict which beam needs Main Injector',CALLBACKS.navigate)) : null,
+    details,
+  ]);
+}
+
 function experimentBadge(record, timelineState) {
   const segments = record.state_segments;
   const resolved = statusForTimeline(segments, timelineState);
@@ -552,8 +608,13 @@ function experimentBadge(record, timelineState) {
     ? `${timelineState.range[0]}–${timelineState.range[1]}`
     : String((timelineState && timelineState.year) || '');
   if (resolved) {
-    const label = titleCase(resolved.status) + (resolved.certainty === 'possible' ? ' (uncertain)' : '');
-    return h('div', { class: `status-badge status-${resolved.status}` }, label);
+    const pending = resolved.status === 'shutdown' && unconfirmedRestart(record, ATLAS.build_date, timelineState);
+    const label = titleCase(resolved.status) + (pending ? ' · last reported' : resolved.certainty === 'possible' ? ' (uncertain)' : '');
+    const badge = h('div', { class: `status-badge status-${resolved.status}` }, label);
+    if (!pending) return badge;
+    const group = document.createDocumentFragment();
+    group.append(badge, restartFollowUp(record, pending));
+    return group;
   }
   const reason = timelineAbsenceReason(segments, timelineState || {});
   const text = {
@@ -1330,12 +1391,7 @@ async function fillTopicTours(slot, topicId, results) {
   if (!rows.length) return;
   const list = h('ul', { class: 'entity-list tour-links' }, rows.map(({ tour, steps }) => {
     const slug = tourSlug(tour.id);
-    const a = h('a', { href: `#/tour/${slug}?step=${steps[0]}`, class: 'entity-link' }, tour.name);
-    a.addEventListener('click', (event) => {
-      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      event.preventDefault();
-      CALLBACKS.navigate({ entity: { type: 'tour', slug }, step: steps[0] });
-    });
+    const a = tourStepLink(slug, steps[0], tour.name);
     return h('li', {}, [
       a,
       h('span', { class: 'source-meta' }, ` · ${steps.length} of ${tour.steps.length} step${tour.steps.length === 1 ? '' : 's'} · ${tourMeta(tour)}`),
@@ -1506,6 +1562,9 @@ async function renderResult(id) {
       }),
     ]));
   }
+  const { renderEvidenceTrail } = await import('./result-evidence.js');
+  const evidenceTrail = renderEvidenceTrail(id, linkTo, tourStepLink);
+  if (evidenceTrail) frag.appendChild(evidenceTrail);
   if (result.title && result.name && result.title !== result.name) {
     frag.appendChild(h('p', { class: 'source-meta' }, ['Paper title: ', readableView(result.title)]));
   }
@@ -1943,6 +2002,9 @@ function arrangePanel(container) {
   }
   if (meta.childElementCount) heading.after(meta);
   let after = meta.childElementCount ? meta : heading;
+  // A qualification of the status belongs with the badge, before the introduction.
+  const followUp = container.querySelector(':scope > .status-follow-up');
+  if (followUp) { after.after(followUp); after = followUp; }
 
   // The summary: the panel's own, or the one that opens its first section.
   const firstSection = container.querySelector(':scope > details.panel-section');

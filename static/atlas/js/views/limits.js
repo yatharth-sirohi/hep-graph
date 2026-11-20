@@ -3,16 +3,19 @@
 //
 //   #/view/limits/<plot-slug>        today: wimp-si
 //
-// What is drawn is data, never computed here: every curve is a table fetched from
+// Published curves and diamonds are data: every curve is a table fetched from
 // HEPData (CC0) and stored in data/atlas/limits/<slug>.json (A29), served as
 // limits/<plot>.json. A curve is the points of the table's limit column joined by
 // straight segments; nothing is smoothed, fitted or interpolated. A paper with no
 // HEPData table is drawn as the single minimum its abstract publishes, as a hollow
 // diamond that says so. Every curve is cited under the figure (record, table, DOI,
 // arXiv id, confidence level, the exact columns and units), and the figure's numbers
-// are in tables. Mounted by host.js through registry.js.
+// are in tables. The optional labelled triangle is a hypothetical multiplier of
+// one exact table limit, never a published measurement. Mounted by host.js through registry.js.
 
 import { readableText } from '../tex.js';
+import { LIMIT_PROBE_SLUG, comparisonDomain } from './limit-probe-model.js';
+import { createLimitProbe } from './limit-probe.js';
 import { PLOTS, WORKING_TITLE, plotFor } from './limits-rows.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -90,8 +93,8 @@ function buildModel(bundle) {
 }
 
 // ------------------------------------------------------------------- the figure
-function drawPlot(model, bundle, width) {
-  const { domain } = model;
+function drawPlot(model, bundle, width, comparison = null) {
+  const domain = comparisonDomain(model.domain, comparison);
   const id = `lm${++uid}`;
   const compact = width < 560;
   const margin = { left: compact ? 56 : 74, right: compact ? 10 : 18, top: 14, bottom: compact ? 48 : 54 };
@@ -119,7 +122,8 @@ function drawPlot(model, bundle, width) {
       + `the vertical axis is the ${bundle.y.label.toLowerCase()} in ${yUnit}, from ${sci(domain.y0, 1)} to ${sci(domain.y1, 1)}. `
       + `Each line is the 90% confidence-level upper limit published for one result (${curveNames}); the region above a line is excluded. `
       + (markerNames ? `Hollow diamonds mark the one published minimum of a result whose curve is not in HEPData (${markerNames}). ` : '')
-      + 'The same numbers are in the tables under the figure.'),
+      + 'The same numbers are in the tables under the figure.'
+      + (comparison ? ` Interpretation exercise: a circle marks the published LZ limit at ${comparison.massGeV} GeV/c², ${sci(comparison.limitCm2)} cm²; a triangle marks a hypothetical cross section ${sci(comparison.modelCm2)} cm² at the same mass, ${comparison.factor} times this limit. The triangle is not a measurement.` : '')),
   );
   const clipId = `${id}-clip`;
   svg.append(s('defs', {}, s('clipPath', { id: clipId }, s('rect', { x: margin.left, y: margin.top, width: pw, height: ph }))));
@@ -211,12 +215,21 @@ function drawPlot(model, bundle, width) {
   svg.append(cross);
   const overlay = s('rect', { class: 'lm-overlay', x: margin.left, y: margin.top, width: pw, height: ph, fill: 'transparent' });
   svg.append(overlay);
+  if (comparison) {
+    const x = lx(comparison.massGeV), limitY = ly(comparison.limitCm2), trialY = ly(comparison.modelCm2);
+    const r = 7;
+    svg.append(s('g', { class:'lm-probe-overlay', 'pointer-events':'none', 'aria-hidden':'true' }, [
+      s('line', { class:'lm-probe-guide', x1:fx(x), x2:fx(x), y1:fx(limitY), y2:fx(trialY) }),
+      s('circle', { class:'lm-probe-limit', cx:fx(x), cy:fx(limitY), r:comparison.factor === 1 ? 12 : 9 }),
+      s('path', { class:'lm-probe-trial', d:`M${fx(x)},${fx(trialY-r)}L${fx(x+r)},${fx(trialY+r)}L${fx(x-r)},${fx(trialY+r)}Z` }),
+    ]));
+  }
   return { svg, hit, cross, overlay, width, height: H };
 }
 
 /** The legend as an SVG, for the exported picture: one swatch and name per series, in rows that wrap
  * at `width` (the on-screen legend is a row of buttons). The caller puts it in the document. */
-function legendFigure(series, width) {
+function legendFigure(series, width, comparison = null) {
   const measure = document.createElement('canvas').getContext('2d');
   measure.font = `13px ${window.getComputedStyle(document.body).fontFamily}`;
   const svg = s('svg', { class: 'lm-legend-fig', width, role: 'img', 'aria-hidden': 'true', focusable: 'false' });
@@ -236,6 +249,12 @@ function legendFigure(series, width) {
       s('text', { class: 'lm-legend-fig-text', x: x + 36, y: y + 15.5 }, one.label),
     );
     x += 30 + 6 + labelWidth + 22;
+  }
+  if (comparison) {
+    y += ROW;
+    svg.append(s('text', { class:'lm-legend-fig-text', x:6, y:y+15.5 }, '○ Selected published LZ limit'));
+    y += ROW;
+    svg.append(s('text', { class:'lm-legend-fig-text', x:6, y:y+15.5 }, '△ Hypothetical model (exercise only)'));
   }
   const height = y + ROW + 2;
   svg.setAttribute('height', String(height));
@@ -309,9 +328,9 @@ export async function mount(ctx) {
 
   // ---- the lede
   const lede = h('p', { class: 'lm-lede' }, [
-    'A dark-matter detector that sees nothing rules out some WIMPs: at each WIMP mass, a particle whose cross section on a nucleon is ',
-    h('strong', {}, 'above'), ' the line would have left more events than the detector recorded, so it is excluded (at 90% confidence). ',
-    'Lower is more sensitive. The lines are the numbers the collaborations published; nothing here is fitted or smoothed.',
+    'A dark-matter search can constrain a model without detecting a WIMP. At each mass, a model whose spin-independent cross section on a nucleon is ',
+    h('strong', {}, 'above'), ' the published upper-limit line is excluded at 90% confidence under that result’s assumptions. A point below the line is not excluded by that result; this is not a detection. ',
+    'Lower upper limits exclude smaller cross sections under the stated assumptions. The lines are the numbers the collaborations published; nothing here is fitted or smoothed.',
   ]);
 
   // ---- the legend (also the way to pick one series out of the others)
@@ -322,8 +341,10 @@ export async function mount(ctx) {
   const plotWrap = h('div', { class: 'lm-plot' });
   const readout = h('p', { class: 'lm-readout', 'aria-live': 'off' },
     'Move over the plot, or tap it, to read the nearest point. With a keyboard, Tab to a curve and use the arrow keys to move along its points.');
+  const probeKey = h('p', { class:'lm-probe-key' }, '○ Selected published LZ limit · △ Hypothetical model point (exercise only)');
+  probeKey.hidden = true;
   const figure = h('figure', { class: 'lm-figure' }, [
-    legend, plotWrap, readout,
+    legend, plotWrap, readout, probeKey,
     h('figcaption', { class: 'lm-caption' }, [
       h('strong', {}, 'How to read it. '),
       'Both axes are logarithmic. The region above a line is excluded at 90% confidence by that result; a lower curve excludes more. ',
@@ -391,17 +412,30 @@ export async function mount(ctx) {
     ])),
   ]);
 
-  host.body.append(lede, figure, stats, cites, numbers);
+  const pilot = bundle.curves.find(row => row.slug === LIMIT_PROBE_SLUG);
+  const probe = pilot ? createLimitProbe({ row:pilot, value:ctx.wimpProbe, host,
+    onChange() { probeKey.hidden = !probe.comparison; draw(); host.exportChanged?.(); },
+    onLocate(comparison) {
+      const series = model.series.find(one => one.slug === LIMIT_PROBE_SLUG);
+      const at = series.points.findIndex(point => point[0] === comparison.massGeV);
+      const dot = plotWrap.querySelector(`.lm-series[data-slug="${LIMIT_PROBE_SLUG}"]`)?.querySelectorAll('.lm-dot')[at];
+      if (dot) { dot.focus(); dot.scrollIntoView({ block:'center' }); }
+    },
+  }) : null;
+  probeKey.hidden = !probe?.comparison;
+  host.body.append(lede, figure);
+  if (probe) host.body.append(probe.element);
+  host.body.append(stats, cites, numbers);
   fillMethod(host.method, { bundle, model });
   // "Export image": the plot, and under it the legend as an SVG made for the call.
   host.setExporter(() => {
     const svg = plotWrap.querySelector('svg.lm-svg');
     if (!svg) return { figures: [] };
     const holder = h('div', { class: 'export-holder', 'aria-hidden': 'true' });
-    const legendSvg = legendFigure(model.series, Math.floor(svg.getBoundingClientRect().width));
+    const legendSvg = legendFigure(model.series, Math.floor(svg.getBoundingClientRect().width), probe?.comparison);
     holder.append(legendSvg);
     document.body.append(holder);
-    return { figures: [legendSvg, svg], layout: 'column', release: () => holder.remove() };
+    return { figures: [legendSvg, svg], layout: 'column', notes:probe?.exportNotes() || [], release: () => holder.remove() };
   });
 
   // ---- draw, and keep drawing as the stage resizes
@@ -423,7 +457,7 @@ export async function mount(ctx) {
   function draw() {
     const width = Math.floor(plotWrap.clientWidth || 0);
     if (width < 280) return;
-    const drawn = drawPlot(model, bundle, width);
+    const drawn = drawPlot(model, bundle, width, probe?.comparison);
     plotWrap.replaceChildren(drawn.svg);
     const { hit, cross, overlay } = drawn;
     const nearest = (event) => {
@@ -517,10 +551,11 @@ export async function mount(ctx) {
   host.announce(`${WORKING_TITLE}: ${bundle.title}. ${model.series.length} results are drawn, ${model.series.filter((one) => !one.isMarker).length} as curves.`);
 
   return {
-    update() { /* the plot does not depend on the timeline year */ },
+    update(next) { probe?.update(next.wimpProbe); },
     destroy() {
       window.cancelAnimationFrame(frame);
       if (observer) observer.disconnect();
+      probe?.destroy();
     },
   };
 }
@@ -543,7 +578,7 @@ function fillMethod(el, { bundle, model }) {
   });
   el.replaceChildren(
     h('p', { class: 'bs-method-intro' }, [
-      'Nothing on this page is computed from a model. Each curve is a table copied from HEPData, the open repository of published numbers, where it is licensed CC0; ',
+      'Each published curve is a table copied from HEPData, the open repository of published numbers, where it is licensed CC0. The optional exercise multiplies an exact LZ table limit by the chosen factor to make a hypothetical point; that triangle is not published data. ',
       'the Atlas stores the points in a small file of its own, with the record, the table, the DOIs, the confidence level, the exact columns and the units, ',
       'and its validator refuses a file whose points are not finite positive numbers in the plot’s units.',
     ]),

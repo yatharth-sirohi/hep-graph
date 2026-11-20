@@ -1,3 +1,7 @@
+import { normaliseLimitProbe } from './views/limit-probe-model.js';
+import { normaliseCollisionEnergy } from './views/collision-model.js';
+import { normaliseEnergy, normaliseMixing } from './views/oscillation-model.js';
+import { normaliseFluxPair } from './views/underground-compare.js';
 // state.js — the single source of truth for "what is on screen": the hash
 // route (#/facility/<slug> etc.), plus short query state (?y=, ?r=, ?t=, ?s=,
 // ?m=, ?arcs=, a tour's ?step= and ?present=, the Results list's own ?ry=/?rx=/?rf=/?rt=/?rk=/?rs=/?rb=;
@@ -58,13 +62,19 @@ function parseResultsView(params) {
 const subscribers = new Set();
 let current = null;
 
+// Canonical spellings for the two supported energy-frontier entries.
+function canonicalEntity(entity) {
+  return entity?.type === 'view' && ['energy-frontier/','energy-frontier/collision/'].includes(entity.slug)
+    ? { ...entity, slug:entity.slug.slice(0,-1) } : entity;
+}
+
 function parseHashEntity(hash) {
   const clean = (hash || '').replace(/^#\/?/, '');
   if (!clean) return null;
   const [type, ...rest] = clean.split('/');
   const slug = rest.join('/');
   if (!TYPE_PREFIX[type] || !slug) return null;
-  return { type, slug };
+  return canonicalEntity({ type, slug });
 }
 
 function parseSearch(search) {
@@ -85,6 +95,12 @@ function parseSearch(search) {
     proton: null,
     // ---- guided tours: the 1-based step, and presenter mode ----
     step: null, present: false,
+    energy: params.has('e') ? normaliseEnergy(params.get('e')) : null,
+    mixingDeg: params.has('th') ? normaliseMixing(params.get('th')) : null,
+    keepRatio: params.get('le') === '1',
+    undergroundPair: normaliseFluxPair(params.get('uf')),
+    collisionEnergy: params.has('ce') ? normaliseCollisionEnergy(params.get('ce')) : null,
+    wimpProbe: normaliseLimitProbe(params.get('wp')),
     results: parseResultsView(params),
     // ---- classroom modes (js/classroom.js): `?embed=1` and `?theme=projector|standard`
     // ride along in every address the app writes, so reloading or sharing keeps them.
@@ -139,8 +155,8 @@ function parseSearch(search) {
 // often typed or pasted) is read as if it stood before the `#`; a parameter in both
 // places keeps the real query's value. The address is rewritten in the usual form the
 // next time anything navigates.
-function locationParts() {
-  const { hash, search } = window.location;
+function locationParts(loc = window.location) {
+  const { hash, search } = loc;
   const at = hash.indexOf('?');
   if (at < 0) return { hash, search };
   const merged = new URLSearchParams(search);
@@ -148,14 +164,38 @@ function locationParts() {
   return { hash: hash.slice(0, at), search: `?${merged.toString()}` };
 }
 
-function readLocation() {
-  const { hash, search } = locationParts();
+function readLocation(loc = window.location) {
+  const { hash, search } = locationParts(loc);
+  const entity = parseHashEntity(hash), parsed = parseSearch(search);
   return {
-    entity: parseHashEntity(hash),
-    ...parseSearch(search),
+    entity,
+    ...parsed,
+    wimpProbe: onLimits(entity) ? parsed.wimpProbe : null,
     dataMode: new URLSearchParams(search).get('data'),
   };
 }
+
+/** Start links describe an entire destination, like opening their native URL. */
+export function destinationFromLink(href, { defaultYear = null } = {}) {
+  const destination=readLocation(new URL(href,window.location.href));
+  if(destination.year==null && !destination.range && Number.isInteger(defaultYear)) destination.year=defaultYear;
+  return destination;
+}
+
+function onBeamLab(entity) {
+  return entity && ((entity.type === 'view' && (entity.slug.startsWith('beam-section/')
+      || entity.slug === 'tour/neutrino-beams-through-the-earth'))
+    || (entity.type === 'tour' && entity.slug === 'neutrino-beams-through-the-earth'));
+}
+
+function onUnderground(entity) {
+  return entity && ((entity.type==='view' && (entity.slug==='underground' || entity.slug==='tour/going-underground-dark-matter'))
+    || (entity.type==='tour' && entity.slug==='going-underground-dark-matter'));
+}
+
+function onLimits(entity) { return entity?.type === 'view' && entity.slug === 'limits/wimp-si'; }
+
+function onEnergyFrontier(entity) { return entity?.type === 'view' && ['energy-frontier','energy-frontier/collision'].includes(entity.slug); }
 
 function buildURL(state) {
   const params = new URLSearchParams();
@@ -173,6 +213,20 @@ function buildURL(state) {
   if (state.mode) params.set('m', state.mode);
   if (state.collab) params.set('c', state.collab);
   if (state.arcs) params.set('arcs', '1');
+  if (onBeamLab(state.entity)) {
+    if (state.energy != null) params.set('e', String(normaliseEnergy(state.energy)));
+    if (state.mixingDeg != null) params.set('th', String(normaliseMixing(state.mixingDeg)));
+    if (state.keepRatio) params.set('le', '1');
+  }
+  if(onUnderground(state.entity)) {
+    const pair=normaliseFluxPair(state.undergroundPair);
+    if(pair)params.set('uf',pair.join(','));
+  }
+  if (onEnergyFrontier(state.entity) && state.collisionEnergy != null) params.set('ce', String(normaliseCollisionEnergy(state.collisionEnergy)));
+  if (onLimits(state.entity)) {
+    const probe = normaliseLimitProbe(state.wimpProbe);
+    if (probe) params.set('wp',probe);
+  }
   // ---- local map view (§4) ----
   // These three only mean anything on a map route, so they are written only
   // there: leaving a map must not leave `lv`/`bm`/`sel` stranded in the URL
@@ -217,6 +271,11 @@ export function navigate(patch, { replace = false } = {}) {
   const previousMode = current ? current.mode : null;
   const previousEntity = current ? current.entity : null;
   current = { ...current, ...patch };
+  current.entity = canonicalEntity(current.entity);
+  if (!onBeamLab(current.entity)) { current.energy = null; current.mixingDeg = null; current.keepRatio = false; }
+  current.undergroundPair=onUnderground(current.entity)?normaliseFluxPair(current.undergroundPair):null;
+  current.collisionEnergy=onEnergyFrontier(current.entity) && current.collisionEnergy != null ? normaliseCollisionEnergy(current.collisionEnergy) : null;
+  current.wimpProbe = onLimits(current.entity) ? normaliseLimitProbe(current.wimpProbe) : null;
   // An overlay belongs to the map it was laid on: opening any other route drops it
   // (a link that names `cmp` brings it back, because the patch then says so).
   if ('entity' in patch && !('cmp' in patch)) {
@@ -275,9 +334,15 @@ export function subscribe(fn) {
 
 /** Wire popstate and read the initial URL. Call once at startup. */
 export function init() {
-  current = readLocation();
-  window.addEventListener('popstate', () => {
+  function restoreLocation() {
     current = readLocation();
+    if (['#/view/energy-frontier/','#/view/energy-frontier/collision/'].includes(locationParts().hash)) {
+      window.history.replaceState(current,'',buildURL(current));
+    }
+  }
+  restoreLocation();
+  window.addEventListener('popstate', () => {
+    restoreLocation();
     notify();
   });
   return current;
@@ -297,7 +362,7 @@ export function patchFromLink(href) {
   const entity = parseHashEntity(url.hash);
   if (entity) patch.entity = entity;
   const named = [['y', 'year'], ['t', 'topic'], ['s', 'status'], ['er', 'era'], ['fk', 'facilityKind'],
-    ['ek', 'experimentKind'], ['rg', 'region'], ['m', 'mode']];
+    ['ek', 'experimentKind'], ['rg', 'region'], ['m', 'mode'], ['step', 'step'], ['present', 'present'], ['e', 'energy'], ['th', 'mixingDeg'], ['le', 'keepRatio'], ['uf', 'undergroundPair'], ['ce', 'collisionEnergy'], ['wp', 'wimpProbe']];
   for (const [param, key] of named) if (params.has(param)) patch[key] = parsed[key];
   return patch;
 }

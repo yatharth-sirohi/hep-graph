@@ -12,10 +12,12 @@
 //
 // It never touches app state: it clicks the buttons the other modules
 // already own (#map-back, #close-detail, #map-drawer-close, the Globe mode
-// button) and listens to class changes. At widths above the breakpoint
+// button), delegates image export to its existing controller, and listens to class changes. At widths above the breakpoint
 // nothing here is active — activate() has not run, no node has been added,
 // and deactivate() puts every moved node back — so the desktop DOM and
 // layout are exactly what they were without this file.
+
+import { toggleDialog as toggleImageExport } from './export.js';
 
 const PHONE_QUERY = '(max-width: 900px)';
 const mq = window.matchMedia(PHONE_QUERY);
@@ -240,9 +242,31 @@ function buildHeaderButtons() {
   const layers = headerButton('phone-layers-btn',
     `${ICON_LAYERS}<span class="phone-action-text">Map layers</span>`,
     { 'aria-haspopup': 'dialog', 'aria-controls': 'map-layers', 'aria-expanded': 'false' });
+  const sourceExport = document.getElementById('export-btn');
+  const save = headerButton('phone-export-btn',
+    `${sourceExport?.querySelector('svg')?.outerHTML || ''}<span class="phone-action-text">Save image</span>`,
+    { 'aria-haspopup':'dialog', 'aria-controls':'export-popover', 'aria-expanded':'false' });
+  const syncSave = () => {
+    save.disabled = !sourceExport || sourceExport.disabled;
+    save.title = sourceExport?.title || '';
+    save.setAttribute('aria-expanded', sourceExport?.getAttribute('aria-expanded') || 'false');
+    const description = sourceExport?.getAttribute('aria-describedby');
+    if (description) save.setAttribute('aria-describedby', description); else save.removeAttribute('aria-describedby');
+  };
+  syncSave();
+  if (sourceExport) {
+    const observer = new MutationObserver(syncSave);
+    observer.observe(sourceExport, { attributes:true, attributeFilter:['disabled','title','aria-expanded','aria-describedby'] });
+    undo.push(() => observer.disconnect());
+  }
+  save.addEventListener('click', () => toggleImageExport(save));
+  save.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') event.stopPropagation();
+  });
   back.hidden = true;
   layers.hidden = true;
-  wrap.append(back, layers, filters);
+  save.hidden = true;
+  wrap.append(back, layers, filters, save);
   const anchor = $('.search-wrap', els.header);
   els.header.insertBefore(wrap, anchor);
 
@@ -260,7 +284,7 @@ function buildHeaderButtons() {
     if (real) real.click(); else pressEscape();
   });
   undo.push(() => wrap.remove());
-  headerButtons = { wrap, filters, back, layers };
+  headerButtons = { wrap, filters, back, layers, save };
 }
 
 function updateFilterBadge() {
@@ -278,11 +302,12 @@ let lastMapRoute = null;
 function syncRoute() {
   if (!active || !headerButtons) return;
   const isMap = els.main.classList.contains('is-map-route');
-  // A view (js/views/) has no filters, layers or sheets: its own frame carries a back
-  // control, so the header buttons step aside there as well.
+  // A view has its own back control. Keep its image action available while
+  // the globe's filters and map tools step aside.
   const isView = els.main.classList.contains('is-view-route');
   document.body.classList.toggle('phone-map', isMap);
   headerButtons.filters.hidden = isMap || isView;
+  headerButtons.save.hidden = !isView;
   headerButtons.back.hidden = !isMap;
   headerButtons.layers.hidden = !isMap;
   const offGlobe = isMap || isView;
@@ -534,6 +559,14 @@ function activate() {
   active = true;
   undo = [];
   buildHeaderButtons();
+  // The desktop anchor is hidden on phones; the same dialog lives above sheets.
+  const exportDialog = document.getElementById('export-popover');
+  if (exportDialog) {
+    const parent = exportDialog.parentNode;
+    const next = exportDialog.nextSibling;
+    document.body.append(exportDialog);
+    undo.push(() => parent.insertBefore(exportDialog, next?.parentNode === parent ? next : null));
+  }
   decorate(SHEETS.filters);
   decorate(SHEETS.mode);
   decorate(SHEETS.detail);

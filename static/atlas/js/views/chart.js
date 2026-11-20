@@ -368,6 +368,7 @@ export function createChart(container, spec) {
   let width = 0;
   let svg = null;
   let fade = { ids: new Set(), note: '' };
+  let highlights = new Map();
   let parts = new Map(); // id -> { link, label, leader, point }
   let tracks = new Map(); // id of the point a line ends at -> the line
   let groups = new Map(); // group -> ids of its points
@@ -414,7 +415,7 @@ export function createChart(container, spec) {
       const labelFaded = group.every((member) => fade.ids.has(member));
       if (part.label) part.label.classList.toggle('is-faded', labelFaded);
       if (part.leader) part.leader.classList.toggle('is-faded', labelFaded);
-      const base = part.point.aria || part.point.label;
+      const base = `${highlights.has(id) ? `Comparison ${highlights.get(id)}. ` : ''}${part.point.aria || part.point.label}`;
       part.link.setAttribute('aria-label', faded && fade.note ? `${base}. ${fade.note}` : base);
     }
     for (const [id, line] of tracks) line.classList.toggle('is-faded', fade.ids.has(id));
@@ -528,13 +529,14 @@ export function createChart(container, spec) {
       }
       const link = s('a', {
         class: 'ch-point', href: point.href || null, tabindex: 0, role: 'link',
-        'aria-label': point.aria || point.label, 'data-id': point.id,
+        'aria-label': point.aria || point.label, 'data-id': point.id, 'data-highlight': highlights.get(point.id),
       });
       const g = s('g', { transform: `translate(${f1(cx)} ${f1(cy)})` });
       const mark = markerShape(point.shape || 'circle', markR);
       mark.setAttribute('class', `ch-mark ch-tone-${point.tone || 'plain'}${point.hollow ? ' is-hollow' : ''}`);
       g.append(...[
         s('circle', { class: 'ch-hit', r: compact ? 12 : 11 }),
+        highlights.has(point.id) ? s('rect', { class: 'ch-highlight', x: -markR-4, y: -markR-4, width: 2*(markR+4), height: 2*(markR+4), rx: 2 }) : null,
         s('circle', { class: 'ch-focus', r: markR + 6 }),
         point.ring ? s('circle', { class: `ch-ring ch-tone-${point.tone || 'plain'}`, r: markR + 3.5 }) : null,
         mark,
@@ -577,12 +579,13 @@ export function createChart(container, spec) {
     const items = [];
     const textFor = new Map();
     for (const point of labelNodes) {
-      const t = s('text', { class: 'ch-label', 'data-for': point.id }, point.label);
+      const label = highlights.has(point.id) ? `${highlights.get(point.id)} · ${point.label}` : point.label;
+      const t = s('text', { class: 'ch-label', 'data-for': point.id }, label);
       labels.appendChild(t);
       textFor.set(point.id, t);
       let box = null;
       try { box = t.getBBox(); } catch (error) { box = null; }
-      const w = box && box.width > 0 ? box.width + 2 : estimateWidth(point.label, labelSize);
+      const w = box && box.width > 0 ? box.width + 2 : estimateWidth(label, labelSize);
       const hgt = box && box.height > 0 ? box.height : labelSize * 1.25;
       const part = next.get(point.id);
       items.push({ id: point.id, x: part.cx, y: part.cy, r: markR + 1, w, h: hgt, priority: point.priority || 0, side: point.labelSide || null });
@@ -628,15 +631,19 @@ export function createChart(container, spec) {
     if (spec.onDraw) spec.onDraw({ width: W, labelled: placement.size, total: labelNodes.length });
   }
 
+  function redraw() {
+    const active = document.activeElement && document.activeElement.getAttribute ? document.activeElement.getAttribute('data-id') : null;
+    const hadFocus = active && stage.contains(document.activeElement);
+    draw();
+    if (hadFocus && parts.has(active)) parts.get(active).link.focus({ preventScroll: true });
+  }
+
   function measure() {
     if (destroyed) return;
     const w = Math.floor(stage.clientWidth || 0);
     if (w < 200 || w === width) return;
     width = w;
-    const active = document.activeElement && document.activeElement.getAttribute ? document.activeElement.getAttribute('data-id') : null;
-    const hadFocus = active && stage.contains(document.activeElement);
-    draw();
-    if (hadFocus && parts.has(active)) parts.get(active).link.focus({ preventScroll: true });
+    redraw();
   }
 
   let observer = null;
@@ -661,6 +668,13 @@ export function createChart(container, spec) {
 
   return {
     element: figure,
+    /** Labelled outlines retain the mark's measured/hollow shape and its separate focus ring. */
+    setHighlights(items = []) {
+      const next = new Map(items.map(item=>[item.id,item.label]));
+      if(next.size===highlights.size && [...next].every(([id,label])=>highlights.get(id)===label))return;
+      highlights=next;
+      if(width)redraw();
+    },
     /** Points drawn faint: `ids` (a Set), and `note`, the words that go with them for a screen reader. */
     setFaded(ids, note = '') {
       fade = { ids: new Set(ids), note };

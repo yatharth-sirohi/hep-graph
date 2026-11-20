@@ -26,6 +26,8 @@
 
 import { statusStyle, typeStyle, accuracyText } from './mapstyle.js';
 import { fmtDate } from './model.js';
+import { beamDependencyExercise } from './proton-dependency.js';
+import { createDependencyCheckpoint } from './proton-checkpoint.js';
 import * as loader from './loader.js';
 import * as provenance from './provenance.js';
 import {
@@ -157,6 +159,7 @@ export function createPlayer(host) {
   let status = null;
   let lastSig = '';
   let slotsRun = 0;
+  let checkpointKey = null;
 
   // ------------------------------------------------------------------ the year
   function yearInfo() {
@@ -432,6 +435,7 @@ export function createPlayer(host) {
     const progress = h('div', { class: 'pr-progress' });
     const counter = h('p', { class: 'pr-counter', id: 'pr-counter' });
     const content = h('div', { class: 'pr-content' });
+    const checkpoint = h('div', { class: 'pr-checkpoint-slot' });
     const hint = h('p', { class: 'pr-hint' }, 'Left and right arrow keys step; Escape closes. The dot is a marker for where the stage lies, not a measurement of the beam.');
     const method = h('details', { class: 'pr-method' }, [
       h('summary', {}, 'How this is worked out'),
@@ -443,9 +447,9 @@ export function createPlayer(host) {
         'Only geometry in the Atlas’s own map record is lit. A transfer line, a beam line inside a building footprint and an inferred direction are never drawn. The dot runs once along a ring or line when there is one; it marks where the stage lies, not how fast the beam goes, and a real beam makes many thousands of turns.']),
     ]);
     status = h('p', { class: 'visually-hidden', role: 'status', 'aria-live': 'polite', id: 'pr-status' });
-    card = h('section', { class: 'pr-card hidden', id: 'pr-card', 'aria-labelledby': 'pr-title' }, [head, transport, counter, progress, content, method, hint, status]);
+    card = h('section', { class: 'pr-card hidden', id: 'pr-card', 'aria-labelledby': 'pr-title' }, [head, transport, counter, progress, checkpoint, content, method, hint, status]);
     card.addEventListener('keydown', onCardKey);
-    card._parts = { heading, context, prev, play, nextBtn, progress, counter, content };
+    card._parts = { heading, context, prev, play, nextBtn, progress, counter, content, checkpoint };
     host.stage.appendChild(card);
   }
 
@@ -461,6 +465,20 @@ export function createPlayer(host) {
     else if (event.key === 'End') { event.preventDefault(); go(chain.steps.length); }
   }
 
+  function renderCheckpoint(c) {
+    const exercise = beamDependencyExercise(c);
+    const key = exercise ? exercise.key : null;
+    if (key === checkpointKey) return;
+    checkpointKey = key;
+    const slot = card._parts.checkpoint;
+    slot.replaceChildren();
+    if (!exercise) return;
+    const pause = () => { if (playing) togglePlay(); };
+    const initialOpen = c.steps[step-1]?.stage?.id === exercise.blocked.id;
+    slot.appendChild(createDependencyCheckpoint({exercise,initialOpen,pause,
+      trace: target => { pause();go(target); }}));
+  }
+
   function renderCard() {
     const parts = card._parts;
     const info = yearInfo();
@@ -468,6 +486,7 @@ export function createPlayer(host) {
     parts.heading.textContent = title();
     parts.context.textContent = `${facilityName} · ${info.year}${info.note ? ` — ${info.note}` : ''}`;
     const total = c.steps.length;
+    renderCheckpoint(c);
     // aria-disabled, not disabled: pressing Next on the last step must not drop the
     // keyboard reader's focus into the page.
     const off = (button, value) => (value ? button.setAttribute('aria-disabled', 'true') : button.removeAttribute('aria-disabled'));
@@ -895,6 +914,8 @@ export function createPlayer(host) {
       if (start) start.setAttribute('aria-pressed', 'false');
     }
     lastSig = '';
+    checkpointKey = null;
+    if (card) card._parts.checkpoint.replaceChildren();
   }
 
   /** The URL's step: open, move or close the player to match. */

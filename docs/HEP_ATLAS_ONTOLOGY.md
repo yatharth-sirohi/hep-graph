@@ -362,8 +362,9 @@ radii, 0.05-4), `year` (the timeline position, 1900 to the build year),
 `select` (an entity id of a routable type: facility, experiment,
 collaboration, institution, topic, result, document, site, detector,
 accelerator, beamline, map), `map` (the slug of a local map), `view`
-`{"name", "arg"}` (name from the fixed list `beam-section`, whose `arg` is a
-beamline slug; otherwise unchecked), and `question`. **Every factual claim in
+`{"name", "arg"}` (name from `beam-section`, whose `arg` is a beamline slug;
+`underground`, whose argument is empty; or `results-story`, whose argument
+is empty or a known topic slug), and `question`. **Every factual claim in
 `text` is a claim.** A claim names the phrase it supports, `covers` (a
 verbatim substring of the text), and is either an *own claim* (`quote`
 verbatim and non-empty, `locator`, `sources`, `confidence`, `verified_at`;
@@ -382,7 +383,20 @@ each an Atlas input (`ref` + `field` + `unit` for a quantity, or `number` for
 a figure a record states in words or in its quote), a sourced constant
 (`value` + quote) or a computed line (`expression` over earlier names with
 `+ - * / **`, `pi`, `sqrt`, `asin`; `digits` significant digits; `value`),
-which the validator evaluates.
+which the validator evaluates. A primary question may optionally include
+`choices: [{id, label}, ...]` (two to five alternatives, with distinct lowercase
+IDs and distinct non-empty plain-text labels) and `correct_choice` naming one
+listed ID. Options are pedagogical alternatives; the sourced answer and its
+working explain the supported interpretation. The player requires a prediction
+before revealing such an answer, retains the learner's choice and gives text
+feedback. Predictions are local to the current question: they are not stored,
+tracked or put in the URL. Questions without choices retain their original
+reveal behavior. A question may also carry one optional
+`worked_example` with prompt, answer, claims and calculation, without choices
+or further nesting. Its
+claims and arithmetic are validated and resolved by the same rules, and the
+existing player puts it behind a “Go deeper” disclosure in the answer. This
+keeps a short prediction while preserving the instructor’s sourced exercise.
 
 Validator rules (`hepgraph/atlas/tours.py`, reported through `validate.py`;
 errors unless marked warn): the entity or field a reference names does not

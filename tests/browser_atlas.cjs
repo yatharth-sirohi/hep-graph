@@ -354,32 +354,34 @@ async function openResultsControls(page) {
     assert.equal(card.desc, "Laboratories, detectors and discoveries of particle physics on one globe, with every fact traced to its source.");
     assert.equal(card.focusInside, true, "opening the card moves focus into it, so a keyboard user starts there");
     // "Take a tour" leads (the guided tours, js/tours.js), then the four questions.
-    assert.deepEqual(card.links.map((l) => l.href), [
-      "?m=tours", "#/experiment/dune", "#/result/atlas-higgs-observation-2012", "#/topic/neutrino-oscillations", "#/view/beam-section/j-parc-neutrino",
+    // Native links also carry the visit settings; the authored destinations stay exact.
+    assert.deepEqual(card.links.map((l) => {
+      const url = new URL(l.href, `${base}/atlas`);
+      for (const key of ["data", "embed", "theme"]) url.searchParams.delete(key);
+      return `${url.search}${url.hash}`;
+    }), [
+      "?m=tours", "?step=5&e=2.5#/tour/neutrino-beams-through-the-earth", "?step=6#/tour/higgs-hunt", "?step=6#/tour/going-underground-dark-matter",
+      "?ce=450#/view/energy-frontier/collision",
     ]);
-    // The fourth question was "How deep are the underground labs?" until a depth chart
-    // exists to answer it; T2K's 295 km beam, as the beam-section view, answers the one below today.
     assert.deepEqual(card.links.map((l) => l.text), [
-      "Follow a guided tour", "Where is DUNE\u2019s far detector?", "Where was the Higgs discovered?",
-      "Which experiments study neutrino oscillations?", "How far does a neutrino beam travel?",
+      "Follow a guided tour", "Why do neutrino beams go through the Earth?", "How did ATLAS and CMS establish the Higgs discovery?",
+      "Why are some detectors underground?", "Why do colliders reach higher collision energies?",
     ]);
     assert.deepEqual(card.buttons, ["Close Start here", "Browse results", "Search", "Explore the globe"]);
 
     // Every question lands on something real, and dismisses the card on the way.
     const expectations = [
-      { href: "#/experiment/dune", panel: /Deep Underground Neutrino Experiment/, url: /#\/experiment\/dune$/ },
-      { href: "#/result/atlas-higgs-observation-2012", panel: /observation of a new particle/i, url: /#\/result\/atlas-higgs-observation-2012$/ },
-      { href: "#/topic/neutrino-oscillations", panel: /Neutrino oscillations/, url: /#\/topic\/neutrino-oscillations$/ },
-      // "How far does a neutrino beam travel?" lands on the T2K beam through the Earth, not on the experiment record.
-      { href: "#/view/beam-section/j-parc-neutrino", view: /Beam through the Earth/, url: /#\/view\/beam-section\/j-parc-neutrino$/ },
+      { text: "Why do neutrino beams go through the Earth?", href: "?step=5&e=2.5#/tour/neutrino-beams-through-the-earth", view: /Beam through the Earth/, url: /#\/tour\/neutrino-beams-through-the-earth$/ },
+      { text: "How did ATLAS and CMS establish the Higgs discovery?", href: "?step=6#/tour/higgs-hunt", view: /Results as a story/, url: /#\/tour\/higgs-hunt$/ },
+      { text: "Why are some detectors underground?", href: "?step=6#/tour/going-underground-dark-matter", view: /Going underground/, url: /#\/tour\/going-underground-dark-matter$/ },
+      { text: "Why do colliders reach higher collision energies?", href: "?ce=450#/view/energy-frontier/collision", view: /Collision energies/, url: /#\/view\/energy-frontier\/collision$/ },
     ];
     for (const expected of expectations) {
-      await p.locator(`#start-card a[href="${expected.href}"]`).click();
+      await p.getByRole("link", { name: expected.text, exact: false }).click();
       await p.waitForFunction(() => document.getElementById("start-card").hidden);
       if (expected.view) {
-        await p.locator("#view-host .bs-lede").waitFor();
+        await p.locator("#view-body svg").first().waitFor();
         assert.match(await p.locator("#view-title").innerText(), expected.view, `${expected.href} opens its view`);
-        assert.match(await p.locator("#view-subtitle").innerText(), /J-PARC → Kamioka Observatory/, "the T2K row: Tokai to Kamioka");
       } else {
         await p.locator("#detail-panel h2").waitFor();
         assert.match(await p.locator("#detail-panel h2").innerText(), expected.panel, `${expected.href} opens its record`);
@@ -4139,15 +4141,19 @@ async function openResultsControls(page) {
     assert.match(stats, /2\.18 × 10⁻⁴⁸ cm²\s+at 40 GeV\/c²/);
     assert.match(stats, /2\.58 × 10⁻⁴⁷ cm²\s+at 28 GeV\/c²/);
     assert.match(stats, /3\.80 × 10⁻⁴⁷ cm²\s+at 40 GeV\/c²/, "PandaX-4T's published minimum is at 40 GeV/c² (the data were corrected from 30)");
+    // Make the actual point visible before measuring a pointer target: the view
+    // scrolls, and a fixed timeline can otherwise cover an offscreen minimum.
+    await p.locator('.lm-series[data-slug="lz-2024-si-wimp-nucleon"] .lm-min-ring').scrollIntoViewIfNeeded();
     // The read-out: pointing at the dot of LZ 2024's minimum names it.
     const spot = await p.evaluate(() => {
       const dots = [...document.querySelectorAll('.lm-series[data-slug="lz-2024-si-wimp-nucleon"] .lm-dot')];
       const ring = document.querySelector('.lm-series[data-slug="lz-2024-si-wimp-nucleon"] .lm-min-ring').getBoundingClientRect();
       const x = ring.left + ring.width / 2;
       const y = ring.top + ring.height / 2;
-      return { x, y, dots: dots.length };
+      return { x, y, dots: dots.length, onPlot: document.elementFromPoint(x,y)?.classList.contains('lm-overlay') };
     });
     assert.equal(spot.dots, 26);
+    assert.equal(spot.onPlot, true, 'the pointer must reach the chart, not the fixed timeline');
     await p.mouse.move(spot.x, spot.y);
     await p.waitForFunction(() => /LZ, 4\.2 tonne-years \(2024\): 40 GeV\/c², 2\.18 × 10⁻⁴⁸ cm²/.test(document.querySelector(".lm-readout").textContent));
     // Citations: the HEPData record, the table and the paper are links; the markers say why they are markers.
@@ -4895,6 +4901,8 @@ async function openResultsControls(page) {
       // Reduced motion (this context asks for it): the progress bar jumps, and the camera is told to jump (globe.js).
       assert.equal(await p.evaluate(() => matchMedia("(prefers-reduced-motion: reduce)").matches), true);
       assert.equal(await p.evaluate(() => getComputedStyle(document.querySelector(".tour-bar > i")).transitionDuration), "0s");
+      const predictions = p.locator(".tour-choices input[type=radio]");
+      if (await predictions.count()) await predictions.first().check();
       const button = p.locator(".tour-answer-btn");
       assert.deepEqual([await button.innerText(), await button.getAttribute("aria-expanded")], ["Show answer", "false"]);
       assert.equal(await p.locator(".tour-answer").isHidden(), true, "the answer is not shown before it is asked for");

@@ -347,104 +347,120 @@
       ],
       "id": "five-labs",
       "question": {
-        "answer": "Soudan: 2070 ÷ 705 ≈ 2.9. SURF: 4300 ÷ 1478 ≈ 2.9. SNOLAB: 6000 ÷ 2039 ≈ 2.9. At all three sites each metre of depth counts for about 2.9 m.w.e.",
-        "calculation": [
-          {
-            "field": "specs.depth",
-            "name": "dS",
-            "ref": "facility:soudan-underground-laboratory",
-            "unit": "m"
-          },
-          {
-            "field": "specs.overburden",
-            "name": "wS",
-            "ref": "facility:soudan-underground-laboratory",
-            "unit": "m.w.e."
-          },
-          {
-            "field": "specs.depth",
-            "name": "dU",
-            "ref": "facility:surf",
-            "unit": "m"
-          },
-          {
-            "field": "specs.overburden",
-            "name": "wU",
-            "ref": "facility:surf",
-            "unit": "m.w.e."
-          },
-          {
-            "field": "depth",
-            "name": "dN",
-            "ref": "site:snolab-underground-lab",
-            "unit": "m"
-          },
-          {
-            "field": "depth_mwe",
-            "name": "wN",
-            "ref": "site:snolab-underground-lab",
-            "unit": "m.w.e."
-          },
-          {
-            "digits": 2,
-            "expression": "wS / dS",
-            "name": "fS",
-            "unit": "m.w.e. per m",
-            "value": 2.9
-          },
-          {
-            "digits": 2,
-            "expression": "wU / dU",
-            "name": "fU",
-            "unit": "m.w.e. per m",
-            "value": 2.9
-          },
-          {
-            "digits": 2,
-            "expression": "wN / dN",
-            "name": "fN",
-            "unit": "m.w.e. per m",
-            "value": 2.9
-          }
-        ],
+        "prompt": "Look for the trend between overburden and muon flux on the chart. Predict: would more rock above a detector usually mean more or fewer cosmic-ray muons?",
+        "answer": "Fewer cosmic-ray muons: SNOLAB is a deep underground laboratory which uses the 2 km of rock overburden to filter out cosmic-ray muons.",
         "claims": [
           {
-            "covers": "Soudan is 705 m underground, at 2070 m.w.e.",
-            "field": "specs.depth",
-            "in": "prompt",
-            "ref": "facility:soudan-underground-laboratory"
-          },
-          {
-            "covers": "SURF is 1478 m down",
-            "field": "specs.depth",
-            "in": "prompt",
-            "ref": "facility:surf"
-          },
-          {
-            "covers": "4300 m.w.e.",
-            "field": "specs.overburden",
-            "in": "prompt",
-            "ref": "facility:surf"
-          },
-          {
-            "covers": "the SNO detector vessel at SNOLAB is 2039 m below the surface",
-            "field": "depth",
-            "in": "prompt",
-            "ref": "site:snolab-underground-lab"
-          },
-          {
-            "covers": "about 6000 m.w.e.",
-            "field": "depth_mwe",
-            "in": "prompt",
-            "ref": "site:snolab-underground-lab"
+            "covers": "SNOLAB is a deep underground laboratory which uses the 2 km of rock overburden to filter out cosmic-ray muons",
+            "field": "facility_roles.facility:snolab",
+            "ref": "experiment:deap-3600",
+            "in": "answer"
           }
         ],
-        "prompt": "Soudan is 705 m underground, at 2070 m.w.e.; SURF is 1478 m down, at 4300 m.w.e.; the SNO detector vessel at SNOLAB is 2039 m below the surface, at about 6000 m.w.e. For each, divide the m.w.e. figure by the depth in metres. What do you notice?"
+        "worked_example": {
+          "answer": "Soudan: 2070 ÷ 705 ≈ 2.9. SURF: 4300 ÷ 1478 ≈ 2.9. SNOLAB: 6000 ÷ 2039 ≈ 2.9. At all three sites each metre of depth counts for about 2.9 m.w.e.",
+          "calculation": [
+            {
+              "field": "specs.depth",
+              "name": "dS",
+              "ref": "facility:soudan-underground-laboratory",
+              "unit": "m"
+            },
+            {
+              "field": "specs.overburden",
+              "name": "wS",
+              "ref": "facility:soudan-underground-laboratory",
+              "unit": "m.w.e."
+            },
+            {
+              "field": "specs.depth",
+              "name": "dU",
+              "ref": "facility:surf",
+              "unit": "m"
+            },
+            {
+              "field": "specs.overburden",
+              "name": "wU",
+              "ref": "facility:surf",
+              "unit": "m.w.e."
+            },
+            {
+              "field": "depth",
+              "name": "dN",
+              "ref": "site:snolab-underground-lab",
+              "unit": "m"
+            },
+            {
+              "field": "depth_mwe",
+              "name": "wN",
+              "ref": "site:snolab-underground-lab",
+              "unit": "m.w.e."
+            },
+            {
+              "digits": 2,
+              "expression": "wS / dS",
+              "name": "fS",
+              "unit": "m.w.e. per m",
+              "value": 2.9
+            },
+            {
+              "digits": 2,
+              "expression": "wU / dU",
+              "name": "fU",
+              "unit": "m.w.e. per m",
+              "value": 2.9
+            },
+            {
+              "digits": 2,
+              "expression": "wN / dN",
+              "name": "fN",
+              "unit": "m.w.e. per m",
+              "value": 2.9
+            }
+          ],
+          "claims": [
+            {
+              "covers": "Soudan is 705 m underground, at 2070 m.w.e.",
+              "field": "specs.depth",
+              "in": "prompt",
+              "ref": "facility:soudan-underground-laboratory"
+            },
+            {
+              "covers": "SURF is 1478 m down",
+              "field": "specs.depth",
+              "in": "prompt",
+              "ref": "facility:surf"
+            },
+            {
+              "covers": "4300 m.w.e.",
+              "field": "specs.overburden",
+              "in": "prompt",
+              "ref": "facility:surf"
+            },
+            {
+              "covers": "the SNO detector vessel at SNOLAB is 2039 m below the surface",
+              "field": "depth",
+              "in": "prompt",
+              "ref": "site:snolab-underground-lab"
+            },
+            {
+              "covers": "about 6000 m.w.e.",
+              "field": "depth_mwe",
+              "in": "prompt",
+              "ref": "site:snolab-underground-lab"
+            }
+          ],
+          "prompt": "Soudan is 705 m underground, at 2070 m.w.e.; SURF is 1478 m down, at 4300 m.w.e.; the SNO detector vessel at SNOLAB is 2039 m below the surface, at about 6000 m.w.e. For each, divide the m.w.e. figure by the depth in metres. What do you notice?"
+        }
       },
       "select": "topic:direct-dark-matter-detection",
       "text": "Soudan lies 705 m underground, Gran Sasso has a 1400 metre-rock thickness above it, SURF is 1478 m down, SNOLAB has 2 km of rock overburden and Jinping 2400 m.",
       "title": "Five laboratories, five depths",
-      "year": 2022
+      "year": 2022,
+      "view": {
+        "name": "underground",
+        "arg": ""
+      }
     }
   ],
   "summary": "Visit five underground laboratories, from Soudan in Minnesota to Jinping in Sichuan, to see why dark matter searches go deep and what they found.",

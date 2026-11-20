@@ -516,7 +516,8 @@ def test_the_compare_view_is_registered_once_and_loads_only_when_asked() -> None
     assert "load: () => import('./compare.js')" in registry
     for path in JS.rglob("*.js"):
         text = path.read_text(encoding="utf-8")
-        assert not re.search(r"^import .* from '[^']*compare(-rows)?\.js'", text, re.M), path.name
+        assert not re.search(r"^import .* from '(?:[^']*/)?compare(-rows)?\.js'", text, re.M), path.name
+    # Match the exact view filenames: a pure helper such as underground-compare.js is separate.
     # The route's few lines are all that the globe's own start-up pulls in.
     assert "compare-rows" not in registry
 

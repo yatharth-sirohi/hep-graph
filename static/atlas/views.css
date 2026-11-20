@@ -2602,3 +2602,89 @@ a.rs-lane-link {
   font-weight: 650;
   letter-spacing: 0.06em;
 }
+
+/* Energy interaction inside the existing beam section. Text and shape encode
+   every chart state; the selected circle and maximum diamond differ in print. */
+.osc-lab { margin: 1.5rem 0; padding: clamp(.8rem, 2vw, 1.4rem); border: 1px solid var(--line-strong); border-radius: 12px; background: var(--panel); min-width: 0; }
+.osc-lab h3 { margin-top: 0; }
+.osc-lab p { line-height: 1.6; }
+.osc-model-note { border-left: 3px solid currentColor; padding-left: .8rem; font-weight: 600; }
+.osc-controls { display: grid; grid-template-columns: minmax(10rem, 1fr) minmax(12rem, 2fr); gap: .6rem 1rem; align-items: center; }
+.osc-controls select, .osc-controls input { width: 100%; min-width: 0; box-sizing: border-box; font: inherit; }
+.osc-controls select, .osc-controls input[type=number] { min-height: 44px; color: var(--white); background: var(--paper); border: 1px solid var(--line-strong); border-radius: 5px; padding: .4rem; }
+.osc-controls input[type=range] { min-height: 44px; accent-color: var(--white); }
+.osc-lab output { display: block; padding: .6rem 0; font-weight: 650; font-variant-numeric: tabular-nums; line-height: 1.7; }
+.osc-plot { width: 100%; min-width: 0; }
+.osc-plot svg { display: block; overflow: visible; }
+.osc-plot text { fill: var(--white); font: 14px Inter, sans-serif; }
+.osc-grid { stroke: var(--line-strong); stroke-width: 1; }
+.osc-curve { fill: none; stroke: var(--white); stroke-width: 2; }
+.osc-max-guide { stroke: var(--white); stroke-dasharray: 5 4; stroke-width: 1.5; }
+.osc-selected-guide { stroke: var(--white); stroke-width: 1; }
+.osc-max-point { fill: var(--paper); stroke: var(--white); stroke-width: 2; }
+.osc-selected-point { fill: var(--white); stroke: var(--paper); stroke-width: 2; }
+.osc-method { margin-top: 1rem; }
+.osc-method summary { cursor: pointer; padding: .6rem 0; }
+.osc-formula { font-family: 'STIX Two Math', serif; font-size: 1.15rem; overflow-wrap: anywhere; }
+.osc-lab :focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }
+@media (max-width: 560px) {
+  /* Keep the energy controls and the entire curve together in a phone viewport. */
+  .osc-controls { grid-template-columns: minmax(0, 1fr) 7rem; gap: .35rem .7rem; }
+  .osc-controls label[for=osc-baseline] { grid-area: 1 / 1 / 2 / 3; }
+  .osc-baseline-controls { grid-area: 2 / 1 / 3 / 3; }
+  .osc-controls label[for=osc-energy] { grid-area: 3 / 1; margin-top: .6rem; }
+  #osc-energy { grid-area: 4 / 1; }
+  .osc-controls label[for=osc-energy-number] { grid-area: 3 / 2; margin-top: .6rem; }
+  #osc-energy-number { grid-area: 4 / 2; }
+}
+/* A question opened in the tour must expose its visual in the small area above
+   the phone's tour sheet. The full explanation remains immediately below it. */
+@media (max-width: 760px) {
+  body.is-touring .view-body > .bs-figure,
+  body.is-touring .view-body > .ug-figure,
+  body.is-touring .view-body > .rs-stage { order: -1; }
+}
+.osc-experiment, .osc-angle-experiment { margin: .9rem 0; padding: .7rem .9rem; border: 1px solid var(--line-strong); border-radius: var(--radius); }
+.osc-experiment summary, .osc-angle-experiment summary { cursor: pointer; min-height: 44px; line-height: 1.6; font-weight: 600; }
+.osc-experiment .text-btn, .osc-angle-experiment .text-btn { min-height: 44px; }
+.osc-prediction-answer { margin-top: .75rem; border-left: 3px solid var(--amber); padding-left: .8rem; }
+
+.osc-baseline-controls { min-width: 0; }
+.osc-controls .osc-keep-ratio { display: flex; align-items: center; gap: .65rem; min-height: 44px; line-height: 1.5; }
+.osc-controls input[type=checkbox] { width: 1.15rem; height: 1.15rem; flex-shrink: 0; accent-color: var(--white); }
+#osc-baseline-error { border-left: 3px solid currentColor; padding-left: .65rem; }
+
+/* A closed two-flavor probability balance, with shape and text independent of color. */
+.osc-flavors { margin: .9rem 0; padding: .7rem .9rem; border: 1px solid var(--line-strong); border-radius: var(--radius); }
+.osc-flavors summary { cursor: pointer; min-height: 44px; line-height: 1.6; font-weight: 600; }
+.osc-flavor-values { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .75rem; }
+.osc-flavor-values dt { font-size: .9rem; line-height: 1.5; }
+.osc-flavor-values dd { margin: .35rem 0; font-size: 1.25rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+.osc-flavor-bar svg { display: block; width: 100%; }
+.osc-survival-part { fill: var(--white); }
+.osc-flavor-hatch { fill: none; stroke: var(--white); stroke-width: 5; }
+.osc-flavor-outline { fill: none; stroke: var(--white); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+
+/* Selected chart values keep their original marker and keyboard focus indicator. */
+.ch-highlight { fill: none; stroke: var(--white); stroke-width: 2; pointer-events: none; }
+.ch-point[data-highlight="B"] .ch-highlight { stroke-dasharray: 4 2; }
+.ug-compare { border: 1px solid var(--line-strong); border-radius: var(--radius); padding: var(--space-3); overflow-wrap: anywhere; }
+.ug-compare-controls { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--space-3); }
+.ug-compare-controls label { display: grid; gap: var(--space-1); min-width: 0; }
+.ug-compare-controls select { width: 100%; min-width: 0; min-height: 44px; font: inherit; color: var(--white); background: var(--panel); border: 1px solid var(--line-strong); border-radius: var(--radius-sm); padding: var(--space-2); }
+.ug-compare-values { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--space-3); }
+.ug-compare-values article { min-width: 0; }
+.ug-compare-values h4 { margin-bottom: var(--space-1); }
+.ug-compare-result { font-weight: 600; }
+.ug-compare summary { cursor: pointer; min-height: 44px; line-height: 1.6; }
+.ug-compare .text-btn { min-height: 44px; }
+.ug-compare-error { border-left: 3px solid currentColor; padding-left: var(--space-2); }
+@media (max-width: 560px) {
+  .ug-compare-controls, .ug-compare-values { grid-template-columns: minmax(0,1fr); }
+}
+
+/* One model, with mixing kept beside the existing curve on small screens. */
+.osc-angle-controls { display: grid; grid-template-columns: auto minmax(44px, 1fr) 3rem; align-items: center; gap: .65rem; margin: .3rem 0; }
+.osc-angle-controls input { min-width: 0; width: 100%; min-height: 44px; accent-color: var(--white); }
+.osc-angle-controls output { padding: 0; text-align: right; line-height: 1.3; }
+.osc-angle-experiment .text-btn { margin: .25rem .5rem .25rem 0; }
