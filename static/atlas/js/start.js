@@ -17,6 +17,7 @@
 // browser tests and an embedder want; nothing is stored for that.
 
 import * as state from './state.js';
+import { visitHref } from './tour-link.js';
 
 export const STORAGE_KEY = 'hep-atlas.start-here';
 
@@ -54,7 +55,7 @@ export function isFirstVisit(loc = window.location) {
  * Returns { openFirstVisit, open, close }.
  */
 export function createStartHere({
-  card, reopenButton, helpButton = null, searchInput, getGlobe, firstVisit, tours = false, tourCount = null,
+  card, reopenButton, helpButton = null, searchInput, getGlobe, firstVisit, tours = false, tourCount = null, defaultYear = null,
 }) {
   // The footer's "Start here" and the header's "Help" both open the card.
   const openers = [reopenButton, helpButton].filter(Boolean);
@@ -73,6 +74,15 @@ export function createStartHere({
 
   const isOpen = () => !card.hidden;
 
+  function refreshLinks() {
+    for (const link of card.querySelectorAll('a[data-start-link]')) {
+      const target = link.dataset.startHref || link.getAttribute('href');
+      link.dataset.startHref = target;
+      link.setAttribute('href',visitHref(target,window.location.search));
+    }
+  }
+
+
   function frameGlobe() {
     const globe = getGlobe && getGlobe();
     // `clearOf` frames the view in the part of the stage the card leaves free.
@@ -80,6 +90,7 @@ export function createStartHere({
   }
 
   function open({ trigger = null, frame = false } = {}) {
+    refreshLinks();
     opener = trigger;
     before = document.activeElement && document.activeElement !== document.body && !card.contains(document.activeElement)
       ? document.activeElement : null;
@@ -106,13 +117,26 @@ export function createStartHere({
     before = null;
   }
 
+  card.addEventListener('keydown', (event) => {
+    const blank = document.getElementById('tour-blank');
+    if ((!blank || blank.hidden) && ['Enter',' '].includes(event.key) && event.target.closest('a,button')) event.stopPropagation();
+  });
+
   card.addEventListener('click', (event) => {
     const link = event.target.closest('a[data-start-link]');
     if (link) {
       if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       event.preventDefault();
       close({ restoreFocus: false });
-      state.navigate(state.patchFromLink(link.getAttribute('href')));
+      const patch=state.destinationFromLink(link.getAttribute('href'),{defaultYear});
+      const previous=state.get()?.entity;
+      const sameView=patch.entity?.type==='view' && previous?.type==='view' && patch.entity.slug===previous.slug;
+      // Starting a question is an entry point even when its view is already open.
+      if(patch.entity?.type==='view'){
+        const view=document.getElementById('view-host');if(view)view.scrollTop=0;
+      }
+      state.navigate(patch);
+      if(sameView)document.getElementById('view-title')?.focus({preventScroll:true});
       return;
     }
     const button = event.target.closest('[data-start-action]');
@@ -135,6 +159,8 @@ export function createStartHere({
   // its own Escape (it closes its suggestion list).
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape' || !isOpen() || event.target === searchInput) return;
+    const blank = document.getElementById('tour-blank');
+    if (blank && !blank.hidden) return; // The presenter consumes the first key to unblank.
     event.stopPropagation();
     close();
   }, true);
@@ -145,6 +171,7 @@ export function createStartHere({
     if (!isOpen()) return;
     const key = routeKey(current);
     if (key !== lastRoute) close({ restoreFocus: false });
+    else refreshLinks();
   });
 
   return {

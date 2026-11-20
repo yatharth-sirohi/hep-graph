@@ -317,7 +317,7 @@ async function openResultsControls(page) {
   });
 
   // ---- Start here (static/atlas/js/start.js) ---------------------------------------
-  await record("Start here: a first visit shows a labelled card with a tour row and three real deep links, Escape dismisses it for good, the footer reopens it", async () => {
+  await record("Start here: a first visit shows a labelled card with a tour row and four real deep links, Escape dismisses it for good, the footer reopens it", async () => {
     if (process.env.HEP_ATLAS_DATA !== "generated") {
       // The curated questions name records of the real bundle. Against the fixture
       // tree only the rule "an address with a query never opens the card" applies.
@@ -353,24 +353,31 @@ async function openResultsControls(page) {
     // Coverage is partial, so the card does not claim "every major facility" (M1 round 2).
     assert.equal(card.desc, "Laboratories, detectors and discoveries of particle physics on one globe, with every fact traced to its source.");
     assert.equal(card.focusInside, true, "opening the card moves focus into it, so a keyboard user starts there");
-    // "Take a tour" leads (the guided tours, js/tours.js), then the three questions.
-    assert.deepEqual(card.links.map((l) => l.href), [
+    // "Take a tour" leads (the guided tours, js/tours.js), then the four questions.
+    // Native links also carry the visit settings; the authored destinations stay exact.
+    assert.deepEqual(card.links.map((l) => {
+      const url = new URL(l.href, `${base}/atlas`);
+      for (const key of ["data", "embed", "theme"]) url.searchParams.delete(key);
+      return `${url.search}${url.hash}`;
+    }), [
       "?m=tours", "?step=5&e=2.5#/tour/neutrino-beams-through-the-earth", "?step=6#/tour/higgs-hunt", "?step=6#/tour/going-underground-dark-matter",
+      "?ce=450#/view/energy-frontier/collision",
     ]);
     assert.deepEqual(card.links.map((l) => l.text), [
       "Follow a guided tour", "Why do neutrino beams go through the Earth?", "How did ATLAS and CMS establish the Higgs discovery?",
-      "Why are some detectors underground?",
+      "Why are some detectors underground?", "Why do colliders reach higher collision energies?",
     ]);
     assert.deepEqual(card.buttons, ["Close Start here", "Browse results", "Search", "Explore the globe"]);
 
     // Every question lands on something real, and dismisses the card on the way.
     const expectations = [
-      { href: "?step=5&e=2.5#/tour/neutrino-beams-through-the-earth", view: /Beam through the Earth/, url: /#\/tour\/neutrino-beams-through-the-earth$/ },
-      { href: "?step=6#/tour/higgs-hunt", view: /Results as a story/, url: /#\/tour\/higgs-hunt$/ },
-      { href: "?step=6#/tour/going-underground-dark-matter", view: /Going underground/, url: /#\/tour\/going-underground-dark-matter$/ },
+      { text: "Why do neutrino beams go through the Earth?", href: "?step=5&e=2.5#/tour/neutrino-beams-through-the-earth", view: /Beam through the Earth/, url: /#\/tour\/neutrino-beams-through-the-earth$/ },
+      { text: "How did ATLAS and CMS establish the Higgs discovery?", href: "?step=6#/tour/higgs-hunt", view: /Results as a story/, url: /#\/tour\/higgs-hunt$/ },
+      { text: "Why are some detectors underground?", href: "?step=6#/tour/going-underground-dark-matter", view: /Going underground/, url: /#\/tour\/going-underground-dark-matter$/ },
+      { text: "Why do colliders reach higher collision energies?", href: "?ce=450#/view/energy-frontier/collision", view: /Collision energies/, url: /#\/view\/energy-frontier\/collision$/ },
     ];
     for (const expected of expectations) {
-      await p.locator(`#start-card a[href="${expected.href}"]`).click();
+      await p.getByRole("link", { name: expected.text, exact: false }).click();
       await p.waitForFunction(() => document.getElementById("start-card").hidden);
       if (expected.view) {
         await p.locator("#view-body svg").first().waitFor();
@@ -471,7 +478,7 @@ async function openResultsControls(page) {
     assert.ok(box.close.w >= 44 && box.close.h >= 44, "the close button is a 44 px target");
     for (const a of box.actions) assert.ok(a.h >= 44 && a.b <= box.card.b && a.y >= box.card.y, "each action is a 44 px target inside the sheet");
     for (const q of box.questions) assert.ok(q.h >= 44, "each question is a 44 px target");
-    assert.equal(box.scrolls, false, "all three questions and the three entries fit without scrolling a 390x844 phone");
+    assert.equal(box.scrolls, false, "all four questions and the three entries fit without scrolling a 390x844 phone");
     assert.equal(box.overflowX, false, "no sideways scroll");
     await p.locator(".start-close").tap();
     await p.waitForFunction(() => document.getElementById("start-card").hidden);

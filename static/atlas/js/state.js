@@ -61,10 +61,10 @@ function parseResultsView(params) {
 const subscribers = new Set();
 let current = null;
 
-// The registry accepts one trailing slash as this view's empty argument.
+// Canonical spellings for the two supported energy-frontier entries.
 function canonicalEntity(entity) {
-  return entity?.type === 'view' && entity.slug === 'energy-frontier/'
-    ? { ...entity, slug:'energy-frontier' } : entity;
+  return entity?.type === 'view' && ['energy-frontier/','energy-frontier/collision/'].includes(entity.slug)
+    ? { ...entity, slug:entity.slug.slice(0,-1) } : entity;
 }
 
 function parseHashEntity(hash) {
@@ -153,8 +153,8 @@ function parseSearch(search) {
 // often typed or pasted) is read as if it stood before the `#`; a parameter in both
 // places keeps the real query's value. The address is rewritten in the usual form the
 // next time anything navigates.
-function locationParts() {
-  const { hash, search } = window.location;
+function locationParts(loc = window.location) {
+  const { hash, search } = loc;
   const at = hash.indexOf('?');
   if (at < 0) return { hash, search };
   const merged = new URLSearchParams(search);
@@ -162,13 +162,20 @@ function locationParts() {
   return { hash: hash.slice(0, at), search: `?${merged.toString()}` };
 }
 
-function readLocation() {
-  const { hash, search } = locationParts();
+function readLocation(loc = window.location) {
+  const { hash, search } = locationParts(loc);
   return {
     entity: parseHashEntity(hash),
     ...parseSearch(search),
     dataMode: new URLSearchParams(search).get('data'),
   };
+}
+
+/** Start links describe an entire destination, like opening their native URL. */
+export function destinationFromLink(href, { defaultYear = null } = {}) {
+  const destination=readLocation(new URL(href,window.location.href));
+  if(destination.year==null && !destination.range && Number.isInteger(defaultYear)) destination.year=defaultYear;
+  return destination;
 }
 
 function onBeamLab(entity) {
@@ -182,7 +189,7 @@ function onUnderground(entity) {
     || (entity.type==='tour' && entity.slug==='going-underground-dark-matter'));
 }
 
-function onEnergyFrontier(entity) { return entity?.type === 'view' && entity.slug === 'energy-frontier'; }
+function onEnergyFrontier(entity) { return entity?.type === 'view' && ['energy-frontier','energy-frontier/collision'].includes(entity.slug); }
 
 function buildURL(state) {
   const params = new URLSearchParams();
@@ -316,9 +323,15 @@ export function subscribe(fn) {
 
 /** Wire popstate and read the initial URL. Call once at startup. */
 export function init() {
-  current = readLocation();
-  window.addEventListener('popstate', () => {
+  function restoreLocation() {
     current = readLocation();
+    if (['#/view/energy-frontier/','#/view/energy-frontier/collision/'].includes(locationParts().hash)) {
+      window.history.replaceState(current,'',buildURL(current));
+    }
+  }
+  restoreLocation();
+  window.addEventListener('popstate', () => {
+    restoreLocation();
     notify();
   });
   return current;

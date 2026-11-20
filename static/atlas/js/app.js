@@ -248,6 +248,7 @@ async function main() {
   }
 
   const index = buildIndex(atlas);
+  const defaultYear = (manifest.timeline && manifest.timeline.default_year) || new Date().getFullYear();
 
   // Guided tours (js/tours.js) are only offered when the data build carries tours.json
   // (the fixture tree does not): the header's Tours button, the Start card's row.
@@ -280,6 +281,7 @@ async function main() {
     firstVisit,
     tours: hasTours,
     tourCount: tourRows || null,
+    defaultYear,
   });
   const hasGL2 = globeModule.supportsWebGL2();
   // "Take it to a slide": the header's Export image control and the facility sheet.
@@ -409,7 +411,7 @@ async function main() {
   const timeline = createTimeline(els.timelineBar, {
     minYear: (manifest.timeline && manifest.timeline.min_year) || 1950,
     maxYear: (manifest.timeline && manifest.timeline.max_year) || new Date().getFullYear() + 10,
-    defaultYear: (manifest.timeline && manifest.timeline.default_year) || new Date().getFullYear(),
+    defaultYear,
     onChange: (t) => {
       const timelineState = t.mode === 'year' ? { year: t.year } : { range: t.range };
       applyTimelineToGlobe(timelineState);

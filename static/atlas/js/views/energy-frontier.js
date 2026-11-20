@@ -35,7 +35,8 @@ const yearText = (point) => `${point.approx ? 'c. ' : ''}${point.year}`;
 
 export function mount(ctx) {
   const { atlas, host, loader } = ctx;
-  host.setTitle(WORKING_TITLE);
+  const questionEntry=ctx.arg==='collision';
+  host.setTitle(questionEntry?'Collision energies':WORKING_TITLE);
   const { rows, skipped, points: allPoints } = frontierData(atlas);
   if (!rows.length) {
     host.fail('No accelerator in the data loaded here has both a sourced energy and a start of operation, so there is nothing to plot. '
@@ -57,7 +58,8 @@ export function mount(ctx) {
   const hasEras = rows.some((row) => row.points.some((point) => point.kind === 'era'));
   const todayCount = allPoints.filter((point) => point.kind === 'today').length;
 
-  host.setSubtitle(`${rows.length} accelerators · ${allPoints.length} points · energy against the year each energy began to apply`);
+  const historicalSubtitle=`${rows.length} accelerators · ${allPoints.length} points · energy against the year each energy began to apply`;
+  host.setSubtitle(questionEntry?'Same total E per moving proton':historicalSubtitle);
 
   // ---- the sentence a newcomer can read
   const colliderPoints = allPoints.filter((point) => point.machine.collider);
@@ -158,11 +160,15 @@ export function mount(ctx) {
 
   // "Export image": the chart and its legend, as the picture a lecture slide takes.
   const collision = createCollisionLab(ctx);
-  host.setExporter(choice => choice === 'collision' ? collision.exportFigure() : chart.exportFigures(), [
-    {id:'history',label:'Historical energy chart'},
-    {id:'collision',label:'Proton collision-energy model',title:'Proton collision-energy model',
-      subtitle:'Ideal fixed-target and equal head-on kinematics',name:'proton-collision-energy-model'},
-  ]);
+  const historyChoice={id:'history',label:'Historical energy chart',title:WORKING_TITLE,subtitle:historicalSubtitle};
+  const modelChoice={id:'collision',label:'Proton collision-energy model',title:'Proton collision-energy model',
+    subtitle:'Ideal fixed-target and equal head-on kinematics',name:'proton-collision-energy-model'};
+  host.setExporter(choice => {
+    if(choice==='collision')return collision.exportFigure();
+    const made=chart.exportFigures();
+    if(made&&questionEntry){const url=new URL(location.href);url.hash='#/view/energy-frontier';made.notes=[`Reopen the recorded-energy chart: ${url.href}`]}
+    return made;
+  },questionEntry?[modelChoice,historyChoice]:[historyChoice,modelChoice]);
 
   const notes = rows.filter((row) => row.other);
   const figure = h('div', { class: 'ch-block ef-figure' }, [
@@ -170,7 +176,7 @@ export function mount(ctx) {
     yearNote,
     h('p', { class: 'ch-caption' }, [
       h('strong', {}, 'A collider’s √s and a beam’s energy are not the same quantity. '),
-      'Explore the proton example in “Compare collision energies” below. The historical chart keeps each recorded quantity, which is why the markers differ. ',
+      questionEntry?'The proton comparison above uses illustrative kinematics. The historical chart keeps each recorded quantity, which is why the markers differ. ':'Explore the proton example in “Compare collision energies” below. The historical chart keeps each recorded quantity, which is why the markers differ. ',
       todayCount ? `${todayCount} of the ${allPoints.length} points are dashed: for those machines the Atlas records one energy, as it is today, and dates no energy to the start, so the energy a machine began with is not drawn. ` : '',
       'Each marker opens its accelerator. ',
       labelNote,
@@ -215,7 +221,9 @@ export function mount(ctx) {
     }) : null,
   ]);
 
-  host.body.replaceChildren(lede, figure, collision.element, unplotted, h('div', { class: 'ch-block' }, table));
+  const historyHeading=questionEntry?h('h3',{class:'ch-block'},'Recorded machine energies'):null;
+  const content=questionEntry?[collision.element,historyHeading,lede,figure]:[lede,figure,collision.element];
+  host.body.replaceChildren(...content,unplotted,h('div',{class:'ch-block'},table));
 
   // ---- the year: points after it fade, a line stands at it
   function paintYear() {

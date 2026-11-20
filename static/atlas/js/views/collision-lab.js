@@ -10,6 +10,8 @@ const source=(url,text)=>h('a',{href:url,target:'_blank',rel:'noopener'},text);
 export function createCollisionLab(ctx) {
   let energy=normaliseCollisionEnergy(ctx.collisionEnergyGeV),destroyed=false;
   const root=h('section',{class:'ch-block collision-lab','aria-labelledby':'collision-title'});
+  const questionEntry=ctx.arg==='collision';
+  const entryContext=questionEntry?h('p',{class:'collision-entry-context ch-note'}):null;
   const input=h('input',{id:'collision-energy',type:'number',min:RANGE.min,max:RANGE.max,step:RANGE.step,inputmode:'decimal','aria-describedby':'collision-control-help collision-input-error collision-readout'});
   const reset=h('button',{type:'button',id:'collision-reset',class:'text-btn'},'Reset to 450 GeV');
   const error=h('p',{id:'collision-input-error',role:'alert',hidden:''});
@@ -32,14 +34,16 @@ export function createCollisionLab(ctx) {
     h('p',{},'This is the total initial proton-system centre-of-mass energy. It does not calculate a quark/gluon hard-scattering energy, a cross section or a discovery reach. No uncertainty band is calculated; values are rounded to four significant figures.'),
     h('p',{class:'collision-sources'},[source(MODEL.kinematicsURL,'PDG 2024 Kinematics · §49.2, Eqs. 49.2–49.5, PDF p.1'),' · ',source(MODEL.restEnergyURL,'PDG 2024 Physical Constants · Table 1.1, proton mass, PDF p.1')]),
   ]);
-  root.append(h('h3',{id:'collision-title'},'Compare collision energies'),
-    h('p',{},'Explore ideal proton–proton kinematics. Compare the same total energy per moving proton: one proton strikes a stationary proton, or two equal proton beams meet exactly head-on.'),
-    h('p',{class:'ch-note'},'The head-on case uses two accelerated beams. This is not an equal total beam-energy budget. The illustrative input does not convert or change any machine point above.'),
-    h('label',{for:'collision-energy'},'Total beam energy E (GeV)'),input,
-    h('p',{id:'collision-control-help',class:'ch-note'},'Per moving proton, including rest energy. Range 1–10,000 GeV in 0.1 GeV steps. Use the number box or its arrow keys.'),
-    error,readout,plot,
-    h('p',{class:'ch-caption'},'Derived √s on one linear scale, from zero to 2E. Outline: fixed proton target; filled bar: equal head-on beams.'),
-    reset,prediction,method);
+  const heading=h('h3',{id:'collision-title'},'Compare collision energies');
+  const introduction=h('p',{},'Explore ideal proton–proton kinematics. Compare the same total energy per moving proton: one proton strikes a stationary proton, or two equal proton beams meet exactly head-on.');
+  const budget=h('p',{class:'ch-note'},'The head-on case uses two accelerated beams. This is not an equal total beam-energy budget. The illustrative input does not convert or change any recorded machine point.');
+  const label=h('label',{for:'collision-energy'},'Total beam energy E (GeV)');
+  const help=h('p',{id:'collision-control-help',class:'ch-note'},'Per moving proton, including rest energy. Range 1–10,000 GeV in 0.1 GeV steps. Use the number box or its arrow keys.');
+  const caption=h('p',{class:'ch-caption'},'Derived √s on one linear scale, from zero to 2E. Outline: fixed proton target; filled bar: equal head-on beams.');
+  if(questionEntry){
+    root.classList.add('is-question-entry');heading.classList.add('visually-hidden');
+    root.append(heading,entryContext,plot,label,input,error,help,readout,reset,prediction,introduction,budget,caption,method);
+  }else root.append(heading,introduction,budget,label,input,help,error,readout,plot,caption,reset,prediction,method);
 
   function figure(width,fontSize=14,prefix='collision-plot') {
     const values=collisionEnergies(energy),scale=fontSize/14,height=190*scale,left=16*scale,right=width-16*scale;
@@ -62,6 +66,7 @@ export function createCollisionLab(ctx) {
   function clearError(){error.hidden=true;error.textContent='';input.removeAttribute('aria-invalid')}
   function render(){
     input.value=String(energy);const values=collisionEnergies(energy);
+    if(entryContext)entryContext.textContent=`Total E = ${energy} GeV per moving proton. Head-on uses two accelerated beams.`;
     fixed.textContent=`${fmt(values.fixedTargetGeV)} GeV`;headOn.textContent=`${fmt(values.headOnGeV)} GeV`;
     readout.replaceChildren(`Accepted E = ${energy} GeV per moving proton. Fixed target: `,fixed,'; equal head-on beams: ',headOn,'.');
     const supported=energy<=RANGE.max/4;test.disabled=!supported;
@@ -86,6 +91,19 @@ export function createCollisionLab(ctx) {
     answer.hidden=false;test.setAttribute('aria-expanded','true');
   });
   root.addEventListener('keydown',event=>{const blank=document.getElementById('tour-blank');if(event.key!=='Escape'&&event.target.closest('input,button,summary,a')&&(!blank||blank.hidden))event.stopPropagation()});
+  // Keep the question's diagram and native input together when they fit this view.
+  input.addEventListener('focus',()=>{
+    if(!questionEntry)return;
+    requestAnimationFrame(()=>{
+      if(destroyed||!input.isConnected||document.activeElement!==input)return;
+      const frame=root.closest('.view-host');if(!frame)return;
+      const view=frame.getBoundingClientRect(),chart=plot.getBoundingClientRect(),control=input.getBoundingClientRect();
+      const top=Math.min(chart.top,control.top),bottom=Math.max(chart.bottom,control.bottom);
+      if(bottom-top>view.height-16)return;
+      if(top<view.top+8)frame.scrollTop+=top-view.top-8;
+      else if(bottom>view.bottom-8)frame.scrollTop+=bottom-view.bottom+8;
+    });
+  });
   const observer=new ResizeObserver(draw);observer.observe(plot);render();requestAnimationFrame(draw);
 
   function exportFigure(){

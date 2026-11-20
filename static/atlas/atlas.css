@@ -3498,3 +3498,8 @@ a.local-map-chip {
 .collision-sources a { display: inline-flex; align-items: center; min-height: 44px; }
 .collision-lab :focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }
 #collision-answer { border-left: 3px solid currentColor; padding-left: var(--space-3); line-height: 1.5; }
+
+
+/* A question opens the same comparison with its useful visual first. */
+.collision-lab.is-question-entry { margin-top: 0; }
+.collision-entry-context { margin-top: 0; margin-bottom: var(--space-2); line-height: 1.5; }
