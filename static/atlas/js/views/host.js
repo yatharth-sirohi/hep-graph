@@ -117,6 +117,7 @@ export function createViewHost({ main, atlas, index, loader, navigate }) {
     return {
       arg,
       energyGeV: state.energy,
+      mixingDeg: state.mixingDeg,
       keepRatio: state.keepRatio,
       undergroundPair: state.undergroundPair,
       atlas,

@@ -2644,9 +2644,9 @@ a.rs-lane-link {
   body.is-touring .view-body > .ug-figure,
   body.is-touring .view-body > .rs-stage { order: -1; }
 }
-.osc-experiment { margin: .9rem 0; padding: .7rem .9rem; border: 1px solid var(--line-strong); border-radius: var(--radius); }
-.osc-experiment summary { cursor: pointer; min-height: 44px; line-height: 1.6; font-weight: 600; }
-.osc-experiment .text-btn { min-height: 44px; }
+.osc-experiment, .osc-angle-experiment { margin: .9rem 0; padding: .7rem .9rem; border: 1px solid var(--line-strong); border-radius: var(--radius); }
+.osc-experiment summary, .osc-angle-experiment summary { cursor: pointer; min-height: 44px; line-height: 1.6; font-weight: 600; }
+.osc-experiment .text-btn, .osc-angle-experiment .text-btn { min-height: 44px; }
 .osc-prediction-answer { margin-top: .75rem; border-left: 3px solid var(--amber); padding-left: .8rem; }
 
 .osc-baseline-controls { min-width: 0; }
@@ -2682,3 +2682,9 @@ a.rs-lane-link {
 @media (max-width: 560px) {
   .ug-compare-controls, .ug-compare-values { grid-template-columns: minmax(0,1fr); }
 }
+
+/* One model, with mixing kept beside the existing curve on small screens. */
+.osc-angle-controls { display: grid; grid-template-columns: auto minmax(44px, 1fr) 3rem; align-items: center; gap: .65rem; margin: .3rem 0; }
+.osc-angle-controls input { min-width: 0; width: 100%; min-height: 44px; accent-color: var(--white); }
+.osc-angle-controls output { padding: 0; text-align: right; line-height: 1.3; }
+.osc-angle-experiment .text-btn { margin: .25rem .5rem .25rem 0; }

@@ -20,7 +20,7 @@ fs.mkdirSync(out,{recursive:true});
     const raw=Math.sin(1.267*.0025*l/e)**2;
     const converted=Math.round(raw*10000)/100;
     const survival=100-converted;
-    assert.equal(await page.locator('#osc-flavor-context').innerText(),`Selected energy: ${e} GeV · Baseline: ${l} km`);
+    assert.equal(await page.locator('#osc-flavor-context').innerText(),`Selected energy: ${e} GeV · Baseline: ${l} km · θ = 45°`);
     assert.equal(await page.locator('.osc-conversion-value').innerText(),`${converted.toFixed(2)}%`);
     assert.equal(await page.locator('.osc-survival-value').innerText(),`${survival.toFixed(2)}%`);
     assert.match(await page.locator('#osc-energy').getAttribute('aria-valuetext'),/original-flavor survival/);

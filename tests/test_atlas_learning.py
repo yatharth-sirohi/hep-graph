@@ -322,3 +322,60 @@ def test_shared_tour_question_link_retains_visit_context_and_scopes_out_lab_stat
     """)
     assert out == ['?data=generated&embed=1&theme=projector&step=3#/tour/neutrino-oscillation-story',
                    '?step=7#/tour/higgs-hunt']
+
+
+def test_mixing_amplitude_and_angle_control_normalization():
+    out = run_node("""
+      import {mixingAmplitude as a, normaliseMixing as n} from './static/atlas/js/views/oscillation-model.js';
+      console.log(JSON.stringify({amplitudes:[0,15,30,45,75,90].map(a),
+        controls:[null,'','NaN','Infinity',-1,0,15.4,15.5,45,80].map(n),
+        rejected:[-1,91,NaN,Infinity].map(v=>{try{a(v);return false}catch{return true}})}));
+    """)
+    assert out['amplitudes'] == pytest.approx([math.sin(2*math.radians(a))**2 for a in [0,15,30,45,75,90]])
+    assert out['amplitudes'][0] == out['amplitudes'][-1] == 0
+    assert out['controls'] == [45,45,45,45,0,0,15,16,45,45]
+    assert all(out['rejected'])
+
+
+def test_mixing_changes_peak_height_without_moving_nonzero_peaks():
+    out = run_node("""
+      import {firstMaximumEnergy as peak,oscillationProbability as p} from './static/atlas/js/views/oscillation-model.js';
+      console.log(JSON.stringify({peaks:[15,30,45].map(thetaDeg=>{const e=peak(295.3352,{thetaDeg});return[e,p(295.3352,e,{thetaDeg})]}),
+        absent:[peak(295.3352,{thetaDeg:0}),peak(295.3352,{thetaDeg:90}),peak(0)],
+        zero:[.2,.6,8].map(e=>p(295.3352,e,{thetaDeg:0}))}));
+    """)
+    energy = 2*1.267*.0025*295.3352/math.pi
+    for (actual,probability),angle in zip(out['peaks'],[15,30,45]):
+        assert actual == pytest.approx(energy)
+        assert probability == pytest.approx(math.sin(2*math.radians(angle))**2)
+    assert out['absent'] == [None,None,None]
+    assert out['zero'] == [0,0,0]
+
+
+def test_energy_doubling_keeps_the_selected_mixing_amplitude():
+    out = run_node("""
+      import {doublingExperiment as d} from './static/atlas/js/views/oscillation-model.js';
+      console.log(JSON.stringify({default:d(295.3352),weak:d(295.3352,{thetaDeg:15}),zero:d(295.3352,{thetaDeg:0})}));
+    """)
+    for key in ['startEnergy','doubledEnergy']:
+        assert out['weak'][key] == out['default'][key]
+    for key in ['startProbability','doubledProbability']:
+        assert out['weak'][key] == pytest.approx(.25*out['default'][key])
+    assert out['zero'] is None
+
+
+def test_mixing_url_is_normalized_and_scoped_to_the_existing_beam_lesson():
+    out = run_node("""
+      globalThis.window={location:new URL('http://atlas.test/atlas?e=.6&th=15.4&le=1#/view/beam-section/j-parc-neutrino'),
+        addEventListener(){},history:{pushState(s,_,u){window.location=new URL(u,window.location)},replaceState(s,_,u){window.location=new URL(u,window.location)}}};
+      const s=await import('./static/atlas/js/state.js');const initial=s.init();
+      s.navigate({entity:{type:'view',slug:'beam-section/lbnf'},energy:2.61});const beam=window.location.href;
+      s.navigate({entity:{type:'tour',slug:'neutrino-beams-through-the-earth'},step:5});const tour=window.location.href;
+      const link=s.patchFromLink('?th=0#/view/beam-section/lbnf');
+      s.navigate({entity:{type:'result',slug:'atlas-higgs-observation-2012'}});
+      console.log(JSON.stringify({initial:initial.mixingDeg,beam,tour,link:link.mixingDeg,result:window.location.href,cleared:s.get().mixingDeg}));
+    """)
+    assert out['initial'] == 15
+    assert 'th=15' in out['beam'] and 'th=15' in out['tour']
+    assert out['link'] == 0
+    assert 'th=' not in out['result'] and out['cleared'] is None

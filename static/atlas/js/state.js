@@ -1,4 +1,4 @@
-import { normaliseEnergy } from './views/oscillation-model.js';
+import { normaliseEnergy, normaliseMixing } from './views/oscillation-model.js';
 import { normaliseFluxPair } from './views/underground-compare.js';
 // state.js — the single source of truth for "what is on screen": the hash
 // route (#/facility/<slug> etc.), plus short query state (?y=, ?r=, ?t=, ?s=,
@@ -88,6 +88,7 @@ function parseSearch(search) {
     // ---- guided tours: the 1-based step, and presenter mode ----
     step: null, present: false,
     energy: params.has('e') ? normaliseEnergy(params.get('e')) : null,
+    mixingDeg: params.has('th') ? normaliseMixing(params.get('th')) : null,
     keepRatio: params.get('le') === '1',
     undergroundPair: normaliseFluxPair(params.get('uf')),
     results: parseResultsView(params),
@@ -191,6 +192,7 @@ function buildURL(state) {
   if (state.arcs) params.set('arcs', '1');
   if (onBeamLab(state.entity)) {
     if (state.energy != null) params.set('e', String(normaliseEnergy(state.energy)));
+    if (state.mixingDeg != null) params.set('th', String(normaliseMixing(state.mixingDeg)));
     if (state.keepRatio) params.set('le', '1');
   }
   if(onUnderground(state.entity)) {
@@ -241,7 +243,7 @@ export function navigate(patch, { replace = false } = {}) {
   const previousMode = current ? current.mode : null;
   const previousEntity = current ? current.entity : null;
   current = { ...current, ...patch };
-  if (!onBeamLab(current.entity)) { current.energy = null; current.keepRatio = false; }
+  if (!onBeamLab(current.entity)) { current.energy = null; current.mixingDeg = null; current.keepRatio = false; }
   current.undergroundPair=onUnderground(current.entity)?normaliseFluxPair(current.undergroundPair):null;
   // An overlay belongs to the map it was laid on: opening any other route drops it
   // (a link that names `cmp` brings it back, because the patch then says so).
@@ -323,7 +325,7 @@ export function patchFromLink(href) {
   const entity = parseHashEntity(url.hash);
   if (entity) patch.entity = entity;
   const named = [['y', 'year'], ['t', 'topic'], ['s', 'status'], ['er', 'era'], ['fk', 'facilityKind'],
-    ['ek', 'experimentKind'], ['rg', 'region'], ['m', 'mode'], ['step', 'step'], ['present', 'present'], ['e', 'energy'], ['le', 'keepRatio'], ['uf', 'undergroundPair']];
+    ['ek', 'experimentKind'], ['rg', 'region'], ['m', 'mode'], ['step', 'step'], ['present', 'present'], ['e', 'energy'], ['th', 'mixingDeg'], ['le', 'keepRatio'], ['uf', 'undergroundPair']];
   for (const [param, key] of named) if (params.has(param)) patch[key] = parsed[key];
   return patch;
 }

@@ -2,6 +2,7 @@
 // not a fit or an experiment's event prediction. Units follow T2K's explanation.
 export const MODEL = Object.freeze({ deltaM2: 2.5e-3, thetaDeg: 45, phaseFactor: 1.267 });
 export const ENERGY = Object.freeze({ min: 0.2, max: 8, initial: 0.6 });
+export const MIXING = Object.freeze({ min: 0, max: 45, initial: MODEL.thetaDeg });
 
 function parameters(baselineKm, { deltaM2 = MODEL.deltaM2, thetaDeg = MODEL.thetaDeg } = {}) {
   if (!Number.isFinite(baselineKm) || baselineKm < 0 || !Number.isFinite(deltaM2) || deltaM2 <= 0
@@ -11,10 +12,19 @@ function parameters(baselineKm, { deltaM2 = MODEL.deltaM2, thetaDeg = MODEL.thet
   return { deltaM2, thetaDeg };
 }
 
+function amplitude(thetaDeg) {
+  return thetaDeg === 0 || thetaDeg === 90 ? 0 : Math.sin(2 * thetaDeg * Math.PI / 180) ** 2;
+}
+
+export function mixingAmplitude(thetaDeg = MODEL.thetaDeg) {
+  parameters(0, { thetaDeg });
+  return amplitude(thetaDeg);
+}
+
 export function oscillationProbability(baselineKm, energyGeV, options) {
   const { deltaM2, thetaDeg } = parameters(baselineKm, options);
   if (!Number.isFinite(energyGeV) || energyGeV <= 0) throw new RangeError('Energy must be finite and positive, in GeV.');
-  return Math.sin(2 * thetaDeg * Math.PI / 180) ** 2
+  return amplitude(thetaDeg)
     * Math.sin(MODEL.phaseFactor * deltaM2 * baselineKm / energyGeV) ** 2;
 }
 
@@ -27,8 +37,10 @@ export function flavorProbabilities(baselineKm, energyGeV, options) {
 
 // The first peak as L/E grows from zero: phase = pi/2. At fixed L it is
 // the highest-energy oscillation maximum, not the leftmost peak of an E plot.
+// Zero mixing or distance has no distinct peak.
 export function firstMaximumEnergy(baselineKm, options) {
-  const { deltaM2 } = parameters(baselineKm, options);
+  const { deltaM2, thetaDeg } = parameters(baselineKm, options);
+  if (baselineKm === 0 || amplitude(thetaDeg) === 0) return null;
   return 2 * MODEL.phaseFactor * deltaM2 * baselineKm / Math.PI;
 }
 
@@ -39,11 +51,17 @@ export function normaliseEnergy(value) {
   return Math.round(Math.min(ENERGY.max, Math.max(ENERGY.min, Number(value))) * 100) / 100;
 }
 
+// These controls cover the distinct vacuum amplitudes with positive fixed Δm².
+export function normaliseMixing(value) {
+  if (value == null || String(value).trim() === '' || !Number.isFinite(Number(value))) return MIXING.initial;
+  return Math.round(Math.min(MIXING.max, Math.max(MIXING.min, Number(value))));
+}
+
 /** A reproducible learner experiment on the real control grid. Returns null
  * rather than silently changing the question when its energies are out of range. */
-export function doublingExperiment(baselineKm) {
-  const maximum = firstMaximumEnergy(baselineKm);
-  if (maximum < ENERGY.min || maximum > ENERGY.max) return null;
+export function doublingExperiment(baselineKm, options) {
+  const maximum = firstMaximumEnergy(baselineKm, options);
+  if (maximum == null || maximum < ENERGY.min || maximum > ENERGY.max) return null;
   const startEnergy = normaliseEnergy(maximum);
   const doubledEnergy = 2 * startEnergy;
   if (doubledEnergy > ENERGY.max) return null;
@@ -51,8 +69,8 @@ export function doublingExperiment(baselineKm) {
   return {
     startEnergy,
     doubledEnergy: target,
-    startProbability: oscillationProbability(baselineKm, startEnergy),
-    doubledProbability: oscillationProbability(baselineKm, target),
+    startProbability: oscillationProbability(baselineKm, startEnergy, options),
+    doubledProbability: oscillationProbability(baselineKm, target, options),
   };
 }
 
