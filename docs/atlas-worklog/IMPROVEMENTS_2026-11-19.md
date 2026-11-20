@@ -72,6 +72,8 @@ This led to the SNO evidence question in cycle 7 below.
 
 ## Cycle 7: connect flavor change to SNO's measurements
 
+Committed as `6261ba5b`.
+
 “Track both flavors” now links to a predict/reveal question in the existing neutrino-oscillation story, SNO step 3 (2002). It opens the existing globe at SNO and asks what CC and NC inferred fluxes would imply if every arriving active neutrino were electron flavor. The worked answer compares the paper's standard-spectrum central values, **CC = 1.76** and **NC = 5.09 million cm⁻² s⁻¹**: **CC/NC ≈ 0.35, about 35%**. It distinguishes inferred fluxes from raw event counts, includes no propagated uncertainty or single-energy survival interpretation for that ratio, and attributes **5.3σ** to the collaboration's non-electron-flavor fit rather than the division. The lab link explicitly says its atmospheric-scale teaching model is not a fit to these solar data.
 
 The existing SNO source record now opens the versioned primary PDF at the flux equations. Exact locators: **PDF page 2** for CC/NC flavor sensitivities; **page 4**, below Table II, for the shape-constrained fluxes and units; **page 5** for the non-electron fit and significance. The earlier paper/result values were preserved. No new tour player or additional result records were introduced.
@@ -83,6 +85,18 @@ Final repository checks: **812 passed, 139 skipped**. The focused learning/tour 
 The source was actually rechecked on **2026-11-19**; its access dates and the new claim verification dates were not backdated. Generated data is therefore built at **2026-11-19**. All **84 generated files match**. Moving that cutoff updates derived timeline endpoints, some derived statuses/coverage and bundle metadata; it does not verify unrelated schedules. Validation at this date gives **5 existing status errors, 1892 warnings and 4 informational**, identical to unchanged main. The 5 authored status mismatches are Main Injector, NuMI, NOvA and its two detectors. No new validation error remains. This currency gap is the next inspection, before treating current schedules as newly verified.
 
 Initial parallel runs of the existing Higgs evidence-link regression timed out; full isolated reruns pass in both engines. Both original connected phone question→lab→Higgs-paper journeys pass in their final sequential runs. Actual screen-reader speech, physical phones and live isolated database integration remain unverified. Durable cycle-7 logs/screenshots are in the ignored `test-results/atlas-iterations/` directory.
+
+## Cycle 8: distinguish a scheduled restart from a reported beam state
+
+The five dated status mismatches are corrected. Their shutdown rows had used the **planned October 2026 restart as an end**, so after October the compiler showed Main Injector/NuMI/NOvA as planned and the two NOvA detectors as unrecorded, while NOvA lost its validated/globe-ready coverage flag. The last reported shutdown condition now has an open end with an explicit assumption note. The proposed NuMI run remains a separate planned annotation; the detector annotations describe a derived beam-data schedule, not detector power state. No restart or continuing shutdown was claimed as a new observation, and A3 timeline semantics were preserved.
+
+The affected panels qualify the badge as **“Shutdown · last reported”** and visibly state that restart is unconfirmed in Atlas sources. A native disclosure loads only the reported-condition/run evidence through the existing source renderer. It handles failure/Retry and preserves keyboard focus. A pure helper respects the full precision/bounds of a planned start, historical selections and a later observed lifecycle state. It matches exactly these five records. Historical active states and the search entry remain; NOvA’s validated and globe-ready coverage flags are restored.
+
+Primary-source audit: the [April 2026 PAC report](https://pac.fnal.gov/wp-content/uploads/2026/06/Public_PAC_Report_April_2026.pdf) records MI not operating since July 2024 (PDF page 2) and the stretch run schedule (page 3). The [Fall 2026 PAC report](https://pac.fnal.gov/wp-content/uploads/2026/10/Final_Public_PAC_Report_Sept2026.pdf#page=4) still describes stable beam on 1 October as planned and a 12-week FY27 run with a 20-week stretch goal (page 4); page 5 calls the restart upcoming. Narrow official-source searches did not find a later confirmation; this does not establish that none exists. Access/check dates reflect the actual November 19 audit. The existing broader July NOvA news statement remains acknowledged; it does not identify which data were being taken.
+
+The three new unit regressions failed before implementation. The corrected data/helper and existing schema checks pass **74 tests**. Current-date validation gives **0 errors, 1892 existing warnings and 4 informational**; all **84 generated files match**. Review found and independently reproduced a Retry focus issue; the fix keeps focus on the disclosure summary, and follow-up review found no remaining code blocker. The repository run passed **815 tests, 139 skipped**, and both original connected phone physics-learning journeys passed again, including the live arXiv primary papers. The separate HEP Graph mocked-API browser regression passed. The final panel-order/beam-scope refinements pass their post-run Chromium/WebKit desktop and 360px checks: all five records, default beam-condition wording, reading order, lazy evidence, historical views, beam-view/Back, failure recovery and Retry focus. Scoped axe A/AA checks report **0 violations** in standard and Projector themes. Final phone rendering was visually inspected; syntax and whitespace checks pass. The status qualification stays beside its badge, before the introduction.
+
+**External access limit:** the PAC origin sometimes serves a Cloudflare challenge to automated browsers/API requests (403). The public PDF downloaded successfully via curl and was read/visually checked. Final WebKit desktop and 360px runs each downloaded the real 199,806-byte PDF (HTTP 200), both matching it byte for byte. Final Chromium desktop and 360px runs reached the exact URL but received HTTP 403 challenge pages, correctly recorded as unverified PDF responses. The browser regression records the actual external page/download outcome at the exact primary URL, and never counts a challenge page as a verified PDF. Reliable access across browser sessions remains outside the app’s control, and no challenge bypass was attempted. The original arXiv learning-paper journeys are checked separately. Durable cycle-8 logs, source-page rendering and screenshots are under ignored `test-results/atlas-iterations/`. The downloaded Fall report's SHA-256 is `3b0f9ced6d3677f68eb84f33f7931932c79ba598e5a7770c285cece18fe53d75`.
 
 ## Local routes and sources
 
@@ -96,19 +110,22 @@ Use the current local server at `http://127.0.0.1:8876` while the loop is runnin
 - CMS evidence: <http://127.0.0.1:8876/atlas#/result/cms-higgs-boson-observation-2012>
 - Existing sourced mass-compatibility question: <http://127.0.0.1:8876/atlas?step=7#/tour/higgs-hunt>
 - SNO prediction and sourced flux comparison: <http://127.0.0.1:8876/atlas?step=3#/tour/neutrino-oscillation-story>
+- NOvA last-reported state and restart evidence: <http://127.0.0.1:8876/atlas?y=2026#/experiment/nova>
+- Main Injector last-reported state: <http://127.0.0.1:8876/atlas?y=2026#/accelerator/fermilab-main-injector>
 - Separate HEP Graph coauthorship search: <http://127.0.0.1:8876/>
 
 Published measurement values were preserved; cycle 7 adds a worked comparison of rechecked SNO fluxes. Sources include the [SNO primary paper, CC/NC fluxes below Table II on PDF page 4](https://arxiv.org/pdf/nucl-ex/0204008v2#page=4), the [T2K experiment paper, §3.6.1](https://arxiv.org/pdf/1106.1238v2#page=10), [DUNE baseline passage, §1](https://arxiv.org/pdf/2007.06722v4#page=12), [T2K two-flavor formula and units](https://t2k-experiment.org/neutrinos/beyond-the-standard-model/), [PDG mixing review](https://pdg.lbl.gov/2024/reviews/rpp2024-rev-neutrino-mixing.pdf), and the versioned [ATLAS](https://arxiv.org/pdf/1207.7214v1) and [CMS](https://arxiv.org/pdf/1207.7235v1) papers. The previous report records exact figures and passages. Claims about phase changes and matching L/E are derived from the displayed formula.
 
-Logs and screenshots for this loop are retained in the ignored `test-results/atlas-iterations/` directory. Earlier temporary `/tmp/` artifacts may expire; use the durable cycle-6 and cycle-7 logs for the latest iterations. Screen-reader hardware and physical phones have not been tested. Existing database-environment skips, aging-data validation findings and legacy monolithic-browser timing limits remain as documented in the original report.
+Logs and screenshots for this loop are retained in the ignored `test-results/atlas-iterations/` directory. Earlier temporary `/tmp/` artifacts may expire; use the durable cycle-6 through cycle-8 logs for the latest iterations. Screen-reader hardware and physical phones have not been tested. Existing database-environment skips, aging-data validation findings and legacy monolithic-browser timing limits remain as documented in the original report.
 
 
 ## Reproduce the current loop checks
 
-Use the repository Python environment and the existing Playwright installation, with the feature server on port 8876:
+Use the repository Python environment and the existing Playwright installation, with the feature server on port 8876. In this workspace, use `/Users/yatharthsirohi/Desktop/HEP-Graph/.venv/bin/python` in place of `python`, and prefix the browser commands with `NODE_PATH=/Users/yatharthsirohi/Desktop/HEP-Graph/node_modules`:
 
 ```sh
 python -m pytest -q -p no:cacheprovider
+python -m pytest -q -p no:cacheprovider tests/test_atlas_restart_context.py tests/test_atlas_schema.py
 python -m hepgraph.atlas.validate --build-date 2026-11-19
 python -m hepgraph.atlas.build --build-date 2026-11-19 --check
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_experiments.cjs
@@ -121,6 +138,8 @@ HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_flavors.cjs
 HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_flavors.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_navigation_lifecycle.cjs
 HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=chromium node tests/browser_atlas_navigation_lifecycle.cjs
+HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_restart_context.cjs
+HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_restart_context.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_sno_question.cjs
 HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_sno_question.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_lab_export.cjs
@@ -128,4 +147,4 @@ HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_lab_ex
 HEP_URL=http://127.0.0.1:8876 node tests/browser_database.cjs
 ```
 
-The validator currently reports the five inherited status errors described in cycle 7. The build check verifies all generated files at the new cutoff. The connected phone question→lab→result→primary-paper journey uses `node tests/browser_atlas_learning.cjs` (set `HEP_BROWSER=webkit` for WebKit).
+The validator now reports zero errors at the November 19 cutoff; cycle 8 resolves the five inherited status mismatches found in cycle 7. The build check verifies all generated files at the new cutoff. The connected phone question→lab→result→primary-paper journey uses `node tests/browser_atlas_learning.cjs` (set `HEP_BROWSER=webkit` for WebKit).

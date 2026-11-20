@@ -12,9 +12,9 @@
         "confidence": "verified",
         "dimension": "length",
         "display": "735.3 km",
-        "locator": "MINOS detector paper, §1 Introduction (overview of the experiment)",
-        "note": "Target-to-far-detector distance. The Fermilab end is site:fermilab-main-campus, a campus-grade point (precision 3 km), not the target; the Soudan end is the surveyed MINOS far-detector midpoint (site:soudan-minos-far-detector). The great-circle distance between the two recorded points is 735.4 km (0.01 % from the stated value). The same paper gives the surveyed figure as \"735.3380 km from the upstream end of the first horn of the neutrino beamline\" (§6.5, Far detector location); the NuMI beam paper (NIM A 806) gives 734 km, without a stated reference point (not a rounding of 735.3 km): \"encountering the MINOS Far Detector (FD) 734 km away in the Soudan Mine in Minnesota\".",
-        "quote": "The far detector, shown in Fig. 1, is located in Soudan, MN (47.8◦ N latitude, and 92.2◦ W longitude), 735.3 km from the NuMI beam production target at Fermilab",
+        "locator": "MINOS detector paper, \u00a71 Introduction (overview of the experiment)",
+        "note": "Target-to-far-detector distance. The Fermilab end is site:fermilab-main-campus, a campus-grade point (precision 3 km), not the target; the Soudan end is the surveyed MINOS far-detector midpoint (site:soudan-minos-far-detector). The great-circle distance between the two recorded points is 735.4 km (0.01 % from the stated value). The same paper gives the surveyed figure as \"735.3380 km from the upstream end of the first horn of the neutrino beamline\" (\u00a76.5, Far detector location); the NuMI beam paper (NIM A 806) gives 734 km, without a stated reference point (not a rounding of 735.3 km): \"encountering the MINOS Far Detector (FD) 734 km away in the Soudan Mine in Minnesota\".",
+        "quote": "The far detector, shown in Fig. 1, is located in Soudan, MN (47.8\u25e6 N latitude, and 92.2\u25e6 W longitude), 735.3 km from the NuMI beam production target at Fermilab",
         "sources": [
           "src:minos-detector-paper-2008",
           "src:fermilab-numi-beam-paper-2016"
@@ -39,7 +39,7 @@
         "confidence": "verified",
         "dimension": "length",
         "display": "~810 km",
-        "locator": "NOvA monopole-search paper (arXiv:2512.20294), §II NOvA Far Detector; PRD 106, 032004, §II",
+        "locator": "NOvA monopole-search paper (arXiv:2512.20294), \u00a7II NOvA Far Detector; PRD 106, 032004, \u00a7II",
         "note": "Target-to-far-detector distance as the NOvA collaboration quotes it; the 2022 oscillation paper says \"The 14 kt Far Detector (FD) is located at Ash River, Minnesota, ~810 km from the source.\" The Fermilab end is site:fermilab-main-campus, a campus-grade point (precision 3 km); the Ash River end is the NOvA far-detector point, which the collaboration quotes only to 0.1 degree (precision 8 km). The great-circle distance between the two recorded points is 811.7 km (0.2 % from the stated value).",
         "quote": "the 14 kt Far Detector (FD) is located on the surface, 810 km from the target, near Ash River, Minnesota",
         "sources": [
@@ -67,7 +67,7 @@
   "direction": {
     "confidence": "verified",
     "locator": "NuMI beam paper section 2.1 (inclination); MINOS detector paper sections 1 (distance) and 6.5 (direction)",
-    "note": "Distance: the MINOS detector paper says the far detector is \"735.3 km from the NuMI beam production target at Fermilab\" (section 1; section 6.5 gives the surveyed 735.3380 km \"from the upstream end of the first horn of the neutrino beamline\"). The NuMI beam paper gives a different figure, \"encountering the MINOS Far Detector (FD) 734 km away in the Soudan Mine in Minnesota\", without stating its reference point; 735.3 km is used here and in the baseline. Direction: the MINOS paper says the beam \"travels approximately NNW\" (section 6.5), and the NuMI paper says it continues \"further north through the Earth’s crust\".",
+    "note": "Distance: the MINOS detector paper says the far detector is \"735.3 km from the NuMI beam production target at Fermilab\" (section 1; section 6.5 gives the surveyed 735.3380 km \"from the upstream end of the first horn of the neutrino beamline\"). The NuMI beam paper gives a different figure, \"encountering the MINOS Far Detector (FD) 734 km away in the Soudan Mine in Minnesota\", without stating its reference point; 735.3 km is used here and in the baseline. Direction: the MINOS paper says the beam \"travels approximately NNW\" (section 6.5), and the NuMI paper says it continues \"further north through the Earth\u2019s crust\".",
     "quote": "To point towards the Soudan Laboratory the proton beam had to be inclined downward by 58 mrad.",
     "sources": [
       "src:fermilab-numi-beam-paper-2016",
@@ -88,7 +88,7 @@
       "end": "2012-04-30",
       "kind": "run",
       "label": "MINOS-era operation",
-      "locator": "§1, Introduction",
+      "locator": "\u00a71, Introduction",
       "note": "",
       "quote": "Its focus is the beam configuration in place during the data taking of the MINOS experiment, from May 20, 2005 until April 30, 2012.",
       "sources": [
@@ -102,7 +102,7 @@
       "confidence": "verified",
       "end": "2013-09",
       "label": "accelerator shutdown",
-      "locator": "§5, Post-MINOS Plans and Developments",
+      "locator": "\u00a75, Post-MINOS Plans and Developments",
       "note": "Long accelerator shutdown between the end of MINOS data taking and the NuMI restart.",
       "quote": "After a long accelerator shutdown following the completion of the MINOS experiment, the NuMI beam was restarted in September 2013",
       "sources": [
@@ -131,14 +131,10 @@
     },
     {
       "confidence": "approximate",
-      "end": {
-        "date": "2026-10",
-        "display": "restart planned October 2026",
-        "planned": true
-      },
-      "label": "no Main Injector beam (transformer failures)",
+      "end": null,
+      "label": "last reported: no NuMI beam",
       "locator": "Fermilab PAC report April 2026; PAC NuMI mini-meeting report July 2025 (\"There was no beam delivery for MI since 2024\")",
-      "note": "Start at month precision. Restart is a plan, not a report: the PAC report of the April 2026 meeting (posted June 2026) says \"A 20 week run is planned from October 2026 to Feb 2027 to run NuMI. The long shutdown is planned for 2028-29.\" It adds that the repaired transformers were due by 15 September, two weeks before the 1 October NuMI start. No source dated after July 2026 was found that confirms the restart, so the shutdown is left in place at 2026-10-25 and should be re-checked. The rest of the complex (Linac, Booster, Booster Neutrino Beam) kept running. UPDATE 2026-10-25: the PAC report of the 1-4 September 2026 meeting (posted October 2026) is the newest source: \"Beam has already been established in Linac and Booster (Aug 26), MI will start up on September 21, stable beam is planned for October 1\"; 6 of the 8 transformers were operational (3 at the April meeting; at least 2 Kautz transformers are needed for full-energy MI operation) and a spare is due in December. That is still a plan written before 21 September: no source dated after that was reachable (Fermilab newsroom has no item on a restart; indico.fnal.gov, fnal.gov operations pages and the NOvA/Mu2e/FTBF sites refused non-browser access), so the shutdown is kept and the planned end stays at month precision (2026-10).",
+      "note": "Last reported beam condition; restart is not confirmed in the Atlas source audit on 2026-11-19. The open end retains the last reported condition as an assumption, not a new observation that the shutdown persisted. The April 2026 PAC report says MI had not operated since July 2024; the Fall 2026 report (PDF pages 4-5) still describes stable beam on 1 October as planned and the restart as upcoming. The proposed NuMI run remains a separate planned interval. A later report of operation should close this interval; passing a scheduled date must not do so.",
       "quote": "Following the record achievement, the Main Injector complex suffered a series of failures that have prevented NuMI beam.",
       "sources": [
         "src:currency-fnal-pac-report-2026-04",
@@ -149,7 +145,7 @@
       ],
       "start": "2024-07",
       "status": "shutdown",
-      "verified_at": "2026-10-25"
+      "verified_at": "2026-11-19"
     },
     {
       "confidence": "approximate",
@@ -159,7 +155,8 @@
       },
       "kind": "run",
       "label": "NuMI run (planned: 12 weeks, stretch goal 20)",
-      "note": "A schedule, not a reported event. April 2026 PAC report: a 20-week run planned October 2026 to February 2027 (FY27 NuMI run already cut from 30 to 20 weeks for budget; the PAC thought 12 weeks would suffice). Sept 2026 PAC report: \"The plan is for 12 weeks of operation in FY27, with a stretch goal of 20 weeks of operation, with a focus on the NuMI beam\"; MI start-up planned 2026-09-21, stable beam 2026-10-01. Whether the run started is not confirmed by any fetched source as of 2026-10-25. The planned end (2027-02) is the 20-week stretch case from the April report; a 12-week run from 1 October would end near the end of December 2026.",
+      "locator": "Fall 2026 PAC report, PDF page 4, accelerator-complex findings (FY27 run and planned stable beam); April 2026 report, PDF page 3, stretch schedule",
+      "note": "A schedule, not a reported event. The Fall 2026 PAC report plans 12 weeks of FY27 operation, with a stretch goal of 20 weeks; stable MI beam was planned for 1 October 2026. The February 2027 end retains the April report stretch schedule. The source audit on 2026-11-19 found no later confirmation of this run in the reviewed primary sources.",
       "quote": "The plan is for 12 weeks of operation in FY27, with a stretch goal of 20 weeks of operation, with a focus on the NuMI beam.",
       "sources": [
         "src:currency2-fnal-pac-report-2026-09",
@@ -170,7 +167,7 @@
         "planned": true
       },
       "status": "planned",
-      "verified_at": "2026-10-25"
+      "verified_at": "2026-11-19"
     }
   ],
   "links": {
@@ -181,11 +178,11 @@
     "site:fermilab-main-campus"
   ],
   "notes": [
-    "Near-detector baselines are not recorded: the MINOS, MINERvA and NOvA near detectors all sit on site:fermilab-main-campus, the same campus point as the beamline, so no site-to-site distance exists. Sourced figures for when separate near-detector sites exist: the MINOS near detector is \"1040 m from the primary target\" (MINOS detector paper, §6.1); the NOvA near detector is \"located 1 km downstream of the neutrino production target\" (arXiv:2512.20294)."
+    "Near-detector baselines are not recorded: the MINOS, MINERvA and NOvA near detectors all sit on site:fermilab-main-campus, the same campus point as the beamline, so no site-to-site distance exists. Sourced figures for when separate near-detector sites exist: the MINOS near detector is \"1040 m from the primary target\" (MINOS detector paper, \u00a76.1); the NOvA near detector is \"located 1 km downstream of the neutrino production target\" (arXiv:2512.20294)."
   ],
   "primary_beam": {
     "confidence": "verified",
-    "locator": "§1, Introduction",
+    "locator": "\u00a71, Introduction",
     "note": "",
     "quote": "steering a 120 GeV proton beam onto a narrow graphite target",
     "sources": [
@@ -197,7 +194,7 @@
         "confidence": "verified",
         "dimension": "energy",
         "display": "120 GeV",
-        "locator": "§1, Introduction",
+        "locator": "\u00a71, Introduction",
         "note": "",
         "quote": "The NuMI beam facility produces neutrinos by steering a 120 GeV proton beam onto a narrow graphite target approximately 1 m in length through a collimating baffle.",
         "sources": [
@@ -214,7 +211,7 @@
   "schema": "hep-atlas/0.2",
   "secondary_beam": {
     "confidence": "verified",
-    "locator": "§2",
+    "locator": "\u00a72",
     "note": "",
     "quote": "the produced hadrons are focused by two magnetic horns and then enter a 675 m long decay volume",
     "sources": [
@@ -237,7 +234,7 @@
       "confidence": "verified",
       "dimension": "power",
       "display": "400 kW (design)",
-      "locator": "§1.1 Historical Background",
+      "locator": "\u00a71.1 Historical Background",
       "note": "Original design beam power; the NOvA-era design goal quoted in the same paper is 700 kW.",
       "quote": "The design beam power was somewhat optimistically set to 400 kW",
       "sources": [
@@ -252,7 +249,7 @@
       "confidence": "verified",
       "dimension": "angle",
       "display": "14.6 mrad (NOvA)",
-      "locator": "§I.1 NOvA Experiment",
+      "locator": "\u00a7I.1 NOvA Experiment",
       "note": "Off-axis angle of the NOvA near and far detectors relative to the NuMI beam axis; MINOS, MINOS+ and MINERvA sit on axis.",
       "quote": "The two detectors are placed 14.6 mrad off-axis from the center of the neutrino beam",
       "sources": [
@@ -267,7 +264,7 @@
       "confidence": "verified",
       "dimension": "energy",
       "display": "120 GeV",
-      "locator": "§1, Introduction",
+      "locator": "\u00a71, Introduction",
       "note": "",
       "quote": "the 120 GeV protons extracted from the Fermilab Main Injector",
       "sources": [
@@ -280,12 +277,12 @@
   },
   "status": "shutdown",
   "summary": {
-    "plain": "Fermilab’s long-running neutrino beam. Protons hit a graphite target and the particles that come out decay into neutrinos aimed at detectors in Minnesota.",
+    "plain": "Fermilab\u2019s long-running neutrino beam. Protons hit a graphite target and the particles that come out decay into neutrinos aimed at detectors in Minnesota.",
     "technical": "120 GeV Main Injector protons on a 1 m graphite target, two magnetic horns and a 675 m decay volume, aimed 58 mrad downward toward Soudan. Served MINOS (2005-2012) and, since September 2013, NOvA (14.6 mrad off axis), MINOS+ and MINERvA."
   },
   "target": {
     "confidence": "verified",
-    "locator": "§1, Introduction",
+    "locator": "\u00a71, Introduction",
     "note": "",
     "quote": "a narrow graphite target approximately 1 m in length through a collimating baffle",
     "sources": [
