@@ -88,6 +88,8 @@ Initial parallel runs of the existing Higgs evidence-link regression timed out; 
 
 ## Cycle 8: distinguish a scheduled restart from a reported beam state
 
+Committed as `074240ce`.
+
 The five dated status mismatches are corrected. Their shutdown rows had used the **planned October 2026 restart as an end**, so after October the compiler showed Main Injector/NuMI/NOvA as planned and the two NOvA detectors as unrecorded, while NOvA lost its validated/globe-ready coverage flag. The last reported shutdown condition now has an open end with an explicit assumption note. The proposed NuMI run remains a separate planned annotation; the detector annotations describe a derived beam-data schedule, not detector power state. No restart or continuing shutdown was claimed as a new observation, and A3 timeline semantics were preserved.
 
 The affected panels qualify the badge as **“Shutdown · last reported”** and visibly state that restart is unconfirmed in Atlas sources. A native disclosure loads only the reported-condition/run evidence through the existing source renderer. It handles failure/Retry and preserves keyboard focus. A pure helper respects the full precision/bounds of a planned start, historical selections and a later observed lifecycle state. It matches exactly these five records. Historical active states and the search entry remain; NOvA’s validated and globe-ready coverage flags are restored.
@@ -97,6 +99,22 @@ Primary-source audit: the [April 2026 PAC report](https://pac.fnal.gov/wp-conten
 The three new unit regressions failed before implementation. The corrected data/helper and existing schema checks pass **74 tests**. Current-date validation gives **0 errors, 1892 existing warnings and 4 informational**; all **84 generated files match**. Review found and independently reproduced a Retry focus issue; the fix keeps focus on the disclosure summary, and follow-up review found no remaining code blocker. The repository run passed **815 tests, 139 skipped**, and both original connected phone physics-learning journeys passed again, including the live arXiv primary papers. The separate HEP Graph mocked-API browser regression passed. The final panel-order/beam-scope refinements pass their post-run Chromium/WebKit desktop and 360px checks: all five records, default beam-condition wording, reading order, lazy evidence, historical views, beam-view/Back, failure recovery and Retry focus. Scoped axe A/AA checks report **0 violations** in standard and Projector themes. Final phone rendering was visually inspected; syntax and whitespace checks pass. The status qualification stays beside its badge, before the introduction.
 
 **External access limit:** the PAC origin sometimes serves a Cloudflare challenge to automated browsers/API requests (403). The public PDF downloaded successfully via curl and was read/visually checked. Final WebKit desktop and 360px runs each downloaded the real 199,806-byte PDF (HTTP 200), both matching it byte for byte. Final Chromium desktop and 360px runs reached the exact URL but received HTTP 403 challenge pages, correctly recorded as unverified PDF responses. The browser regression records the actual external page/download outcome at the exact primary URL, and never counts a challenge page as a verified PDF. Reliable access across browser sessions remains outside the app’s control, and no challenge bypass was attempted. The original arXiv learning-paper journeys are checked separately. Durable cycle-8 logs, source-page rendering and screenshots are under ignored `test-results/atlas-iterations/`. The downloaded Fall report's SHA-256 is `3b0f9ced6d3677f68eb84f33f7931932c79ba598e5a7770c285cece18fe53d75`.
+
+## Cycle 9: predict and trace an accelerator dependency
+
+A campus can have several proton paths with different dependencies. The existing Fermilab **Follow the proton** map player already contains the recorded Main Injector → NuMI and Booster → BNB transfers, so this cycle adds one prediction to that player. The five restart-context panels offer **Predict which beam needs Main Injector**. It opens the real historical 2016 map at Main Injector, with the question expanded. Learners choose NuMI, the Booster Neutrino Beam, or both; Test reveals the answer and traces the existing NuMI transfer. Two buttons let them compare the existing branches without introducing geometry or another player.
+
+The answer and trace indices come from the compiled chain. A guard hides the pilot if the feeder data or required drawn stages no longer match the reviewed citations. The prompt explicitly assumes other components are available. The explanation identifies a necessary proton connection; it does not establish delivered beam, rates or current operation. Historical 2016 is stated, rather than presenting an outage simulation of the current site.
+
+The [NuMI beam paper, §2 opening paragraph, PDF page 6](https://arxiv.org/pdf/1507.06690v2#page=6) identifies Main Injector as NuMI's proton source. The [MiniBooNE flux paper, abstract, PDF page 2](https://arxiv.org/pdf/0806.1449v2#page=2) identifies Booster as the source for BNB. Both pinned primary passages were downloaded, extracted and visually checked on 19 November 2026. Their source IDs already belong to the respective authored beamline records. No science values, authored data or generated bundles change in this cycle.
+
+Prediction state survives tracing but resets on a different chain/year or player closure. Native radios retain keyboard behavior; prediction interactions pause playback. The phone feedback is scrolled into the player while button focus is retained. Entry links preserve data, embed and theme settings, clear a prior range/map selection and use the existing `proton` URL field. Copied links start a fresh prediction; Back returns to the source record.
+
+Verification: the three topology/source/navigation regressions and missing-link browser check failed before implementation. Focused learning/navigation checks passed **24 tests**. The final repository suite passed **818 tests, 139 skipped**. Chromium and WebKit passed desktop and 360px entry, keyboard radios, playback pause, wrong/correct predictions, existing map highlights/trace steps, persistent feedback across traces, year reset, Escape closure, copied native links, embed/theme context and Back. The exact two primary papers returned real PDF downloads with HTTP 200 from desktop Chromium and mobile WebKit. Scoped axe A/AA checks report **0 violations** for the new checkpoint before/after reveal in standard and Projector themes.
+
+Phone inspection reproduced feedback partly outside the card; a failing visibility assertion now passes after scrolling the feedback into view without moving button focus. Independent review reproduced a second issue: opening the question during playback did not pause. That regression failed first and passes after pausing on native summary activation. Follow-up review found no remaining issue. Existing Higgs evidence → mass-question journeys pass in both engines at desktop/360px, as do the original connected phone questions → lab → Higgs primary-paper journeys. The extracted primary-link helper also passes the five restart panels, lazy evidence, keyboard Retry and native PAC PDF download in mobile WebKit. HEP Graph's mocked-API browser check passes. Live database integrations, physical phones and actual screen-reader speech remain unverified.
+
+Current-date validation is **0 errors, 1892 existing warnings, 4 informational**; all **84 generated files match** at `2026-11-19`. Syntax and diff checks pass. Durable logs and visually checked phone screenshots are in `test-results/atlas-iterations/cycle9-*` and `*beam-dependency*`. No merge or deployment was performed.
 
 ## Local routes and sources
 
@@ -112,11 +130,14 @@ Use the current local server at `http://127.0.0.1:8876` while the loop is runnin
 - SNO prediction and sourced flux comparison: <http://127.0.0.1:8876/atlas?step=3#/tour/neutrino-oscillation-story>
 - NOvA last-reported state and restart evidence: <http://127.0.0.1:8876/atlas?y=2026#/experiment/nova>
 - Main Injector last-reported state: <http://127.0.0.1:8876/atlas?y=2026#/accelerator/fermilab-main-injector>
+- Fermilab dependency question (2016, Main Injector): <http://127.0.0.1:8876/atlas?data=generated&y=2016&proton=7#/map/fermilab>
+- Existing NuMI transfer used by Test: <http://127.0.0.1:8876/atlas?data=generated&y=2016&proton=8#/map/fermilab>
+- Existing Booster → BNB comparison: <http://127.0.0.1:8876/atlas?data=generated&y=2016&proton=10#/map/fermilab>
 - Separate HEP Graph coauthorship search: <http://127.0.0.1:8876/>
 
 Published measurement values were preserved; cycle 7 adds a worked comparison of rechecked SNO fluxes. Sources include the [SNO primary paper, CC/NC fluxes below Table II on PDF page 4](https://arxiv.org/pdf/nucl-ex/0204008v2#page=4), the [T2K experiment paper, §3.6.1](https://arxiv.org/pdf/1106.1238v2#page=10), [DUNE baseline passage, §1](https://arxiv.org/pdf/2007.06722v4#page=12), [T2K two-flavor formula and units](https://t2k-experiment.org/neutrinos/beyond-the-standard-model/), [PDG mixing review](https://pdg.lbl.gov/2024/reviews/rpp2024-rev-neutrino-mixing.pdf), and the versioned [ATLAS](https://arxiv.org/pdf/1207.7214v1) and [CMS](https://arxiv.org/pdf/1207.7235v1) papers. The previous report records exact figures and passages. Claims about phase changes and matching L/E are derived from the displayed formula.
 
-Logs and screenshots for this loop are retained in the ignored `test-results/atlas-iterations/` directory. Earlier temporary `/tmp/` artifacts may expire; use the durable cycle-6 through cycle-8 logs for the latest iterations. Screen-reader hardware and physical phones have not been tested. Existing database-environment skips, aging-data validation findings and legacy monolithic-browser timing limits remain as documented in the original report.
+Logs and screenshots for this loop are retained in the ignored `test-results/atlas-iterations/` directory. Earlier temporary `/tmp/` artifacts may expire; use the durable cycle-6 through cycle-9 logs for the latest iterations. Screen-reader hardware and physical phones have not been tested. Existing database-environment skips, aging-data validation findings and legacy monolithic-browser timing limits remain as documented in the original report.
 
 
 ## Reproduce the current loop checks
@@ -126,8 +147,11 @@ Use the repository Python environment and the existing Playwright installation, 
 ```sh
 python -m pytest -q -p no:cacheprovider
 python -m pytest -q -p no:cacheprovider tests/test_atlas_restart_context.py tests/test_atlas_schema.py
+python -m pytest -q -p no:cacheprovider tests/test_atlas_beam_dependency.py tests/test_atlas_proton_chain.py tests/test_atlas_learning.py
 python -m hepgraph.atlas.validate --build-date 2026-11-19
 python -m hepgraph.atlas.build --build-date 2026-11-19 --check
+HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_beam_dependency.cjs
+HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_beam_dependency.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_experiments.cjs
 HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_experiments.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_comparison_edges.cjs

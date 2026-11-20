@@ -22,7 +22,8 @@ import {
 } from './views/scale-detectors.js';
 import { quoteView, readableText, readableView } from './tex.js';
 import { tourMeta, tourSlug, toursCoveringTopic } from './tour-data.js';
-import { createTourStepLink, syncTourLinkThemes } from './tour-link.js';
+import { createTourStepLink, createMapStepLink, syncTourLinkThemes } from './tour-link.js';
+import { beamDependencyAvailable, DEPENDENCY_ENTRY } from './proton-dependency.js';
 import { unconfirmedRestart } from './restart-context.js';
 import { facilityPrintAction } from './export.js';
 import {
@@ -593,6 +594,9 @@ function restartFollowUp(record, pending) {
   return h('section', { class: 'status-follow-up', 'aria-label': 'Unconfirmed restart' }, [
     h('p', {}, [h('strong', {}, 'Restart not confirmed in Atlas sources. '),
       `Last reported condition: ${(record.intervals[pending.stateIndex].label || 'shutdown').replace(/^last reported:\s*/i, '')}. A run was planned from ${fmtDate(pending.start)}; current operation has not been confirmed here.`]),
+    beamDependencyAvailable(ATLAS) ? h('p', {class:'status-next-question'},
+      createMapStepLink(DEPENDENCY_ENTRY.map,DEPENDENCY_ENTRY.year,DEPENDENCY_ENTRY.proton,
+        'Predict which beam needs Main Injector',CALLBACKS.navigate)) : null,
     details,
   ]);
 }

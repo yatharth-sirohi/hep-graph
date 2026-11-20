@@ -573,3 +573,16 @@
     transition: none;
   }
 }
+
+/* One data-derived prediction in the existing card, with native controls. */
+.pr-checkpoint { margin: var(--space-2) 0 var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius-sm); padding: var(--space-2); overflow-wrap: anywhere; }
+.pr-checkpoint > summary { min-height: 44px; display: list-item; cursor: pointer; font-weight: 600; }
+.pr-checkpoint p { font-size: var(--text-sm); line-height: 1.5; }
+.pr-beam-choices { border: 0; padding: 0; margin: var(--space-2) 0; min-width: 0; }
+.pr-beam-choices legend { font-weight: 600; font-size: var(--text-sm); }
+.pr-beam-choices label { display: flex; gap: var(--space-2); align-items: center; min-height: 44px; font-size: var(--text-sm); cursor: pointer; }
+.pr-checkpoint .pr-btn { width: 100%; min-height: 44px; white-space: normal; }
+.pr-beam-traces { display: grid; gap: var(--space-2); }
+.pr-beam-feedback:empty { display: none; }
+.pr-beam-citations { padding-left: var(--space-4); font-size: var(--text-xs); line-height: 1.5; }
+.pr-beam-citations li + li { margin-top: var(--space-2); }
