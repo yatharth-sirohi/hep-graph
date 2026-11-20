@@ -7,6 +7,8 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
+# Validate current authored evidence at the same cutoff as the generated Atlas.
+BUILD_DATE = '2026-11-20'
 AFFECTED = [
     'accelerator:fermilab-main-injector', 'beamline:numi', 'experiment:nova',
     'detector:nova-near-detector', 'detector:nova-far-detector',
@@ -24,20 +26,20 @@ def test_last_reported_beam_state_is_retained_without_claiming_a_restart():
         assert last['end'] is None, 'an unconfirmed restart plan must not close the reported shutdown'
         assert 'last reported' in last['note'].lower()
         assert 'not confirmed' in last['note'].lower()
-        assert schema.state_at(record, '2026-11', build_date='2026-11-19')['status'] == 'shutdown'
-        assert schema.state_at(record, '2023', build_date='2026-11-19')['status'] == 'active'
+        assert schema.state_at(record, '2026-11', build_date=BUILD_DATE)['status'] == 'shutdown'
+        assert schema.state_at(record, '2023', build_date=BUILD_DATE)['status'] == 'active'
         plan = next(row for row in record['intervals'] if row.get('kind') == 'run' and row.get('status') == 'planned')
         assert plan['start']['planned'] is True and plan['start']['date'] == '2026-10'
         assert plan['end']['planned'] is True
         assert 'src:currency2-fnal-pac-report-2026-09' in plan['sources']
-    errors = [f for f in validate_atlas(atlas, build_date='2026-11-19') if f.level == 'error']
+    errors = [f for f in validate_atlas(atlas, build_date=BUILD_DATE) if f.level == 'error']
     assert not errors, [(f.rule, f.entity_id, f.message) for f in errors]
 
 
 def test_rebuilt_nova_remains_explorable_at_the_current_cutoff():
     from hepgraph.atlas.build import build
     from hepgraph.atlas.load import DATA_DIR
-    result = build(DATA_DIR, ROOT / 'static/atlas/generated', build_date='2026-11-19', check=True)
+    result = build(DATA_DIR, ROOT / 'static/atlas/generated', build_date=BUILD_DATE, check=True)
     atlas = json.loads(result.files['atlas.json'])
     record = atlas['experiments']['experiment:nova']
     assert record['status'] == 'shutdown'

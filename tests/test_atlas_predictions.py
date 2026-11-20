@@ -80,3 +80,26 @@ def test_worked_examples_do_not_create_another_prediction_checkpoint(atlas):
     example=tour['steps'][5]['question']['worked_example']
     example.update(choices=CHOICES,correct_choice='background')
     assert 'tour-choice-shape' in {f.rule for f in errors(atlas,tour)}
+
+
+def test_sno_prediction_distinguishes_inferred_flux_from_raw_counts(atlas):
+    tour=atlas.get('tour:neutrino-oscillation-story')
+    step=tour['steps'][2];q=step['question']
+    assert len(q.get('choices',[]))==3, 'SNO needs an interpretation before revealing its flux working'
+    choices={c['id']:c['label'] for c in q['choices']}
+    assert set(choices)=={'equal-inferred-flux','nc-must-be-larger','equal-raw-counts'}
+    assert q['correct_choice']=='equal-inferred-flux'
+    assert 'inferred' in choices['equal-inferred-flux'] and 'agree' in choices['equal-inferred-flux']
+    assert 'raw' in choices['equal-raw-counts']
+    assert 'more flavors' in choices['nc-must-be-larger']
+    for phrase in ['reaction responses','does not require equal raw','no propagated uncertainty','single-energy','not this division']:
+        assert phrase in q['answer']
+    assert [q['calculation'][i]['value'] for i in [0,1,-1]]==[1.76,5.09,35]
+    assert any('reaction responses' in c.get('covers','') and 'PDF page 2' in c.get('locator','') for c in q['claims'])
+    assert step['select']=='experiment:sno' and step['year']==2002
+    assert not errors(atlas,tour)
+    built,issues=T.build_bundle(atlas,DATE)
+    assert not issues
+    resolved=built['tours'][tour['id']]['steps'][2]['question']
+    assert resolved['choices']==q['choices'] and resolved['correct_choice']==q['correct_choice']
+    assert resolved['calculation'][-1]['value']==35

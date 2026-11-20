@@ -133,7 +133,7 @@
       ],
       "id": "sno",
       "question": {
-        "answer": "Both inferred fluxes would agree if all arriving active neutrinos were electron flavor. Instead, 1.76 \u00f7 5.09 \u2248 0.35, or 35%. The NC excess supports flavor change; these are inferred fluxes rather than raw event counts, with no propagated uncertainty or single-energy survival interpretation for this ratio. The reported 5.3\u03c3 non-electron-flavor result comes from the paper's fit, not this division.",
+        "answer": "Both inferred fluxes would agree if all arriving active neutrinos were electron flavor. They infer the same arriving population after reaction responses are accounted for; this does not require equal raw CC and NC event counts. Instead, 1.76 \u00f7 5.09 \u2248 0.35, or 35%. The NC excess supports flavor change; these are inferred fluxes rather than raw event counts, with no propagated uncertainty or single-energy survival interpretation for this ratio. The reported 5.3\u03c3 non-electron-flavor result comes from the paper's fit, not this division.",
         "calculation": [
           {
             "confidence": "verified",
@@ -174,6 +174,20 @@
             "name": "percent",
             "unit": "%",
             "value": 35
+          }
+        ],
+        "choices": [
+          {
+            "id": "equal-inferred-flux",
+            "label": "The inferred CC and NC fluxes should agree."
+          },
+          {
+            "id": "nc-must-be-larger",
+            "label": "The inferred NC flux must be larger because it can probe more flavors."
+          },
+          {
+            "id": "equal-raw-counts",
+            "label": "The raw CC and NC event counts should agree."
           }
         ],
         "claims": [
@@ -234,9 +248,22 @@
             "field": "significance",
             "in": "answer",
             "ref": "result:sno-nc-evidence-2002"
+          },
+          {
+            "confidence": "verified",
+            "covers": "They infer the same arriving population after reaction responses are accounted for; this does not require equal raw CC and NC event counts.",
+            "in": "answer",
+            "locator": "PDF page 2, CC/NC reaction sensitivities; PDF page 4, shape-constrained inferred fluxes below Table II",
+            "note": "Derived counterfactual: the reactions infer the same electron-only arriving population after accounting for reaction responses. Equal inferred fluxes do not require equal raw reaction counts. No new measurement or event-rate calculation is introduced.",
+            "quote": "all active neutrino flavors",
+            "sources": [
+              "src:sno-2002-nc-evidence"
+            ],
+            "verified_at": "2026-11-20"
           }
         ],
-        "prompt": "SNO's charged-current (CC) reaction probes only electron neutrinos, whereas its neutral-current (NC) reaction probes all active flavors (electron, muon and tau). Assuming the standard solar spectrum, the reported central fluxes are CC = 1.76 and NC = 5.09 million per square centimetre per second. Predict: if every arriving active neutrino were electron flavor, would the inferred fluxes agree? Compare them with CC \u00f7 NC."
+        "correct_choice": "equal-inferred-flux",
+        "prompt": "SNO's charged-current (CC) reaction probes only electron neutrinos, whereas its neutral-current (NC) reaction probes all active flavors (electron, muon and tau). Assuming the standard solar spectrum, the reported central fluxes are CC = 1.76 and NC = 5.09 million per square centimetre per second. Predict: if every arriving active neutrino were electron flavor, which inference is justified? Then compare the reported fluxes with CC \u00f7 NC."
       },
       "select": "experiment:sno",
       "text": "SNO held 1000 tonnes of heavy water, with the centre of its detector vessel 2039 m below the surface in a mine near Sudbury, Canada. In April 2002 it released direct evidence that solar electron neutrinos change flavor, with the non-electron-flavor part of the solar flux 5.3 standard deviations above zero.",

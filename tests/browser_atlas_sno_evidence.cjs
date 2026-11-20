@@ -58,7 +58,7 @@ const out=process.env.HEP_ATLAS_OUTPUT||path.join(__dirname,'../test-results/atl
   const lesson=card.locator('.evidence-next-question a[data-tour-step-link]');const lessonURL=new URL(await lesson.getAttribute('href'),page.url());
   assert.equal(lessonURL.hash,'#/tour/neutrino-oscillation-story');assert.equal(lessonURL.searchParams.get('step'),'3');await lesson.click();
   await page.waitForURL(u=>u.hash==='#/tour/neutrino-oscillation-story'&&u.searchParams.get('step')==='3');await page.locator('.tour-question').waitFor();
-  await page.getByRole('button',{name:'Show answer',exact:true}).click();assert.match(await page.locator('.tour-q-answer').innerText(),/35%.*not this division/s);
+  await page.locator('.tour-choices input[value=equal-inferred-flux]').check();await page.getByRole('button',{name:'Show answer',exact:true}).click();assert.match(await page.locator('.tour-q-answer').innerText(),/35%.*not this division/s);
   await page.goBack();await reader.waitFor();assert.equal(await reader.locator('input[value=cc]').isChecked(),true,'fresh record visits start at the first explanatory channel');
   await page.goBack();await page.waitForFunction(()=>document.querySelector('#osc-angle')?.value==='15');assert.equal(await page.locator('#osc-energy').inputValue(),'1.2');assert.equal(await page.locator('#osc-keep-ratio').isChecked(),true);
   await visit(destination.href);await reader.waitFor();assert.match(await fluxes.innerText(),/1.76.*5.09/s);
