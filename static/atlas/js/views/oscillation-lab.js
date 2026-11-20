@@ -2,6 +2,7 @@
 import { allBeamRows } from './beam-rows.js';
 import { ENERGY, MODEL, doublingExperiment, firstMaximumEnergy, flavorProbabilities, matchBaselineEnergy, normaliseEnergy, oscillationProbability } from './oscillation-model.js';
 import { patchQuietly } from '../state.js';
+import { createTourStepLink } from '../tour-link.js';
 
 function el(tag, attrs = {}, children = []) {
   const node = document.createElement(tag);
@@ -92,6 +93,10 @@ export function createOscillationLab(ctx, row) {
     el('p', { class: 'osc-formula' }, 'P(α → α) = 1 − P(α → β); total probability = 100%.'),
     el('p', {}, 'Flavor survival means keeping the original flavor. Changing flavor is different from absorption: this closed two-flavor vacuum model includes no absorption or detector response. The probabilities are not detected-event fractions or rates. Percentages are rounded to 0.01%.'),
     el('p', {}, sourceLink('https://t2k-experiment.org/neutrinos/beyond-the-standard-model/', 'T2K: “Atmospheric Neutrino Anomaly” and the two-flavor oscillation explanation')),
+    el('p', { class: 'osc-flavor-evidence' }, [
+      "Next: compare solar-neutrino measurements. This atmospheric-scale teaching model is not a fit to SNO's solar-neutrino data. ",
+      createTourStepLink('neutrino-oscillation-story', 3, 'Try the SNO flux question', ctx.navigate),
+    ]),
   ]);
   const method = el('details', { class: 'osc-method' }, [
     el('summary', {}, 'Formula, parameters and sources'),

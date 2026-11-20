@@ -269,3 +269,56 @@ def test_two_flavor_outcomes_at_no_mixing_maximum_and_half_phase():
         assert 0 <= row['conversion'] <= 1
         assert 0 <= row['survival'] <= 1
         assert row['conversion'] + row['survival'] == pytest.approx(1, abs=1e-12)
+
+
+def test_sno_question_compares_primary_flux_central_values_without_recomputing_significance():
+    from hepgraph.atlas.load import DATA_DIR, load_atlas
+    from hepgraph.atlas.tours import build_bundle, validate_tour
+    atlas = load_atlas(DATA_DIR)
+    tour = atlas.get('tour:neutrino-oscillation-story')
+    question = tour['steps'][2].get('question')
+    assert question, 'SNO step needs a prediction and worked flux comparison'
+    errors = [i for i in validate_tour(atlas, tour, '2026-11-19') if i.level == 'error']
+    assert not errors, [(i.rule, i.message) for i in errors]
+    inputs = {line['name']: line for line in question['calculation'] if 'expression' not in line}
+    assert inputs['CC']['value'] == 1.76
+    assert inputs['NC']['value'] == 5.09
+    for line in inputs.values():
+        source = atlas.get(line['sources'][0])
+        assert source['url'] == 'https://arxiv.org/pdf/nucl-ex/0204008v2#page=4'
+        assert 'PDF page 4' in line['locator']
+        assert line['unit'] == 'million cm⁻² s⁻¹'
+    ratio, percent = question['calculation'][-2:]
+    assert ratio['expression'] == 'CC / NC'
+    assert ratio['value'] == pytest.approx(round(1.76 / 5.09, 2))
+    assert percent['expression'] == 'ratio * 100'
+    assert percent['value'] == pytest.approx(round(1.76 / 5.09 * 100))
+    assert 'standard solar spectrum' in question['prompt']
+    for text in ['raw event counts', 'no propagated uncertainty', 'single-energy', '5.3σ', 'not this division']:
+        assert text in question['answer']
+    bundle, errors = build_bundle(atlas, '2026-11-19')
+    assert not errors
+    assert bundle['tours'][tour['id']]['steps'][2]['question']['calculation'][-1]['value'] == 35
+    assert tour['steps'][2]['select'] == 'experiment:sno'
+
+
+def test_sno_flux_comparison_drift_is_caught_by_the_existing_tour_validator():
+    import copy
+    from hepgraph.atlas.load import DATA_DIR, load_atlas
+    from hepgraph.atlas.tours import validate_tour
+    atlas = load_atlas(DATA_DIR)
+    tour = copy.deepcopy(atlas.get('tour:neutrino-oscillation-story'))
+    assert tour['steps'][2].get('question'), 'SNO question must exist'
+    tour['steps'][2]['question']['calculation'][-1]['value'] = 40
+    assert any(i.level == 'error' and i.rule == 'tour-calc-result'
+               for i in validate_tour(atlas, tour, '2026-11-19'))
+
+
+def test_shared_tour_question_link_retains_visit_context_and_scopes_out_lab_state():
+    out = run_node("""
+      import {tourStepHref} from './static/atlas/js/tour-link.js';
+      const search='?data=generated&embed=1&theme=projector&e=1.2&le=1&step=5&y=2026&present=1';
+      console.log(JSON.stringify([tourStepHref('neutrino-oscillation-story',3,search),tourStepHref('higgs-hunt',7,'')]));
+    """)
+    assert out == ['?data=generated&embed=1&theme=projector&step=3#/tour/neutrino-oscillation-story',
+                   '?step=7#/tour/higgs-hunt']

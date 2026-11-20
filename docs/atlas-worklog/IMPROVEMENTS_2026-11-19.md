@@ -58,6 +58,8 @@ This led to the sourced lab export in cycle 6 below.
 
 ## Cycle 6: save the selected lab as a teaching figure
 
+Committed as `3723f08c`.
+
 Save image now offers the selected oscillation lab alongside the existing default beam/Earth geometry figure. It captures the curve, selected point, first maximum and solid/striped flavor balance, with the actual energy and sourced baseline. The image includes the formula, units, fixed teaching parameters, source URLs and explicit two-flavor vacuum limitations. These values come from the current controls; changing energy refreshes an open preview and disables the previous download until its replacement is ready.
 
 The existing dialog is also available on phones in chart views. Its new “Notes included in the image” disclosure provides readable text and clickable sources before saving. Single-figure exports retain their existing behavior. Both standard slide and double-size outputs are supported. The independent review found and resolved a presenter-mode Enter/Space conflict; native export controls now work while retaining the tour step, presenter mode and Escape focus restoration. Follow-up review found no actionable issues.
@@ -66,7 +68,21 @@ Final fresh verification: **809 passed, 139 skipped** in the full repository sui
 
 Try either lab route below, open Save image, then choose “Oscillation lab.” The saved figure includes the current URL for reopening the selected state. Artifacts and fresh logs are retained under the ignored `test-results/atlas-iterations/` directory (`cycle6-reverified-*`, `*-oscillation-export.png`). No physics source values were changed.
 
-Next inspection: the existing SNO stop in the neutrino-oscillation story lacks a predict/reveal question. Check the primary 2002 paper for a concise comparison that connects flavor change to evidence while distinguishing measured fluxes, event counts and the illustrative lab model.
+This led to the SNO evidence question in cycle 7 below.
+
+## Cycle 7: connect flavor change to SNO's measurements
+
+“Track both flavors” now links to a predict/reveal question in the existing neutrino-oscillation story, SNO step 3 (2002). It opens the existing globe at SNO and asks what CC and NC inferred fluxes would imply if every arriving active neutrino were electron flavor. The worked answer compares the paper's standard-spectrum central values, **CC = 1.76** and **NC = 5.09 million cm⁻² s⁻¹**: **CC/NC ≈ 0.35, about 35%**. It distinguishes inferred fluxes from raw event counts, includes no propagated uncertainty or single-energy survival interpretation for that ratio, and attributes **5.3σ** to the collaboration's non-electron-flavor fit rather than the division. The lab link explicitly says its atmospheric-scale teaching model is not a fit to these solar data.
+
+The existing SNO source record now opens the versioned primary PDF at the flux equations. Exact locators: **PDF page 2** for CC/NC flavor sensitivities; **page 4**, below Table II, for the shape-constrained fluxes and units; **page 5** for the non-electron fit and significance. The earlier paper/result values were preserved. No new tour player or additional result records were introduced.
+
+Question links in panels and the lab now share the same native-link helper, retaining data/embed/theme context and a destination-specific step. Enter works during presenter mode, while B/W blank screens retain the player's normal “dismiss first” behavior. Review reproduced and verified that edge case. Expanded source quotes now wrap long uncertainty expressions inside the tour card; both engines reproduced the overflow before the scoped fix. Final independent review found no actionable code/source findings.
+
+Final repository checks: **812 passed, 139 skipped**. The focused learning/tour suite has **43 passing tests**, including independent division, primary-source/units checks, invalid calculated-result detection and scoped link state. Chromium and WebKit each pass desktop/360px lab→SNO question→worked answer→actual primary PDF, native/copied links, embed/theme context, Back, keyboard activation and B/W presenter dismissal. Both engines also pass the existing flavor-balance regressions. Scoped axe A/AA checks report **0 violations** for the expanded SNO question and the lab disclosure in standard and Projector themes at 360px. The separate HEP Graph browser regression passes at its mocked API boundary.
+
+The source was actually rechecked on **2026-11-19**; its access dates and the new claim verification dates were not backdated. Generated data is therefore built at **2026-11-19**. All **84 generated files match**. Moving that cutoff updates derived timeline endpoints, some derived statuses/coverage and bundle metadata; it does not verify unrelated schedules. Validation at this date gives **5 existing status errors, 1892 warnings and 4 informational**, identical to unchanged main. The 5 authored status mismatches are Main Injector, NuMI, NOvA and its two detectors. No new validation error remains. This currency gap is the next inspection, before treating current schedules as newly verified.
+
+Initial parallel runs of the existing Higgs evidence-link regression timed out; full isolated reruns pass in both engines. Both original connected phone question→lab→Higgs-paper journeys pass in their final sequential runs. Actual screen-reader speech, physical phones and live isolated database integration remain unverified. Durable cycle-7 logs/screenshots are in the ignored `test-results/atlas-iterations/` directory.
 
 ## Local routes and sources
 
@@ -79,11 +95,12 @@ Use the current local server at `http://127.0.0.1:8876` while the loop is runnin
 - ATLAS evidence: <http://127.0.0.1:8876/atlas#/result/atlas-higgs-observation-2012>
 - CMS evidence: <http://127.0.0.1:8876/atlas#/result/cms-higgs-boson-observation-2012>
 - Existing sourced mass-compatibility question: <http://127.0.0.1:8876/atlas?step=7#/tour/higgs-hunt>
+- SNO prediction and sourced flux comparison: <http://127.0.0.1:8876/atlas?step=3#/tour/neutrino-oscillation-story>
 - Separate HEP Graph coauthorship search: <http://127.0.0.1:8876/>
 
-No scientific source values were changed in these cycles. Sources remain the [T2K experiment paper, §3.6.1](https://arxiv.org/pdf/1106.1238v2#page=10), [DUNE baseline passage, §1](https://arxiv.org/pdf/2007.06722v4#page=12), [T2K two-flavor formula and units](https://t2k-experiment.org/neutrinos/beyond-the-standard-model/), [PDG mixing review](https://pdg.lbl.gov/2024/reviews/rpp2024-rev-neutrino-mixing.pdf), and the versioned [ATLAS](https://arxiv.org/pdf/1207.7214v1) and [CMS](https://arxiv.org/pdf/1207.7235v1) papers. The previous report records exact figures and passages. Claims about phase changes and matching L/E are derived from the displayed formula.
+Published measurement values were preserved; cycle 7 adds a worked comparison of rechecked SNO fluxes. Sources include the [SNO primary paper, CC/NC fluxes below Table II on PDF page 4](https://arxiv.org/pdf/nucl-ex/0204008v2#page=4), the [T2K experiment paper, §3.6.1](https://arxiv.org/pdf/1106.1238v2#page=10), [DUNE baseline passage, §1](https://arxiv.org/pdf/2007.06722v4#page=12), [T2K two-flavor formula and units](https://t2k-experiment.org/neutrinos/beyond-the-standard-model/), [PDG mixing review](https://pdg.lbl.gov/2024/reviews/rpp2024-rev-neutrino-mixing.pdf), and the versioned [ATLAS](https://arxiv.org/pdf/1207.7214v1) and [CMS](https://arxiv.org/pdf/1207.7235v1) papers. The previous report records exact figures and passages. Claims about phase changes and matching L/E are derived from the displayed formula.
 
-Logs and screenshots for this loop are retained in the ignored `test-results/atlas-iterations/` directory. Earlier temporary `/tmp/` artifacts may expire; use the durable cycle-6 reverified logs for this iteration. Screen-reader hardware and physical phones have not been tested. Existing database-environment skips, aging-data validation findings and legacy monolithic-browser timing limits remain as documented in the original report.
+Logs and screenshots for this loop are retained in the ignored `test-results/atlas-iterations/` directory. Earlier temporary `/tmp/` artifacts may expire; use the durable cycle-6 and cycle-7 logs for the latest iterations. Screen-reader hardware and physical phones have not been tested. Existing database-environment skips, aging-data validation findings and legacy monolithic-browser timing limits remain as documented in the original report.
 
 
 ## Reproduce the current loop checks
@@ -92,8 +109,8 @@ Use the repository Python environment and the existing Playwright installation, 
 
 ```sh
 python -m pytest -q -p no:cacheprovider
-python -m hepgraph.atlas.validate --build-date 2026-10-29
-python -m hepgraph.atlas.build --build-date 2026-10-29 --check
+python -m hepgraph.atlas.validate --build-date 2026-11-19
+python -m hepgraph.atlas.build --build-date 2026-11-19 --check
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_experiments.cjs
 HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_experiments.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_comparison_edges.cjs
@@ -104,9 +121,11 @@ HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_flavors.cjs
 HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_flavors.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_navigation_lifecycle.cjs
 HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=chromium node tests/browser_atlas_navigation_lifecycle.cjs
+HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_sno_question.cjs
+HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_sno_question.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_lab_export.cjs
 HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_lab_export.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_database.cjs
 ```
 
-The connected phone question→lab→result→primary-paper journey also passed again in both engines during cycle 2; its command remains `node tests/browser_atlas_learning.cjs` (set `HEP_BROWSER=webkit` for WebKit).
+The validator currently reports the five inherited status errors described in cycle 7. The build check verifies all generated files at the new cutoff. The connected phone question→lab→result→primary-paper journey uses `node tests/browser_atlas_learning.cjs` (set `HEP_BROWSER=webkit` for WebKit).

@@ -10,7 +10,8 @@
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:rf06-davis-nobel-lecture-2002",
-    "src:tours-nist-codata-speed-of-light"
+    "src:tours-nist-codata-speed-of-light",
+    "src:sno-2002-nc-evidence"
   ],
   "steps": [
     {
@@ -50,7 +51,7 @@
           "confidence": "verified",
           "covers": "this was the solar neutrino problem",
           "locator": "Davis, Nobel Lecture, section on the chlorine experiment results",
-          "quote": "Thus, the “solar neutrino problem” was born in 1967 and lived until the turn of the century.",
+          "quote": "Thus, the \u201csolar neutrino problem\u201d was born in 1967 and lived until the turn of the century.",
           "sources": [
             "src:rf06-davis-nobel-lecture-2002"
           ],
@@ -131,6 +132,112 @@
         }
       ],
       "id": "sno",
+      "question": {
+        "answer": "Both inferred fluxes would agree if all arriving active neutrinos were electron flavor. Instead, 1.76 \u00f7 5.09 \u2248 0.35, or 35%. The NC excess supports flavor change; these are inferred fluxes rather than raw event counts, with no propagated uncertainty or single-energy survival interpretation for this ratio. The reported 5.3\u03c3 non-electron-flavor result comes from the paper's fit, not this division.",
+        "calculation": [
+          {
+            "confidence": "verified",
+            "locator": "PDF page 4, shape-constrained flux equations below Table II: \u03c6_CC",
+            "name": "CC",
+            "note": "Reported central flux under the standard boron-8 spectral-shape assumption; not a raw event count. The paper also reports statistical and systematic uncertainties.",
+            "quote": "1.76",
+            "sources": [
+              "src:sno-2002-nc-evidence"
+            ],
+            "unit": "million cm\u207b\u00b2 s\u207b\u00b9",
+            "value": 1.76,
+            "verified_at": "2026-11-19"
+          },
+          {
+            "confidence": "verified",
+            "locator": "PDF page 4, shape-constrained flux equations below Table II: \u03c6_NC",
+            "name": "NC",
+            "note": "Reported central flux under the standard boron-8 spectral-shape assumption; not a raw event count. The paper also reports statistical and systematic uncertainties.",
+            "quote": "5.09",
+            "sources": [
+              "src:sno-2002-nc-evidence"
+            ],
+            "unit": "million cm\u207b\u00b2 s\u207b\u00b9",
+            "value": 5.09,
+            "verified_at": "2026-11-19"
+          },
+          {
+            "digits": 2,
+            "expression": "CC / NC",
+            "name": "ratio",
+            "unit": "",
+            "value": 0.35
+          },
+          {
+            "digits": 2,
+            "expression": "ratio * 100",
+            "name": "percent",
+            "unit": "%",
+            "value": 35
+          }
+        ],
+        "claims": [
+          {
+            "confidence": "verified",
+            "covers": "charged-current (CC) reaction probes only electron neutrinos",
+            "in": "prompt",
+            "locator": "PDF page 2, opening paragraph after the CC/NC/ES reactions",
+            "quote": "sensitive exclusively to electron-type neutrinos",
+            "sources": [
+              "src:sno-2002-nc-evidence"
+            ],
+            "verified_at": "2026-11-19"
+          },
+          {
+            "confidence": "verified",
+            "covers": "neutral-current (NC) reaction probes all active flavors (electron, muon and tau)",
+            "in": "prompt",
+            "locator": "PDF page 2, opening paragraph after the CC/NC/ES reactions",
+            "quote": "equally sensitive to all active neutrino flavors",
+            "sources": [
+              "src:sno-2002-nc-evidence"
+            ],
+            "verified_at": "2026-11-19"
+          },
+          {
+            "confidence": "verified",
+            "covers": "Assuming the standard solar spectrum",
+            "in": "prompt",
+            "locator": "PDF page 4, paragraph and CC/ES/NC flux equations below Table II",
+            "note": "The shape-constrained boron-8 solar analysis, not the shape-unconstrained NC result on PDF page 5. Only central values are divided; their uncertainties and correlations are not propagated.",
+            "quote": "assuming the standard spectrum shape",
+            "sources": [
+              "src:sno-2002-nc-evidence"
+            ],
+            "verified_at": "2026-11-19"
+          },
+          {
+            "confidence": "verified",
+            "covers": "Both inferred fluxes would agree if all arriving active neutrinos were electron flavor",
+            "in": "answer",
+            "locator": "PDF page 2, CC/NC sensitivities; PDF pages 4\u20135, flux inference and NC excess",
+            "note": "Derived expectation: an electron-only arriving flux is the same active-flavor population probed by CC and NC. This compares inferred fluxes after the reaction responses are accounted for, not equal raw counts.",
+            "quote": "all active neutrino flavors",
+            "sources": [
+              "src:sno-2002-nc-evidence"
+            ],
+            "verified_at": "2026-11-19"
+          },
+          {
+            "covers": "The NC excess supports flavor change",
+            "field": "why_it_matters",
+            "in": "answer",
+            "ref": "result:sno-nc-evidence-2002"
+          },
+          {
+            "covers": "The reported 5.3\u03c3 non-electron-flavor result comes from the paper's fit, not this division",
+            "field": "significance",
+            "in": "answer",
+            "ref": "result:sno-nc-evidence-2002"
+          }
+        ],
+        "prompt": "SNO's charged-current (CC) reaction probes only electron neutrinos, whereas its neutral-current (NC) reaction probes all active flavors (electron, muon and tau). Assuming the standard solar spectrum, the reported central fluxes are CC = 1.76 and NC = 5.09 million per square centimetre per second. Predict: if every arriving active neutrino were electron flavor, would the inferred fluxes agree? Compare them with CC \u00f7 NC."
+      },
       "select": "experiment:sno",
       "text": "SNO held 1000 tonnes of heavy water, with the centre of its detector vessel 2039 m below the surface in a mine near Sudbury, Canada. In April 2002 it released direct evidence that solar electron neutrinos change flavor, with the non-electron-flavor part of the solar flux 5.3 standard deviations above zero.",
       "title": "Heavy water and the solar puzzle",
@@ -188,14 +295,14 @@
           "ref": "result:t2k-electron-neutrino-appearance-observation-2014"
         },
         {
-          "covers": "observing electron neutrino appearance in that beam, with 28 electron neutrino events and a significance of 7.3σ",
+          "covers": "observing electron neutrino appearance in that beam, with 28 electron neutrino events and a significance of 7.3\u03c3",
           "field": "claim",
           "ref": "result:t2k-electron-neutrino-appearance-observation-2014"
         }
       ],
       "id": "t2k",
       "question": {
-        "answer": "The baseline is 295 km = 295,000 m and the speed of light is 299,792,458 m/s, so t = 295,000 ÷ 299,792,458 ≈ 0.000984 s, which is about 0.98 ms.",
+        "answer": "The baseline is 295 km = 295,000 m and the speed of light is 299,792,458 m/s, so t = 295,000 \u00f7 299,792,458 \u2248 0.000984 s, which is about 0.98 ms.",
         "calculation": [
           {
             "field": "key_specs.Baseline",
@@ -258,7 +365,7 @@
         "prompt": "T2K's neutrinos travel 295 km from J-PARC to Super-Kamiokande. Estimate the travel time, assuming they move at the speed of light."
       },
       "select": "experiment:t2k",
-      "text": "T2K uses an intense proton beam from the J-PARC accelerator in Tokai, Japan, to make a muon neutrino beam aimed 295 km away at Super-Kamiokande. In November 2013 it reported observing electron neutrino appearance in that beam, with 28 electron neutrino events and a significance of 7.3σ.",
+      "text": "T2K uses an intense proton beam from the J-PARC accelerator in Tokai, Japan, to make a muon neutrino beam aimed 295 km away at Super-Kamiokande. In November 2013 it reported observing electron neutrino appearance in that beam, with 28 electron neutrino events and a significance of 7.3\u03c3.",
       "title": "A beam across Japan",
       "year": 2014
     },
@@ -282,7 +389,7 @@
       ],
       "id": "nova",
       "question": {
-        "answer": "T2K's beam has its peak energy at about 0.6 GeV, which maximizes the effect of the neutrino oscillation at 295 km. For T2K, 295 km ÷ 0.6 GeV ≈ 490 km/GeV, and for NOvA, 810 km ÷ 1.8 GeV = 450 km/GeV. The two ratios differ by only about 9% (490 ÷ 450 ≈ 1.1), although NOvA's baseline is about 2.7 times longer (810 ÷ 295 ≈ 2.7).",
+        "answer": "T2K's beam has its peak energy at about 0.6 GeV, which maximizes the effect of the neutrino oscillation at 295 km. For T2K, 295 km \u00f7 0.6 GeV \u2248 490 km/GeV, and for NOvA, 810 km \u00f7 1.8 GeV = 450 km/GeV. The two ratios differ by only about 9% (490 \u00f7 450 \u2248 1.1), although NOvA's baseline is about 2.7 times longer (810 \u00f7 295 \u2248 2.7).",
         "calculation": [
           {
             "field": "key_specs.Baseline",
@@ -406,14 +513,14 @@
           "ref": "result:juno-oscillation-parameters-2026"
         },
         {
-          "covers": "sin²θ12 = 0.3092 ± 0.0087 and Δm²21 = (7.50 ± 0.12) × 10⁻⁵ eV² for the normal mass ordering scenario, improving the precision by a factor of 1.6 relative to the combination of all previous measurements",
+          "covers": "sin\u00b2\u03b812 = 0.3092 \u00b1 0.0087 and \u0394m\u00b221 = (7.50 \u00b1 0.12) \u00d7 10\u207b\u2075 eV\u00b2 for the normal mass ordering scenario, improving the precision by a factor of 1.6 relative to the combination of all previous measurements",
           "field": "key_value_text",
           "ref": "result:juno-oscillation-parameters-2026"
         }
       ],
       "id": "juno",
       "select": "experiment:juno",
-      "text": "JUNO is a 20 kt liquid-scintillator detector 52.5 km from multiple reactor cores, and it began physics data taking on 26 August 2025. With its first data it measured sin²θ12 = 0.3092 ± 0.0087 and Δm²21 = (7.50 ± 0.12) × 10⁻⁵ eV² for the normal mass ordering scenario, improving the precision by a factor of 1.6 relative to the combination of all previous measurements.",
+      "text": "JUNO is a 20 kt liquid-scintillator detector 52.5 km from multiple reactor cores, and it began physics data taking on 26 August 2025. With its first data it measured sin\u00b2\u03b812 = 0.3092 \u00b1 0.0087 and \u0394m\u00b221 = (7.50 \u00b1 0.12) \u00d7 10\u207b\u2075 eV\u00b2 for the normal mass ordering scenario, improving the precision by a factor of 1.6 relative to the combination of all previous measurements.",
       "title": "A reactor detector in China",
       "year": 2025
     }

@@ -22,6 +22,7 @@ import {
 } from './views/scale-detectors.js';
 import { quoteView, readableText, readableView } from './tex.js';
 import { tourMeta, tourSlug, toursCoveringTopic } from './tour-data.js';
+import { createTourStepLink, syncTourLinkThemes } from './tour-link.js';
 import { facilityPrintAction } from './export.js';
 import {
   HEP_GRAPH_SEARCH_URL, authorIdOf, hepGraphPersonUrl, personViewRoute, rosterPeople,
@@ -91,34 +92,9 @@ function linkTo(route, text, extraClass) {
 }
 
 
-// Projector changes keep panels mounted and fire before their URL patch.
-// One document listener updates live links without retaining detached panels.
-function syncTourLinkThemes(event) {
-  const theme = event.detail?.theme;
-  if (!['projector', 'standard'].includes(theme)) return;
-  for (const link of document.querySelectorAll('a[data-tour-step-link]')) {
-    const url = new URL(link.href);
-    url.searchParams.set('theme', theme);
-    link.setAttribute('href', `${url.search}${url.hash}`);
-  }
-}
-
-// A real deep link to an existing question in the one tour player. Used both
-// by topic tour lists and an evidence trail's optional next learning step.
+// The same native deep-link behavior serves topic lists, evidence and labs.
 function tourStepLink(slug, step, text) {
-  const context = new URLSearchParams(window.location.search);
-  const params = new URLSearchParams();
-  // These settings belong to the visit, including a copied/new-tab link.
-  // The destination supplies its own step instead of inheriting a stale one.
-  for (const key of ['data', 'embed', 'theme']) if (context.has(key)) params.set(key, context.get(key));
-  params.set('step', String(step));
-  const a = h('a', { href: `?${params}#/tour/${slug}`, class: 'entity-link', 'data-tour-step-link': '' }, text);
-  a.addEventListener('click', (event) => {
-    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    event.preventDefault();
-    CALLBACKS.navigate({ entity: { type: 'tour', slug }, step });
-  });
-  return a;
+  return createTourStepLink(slug, step, text, CALLBACKS.navigate);
 }
 
 function idRoute(id) {

@@ -51,7 +51,7 @@ fs.mkdirSync(out,{recursive:true});
    assert(await page.locator('.osc-flavors').evaluate(n=>n.scrollWidth<=n.clientWidth+1));
    assert(await page.locator('#view-host').evaluate(n=>n.scrollWidth<=n.clientWidth+1));
    await page.screenshot({path:path.join(out,`${engine}-${mobile?'360':'desktop'}-flavors.png`)});
-   const source=page.locator('.osc-flavors a');
+   const source=page.locator('.osc-flavors a[href^="https://t2k-experiment.org/"]');
    assert.equal(await source.getAttribute('href'),'https://t2k-experiment.org/neutrinos/beyond-the-standard-model/');
    await page.reload();await summary.waitFor();await open();await values(1285,5.22);
    await page.locator('#start-here-link').click();await page.locator('[data-start-action=results]').click();
