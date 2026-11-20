@@ -121,6 +121,7 @@ export function createViewHost({ main, atlas, index, loader, navigate }) {
       keepRatio: state.keepRatio,
       undergroundPair: state.undergroundPair,
       collisionEnergyGeV: state.collisionEnergy,
+      wimpProbe: state.wimpProbe,
       atlas,
       index,
       loader,

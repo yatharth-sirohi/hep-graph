@@ -3503,3 +3503,30 @@ a.local-map-chip {
 /* A question opens the same comparison with its useful visual first. */
 .collision-lab.is-question-entry { margin-top: 0; }
 .collision-entry-context { margin-top: 0; margin-bottom: var(--space-2); line-height: 1.5; }
+
+
+/* Optional exact-table interpretation exercise within the published limits view. */
+.limit-probe { margin: var(--space-4) 0; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--panel-2); overflow-wrap: anywhere; }
+.limit-probe summary, .limit-probe button { min-height: 44px; cursor: pointer; }
+.limit-probe p { line-height: 1.6; }
+.limit-probe-controls { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,15rem),1fr)); gap: var(--space-3); }
+.limit-probe-controls label { display: grid; gap: var(--space-2); font-weight: 650; min-width: 0; }
+.limit-probe select { width: 100%; min-width: 0; height: 44px; min-height: 44px; padding: var(--space-2); font: inherit; color: var(--white); background: var(--panel); border: 1px solid var(--line-strong); border-radius: var(--radius); }
+.limit-probe-values { margin: var(--space-3) 0; }
+.limit-probe-values dt { font-weight: 650; }
+.limit-probe-values dd { margin: var(--space-2) 0 var(--space-3); }
+.limit-probe-choices { margin: var(--space-3) 0; min-width: 0; border: 1px solid var(--line-strong); }
+.limit-probe-choices label { display: flex; align-items: center; gap: var(--space-2); min-height: 44px; line-height: 1.5; cursor: pointer; }
+.limit-probe-choices input { flex: 0 0 auto; }
+.limit-probe-feedback { padding: var(--space-3); border-left: 3px solid currentColor; }
+.limit-probe-method { margin-top: var(--space-3); }
+.limit-probe-method a { display: flex; align-items: center; min-height: 44px; }
+.limit-probe :focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }
+.lm-probe-key { font-weight: 650; line-height: 1.5; }
+.lm-probe-guide { stroke: var(--white); stroke-width: 2; stroke-dasharray: 4 3; }
+.lm-probe-limit { fill: none; stroke: var(--white); stroke-width: 2; }
+.lm-probe-trial { fill: var(--panel); stroke: var(--white); stroke-width: 2.5; }
+
+.limit-probe-controls fieldset { min-width: 0; margin: 0; border: 1px solid var(--line-strong); }
+.limit-probe-controls fieldset label { display: flex; align-items: center; min-height: 44px; font-weight: 400; }
+.limit-probe-mass-steps { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2); }

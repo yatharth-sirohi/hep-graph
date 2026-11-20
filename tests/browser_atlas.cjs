@@ -4141,15 +4141,19 @@ async function openResultsControls(page) {
     assert.match(stats, /2\.18 × 10⁻⁴⁸ cm²\s+at 40 GeV\/c²/);
     assert.match(stats, /2\.58 × 10⁻⁴⁷ cm²\s+at 28 GeV\/c²/);
     assert.match(stats, /3\.80 × 10⁻⁴⁷ cm²\s+at 40 GeV\/c²/, "PandaX-4T's published minimum is at 40 GeV/c² (the data were corrected from 30)");
+    // Make the actual point visible before measuring a pointer target: the view
+    // scrolls, and a fixed timeline can otherwise cover an offscreen minimum.
+    await p.locator('.lm-series[data-slug="lz-2024-si-wimp-nucleon"] .lm-min-ring').scrollIntoViewIfNeeded();
     // The read-out: pointing at the dot of LZ 2024's minimum names it.
     const spot = await p.evaluate(() => {
       const dots = [...document.querySelectorAll('.lm-series[data-slug="lz-2024-si-wimp-nucleon"] .lm-dot')];
       const ring = document.querySelector('.lm-series[data-slug="lz-2024-si-wimp-nucleon"] .lm-min-ring').getBoundingClientRect();
       const x = ring.left + ring.width / 2;
       const y = ring.top + ring.height / 2;
-      return { x, y, dots: dots.length };
+      return { x, y, dots: dots.length, onPlot: document.elementFromPoint(x,y)?.classList.contains('lm-overlay') };
     });
     assert.equal(spot.dots, 26);
+    assert.equal(spot.onPlot, true, 'the pointer must reach the chart, not the fixed timeline');
     await p.mouse.move(spot.x, spot.y);
     await p.waitForFunction(() => /LZ, 4\.2 tonne-years \(2024\): 40 GeV\/c², 2\.18 × 10⁻⁴⁸ cm²/.test(document.querySelector(".lm-readout").textContent));
     // Citations: the HEPData record, the table and the paper are links; the markers say why they are markers.

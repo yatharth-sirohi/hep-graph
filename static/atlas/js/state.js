@@ -1,3 +1,4 @@
+import { normaliseLimitProbe } from './views/limit-probe-model.js';
 import { normaliseCollisionEnergy } from './views/collision-model.js';
 import { normaliseEnergy, normaliseMixing } from './views/oscillation-model.js';
 import { normaliseFluxPair } from './views/underground-compare.js';
@@ -99,6 +100,7 @@ function parseSearch(search) {
     keepRatio: params.get('le') === '1',
     undergroundPair: normaliseFluxPair(params.get('uf')),
     collisionEnergy: params.has('ce') ? normaliseCollisionEnergy(params.get('ce')) : null,
+    wimpProbe: normaliseLimitProbe(params.get('wp')),
     results: parseResultsView(params),
     // ---- classroom modes (js/classroom.js): `?embed=1` and `?theme=projector|standard`
     // ride along in every address the app writes, so reloading or sharing keeps them.
@@ -164,9 +166,11 @@ function locationParts(loc = window.location) {
 
 function readLocation(loc = window.location) {
   const { hash, search } = locationParts(loc);
+  const entity = parseHashEntity(hash), parsed = parseSearch(search);
   return {
-    entity: parseHashEntity(hash),
-    ...parseSearch(search),
+    entity,
+    ...parsed,
+    wimpProbe: onLimits(entity) ? parsed.wimpProbe : null,
     dataMode: new URLSearchParams(search).get('data'),
   };
 }
@@ -188,6 +192,8 @@ function onUnderground(entity) {
   return entity && ((entity.type==='view' && (entity.slug==='underground' || entity.slug==='tour/going-underground-dark-matter'))
     || (entity.type==='tour' && entity.slug==='going-underground-dark-matter'));
 }
+
+function onLimits(entity) { return entity?.type === 'view' && entity.slug === 'limits/wimp-si'; }
 
 function onEnergyFrontier(entity) { return entity?.type === 'view' && ['energy-frontier','energy-frontier/collision'].includes(entity.slug); }
 
@@ -217,6 +223,10 @@ function buildURL(state) {
     if(pair)params.set('uf',pair.join(','));
   }
   if (onEnergyFrontier(state.entity) && state.collisionEnergy != null) params.set('ce', String(normaliseCollisionEnergy(state.collisionEnergy)));
+  if (onLimits(state.entity)) {
+    const probe = normaliseLimitProbe(state.wimpProbe);
+    if (probe) params.set('wp',probe);
+  }
   // ---- local map view (§4) ----
   // These three only mean anything on a map route, so they are written only
   // there: leaving a map must not leave `lv`/`bm`/`sel` stranded in the URL
@@ -265,6 +275,7 @@ export function navigate(patch, { replace = false } = {}) {
   if (!onBeamLab(current.entity)) { current.energy = null; current.mixingDeg = null; current.keepRatio = false; }
   current.undergroundPair=onUnderground(current.entity)?normaliseFluxPair(current.undergroundPair):null;
   current.collisionEnergy=onEnergyFrontier(current.entity) && current.collisionEnergy != null ? normaliseCollisionEnergy(current.collisionEnergy) : null;
+  current.wimpProbe = onLimits(current.entity) ? normaliseLimitProbe(current.wimpProbe) : null;
   // An overlay belongs to the map it was laid on: opening any other route drops it
   // (a link that names `cmp` brings it back, because the patch then says so).
   if ('entity' in patch && !('cmp' in patch)) {
@@ -351,7 +362,7 @@ export function patchFromLink(href) {
   const entity = parseHashEntity(url.hash);
   if (entity) patch.entity = entity;
   const named = [['y', 'year'], ['t', 'topic'], ['s', 'status'], ['er', 'era'], ['fk', 'facilityKind'],
-    ['ek', 'experimentKind'], ['rg', 'region'], ['m', 'mode'], ['step', 'step'], ['present', 'present'], ['e', 'energy'], ['th', 'mixingDeg'], ['le', 'keepRatio'], ['uf', 'undergroundPair'], ['ce', 'collisionEnergy']];
+    ['ek', 'experimentKind'], ['rg', 'region'], ['m', 'mode'], ['step', 'step'], ['present', 'present'], ['e', 'energy'], ['th', 'mixingDeg'], ['le', 'keepRatio'], ['uf', 'undergroundPair'], ['ce', 'collisionEnergy'], ['wp', 'wimpProbe']];
   for (const [param, key] of named) if (params.has(param)) patch[key] = parsed[key];
   return patch;
 }
