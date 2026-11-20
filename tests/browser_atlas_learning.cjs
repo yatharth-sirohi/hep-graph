@@ -16,12 +16,14 @@ const questions = [
 ];
 (async()=>{
  const browser=await ({chromium,webkit}[engineName]).launch({headless:true});
- const failures=[];let activePage=null;let activeSize='desktop';
+ const failures=[];let activePage=null;let activeSize='desktop';let activeHTTP=[];
  try {
   for(const mobile of (process.env.HEP_MOBILE_ONLY ? [true] : [false,true])) {
    const context=await browser.newContext({viewport:mobile?{width:360,height:780}:{width:1440,height:1000},
      ...(mobile?{isMobile:true,hasTouch:true}:{}),reducedMotion:'reduce'});
    const page=await context.newPage();activePage=page;activeSize=mobile?'360':'desktop';
+   const httpFailures=[];activeHTTP=httpFailures;
+   page.on('response',r=>{if(r.status()>=400&&r.url().startsWith(base))httpFailures.push({url:r.url(),status:r.status()})});
    page.on('pageerror',e=>failures.push(e.message));
    page.setDefaultTimeout(45000);
    const checkpoint=async()=>{
@@ -195,6 +197,7 @@ const questions = [
      viewTitle:document.querySelector('#view-title')?.textContent,
      viewText:document.querySelector('#view-body')?.textContent?.slice(0,1400)}))));
     console.error('BROWSER ERRORS',JSON.stringify(failures));
+    console.error('HTTP FAILURES',JSON.stringify(activeHTTP.slice(-20)));
     await activePage.screenshot({path:path.join(out,`${engineName}-${activeSize}-learning-failure.png`),timeout:5000});
    }catch(diagnosticError){console.error('DIAGNOSTIC',diagnosticError.message)}
   }

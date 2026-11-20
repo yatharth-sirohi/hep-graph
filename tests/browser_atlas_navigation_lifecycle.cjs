@@ -31,6 +31,35 @@ const base=process.env.HEP_URL||'http://127.0.0.1:8876';
   assert.equal(assets.size,2,'normal cold loads must still load both scenery assets');
   await restored.locator('#osc-energy').focus();await restored.keyboard.press('ArrowRight');
   assert.equal(await restored.locator('#osc-energy').inputValue(),'2.62');
+  // Startup must not register two history listeners. Observe the actual route module
+  // while navigating inside this document; one browser gesture means one update.
+  await restored.evaluate(async()=>{
+    const state=await import('/atlas/js/state.js');
+    window.__historyProbe={pop:0,updates:[]};
+    window.addEventListener('popstate',()=>window.__historyProbe.pop++);
+    state.subscribe(s=>window.__historyProbe.updates.push({energy:s.energy,mode:s.mode,entity:s.entity,keepRatio:s.keepRatio}));
+  });
+  await restored.locator('#start-here-link').click();
+  await restored.locator('[data-start-action=results]').click();
+  await restored.waitForURL(/m=results/);await restored.locator('#mode-panel').waitFor();
+  for(const direction of ['back','forward','back']) {
+    await restored.evaluate(()=>window.__historyProbe={pop:0,updates:[]});
+    if(direction==='back') {
+      await restored.goBack();
+      await restored.waitForFunction(()=>document.querySelector('#osc-energy')?.value==='2.62');
+      assert.equal(await restored.locator('#osc-keep-ratio').isChecked(),true);
+    } else {
+      await restored.goForward();await restored.waitForURL(/m=results/);
+      await restored.locator('#mode-panel').waitFor();
+    }
+    const history=await restored.evaluate(()=>window.__historyProbe);
+    assert.equal(history.pop,1,`one native ${direction} event`);
+    assert.equal(history.updates.length,1,`one route update per ${direction} gesture`);
+    if(direction==='back') {
+      assert.equal(history.updates[0].energy,2.62);assert.equal(history.updates[0].keepRatio,true);
+      assert.equal(await restored.locator('#osc-energy').count(),1);
+    } else assert.equal(history.updates[0].mode,'results');
+  }
   await restored.goto(`${base}/atlas?e=.6#/view/beam-section/j-parc-neutrino`,{waitUntil:'networkidle'});
   await restored.locator('#osc-energy').waitFor();
   await restored.goBack({waitUntil:'networkidle'});
@@ -62,6 +91,6 @@ const base=process.env.HEP_URL||'http://127.0.0.1:8876';
    release();await delayed.waitForLoadState('networkidle');
   } finally {release();await slow.close()}
   assert.deepEqual(errors,[],'cold exits must not start work on a departing document');
-  console.log(`PASS ${engine} 360px: rapid cold exits, normal/slow assets, keyboard energy, Back/forward restoration, no browser errors`);
+  console.log(`PASS ${engine} 360px: rapid cold exits, normal/slow assets, keyboard energy, single Back/forward updates, state restoration, no browser errors`);
  } finally {await browser.close()}
 })().catch(error=>{console.error(error);process.exitCode=1});

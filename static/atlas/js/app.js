@@ -743,7 +743,9 @@ async function main() {
   timeline.start();
 
   state.subscribe((current) => { applyState(current); });
-  const initial = state.init();
+  // The URL was read before components initialized; their changes are already in state.
+  // Read that state here instead of registering a second history listener.
+  const initial = state.get();
   await applyState(initial);
   startHere.openFirstVisit();
 }

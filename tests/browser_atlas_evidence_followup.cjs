@@ -9,12 +9,14 @@ const out=process.env.HEP_ATLAS_OUTPUT||path.join(__dirname,'../test-results/atl
 fs.mkdirSync(out,{recursive:true});
 (async()=>{
  const browser=await ({chromium,webkit}[engine]).launch({headless:true});
- const errors=[];let activePage=null;let activeSize='desktop';
+ const errors=[];let activePage=null;let activeSize='desktop';let activeHTTP=[];
  try {
   for(const mobile of [false,true]) {
    const context=await browser.newContext({viewport:mobile?{width:360,height:780}:{width:1440,height:1000},
     ...(mobile?{isMobile:true,hasTouch:true}:{}),reducedMotion:'reduce'});
    const page=await context.newPage();activePage=page;activeSize=mobile?'360':'desktop';page.setDefaultTimeout(30000);
+   const httpFailures=[];activeHTTP=httpFailures;
+   page.on('response',r=>{if(r.status()>=400&&r.url().startsWith(base))httpFailures.push({url:r.url(),status:r.status()})});
    page.on('pageerror',error=>errors.push(error.message));
    // Test copied/native destinations after their startup requests settle.
    // Rapid cold exits are separately covered by browser_atlas_navigation_lifecycle;
@@ -95,6 +97,7 @@ fs.mkdirSync(out,{recursive:true});
      panelClass:document.querySelector('#detail-panel')?.className,panelBusy:document.querySelector('#detail-panel')?.getAttribute('aria-busy'),
      panelText:document.querySelector('#detail-panel')?.textContent?.slice(0,1200),title:document.title}))));
     console.error('BROWSER ERRORS',JSON.stringify(errors));
+    console.error('HTTP FAILURES',JSON.stringify(activeHTTP.slice(-20)));
     await activePage.screenshot({path:path.join(out,`${engine}-${activeSize}-evidence-failure.png`),timeout:5000});
    } catch(diagnosticError) { console.error('DIAGNOSTIC',diagnosticError.message); }
   }
