@@ -2,7 +2,7 @@
 import { allBeamRows } from './beam-rows.js';
 import { ENERGY, MIXING, MODEL, doublingExperiment, firstMaximumEnergy, flavorProbabilities, matchBaselineEnergy, mixingAmplitude, normaliseEnergy, normaliseMixing, oscillationProbability } from './oscillation-model.js';
 import { patchQuietly } from '../state.js';
-import { createTourStepLink } from '../tour-link.js';
+import { createTourStepLink, createResultEvidenceLink } from '../tour-link.js';
 
 function el(tag, attrs = {}, children = []) {
   const node = document.createElement(tag);
@@ -133,6 +133,7 @@ export function createOscillationLab(ctx, row) {
     el('p', { class: 'osc-flavor-evidence' }, [
       "Next: compare solar-neutrino measurements. This atmospheric-scale teaching model is not a fit to SNO's solar-neutrino data. ",
       createTourStepLink('neutrino-oscillation-story', 3, 'Try the SNO flux question', ctx.navigate),
+      ' · ', createResultEvidenceLink('sno-nc-evidence-2002', 'Read SNO’s measured evidence', ctx.navigate),
     ]),
   ]);
   const method = el('details', { class: 'osc-method' }, [

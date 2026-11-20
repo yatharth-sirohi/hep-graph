@@ -18,6 +18,14 @@ const base=process.env.HEP_URL||'http://127.0.0.1:8876';
    await page.goto(`${base}/atlas?data=generated&theme=projector#/result/atlas-higgs-observation-2012`);
    await page.locator('#detail-panel h2').waitFor();
   }
+  // Leave the SNO question as soon as it exists, before its optional record/glossary settles.
+  // No network-idle wait here: this covers real rapid departures separately from reading tests.
+  for(let i=0;i<3;i++) {
+   await page.goto(`${base}/atlas?data=generated&step=3#/tour/neutrino-oscillation-story`);
+   await page.locator('.tour-question').waitFor();
+   await page.goto(`${base}/atlas?data=generated#/result/sno-nc-evidence-2002`);
+   await page.locator('.evidence-channel-reader').waitFor();
+  }
   await stress.close();
   const context=await browser.newContext(options);
   const restored=await context.newPage();restored.setDefaultTimeout(30000);
@@ -91,6 +99,6 @@ const base=process.env.HEP_URL||'http://127.0.0.1:8876';
    release();await delayed.waitForLoadState('networkidle');
   } finally {release();await slow.close()}
   assert.deepEqual(errors,[],'cold exits must not start work on a departing document');
-  console.log(`PASS ${engine} 360px: rapid cold exits, normal/slow assets, keyboard energy, single Back/forward updates, state restoration, no browser errors`);
+  console.log(`PASS ${engine} 360px: rapid cold exits including SNO, normal/slow assets, keyboard energy, single Back/forward updates, state restoration, no browser errors`);
  } finally {await browser.close()}
 })().catch(error=>{console.error(error);process.exitCode=1});

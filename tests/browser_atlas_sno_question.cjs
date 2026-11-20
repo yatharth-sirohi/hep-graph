@@ -3,6 +3,7 @@ const {chromium,webkit}=require('playwright');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
+const {openPrimary}=require('./browser_support/primary.cjs');
 const engine=process.env.HEP_BROWSER||'chromium';
 const base=process.env.HEP_URL||'http://127.0.0.1:8876';
 const output=process.env.HEP_ATLAS_OUTPUT||path.join(__dirname,'../test-results/atlas-iterations');
@@ -36,10 +37,7 @@ fs.mkdirSync(output,{recursive:true});
   await page.waitForFunction(()=>document.querySelector('.tour-answer .tour-sources')?.dataset.state==='loaded');
   const primary=page.locator(`.tour-answer a[href='${paper}']`).first();await primary.waitFor();
   assert.match(await page.locator('.tour-answer .tour-sources').innerText(),/PDF page 4/);
-  const requested=context.waitForEvent('request',{predicate:r=>r.url().startsWith(paper.split('#')[0]),timeout:30000});
-  await primary.click();await requested;
-  const response=await context.request.get(paper.split('#')[0]);assert.equal(response.status(),200);
-  assert((await response.body()).subarray(0,5).equals(Buffer.from('%PDF-')),'primary response must be the actual PDF');
+  await openPrimary(context,page,primary,{url:paper,engine,viewport:mobile?'360':'desktop',output,artifactName:'sno-question-flux',requirePDF:true});
   await page.bringToFront();
   assert(await page.locator('.tour-question').evaluate(n=>n.scrollWidth<=n.clientWidth+1));
   await page.screenshot({path:path.join(output,`${engine}-${mobile?'360':'desktop'}-sno-question.png`)});
@@ -70,6 +68,8 @@ fs.mkdirSync(output,{recursive:true});
   await page.waitForURL(url=>url.hash==='#/tour/neutrino-oscillation-story'&&url.searchParams.get('step')==='3');
   await page.locator('.tour-question').waitFor();assert.equal(new URL(page.url()).searchParams.get('present'),'1');
   assert.equal(await page.locator('.tour-answer').isVisible(),false);
+  // This is a completed reading journey; rapid unfinished exits have a separate lifecycle regression.
+  await page.waitForLoadState('networkidle');
   await context.close();console.log(`PASS ${engine} ${mobile?'360px mobile':'desktop'}: lab -> SNO prediction/working -> primary PDF, keyboard, native link/context and Back`);
  }assert.deepEqual(errors,[])}finally{await browser.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});

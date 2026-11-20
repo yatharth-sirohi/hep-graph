@@ -1,4 +1,4 @@
-// Native question links shared by panels and learning views; one tour player.
+// Native learning links shared by panels and views; one tour player.
 function visitParams(search) {
   const context = new URLSearchParams(search);
   const params = new URLSearchParams();
@@ -9,6 +9,12 @@ function visitParams(search) {
 export function tourStepHref(slug, step, search = '') {
   const params=visitParams(search);params.set('step',String(step));
   return `?${params}#/tour/${slug}`;
+}
+
+export function resultEvidenceHref(slug, search = '') {
+  const params = visitParams(search);
+  // An explicit empty query prevents native/copied links inheriting lab inputs.
+  return `?${params}#/result/${slug}`;
 }
 
 export function mapStepHref(slug, year, proton, search = '') {
@@ -42,6 +48,11 @@ export function createTourStepLink(slug, step, text, navigate) {
     {entity:{type:'tour',slug},step},navigate,'data-tour-step-link');
 }
 
+export function createResultEvidenceLink(slug, text, navigate) {
+  return nativeLearningLink(resultEvidenceHref(slug,window.location.search),text,
+    {entity:{type:'result',slug}},navigate,'data-result-evidence-link');
+}
+
 export function createMapStepLink(slug, year, proton, text, navigate) {
   return nativeLearningLink(mapStepHref(slug,year,proton,window.location.search),text,
     {entity:{type:'map',slug},year,range:null,proton,levels:null,sel:null},navigate,'data-map-step-link');
@@ -52,7 +63,7 @@ export function createMapStepLink(slug, year, proton, text, navigate) {
 export function syncTourLinkThemes(event) {
   const theme = event.detail?.theme;
   if (!['projector', 'standard'].includes(theme)) return;
-  for (const link of document.querySelectorAll('a[data-tour-step-link], a[data-map-step-link]')) {
+  for (const link of document.querySelectorAll('a[data-tour-step-link], a[data-map-step-link], a[data-result-evidence-link]')) {
     const url = new URL(link.href);
     url.searchParams.set('theme', theme);
     link.setAttribute('href', `${url.search}${url.hash}`);
