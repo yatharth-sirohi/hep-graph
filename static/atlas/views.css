@@ -2664,3 +2664,21 @@ a.rs-lane-link {
 .osc-survival-part { fill: var(--white); }
 .osc-flavor-hatch { fill: none; stroke: var(--white); stroke-width: 5; }
 .osc-flavor-outline { fill: none; stroke: var(--white); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+
+/* Selected chart values keep their original marker and keyboard focus indicator. */
+.ch-highlight { fill: none; stroke: var(--white); stroke-width: 2; pointer-events: none; }
+.ch-point[data-highlight="B"] .ch-highlight { stroke-dasharray: 4 2; }
+.ug-compare { border: 1px solid var(--line-strong); border-radius: var(--radius); padding: var(--space-3); overflow-wrap: anywhere; }
+.ug-compare-controls { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--space-3); }
+.ug-compare-controls label { display: grid; gap: var(--space-1); min-width: 0; }
+.ug-compare-controls select { width: 100%; min-width: 0; min-height: 44px; font: inherit; color: var(--white); background: var(--panel); border: 1px solid var(--line-strong); border-radius: var(--radius-sm); padding: var(--space-2); }
+.ug-compare-values { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--space-3); }
+.ug-compare-values article { min-width: 0; }
+.ug-compare-values h4 { margin-bottom: var(--space-1); }
+.ug-compare-result { font-weight: 600; }
+.ug-compare summary { cursor: pointer; min-height: 44px; line-height: 1.6; }
+.ug-compare .text-btn { min-height: 44px; }
+.ug-compare-error { border-left: 3px solid currentColor; padding-left: var(--space-2); }
+@media (max-width: 560px) {
+  .ug-compare-controls, .ug-compare-values { grid-template-columns: minmax(0,1fr); }
+}

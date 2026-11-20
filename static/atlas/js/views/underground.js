@@ -13,6 +13,7 @@ import {
   MUON_FLUX_SCALE, WORKING_TITLE, depthOnlyRows, fluxRange, fluxText, isApproximate, sciText, undergroundData,
 } from './underground-rows.js';
 import { claimItem, lazyInputs } from './chart-inputs.js';
+import { createFluxComparison } from './underground-compare-ui.js';
 
 const DECADES = (ratio) => Math.floor(Math.log10(ratio));
 
@@ -29,6 +30,8 @@ export function mount(ctx) {
   let destroyed = false;
   let chart = null;
   let inputs = null;
+  let comparison = null;
+  let selectedPair = ctx.undergroundPair;
   const details = host.method.closest('details');
 
   const link = (route, text) => {
@@ -160,9 +163,15 @@ export function mount(ctx) {
         { label: 'Marker', cell: (entry) => (entry.hollow ? 'Approximate or simulated (hollow)' : 'Measured (filled)') },
       ],
     });
-    host.body.replaceChildren(lede, figure, depthSection, h('div', { class: 'ch-block' }, table));
+    comparison = createFluxComparison({entries,prov,loader,link,navigate:ctx.navigate,initialPair:selectedPair,
+      onHighlights: items => {chart.setHighlights(items);host.exportChanged?.();}});
+    host.body.replaceChildren(lede, figure, comparison.element, depthSection, h('div', { class: 'ch-block' }, table));
 
-    host.setExporter(() => chart.exportFigures());
+    host.setExporter(() => {
+      const made=chart.exportFigures();
+      if(made)made.notes=comparison.exportNotes();
+      return made;
+    });
     inputs = fillMethod(host.method, { rows, entries, link, loader, prov });
     host.announce(`${WORKING_TITLE}: ${rows.length} laboratory sites, depth in metres of water equivalent against muon flux.`);
   }
@@ -170,9 +179,13 @@ export function mount(ctx) {
   build();
 
   return {
-    update() { /* nothing here depends on the year */ },
+    update(next) {
+      selectedPair=next.undergroundPair;
+      if(comparison)comparison.update(selectedPair);
+    },
     destroy() {
       destroyed = true;
+      if (comparison) comparison.destroy();
       if (chart) chart.destroy();
       if (inputs) inputs.dispose();
     },

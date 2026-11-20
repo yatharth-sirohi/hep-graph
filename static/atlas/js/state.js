@@ -1,4 +1,5 @@
 import { normaliseEnergy } from './views/oscillation-model.js';
+import { normaliseFluxPair } from './views/underground-compare.js';
 // state.js — the single source of truth for "what is on screen": the hash
 // route (#/facility/<slug> etc.), plus short query state (?y=, ?r=, ?t=, ?s=,
 // ?m=, ?arcs=, a tour's ?step= and ?present=, the Results list's own ?ry=/?rx=/?rf=/?rt=/?rk=/?rs=/?rb=;
@@ -88,6 +89,7 @@ function parseSearch(search) {
     step: null, present: false,
     energy: params.has('e') ? normaliseEnergy(params.get('e')) : null,
     keepRatio: params.get('le') === '1',
+    undergroundPair: normaliseFluxPair(params.get('uf')),
     results: parseResultsView(params),
     // ---- classroom modes (js/classroom.js): `?embed=1` and `?theme=projector|standard`
     // ride along in every address the app writes, so reloading or sharing keeps them.
@@ -166,6 +168,11 @@ function onBeamLab(entity) {
     || (entity.type === 'tour' && entity.slug === 'neutrino-beams-through-the-earth'));
 }
 
+function onUnderground(entity) {
+  return entity && ((entity.type==='view' && (entity.slug==='underground' || entity.slug==='tour/going-underground-dark-matter'))
+    || (entity.type==='tour' && entity.slug==='going-underground-dark-matter'));
+}
+
 function buildURL(state) {
   const params = new URLSearchParams();
   if (state.dataMode) params.set('data', state.dataMode);
@@ -185,6 +192,10 @@ function buildURL(state) {
   if (onBeamLab(state.entity)) {
     if (state.energy != null) params.set('e', String(normaliseEnergy(state.energy)));
     if (state.keepRatio) params.set('le', '1');
+  }
+  if(onUnderground(state.entity)) {
+    const pair=normaliseFluxPair(state.undergroundPair);
+    if(pair)params.set('uf',pair.join(','));
   }
   // ---- local map view (§4) ----
   // These three only mean anything on a map route, so they are written only
@@ -231,6 +242,7 @@ export function navigate(patch, { replace = false } = {}) {
   const previousEntity = current ? current.entity : null;
   current = { ...current, ...patch };
   if (!onBeamLab(current.entity)) { current.energy = null; current.keepRatio = false; }
+  current.undergroundPair=onUnderground(current.entity)?normaliseFluxPair(current.undergroundPair):null;
   // An overlay belongs to the map it was laid on: opening any other route drops it
   // (a link that names `cmp` brings it back, because the patch then says so).
   if ('entity' in patch && !('cmp' in patch)) {
@@ -311,7 +323,7 @@ export function patchFromLink(href) {
   const entity = parseHashEntity(url.hash);
   if (entity) patch.entity = entity;
   const named = [['y', 'year'], ['t', 'topic'], ['s', 'status'], ['er', 'era'], ['fk', 'facilityKind'],
-    ['ek', 'experimentKind'], ['rg', 'region'], ['m', 'mode'], ['step', 'step'], ['present', 'present'], ['e', 'energy'], ['le', 'keepRatio']];
+    ['ek', 'experimentKind'], ['rg', 'region'], ['m', 'mode'], ['step', 'step'], ['present', 'present'], ['e', 'energy'], ['le', 'keepRatio'], ['uf', 'undergroundPair']];
   for (const [param, key] of named) if (params.has(param)) patch[key] = parsed[key];
   return patch;
 }

@@ -102,6 +102,8 @@ The three new unit regressions failed before implementation. The corrected data/
 
 ## Cycle 9: predict and trace an accelerator dependency
 
+Committed as `4b60b91c`.
+
 A campus can have several proton paths with different dependencies. The existing Fermilab **Follow the proton** map player already contains the recorded Main Injector → NuMI and Booster → BNB transfers, so this cycle adds one prediction to that player. The five restart-context panels offer **Predict which beam needs Main Injector**. It opens the real historical 2016 map at Main Injector, with the question expanded. Learners choose NuMI, the Booster Neutrino Beam, or both; Test reveals the answer and traces the existing NuMI transfer. Two buttons let them compare the existing branches without introducing geometry or another player.
 
 The answer and trace indices come from the compiled chain. A guard hides the pilot if the feeder data or required drawn stages no longer match the reviewed citations. The prompt explicitly assumes other components are available. The explanation identifies a necessary proton connection; it does not establish delivered beam, rates or current operation. Historical 2016 is stated, rather than presenting an outage simulation of the current site.
@@ -115,6 +117,26 @@ Verification: the three topology/source/navigation regressions and missing-link 
 Phone inspection reproduced feedback partly outside the card; a failing visibility assertion now passes after scrolling the feedback into view without moving button focus. Independent review reproduced a second issue: opening the question during playback did not pause. That regression failed first and passes after pausing on native summary activation. Follow-up review found no remaining issue. Existing Higgs evidence → mass-question journeys pass in both engines at desktop/360px, as do the original connected phone questions → lab → Higgs primary-paper journeys. The extracted primary-link helper also passes the five restart panels, lazy evidence, keyboard Retry and native PAC PDF download in mobile WebKit. HEP Graph's mocked-API browser check passes. Live database integrations, physical phones and actual screen-reader speech remain unverified.
 
 Current-date validation is **0 errors, 1892 existing warnings, 4 informational**; all **84 generated files match** at `2026-11-19`. Syntax and diff checks pass. Durable logs and visually checked phone screenshots are in `test-results/atlas-iterations/cycle9-*` and `*beam-dependency*`. No merge or deployment was performed.
+
+## Cycle 10: compare recorded underground fluxes
+
+The existing chart, data table, qualitative newcomer checkpoint and sourced m.w.e./metre exercise remain in place. A comparison block now lets the learner select any two plotted sites as A/B. The same chart labels those points and adds solid/dashed square outlines while retaining its measured/hollow markers and separate keyboard focus ring. The block shows each recorded value and uncertainty, the conversion to cm⁻² s⁻¹, the dimensionless central-value ratio, signed log₁₀(A/B) and vertical separation in decades. No extra plot or tour system was added.
+
+The default pair exposes a real unit trap: LNGS Hall C's 3.432×10⁻⁴ m⁻² s⁻¹ is 3.432×10⁻⁸ cm⁻² s⁻¹. Dividing by SNOLAB's 3.31×10⁻¹⁰ cm⁻² s⁻¹ gives about **104**, or **2.02 decades**. The [Borexino primary abstract](https://arxiv.org/abs/1808.04207) (v3) and [SNO primary abstract](https://arxiv.org/abs/0902.2776) (v1) were rechecked on 19 November 2026. The selected-source disclosure reuses each flux's existing quote, locator, reference-surface/angular-cut definitions and primary references. These conventions differ; the displayed ratio compares reported central values and does not isolate the effect of depth. Recorded uncertainties are retained, without calculating an interval or significance for the ratio. Approximate/simulated values retain their label and hollow mark.
+
+The new `uf=<siteA>,<siteB>` query follows the current short-query pattern and is scoped to this view and its existing tour. It restores copied links, reloads and Back/Forward; leaving for a record clears it. Missing/repeated saved choices show a recovery instruction and no false result. Controls retain their nodes/focus during updates. Selected-source requests remain lazy, reject stale responses and offer a focused Retry. The original tour's predict/reveal and worked calculation are unchanged.
+
+The image check found A/B outlines survived export but the general figure URL omitted the pair. The existing export notes now carry the two recorded/normalized values, ratio/log separation, limitations and an exact reopen link with the selected pair. The plot and original legend continue to use the same exporter.
+
+Final verification: the repository suite passed **821 tests, 139 skipped**. The initial three pure regressions and missing-block browser check failed before implementation. **35 focused tests** pass. The repository's lazy comparison-view guard initially matched any filename ending in “compare.js”; it was corrected to protect the exact `compare.js` / `compare-rows.js` basenames, without prohibiting this small pure arithmetic helper. All **20 research-tool tests** pass, and review verified positive and negative guard cases. The outdated failing full run was deliberately interrupted after its identified failure; the corrected full run passed and is retained as `cycle10-pytest.log`.
+
+Chromium and WebKit pass desktop and 360px comparison journeys: common-unit math, A/B labels/outlines, missing/repeated pair recovery, simulated labels, reload, native source links, actual destination record headings, Back/Forward and chart-point focus. Mobile cases force a source failure, exercise keyboard Retry focus and change selection while the retry loads. Both primary abstracts opened with HTTP 200 from desktop Chromium/mobile WebKit and contained the published measurements. Native type-ahead changes the choice without blanking the presenter or moving the tour step. The existing energy-frontier chart still fades future points, shows the chosen-year marker and retains keyboard focus through a real resize redraw in both desktop engines.
+
+The actual Chromium PNG was downloaded and visually checked with A/B marks, both values, the ratio, limitations and the exact pair reopening link. Its export notes and link are asserted by the browser test. Scoped axe A/AA checks report **0 violations** for chart/comparison in default, selected-sources and invalid-pair states in standard and Projector themes. Final 360px renderings were inspected. Both original connected phone question → oscillation lab → Higgs primary-paper journeys pass again, along with the separate HEP Graph mocked-API browser check. Independent follow-up reviews found no remaining blocker.
+
+Current-date validation remains **0 errors, 1892 existing warnings, 4 informational** and all **84 generated files match** at `2026-11-19`. Syntax/diff checks pass. No authored/generated data, Graph application code, dependencies, accounts, tracking or paid services changed; no merge/deployment occurred.
+
+Independent review reproduced loss of chart-point focus when Back changed the pair. That browser assertion failed first; the shared focus-preserving redraw now handles resize and highlight changes. Native type-ahead changes the selection while preserving presenter state. In this macOS headless environment, popup-menu arrow/Home/End selection is not synthesized even for a bare native HTML select with no handlers; those native popup interactions remain unverified. No custom keyboard handler was added to emulate them. Physical phones, actual screen-reader speech and live database integrations remain unverified. Durable cycle-10 logs, the native-select isolation probe, screenshots and actual PNG export are under ignored `test-results/atlas-iterations/`.
 
 ## Local routes and sources
 
@@ -130,6 +152,8 @@ Use the current local server at `http://127.0.0.1:8876` while the loop is runnin
 - SNO prediction and sourced flux comparison: <http://127.0.0.1:8876/atlas?step=3#/tour/neutrino-oscillation-story>
 - NOvA last-reported state and restart evidence: <http://127.0.0.1:8876/atlas?y=2026#/experiment/nova>
 - Main Injector last-reported state: <http://127.0.0.1:8876/atlas?y=2026#/accelerator/fermilab-main-injector>
+- Underground comparison, LNGS Hall C / SNOLAB: <http://127.0.0.1:8876/atlas?data=generated&uf=lngs-hall-c,snolab-underground-lab#/view/underground>
+- Same comparison inside the original question: <http://127.0.0.1:8876/atlas?data=generated&step=6&uf=lngs-hall-c,snolab-underground-lab#/tour/going-underground-dark-matter>
 - Fermilab dependency question (2016, Main Injector): <http://127.0.0.1:8876/atlas?data=generated&y=2016&proton=7#/map/fermilab>
 - Existing NuMI transfer used by Test: <http://127.0.0.1:8876/atlas?data=generated&y=2016&proton=8#/map/fermilab>
 - Existing Booster → BNB comparison: <http://127.0.0.1:8876/atlas?data=generated&y=2016&proton=10#/map/fermilab>
@@ -137,7 +161,7 @@ Use the current local server at `http://127.0.0.1:8876` while the loop is runnin
 
 Published measurement values were preserved; cycle 7 adds a worked comparison of rechecked SNO fluxes. Sources include the [SNO primary paper, CC/NC fluxes below Table II on PDF page 4](https://arxiv.org/pdf/nucl-ex/0204008v2#page=4), the [T2K experiment paper, §3.6.1](https://arxiv.org/pdf/1106.1238v2#page=10), [DUNE baseline passage, §1](https://arxiv.org/pdf/2007.06722v4#page=12), [T2K two-flavor formula and units](https://t2k-experiment.org/neutrinos/beyond-the-standard-model/), [PDG mixing review](https://pdg.lbl.gov/2024/reviews/rpp2024-rev-neutrino-mixing.pdf), and the versioned [ATLAS](https://arxiv.org/pdf/1207.7214v1) and [CMS](https://arxiv.org/pdf/1207.7235v1) papers. The previous report records exact figures and passages. Claims about phase changes and matching L/E are derived from the displayed formula.
 
-Logs and screenshots for this loop are retained in the ignored `test-results/atlas-iterations/` directory. Earlier temporary `/tmp/` artifacts may expire; use the durable cycle-6 through cycle-9 logs for the latest iterations. Screen-reader hardware and physical phones have not been tested. Existing database-environment skips, aging-data validation findings and legacy monolithic-browser timing limits remain as documented in the original report.
+Logs and screenshots for this loop are retained in the ignored `test-results/atlas-iterations/` directory. Earlier temporary `/tmp/` artifacts may expire; use the durable cycle-6 through cycle-10 logs for the latest iterations. Screen-reader hardware and physical phones have not been tested. Existing database-environment skips, aging-data validation findings and legacy monolithic-browser timing limits remain as documented in the original report.
 
 
 ## Reproduce the current loop checks
@@ -148,8 +172,11 @@ Use the repository Python environment and the existing Playwright installation, 
 python -m pytest -q -p no:cacheprovider
 python -m pytest -q -p no:cacheprovider tests/test_atlas_restart_context.py tests/test_atlas_schema.py
 python -m pytest -q -p no:cacheprovider tests/test_atlas_beam_dependency.py tests/test_atlas_proton_chain.py tests/test_atlas_learning.py
+python -m pytest -q -p no:cacheprovider tests/test_atlas_underground_comparison.py tests/test_atlas_charts.py tests/test_atlas_learning.py tests/test_atlas_tour_player.py
 python -m hepgraph.atlas.validate --build-date 2026-11-19
 python -m hepgraph.atlas.build --build-date 2026-11-19 --check
+HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_underground_comparison.cjs
+HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_underground_comparison.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_beam_dependency.cjs
 HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_beam_dependency.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_experiments.cjs
