@@ -90,7 +90,22 @@ The calculation and browser tests failed first for the missing helper/disclosure
 
 Finding: `beam-section.js` registers an export containing only the zoomed Earth section and whole-Earth diagram (`host.setExporter`, around line 624). The selected oscillation curve and two-flavor balance are omitted. An instructor can share the live energy URL but cannot save the worked model visual with the current Export image flow. The teaching plan explicitly asks for reusable, sourced classroom figures.
 
-- [ ] Inspect the existing host/export interfaces and reproduce what the beam view currently saves.
-- [ ] Add a way to export the selected oscillation lab through the existing image-export machinery, while preserving the existing beam-geometry export.
-- [ ] Carry the actual selected energy, sourced baseline, formula/units/chosen parameters, teaching-model qualification and citations into the saved figure; avoid implying an event prediction or measured uncertainty.
-- [ ] Verify keyboard/mobile controls, current-state capture and downloaded artifact legibility in Chromium/WebKit, including updated energy and baseline selection; review, record and commit the cycle.
+- [x] Inspect the existing host/export interfaces and reproduce what the beam view currently saves.
+- [x] Add a way to export the selected oscillation lab through the existing image-export machinery, while preserving the existing beam-geometry export.
+- [x] Carry the actual selected energy, sourced baseline, formula/units/chosen parameters, teaching-model qualification and citations into the saved figure; avoid implying an event prediction or measured uncertainty.
+- [x] Verify keyboard/mobile controls, current-state capture and downloaded artifact legibility in Chromium/WebKit, including updated energy and baseline selection; review, record and commit the cycle.
+
+Iteration 6 outcome: the existing export dialog now offers Earth/beam geometry (default) or the selected oscillation lab. The optional view-export choice interface leaves single-figure views unchanged. The lab figure captures the actual energy and sourced baseline, curve and solid/striped flavor balance, formula, units, fixed teaching parameters, marker legend, explicit model limitations and primary-source URLs. Preview changes invalidate the previous download before recomposition. Readable text/source-link notes accompany the image preview. Phones reuse the same dialog and gain a Save image opener for active chart views.
+
+Independent review found a presenter-mode key conflict, reproduced before the fix: the tour listener consumed native export Enter/Space actions. Scoped dialog/opener key handling now preserves native controls, presenter step/mode and Escape focus restoration. Follow-up review of the complete change and readable-note/link lifecycle found no actionable issues.
+
+Final fresh verification: repository suite **809 passed, 139 skipped**; Chromium and WebKit each pass desktop and 360px geometry/lab selection, real PNG downloads, changing energy and baseline, formula/source content, preview refresh, temporary-node cleanup and keyboard/presenter controls. Both engines pass the connected mobile question→lab→Higgs primary-paper journey. Classroom regression: **8 passed, 0 skipped, 0 errors**. Separate HEP Graph mocked-API browser regression passes. Scoped axe A/AA checks of the 360px export dialog/opener report **0 violations** in standard and Projector themes. Downloaded 1920×1080 PNGs were visually checked, including WebKit mobile DUNE at 2.5 GeV. Syntax checks and diff whitespace checks pass. Durable logs and images: ignored `test-results/atlas-iterations/cycle6-reverified-*` and `*-oscillation-export.png`. Physical-device save UI and actual screen-reader speech remain unverified.
+
+## Iteration 7 — Connect the flavor model to experimental evidence
+
+Finding: the existing neutrino-oscillation tour has an SNO stop (step 3, 2002), but no prediction/reveal there. The new flavor-balance lab explains a closed teaching model without an onward experimental question. Investigate whether the primary 2002 paper supports a small comparison of electron-sensitive and all-active-flavor measurements, using the existing tour player.
+
+- [ ] Inspect the existing SNO record, claims, tour schema and primary paper; identify exact supported quantities and locators before adding content.
+- [ ] Choose a short prediction/reveal that distinguishes reported fluxes from raw event counts, and the solar-neutrino evidence from the atmospheric-scale vacuum teaching model.
+- [ ] Add failing calculation/navigation regressions, implement the missing interaction in the existing tour, and connect it from the lab without a second tour system.
+- [ ] Verify sources, keyboard/360px Chromium and WebKit, deep links/Back, relevant repository checks; review, record and commit the next cycle.

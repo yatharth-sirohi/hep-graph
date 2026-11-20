@@ -159,7 +159,7 @@ body.is-map-route .header-export {
   gap: var(--space-3);
   margin-top: var(--space-2);
 }
-/* The header has no room for it on a phone, and a lecture slide is not made there. */
+/* Phone views use their header action and the same dialog, moved by phone.js. */
 @media (max-width: 900px) {
   .header-export {
     display: none;
@@ -403,3 +403,17 @@ body.is-map-route .header-export {
     visibility: visible;
   }
 }
+
+.export-figure-field { display: grid; gap: .35rem; margin-bottom: var(--space-3); font-size: var(--text-sm); }
+.export-figure-field[hidden] { display: none; }
+.export-figure-field select { width: 100%; min-width: 0; min-height: 44px; padding: .4rem; font: inherit; color: var(--white); background: var(--paper); border: 1px solid var(--line-strong); border-radius: var(--radius); }
+.export-figure-field select:focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }
+
+@media (max-width: 900px) {
+  .export-popover { position: fixed; top: 60px; left: 12px; right: 12px; width: auto; max-height: calc(100vh - 80px); max-height: calc(100dvh - 80px); z-index: 1100; }
+}
+
+.export-image-notes { margin: .5rem 0; color: var(--muted); font-size: var(--text-sm); line-height: 1.5; overflow-wrap: anywhere; }
+.export-image-notes[hidden] { display: none; }
+.export-image-notes summary { min-height: 44px; padding: .5rem 0; cursor: pointer; }
+.export-image-notes p { margin: .5rem 0; }

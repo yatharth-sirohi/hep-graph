@@ -5,7 +5,7 @@
 //   1. The view on screen — the globe, a local map, or the figure of a view (the beam
 //      section, the charts, the exclusion plot, the results timeline, the detector line-up) —
 //      as a PNG with its title, the timeline year, a citation footer and, on a map, a metre
-//      scale bar and a north arrow. Two sizes: a 1920 x 1080 slide, or twice what is on screen.
+//      scale bar and a north arrow. Two sizes: a 1920 x 1080 slide, or twice the figure size.
 //   2. A one-page, print-ready sheet for a facility (A4 or Letter): what it is, where,
 //      what it holds, who it hosts, a to-scale map, and where each fact comes from.
 //
@@ -93,9 +93,21 @@ export function citationLine(date = todayISO()) {
 }
 
 /** What the view host says about the view on screen (see views/host.js exportState). */
-function viewExportState(slug) {
+function viewExportState(slug, figure) {
   if (!env || !env.views) return { ready: false, reason: 'Views cannot be exported yet.' };
-  return env.views.exportState(slug);
+  return env.views.exportState(slug, figure);
+}
+
+
+// Tours can be showing a chart/beam view even while the URL names the tour.
+function activeViewExportState(figure) {
+  const entity = state.get().entity;
+  if (entity?.type === 'view') return viewExportState(entity.slug, figure);
+  if (entity?.type === 'tour') {
+    const info = viewExportState(undefined, figure);
+    if (info.open) return info;
+  }
+  return null;
 }
 
 function panelHeading() {
@@ -105,7 +117,7 @@ function panelHeading() {
 
 /** What the picture is of: its kind, title, a line under the title, the timeline words,
  * and the file name. */
-function describeView() {
+function describeView(options = {}) {
   const current = state.get();
   if (current.entity && current.entity.type === 'map' && !localmap.exportInfo()) {
     throw new ExportError('The local map has not finished opening, so there is nothing to export yet.');
@@ -114,7 +126,7 @@ function describeView() {
   const entity = current.entity;
   const filtered = ['topic', 'status', 'era', 'facilityKind', 'experimentKind', 'region'].some((key) => current[key]);
   const mapInfo = entity && entity.type === 'map' ? localmap.exportInfo() : null;
-  const viewInfo = entity && entity.type === 'view' ? viewExportState(entity.slug) : null;
+  const viewInfo = activeViewExportState(options.figure);
   if (viewInfo && !viewInfo.ready) throw new ExportError(viewInfo.reason);
   let kind = 'globe';
   let title = 'Globe overview';
@@ -146,7 +158,7 @@ function describeView() {
     subtitle,
     timeline,
     filename: `hep-atlas_${slugify(slug) || 'view'}_${timeline.file}.png`,
-    mapInfo,
+    mapInfo, viewRoute: viewInfo?.slug || null,
   };
 }
 
@@ -190,7 +202,7 @@ function footerLinesFor(info, tiles, date) {
   const lines = [citationLine(date)];
   if (info.kind === 'figure') {
     const entity = state.get().entity;
-    lines.push(`Figure: ${info.title} — ${SITE_ADDRESS}#/view/${entity ? entity.slug : ''}`);
+    lines.push(`Figure: ${info.title} — ${SITE_ADDRESS}#/view/${info.viewRoute || (entity ? entity.slug : '')}`);
     for (const note of info.notes || []) lines.push(note);
   }
   if (info.kind === 'map') {
@@ -851,7 +863,7 @@ async function composeFigure(info, options) {
   if (!env.views) throw new ExportError('Views cannot be exported yet.');
   let exported = null;
   try {
-    exported = await env.views.exportFigure();
+    exported = await env.views.exportFigure(options.figure);
   } catch (error) {
     throw new ExportError(error.message);
   }
@@ -921,7 +933,7 @@ async function composeFigure(info, options) {
  */
 export async function composeView(options = {}) {
   if (!env) throw new ExportError('Export is not ready yet.');
-  const info = describeView();
+  const info = describeView(options);
   const compose = { map: composeMap, figure: composeFigure, globe: composeGlobe }[info.kind];
   const result = await compose(info, options);
   const summary = {
@@ -980,6 +992,11 @@ function h(tag, attrs = {}, children = []) {
 
 // Set by createDialog: re-reads whether the Export button can be used on the view on screen.
 let refreshExportButton = () => {};
+let refreshOpenExport = () => {};
+let toggleExportDialog = () => {};
+
+/** Toggle the existing image dialog from another visible control (e.g. a phone view). */
+export function toggleDialog(opener) { toggleExportDialog(opener); }
 
 function createDialog() {
   const button = document.getElementById('export-btn');
@@ -989,10 +1006,24 @@ function createDialog() {
   const title = h('h2', { class: 'export-title', id: 'export-title' }, 'Save this view as an image');
   const closeX = h('button', { type: 'button', class: 'export-close', 'aria-label': 'Close export' }, '×');
   const lede = h('p', { class: 'export-lede', id: 'export-lede' });
+  const figureSelect = h('select', { id: 'export-figure' });
+  const figureField = h('label', { id: 'export-figure-field', class: 'export-figure-field' }, ['Figure to save', figureSelect]);
+  figureField.hidden = true;
+  let choiceSignature = '';
+  function syncFigureChoices() {
+    const info = activeViewExportState();
+    const choices = info?.choices || [];
+    const signature = JSON.stringify([info?.slug || '', choices]);
+    if (signature !== choiceSignature) {
+      figureSelect.replaceChildren(...choices.map(item => h('option', { value: item.id }, item.label)));
+      choiceSignature = signature;
+    }
+    figureField.hidden = choices.length < 2;
+  }
   const sizes = h('fieldset', { class: 'export-sizes' }, [h('legend', {}, 'Size')]);
   const radios = {};
   const dims = {};
-  for (const [value, label] of [['slide', 'Slide'], ['double', 'Twice the size on screen']]) {
+  for (const [value, label] of [['slide', 'Slide'], ['double', 'Twice the figure size']]) {
     const input = h('input', { type: 'radio', name: 'export-size', value });
     const dim = h('span', { class: 'export-dim' });
     radios[value] = input;
@@ -1002,13 +1033,17 @@ function createDialog() {
   radios.slide.checked = true;
   const preview = h('div', { class: 'export-preview' });
   const notes = h('div', { class: 'export-notes' });
+  const imageNotesBody = h('div');
+  const imageNotesSummary = h('summary', {}, 'Notes included in the image');
+  const imageNotes = h('details', { class:'export-image-notes', hidden:true }, [imageNotesSummary,imageNotesBody]);
   const status = h('p', { class: 'export-status', role: 'status', 'aria-live': 'polite' });
   const download = h('button', { type: 'button', class: 'primary-btn export-download', disabled: true }, 'Download PNG');
   const dismiss = h('button', { type: 'button', class: 'text-btn' }, 'Close');
-  popover.append(title, closeX, lede, sizes, preview, notes, status, h('div', { class: 'export-actions' }, [download, dismiss]));
+  popover.append(title, closeX, lede, figureField, sizes, preview, notes, imageNotes, status, h('div', { class: 'export-actions' }, [download, dismiss]));
   popover.setAttribute('aria-labelledby', 'export-title');
 
   let open = false;
+  let activeOpener = button;
   let token = 0;
   let current = null;
   let refreshTimer = 0;
@@ -1019,12 +1054,9 @@ function createDialog() {
   const reasonEl = h('span', { class: 'visually-hidden', id: 'export-reason' });
   button.after(reasonEl);
   function refreshButton() {
-    const entity = state.get().entity;
     let reason = '';
-    if (entity && entity.type === 'view') {
-      const info = viewExportState(entity.slug);
-      if (!info.ready) reason = info.reason || 'This view has no figure to export.';
-    }
+    const info = activeViewExportState();
+    if (info && !info.ready) reason = info.reason || 'This view has no figure to export.';
     button.disabled = !!reason;
     button.title = reason ? `Save image: unavailable. ${reason}`
       : 'Save image: download what is on screen as a picture for a slide, with its title, year and citation';
@@ -1044,7 +1076,7 @@ function createDialog() {
     const contents = result.kind === 'map'
       ? 'In the image: the map, its title, the timeline year, a metre scale bar, a north arrow and the citation.'
       : (result.kind === 'figure'
-        ? 'In the image: the figure of this view as it is drawn on screen, its title, the timeline year, the address of the view and the citation.'
+        ? 'In the image: the selected figure, its title, the timeline year, the address of the view and the citation.'
         : 'In the image: the globe with its markers, captions and beams, the title, the timeline year and the citation.');
     notes.appendChild(h('p', { class: 'export-contents' }, contents));
     if (result.tiles) {
@@ -1053,15 +1085,24 @@ function createDialog() {
       }, result.tiles.message));
     }
     notes.appendChild(h('p', { class: 'export-file' }, [h('span', {}, 'File: '), h('code', {}, result.filename)]));
+    const focusedLink = imageNotes.contains(document.activeElement) && document.activeElement.localName === 'a'
+      ? document.activeElement.getAttribute('href') : null;
+    imageNotesBody.replaceChildren(...(result.footerLines || []).map(line => h('p', {},
+      String(line).split(/(https?:\/\/[^\s]+)/g).map(part => /^https?:\/\//.test(part)
+        ? h('a', { href:part,target:'_blank',rel:'noopener' }, part) : part))));
+    imageNotes.hidden = !result.footerLines?.length;
+    // Keep an open disclosure and its focus stable while a live preview refreshes.
+    if (focusedLink) {
+      const replacement = [...imageNotesBody.querySelectorAll('a')].find(a => a.getAttribute('href') === focusedLink);
+      (replacement || imageNotesSummary).focus({ preventScroll:true });
+    }
   }
 
   const routeType = () => { const e = state.get().entity; return e ? e.type : null; };
 
   function whatIs() {
-    if (routeType() === 'view') {
-      const info = viewExportState(state.get().entity.slug);
-      return info.ready ? `The figure on screen: ${info.title}.` : 'The figure of this view.';
-    }
+    const info = activeViewExportState(figureSelect.value);
+    if (info) return info.ready ? `The figure on screen: ${info.title}.` : 'The figure of this view.';
     const mapOpen = routeType() === 'map' && localmap.exportInfo();
     return mapOpen ? 'The local map on screen.' : 'The globe on screen.';
   }
@@ -1078,17 +1119,18 @@ function createDialog() {
     const mine = ++token;
     download.disabled = true;
     current = null;
+    syncFigureChoices();
     lede.textContent = whatIs();
     updateDims();
     say('Preparing the image…');
     preview.classList.add('is-busy');
     try {
-      const result = await composeView({ preset: presetValue() });
+      const result = await composeView({ preset: presetValue(), figure: figureSelect.value });
       if (mine !== token) return;
       current = result;
       result.canvas.className = 'export-canvas';
       result.canvas.setAttribute('role', 'img');
-      result.canvas.setAttribute('aria-label', `Preview of the image: ${result.title}, ${result.timeline}.`);
+      result.canvas.setAttribute('aria-label', `Preview of the image: ${result.title}, ${result.timeline}. Notes and sources included in the image are available below.`);
       preview.replaceChildren(result.canvas);
       dims[presetValue()].textContent = `${result.width} × ${result.height} px`;
       showNotes(result);
@@ -1099,6 +1141,7 @@ function createDialog() {
       preview.replaceChildren(h('p', { class: 'export-error', role: 'alert' }, error instanceof ExportError
         ? error.message : `The image could not be made: ${error.message}`));
       notes.replaceChildren();
+      imageNotes.hidden = true;
       say('');
       window.console.error(error);
     } finally {
@@ -1106,12 +1149,13 @@ function createDialog() {
     }
   }
 
-  function setOpen(next, { restoreFocus = true } = {}) {
+  function setOpen(next, { restoreFocus = true, opener = button } = {}) {
     if (next === open) return;
     open = next;
     popover.hidden = !next;
     button.setAttribute('aria-expanded', String(next));
     if (next) {
+      activeOpener = opener?.isConnected ? opener : button;
       popover.focus({ preventScroll: true });
       render();
     } else {
@@ -1119,14 +1163,24 @@ function createDialog() {
       window.clearTimeout(refreshTimer);
       preview.replaceChildren();
       current = null;
-      if (restoreFocus) button.focus({ preventScroll: true });
+      if (restoreFocus) (activeOpener?.isConnected ? activeOpener : button).focus({ preventScroll: true });
     }
   }
 
-  button.addEventListener('click', () => setOpen(!open));
+  toggleExportDialog = (opener) => {
+    refreshButton();
+    if (!button.disabled) setOpen(!open, { opener: opener || button });
+  };
+  button.addEventListener('click', () => toggleExportDialog(button));
+  // Native export controls own their keys, including inside a presenter tour.
+  button.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') event.stopPropagation();
+  });
+  popover.addEventListener('keydown', event => event.stopPropagation());
   closeX.addEventListener('click', () => setOpen(false));
   dismiss.addEventListener('click', () => setOpen(false));
   for (const input of Object.values(radios)) input.addEventListener('change', () => render());
+  figureSelect.addEventListener('change', () => render());
   // The button stays enabled while it saves (a disabled button drops the focus it holds).
   let saving = false;
   download.addEventListener('click', async () => {
@@ -1144,17 +1198,23 @@ function createDialog() {
 
   // The picture follows the view while the dialog is open (a year, a selection), so the
   // preview is always the file that would be saved.
-  state.subscribe(() => {
+  const refresh = () => {
     refreshButton();
     if (!open) return;
+    // Invalidate the old download immediately, then coalesce rapid local controls.
+    download.disabled = true;
+    token += 1;
+    current = null;
     window.clearTimeout(refreshTimer);
     refreshTimer = window.setTimeout(() => { if (open) render(); }, 450);
-  });
+  };
+  state.subscribe(refresh);
+  refreshOpenExport = refresh;
   refreshExportButton = refreshButton;
   refreshButton();
 
   document.addEventListener('pointerdown', (event) => {
-    if (!open || popover.contains(event.target) || button.contains(event.target)) return;
+    if (!open || popover.contains(event.target) || button.contains(event.target) || activeOpener?.contains(event.target)) return;
     setOpen(false, { restoreFocus: false });
   });
   // Capture phase, like the Key popover: Escape closes this before it closes the panel.
@@ -1544,6 +1604,6 @@ export function init({
 export function attachViews(views) {
   if (!env) return;
   env.views = views;
-  views.onExportChange(() => refreshExportButton());
+  views.onExportChange(() => refreshOpenExport());
   refreshExportButton();
 }

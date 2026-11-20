@@ -44,6 +44,8 @@ This led to the two-flavor learning interaction in cycle 5 below.
 
 ## Cycle 5: track both flavors
 
+Committed as `e1d1f929`.
+
 “Track both flavors” expands beneath the existing oscillation curve. The same energy control updates a solid/striped probability balance, text percentages and a selected-energy/sourced-baseline caption. It distinguishes retaining the starting flavor from absorption and detector response; the two generic flavors belong to the closed two-flavor vacuum teaching model. The existing DUNE/three-flavor limitations remain visible. No experimental values, fitted parameters, URL controls or second tour were added.
 
 The pure model exposes conversion and its survival complement. The range’s accessible value announces both outcomes, while the new definition list adds no separate live region. Paired percentage rounding preserves a displayed total of 100%; the bar follows the unrounded model. Source: the existing [T2K atmospheric-deficit and two-flavor explanation](https://t2k-experiment.org/neutrinos/beyond-the-standard-model/), rechecked for this cycle. Survival = 1 − conversion is derived from that closed model, not an observed event fraction.
@@ -52,7 +54,19 @@ Final verification: **809 passed, 139 skipped** in the repository suite; **15 fo
 
 Try either lab route below and expand “Track both flavors.” The existing default curve and phone control/plot layout are preserved. Screenshots include the dark and Projector versions in the ignored verification-artifact directory.
 
-Next cycle: export currently saves only the two beam/Earth diagrams. Extend the existing export flow to save the selected lab visual with its parameters, model qualification and sources, preserving the existing geometry export.
+This led to the sourced lab export in cycle 6 below.
+
+## Cycle 6: save the selected lab as a teaching figure
+
+Save image now offers the selected oscillation lab alongside the existing default beam/Earth geometry figure. It captures the curve, selected point, first maximum and solid/striped flavor balance, with the actual energy and sourced baseline. The image includes the formula, units, fixed teaching parameters, source URLs and explicit two-flavor vacuum limitations. These values come from the current controls; changing energy refreshes an open preview and disables the previous download until its replacement is ready.
+
+The existing dialog is also available on phones in chart views. Its new “Notes included in the image” disclosure provides readable text and clickable sources before saving. Single-figure exports retain their existing behavior. Both standard slide and double-size outputs are supported. The independent review found and resolved a presenter-mode Enter/Space conflict; native export controls now work while retaining the tour step, presenter mode and Escape focus restoration. Follow-up review found no actionable issues.
+
+Final fresh verification: **809 passed, 139 skipped** in the full repository suite. Chromium and WebKit each passed desktop and 360px figure selection, real PNG downloads, live energy changes, T2K/DUNE changes, sourced captions/notes, temporary-node cleanup and keyboard/presenter actions. Both engines also passed the mobile question→lab→Higgs-paper journey. The classroom suite passed **8 tests with 0 skips/errors**; the separate HEP Graph mocked-API browser regression passed. Scoped axe A/AA checks of the dialog and phone opener found **0 violations** in standard and Projector themes. JavaScript syntax and diff checks passed. Downloaded PNGs were visually inspected at 1920×1080, including the WebKit mobile DUNE export. Physical iOS save UI and actual screen-reader speech remain unverified.
+
+Try either lab route below, open Save image, then choose “Oscillation lab.” The saved figure includes the current URL for reopening the selected state. Artifacts and fresh logs are retained under the ignored `test-results/atlas-iterations/` directory (`cycle6-reverified-*`, `*-oscillation-export.png`). No physics source values were changed.
+
+Next inspection: the existing SNO stop in the neutrino-oscillation story lacks a predict/reveal question. Check the primary 2002 paper for a concise comparison that connects flavor change to evidence while distinguishing measured fluxes, event counts and the illustrative lab model.
 
 ## Local routes and sources
 
@@ -69,7 +83,7 @@ Use the current local server at `http://127.0.0.1:8876` while the loop is runnin
 
 No scientific source values were changed in these cycles. Sources remain the [T2K experiment paper, §3.6.1](https://arxiv.org/pdf/1106.1238v2#page=10), [DUNE baseline passage, §1](https://arxiv.org/pdf/2007.06722v4#page=12), [T2K two-flavor formula and units](https://t2k-experiment.org/neutrinos/beyond-the-standard-model/), [PDG mixing review](https://pdg.lbl.gov/2024/reviews/rpp2024-rev-neutrino-mixing.pdf), and the versioned [ATLAS](https://arxiv.org/pdf/1207.7214v1) and [CMS](https://arxiv.org/pdf/1207.7235v1) papers. The previous report records exact figures and passages. Claims about phase changes and matching L/E are derived from the displayed formula.
 
-Logs and screenshots for this loop are retained locally under `/tmp/hep-atlas-iterations/` and `/tmp/hep-iteration*.log`; final review artifacts will also be copied to the ignored `test-results/atlas-iterations/` directory. Screen-reader hardware and physical phones have not been tested. Existing database-environment skips, aging-data validation findings and legacy monolithic-browser timing limits remain as documented in the original report.
+Logs and screenshots for this loop are retained in the ignored `test-results/atlas-iterations/` directory. Earlier temporary `/tmp/` artifacts may expire; use the durable cycle-6 reverified logs for this iteration. Screen-reader hardware and physical phones have not been tested. Existing database-environment skips, aging-data validation findings and legacy monolithic-browser timing limits remain as documented in the original report.
 
 
 ## Reproduce the current loop checks
@@ -90,6 +104,8 @@ HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_flavors.cjs
 HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_flavors.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_navigation_lifecycle.cjs
 HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=chromium node tests/browser_atlas_navigation_lifecycle.cjs
+HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_lab_export.cjs
+HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_lab_export.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_database.cjs
 ```
 

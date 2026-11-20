@@ -1,6 +1,6 @@
 // An interaction in the existing beam view, using its sourced baseline row.
 import { allBeamRows } from './beam-rows.js';
-import { ENERGY, doublingExperiment, firstMaximumEnergy, flavorProbabilities, matchBaselineEnergy, normaliseEnergy, oscillationProbability } from './oscillation-model.js';
+import { ENERGY, MODEL, doublingExperiment, firstMaximumEnergy, flavorProbabilities, matchBaselineEnergy, normaliseEnergy, oscillationProbability } from './oscillation-model.js';
 import { patchQuietly } from '../state.js';
 
 function el(tag, attrs = {}, children = []) {
@@ -126,23 +126,22 @@ export function createOscillationLab(ctx, row) {
     peak, flavors, prediction, method,
   );
 
-  function draw() {
-    const width = Math.max(260, Math.round(plot.getBoundingClientRect().width || 640));
-    const height = 280;
-    const left = 48, right = width - 18, top = 38, bottom = height - 44;
+  function makePlot(width, height = 280, prefix = 'osc', fontSize = 14) {
+    const scale = fontSize/14;
+    const left = 48*scale, right = width - 18*scale, top = 38*scale, bottom = height - 44*scale;
     const x = value => left + (value - ENERGY.min) / (ENERGY.max - ENERGY.min) * (right - left);
     const y = value => bottom - value * (bottom - top);
     const probability = oscillationProbability(baseline, energy);
-    const svg = svgEl('svg', { viewBox: `0 0 ${width} ${height}`, width: '100%', height, role: 'img', 'aria-labelledby': 'osc-chart-title osc-chart-desc' });
-    svg.append(svgEl('title', { id: 'osc-chart-title' }, 'Two-flavor conversion probability versus neutrino energy'),
-      svgEl('desc', { id: 'osc-chart-desc' }, `At ${decimal(baseline,4)} km and ${decimal(energy)} GeV, conversion probability is ${(100*probability).toFixed(2)} percent. First maximum: ${decimal(maximum)} GeV. Circle is selected; diamond is maximum. This is an illustrative vacuum model.`));
+    const svg = svgEl('svg', { viewBox: `0 0 ${width} ${height}`, width: '100%', height, role: 'img', 'aria-labelledby': `${prefix}-chart-title ${prefix}-chart-desc` });
+    svg.append(svgEl('title', { id: `${prefix}-chart-title` }, 'Two-flavor conversion probability versus neutrino energy'),
+      svgEl('desc', { id: `${prefix}-chart-desc` }, `At ${decimal(baseline,4)} km and ${decimal(energy)} GeV, conversion probability is ${(100*probability).toFixed(2)} percent. First maximum: ${decimal(maximum)} GeV. Circle is selected; diamond is maximum. This is an illustrative vacuum model.`));
     for (const tick of [0, .5, 1]) {
       svg.append(svgEl('line', { x1:left, x2:right, y1:y(tick), y2:y(tick), class:'osc-grid' }),
-        svgEl('text', { x:left-8, y:y(tick)+5, 'text-anchor':'end' }, `${tick*100}%`));
+        svgEl('text', { x:left-8*scale, y:y(tick)+5*scale, 'text-anchor':'end' }, `${tick*100}%`));
     }
-    for (const tick of [ENERGY.min, 2, 4, 6, 8]) svg.append(svgEl('text', { x:x(tick), y:bottom+21, 'text-anchor':'middle' }, String(tick)));
-    svg.append(svgEl('text', { x:left, y:18 }, 'Conversion probability'),
-      svgEl('text', { x:(left+right)/2, y:height-2, 'text-anchor':'middle' }, 'Neutrino energy (GeV)'));
+    for (const tick of [ENERGY.min, 2, 4, 6, 8]) svg.append(svgEl('text', { x:x(tick), y:bottom+21*scale, 'text-anchor':'middle' }, String(tick)));
+    svg.append(svgEl('text', { x:left, y:18*scale }, 'Conversion probability'),
+      svgEl('text', { x:(left+right)/2, y:height-2*scale, 'text-anchor':'middle' }, 'Neutrino energy (GeV)'));
     const points = Array.from({ length:1201 }, (_,i) => {
       const e = ENERGY.min+(ENERGY.max-ENERGY.min)*i/1200;
       return `${i?'L':'M'}${x(e).toFixed(2)},${y(oscillationProbability(baseline,e)).toFixed(2)}`;
@@ -155,27 +154,75 @@ export function createOscillationLab(ctx, row) {
     }
     svg.append(svgEl('line', { x1:x(energy),x2:x(energy),y1:y(probability),y2:bottom,class:'osc-selected-guide' }),
       svgEl('circle', { cx:x(energy),cy:y(probability),r:6,class:'osc-selected-point' }));
-    plot.replaceChildren(svg);
+    for (const text of svg.querySelectorAll('text')) text.style.fontSize = `${fontSize}px`;
+    return svg;
   }
-  function drawFlavors(pair, converted, survived) {
-    flavorContext.textContent = `Selected energy: ${decimal(energy)} GeV · Baseline: ${decimal(baseline,4)} km`;
-    survivalValue.textContent = `${survived}%`;
-    conversionValue.textContent = `${converted}%`;
+  function draw() {
+    plot.replaceChildren(makePlot(Math.max(260, Math.round(plot.getBoundingClientRect().width || 640))));
+  }
+  function makeFlavorBar(pair, converted, survived, prefix = 'osc-flavor') {
     const svg = svgEl('svg', { viewBox: '0 0 1000 60', width: '100%', height: 48,
-      preserveAspectRatio: 'none', role: 'img', 'aria-labelledby': 'osc-flavor-title osc-flavor-desc' });
-    svg.append(svgEl('title', { id: 'osc-flavor-title' }, 'The two flavor probabilities at the selected energy'),
-      svgEl('desc', { id: 'osc-flavor-desc' }, `At ${decimal(energy)} GeV and ${decimal(baseline,4)} km, original-flavor survival is ${survived}% and conversion to the other flavor is ${converted}%. The solid and striped parts total 100% in this teaching model.`));
+      preserveAspectRatio: 'none', role: 'img', 'aria-labelledby': `${prefix}-title ${prefix}-desc` });
+    svg.append(svgEl('title', { id: `${prefix}-title` }, 'The two flavor probabilities at the selected energy'),
+      svgEl('desc', { id: `${prefix}-desc` }, `At ${decimal(energy)} GeV and ${decimal(baseline,4)} km, original-flavor survival is ${survived}% and conversion to the other flavor is ${converted}%. The solid and striped parts total 100% in this teaching model.`));
     const defs = svgEl('defs');
-    const pattern = svgEl('pattern', { id: 'osc-flavor-stripes', width: 20, height: 20, patternUnits: 'userSpaceOnUse' });
+    const pattern = svgEl('pattern', { id: `${prefix}-stripes`, width: 20, height: 20, patternUnits: 'userSpaceOnUse' });
     pattern.append(svgEl('path', { d: 'M-5,5l10,-10 M0,20L20,0 M15,25l10,-10', class: 'osc-flavor-hatch' }));
     defs.append(pattern);svg.append(defs);
     const original = 1000 * pair.survival;
     svg.append(
       svgEl('rect', { x:0, y:10, width:original, height:40, class:'osc-survival-part', 'data-probability':'survival' }),
-      svgEl('rect', { x:original, y:10, width:1000-original, height:40, fill:'url(#osc-flavor-stripes)', 'data-probability':'conversion' }),
+      svgEl('rect', { x:original, y:10, width:1000-original, height:40, fill:`url(#${prefix}-stripes)`, 'data-probability':'conversion' }),
       svgEl('rect', { x:0, y:10, width:1000, height:40, class:'osc-flavor-outline' }),
     );
-    flavorBar.replaceChildren(svg);
+    return svg;
+  }
+  function drawFlavors(pair, converted, survived) {
+    flavorContext.textContent = `Selected energy: ${decimal(energy)} GeV · Baseline: ${decimal(baseline,4)} km`;
+    survivalValue.textContent = `${survived}%`;
+    conversionValue.textContent = `${converted}%`;
+    flavorBar.replaceChildren(makeFlavorBar(pair, converted, survived));
+  }
+  // Export at a readable, viewport-independent size. The holder gives the
+  // existing SVG painter real computed styles even when the disclosure is closed.
+  function exportFigure() {
+    const selected = energy;
+    const pair = flavorProbabilities(baseline, selected);
+    const converted = (100*pair.conversion).toFixed(2);
+    const survived = (100-Number(converted)).toFixed(2);
+    const holder = el('div', { class: 'osc-export-stage osc-plot', 'aria-hidden': 'true' });
+    Object.assign(holder.style, { position:'fixed', left:'-10000px', top:'0', width:'800px', pointerEvents:'none' });
+    const text = (x,y,value,size=18) => svgEl('text', { x,y,style:`font-size:${size}px` }, value);
+    const chart = svgEl('svg', { width:800,height:400,viewBox:'0 0 800 400' });
+    chart.append(text(16,22,'Two-flavor vacuum teaching model',20),
+      text(16,46,`${named[row.arg] || row.label} · E = ${decimal(selected)} GeV · sourced L = ${decimal(baseline,4)} km`),
+      text(16,68,'Not a DUNE prediction, observed event rate or substitute for three-flavor matter effects.',14));
+    const curve = makePlot(800,320,'osc-export',18);
+    curve.setAttribute('y','80');chart.append(curve);
+    const balance = svgEl('svg', { width:800,height:100,viewBox:'0 0 800 100' });
+    balance.append(text(16,23,`Original flavor α (solid): ${survived}%`),
+      text(424,23,`Other flavor β (striped): ${converted}%`));
+    const bar = makeFlavorBar(pair,converted,survived,'osc-export-flavor');
+    bar.setAttribute('y','35');balance.append(bar);
+    holder.append(chart,balance);document.body.append(holder);
+    const baselineSource = row.arg === 'j-parc-neutrino'
+      ? 'T2K experiment paper §3.6.1 (surveyed baseline): https://arxiv.org/pdf/1106.1238v2#page=10'
+      : row.arg === 'lbnf' ? 'DUNE ProtoDUNE-SP performance paper §1 (baseline): https://arxiv.org/pdf/2007.06722v4#page=12'
+        : `Baseline record and citations: ${location.origin}/atlas#/beamline/${row.beamline.id.split(':')[1]}`;
+    return {
+      figures:[chart,balance], layout:'column',
+      notes:[
+        'Two-flavor vacuum teaching model; no absorption or detector response. Not a DUNE prediction, observed event rate or substitute for three-flavor matter effects.',
+        `Selected: E = ${decimal(selected)} GeV; sourced L = ${decimal(baseline,4)} km; conversion ${converted}%; original-flavor survival ${survived}%.`,
+        'P(α→β) = sin²(2θ) sin²(1.267 Δm² L/E); L in km, E in GeV, Δm² in eV²; P(α→α) = 1 − P(α→β).',
+        `θ = ${MODEL.thetaDeg}°; Δm² = ${MODEL.deltaM2.toExponential(1)} eV²; fixed teaching choices, not a fit or uncertainty band.`,
+        `Curve: ${ENERGY.min}–${ENERGY.max} GeV, conversion probability 0–100%. Circle/solid guide: selected energy; diamond/dashed guide: first maximum (${decimal(maximum)} GeV).`,
+        'Formula and interpretation: https://t2k-experiment.org/neutrinos/beyond-the-standard-model/',
+        baselineSource,
+        `Reopen this energy and baseline: ${location.href}`,
+      ],
+      release:()=>holder.remove(),
+    };
   }
   function render() {
     range.value = String(energy);
@@ -196,6 +243,7 @@ export function createOscillationLab(ctx, row) {
     energy = normaliseEnergy(value);
     patchQuietly({ energy }); // retain keyboard focus; no remount per slider step
     render();
+    ctx.host?.exportChanged?.();
   }
   range.addEventListener('input', () => change(range.value));
   number.addEventListener('change', () => change(number.value));
@@ -213,7 +261,7 @@ export function createOscillationLab(ctx, row) {
   const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(draw);
   observer?.observe(plot);
   render();
-  return { element:root,
+  return { element:root, exportFigure,
     update(next) {
       keepRatio.checked = Boolean(next.keepRatio);
       clearBaselineError();
@@ -224,6 +272,7 @@ export function createOscillationLab(ctx, row) {
         testPrediction.setAttribute('aria-expanded', 'false');
         energy = restored;
         render();
+        ctx.host?.exportChanged?.();
       }
     },
     destroy() { observer?.disconnect(); },

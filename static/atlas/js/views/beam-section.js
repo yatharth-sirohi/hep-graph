@@ -621,10 +621,14 @@ export function mount(ctx) {
   drawFigures();
   window.requestAnimationFrame(drawFigures);
   // "Export image": the zoomed section and the whole Earth (with the dip), side by side as on screen.
-  host.setExporter(() => ({
+  host.setExporter((choice) => choice === 'oscillation' ? lab.exportFigure() : ({
     figures: [sectionWrap.querySelector('svg'), earthWrap.querySelector('svg')].filter(Boolean),
     layout: 'row',
-  }));
+  }), lab.exportFigure ? [
+    { id:'geometry',label:'Earth and beam diagrams' },
+    { id:'oscillation',label:'Oscillation lab',title:'Oscillation lab',
+      subtitle:`${row.label} · Two-flavor vacuum teaching model`,name:`oscillation-lab-${row.arg}` },
+  ] : []);
 
   // ---- the citations, after the first paint (provenance.json is large and is not
   //      fetched until a view that cites it is asked for)
