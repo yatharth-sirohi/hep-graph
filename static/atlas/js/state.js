@@ -1,3 +1,4 @@
+import { normaliseCollisionEnergy } from './views/collision-model.js';
 import { normaliseEnergy, normaliseMixing } from './views/oscillation-model.js';
 import { normaliseFluxPair } from './views/underground-compare.js';
 // state.js — the single source of truth for "what is on screen": the hash
@@ -60,13 +61,19 @@ function parseResultsView(params) {
 const subscribers = new Set();
 let current = null;
 
+// The registry accepts one trailing slash as this view's empty argument.
+function canonicalEntity(entity) {
+  return entity?.type === 'view' && entity.slug === 'energy-frontier/'
+    ? { ...entity, slug:'energy-frontier' } : entity;
+}
+
 function parseHashEntity(hash) {
   const clean = (hash || '').replace(/^#\/?/, '');
   if (!clean) return null;
   const [type, ...rest] = clean.split('/');
   const slug = rest.join('/');
   if (!TYPE_PREFIX[type] || !slug) return null;
-  return { type, slug };
+  return canonicalEntity({ type, slug });
 }
 
 function parseSearch(search) {
@@ -91,6 +98,7 @@ function parseSearch(search) {
     mixingDeg: params.has('th') ? normaliseMixing(params.get('th')) : null,
     keepRatio: params.get('le') === '1',
     undergroundPair: normaliseFluxPair(params.get('uf')),
+    collisionEnergy: params.has('ce') ? normaliseCollisionEnergy(params.get('ce')) : null,
     results: parseResultsView(params),
     // ---- classroom modes (js/classroom.js): `?embed=1` and `?theme=projector|standard`
     // ride along in every address the app writes, so reloading or sharing keeps them.
@@ -174,6 +182,8 @@ function onUnderground(entity) {
     || (entity.type==='tour' && entity.slug==='going-underground-dark-matter'));
 }
 
+function onEnergyFrontier(entity) { return entity?.type === 'view' && entity.slug === 'energy-frontier'; }
+
 function buildURL(state) {
   const params = new URLSearchParams();
   if (state.dataMode) params.set('data', state.dataMode);
@@ -199,6 +209,7 @@ function buildURL(state) {
     const pair=normaliseFluxPair(state.undergroundPair);
     if(pair)params.set('uf',pair.join(','));
   }
+  if (onEnergyFrontier(state.entity) && state.collisionEnergy != null) params.set('ce', String(normaliseCollisionEnergy(state.collisionEnergy)));
   // ---- local map view (§4) ----
   // These three only mean anything on a map route, so they are written only
   // there: leaving a map must not leave `lv`/`bm`/`sel` stranded in the URL
@@ -243,8 +254,10 @@ export function navigate(patch, { replace = false } = {}) {
   const previousMode = current ? current.mode : null;
   const previousEntity = current ? current.entity : null;
   current = { ...current, ...patch };
+  current.entity = canonicalEntity(current.entity);
   if (!onBeamLab(current.entity)) { current.energy = null; current.mixingDeg = null; current.keepRatio = false; }
   current.undergroundPair=onUnderground(current.entity)?normaliseFluxPair(current.undergroundPair):null;
+  current.collisionEnergy=onEnergyFrontier(current.entity) && current.collisionEnergy != null ? normaliseCollisionEnergy(current.collisionEnergy) : null;
   // An overlay belongs to the map it was laid on: opening any other route drops it
   // (a link that names `cmp` brings it back, because the patch then says so).
   if ('entity' in patch && !('cmp' in patch)) {
@@ -325,7 +338,7 @@ export function patchFromLink(href) {
   const entity = parseHashEntity(url.hash);
   if (entity) patch.entity = entity;
   const named = [['y', 'year'], ['t', 'topic'], ['s', 'status'], ['er', 'era'], ['fk', 'facilityKind'],
-    ['ek', 'experimentKind'], ['rg', 'region'], ['m', 'mode'], ['step', 'step'], ['present', 'present'], ['e', 'energy'], ['th', 'mixingDeg'], ['le', 'keepRatio'], ['uf', 'undergroundPair']];
+    ['ek', 'experimentKind'], ['rg', 'region'], ['m', 'mode'], ['step', 'step'], ['present', 'present'], ['e', 'energy'], ['th', 'mixingDeg'], ['le', 'keepRatio'], ['uf', 'undergroundPair'], ['ce', 'collisionEnergy']];
   for (const [param, key] of named) if (params.has(param)) patch[key] = parsed[key];
   return patch;
 }

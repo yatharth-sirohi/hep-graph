@@ -1,3 +1,4 @@
+import { createCollisionLab } from './collision-lab.js';
 // energy-frontier.js — "The energy frontier": a Livingston-style chart of the accelerators in the
 // Atlas, their energy (logarithmic) against the year each energy began to apply.
 //
@@ -156,7 +157,12 @@ export function mount(ctx) {
   });
 
   // "Export image": the chart and its legend, as the picture a lecture slide takes.
-  host.setExporter(() => chart.exportFigures());
+  const collision = createCollisionLab(ctx);
+  host.setExporter(choice => choice === 'collision' ? collision.exportFigure() : chart.exportFigures(), [
+    {id:'history',label:'Historical energy chart'},
+    {id:'collision',label:'Proton collision-energy model',title:'Proton collision-energy model',
+      subtitle:'Ideal fixed-target and equal head-on kinematics',name:'proton-collision-energy-model'},
+  ]);
 
   const notes = rows.filter((row) => row.other);
   const figure = h('div', { class: 'ch-block ef-figure' }, [
@@ -164,7 +170,7 @@ export function mount(ctx) {
     yearNote,
     h('p', { class: 'ch-caption' }, [
       h('strong', {}, 'A collider’s √s and a beam’s energy are not the same quantity. '),
-      'A beam of energy E on a proton at rest has √s ≈ √(2 E mₚ c²): a 450 GeV beam gives about 29 GeV. The chart does not convert, which is why the markers differ. ',
+      'Explore the proton example in “Compare collision energies” below. The historical chart keeps each recorded quantity, which is why the markers differ. ',
       todayCount ? `${todayCount} of the ${allPoints.length} points are dashed: for those machines the Atlas records one energy, as it is today, and dates no energy to the start, so the energy a machine began with is not drawn. ` : '',
       'Each marker opens its accelerator. ',
       labelNote,
@@ -209,7 +215,7 @@ export function mount(ctx) {
     }) : null,
   ]);
 
-  host.body.replaceChildren(lede, figure, unplotted, h('div', { class: 'ch-block' }, table));
+  host.body.replaceChildren(lede, figure, collision.element, unplotted, h('div', { class: 'ch-block' }, table));
 
   // ---- the year: points after it fade, a line stands at it
   function paintYear() {
@@ -246,8 +252,10 @@ export function mount(ctx) {
     update(next) {
       timelineState = next.timelineState;
       paintYear();
+      collision.update(next);
     },
     destroy() {
+      collision.destroy();
       chart.destroy();
       inputs.dispose();
     },

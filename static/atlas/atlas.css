@@ -3478,3 +3478,23 @@ a.local-map-chip {
 }
 
 .result-evidence .evidence-source { display: inline-flex; align-items: center; min-height: 44px; }
+
+
+/* Derived collision-energy comparison; published machine markers remain unchanged. */
+.collision-lab { min-width: 0; }
+.collision-lab > label { display: block; font-weight: 650; margin: var(--space-3) 0 var(--space-2); }
+.collision-lab input { width: min(100%, 16rem); min-height: 44px; box-sizing: border-box; font: inherit; color: var(--white); background: var(--panel); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: var(--space-2); }
+.collision-lab input[aria-invalid=true] { outline: 2px solid currentColor; }
+.collision-lab output { display: block; margin: var(--space-3) 0; line-height: 1.5; }
+.collision-plot { min-width: 0; }
+.collision-plot > svg { display: block; max-width: 100%; }
+.collision-lab svg text { fill: var(--white); font-family: inherit; }
+.collision-fixed-bar { fill: none; stroke: var(--white); stroke-width: 2px; }
+.collision-headon-bar { fill: var(--white); }
+.collision-axis { stroke: var(--white); stroke-width: 1px; }
+.collision-lab > details { margin-top: var(--space-3); }
+.collision-lab summary, .collision-lab button { min-height: 44px; }
+.collision-formula { overflow-wrap: anywhere; }
+.collision-sources a { display: inline-flex; align-items: center; min-height: 44px; }
+.collision-lab :focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }
+#collision-answer { border-left: 3px solid currentColor; padding-left: var(--space-3); line-height: 1.5; }

@@ -224,6 +224,24 @@ The first full suite finished with **843 passed / 139 skipped / one failed**, na
 
 Validation is **0 errors / 1892 existing warnings / 4 informational** and **84 generated files match**. Structural audit/review confirms the authored/built tour changes are confined to this question; 51 geometry/limits files and the atlas bundle change only their shared version stamp, with corresponding manifest hashes and tour byte count. The independent scientific/interaction review is clear. Graph application code is unchanged; its smoke uses mocked search/path responses. Physical phones, actual screen-reader speech and live Graph database/relationship integration remain unverified. The prior two unproven WebKit observations did not recur in this iteration’s strict journeys; their underlying causes remain unestablished as recorded in cycle 14. The final cutoff follow-up review found no weakened invariant. All runtime, source, repository and build gates are complete; this iteration is ready for a feature-branch commit. The improvement loop stays active, with no merge or deployment.
 
+## Cycle 16 (20 November): explore beam energy versus collision energy
+
+Starting point: clean `8adbaff7`. The energy-frontier chart already correctly distinguished collider √s from other machines’ beam energy, but its 450 GeV example was static. **Compare collision energies**, immediately below the historical figure, now lets the learner vary total energy per moving proton and compare a stationary proton target with equal, exactly head-on proton beams. The recorded chart, marker meanings, machine values and historical timeline retain their existing behavior.
+
+The pure teaching model uses μ = mₚc² = **0.938272 GeV**, explicitly rounded, and total beam energy E including rest energy. It calculates fixed-target **√s = √(2μ² + 2μE)** and equal head-on **√s = 2E**. At E = 450 GeV, the displayed results are **29.09 GeV** and **900 GeV**. The common linear scale, explicit values and outlined/filled bars make the comparison readable without color. This is the same energy per moving proton; the head-on setup has two accelerated beams and a different total beam-energy budget. The view states that it calculates total initial proton-system energy, without a parton hard-scattering energy, cross section or discovery reach.
+
+The native numeric control covers 1–10,000 GeV in 0.1 GeV steps, with a 450 GeV reset. Invalid live input gives an explanation and retains the last accepted comparison/URL. The existing short-query pattern uses `ce`, scoped to the energy-frontier view; copied links, Back and same-view updates retain the native control and selected value. The accepted empty-argument trailing-slash spelling is canonicalized; prefixed/nested arbitrary views remain outside this state scope. Energy, mixing and underground comparison fields keep their existing separate scopes. No authored/generated data or Graph application code changed.
+
+One existing-style predict/test disclosure asks what happens when E quadruples. It changes the same comparison and reports both derived factors. The exact rest term matters: from E = 1 to 4 GeV, fixed-target √s grows by approximately **1.60×**, whereas head-on √s grows by **4×**. The square-root high-energy approximation is identified as an approximation. Unsupported ×4 requests explain the required input without clipping; at E = 2500.1 the message correctly says **10,000.4 GeV** exceeds the inclusive 10,000 GeV limit. New input/history changes clear stale prediction feedback.
+
+The collapsible derivation cites [PDG 2024 Kinematics §49.2, Eqs. 49.2–49.5, PDF p.1](https://pdg.lbl.gov/2024/reviews/rpp2024-rev-kinematics.pdf#page=1) and [PDG 2024 Physical Constants, Table 1.1 proton mass, PDF p.1](https://pdg.lbl.gov/2024/reviews/rpp2024-rev-phys-constants.pdf#page=1). Both exact pages were downloaded, rendered and checked on 20 November. Actual Chromium-desktop and WebKit-phone source links returned native PDFs matching those independent copies. SHA-256: kinematics `1a034eaf6cd6da2f59d2a4326ac303ff7462f826fbff8adf00bc3f57173f9a0c`; constants `864924334c4b6ad75e3f4d3ae110a271072e5eef473715b519cc80dfe6cd58ed`.
+
+The existing image-export dialog now offers the historical chart and a separate **Proton collision-energy model** figure. The latter captures the accepted input, derived values, formulas, assumptions, primary citations and exact reopening link, at a readable size independent of phone width. Real PNG downloads and accessible notes were verified in Chromium desktop/WebKit phone; the phone display and actual 1920 × 1080 exported figure were visually inspected. Both Standard and Projector phone themes fit, and plot text remains at least 14px.
+
+Nine initial independent arithmetic/state tests and the missing-widget browser assertion failed before implementation. The final **10 model/navigation tests pass**, including an independent four-vector invariant, the rest limit, invalid/overflowing inputs, finite query normalization, exact low/high-energy scaling, range refusal and canonical route behavior. **65 related tests passed** before the final review corrections; the complete final repository suite passes **854 tests / 139 skipped in 288.05s**. Final comparison journeys pass in Chromium/WebKit desktop and 360px, with strict browser-error checks, native keys, stable machine points, range errors, Back/copied/pasted links, themes/embed, primary access and existing export choices. Eight scoped WCAG A/AA states have zero violations. Data validation is **0 errors / 1892 existing warnings / 4 informational**, and **84 generated files match**.
+
+Independent review found two concrete issues—accepted trailing-slash state loss and the rounded boundary explanation. Both were reproduced as failing regressions, fixed and independently rechecked; final review is clear. Test-only initial diagnostics (ambiguous SVG selector and an unrounded-value assertion against a four-significant-figure display) remain recorded beside successful runs. All nine legacy browser jobs are green: both engines’ historical-chart, rapid navigation/history, original connected-learning and oscillation-export journeys, plus the separate Graph search/job/path smoke. The Graph smoke uses mocked search/path responses. Physical phones, actual screen-reader speech and live Graph database/relationship integration remain unverified. Remote `main` was fetched again at `19e7ed90` and is an ancestor of this branch. Its separate checkout retains only the unrelated untracked `.claude/launch.json`. All gates and the final independent review are complete for this feature-branch commit. The improvement loop stays active; no merge or deployment was performed.
+
 ## Local routes and sources
 
 Use the current local server at `http://127.0.0.1:8876` while the loop is running. From the feature checkout, restart it with the repository environment’s `python -m hepgraph.server --port 8876` when needed. For intensive browser regression runs on one host, use `HEPGRAPH_ASSET_RATE_LIMIT=20000 python -m hepgraph.server --port 8876`; this local process setting leaves the production default and API quota unchanged.
@@ -245,6 +263,8 @@ Use the current local server at `http://127.0.0.1:8876` while the loop is runnin
 - SNO committed prediction, feedback and sourced flux comparison: <http://127.0.0.1:8876/atlas?step=3#/tour/neutrino-oscillation-story>
 - NOvA last-reported state and restart evidence: <http://127.0.0.1:8876/atlas?y=2026#/experiment/nova>
 - Main Injector last-reported state: <http://127.0.0.1:8876/atlas?y=2026#/accelerator/fermilab-main-injector>
+- Collision energies, 450 GeV per moving proton (comparison below the historical chart): <http://127.0.0.1:8876/atlas?data=generated&ce=450#/view/energy-frontier>
+- Same comparison near the rest-energy scale: <http://127.0.0.1:8876/atlas?data=generated&ce=1#/view/energy-frontier>
 - Underground comparison, LNGS Hall C / SNOLAB: <http://127.0.0.1:8876/atlas?data=generated&uf=lngs-hall-c,snolab-underground-lab#/view/underground>
 - Same comparison inside the original question: <http://127.0.0.1:8876/atlas?data=generated&step=6&uf=lngs-hall-c,snolab-underground-lab#/tour/going-underground-dark-matter>
 - Fermilab dependency question (2016, Main Injector): <http://127.0.0.1:8876/atlas?data=generated&y=2016&proton=7#/map/fermilab>
@@ -254,7 +274,7 @@ Use the current local server at `http://127.0.0.1:8876` while the loop is runnin
 
 Published measurement values were preserved; cycle 7 adds a worked comparison of rechecked SNO fluxes. Sources include the [SNO primary paper, CC/NC fluxes below Table II on PDF page 4](https://arxiv.org/pdf/nucl-ex/0204008v2#page=4), the [T2K experiment paper, §3.6.1](https://arxiv.org/pdf/1106.1238v2#page=10), [DUNE baseline passage, §1](https://arxiv.org/pdf/2007.06722v4#page=12), [T2K two-flavor formula and units](https://t2k-experiment.org/neutrinos/beyond-the-standard-model/), [PDG mixing review](https://pdg.lbl.gov/2024/reviews/rpp2024-rev-neutrino-mixing.pdf), and the versioned [ATLAS](https://arxiv.org/pdf/1207.7214v1) and [CMS](https://arxiv.org/pdf/1207.7235v1) papers. The previous report records exact figures and passages. Claims about phase changes and matching L/E are derived from the displayed formula.
 
-Logs and screenshots for this loop are retained in the ignored `test-results/atlas-iterations/` directory. Earlier temporary `/tmp/` artifacts may expire; use the durable cycle-6 through cycle-15 logs for the latest iterations. Screen-reader hardware and physical phones have not been tested. Existing database-environment skips, aging-data validation findings and legacy monolithic-browser timing limits remain as documented in the original report.
+Logs and screenshots for this loop are retained in the ignored `test-results/atlas-iterations/` directory. Earlier temporary `/tmp/` artifacts may expire; use the durable cycle-6 through cycle-16 logs for the latest iterations. Screen-reader hardware and physical phones have not been tested. Existing database-environment skips, aging-data validation findings and legacy monolithic-browser timing limits remain as documented in the original report.
 
 
 ## Reproduce the current loop checks
@@ -263,6 +283,7 @@ Use the repository Python environment and the existing Playwright installation, 
 
 ```sh
 python -m pytest -q -p no:cacheprovider
+python -m pytest -q -p no:cacheprovider tests/test_atlas_collision_lab.py
 python -m pytest -q -p no:cacheprovider tests/test_atlas_sno_evidence.py tests/test_atlas_beam_section.py tests/test_atlas_learning.py tests/test_atlas_evidence_followup.py tests/test_atlas_tour_player.py tests/test_atlas_tours.py
 python -m pytest -q -p no:cacheprovider tests/test_atlas_restart_context.py tests/test_atlas_schema.py
 python -m pytest -q -p no:cacheprovider tests/test_atlas_beam_dependency.py tests/test_atlas_proton_chain.py tests/test_atlas_learning.py
@@ -270,6 +291,8 @@ python -m pytest -q -p no:cacheprovider tests/test_atlas_predictions.py tests/te
 python -m pytest -q -p no:cacheprovider tests/test_atlas_underground_comparison.py tests/test_atlas_charts.py tests/test_atlas_learning.py tests/test_atlas_tour_player.py
 python -m hepgraph.atlas.validate --build-date 2026-11-20
 python -m hepgraph.atlas.build --build-date 2026-11-20 --check
+HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_collision_lab.cjs
+HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_collision_lab.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_sno_evidence.cjs
 HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_sno_evidence.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_mixing.cjs

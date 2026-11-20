@@ -33,6 +33,7 @@
 //     navigate,       state.navigate — open a record (`navigate({ entity: { type, slug } })`)
 //     timelineState,  { year } or { range: [lo, hi] }, the selected timeline position
 //     energyGeV, mixingDeg, keepRatio, scoped beam-lab inputs (GeV, degrees, boolean)
+//     collisionEnergyGeV, scoped total proton energy for the energy-frontier lab
 //     host,           the framework's frame (below)
 //   }
 //   host = {
