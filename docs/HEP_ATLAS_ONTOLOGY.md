@@ -383,8 +383,17 @@ each an Atlas input (`ref` + `field` + `unit` for a quantity, or `number` for
 a figure a record states in words or in its quote), a sourced constant
 (`value` + quote) or a computed line (`expression` over earlier names with
 `+ - * / **`, `pi`, `sqrt`, `asin`; `digits` significant digits; `value`),
-which the validator evaluates. A question may also carry one optional
-`worked_example` in the same question format, without further nesting. Its
+which the validator evaluates. A primary question may optionally include
+`choices: [{id, label}, ...]` (two to five alternatives, with distinct lowercase
+IDs and distinct non-empty plain-text labels) and `correct_choice` naming one
+listed ID. Options are pedagogical alternatives; the sourced answer and its
+working explain the supported interpretation. The player requires a prediction
+before revealing such an answer, retains the learner's choice and gives text
+feedback. Predictions are local to the current question: they are not stored,
+tracked or put in the URL. Questions without choices retain their original
+reveal behavior. A question may also carry one optional
+`worked_example` with prompt, answer, claims and calculation, without choices
+or further nesting. Its
 claims and arithmetic are validated and resolved by the same rules, and the
 existing player puts it behind a “Go deeper” disclosure in the answer. This
 keeps a short prediction while preserving the instructor’s sourced exercise.

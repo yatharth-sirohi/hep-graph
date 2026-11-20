@@ -16,18 +16,20 @@ const questions = [
 ];
 (async()=>{
  const browser=await ({chromium,webkit}[engineName]).launch({headless:true});
- const failures=[];
+ const failures=[];let activePage=null;let activeSize='desktop';
  try {
   for(const mobile of (process.env.HEP_MOBILE_ONLY ? [true] : [false,true])) {
    const context=await browser.newContext({viewport:mobile?{width:360,height:780}:{width:1440,height:1000},
      ...(mobile?{isMobile:true,hasTouch:true}:{}),reducedMotion:'reduce'});
-   const page=await context.newPage();
+   const page=await context.newPage();activePage=page;activeSize=mobile?'360':'desktop';
    page.on('pageerror',e=>failures.push(e.message));
    page.setDefaultTimeout(45000);
    const checkpoint=async()=>{
     const q=page.locator('.tour-question');
     await q.waitFor({state:'visible'});
     assert.match(await q.innerText(),/predict/i);
+    const predictions=q.locator('.tour-choices input[type=radio]');
+    if(await predictions.count())await predictions.first().check();
     await q.getByRole('button',{name:'Show answer',exact:true}).click();
     await page.waitForFunction(()=>!document.querySelector('.tour-answer').hidden);
     assert((await page.locator('.tour-answer').innerText()).length>50);
@@ -185,5 +187,17 @@ const questions = [
    await context.close();
   }
   assert.deepEqual(failures,[],'browser errors');
+ }catch(error){
+  if(activePage&&!activePage.isClosed()){
+   try{
+    console.error('FAILURE STATE',JSON.stringify(await activePage.evaluate(()=>({url:location.href,ready:document.readyState,
+     title:document.title,energy:document.querySelector('#osc-energy')?.value,
+     viewTitle:document.querySelector('#view-title')?.textContent,
+     viewText:document.querySelector('#view-body')?.textContent?.slice(0,1400)}))));
+    console.error('BROWSER ERRORS',JSON.stringify(failures));
+    await activePage.screenshot({path:path.join(out,`${engineName}-${activeSize}-learning-failure.png`),timeout:5000});
+   }catch(diagnosticError){console.error('DIAGNOSTIC',diagnosticError.message)}
+  }
+  throw error;
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1});

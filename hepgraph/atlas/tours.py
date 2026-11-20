@@ -663,6 +663,41 @@ class _Checker:
                            f'{entity_id} is dated {date}, after {year}')
 
     # -- questions ---------------------------------------------------------
+    def check_choices(self, base: tuple, question: dict, *, allowed: bool) -> None:
+        if 'choices' not in question and 'correct_choice' not in question:
+            return
+        if not allowed:
+            self.error('tour-choice-shape', _pointer(*base),
+                       'choices belong to the primary question, not its worked example')
+            return
+        choices = question.get('choices')
+        if not isinstance(choices, list) or not 2 <= len(choices) <= 5:
+            self.error('tour-choice-shape', _pointer(*base, 'choices'),
+                       '`choices` is a list of two to five alternatives')
+            return
+        ids, labels = set(), set()
+        for index, choice in enumerate(choices):
+            pointer = base + ('choices', index)
+            if not isinstance(choice, dict) or set(choice) != {'id', 'label'}:
+                self.error('tour-choice-shape', _pointer(*pointer),
+                           'each choice has exactly an `id` and a plain-text `label`')
+                continue
+            ident, label = choice['id'], choice['label']
+            if not isinstance(ident, str) or not re.fullmatch(r'[a-z][a-z0-9-]*', ident) or ident in ids:
+                self.error('tour-choice-shape', _pointer(*pointer, 'id'),
+                           'choice IDs are distinct lowercase identifiers with optional digits/hyphens')
+            else:
+                ids.add(ident)
+            if not isinstance(label, str) or not label.strip() or label.strip().casefold() in labels:
+                self.error('tour-choice-shape', _pointer(*pointer, 'label'),
+                           'choice labels are non-empty, distinct text')
+            else:
+                labels.add(label.strip().casefold())
+        correct = question.get('correct_choice')
+        if not isinstance(correct, str) or correct not in ids:
+            self.error('tour-choice-shape', _pointer(*base, 'correct_choice'),
+                       '`correct_choice` names one of the listed choice IDs')
+
     def check_question(self, base: tuple, question: Any, *, allow_worked_example: bool = True) -> None:
         if not isinstance(question, dict):
             self.error('tour-question-shape', _pointer(*base), 'a question is an object')
@@ -672,7 +707,7 @@ class _Checker:
             self.error('tour-question-shape', _pointer(*base, 'prompt'), 'a question needs a `prompt`')
         if not answer:
             self.error('tour-question-shape', _pointer(*base, 'answer'), 'a question needs a worked `answer`')
-        allowed = {'prompt', 'answer', 'claims', 'calculation'}
+        allowed = {'prompt', 'answer', 'claims', 'calculation', 'choices', 'correct_choice'}
         if allow_worked_example:
             allowed.add('worked_example')
         extra = sorted(set(question) - allowed)
@@ -680,6 +715,7 @@ class _Checker:
             self.error('tour-question-shape', _pointer(*base), f'unknown question key(s) {extra}')
         if allow_worked_example and question.get('worked_example') is not None:
             self.check_question(base + ('worked_example',), question['worked_example'], allow_worked_example=False)
+        self.check_choices(base, question, allowed=allow_worked_example)
         hosts = {'prompt': prompt, 'answer': answer}
         claims = self.check_claims(question.get('claims'), base + ('claims',), hosts, what='a question')
         covered = [(h, c) for h, c, _ in claims]
@@ -937,6 +973,9 @@ def _resolved_question(atlas: Any, question: dict) -> dict:
         calc.append(row)
     if calc:
         out['calculation'] = calc
+    if question.get('choices'):
+        out['choices'] = [{'id': choice['id'], 'label': choice['label']} for choice in question['choices']]
+        out['correct_choice'] = question['correct_choice']
     if question.get('worked_example'):
         out['worked_example'] = _resolved_question(atlas, question['worked_example'])
     return out

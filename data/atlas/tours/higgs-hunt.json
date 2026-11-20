@@ -213,7 +213,7 @@
           "ref": "result:atlas-higgs-observation-2012"
         },
         {
-          "covers": "ATLAS reported a neutral boson with a measured mass of 126.0 ± 0.4 (stat) ± 0.4 (sys) GeV",
+          "covers": "The later ATLAS paper reported a neutral boson with a measured mass of 126.0 ± 0.4 (stat) ± 0.4 (sys) GeV",
           "field": "key_value",
           "ref": "result:atlas-higgs-observation-2012"
         },
@@ -225,7 +225,7 @@
       ],
       "id": "atlas-2012",
       "question": {
-        "answer": "The expected rate is one in 1 ÷ (1.7×10⁻⁹) ≈ 590 million, so about once in 590 million repetitions of the experiment.",
+        "answer": "At a fixed tested mass, this is a background-only probability of an excess at least as signal-like as the observed one; it is not the probability that no new particle exists. A probability for an excess anywhere in the mass scan is global and includes the look-elsewhere effect. For this local probability, one in 1 ÷ (1.7×10⁻⁹) ≈ 590 million background-only repetitions would be at least this signal-like on average, at the fixed tested mass.",
         "calculation": [
           {
             "field": "claim",
@@ -255,12 +255,51 @@
             "field": "claim",
             "in": "prompt",
             "ref": "result:atlas-higgs-observation-2012"
+          },
+          {
+            "in": "answer",
+            "locator": "ATLAS arXiv:1207.7214v1, §7, printed p.16 (PDF page 17), first paragraph",
+            "sources": [
+              "src:tours-atlas-higgs-observation-arxiv-1207-7214-pdf"
+            ],
+            "confidence": "verified",
+            "verified_at": "2026-11-19",
+            "covers": "At a fixed tested mass, this is a background-only probability of an excess at least as signal-like as the observed one; it is not the probability that no new particle exists.",
+            "quote": "the probability that the background can produce a fluctuation greater than or equal to the excess observed in data",
+            "note": "The statement about model probability interprets the conditional background-only definition; the paper does not assign a posterior probability to a model."
+          },
+          {
+            "in": "answer",
+            "locator": "ATLAS arXiv:1207.7214v1, §7, printed p.16 (PDF page 17), first paragraph",
+            "sources": [
+              "src:tours-atlas-higgs-observation-arxiv-1207-7214-pdf"
+            ],
+            "confidence": "verified",
+            "verified_at": "2026-11-19",
+            "covers": "A probability for an excess anywhere in the mass scan is global and includes the look-elsewhere effect.",
+            "quote": "correcting for the “look-elsewhere” effect",
+            "note": "The same paragraph defines the global significance for a local excess anywhere in the search region."
           }
         ],
-        "prompt": "Look for the separate ATLAS and CMS observations on the results chart; open either result to read its evidence trail. Predict: ATLAS quoted a background fluctuation probability of 1.7×10⁻⁹ for its excess. If there were no new particle, about how often would you expect a fluctuation this large at that mass?"
+        "prompt": "Look for the separate ATLAS and CMS observations on the results chart. In the later paper, ATLAS quoted a background fluctuation probability of 1.7×10⁻⁹. Predict: which interpretation is justified?",
+        "choices": [
+          {
+            "id": "local-background",
+            "label": "Chance of data at least this signal-like under background alone, at this mass"
+          },
+          {
+            "id": "model-probability",
+            "label": "Chance that no new particle exists"
+          },
+          {
+            "id": "mass-scan",
+            "label": "Chance of a background excess anywhere in the mass scan"
+          }
+        ],
+        "correct_choice": "local-background"
       },
       "select": "result:atlas-higgs-observation-2012",
-      "text": "On 4 July 2012 ATLAS and CMS presented their latest preliminary results in the search for the Higgs particle. ATLAS reported a neutral boson with a measured mass of 126.0 ± 0.4 (stat) ± 0.4 (sys) GeV, in an observation with a local significance of 5.9 standard deviations.",
+      "text": "On 4 July 2012 ATLAS and CMS presented their latest preliminary results in the search for the Higgs particle. The later ATLAS paper reported a neutral boson with a measured mass of 126.0 ± 0.4 (stat) ± 0.4 (sys) GeV, in an observation with a local significance of 5.9 standard deviations.",
       "title": "ATLAS's result",
       "year": 2012,
       "view": {

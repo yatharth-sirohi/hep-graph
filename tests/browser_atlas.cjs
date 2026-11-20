@@ -4890,6 +4890,8 @@ async function openResultsControls(page) {
       // Reduced motion (this context asks for it): the progress bar jumps, and the camera is told to jump (globe.js).
       assert.equal(await p.evaluate(() => matchMedia("(prefers-reduced-motion: reduce)").matches), true);
       assert.equal(await p.evaluate(() => getComputedStyle(document.querySelector(".tour-bar > i")).transitionDuration), "0s");
+      const predictions = p.locator(".tour-choices input[type=radio]");
+      if (await predictions.count()) await predictions.first().check();
       const button = p.locator(".tour-answer-btn");
       assert.deepEqual([await button.innerText(), await button.getAttribute("aria-expanded")], ["Show answer", "false"]);
       assert.equal(await p.locator(".tour-answer").isHidden(), true, "the answer is not shown before it is asked for");

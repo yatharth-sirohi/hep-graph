@@ -108,6 +108,7 @@ export function createPlayer({
   let serial = 0;
   let lastFocus = null;
   let answerOpen = false;
+  let predictionChoice = null;
   let collapsed = false; // phone: the sheet is folded down to its controls
   let focusRecord = false; // the reader asked for the record: focus goes to it
   let focusCard = false; // the record was closed: focus comes back to the card
@@ -193,7 +194,7 @@ export function createPlayer({
     card.classList.remove('is-yielding');
     main.classList.remove('has-tour');
     document.body.classList.remove('is-touring', 'is-presenting', 'tour-record-open');
-    card.classList.remove('is-collapsed');
+    card.classList.remove('is-collapsed', 'has-prediction-answer');
     main.style.removeProperty('--tour-w');
     document.title = BASE_TITLE;
     setBlank(null);
@@ -322,13 +323,44 @@ export function createPlayer({
     ]);
   }
 
+  function predictionFeedback(q) {
+    if (!predictionChoice) return '';
+    return predictionChoice === q.correct_choice
+      ? 'Your prediction matches the supported answer.'
+      : 'Your prediction does not match the supported answer. Revisit the explanation below.';
+  }
+
+  function markPrediction(root, q) {
+    for (const label of root.querySelectorAll('.tour-choice')) {
+      const id = label.dataset.choice;
+      const note = label.querySelector('.tour-choice-note');
+      note.textContent = !answerOpen ? '' : id === q.correct_choice
+        ? (id === predictionChoice ? ' — Your prediction; supported answer' : ' — Supported answer')
+        : id === predictionChoice ? ' — Your prediction' : '';
+    }
+  }
+
   function questionCard() {
     const q = step.question;
     if (!q) return null;
     const claims = q.claims || [];
     const promptClaims = claims.filter((c) => c.in === 'prompt');
     const answerClaims = claims.filter((c) => c.in !== 'prompt');
+    const hasChoices = !!q.choices?.length;
+    const selected = q.choices?.find(choice => choice.id === predictionChoice);
+    const instruction = hasChoices ? h('p', { class: 'tour-choice-instruction', id: 'tour-choice-instruction', role: 'status', 'aria-live': 'polite' }) : null;
+    const feedback = hasChoices ? h('p', { class: 'tour-prediction-feedback', role: 'status', 'aria-live': 'polite' }, answerOpen ? predictionFeedback(q) : '') : null;
+    const choices = hasChoices ? h('fieldset', { class: 'tour-choices', 'aria-describedby': 'tour-q-prompt' }, [
+      h('legend', {}, 'Make your prediction'),
+      ...q.choices.map(choice => {
+        const input = h('input', { type: 'radio', name: 'tour-prediction', id: `tour-prediction-${choice.id}`, value: choice.id, checked: choice.id === predictionChoice });
+        input.addEventListener('change', () => { predictionChoice = choice.id; instruction.textContent = ''; setAnswer(false); });
+        return h('label', { class: 'tour-choice', 'data-choice': choice.id }, [input,
+          h('span', {}, [choice.label, h('span', { class: 'tour-choice-note' })])]);
+      }),
+    ]) : null;
     const answer = h('div', { class: 'tour-answer', id: 'tour-answer', hidden: !answerOpen }, [
+      feedback,
       h('p', { class: 'tour-q-answer' }, sentence(q.answer, answerClaims)),
       workedExample(q),
       workingList(q) ? h('details', { class: 'panel-section' }, [h('summary', {}, 'How it was worked out'), h('div', { class: 'panel-section-body' }, workingList(q))]) : null,
@@ -336,18 +368,21 @@ export function createPlayer({
       claims.length ? sourcesDisclosure(claims.map((claim) => ({ claim, where: claim.in === 'prompt' ? 'in the question' : 'in the answer' })), 'Sources for the question and answer') : null,
     ]);
     const toggle = h('button', {
-      type: 'button', class: 'text-btn tour-answer-btn', 'aria-expanded': String(answerOpen), 'aria-controls': 'tour-answer',
+      type: 'button', class: 'text-btn tour-answer-btn', id: 'tour-answer-btn', 'aria-expanded': String(answerOpen), 'aria-controls': 'tour-answer',
+      'aria-disabled': hasChoices ? String(!selected) : null,
     }, answerOpen ? 'Hide answer' : 'Show answer');
     toggle.addEventListener('click', () => setAnswer(!answerOpen));
-    return {
-      node: h('section', { class: 'tour-question', 'aria-label': 'Question' }, [
-        h('p', { class: 'tour-q-kicker' }, 'Question'),
-        h('p', { class: 'tour-q-prompt' }, sentence(q.prompt, promptClaims)),
-        toggle,
-        answer,
-      ]),
-      promptClaims,
-    };
+    const node = h('section', { class: 'tour-question', 'aria-label': 'Question' }, [
+      h('p', { class: 'tour-q-kicker' }, 'Question'),
+      h('p', { class: 'tour-q-prompt', id: 'tour-q-prompt' }, sentence(q.prompt, promptClaims)),
+      instruction, choices, toggle, answer,
+    ]);
+    markPrediction(node, q);
+    // Native activation belongs to the focused control; any key first dismisses a blank screen.
+    node.addEventListener('keydown', event => {
+      if (!blank && ['Enter', ' '].includes(event.key) && event.target.closest('button,a,summary')) event.stopPropagation();
+    });
+    return { node, promptClaims };
   }
 
   function setCollapsed(on) {
@@ -366,17 +401,32 @@ export function createPlayer({
   }
 
   function setAnswer(open) {
-    answerOpen = open;
     const toggle = card.querySelector('.tour-answer-btn');
     const answer = card.querySelector('.tour-answer');
     if (!toggle || !answer) return;
+    const q = step.question;
+    const selected = q.choices?.find(choice => choice.id === predictionChoice);
+    const instruction = card.querySelector('.tour-choice-instruction');
+    if (open && q.choices?.length && !selected) {
+      instruction.textContent = 'Choose an interpretation before revealing the answer.';
+      card.querySelector('.tour-choices input')?.focus({ preventScroll: true });
+      scrollBodyTo(instruction);
+      return;
+    }
+    answerOpen = open;
+    card.classList.toggle('has-prediction-answer', !!(open && q.choices?.length));
     answer.hidden = !open;
     toggle.setAttribute('aria-expanded', String(open));
     toggle.textContent = open ? 'Hide answer' : 'Show answer';
-    // A laptop shows the question and its answer together, from the top of the question card;
-    // a phone's short sheet shows the answer itself.
+    if (q.choices?.length) {
+      toggle.setAttribute('aria-disabled', String(!selected));
+      instruction.textContent = '';
+      card.querySelector('.tour-prediction-feedback').textContent = open ? predictionFeedback(q) : '';
+      markPrediction(card, q);
+    }
+    // Keep the reveal control visible on a short sheet and show prediction feedback beside it.
     if (open) {
-      const target_ = PHONE.matches ? answer : card.querySelector('.tour-question');
+      const target_ = PHONE.matches || q.choices?.length ? toggle : card.querySelector('.tour-question');
       if (target_) scrollBodyTo(target_);
     }
   }
@@ -401,7 +451,7 @@ export function createPlayer({
   function renderStep() {
     ensureDom();
     const count = tour.steps.length;
-    card.classList.remove('is-message');
+    card.classList.remove('is-message', 'has-prediction-answer');
     dom.bar.hidden = false;
     dom.back.hidden = false;
     dom.next.hidden = false;
@@ -547,7 +597,18 @@ export function createPlayer({
   }
   document.addEventListener('keydown', onKey);
 
-  PHONE.addEventListener('change', () => { if (activeKey) refresh(); });
+  PHONE.addEventListener('change', () => {
+    if (!activeKey) return;
+    refresh();
+    const toggle = card.querySelector('.tour-answer-btn');
+    if (!answerOpen || document.activeElement !== toggle) return;
+    const key = activeKey;
+    // Reflow can move a focused reveal below its feedback. Keep that reading position,
+    // without moving someone who has already scrolled to a source or another control.
+    requestAnimationFrame(() => {
+      if (activeKey === key && answerOpen && !collapsed && document.activeElement === toggle) scrollBodyTo(toggle);
+    });
+  });
 
   // -------------------------------------------------------------------- the pill
   function updatePill() {
@@ -618,6 +679,7 @@ export function createPlayer({
       dismissedKey = null;
       phoneKey = null;
       answerOpen = false;
+      predictionChoice = null;
       paused = null;
       updatePill();
       renderStep();

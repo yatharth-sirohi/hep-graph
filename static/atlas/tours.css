@@ -498,6 +498,10 @@ body.is-presenting.is-map-route.tour-record-open .map-view.drawer-open {
     /* The record and list sheets are 1300 and 1400; the card goes under the record. */
     z-index: 1300;
   }
+  /* Revealing a prediction asks for reading room; folding or hiding it restores the stage. */
+  .tour-card.has-prediction-answer:not(.is-collapsed) {
+    max-height: calc(100% - var(--space-3));
+  }
   /* One sheet at a time: while the record is open the card steps aside. */
   .tour-card.is-yielding {
     display: none;
@@ -621,3 +625,15 @@ body.is-presenting.is-map-route.tour-record-open .map-view.drawer-open {
     transition: none;
   }
 }
+
+/* Optional predictions stay inside the existing question and its reveal. */
+.tour-choices { min-width: 0; border: 0; padding: 0; margin: var(--space-2) 0; }
+.tour-choices legend { font-weight: 600; margin-bottom: var(--space-1); }
+.tour-choice { display: flex; align-items: flex-start; gap: var(--space-2); min-height: 44px; padding: var(--space-1) 0; cursor: pointer; }
+.tour-choice input { flex-shrink: 0; margin-top: .3em; accent-color: var(--white); }
+.tour-choice-note { font-weight: 600; }
+.tour-choice-instruction, .tour-prediction-feedback { border-left: 3px solid currentColor; padding-left: var(--space-2); }
+.tour-prediction-feedback { margin: 0 0 var(--space-3); }
+.tour-choice-instruction:empty, .tour-prediction-feedback:empty { display: none; }
+.tour-answer-btn { min-height: 44px; }
+.tour-answer-btn[aria-disabled="true"] { opacity: .7; }

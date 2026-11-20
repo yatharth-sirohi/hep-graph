@@ -1,4 +1,4 @@
-# HEP Atlas iterative learning improvements — 19 November 2026
+# HEP Atlas iterative learning improvements — 19–20 November 2026
 
 The user asked for an active inspect→choose→implement→verify loop. Work continues on the existing `atlas-learning-questions` branch, starting this loop at `b2add215`. No automation, production deployment, merge, tracking, account or paid service was added. The original [connected learning report](LEARNING_2026-11-19.md) retains the baseline/source audit and existing data and comprehensive-suite limits.
 
@@ -120,6 +120,8 @@ Current-date validation is **0 errors, 1892 existing warnings, 4 informational**
 
 ## Cycle 10: compare recorded underground fluxes
 
+Committed as `84583995`.
+
 The existing chart, data table, qualitative newcomer checkpoint and sourced m.w.e./metre exercise remain in place. A comparison block now lets the learner select any two plotted sites as A/B. The same chart labels those points and adds solid/dashed square outlines while retaining its measured/hollow markers and separate keyboard focus ring. The block shows each recorded value and uncertainty, the conversion to cm⁻² s⁻¹, the dimensionless central-value ratio, signed log₁₀(A/B) and vertical separation in decades. No extra plot or tour system was added.
 
 The default pair exposes a real unit trap: LNGS Hall C's 3.432×10⁻⁴ m⁻² s⁻¹ is 3.432×10⁻⁸ cm⁻² s⁻¹. Dividing by SNOLAB's 3.31×10⁻¹⁰ cm⁻² s⁻¹ gives about **104**, or **2.02 decades**. The [Borexino primary abstract](https://arxiv.org/abs/1808.04207) (v3) and [SNO primary abstract](https://arxiv.org/abs/0902.2776) (v1) were rechecked on 19 November 2026. The selected-source disclosure reuses each flux's existing quote, locator, reference-surface/angular-cut definitions and primary references. These conventions differ; the displayed ratio compares reported central values and does not isolate the effect of depth. Recorded uncertainties are retained, without calculating an interval or significance for the ratio. Approximate/simulated values retain their label and hollow mark.
@@ -138,6 +140,24 @@ Current-date validation remains **0 errors, 1892 existing warnings, 4 informatio
 
 Independent review reproduced loss of chart-point focus when Back changed the pair. That browser assertion failed first; the shared focus-preserving redraw now handles resize and highlight changes. Native type-ahead changes the selection while preserving presenter state. In this macOS headless environment, popup-menu arrow/Home/End selection is not synthesized even for a bare native HTML select with no handlers; those native popup interactions remain unverified. No custom keyboard handler was added to emulate them. Physical phones, actual screen-reader speech and live database integrations remain unverified. Durable cycle-10 logs, the native-select isolation probe, screenshots and actual PNG export are under ignored `test-results/atlas-iterations/`.
 
+## Cycle 11 (20 November): choose the meaning of the local p-value
+
+Audit found the evidence trail already distinguishes observed/expected significance and local/global results. The missing learning action was committing an interpretation before revealing the existing reciprocal calculation. Optional `choices` and `correct_choice` now extend the existing A28 question/player; they do not add another tour, route, score or quiz service. The validator enforces two to five distinct choices, supported fields, a matching answer ID and primary-question-only placement. The bundle retains the new metadata; questions without choices retain their reveal, and worked examples remain sourced readings/calculations.
+
+Only the Higgs step-6 question pilots the feature. The learner chooses between a background-only tail at the tested mass, a model probability and a full-scan probability. Reveal retains the actual selection, labels the supported alternative in text and shows the existing 1/p ≈ 590 million calculation. The explanation says at least as signal-like, under the background-only model, at a fixed tested mass and on average. The denial of a model posterior is explicitly noted as interpretation of the conditional definition. No new significance or combination is calculated; published observed/expected values and all result records are unchanged.
+
+The [ATLAS v1 paper, §7, printed p.16 / PDF page 17](https://arxiv.org/pdf/1207.7214v1#page=17) supports the local/global interpretation; the definition was extracted and visually checked against the actual page. The [CMS v1 §4 definition, printed p.6 / PDF page 8](https://arxiv.org/pdf/1207.7235v1#page=8) independently agrees. The existing ATLAS full-text source is pinned to the verified v1 PDF, avoiding a duplicate source. It was read on November 19 local time; the build uses November 20 after the day changed. Step text also distinguishes the later paper's 5.9σ result from the preliminary July-4 presentation. Source quotes remain short and the numerical working is preserved.
+
+An unanswered reveal stays closed, explains the requirement and focuses the radios. Native radio keys, Tab/Option-Tab, Enter/Space, presenter blank dismissal and Escape coexist. Wrong guesses are not silently replaced. Changing a choice hides stale feedback; new steps, copied links and closed/reopened tours start fresh. Responsive changes retain the current prediction. Focused question buttons/source disclosures now use native Enter/Space instead of triggering presenter navigation. Reveal keeps its focused control visible with the feedback on a phone sheet. The sheet expands for reading only after revealing a choice answer; Hide answer or Hide text restores visual space. A focused reveal is repositioned after crossing the phone breakpoint; someone reading a source is not pulled away. Selections stay in player memory and never enter the address or persistent storage.
+
+The 13 new backend cases and missing-radio browser check failed first. The full repository suite passes **834 tests, 139 skipped**. After the final phone/reflow changes, **56 focused tour/learning tests** pass again; the broader Python/data run preceded those JS/CSS refinements. The new Chromium and WebKit desktop/360px journeys pass, including wrong/correct feedback, reset, presenter keyboard behavior, actual primary-PDF access, legacy mass-question reveal and deep links. Both browser PDF downloads are the same 650,541-byte document as the independently downloaded/visually checked source: SHA-256 `7721161751476f028d2f221631b902cc96059144a3382bf90eb1cfb30b9042d3`. Scoped A/AA checks report **0 violations** across unanswered, required, incorrect, correct and source states in both themes. Both original phone question → lab → Higgs primary-paper journeys also pass.
+
+WebKit's default Tab preference skips native buttons, including a bare control with no application handlers; Option-Tab was verified to include the actual answer button in both viewport contexts. The regression uses that native gesture without changing browser settings or adding a custom Tab handler. One extra legacy WebKit evidence-follow-up run timed out waiting for a record link; an isolated replay with failure-state capture passed. A second isolated diagnostic replay also passed desktop and 360px, and the separate mocked-API Graph check passed. The original failure log is retained rather than erased; its cause is not established. The legacy regression now captures its route, panel state, browser errors and a screenshot on failure. A final original-journey WebKit run separately timed out waiting for the invalid-energy deep link (`e=NaN`) to render the default, after its Back and both primary-source checks had completed. Its isolated replay passed the complete phone journey. The original log is retained and that cause is also unestablished; failure capture was added to this regression, without changing the product based on a guess.
+
+Manual visual review caught a real gap in the first browser assertions: they verified the reveal button but not the feedback. In 360px Projector mode the original 60% sheet left an 81px body and clipped the entire feedback message. A stronger visibility regression failed before the phone expansion/spacing fix. WebKit then exposed persistent offscreen feedback after desktop-to-phone reflow; measurements confirmed it stayed offscreen after settling, and the focused-reveal resize hook fixes that case. Final acceptance requires both the control and full feedback within the body, correct/incorrect predictions, folding/reopening, responsive changes and standard/Projector themes. The initial failed runs and before/after screenshots are retained. Final Chromium/WebKit desktop and 360px prediction journeys pass all of those visibility cases; both themes were visually inspected. The ten scoped accessibility states still report zero violations after the fix. Both original connected phone journeys pass again, with the WebKit qualification below. Independent final review found no blocker in the class lifecycle or guarded resize hook.
+
+Actual-date validation is **0 errors, 1892 existing warnings, 4 informational**, and all **84 generated files match** at `2026-11-20`. A structural audit of the 55 changed generated files found geometry changes only in build date/version across 50 maps, plus expected manifest/version, one source URL/access date and one tour-step changes. No coordinates, physical geometry, result measurements or other authored records were backfilled. Logs, diagnostic probes and screenshots are retained under ignored `test-results/atlas-iterations/cycle11-*`. Physical phones, actual screen-reader speech, native select-popup arrows and live database integrations remain unverified. No merge/deployment occurred.
+
 ## Local routes and sources
 
 Use the current local server at `http://127.0.0.1:8876` while the loop is running. From the feature checkout, restart it with the repository environment’s `python -m hepgraph.server --port 8876` when needed.
@@ -148,6 +168,8 @@ Use the current local server at `http://127.0.0.1:8876` while the loop is runnin
 - Beam question with comparison enabled: <http://127.0.0.1:8876/atlas?step=5&e=2.5&le=1#/tour/neutrino-beams-through-the-earth>
 - ATLAS evidence: <http://127.0.0.1:8876/atlas#/result/atlas-higgs-observation-2012>
 - CMS evidence: <http://127.0.0.1:8876/atlas#/result/cms-higgs-boson-observation-2012>
+- Higgs interpretation prediction: <http://127.0.0.1:8876/atlas?data=generated&step=6#/tour/higgs-hunt>
+- Same prediction in presenter mode: <http://127.0.0.1:8876/atlas?data=generated&step=6&present=1&theme=projector#/tour/higgs-hunt>
 - Existing sourced mass-compatibility question: <http://127.0.0.1:8876/atlas?step=7#/tour/higgs-hunt>
 - SNO prediction and sourced flux comparison: <http://127.0.0.1:8876/atlas?step=3#/tour/neutrino-oscillation-story>
 - NOvA last-reported state and restart evidence: <http://127.0.0.1:8876/atlas?y=2026#/experiment/nova>
@@ -161,7 +183,7 @@ Use the current local server at `http://127.0.0.1:8876` while the loop is runnin
 
 Published measurement values were preserved; cycle 7 adds a worked comparison of rechecked SNO fluxes. Sources include the [SNO primary paper, CC/NC fluxes below Table II on PDF page 4](https://arxiv.org/pdf/nucl-ex/0204008v2#page=4), the [T2K experiment paper, §3.6.1](https://arxiv.org/pdf/1106.1238v2#page=10), [DUNE baseline passage, §1](https://arxiv.org/pdf/2007.06722v4#page=12), [T2K two-flavor formula and units](https://t2k-experiment.org/neutrinos/beyond-the-standard-model/), [PDG mixing review](https://pdg.lbl.gov/2024/reviews/rpp2024-rev-neutrino-mixing.pdf), and the versioned [ATLAS](https://arxiv.org/pdf/1207.7214v1) and [CMS](https://arxiv.org/pdf/1207.7235v1) papers. The previous report records exact figures and passages. Claims about phase changes and matching L/E are derived from the displayed formula.
 
-Logs and screenshots for this loop are retained in the ignored `test-results/atlas-iterations/` directory. Earlier temporary `/tmp/` artifacts may expire; use the durable cycle-6 through cycle-10 logs for the latest iterations. Screen-reader hardware and physical phones have not been tested. Existing database-environment skips, aging-data validation findings and legacy monolithic-browser timing limits remain as documented in the original report.
+Logs and screenshots for this loop are retained in the ignored `test-results/atlas-iterations/` directory. Earlier temporary `/tmp/` artifacts may expire; use the durable cycle-6 through cycle-11 logs for the latest iterations. Screen-reader hardware and physical phones have not been tested. Existing database-environment skips, aging-data validation findings and legacy monolithic-browser timing limits remain as documented in the original report.
 
 
 ## Reproduce the current loop checks
@@ -172,9 +194,12 @@ Use the repository Python environment and the existing Playwright installation, 
 python -m pytest -q -p no:cacheprovider
 python -m pytest -q -p no:cacheprovider tests/test_atlas_restart_context.py tests/test_atlas_schema.py
 python -m pytest -q -p no:cacheprovider tests/test_atlas_beam_dependency.py tests/test_atlas_proton_chain.py tests/test_atlas_learning.py
+python -m pytest -q -p no:cacheprovider tests/test_atlas_predictions.py tests/test_atlas_tours.py tests/test_atlas_tour_player.py tests/test_atlas_learning.py
 python -m pytest -q -p no:cacheprovider tests/test_atlas_underground_comparison.py tests/test_atlas_charts.py tests/test_atlas_learning.py tests/test_atlas_tour_player.py
-python -m hepgraph.atlas.validate --build-date 2026-11-19
-python -m hepgraph.atlas.build --build-date 2026-11-19 --check
+python -m hepgraph.atlas.validate --build-date 2026-11-20
+python -m hepgraph.atlas.build --build-date 2026-11-20 --check
+HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_predictions.cjs
+HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_predictions.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_underground_comparison.cjs
 HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_underground_comparison.cjs
 HEP_URL=http://127.0.0.1:8876 node tests/browser_atlas_beam_dependency.cjs
@@ -198,4 +223,4 @@ HEP_URL=http://127.0.0.1:8876 HEP_BROWSER=webkit node tests/browser_atlas_lab_ex
 HEP_URL=http://127.0.0.1:8876 node tests/browser_database.cjs
 ```
 
-The validator now reports zero errors at the November 19 cutoff; cycle 8 resolves the five inherited status mismatches found in cycle 7. The build check verifies all generated files at the new cutoff. The connected phone question→lab→result→primary-paper journey uses `node tests/browser_atlas_learning.cjs` (set `HEP_BROWSER=webkit` for WebKit).
+The validator now reports zero errors at the November 20 cutoff; cycle 8 resolves the five inherited status mismatches found in cycle 7. The build check verifies all generated files at the new cutoff. The connected phone question→lab→result→primary-paper journey uses `node tests/browser_atlas_learning.cjs` (set `HEP_BROWSER=webkit` for WebKit).
